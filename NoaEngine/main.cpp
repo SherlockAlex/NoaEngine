@@ -1,10 +1,8 @@
 #define SDL_MAIN_HANDLED
 #include "NoaEngine.h"
 
-struct GameObject
-{
-	Vector transform;
-};
+int screenWidth = 1920;
+int screenHeight = 1080;
 
 int main()
 {

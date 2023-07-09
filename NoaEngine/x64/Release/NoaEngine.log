@@ -1,15 +1,11 @@
 ﻿  FPS.cpp
 D:\Work\GitTools\NoaEngine\NoaEngine\FPS.cpp(182,2): warning C4091: “typedef ”: 没有声明变量时忽略“GameObject”的左侧
 D:\Work\GitTools\NoaEngine\NoaEngine\FPS.cpp(204,24): warning C4244: “=”: 从“wchar_t”转换到“char”，可能丢失数据
-D:\Work\GitTools\NoaEngine\NoaEngine\FPS.cpp(415,16): warning C4244: “初始化”: 从“float”转换到“int”，可能丢失数据
-D:\Work\GitTools\NoaEngine\NoaEngine\FPS.cpp(526,14): warning C4244: “初始化”: 从“float”转换到“int”，可能丢失数据
-D:\Work\GitTools\NoaEngine\NoaEngine\FPS.cpp(527,14): warning C4244: “初始化”: 从“float”转换到“int”，可能丢失数据
-  NoaEngine.cpp
-D:\Work\GitTools\NoaEngine\NoaEngine\NoaEngine.cpp(92,9): warning C4244: “初始化”: 从“float”转换到“int”，可能丢失数据
-D:\Work\GitTools\NoaEngine\NoaEngine\NoaEngine.cpp(93,9): warning C4244: “初始化”: 从“float”转换到“int”，可能丢失数据
-  main.cpp
+D:\Work\GitTools\NoaEngine\NoaEngine\FPS.cpp(436,16): warning C4244: “初始化”: 从“float”转换到“int”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\FPS.cpp(547,14): warning C4244: “初始化”: 从“float”转换到“int”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\FPS.cpp(548,14): warning C4244: “初始化”: 从“float”转换到“int”，可能丢失数据
   正在生成代码
-  5 of 163 functions ( 3.1%) were compiled, the rest were copied from previous compilation.
+  2 of 165 functions ( 1.2%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
     0 functions had inline decision re-evaluated but remain unchanged
   已完成代码的生成

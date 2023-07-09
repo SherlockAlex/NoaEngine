@@ -9,10 +9,17 @@
 using namespace std;
 
 #include <stdio.h>
-#include <Windows.h>
+//#include <Windows.h>
 
 #include "NoaMath.h"
+
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_render.h>
+#include <SDL2/SDL_audio.h>
+#include <SDL2/SDL_gamecontroller.h>
+#include <SDL2/SDL_keyboard.h>
+#include <SDL2/SDL_mouse.h>
+
 #include <iostream>
 
 // Color constant
@@ -33,15 +40,27 @@ using namespace std;
 #define	YELLOW			0x55FFFF
 #define	WHITE			0xFFFFFF
 
+//È¡µÍÎ»
+#define LOBYTE(w)           ((Uint8)(w&0xff))
+
 // Color conversion macro
 #define BGR(color)	( (((color) & 0xFF) << 16) | ((color) & 0xFF00FF00) | (((color) & 0xFF0000) >> 16) )
+
+#define RGB(r,g,b)  ((Uint32)(((Uint8)(r)|((Uint8)((Uint8)(g))<<8))|(((unsigned long)(Uint8)(b))<<16)))
+
+#define GetRValue(rgb)      (LOBYTE(rgb))
+#define GetGValue(rgb)      (LOBYTE(((unsigned short)(rgb)) >> 8))
+#define GetBValue(rgb)      (LOBYTE((rgb)>>16))
 
 extern SDL_Window* window;
 extern SDL_Surface* surface;
 
+extern SDL_Texture* gameTexture;
+
 extern float deltaTime;
-extern int screenWidth;
-extern int screenHeight;
+
+extern int surfaceWidth;
+extern int surfaceHeight;
 
 extern void (*Start)(void);
 extern void (*Update)(void);

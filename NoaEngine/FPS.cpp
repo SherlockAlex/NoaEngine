@@ -298,6 +298,27 @@ void FPSPlayerInput(FPSPlayer* fpsPlayer) {
 		fpsPlayer->fPlayerY -= cosf(fpsPlayer->fPlayerA) * fpsPlayer->fSpeed * deltaTime;;
 	}
 
+	
+
+	/*if (ioEvent.motion.xrel > 0)
+	{
+		fpsPlayer->fPlayerA += abs(ioEvent.motion.xrel) * deltaTime;
+	}
+	else if (ioEvent.motion.xrel < 0) {
+		fpsPlayer->fPlayerA -= abs(ioEvent.motion.xrel) * deltaTime;
+	}*/
+
+	/*if (ioEvent.type==SDL_MOUSEMOTION)
+	{
+		if (ioEvent.motion.xrel>0)
+		{
+			fpsPlayer->fPlayerA += abs(ioEvent.motion.xrel) * deltaTime;
+		}
+		else if (ioEvent.motion.xrel < 0) {
+			fpsPlayer->fPlayerA -= abs(ioEvent.motion.xrel) * deltaTime;
+		}
+	}*/
+
 }
 
 
@@ -305,10 +326,10 @@ void DrawFPSMap(FPSPlayer* player) {
 
 	// Display Map
 
-	for (int x = 0; x < screenWidth; x++)
+	for (int x = 0; x < surfaceWidth; x++)
 	{
 		// For each column, calculate the projected ray angle into world space
-		float fRayAngle = (player->fPlayerA - player->fFOV / 2.0f) + ((float)x / (float)screenWidth) * player->fFOV;
+		float fRayAngle = (player->fPlayerA - player->fFOV / 2.0f) + ((float)x / (float)surfaceWidth) * player->fFOV;
 
 		// Find distance to wall
 		float fStepSize = 0.03f;		  // Increment size for ray casting, decrease to increase										
@@ -325,7 +346,7 @@ void DrawFPSMap(FPSPlayer* player) {
 		float fSimpleX = 0.0f;
 		float fSimpleY = 0.0f;
 
-		COLORREF color = RED;		// 墙壁基础颜色为红色
+		Uint32 color = RED;		// 墙壁基础颜色为红色
 
 		// 射线投射算法
 		// 计算每个墙面给距离屏幕的距离
@@ -412,8 +433,8 @@ void DrawFPSMap(FPSPlayer* player) {
 		// Calculate distance to ceiling and floor
 		// 天花板 = 屏幕上半屏 - 屏幕/fDistanceToWall
 		// 地板 = 屏幕减去天花板的部分
-		int nCeiling = (float)(screenHeight / 2.0) - screenHeight / ((float)fDistanceToWall);
-		int nFloor = screenHeight - nCeiling;
+		int nCeiling = (float)(surfaceHeight / 2.0) - surfaceHeight / ((float)fDistanceToWall);
+		int nFloor = surfaceHeight - nCeiling;
 
 		// 根据距离绘制墙壁及其光影效果
 		// 计算角色和墙的距离，距离越远，值越大，颜色越暗
@@ -451,7 +472,7 @@ void DrawFPSMap(FPSPlayer* player) {
 
 		//贴图的化这里的rgb要对应到贴图的坐标
 		//绘制信息到屏幕上
-		for (int y = 0; y < screenHeight; y++)
+		for (int y = 0; y < surfaceHeight; y++)
 		{
 
 			// Each Row
@@ -476,7 +497,7 @@ void DrawFPSMap(FPSPlayer* player) {
 			{
 				// 根据绘制地板和阴影
 
-				float b = 1.0f - (((float)y - screenHeight / 2.0f) / ((float)screenHeight / 2.0f));
+				float b = 1.0f - (((float)y - surfaceHeight / 2.0f) / ((float)surfaceHeight / 2.0f));
 				float deltaRayShine = (1 - b) * (1 - b);
 
 				// 计算贴图坐标
@@ -515,20 +536,20 @@ void DrawMiniMap(FPSPlayer* player)
 	//printf("x = %f , y = %f\n",((int)player->fPlayerX + 1) * nScreenWidth , (int)player->fPlayerY);
 	//绘制2d地图图像
 
-	for (int x = 0; x < screenWidth; x++)
+	for (int x = 0; x < surfaceWidth; x++)
 	{
-		for (int y = 0; y < screenHeight; y++)
+		for (int y = 0; y < surfaceHeight; y++)
 		{
 
 			//将数组打印到图片上
-			float deltaX = (float)nMapWidth / (float)screenWidth;
-			float deltaY = (float)nMapHeight / (float)screenHeight;
+			float deltaX = (float)nMapWidth / (float)surfaceWidth;
+			float deltaY = (float)nMapHeight / (float)surfaceHeight;
 			int testX = (int)x * deltaX;
 			int testY = (int)y * deltaY;
 
 
 
-			COLORREF color;
+			Uint32 color;
 			color = WHITE;
 			if (currentMap[testY * nMapWidth + testX] == '#')
 			{
