@@ -2,11 +2,8 @@
 #define NOAENGINE_NOAMATH_H
 
 typedef struct Vector {
-	int x;
-	int y;
+	float x = 0.0f;
+	float y = 0.0f;
 }Vector;
-
-extern float NoaSqrt(float x);
-extern float NoaInvSqrt(float x);
 
 #endif // !NOAENGINE_NOAMATH_H

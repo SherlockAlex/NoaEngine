@@ -30,6 +30,12 @@
     <ClCompile Include="JumpMan.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Mario.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Animator.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="NoaEngine.h">

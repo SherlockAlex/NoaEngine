@@ -144,9 +144,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Animator.cpp" />
     <ClCompile Include="FPS.cpp" />
     <ClCompile Include="JumpMan.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Mario.cpp" />
     <ClCompile Include="NoaEngine.cpp" />
     <ClCompile Include="NoaMath.cpp" />
   </ItemGroup>
