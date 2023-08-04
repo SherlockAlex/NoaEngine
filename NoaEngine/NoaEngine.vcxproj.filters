@@ -18,9 +18,6 @@
     <ClCompile Include="main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="NoaMath.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="NoaEngine.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -30,18 +27,15 @@
     <ClCompile Include="JumpMan.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Mario.cpp">
+    <ClCompile Include="DOOM.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Animator.cpp">
+    <ClCompile Include="gameTest.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="NoaEngine.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="NoaMath.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

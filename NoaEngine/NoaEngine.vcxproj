@@ -144,17 +144,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Animator.cpp" />
+    <ClCompile Include="DOOM.cpp" />
     <ClCompile Include="FPS.cpp" />
+    <ClCompile Include="gameTest.cpp" />
     <ClCompile Include="JumpMan.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Mario.cpp" />
     <ClCompile Include="NoaEngine.cpp" />
-    <ClCompile Include="NoaMath.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="NoaEngine.h" />
-    <ClInclude Include="NoaMath.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

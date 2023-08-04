@@ -36,18 +36,25 @@ using namespace std;
 #include <Windows.h>
 #endif
 
-#include "NoaMath.h"
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_render.h>
 #include <SDL2/SDL_audio.h>
 #include <SDL2/SDL_gamecontroller.h>
 #include <SDL2/SDL_keyboard.h>
 #include <SDL2/SDL_mouse.h>
+#include <SDL2/SDL_mixer.h>
 #include <iostream>
 #include <list>
+#include <unordered_map>
+
+#include <fstream>
+#include <string>
+
+// Math Constance
+#define PI 3.14159
 
 // Color constant
-#define	BLACK			0
+#define	BLACK			0x000000
 #define	BLUE			0xAA0000
 #define	GREEN			0x00AA00
 #define	CYAN			0xAAAA00
@@ -78,31 +85,166 @@ using namespace std;
 
 extern float deltaTime;
 
-enum GameWindowMode
-{
-	FullScreen = SDL_WINDOW_FULLSCREEN,
-	WindowMode = SDL_WINDOW_FOREIGN
+typedef struct GameWindow {
+	//图形相关
+	SDL_Window* window = nullptr;
+	SDL_Renderer* renderer = nullptr;
+	SDL_Texture* texture = nullptr;
+	SDL_PixelFormat* format;
+	void* pixelBuffer = nullptr;
+
+	//声音相关
+}GameWindow;
+
+typedef void(*eventFunc)(void);
+
+//定义2维矢量
+typedef struct Vector {
+	float x = 0.0f;
+	float y = 0.0f;
+}Vector;
+
+typedef struct nVector {
+	int x = 0;
+	int y = 0;
+}nVector;
+
+
+/// <summary>
+/// 游戏物品结构体
+/// </summary>
+typedef struct GameObject {
+	Vector positon;
+	int width = 6;			//宽度
+	int height = 6;			//高度
+	Vector velocity;		//速度
+	Uint32* imageRGB;		//颜色
+	bool isCollider = false;
+}GameObject;
+
+typedef struct Ray {
+	//返回射线碰撞到的信息
+	float angle = 0.0f;
+	float distance = 0.0f;
+	bool isHitDoor = false;
+	bool isHitWall = false;
+
+	//返回贴图信息
+	Vector simple;
+
+}Ray;
+
+
+class LevelMap {
+private:
+	
+	
+
+public:
+	char* level = nullptr;
+	int w;
+	int h;
+public:
+	LevelMap() {
+
+	}
+
+	LevelMap(int width, int height, wstring map)
+	{
+		this->w = width;
+		this->h = height;
+
+		level = (char*)malloc(sizeof(char) * width*height);
+
+		//加载地图到缓存中
+		for (int i = 0; i < map.length(); i++)
+		{
+			level[i] = map[i];
+		}
+
+	}
+
+	void LoadMap(wstring map)
+	{
+		for (int i = 0; i < map.length(); i++)
+		{
+			level[i] = map[i];
+		}
+	}
+
+	std::wstring LoadLevel(const char* filePath) {
+		std::wstring content;
+
+		std::ifstream file(filePath, std::ios::binary);
+
+		if (file.is_open()) {
+			file.seekg(0, std::ios::end);
+			size_t length = file.tellg();
+			file.seekg(0, std::ios::beg);
+
+			char* buffer = new char[length];
+			file.read(buffer, length);
+
+			content = std::wstring(reinterpret_cast<const wchar_t*>(buffer), length / sizeof(wchar_t));
+
+			delete[] buffer;
+
+			file.close();
+		}
+		else {
+			std::cerr << "无法打开文件。" << std::endl;
+		}
+
+		return content;
+	}
+
+	void SaveLevel(const std::wstring& map,const char * filePath) {
+		std::ofstream file(filePath, std::ios::binary);
+
+		if (file.is_open()) {
+			const char* bytes = reinterpret_cast<const char*>(map.c_str());
+			size_t length = sizeof(wchar_t) * map.length();
+
+			file.write(bytes, length);
+			file.close();
+
+			std::cout << "内容已成功保存到二进制文件中。" << std::endl;
+		}
+		else {
+			std::cerr << "无法打开文件。" << std::endl;
+		}
+	}
+
 };
-extern int windowWidth;
-extern int windowHeight;
-extern GameWindowMode gameWindowMode;
+
+
+
+class Player {
+public:
+	Vector position;
+	float angle = 0.0f;
+	float FOV = PI * 0.25f;
+	float viewDepth = 30.0f;
+
+	float speed = 8.0f;
+
+public:
+	Player()
+	{
+		position.x = 15.0f;
+		position.y = 5.9f;
+	}
+};
+
+
 
 extern int surfaceWidth;
 extern int surfaceHeight;
 
 extern SDL_Event ioEvent;
 
-extern void (*Start)(void);
-extern void (*Update)(void);
-
-//注册游戏初始化函数和主循环函数
-#define SET_GAME_START(x) void (*Start)(void) = x;
-#define SET_GAME_LOOP(x) void(*Update)(void) = x;
-
-#define SET_GAME_WINDOW(w,h,flag) int windowWidth = w; int windowHeight = h;GameWindowMode gameWindowMode = flag;
-
+#define Graphic
 extern void DrawPixel(int x, int y, Uint32 pixelColor);
-
 extern void DrawImage(
 	int posX,
 	int posY,
@@ -111,55 +253,71 @@ extern void DrawImage(
 	int scaleForSurface,
 	bool isDrawAlpha,
 	Uint32* imageRGB);
-
-extern void Game(int width, int height);
-
-extern bool GetKeyHold(char key);
-extern bool GetKeyDown(char key);
-
 extern Uint32 GetSpriteColor(
 	float normalizedX,
-	float normalizedY, 
-	int imageW, 
+	float normalizedY,
+	int imageW,
 	int imageH,
 	Uint32* sprite);
 
 /// <summary>
-/// 游戏物品结构体
+/// 从本地二进制文件spr中加载贴图数据
 /// </summary>
-typedef struct GameObject {
-	Vector positon;
-	int width = 6;			
-	int height = 6;
-	Vector velocity;
-	Uint32* imageRGB;
-	bool isCollider = false;
-}GameObject;
+/// <param name="filename">二进制文件路径</param>
+/// <returns></returns>
+extern Uint32* LoadTexture(const char * filename);
 
-typedef struct LevelMap {
-	char* currentMap;
-	int w;
-	int h;
-}LevelMap;
+#define GameEngine
+
+enum GameWindowMode
+{
+	FullScreen = SDL_WINDOW_FULLSCREEN,
+	WindowMode = SDL_WINDOW_FOREIGN
+};
+extern int windowWidth;
+extern int windowHeight;
+extern GameWindowMode gameWindowMode;
+extern void (*Start)(void);
+extern void (*Update)(void);
+
+//注册游戏初始化函数和主循环函数
+#define SET_GAME_START(x) void (*Start)(void) = x;
+#define SET_GAME_LOOP(x) void(*Update)(void) = x;
+#define SET_GAME_WINDOW(w,h,flag) int windowWidth = w; int windowHeight = h;GameWindowMode gameWindowMode = flag;
+extern void Game(int width, int height);
+
+#define INPUT
+extern bool GetKeyHold(char key);
+extern bool GetKeyDown(char key);
 
 //动画器
 class Animator
 {
 private:
 	vector<Uint32*> framesImage;
+	unordered_map<Uint32, eventFunc> framesEvent;
 	Uint32* currentFrame;
+	bool isPlaying = false;
+	//动画播放速度
+	float speed = 7;
+	float i = 0;
 
 public:
-	Animator();
-	Animator(Uint32* frameImage);
+	Animator(float speed);
+	Animator(Uint32* frameImage,float speed);
 	~Animator();
 
 public:
+	void LoadFromAnimatorFile(const char * filePath);
 	Uint32* GetCurrentFrameImage();
 	Uint32* GetFrameImage(int frame);
+	void SetFrameEvent(int frame,eventFunc e);
 	void Play(int frame);
+	void Play();
 	void InsertFrameImage(Uint32* frameImage);
 	Uint32 GetCurrentFramePixel(int index);
+	void Update();//更新动画帧
+
 };
 
 //按键映射
@@ -212,60 +370,29 @@ public:
 
 };
 
-inline Sprite::Sprite() {
+enum AudioType {
+	Music,
+	Chunk
+};
 
-}
+class Audio {
+private:
+	AudioType type = Music;
+	Mix_Music* music = nullptr;
+	Mix_Chunk* chunk = nullptr;
+public:
+	Audio(const char * filePath,AudioType type);
+	~Audio();
+public:
+	void Play(bool loop);
+};
 
-inline Sprite::Sprite(int w, int h,int size, Uint32* image) 
-{
-	this->w = w;
-	this->h = h;
-	this->image = image;
-	this->sizeForSurface = size;
-}
+#define FPS_FUNCTION
+extern Ray RayCastHit(
+	int pixelX,			//像素点横坐标
+	Player& player,		//玩家对象引用
+	LevelMap& map		//当前关卡地图引用
+);
 
-inline Sprite::~Sprite() {
-
-}
-
-inline void Sprite::UpdateImage(Uint32* image)
-{
-	this->image = image;
-}
-
-inline void Sprite::DrawSprite(int posX, int posY, bool isRenderAlpha)
-{
-	//计算放大
-	int wannaW = surfaceWidth / sizeForSurface;
-	int wannaH = (int)(((float)h / (float)w) * wannaW);
-
-	for (int width = 0; width < wannaW; width++)
-	{
-		for (int height = 0; height < wannaH; height++)
-		{
-			int x = posX - ((float)wannaW * 0.5f) + width;
-			int y = posY - ((float)wannaH * 0.5f) + height;
-
-			float fSimpleX = (float)(width) / (float)wannaW;
-			float fSimpleY = (float)(height) / (float)wannaH;
-
-			Uint32 pixelColor = GetSpriteColor(fSimpleY, fSimpleX, h, w, image);
-
-			if (isRenderAlpha)
-			{
-				if (pixelColor == BLACK)
-				{
-					continue;
-				}
-			}
-
-			if (x < 0 || x >= surfaceWidth || y < 0 || y >= surfaceHeight)
-			{
-				continue;
-			}
-			DrawPixel(x, y, pixelColor);
-		}
-	}
-}
 
 #endif // !NOAENGINE_H

@@ -1,0 +1,5 @@
+﻿main.obj : error LNK2001: 无法解析的外部符号 __imp_wglCreateContext
+main.obj : error LNK2001: 无法解析的外部符号 __imp_wglDeleteContext
+main.obj : error LNK2001: 无法解析的外部符号 __imp_wglMakeCurrent
+MSVCRT.lib(exe_main.obj) : error LNK2001: 无法解析的外部符号 main
+D:\Work\GitTools\NoaEngine\x64\Release\NoaEngine-GL.exe : fatal error LNK1120: 4 个无法解析的外部命令

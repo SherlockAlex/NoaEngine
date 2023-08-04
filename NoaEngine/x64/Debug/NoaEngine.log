@@ -1,3 +1,15 @@
-﻿  main.cpp
-main.obj : error LNK2019: 无法解析的外部符号 SDL_Init，函数 main 中引用了该符号
-D:\Work\GitTools\NoaEngine\x64\Debug\NoaEngine.exe : fatal error LNK1120: 1 个无法解析的外部命令
+﻿NoaEngine.obj : error LNK2019: 无法解析的外部符号 SDL_AllocFormat，函数 "void __cdecl Game(int,int)" (?Game@@YAXHH@Z) 中引用了该符号
+NoaEngine.obj : error LNK2019: 无法解析的外部符号 SDL_CreateWindow，函数 "void __cdecl Game(int,int)" (?Game@@YAXHH@Z) 中引用了该符号
+NoaEngine.obj : error LNK2019: 无法解析的外部符号 SDL_DestroyWindow，函数 "void __cdecl Game(int,int)" (?Game@@YAXHH@Z) 中引用了该符号
+NoaEngine.obj : error LNK2019: 无法解析的外部符号 SDL_PollEvent，函数 "void __cdecl Game(int,int)" (?Game@@YAXHH@Z) 中引用了该符号
+NoaEngine.obj : error LNK2019: 无法解析的外部符号 SDL_CreateRenderer，函数 "void __cdecl Game(int,int)" (?Game@@YAXHH@Z) 中引用了该符号
+NoaEngine.obj : error LNK2019: 无法解析的外部符号 SDL_CreateTexture，函数 "void __cdecl Game(int,int)" (?Game@@YAXHH@Z) 中引用了该符号
+NoaEngine.obj : error LNK2019: 无法解析的外部符号 SDL_LockTexture，函数 "void __cdecl Game(int,int)" (?Game@@YAXHH@Z) 中引用了该符号
+NoaEngine.obj : error LNK2019: 无法解析的外部符号 SDL_UnlockTexture，函数 "void __cdecl Game(int,int)" (?Game@@YAXHH@Z) 中引用了该符号
+NoaEngine.obj : error LNK2019: 无法解析的外部符号 SDL_RenderCopy，函数 "void __cdecl Game(int,int)" (?Game@@YAXHH@Z) 中引用了该符号
+NoaEngine.obj : error LNK2019: 无法解析的外部符号 SDL_RenderPresent，函数 "void __cdecl Game(int,int)" (?Game@@YAXHH@Z) 中引用了该符号
+NoaEngine.obj : error LNK2019: 无法解析的外部符号 SDL_DestroyTexture，函数 "void __cdecl Game(int,int)" (?Game@@YAXHH@Z) 中引用了该符号
+NoaEngine.obj : error LNK2019: 无法解析的外部符号 SDL_DestroyRenderer，函数 "void __cdecl Game(int,int)" (?Game@@YAXHH@Z) 中引用了该符号
+NoaEngine.obj : error LNK2019: 无法解析的外部符号 SDL_Init，函数 "void __cdecl Game(int,int)" (?Game@@YAXHH@Z) 中引用了该符号
+NoaEngine.obj : error LNK2019: 无法解析的外部符号 SDL_Quit，函数 "void __cdecl Game(int,int)" (?Game@@YAXHH@Z) 中引用了该符号
+D:\Work\GitTools\NoaEngine\x64\Debug\NoaEngine.exe : fatal error LNK1120: 14 个无法解析的外部命令

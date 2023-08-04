@@ -1,0 +1,11 @@
+D:\Work\GitTools\NoaEngine\NoaTool\bin\Release\NoaTool.exe.config
+D:\Work\GitTools\NoaEngine\NoaTool\bin\Release\NoaTool.exe
+D:\Work\GitTools\NoaEngine\NoaTool\bin\Release\NoaTool.pdb
+D:\Work\GitTools\NoaEngine\NoaTool\obj\Release\NoaTool.csproj.AssemblyReference.cache
+D:\Work\GitTools\NoaEngine\NoaTool\obj\Release\NoaTool.csproj.SuggestedBindingRedirects.cache
+D:\Work\GitTools\NoaEngine\NoaTool\obj\Release\NoaTool.MainForm.resources
+D:\Work\GitTools\NoaEngine\NoaTool\obj\Release\NoaTool.Properties.Resources.resources
+D:\Work\GitTools\NoaEngine\NoaTool\obj\Release\NoaTool.csproj.GenerateResource.cache
+D:\Work\GitTools\NoaEngine\NoaTool\obj\Release\NoaTool.csproj.CoreCompileInputs.cache
+D:\Work\GitTools\NoaEngine\NoaTool\obj\Release\NoaTool.exe
+D:\Work\GitTools\NoaEngine\NoaTool\obj\Release\NoaTool.pdb

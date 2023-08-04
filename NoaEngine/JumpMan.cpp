@@ -1,3 +1,8 @@
+#ifdef JUMPMAN
+
+
+
+
 #include "NoaEngine.h"
 
 typedef struct JumpPlayer
@@ -25,6 +30,7 @@ static void ApplyGrivaty(JumpPlayer* player);
 
 //SET_GAME_START(GameStart);
 //SET_GAME_LOOP(GameLoop);
+//SET_GAME_WINDOW(1920/2,1080/2,WindowMode)
 
 //Ïà»ú»æÍ¼
 static float camDepthY = 5.0f;
@@ -251,3 +257,5 @@ static void ApplyGrivaty(JumpPlayer* player) {
 		//canJump = true;
 	}
 }
+
+#endif // JUMPMAN
