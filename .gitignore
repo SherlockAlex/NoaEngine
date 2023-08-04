@@ -1,0 +1,9 @@
+
+*.ipch
+*.vsidx
+*.vsidx
+.vs/NoaEngine/v17/.suo
+*.db
+*.db-shm
+*.db-wal
+*.opendb
