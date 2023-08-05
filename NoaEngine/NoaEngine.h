@@ -48,36 +48,8 @@ using namespace std;
 #include "Scene.h"
 #include "Audio.h"
 #include "InputSystem.h"
+#include "Renderer.h"
 
-// Color constant
-#define	BLACK			0x000000
-#define	BLUE			0xAA0000
-#define	GREEN			0x00AA00
-#define	CYAN			0xAAAA00
-#define	RED				0x0000AA
-#define	MAGENTA			0xAA00AA
-#define	BROWN			0x0055AA
-#define	LIGHTGRAY		0xAAAAAA
-#define	DARKGRAY		0x555555
-#define	LIGHTBLUE		0xFF5555
-#define	LIGHTGREEN		0x55FF55
-#define	LIGHTCYAN		0xFFFF55
-#define	LIGHTRED		0x5555FF
-#define	LIGHTMAGENTA	0xFF55FF
-#define	YELLOW			0x55FFFF
-#define	WHITE			0xFFFFFF
-
-//取低位
-#define LOBYTE(w)           ((Uint8)(w&0xff))
-
-// Color conversion macro
-#define BGR(color)	( (((color) & 0xFF) << 16) | ((color) & 0xFF00FF00) | (((color) & 0xFF0000) >> 16) )
-
-#define RGB(r,g,b)  ((Uint32)(((Uint8)(r)|((Uint8)((Uint8)(g))<<8))|(((unsigned long)(Uint8)(b))<<16)))
-
-#define GetRValue(rgb)      (LOBYTE(rgb))
-#define GetGValue(rgb)      (LOBYTE(((unsigned short)(rgb)) >> 8))
-#define GetBValue(rgb)      (LOBYTE((rgb)>>16))
 
 //游戏主类
 class NoaGameEngine {
@@ -90,7 +62,7 @@ public:
 
 private:
 	SDL_Window* window = nullptr;
-	SDL_Renderer* renderer = nullptr;
+	SDL_Renderer* mainRenderer = nullptr;
 	SDL_Texture* texture = nullptr;
 	SDL_PixelFormat* format;
 	void* pixelBuffer = nullptr;
@@ -109,10 +81,12 @@ private:
 	void (*Start)(void);
 	void (*Update)(void);
 
-	float deltaTime;
+	float deltaTime = 0;
 
 public:
 
+	//渲染器
+	Renderer renderer;
 	
 	NoaGameEngine(
 		int width, int height,
@@ -132,9 +106,6 @@ public:
 
 extern NoaGameEngine game;
 
-/// <summary>
-/// 游戏物品结构体
-/// </summary>
 typedef struct GameObject {
 	Vector positon;
 	int width = 6;			//宽度
@@ -175,40 +146,6 @@ public:
 };
 
 extern SDL_Event ioEvent;
-
-#define Graphic
-extern void DrawPixel(int x, int y, Uint32 pixelColor);
-extern void DrawImage(
-	int posX,
-	int posY,
-	int inmageW,
-	int imageH,
-	int scaleForSurface,
-	bool isDrawAlpha,
-	Uint32* imageRGB);
-
-/// <summary>
-/// 从本地二进制文件spr中加载贴图数据
-/// </summary>
-/// <param name="filename">二进制文件路径</param>
-/// <returns></returns>
-extern Uint32* LoadTexture(const char * filename);
-
-#define GameEngine
-
-
-//extern int windowWidth;
-//extern int windowHeight;
-//extern GameWindowMode gameWindowMode;
-//extern void (*Start)(void);
-//extern void (*Update)(void);
-//
-////注册游戏初始化函数和主循环函数
-//#define SET_GAME_START(x) void (*Start)(void) = x;
-//#define SET_GAME_LOOP(x) void(*Update)(void) = x;
-//#define SET_GAME_WINDOW(w,h,flag) int windowWidth = w; int windowHeight = h;GameWindowMode gameWindowMode = flag;
-//extern void Game(int width, int height);
-
 
 #define FPS_FUNCTION
 extern Ray RayCastHit(

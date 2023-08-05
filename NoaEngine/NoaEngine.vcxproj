@@ -152,6 +152,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="NoaEngine.cpp" />
     <ClCompile Include="NoaMath.cpp" />
+    <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Sprite.cpp" />
   </ItemGroup>
@@ -161,6 +162,7 @@
     <ClInclude Include="InputSystem.h" />
     <ClInclude Include="NoaEngine.h" />
     <ClInclude Include="NoaMath.h" />
+    <ClInclude Include="Renderer.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Sprite.h" />
   </ItemGroup>

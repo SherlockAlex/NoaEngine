@@ -81,8 +81,7 @@ void Sprite::DrawSprite(int posX, int posY, bool isRenderAlpha)
 			{
 				continue;
 			}
-
-			DrawPixel(x, y, pixelColor);
+			game.renderer.DrawPixel(x, y, pixelColor);
 		}
 	}
 }
@@ -118,7 +117,8 @@ void Sprite::DrawSprite(bool isRenderAlpha)
 			{
 				continue;
 			}
-			DrawPixel(x, y, pixelColor);
+			game.renderer.DrawPixel(x, y, pixelColor);
+			//DrawPixel(x, y, pixelColor);
 		}
 	}
 }

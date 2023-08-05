@@ -9,7 +9,7 @@
 static void GameStart(void);
 static void GameUpdate(void);
 
-NoaGameEngine game(1920, 1080, NoaGameEngine::FullScreen, (char *)"DOOM", GameStart, GameUpdate);
+NoaGameEngine game(1920/2, 1080/2, NoaGameEngine::WindowMode, (char *)"DOOM", GameStart, GameUpdate);
 
 #define Object
 static vector<GameObject> gameObjects;
@@ -41,16 +41,12 @@ static Sprite doorTexture("./Assets/Texture/Wall/wall_5.spr", 1);
 
 static void GameStart(void)
 {
-	//从本地加载贴图文件
-	//wallColor_1 = LoadTexture("./Assets/Texture/Wall/wall_1.spr");
-	//wallColor_2 = LoadTexture("./Assets/Texture/Wall/wall_5.spr");
-
 	//这个是地图关卡文件
 	const Map map = LoadMap("./Assets/Level/level_1.map");
 	LevelMap firstMap(map);
 	currentMap = firstMap;
 
-	//设置玩家位置
+	//初始化设置玩家位置
 	for (int i=0;i<map.w;i++)
 	{
 		for (int j=0;j<map.h;j++) 
@@ -270,8 +266,7 @@ static void DrawMap()
 
 				color = WHITE;
 			}
-			
-			DrawPixel(x, y, color);
+			game.renderer.DrawPixel(x, y, color);
 
 		}
 
@@ -284,7 +279,7 @@ static void DrawMap()
 	//将图片显示再对应位置
 	gunSprite.DrawSprite(gunPosX, gunPosY, true);
 
-	//std::printf("X=%3.2f, Y=%3.2f, A=%3.2f FPS=%3.2f\n", player.position.x, player.position.y, player.angle, 1.0f / deltaTime);
+	std::printf("X=%3.2f, Y=%3.2f, A=%3.2f FPS=%3.2f\n", player.position.x, player.position.y, player.angle, 1.0f / game.DeltaTime());
 
 }
 

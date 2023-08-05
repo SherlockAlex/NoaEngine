@@ -2,5 +2,7 @@
 
 int main(int argc,char * argv[])
 {
-	return game.Run();
+	game.Run();
+	game.~NoaGameEngine();
+	return 0;
 }
