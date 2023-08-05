@@ -101,13 +101,19 @@ private:
 	char* gameName;
 	GameWindowMode gameWindowMode;
 
+	//像素宽度和高度
+	int surfaceWidth;
+	int surfaceHeight;
+
 	//游戏相关
 	void (*Start)(void);
 	void (*Update)(void);
 
+	float deltaTime;
+
 public:
 
-	float deltaTime;
+	
 	NoaGameEngine(
 		int width, int height,
 		GameWindowMode windowMode,
@@ -116,7 +122,11 @@ public:
 	);
 	~NoaGameEngine();
 	void* PixelBuffer();
+	int PixelWidth();
+	int PixelHeight();
+	float DeltaTime();
 	int Run();
+
 
 };
 
@@ -163,11 +173,6 @@ public:
 		position.y = 5.9f;
 	}
 };
-
-
-
-extern int surfaceWidth;
-extern int surfaceHeight;
 
 extern SDL_Event ioEvent;
 

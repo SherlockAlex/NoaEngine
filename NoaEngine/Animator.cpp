@@ -166,7 +166,7 @@ void Animator::Update() {
 		return;
 	}
 
-	i = i + game.deltaTime * speed;
+	i = i + game.DeltaTime() * speed;
 	if (i >= this->framesImage.size())
 	{
 		i = 0;
@@ -175,7 +175,7 @@ void Animator::Update() {
 
 	this->Play(i);
 	
-	bool isFrameStart = abs(i - (int)i) < speed * game.deltaTime;
+	bool isFrameStart = abs(i - (int)i) < speed * game.DeltaTime();
 
 	if (isFrameStart && framesEvent[i] != nullptr)
 	{

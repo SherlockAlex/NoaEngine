@@ -4,19 +4,16 @@
 
 float deltaTime = 0.0f;
 
-int surfaceWidth = 0;
-int surfaceHeight = 0;
-
 SDL_Event ioEvent;
 
 void DrawPixel(int x, int y, Uint32 color)
 {
-	if (x<0||x>=surfaceWidth||y<0||y>=surfaceHeight)
+	if (x<0||x>=game.PixelWidth()||y<0||y>=game.PixelHeight())
 	{
 		return;
 	}
 	Uint32* pixel = (Uint32*)game.PixelBuffer();
-	pixel[y * surfaceWidth + x] = color;
+	pixel[y * game.PixelWidth() + x] = color;
 }
 
 void DrawLine(nVector vetex1,nVector vetex2,Uint32 color)
@@ -36,7 +33,7 @@ void DrawImage(
 {
 	
 	//计算放大
-	int wannaW = surfaceWidth/ scaleForSurface;
+	int wannaW = game.PixelWidth()/ scaleForSurface;
 	int wannaH = (int)(((float)imageH / (float)imageW) * wannaW);
 
 	Sprite sprite = Sprite(imageW, imageH, 1, imageRGB);
@@ -61,7 +58,7 @@ void DrawImage(
 				}
 			}
 			
-			if (x<0||x>=surfaceWidth||y<0||y>=surfaceHeight)
+			if (x<0||x>=game.PixelWidth()||y<0||y>=game.PixelHeight())
 			{
 				continue;
 			}
@@ -270,6 +267,18 @@ void* NoaGameEngine::PixelBuffer() {
 	return this->pixelBuffer;
 }
 
+int NoaGameEngine::PixelWidth() {
+	return surfaceWidth;
+}
+
+int NoaGameEngine::PixelHeight() {
+	return surfaceHeight;
+}
+
+float NoaGameEngine::DeltaTime() {
+	return deltaTime;
+}
+
 int NoaGameEngine::Run()
 {
 	//运行游戏
@@ -346,7 +355,7 @@ Ray RayCastHit(
 	Ray ray;
 	ray.distance = 0.0f;
 	ray.angle = player.angle -
-		player.FOV * (0.5f - (float)(pixelX) / (float)(surfaceWidth));
+		player.FOV * (0.5f - (float)(pixelX) / (float)(game.PixelWidth()));
 	const float rayForwordStep = 0.03f;
 	const float eyeX = sinf(ray.angle);
 	const float eyeY = cosf(ray.angle);

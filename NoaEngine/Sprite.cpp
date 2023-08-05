@@ -53,7 +53,7 @@ void Sprite::UpdateImage(Uint32* image)
 void Sprite::DrawSprite(int posX, int posY, bool isRenderAlpha)
 {
 	//计算放大
-	int wannaW = surfaceWidth / sizeForSurface;
+	int wannaW = game.PixelWidth() / sizeForSurface;
 	int wannaH = (int)(((float)h / (float)w) * wannaW);
 
 	for (int width = 0; width < wannaW; width++)
@@ -77,7 +77,7 @@ void Sprite::DrawSprite(int posX, int posY, bool isRenderAlpha)
 				}
 			}
 
-			if (x < 0 || x >= surfaceWidth || y < 0 || y >= surfaceHeight)
+			if (x < 0 || x >= game.PixelWidth() || y < 0 || y >= game.PixelHeight())
 			{
 				continue;
 			}
@@ -90,7 +90,7 @@ void Sprite::DrawSprite(int posX, int posY, bool isRenderAlpha)
 void Sprite::DrawSprite(bool isRenderAlpha)
 {
 	//计算放大
-	int wannaW = surfaceWidth / sizeForSurface;
+	int wannaW = game.PixelWidth() / sizeForSurface;
 	int wannaH = (int)(((float)h / (float)w) * wannaW);
 
 	for (int width = 0; width < wannaW; width++)
@@ -114,7 +114,7 @@ void Sprite::DrawSprite(bool isRenderAlpha)
 				}
 			}
 
-			if (x < 0 || x >= surfaceWidth || y < 0 || y >= surfaceHeight)
+			if (x < 0 || x >= game.PixelWidth() || y < 0 || y >= game.PixelHeight())
 			{
 				continue;
 			}

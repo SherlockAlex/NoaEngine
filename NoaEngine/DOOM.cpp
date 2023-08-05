@@ -9,7 +9,7 @@
 static void GameStart(void);
 static void GameUpdate(void);
 
-NoaGameEngine game(1920/2, 1080 / 2, NoaGameEngine::WindowMode, (char *)"DOOM", GameStart, GameUpdate);
+NoaGameEngine game(1920, 1080, NoaGameEngine::FullScreen, (char *)"DOOM", GameStart, GameUpdate);
 
 #define Object
 static vector<GameObject> gameObjects;
@@ -93,8 +93,8 @@ static void GameUpdate(void)
 
 void MoveAndCheckCollision(float dx, float dy)
 {
-	player.position.x += dx * player.speed * game.deltaTime;
-	player.position.y += dy * player.speed * game.deltaTime;
+	player.position.x += dx * player.speed * game.DeltaTime();
+	player.position.y += dy * player.speed * game.DeltaTime();
 
 	const char hitChar = currentMap.level[
 		(int)(player.position.y + distanceToCollider) * currentMap.w
@@ -102,15 +102,15 @@ void MoveAndCheckCollision(float dx, float dy)
 	];
 	if (hitChar == 0 || hitChar == 127)
 	{
-		player.position.x -= dx * player.speed * game.deltaTime;
-		player.position.y -= dy * player.speed * game.deltaTime;
+		player.position.x -= dx * player.speed * game.DeltaTime();
+		player.position.y -= dy * player.speed * game.DeltaTime();
 	}
 }
 
 void InteractWithObject(char interactable)
 {
-	player.position.x += sinf(player.angle) * player.speed * game.deltaTime;
-	player.position.y += cosf(player.angle) * player.speed * game.deltaTime;
+	player.position.x += sinf(player.angle) * player.speed * game.DeltaTime();
+	player.position.y += cosf(player.angle) * player.speed * game.DeltaTime();
 
 	const char hitChar = currentMap.level[
 		(int)(player.position.y + distanceToCollider) * currentMap.w
@@ -122,8 +122,8 @@ void InteractWithObject(char interactable)
 		currentMap.level[(int)player.position.y * currentMap.w + (int)player.position.x] = 255;
 	}
 
-	player.position.x -= sinf(player.angle) * player.speed * game.deltaTime;
-	player.position.y -= cosf(player.angle) * player.speed * game.deltaTime;
+	player.position.x -= sinf(player.angle) * player.speed * game.DeltaTime();
+	player.position.y -= cosf(player.angle) * player.speed * game.DeltaTime();
 }
 
 static void GunChuncPlay() 
@@ -144,14 +144,14 @@ static void GameInput()
 	// 处理逆时针旋转
 	if (inputSystem.GetKeyHold(KeyA)) 
 	{
-		player.angle -= (player.speed * 0.25f) * game.deltaTime;
+		player.angle -= (player.speed * 0.25f) * game.DeltaTime();
 	}
 		
 
 	// 处理顺时针旋转
 	if (inputSystem.GetKeyHold(KeyD))
 	{
-		player.angle += (player.speed * 0.25f) * game.deltaTime;
+		player.angle += (player.speed * 0.25f) * game.DeltaTime();
 	}
 
 	// 处理前进移动和碰撞
@@ -196,19 +196,19 @@ static void GameInput()
 
 	if (inputSystem.GetKeyHold(KeyM))
 	{
-		heightOfWall += game.deltaTime;
+		heightOfWall += game.DeltaTime();
 		if (heightOfWall>1)
 		{
-			heightOfWall -= game.deltaTime;
+			heightOfWall -= game.DeltaTime();
 		}
 	}
 
 	if (inputSystem.GetKeyHold(KeyN))
 	{
-		heightOfWall -= game.deltaTime;
+		heightOfWall -= game.DeltaTime();
 		if (heightOfWall < 0)
 		{
-			heightOfWall += game.deltaTime;
+			heightOfWall += game.DeltaTime();
 		}
 	}
 
@@ -216,15 +216,15 @@ static void GameInput()
 
 static void DrawMap() 
 {
-	for (int x = 0;x<surfaceWidth;x++) 
+	for (int x = 0;x<game.PixelWidth();x++) 
 	{
 		Ray ray = RayCastHit(x, player, currentMap);
 
 		
-		float ceiling = surfaceHeight * 0.5f - (float)(surfaceHeight* heightOfWall)/ ray.distance;
-		float ceilingSimpleY = surfaceHeight * 0.5f - (float)(surfaceHeight) / ray.distance;
-		float floor = surfaceHeight - ceiling;
-		float floorSimpleY = surfaceHeight - ceilingSimpleY;
+		float ceiling = game.PixelHeight() * 0.5f - (float)(game.PixelHeight() * heightOfWall)/ ray.distance;
+		float ceilingSimpleY = game.PixelHeight() * 0.5f - (float)(game.PixelHeight()) / ray.distance;
+		float floor = game.PixelHeight() - ceiling;
+		float floorSimpleY = game.PixelHeight() - ceilingSimpleY;
 
 		Uint32 color = BLACK;
 
@@ -237,7 +237,7 @@ static void DrawMap()
 		float sharkCamera = 75*(sinf(1.5f*player.position.x) + sinf(1.5f*player.position.y));
 		sharkCamera = sharkCamera / ray.distance;		//镜头晃动
 
-		for (int y = 0;y<surfaceHeight;y++)
+		for (int y = 0;y< game.PixelHeight();y++)
 		{
 			if (y<=ceiling + sharkCamera)
 			{
@@ -264,7 +264,7 @@ static void DrawMap()
 				//绘制地板
 				//根据ray.simple来计算地板贴图坐标
 				//利用地板和墙壁的位置关系，以及ray.angle还有ray.distance还有ray.simple来获取地板贴图坐标
-				float b = 1.0f - (((float)y - surfaceHeight / 2.0f) / ((float)surfaceHeight / 2.0f));
+				float b = 1.0f - (((float)y - game.PixelHeight() / 2.0f) / ((float)game.PixelHeight() / 2.0f));
 				float deltaRayShine = (1 - b) * (1 - b);
 				float depth = (1 - b);
 
@@ -278,8 +278,8 @@ static void DrawMap()
 	}
 
 	//绘制枪支到屏幕下方
-	int gunPosX = surfaceWidth / 2 + 20 * (sinf(player.position.x) + sinf(player.position.y));
-	int gunPosY = surfaceHeight - (int)((258.0 / 238.0) * (surfaceWidth / 4) * 0.5f) + 15 * ((sinf(2 * player.position.x) + 1) + (sinf(2 * player.position.y) + 1));
+	int gunPosX = game.PixelWidth() / 2 + 20 * (sinf(player.position.x) + sinf(player.position.y));
+	int gunPosY = game.PixelHeight() - (int)((258.0 / 238.0) * (game.PixelWidth() / 4) * 0.5f) + 15 * ((sinf(2 * player.position.x) + 1) + (sinf(2 * player.position.y) + 1));
 	
 	//将图片显示再对应位置
 	gunSprite.DrawSprite(gunPosX, gunPosY, true);
