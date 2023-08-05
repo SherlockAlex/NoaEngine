@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static NoaTool.Sprite;
 
 namespace NoaTool
 {
@@ -79,13 +80,25 @@ namespace NoaTool
                 fileName = saveFileDialog.FileName;
             }
 
+            Bitmap bmp = new Bitmap(currentImagePath);
             List<uint> image = Sprite.ReadImageRGB(currentImagePath);
+            SpriteFile spriteFile;
+            spriteFile.images = image;
+            spriteFile.width = bmp.Width;
+            spriteFile.height = bmp.Height;
+            spriteFile.x = ((int)spritePosXNumericUpDown.Value);
+            spriteFile.y = ((int)spritePosYNumericUpDown.Value);
+            bmp.Dispose();
+
+
+
+
             if (image == null)
             {
                 MessageBox.Show("保存失败");
                 return;
             }
-            int success = Sprite.Save(image, fileName);
+            int success = Sprite.Save(spriteFile, fileName);
             if (success == 0)
             {
                 MessageBox.Show("保存成功");
@@ -270,5 +283,71 @@ namespace NoaTool
             }
         }
 
+        private void newMapFileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //将图片导出
+
+            //保存贴图文件
+            string fileName;
+            using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+            {
+                saveFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+                saveFileDialog.Filter = "*.map|map file";
+                saveFileDialog.DefaultExt = ".map";
+                saveFileDialog.FileName = "level";
+                saveFileDialog.ShowDialog();
+                fileName = saveFileDialog.FileName;
+            }
+
+            if (fileName=="")
+            {
+                MessageBox.Show("保存失败");
+                return;
+            }
+
+            int success = Level.ExportMap(currentImagePath,fileName);
+
+            if (success == 0)
+            {
+                MessageBox.Show("保存成功");
+                return;
+            }
+            MessageBox.Show("保存失败");
+
+            
+        }
+
+        private void newLevelFileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //将图片导出
+
+            //保存贴图文件
+            string fileName;
+            using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+            {
+                saveFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+                saveFileDialog.Filter = "*.map|map file";
+                saveFileDialog.DefaultExt = ".map";
+                saveFileDialog.FileName = "level";
+                saveFileDialog.ShowDialog();
+                fileName = saveFileDialog.FileName;
+            }
+
+            if (fileName == "")
+            {
+                MessageBox.Show("保存失败");
+                return;
+            }
+
+            int success = Level.ExportMap(currentImagePath, fileName);
+
+            if (success == 0)
+            {
+                MessageBox.Show("保存成功");
+                return;
+            }
+            MessageBox.Show("保存失败");
+
+        }
     }
 }

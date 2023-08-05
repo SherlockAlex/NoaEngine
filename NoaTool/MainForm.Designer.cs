@@ -35,11 +35,16 @@
             this.导出ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newAmtToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newSprToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.levelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.newMapFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.removeFrameButton = new System.Windows.Forms.Button();
             this.addFrameButton = new System.Windows.Forms.Button();
             this.animatorFrameGridView = new System.Windows.Forms.DataGridView();
             this.currentPictureBox = new System.Windows.Forms.PictureBox();
+            this.spritePosXNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.spritePosYNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.newLevelFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -47,13 +52,16 @@
             this.splitContainer1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.animatorFrameGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.currentPictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.spritePosXNumericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.spritePosYNumericUpDown)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
             // 
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem});
+            this.fileToolStripMenuItem,
+            this.levelToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1010, 28);
@@ -88,7 +96,8 @@
             // 
             this.导出ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.newAmtToolStripMenuItem,
-            this.newSprToolStripMenuItem});
+            this.newSprToolStripMenuItem,
+            this.newLevelFileToolStripMenuItem});
             this.导出ToolStripMenuItem.Name = "导出ToolStripMenuItem";
             this.导出ToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.导出ToolStripMenuItem.Text = "导出";
@@ -107,6 +116,21 @@
             this.newSprToolStripMenuItem.Text = "贴图文件(*.spr)";
             this.newSprToolStripMenuItem.Click += new System.EventHandler(this.newSprToolStripMenuItem_Click);
             // 
+            // levelToolStripMenuItem
+            // 
+            this.levelToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.newMapFileToolStripMenuItem});
+            this.levelToolStripMenuItem.Name = "levelToolStripMenuItem";
+            this.levelToolStripMenuItem.Size = new System.Drawing.Size(53, 24);
+            this.levelToolStripMenuItem.Text = "地图";
+            // 
+            // newMapFileToolStripMenuItem
+            // 
+            this.newMapFileToolStripMenuItem.Name = "newMapFileToolStripMenuItem";
+            this.newMapFileToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.newMapFileToolStripMenuItem.Text = "导出(*.map)";
+            this.newMapFileToolStripMenuItem.Click += new System.EventHandler(this.newMapFileToolStripMenuItem_Click);
+            // 
             // splitContainer1
             // 
             this.splitContainer1.Location = new System.Drawing.Point(12, 45);
@@ -120,6 +144,8 @@
             // 
             // splitContainer1.Panel2
             // 
+            this.splitContainer1.Panel2.Controls.Add(this.spritePosYNumericUpDown);
+            this.splitContainer1.Panel2.Controls.Add(this.spritePosXNumericUpDown);
             this.splitContainer1.Panel2.Controls.Add(this.currentPictureBox);
             this.splitContainer1.Size = new System.Drawing.Size(986, 524);
             this.splitContainer1.SplitterDistance = 326;
@@ -154,16 +180,36 @@
             this.animatorFrameGridView.RowTemplate.Height = 27;
             this.animatorFrameGridView.Size = new System.Drawing.Size(320, 400);
             this.animatorFrameGridView.TabIndex = 0;
-            //this.animatorFrameGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.animatorFrameGridView_CellContentClick);
             // 
             // currentPictureBox
             // 
             this.currentPictureBox.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.currentPictureBox.Location = new System.Drawing.Point(3, 3);
+            this.currentPictureBox.Location = new System.Drawing.Point(88, 67);
             this.currentPictureBox.Name = "currentPictureBox";
-            this.currentPictureBox.Size = new System.Drawing.Size(650, 400);
+            this.currentPictureBox.Size = new System.Drawing.Size(480, 270);
             this.currentPictureBox.TabIndex = 0;
             this.currentPictureBox.TabStop = false;
+            // 
+            // spritePosXNumericUpDown
+            // 
+            this.spritePosXNumericUpDown.Location = new System.Drawing.Point(22, 437);
+            this.spritePosXNumericUpDown.Name = "spritePosXNumericUpDown";
+            this.spritePosXNumericUpDown.Size = new System.Drawing.Size(143, 25);
+            this.spritePosXNumericUpDown.TabIndex = 1;
+            // 
+            // spritePosYNumericUpDown
+            // 
+            this.spritePosYNumericUpDown.Location = new System.Drawing.Point(171, 437);
+            this.spritePosYNumericUpDown.Name = "spritePosYNumericUpDown";
+            this.spritePosYNumericUpDown.Size = new System.Drawing.Size(143, 25);
+            this.spritePosYNumericUpDown.TabIndex = 2;
+            // 
+            // newLevelFileToolStripMenuItem
+            // 
+            this.newLevelFileToolStripMenuItem.Name = "newLevelFileToolStripMenuItem";
+            this.newLevelFileToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.newLevelFileToolStripMenuItem.Text = "地图文件(*.map)";
+            this.newLevelFileToolStripMenuItem.Click += new System.EventHandler(this.newLevelFileToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -183,6 +229,8 @@
             this.splitContainer1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.animatorFrameGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.currentPictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.spritePosXNumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.spritePosYNumericUpDown)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -201,5 +249,10 @@
         private System.Windows.Forms.ToolStripMenuItem 导出ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem newAmtToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem newSprToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem levelToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem newMapFileToolStripMenuItem;
+        private System.Windows.Forms.NumericUpDown spritePosYNumericUpDown;
+        private System.Windows.Forms.NumericUpDown spritePosXNumericUpDown;
+        private System.Windows.Forms.ToolStripMenuItem newLevelFileToolStripMenuItem;
     }
 }

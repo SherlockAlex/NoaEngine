@@ -144,15 +144,25 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Animator.cpp" />
+    <ClCompile Include="Audio.cpp" />
     <ClCompile Include="DOOM.cpp" />
     <ClCompile Include="FPS.cpp" />
-    <ClCompile Include="gameTest.cpp" />
-    <ClCompile Include="JumpMan.cpp" />
+    <ClCompile Include="InputSystem.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="NoaEngine.cpp" />
+    <ClCompile Include="NoaMath.cpp" />
+    <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="Sprite.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Animator.h" />
+    <ClInclude Include="Audio.h" />
+    <ClInclude Include="InputSystem.h" />
     <ClInclude Include="NoaEngine.h" />
+    <ClInclude Include="NoaMath.h" />
+    <ClInclude Include="Scene.h" />
+    <ClInclude Include="Sprite.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

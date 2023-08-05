@@ -1,12 +1,20 @@
-#define DOOM
+ï»¿#define DOOM
 #ifdef DOOM
 
 #include "NoaEngine.h"
+#include "Animator.h"
+#include "Sprite.h"
 #include <map>
 
+static void GameStart(void);
+static void GameUpdate(void);
+
+NoaGameEngine game(1920/2, 1080 / 2, NoaGameEngine::WindowMode, (char *)"DOOM", GameStart, GameUpdate);
+
+#define Object
+static vector<GameObject> gameObjects;
 static LevelMap currentMap;
 static Player player;
-
 static float distanceToCollider = 0.0f;
 
 #define Animation
@@ -24,55 +32,39 @@ static void GameInput();
 static void DrawMap();
 
 #define Wall
-static float heightOfWall = 1.0f;					//Ç½±Ú¸ß¶È
+static float heightOfWall = 1.0f;					//å¢™å£é«˜åº¦
 
 #define Texture
-//wall
-Uint32* wallColor_1;
-Uint32* wallColor_2;
+//wallTexture
+static Sprite wallTexture("./Assets/Texture/Wall/wall_1.spr",1);
+static Sprite doorTexture("./Assets/Texture/Wall/wall_5.spr", 1);
 
 static void GameStart(void)
 {
-	//´Ó±¾µØ¼ÓÔØÌùÍ¼ÎÄ¼ş
-	wallColor_1 = LoadTexture("./Assets/Texture/Wall/wall_1.spr");
-	wallColor_2 = LoadTexture("./Assets/Texture/Wall/wall_5.spr");
+	//ä»æœ¬åœ°åŠ è½½è´´å›¾æ–‡ä»¶
+	//wallColor_1 = LoadTexture("./Assets/Texture/Wall/wall_1.spr");
+	//wallColor_2 = LoadTexture("./Assets/Texture/Wall/wall_5.spr");
 
-	//Õâ¸öÊÇµØÍ¼¹Ø¿¨ÎÄ¼ş
-	wstring map;
-	map += L"##################################";
-	map += L"##################################";
-	map += L"############.......###############";
-	map += L"############.......####@@@@@@@@###";
-	map += L"############.......####@@@@@@@@###";
-	map += L"############.......####@@@@@@@@###";
-	map += L"############.......####@@@@@@@@###";
-	map += L"############.......####@@@@@@@@###";
-	map += L"############.......###############";
-	map += L"###############*##################";
-	map += L"##############...#################";
-	map += L"############.................#####";
-	map += L"############.................#####";
-	map += L"############.................#####";
-	map += L"#####........................#####";
-	map += L"#####........................#####";
-	map += L"#####...####.................#####";
-	map += L"#####...##########################";
-	map += L"#####...............##############";
-	map += L"#####...............####@@@@@@@###";
-	map += L"#################...####@@@@@@@###";
-	map += L"##################*###############";
-	map += L"#################...##############";
-	map += L"###......................#########";
-	map += L"###......................#########";
-	map += L"###..............#################";
-	map += L"###..............#..............##";
-	map += L"###..............*..............##";
-	map += L"###..............#..............##";
-	map += L"##################################";
-	LevelMap firstMap(34, 30, map);
+	//è¿™ä¸ªæ˜¯åœ°å›¾å…³å¡æ–‡ä»¶
+	const Map map = LoadMap("./Assets/Level/level_1.map");
+	LevelMap firstMap(map);
 	currentMap = firstMap;
 
-	//²åÈë¶¯»­Ö¡
+	//è®¾ç½®ç©å®¶ä½ç½®
+	for (int i=0;i<map.w;i++)
+	{
+		for (int j=0;j<map.h;j++) 
+		{
+			if (map.image[j*map.w+i]==63)
+			{
+				player.position.x = i;
+				player.position.y = j;
+			}
+		}
+	}
+
+
+	//æ’å…¥åŠ¨ç”»å¸§
 	gunAniamtor.LoadFromAnimatorFile("./Assets/Animator/gun.amt");
 	gunSprite = Sprite(238, 258, 4, gunAniamtor.GetCurrentFrameImage());
 	gunAniamtor.SetFrameEvent(1, GunChuncPlay);
@@ -92,33 +84,33 @@ static void GameUpdate(void)
 }
 
 
-// ÉäÏßÍ¶ÉäËã·¨
-// È·¶¨Ç½±Úµ½Íæ¼ÒµÄ¾àÀë
-// È·¶¨ÃüÖĞµÄÊÇÇ½»¹ÊÇÃÅ
-// È·¶¨ÎïÌåµÄÌùÍ¼×ø±ê
+// å°„çº¿æŠ•å°„ç®—æ³•
+// ç¡®å®šå¢™å£åˆ°ç©å®¶çš„è·ç¦»
+// ç¡®å®šå‘½ä¸­çš„æ˜¯å¢™è¿˜æ˜¯é—¨
+// ç¡®å®šç‰©ä½“çš„è´´å›¾åæ ‡
 
 
 
 void MoveAndCheckCollision(float dx, float dy)
 {
-	player.position.x += dx * player.speed * deltaTime;
-	player.position.y += dy * player.speed * deltaTime;
+	player.position.x += dx * player.speed * game.deltaTime;
+	player.position.y += dy * player.speed * game.deltaTime;
 
 	const char hitChar = currentMap.level[
 		(int)(player.position.y + distanceToCollider) * currentMap.w
 			+ (int)(player.position.x + distanceToCollider)
 	];
-	if (hitChar == '#' || hitChar == '*')
+	if (hitChar == 0 || hitChar == 127)
 	{
-		player.position.x -= dx * player.speed * deltaTime;
-		player.position.y -= dy * player.speed * deltaTime;
+		player.position.x -= dx * player.speed * game.deltaTime;
+		player.position.y -= dy * player.speed * game.deltaTime;
 	}
 }
 
 void InteractWithObject(char interactable)
 {
-	player.position.x += sinf(player.angle) * player.speed * deltaTime;
-	player.position.y += cosf(player.angle) * player.speed * deltaTime;
+	player.position.x += sinf(player.angle) * player.speed * game.deltaTime;
+	player.position.y += cosf(player.angle) * player.speed * game.deltaTime;
 
 	const char hitChar = currentMap.level[
 		(int)(player.position.y + distanceToCollider) * currentMap.w
@@ -127,67 +119,67 @@ void InteractWithObject(char interactable)
 	if (hitChar == interactable)
 	{
 		cout << "interact" << endl;
-		currentMap.level[(int)player.position.y * currentMap.w + (int)player.position.x] = '.';
+		currentMap.level[(int)player.position.y * currentMap.w + (int)player.position.x] = 255;
 	}
 
-	player.position.x -= sinf(player.angle) * player.speed * deltaTime;
-	player.position.y -= cosf(player.angle) * player.speed * deltaTime;
+	player.position.x -= sinf(player.angle) * player.speed * game.deltaTime;
+	player.position.y -= cosf(player.angle) * player.speed * game.deltaTime;
 }
 
 static void GunChuncPlay() 
 {
-	//²¥·ÅÒôĞ§
+	//æ’­æ”¾éŸ³æ•ˆ
 	gunShotChunk->Play(false);
 }
 
-// ÓÎÏ·ÊäÈë
-// È·¶¨Íæ¼ÒµÄ¼üÅÌÊäÈë
-// È·¶¨Íæ¼Ò¿Éµ½Ç½±Ú»òÕßÃÅµÄ¾àÀë
-// È·¶¨Ã¿¸ö°´¼üÒªÖ´ĞĞµÄÊÂ¼ş
+// æ¸¸æˆè¾“å…¥
+// ç¡®å®šç©å®¶çš„é”®ç›˜è¾“å…¥
+// ç¡®å®šç©å®¶å¯åˆ°å¢™å£æˆ–è€…é—¨çš„è·ç¦»
+// ç¡®å®šæ¯ä¸ªæŒ‰é”®è¦æ‰§è¡Œçš„äº‹ä»¶
 static void GameInput() 
 {
 	const float distanceToCollider = 0.0f;
-	//´¦ÀíÍæ¼ÒÊäÈëÎÊÌâ
+	//å¤„ç†ç©å®¶è¾“å…¥é—®é¢˜
 	 
-	// ´¦ÀíÄæÊ±ÕëĞı×ª
-	if (GetKeyHold(KeyA)) 
+	// å¤„ç†é€†æ—¶é’ˆæ—‹è½¬
+	if (inputSystem.GetKeyHold(KeyA)) 
 	{
-		player.angle -= (player.speed * 0.25f) * deltaTime;
+		player.angle -= (player.speed * 0.25f) * game.deltaTime;
 	}
 		
 
-	// ´¦ÀíË³Ê±ÕëĞı×ª
-	if (GetKeyHold(KeyD))
+	// å¤„ç†é¡ºæ—¶é’ˆæ—‹è½¬
+	if (inputSystem.GetKeyHold(KeyD))
 	{
-		player.angle += (player.speed * 0.25f) * deltaTime;
+		player.angle += (player.speed * 0.25f) * game.deltaTime;
 	}
 
-	// ´¦ÀíÇ°½øÒÆ¶¯ºÍÅö×²
-	if (GetKeyHold(KeyW))
+	// å¤„ç†å‰è¿›ç§»åŠ¨å’Œç¢°æ’
+	if (inputSystem.GetKeyHold(KeyW))
 	{
 		MoveAndCheckCollision(sinf(player.angle), cosf(player.angle));
 	}
 
-	// ´¦ÀíºóÍËÒÆ¶¯ºÍÅö×²
-	if (GetKeyHold(KeyS))
+	// å¤„ç†åé€€ç§»åŠ¨å’Œç¢°æ’
+	if (inputSystem.GetKeyHold(KeyS))
 	{
 		MoveAndCheckCollision(-sinf(player.angle), -cosf(player.angle));
 	}
 
-	// ´¦Àí×óÒÆºÍÅö×²
-	if (GetKeyHold(KeyQ))
+	// å¤„ç†å·¦ç§»å’Œç¢°æ’
+	if (inputSystem.GetKeyHold(KeyQ))
 	{
 		MoveAndCheckCollision(-cosf(player.angle), sinf(player.angle));
 	}
 
-	// ´¦ÀíÓÒÒÆºÍÅö×²
-	if (GetKeyHold(KeyE))
+	// å¤„ç†å³ç§»å’Œç¢°æ’
+	if (inputSystem.GetKeyHold(KeyE))
 	{
 		MoveAndCheckCollision(cosf(player.angle), -sinf(player.angle));
 	}
 
 
-	if (GetKeyDown(KeyJ))
+	if (inputSystem.GetKeyDown(KeyJ))
 	{
 		cout << "fire" << endl;
 		gunAniamtor.Play();
@@ -195,43 +187,28 @@ static void GameInput()
 
 	}
 
-	//ÕâÀï²¥·Å¶¯»­£¬µ«ÊÇÕâÑùµÄÉè¼Æ²»ÀûÓÚÀ©Õ¹
-	//ÎÒÃÇĞèÒªÒ»¸ö´¥·¢Æ÷£¬°´ÏÂµÄÊ±ºò¾Í²¥·Å¶¯»­
-	
-	/*if (isPlayAnimation)
-	{
-		i = i + deltaTime * animationSpeed;
-		if (i > 6)
-		{
-			i = 0;
-			isPlayAnimation = false;
-		}
-		gunAniamtor.Play(i);
-		
-	}*/
+	gunSprite.UpdateImage(gunAniamtor.GetCurrentFrameImage());//æ›´æ–°æªæ”¯å›¾ç‰‡
 
-	gunSprite.UpdateImage(gunAniamtor.GetCurrentFrameImage());
-
-	if (GetKeyHold(KeyL))
+	if (inputSystem.GetKeyHold(KeyL))
 	{
-		InteractWithObject('*');
+		InteractWithObject(127);
 	}
 
-	if (GetKeyHold(KeyM))
+	if (inputSystem.GetKeyHold(KeyM))
 	{
-		heightOfWall += deltaTime;
+		heightOfWall += game.deltaTime;
 		if (heightOfWall>1)
 		{
-			heightOfWall -= deltaTime;
+			heightOfWall -= game.deltaTime;
 		}
 	}
 
-	if (GetKeyHold(KeyN))
+	if (inputSystem.GetKeyHold(KeyN))
 	{
-		heightOfWall -= deltaTime;
+		heightOfWall -= game.deltaTime;
 		if (heightOfWall < 0)
 		{
-			heightOfWall += deltaTime;
+			heightOfWall += game.deltaTime;
 		}
 	}
 
@@ -251,70 +228,64 @@ static void DrawMap()
 
 		Uint32 color = BLACK;
 
-		/*float shadowOfWall = 1 / (1 +
+		float shadowOfWall = 1 / (1 +
 			ray.distance * ray.distance * ray.distance
-			* ray.distance * ray.distance * 0.00002);*/
+			* ray.distance * ray.distance * 0.00002);
 
-		float shadowOfWall = 1;
+		//float shadowOfWall = 1;
 
 		float sharkCamera = 75*(sinf(1.5f*player.position.x) + sinf(1.5f*player.position.y));
-		sharkCamera = sharkCamera / ray.distance;		//¾µÍ·»Î¶¯
+		sharkCamera = sharkCamera / ray.distance;		//é•œå¤´æ™ƒåŠ¨
 
 		for (int y = 0;y<surfaceHeight;y++)
 		{
 			if (y<=ceiling + sharkCamera)
 			{
-				//»æÖÆÌì»¨°å
-				color = RGB(127, 127, 127);
+				//ç»˜åˆ¶å¤©èŠ±æ¿
+				color = RGB(63, 63, 63);
+				//color = RGB(GetRValue(color) * deltaRayShine, GetGValue(color) * deltaRayShine, GetBValue(color) * deltaRayShine);
 			}
 			else if (y>ceiling + sharkCamera &&y<=floor+ sharkCamera)
 			{
 				ray.simple.y = ((float)y - (float)(ceilingSimpleY + sharkCamera)) / ((float)floorSimpleY - (float)ceilingSimpleY);
-				color = GetSpriteColor(ray.simple.y, ray.simple.x, 256, 256, wallColor_1);
-
+				//color = GetSpriteColor(ray.simple.y, ray.simple.x, 256, 256, wallColor_1);
+				color = wallTexture.GetColor(ray.simple.y, ray.simple.x);
 				if (ray.isHitDoor)
 				{
-					//»æÖÆÃÅ
-					color = GetSpriteColor(ray.simple.y, ray.simple.x, 128, 128, wallColor_2);
+					//ç»˜åˆ¶é—¨
+					//color = GetSpriteColor(ray.simple.y, ray.simple.x, 128, 128, wallColor_2);
+					color = doorTexture.GetColor(ray.simple.y, ray.simple.x);
 				}
 
 				color = RGB(GetRValue(color) * shadowOfWall, GetGValue(color) * shadowOfWall, GetBValue(color) * shadowOfWall);
-				//¼ÆËãÒõÓ°,¼ÆËã·¨Ïò
+				//è®¡ç®—é˜´å½±,è®¡ç®—æ³•å‘
 			}
 			else {
-				//»æÖÆµØ°å
+				//ç»˜åˆ¶åœ°æ¿
+				//æ ¹æ®ray.simpleæ¥è®¡ç®—åœ°æ¿è´´å›¾åæ ‡
+				//åˆ©ç”¨åœ°æ¿å’Œå¢™å£çš„ä½ç½®å…³ç³»ï¼Œä»¥åŠray.angleè¿˜æœ‰ray.distanceè¿˜æœ‰ray.simpleæ¥è·å–åœ°æ¿è´´å›¾åæ ‡
 				float b = 1.0f - (((float)y - surfaceHeight / 2.0f) / ((float)surfaceHeight / 2.0f));
 				float deltaRayShine = (1 - b) * (1 - b);
-
 				float depth = (1 - b);
-				float fEyeX = sinf(ray.angle); // Unit vector for ray in player space
-				float fEyeY = cosf(ray.angle);
-				float fTestPointX = player.position.x + fEyeX * depth;
-				float fTestPointY = player.position.y + fEyeY * depth;
 
-				/*fSimpleY = fTestPointY - (int)fTestPointY;
-				fSimpleX = fTestPointX - (int)fTestPointX;
-				color = GetSpriteColor(fSimpleX, fSimpleY, 32, 32, grassColor);*/
-				color = RGB(200,200,200);
-				//color = RGB(GetRValue(color) * deltaRayShine, GetGValue(color) * deltaRayShine, GetBValue(color) * deltaRayShine);
+				color = WHITE;
 			}
-
+			
 			DrawPixel(x, y, color);
 
 		}
+
 	}
 
+	//ç»˜åˆ¶æªæ”¯åˆ°å±å¹•ä¸‹æ–¹
 	int gunPosX = surfaceWidth / 2 + 20 * (sinf(player.position.x) + sinf(player.position.y));
 	int gunPosY = surfaceHeight - (int)((258.0 / 238.0) * (surfaceWidth / 4) * 0.5f) + 15 * ((sinf(2 * player.position.x) + 1) + (sinf(2 * player.position.y) + 1));
-
+	
+	//å°†å›¾ç‰‡æ˜¾ç¤ºå†å¯¹åº”ä½ç½®
 	gunSprite.DrawSprite(gunPosX, gunPosY, true);
 
 	//std::printf("X=%3.2f, Y=%3.2f, A=%3.2f FPS=%3.2f\n", player.position.x, player.position.y, player.angle, 1.0f / deltaTime);
 
 }
-
-SET_GAME_START(GameStart)
-SET_GAME_LOOP(GameUpdate)
-SET_GAME_WINDOW(1920/2, 1080/2, WindowMode)
 
 #endif // DOOM
