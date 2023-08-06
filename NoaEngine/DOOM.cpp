@@ -338,7 +338,7 @@ static void GameInput()
 	if (inputSystem.GetMouseMoveState())
 	{
 		nVector delta = inputSystem.GetMouseMoveDelta();
-		player.angle += (delta.x)*0.75 * game.DeltaTime();
+		player.angle += (delta.x)*2 * game.DeltaTime();
 
 	}
 
@@ -428,6 +428,8 @@ static void DrawMap()
 
 		float sharkCamera = 75*(sinf(1.5f*player.position.x) + sinf(1.5f*player.position.y));
 		sharkCamera = sharkCamera / ray.distance;		//镜头晃动
+
+		sharkCamera = 0;
 
 		for (int y = 0;y< game.PixelHeight();y++)
 		{
