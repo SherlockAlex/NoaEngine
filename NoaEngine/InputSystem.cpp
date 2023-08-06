@@ -6,6 +6,14 @@
 
 InputSystem inputSystem;
 
+SDL_Event ioEvent;
+
+InputSystem::InputSystem()
+{
+	// 开启相对鼠标模式
+	SDL_SetRelativeMouseMode(SDL_TRUE);
+}
+
 bool InputSystem::GetKeyHold(char key) {
 	//监听按键是否按住
 
@@ -44,7 +52,6 @@ bool InputSystem::GetKeyDown(char key)
 
 	if (keyState[SDL_GetScancodeFromKey(key + 32)])
 	{
-		printf("key %c is pressed\n", key);
 		SDL_PollEvent(&ioEvent);
 		return true;
 	}
@@ -52,15 +59,28 @@ bool InputSystem::GetKeyDown(char key)
 
 #endif // _WIN64
 
-	const Uint8* keyState = SDL_GetKeyboardState(nullptr);
-
-	if (keyState[SDL_GetScancodeFromKey(key + 32)])
-	{
-		printf("key %c is pressed\n", key);
-		SDL_PollEvent(&ioEvent);
-		return true;
-	}
-
 	return false;
 
+}
+
+bool InputSystem::GetMouseMoveState()
+{
+	return ioEvent.type == SDL_MOUSEMOTION;
+}
+
+nVector InputSystem::GetMouseMoveDelta()
+{
+	nVector delta;
+
+	delta.x = ioEvent.motion.xrel;
+	delta.y = ioEvent.motion.yrel;
+
+	return delta;
+}
+
+bool InputSystem::GetMouseButton(MOUSEKEY mouseButton)
+{
+	int mouseX, mouseY;
+	Uint32 mouseState = SDL_GetMouseState(&mouseX, &mouseY);
+	return mouseState&SDL_BUTTON(mouseButton);
 }

@@ -62,13 +62,15 @@ inline SpriteFile LoadSprFile(const char* file)
 //精灵贴图
 class Sprite {
 
-private:
+public:
 	//显示再屏幕中的位置
 	int posx = 0;
 	int posy = 0;
 	int w = 1;
 	int h = 1;
 	int sizeForSurface = 3;
+
+private:
 	Uint32* image = nullptr;
 
 public:

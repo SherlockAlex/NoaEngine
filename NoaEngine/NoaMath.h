@@ -8,6 +8,16 @@
 typedef struct Vector {
 	float x = 0.0f;
 	float y = 0.0f;
+
+	Vector() {
+
+	}
+
+	Vector(float x,float y) {
+		this->x = x;
+		this->y = y;
+	}
+
 }Vector;
 
 typedef struct nVector {

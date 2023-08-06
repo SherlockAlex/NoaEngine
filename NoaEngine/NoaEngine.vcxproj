@@ -146,8 +146,10 @@
   <ItemGroup>
     <ClCompile Include="Animator.cpp" />
     <ClCompile Include="Audio.cpp" />
+    <ClCompile Include="Behaviour.cpp" />
     <ClCompile Include="DOOM.cpp" />
     <ClCompile Include="FPS.cpp" />
+    <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="InputSystem.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="NoaEngine.cpp" />
@@ -159,6 +161,8 @@
   <ItemGroup>
     <ClInclude Include="Animator.h" />
     <ClInclude Include="Audio.h" />
+    <ClInclude Include="Behaviour.h" />
+    <ClInclude Include="GameObject.h" />
     <ClInclude Include="InputSystem.h" />
     <ClInclude Include="NoaEngine.h" />
     <ClInclude Include="NoaMath.h" />

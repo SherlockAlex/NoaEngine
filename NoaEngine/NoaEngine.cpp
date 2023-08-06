@@ -4,8 +4,6 @@
 
 float deltaTime = 0.0f;
 
-SDL_Event ioEvent;
-
 NoaGameEngine::NoaGameEngine(
 	int width,int height,
 	GameWindowMode windowMode,
@@ -26,7 +24,7 @@ NoaGameEngine::NoaGameEngine(
 	int init = SDL_Init(SDL_INIT_EVERYTHING);
 	if (init != 0)
 	{
-		printf("[error]:Game init failed\n");
+		Debug("Game init failed");
 		exit(0);
 	}
 
@@ -42,7 +40,7 @@ NoaGameEngine::NoaGameEngine(
 	);
 	if (window == nullptr)
 	{
-		printf("[error]:Create window faild\n");
+		Debug("Create window faild");
 		exit(0);
 	}
 
@@ -81,7 +79,7 @@ NoaGameEngine::NoaGameEngine(
 		4096
 	) == -1)
 	{
-		printf("[error]:初始化音频设备失败\n");
+		Debug("初始化音频设备失败");
 		exit(0);
 	}
 
@@ -111,6 +109,36 @@ float NoaGameEngine::DeltaTime() {
 	return deltaTime;
 }
 
+int SurfaceUpdate(void* data) {
+	SDL_UnlockTexture(game.GetSurface());
+	SDL_RenderCopy(game.GetMainRenderer(), game.GetSurface(), NULL, NULL);
+	SDL_RenderPresent(game.GetMainRenderer());
+	return 0;
+}
+
+//计算每一帧需要处理几个I0事件
+float EventStep(const float deltaTime) 
+{
+	return 1000 * deltaTime;
+}
+
+int InputThread(void* data) 
+{
+	//主要的线程
+	const float deltaTime = game.DeltaTime();
+	const float step = EventStep(deltaTime);
+	int count = 0;
+	for (float i = 0; i < step *deltaTime;i+=deltaTime)
+	{
+		SDL_PollEvent(&ioEvent);
+		count++;
+	}
+
+	//cout <<"fps:"<<1/deltaTime << "deltaTime:" << deltaTime << ",count" << count << endl;
+	
+	return 0;
+}
+
 int NoaGameEngine::Run()
 {
 	//运行游戏
@@ -119,7 +147,14 @@ int NoaGameEngine::Run()
 	chrono::duration<float> elapsedTime;
 	auto tp2 = chrono::system_clock::now();
 
+	// 创建独立线程，处理输入事件
+
 	Start();
+
+	for (int i = 0; i < behaviours.size(); i++)
+	{
+		behaviours[i]->Start();
+	}
 
 	while (1)
 	{
@@ -128,31 +163,42 @@ int NoaGameEngine::Run()
 		tp1 = tp2;
 		deltaTime = elapsedTime.count();
 
-		SDL_PollEvent(&ioEvent);
-
+		InputThread(nullptr);
+		
 		//执行游戏主类的update
 		Update();
 
-		//执行所有Animator的Update
+		for (int i = 0; i < behaviours.size(); i++)
+		{
+			behaviours[i]->Update();
+		}
+
 		for (int i = 0; i < animatorList.size(); i++)
 		{
 			animatorList[i]->Update();
 		}
-
-
-		SDL_UnlockTexture(game.texture);
-		SDL_RenderCopy(game.mainRenderer, game.texture, NULL, NULL);
-		SDL_RenderPresent(game.mainRenderer);
 
 		if (ioEvent.type == SDL_QUIT)
 		{
 			break;
 		}
 
+		SurfaceUpdate(nullptr);
+
 	}
+
+	//int threadReturnValue;
+
+	//SDL_WaitThread(thread, &threadReturnValue);
 
 	return 0;
 }
+
+void NoaGameEngine::Debug(string msg)
+{
+	cout << "[INFO]:" << msg << endl;
+}
+
 
 
 //射线投射算法
@@ -191,7 +237,7 @@ Ray RayCastHit(
 		const char hitChar = map.level[intHitPointY * map.w + intHitPointX];
 		if (hitChar == 0 || (hitChar == 127))
 		{
-
+			//这里可以将集中的物体存起来，再其他位置做判断
 			if (hitChar == 0)
 			{
 				ray.isHitWall = true;

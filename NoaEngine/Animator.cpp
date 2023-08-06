@@ -9,7 +9,7 @@ vector<Animator*> animatorList;
 
 Animator::Animator(float speed)
 {
-	printf("Init Animator\n");
+	game.Debug("Init Animator");
 	this->speed = speed;
 	animatorList.push_back(this);
 }
@@ -23,7 +23,7 @@ Animator::Animator(Uint32* frameImage, float speed)
 	framesImage.push_back(frameImage);
 	currentFrame = frameImage;
 	this->speed = speed;
-	printf("Init Animator\n");
+	game.Debug("Init Animator");
 
 	animatorList.push_back(this);
 
@@ -39,7 +39,7 @@ std::vector<uint32_t*> LoadAnimator(const char* file)
 	std::ifstream infile(file, std::ios::binary);
 	if (!infile)
 	{
-		std::cout << "无法打开文件！" << std::endl;
+		game.Debug("无法打开文件");
 		return {};
 	}
 
@@ -130,7 +130,7 @@ void Animator::Play() {
 /// <param name="frameImage"></param>
 void Animator::InsertFrameImage(Uint32* frameImage)
 {
-	printf("Insert Animator\n");
+	game.Debug("Insert Animator Frame");
 	framesImage.push_back(frameImage);
 	if (currentFrame == nullptr)
 	{
@@ -182,7 +182,7 @@ void Animator::Update() {
 		framesEvent[i]();
 	}
 
-	cout << "Animator is update:" << isPlaying << ",frame:" << i << ",eps:" << abs(i - (int)i) << endl;
+	//cout << "Animator is update:" << isPlaying << ",frame:" << i << ",eps:" << abs(i - (int)i) << endl;
 
 	//更新相应的图像
 	//gunSprite.UpdateImage(gunAniamtor.GetCurrentFrameImage());

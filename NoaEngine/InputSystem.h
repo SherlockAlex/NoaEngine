@@ -1,10 +1,22 @@
 #ifndef NOAGAMEENGINE_INPUTSYSTEM_H
 #define NOAGAMEENGINE_INPUTSYSTEM_H
 
+#include <SDL2/SDL.h>
+
 //Windows System
 #ifdef _WIN64
 #include <Windows.h>
 #endif
+
+#include "NoaMath.h"
+
+extern SDL_Event ioEvent;
+
+enum MOUSEKEY {
+	LeftButton = SDL_BUTTON_LEFT,
+	MiddleButton = SDL_BUTTON_MIDDLE,
+	RightButton = SDL_BUTTON_RIGHT
+};
 
 //按键映射
 enum KEYCODE
@@ -38,9 +50,33 @@ enum KEYCODE
 
 class InputSystem
 {
+private:
+	//鼠标的位置信息
+	int mouseX = 0;
+	int mouseY = 0;
+
 public:
+	InputSystem();
+
+public:
+
 	bool GetKeyHold(char key);
 	bool GetKeyDown(char key);
+
+	
+
+	bool GetMouseMoveState();
+	
+	/*
+	x > 0 鼠标向右移动 : x
+	x < 0 鼠标向左移动 : -x
+	y > 0 鼠标向下移动 : y
+	y < 0 鼠标向上移动 : -y
+	*/
+	nVector GetMouseMoveDelta();
+
+	bool GetMouseButton(MOUSEKEY mouseButton);
+
 };
 
 extern InputSystem inputSystem;

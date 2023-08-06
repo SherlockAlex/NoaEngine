@@ -38,6 +38,7 @@ using namespace std;
 #include <SDL2/SDL_keyboard.h>
 #include <SDL2/SDL_mouse.h>
 #include <SDL2/SDL_mixer.h>
+#include <SDL2/SDL_thread.h>
 #include <list>
 #include <unordered_map>
 
@@ -49,7 +50,8 @@ using namespace std;
 #include "Audio.h"
 #include "InputSystem.h"
 #include "Renderer.h"
-
+#include "Behaviour.h"
+#include "GameObject.h"
 
 //游戏主类
 class NoaGameEngine {
@@ -101,19 +103,21 @@ public:
 	float DeltaTime();
 	int Run();
 
+	void Debug(string msg);
+
+	SDL_Renderer* GetMainRenderer() {
+		return mainRenderer;
+	}
+
+	SDL_Texture* GetSurface() {
+		return texture;
+	}
 
 };
 
 extern NoaGameEngine game;
 
-typedef struct GameObject {
-	Vector positon;
-	int width = 6;			//宽度
-	int height = 6;			//高度
-	Vector velocity;		//速度
-	Uint32* imageRGB;		//颜色
-	bool isCollider = false;
-}GameObject;
+
 
 typedef struct Ray {
 	//返回射线碰撞到的信息
@@ -135,7 +139,7 @@ public:
 	float FOV = PI * 0.25f;
 	float viewDepth = 30.0f;
 
-	float speed = 8.0f;
+	float speed = 5.0f;
 
 public:
 	Player()
@@ -145,14 +149,13 @@ public:
 	}
 };
 
-extern SDL_Event ioEvent;
-
 #define FPS_FUNCTION
 extern Ray RayCastHit(
 	int pixelX,			//像素点横坐标
 	Player& player,		//玩家对象引用
 	LevelMap& map		//当前关卡地图引用
 );
+
 
 
 #endif // !NOAENGINE_H
