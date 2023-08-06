@@ -16,6 +16,10 @@ using namespace std;
 typedef unsigned int Uint32;
 typedef void(*eventFunc)(void);
 
+typedef struct AnimatorFile {
+
+}AnimatorFile;
+
 //¶¯»­Æ÷
 class Animator
 {

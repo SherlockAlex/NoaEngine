@@ -104,6 +104,7 @@ public:
 	int Run();
 
 	void Debug(string msg);
+	void Debug(vector<string> msg);
 
 	SDL_Renderer* GetMainRenderer() {
 		return mainRenderer;

@@ -2,7 +2,7 @@
 #include "Animator.h"
 #include "Sprite.h"
 
-float deltaTime = 0.0f;
+//float deltaTime = 0.0f;
 
 NoaGameEngine::NoaGameEngine(
 	int width,int height,
@@ -109,6 +109,7 @@ float NoaGameEngine::DeltaTime() {
 	return deltaTime;
 }
 
+//Ë¢ÐÂÓÎÏ·»­Ãæ
 int SurfaceUpdate(void* data) {
 	SDL_UnlockTexture(game.GetSurface());
 	SDL_RenderCopy(game.GetMainRenderer(), game.GetSurface(), NULL, NULL);
@@ -187,16 +188,22 @@ int NoaGameEngine::Run()
 
 	}
 
-	//int threadReturnValue;
-
-	//SDL_WaitThread(thread, &threadReturnValue);
-
 	return 0;
 }
 
 void NoaGameEngine::Debug(string msg)
 {
 	cout << "[INFO]:" << msg << endl;
+}
+
+void NoaGameEngine::Debug(vector<string> msg)
+{
+	cout << "[INFO]:";
+	for (int i = 0;i<msg.size();i++)
+	{
+		cout << msg[i];
+	}
+	cout << endl;
 }
 
 

@@ -17,8 +17,9 @@ public:
 
 	void Destroy() override;
 
+	//用于检测碰撞并传递消息
 	virtual void OnTriggerEnter(vector<void*> other) {
-
+		
 	}
 
 };

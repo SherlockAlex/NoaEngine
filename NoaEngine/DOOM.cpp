@@ -100,7 +100,7 @@ class Enimy:public GameObject
 {
 
 private:
-	int hp = 50;
+	int hp = 200;
 
 	LevelMap* map;
 
@@ -120,11 +120,12 @@ public:
 
 	void TakeDamage(int damage) 
 	{
-		cout << "[info]:角色被攻击" << endl;
+		game.Debug("角色被攻击");
+		//cout << "[info]:角色被攻击" << endl;
 		hp -= damage;
 		if (hp <= 0)
 		{
-			cout << "[info]:角色死亡" << endl;
+			game.Debug("角色死亡");
 			Destroy();
 		}
 	}
@@ -140,6 +141,56 @@ public:
 
 };
 
+typedef struct GunFile {
+	int deltax;				//枪支的屏幕坐标
+	int deltay;				
+	int damage;			//子弹威力
+	SpriteFile spr;		//枪支图片
+	AnimatorFile amt;	//枪支动画
+};
+
+class Gun {
+	//游戏枪支类
+private:
+	//枪支再屏幕的位置
+	int x = 0;
+	int y = 0;
+
+	//deltaX一般有GunFile给出
+	int deltaX = 0;
+	int deltaY = 0;
+
+	//枪支和动画
+	Sprite* sprite;
+	Animator* animator = nullptr;
+
+public:
+	Gun(Sprite * sprite,Animator * animator) 
+	{
+		this->sprite = sprite;
+		this->animator = animator;
+
+		x = game.PixelWidth() / 2;
+		y = game.PixelHeight() - (int)((sprite->h / sprite->w) * (game.PixelWidth() / 4) * 0.5f);
+	}
+
+	//从本地的文件中加载枪支
+	Gun(const char* filename) {
+
+	}
+
+	void RenderGun(nVector offset) {
+		sprite->DrawSprite(x+offset.x+deltaX, y+offset.y+deltaY, true);
+	}
+
+	void Shoot()
+	{
+		//射击按钮按下
+		animator->Play();
+		sprite->UpdateImage(animator->GetCurrentFrameImage());
+	}
+
+};
 
 #define Object
 
@@ -147,7 +198,7 @@ static LevelMap currentMap;
 static Player player;
 static float distanceToCollider = 0.0f;
 
-#define Animation
+//枪支
 static Animator gunAniamtor(7);
 static Sprite gunSprite;
 
@@ -353,6 +404,7 @@ static void GameInput()
 
 }
 
+//绘制游戏画面
 static void DrawMap() 
 {
 	for (int x = 0;x<game.PixelWidth();x++) 
@@ -421,13 +473,13 @@ static void DrawMap()
 	for (auto object : gameObjects)
 	{
 
-		float fVecX = object->position.x - player.position.x;
-		float fVecY = object->position.y - player.position.y;
+		const float fVecX = object->position.x - player.position.x;
+		const float fVecY = object->position.y - player.position.y;
 
-		float fDistanceFromPlayer = sqrtf(fVecX * fVecX + fVecY * fVecY);
+		const float fDistanceFromPlayer = sqrtf(fVecX * fVecX + fVecY * fVecY);
 
-		float fEyeX = sinf(player.angle);
-		float fEyeY = cosf(player.angle);
+		const float fEyeX = sinf(player.angle);
+		const float fEyeY = cosf(player.angle);
 		float fObjectAngle = atan2(fEyeY, fEyeX) - atan2(fVecY, fVecX);
 		if (fObjectAngle < -3.14159f)
 		{
@@ -437,7 +489,7 @@ static void DrawMap()
 		{
 			fObjectAngle -= 2.0f * 3.14159f;
 		}
-		bool bInPlayerFOV = fabs(fObjectAngle) < player.FOV* 0.5f;
+		const bool bInPlayerFOV = fabs(fObjectAngle) < player.FOV* 0.5f;
 
 		if (bInPlayerFOV && fDistanceFromPlayer >= 0.5f &&
 			fDistanceFromPlayer < player.viewDepth)
@@ -445,26 +497,26 @@ static void DrawMap()
 
 			//绘制物体到屏幕上
 
-			float fObjectCeiling = (float)(game.PixelHeight() * 0.5)
+			const float fObjectCeiling = (float)(game.PixelHeight() * 0.5)
 				- game.PixelHeight() / (float)fDistanceFromPlayer;
-			float fObjectFloor = game.PixelHeight() - fObjectCeiling;
+			const float fObjectFloor = game.PixelHeight() - fObjectCeiling;
 
-			float fObjectHeight = fObjectFloor - fObjectCeiling;
-			float fObjectAspectRatio = (float)object->sprite.h / (float)object->sprite.w;		
-			float fObjectWidth = fObjectHeight / fObjectAspectRatio;
+			const float fObjectHeight = fObjectFloor - fObjectCeiling;
+			const float fObjectAspectRatio = (float)object->sprite.h / (float)object->sprite.w;		
+			const float fObjectWidth = fObjectHeight / fObjectAspectRatio;
 
-			float fMiddleOfObject = (0.5f * (fObjectAngle / (player.FOV * 0.5f)) + 0.5f)
+			const float fMiddleOfObject = (0.5f * (fObjectAngle / (player.FOV * 0.5f)) + 0.5f)
 				* (float)game.PixelWidth();
 
 			for (float lx = 0; lx < fObjectWidth; lx++)
 			{
 				for (float ly = 0; ly < fObjectHeight; ly++)
 				{
-					float objSimpleX = lx / fObjectWidth;
-					float objSimpleY = ly / fObjectHeight;
+					const float objSimpleX = lx / fObjectWidth;
+					const float objSimpleY = ly / fObjectHeight;
 					//Uint32 objColor = GetSpriteColor(objSimpleX, objSimpleY, 32, 32, bulletColor);
-					Uint32 objColor = object->sprite.GetTransposeColor(objSimpleY,objSimpleX);
-					int nObjectColumn = (int)(fMiddleOfObject + lx - (fObjectWidth * 0.5f));
+					const Uint32 objColor = object->sprite.GetTransposeColor(objSimpleY,objSimpleX);
+					const int nObjectColumn = (int)(fMiddleOfObject + lx - (fObjectWidth * 0.5f));
 					if (nObjectColumn >= 0 && nObjectColumn < game.PixelWidth())
 					{
 						if ((int)(fObjectCeiling + ly) < 0 || (int)(fObjectCeiling + ly) >= game.PixelHeight()
@@ -486,6 +538,11 @@ static void DrawMap()
 	}
 
 	//绘制枪支到屏幕下方
+	// deltax和deltay则是玩家自己设计
+	// x = surface.width/2 + deltax
+	// y = surface.height - (sprite.h/sprite.w)*(surface.width/4) + deltay
+	//
+
 	const int gunPosX = game.PixelWidth() / 2 + 20 * (sinf(player.position.x) + sinf(player.position.y));
 	const int gunPosY = game.PixelHeight() - (int)((258.0 / 238.0) * (game.PixelWidth() / 4) * 0.5f) + 15 * ((sinf(2 * player.position.x) + 1) + (sinf(2 * player.position.y) + 1));
 	

@@ -28,8 +28,8 @@ Behaviour::~Behaviour()
 	DestroyBehaviour(this);
 }
 
+//销毁Behaviour
 void Behaviour::Destroy()
 {
-	//删除这个对象
 	delete this;
 }
