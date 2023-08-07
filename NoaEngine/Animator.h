@@ -17,7 +17,11 @@ typedef unsigned int Uint32;
 typedef void(*eventFunc)(void);
 
 typedef struct AnimatorFile {
-
+	vector<uint32_t*> data;
+	int posx;
+	int posy;
+	int w;
+	int h;
 }AnimatorFile;
 
 //¶¯»­Æ÷
@@ -34,6 +38,7 @@ private:
 
 public:
 	Animator(float speed);
+	Animator(AnimatorFile animatorFile);
 	Animator(Uint32* frameImage, float speed);
 	~Animator();
 

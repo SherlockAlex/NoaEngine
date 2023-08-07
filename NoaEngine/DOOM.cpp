@@ -32,12 +32,14 @@ public:
 
 	}
 
-	Bullet(Vector startPos,Vector direction,float speed,LevelMap * map):Behaviour()
+	Bullet(Vector startPos,Vector direction,int damage,float speed,LevelMap * map):Behaviour()
 	{
 		position = startPos;
 		this->direction = direction;
 		this->speed = speed;
 		this->map = map;
+		this->damage = damage;
+		
 	}
 
 	void Start() override 
@@ -142,15 +144,58 @@ public:
 };
 
 typedef struct GunFile {
-	int deltax;				//枪支的屏幕坐标
+	int deltax;			//枪支的屏幕坐标偏移量
 	int deltay;				
 	int damage;			//子弹威力
-	SpriteFile spr;		//枪支图片
+
+	//第一帧大小
+	int w;
+	int h;
+
 	AnimatorFile amt;	//枪支动画
 };
 
+//用于加载本地的gun文件
+GunFile LoadGunFromFile(const char* file) {
+	GunFile gunFile;
+
+	try {
+		// 创建二进制读取器
+		std::ifstream reader(file, std::ios::binary);
+
+		// 读取枪支属性
+		reader.read(reinterpret_cast<char*>(&gunFile.deltax), sizeof(gunFile.deltax));
+		reader.read(reinterpret_cast<char*>(&gunFile.deltay), sizeof(gunFile.deltay));
+		reader.read(reinterpret_cast<char*>(&gunFile.damage), sizeof(gunFile.damage));
+		reader.read(reinterpret_cast<char*>(&gunFile.w), sizeof(gunFile.w));
+		reader.read(reinterpret_cast<char*>(&gunFile.h), sizeof(gunFile.h));
+
+		// 读取枪支动画属性
+		reader.read(reinterpret_cast<char*>(&gunFile.amt.posx), sizeof(gunFile.amt.posx));
+		reader.read(reinterpret_cast<char*>(&gunFile.amt.posy), sizeof(gunFile.amt.posy));
+		reader.read(reinterpret_cast<char*>(&gunFile.amt.w), sizeof(gunFile.amt.w));
+		reader.read(reinterpret_cast<char*>(&gunFile.amt.h), sizeof(gunFile.amt.h));
+
+		// 读取枪支动画数据
+		for (int i = 0; i < gunFile.amt.h; i++) {
+			uint32_t* frameData = new uint32_t[gunFile.amt.w];
+			reader.read(reinterpret_cast<char*>(frameData), sizeof(uint32_t) * gunFile.amt.w);
+			gunFile.amt.data.push_back(frameData);
+		}
+
+		reader.close();
+	}
+	catch (std::ifstream::failure e) {
+		std::cerr << "读取文件失败: " << e.what() << std::endl;
+	}
+
+	return gunFile;
+}
+
 class Gun {
 	//游戏枪支类
+public:
+	int damage = 200;
 private:
 	//枪支再屏幕的位置
 	int x = 0;
@@ -165,6 +210,10 @@ private:
 	Animator* animator = nullptr;
 
 public:
+	Gun() {
+
+	}
+
 	Gun(Sprite * sprite,Animator * animator) 
 	{
 		this->sprite = sprite;
@@ -175,11 +224,21 @@ public:
 	}
 
 	//从本地的文件中加载枪支
-	Gun(const char* filename) {
-
+	Gun(const char* filename) 
+	{
+		GunFile gunFile = LoadGunFromFile(filename);
+		animator = new Animator(gunFile.amt);
+		sprite = new Sprite(gunFile.w, gunFile.h, 4, animator->GetCurrentFrameImage());
+		
+		x = game.PixelWidth() / 2;
+		y = game.PixelHeight() - (int)((sprite->h / sprite->w) * (game.PixelWidth() / 4) * 0.5f);
+		
+		this->deltaX = gunFile.deltax;
+		this->deltaY = gunFile.deltay;
 	}
 
 	void RenderGun(nVector offset) {
+		//渲染枪支到屏幕上
 		sprite->DrawSprite(x+offset.x+deltaX, y+offset.y+deltaY, true);
 	}
 
@@ -223,6 +282,8 @@ static Sprite enimyTexture("./Assets/Texture/Enimy/Enimy.spr", 1);
 
 vector<float> wallDistanceBuffer;
 
+Gun * gun;
+
 static void GameStart(void)
 {
 	//这个是地图关卡文件
@@ -256,11 +317,14 @@ static void GameStart(void)
 	//插入动画帧
 	gunAniamtor.LoadFromAnimatorFile("./Assets/Animator/gun.amt");
 	gunSprite = Sprite(238, 258, 4, gunAniamtor.GetCurrentFrameImage());
+	
 	gunAniamtor.SetFrameEvent(1, GunChuncPlay);
 
-	
+	gun = new Gun(&gunSprite,&gunAniamtor);
 
+	//枪支声音
 	gunShotChunk = new Audio("./Assets/Chunk/Gun/shotgun.wav", Chunk);
+
 	themeMusic = new Audio("./Assets/Music/theme.mp3", Music);
 
 	themeMusic->Play(true);
@@ -321,7 +385,8 @@ static void GunChuncPlay()
 	//播放音效
 	game.Debug("Fire");
 	Vector bulletDir = Vector(sinf(player.angle), cosf(player.angle));
-	Bullet* bullet = new Bullet(player.position, bulletDir, 100, &currentMap);
+	//创建一个子弹类
+	Bullet* bullet = new Bullet(player.position, bulletDir,gun->damage,100, &currentMap);
 	gunShotChunk->Play(false);
 }
 
@@ -545,11 +610,17 @@ static void DrawMap()
 	// y = surface.height - (sprite.h/sprite.w)*(surface.width/4) + deltay
 	//
 
-	const int gunPosX = game.PixelWidth() / 2 + 20 * (sinf(player.position.x) + sinf(player.position.y));
-	const int gunPosY = game.PixelHeight() - (int)((258.0 / 238.0) * (game.PixelWidth() / 4) * 0.5f) + 15 * ((sinf(2 * player.position.x) + 1) + (sinf(2 * player.position.y) + 1));
+	nVector offset;
+	offset.x = 20 * (sinf(player.position.x) + sinf(player.position.y));
+	offset.y = 15 * ((sinf(2 * player.position.x) + 1) + (sinf(2 * player.position.y) + 1));
+
+	gun->RenderGun(offset);
+
+	//const int gunPosX = game.PixelWidth() / 2 + 20 * (sinf(player.position.x) + sinf(player.position.y));
+	//const int gunPosY = game.PixelHeight() - (int)((258.0 / 238.0) * (game.PixelWidth() / 4) * 0.5f) + 15 * ((sinf(2 * player.position.x) + 1) + (sinf(2 * player.position.y) + 1));
 	
 	//将图片显示再对应位置
-	gunSprite.DrawSprite(gunPosX, gunPosY, true);
+	//gunSprite.DrawSprite(gunPosX, gunPosY, true);
 
 	//std::printf("X=%3.2f, Y=%3.2f, A=%3.2f FPS=%3.2f\n", player.position.x, player.position.y, player.angle, 1.0f / game.DeltaTime());
 

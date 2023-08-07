@@ -14,6 +14,16 @@ Animator::Animator(float speed)
 	animatorList.push_back(this);
 }
 
+Animator::Animator(AnimatorFile animatorFile)
+{
+	vector<Uint32*> animatorData = animatorFile.data;
+	for (Uint32* frame : animatorData)
+	{
+		InsertFrameImage(frame);
+	}
+
+}
+
 /// <summary>
 /// ≥ı ºªØAnimator
 /// </summary>
