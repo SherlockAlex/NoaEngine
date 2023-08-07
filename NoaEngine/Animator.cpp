@@ -9,9 +9,16 @@ vector<Animator*> animatorList;
 
 Animator::Animator(float speed)
 {
-	game.Debug("Init Animator");
+	Debug("Init Animator");
 	this->speed = speed;
 	animatorList.push_back(this);
+	if (framesImage.size()>0)
+	{
+		currentFrame = framesImage[0];
+	}
+
+	currentFrame = nullptr;
+
 }
 
 Animator::Animator(AnimatorFile animatorFile)
@@ -33,7 +40,7 @@ Animator::Animator(Uint32* frameImage, float speed)
 	framesImage.push_back(frameImage);
 	currentFrame = frameImage;
 	this->speed = speed;
-	game.Debug("Init Animator");
+	Debug("Init Animator");
 
 	animatorList.push_back(this);
 
@@ -49,7 +56,7 @@ std::vector<uint32_t*> LoadAnimator(const char* file)
 	std::ifstream infile(file, std::ios::binary);
 	if (!infile)
 	{
-		game.Debug("无法打开文件");
+		Debug("无法打开文件");
 		return {};
 	}
 
@@ -140,7 +147,7 @@ void Animator::Play() {
 /// <param name="frameImage"></param>
 void Animator::InsertFrameImage(Uint32* frameImage)
 {
-	game.Debug("Insert Animator Frame");
+	Debug("Insert Animator Frame");
 	framesImage.push_back(frameImage);
 	if (currentFrame == nullptr)
 	{
@@ -170,13 +177,13 @@ Uint32 Animator::GetCurrentFramePixel(int index)
 /// <summary>
 /// 实时更新刷新
 /// </summary>
-void Animator::Update() {
+void Animator::Update(float deltaTime) {
 	if (!isPlaying)
 	{
 		return;
 	}
 
-	i = i + game.DeltaTime() * speed;
+	i = i + deltaTime * speed;
 	if (i >= this->framesImage.size())
 	{
 		i = 0;
@@ -185,7 +192,7 @@ void Animator::Update() {
 
 	this->Play(i);
 	
-	bool isFrameStart = abs(i - (int)i) < speed * game.DeltaTime();
+	bool isFrameStart = abs(i - (int)i) < speed * deltaTime;
 
 	if (isFrameStart && framesEvent[i] != nullptr)
 	{

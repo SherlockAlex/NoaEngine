@@ -10,7 +10,7 @@ void DestroyBehaviour(Behaviour * behaviour) {
 		behaviours.erase(it);
 	}
 	//delete behaviour;
-	game.Debug("Behaviour被销毁");
+	Debug("Behaviour被销毁");
 
 }
 

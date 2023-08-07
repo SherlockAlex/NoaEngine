@@ -51,7 +51,7 @@ public:
 	void Play();
 	void InsertFrameImage(Uint32* frameImage);
 	Uint32 GetCurrentFramePixel(int index);
-	void Update();//更新动画帧
+	void Update(float deltaTime);//更新动画帧
 
 };
 

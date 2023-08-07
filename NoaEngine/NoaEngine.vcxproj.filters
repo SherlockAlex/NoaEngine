@@ -15,16 +15,10 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="NoaEngine.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="FPS.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="DOOM.cpp">
+    <ClCompile Include="d_doom.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Animator.cpp">
@@ -52,6 +46,12 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="GameObject.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Ray.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="d_RayCastHit.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -84,6 +84,12 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="GameObject.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Ray.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="d_doom.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

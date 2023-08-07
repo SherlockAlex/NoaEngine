@@ -1,18 +1,54 @@
 /*
+* NoaEngine游戏引擎内容如下
+* Animator
+* Audio
+* Behaviour
+* GameObject
+* InputSystem
+* NoaEngine
+* NoaMath
+* Renderer
+* Scene
+* Sprite
+* 
+* 其中还有一个游戏例子d_*开头的项目
+* 
+*/
+
+/*
 	//a game example:
 
 	#include "NoaEngine.h"
 
-	static void YourGameStart(void)
+	class ExampleGame :public NoaGameEngine {
+	public:
+		ExampleGame(int width, int height,
+			GameWindowMode windowMode,
+			string gameName) :NoaGameEngine(width,height,windowMode,gameName) 
+		{
+			//game inintialize
+		}
+
+	public:
+
+		void Start() override 
+		{
+			//called once when game start
+		}
+
+		void Update() override 
+		{
+			//called when each frame
+		}
+
+
+	};
+
+	int main(int argc, char* argv[])
 	{
-		//write your game init
+		ExampleGame game(1920,1080,NoaGameEngine::FullScreen,"ExampleGame");
+		return game.Run();
 	}
-
-	static void YourGameUpdate(void){
-		//write your game loop
-	}
-
-	NoaGameEngine game(1920,1080,NoaGameEngin::WindowMode,"Your Game Name",YourGameStart,YourGameUpdate);
 
 */
 
@@ -53,6 +89,13 @@ using namespace std;
 #include "Behaviour.h"
 #include "GameObject.h"
 
+//窗口属性
+
+extern int pixelHeight;
+extern int pixelWidth;
+
+extern Renderer renderer;
+
 //游戏主类
 class NoaGameEngine {
 public:
@@ -72,7 +115,7 @@ private:
 	//窗口
 	int width;
 	int height;
-	char* gameName;
+	string gameName;
 	GameWindowMode gameWindowMode;
 
 	//像素宽度和高度
@@ -80,31 +123,28 @@ private:
 	int surfaceHeight;
 
 	//游戏相关
-	void (*Start)(void);
-	void (*Update)(void);
+	//void (*Start)(void);
+	//void (*Update)(void);
 
 	float deltaTime = 0;
 
 public:
+	virtual void Start() = 0;
+	virtual void Update() = 0;
+
+public:
 
 	//渲染器
-	Renderer renderer;
 	
 	NoaGameEngine(
 		int width, int height,
 		GameWindowMode windowMode,
-		char* gameName,
-		void (*Start)(void),void (*Update)(void)
+		string gameName
 	);
 	~NoaGameEngine();
 	void* PixelBuffer();
-	int PixelWidth();
-	int PixelHeight();
 	float DeltaTime();
 	int Run();
-
-	void Debug(string msg);
-	void Debug(vector<string> msg);
 
 	SDL_Renderer* GetMainRenderer() {
 		return mainRenderer;
@@ -116,47 +156,11 @@ public:
 
 };
 
-extern NoaGameEngine game;
+void Debug(string msg);
+
+void Debug(vector<string> msg);
 
 
-
-typedef struct Ray {
-	//返回射线碰撞到的信息
-	float angle = 0.0f;
-	float distance = 0.0f;
-	bool isHitDoor = false;
-	bool isHitWall = false;
-
-	//返回贴图信息
-	Vector simple;
-
-}Ray;
-
-
-class Player {
-public:
-	Vector position;
-	float angle = 0.0f;
-	float FOV = PI * 0.25f;
-	float viewDepth = 30.0f;
-
-	float speed = 5.0f;
-
-public:
-	Player()
-	{
-		position.x = 15.0f;
-		position.y = 5.9f;
-	}
-};
-
-#define FPS_FUNCTION
-extern Ray RayCastHit(
-	int pixelX,			//像素点横坐标
-	Player& player,		//玩家对象引用
-	LevelMap& map		//当前关卡地图引用
-);
-
-
+//extern NoaGameEngine game;
 
 #endif // !NOAENGINE_H

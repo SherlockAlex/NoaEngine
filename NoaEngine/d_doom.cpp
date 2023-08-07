@@ -1,10 +1,8 @@
 ﻿#define DOOM
 #ifdef DOOM
 
-#include "NoaEngine.h"
-#include "Animator.h"
-#include "Sprite.h"
-#include <map>
+#include "d_doom.h"
+
 
 //灰度值来判断物品
 //63：	玩家
@@ -13,253 +11,11 @@
 //31：	敌人
 //255：	地板
 
-static void GameStart(void);
-static void GameUpdate(void);
-
-NoaGameEngine game(1920/2, 1080/2, NoaGameEngine::WindowMode, (char *)"DOOM", GameStart, GameUpdate);
-
-class Bullet:public Behaviour {
-	//子弹类
-public:
-	Vector direction;
-	float speed = 0;
-	int damage = 50;
-	LevelMap* map = nullptr;
-
-public:
-	Bullet():Behaviour()
-	{
-
-	}
-
-	Bullet(Vector startPos,Vector direction,int damage,float speed,LevelMap * map):Behaviour()
-	{
-		position = startPos;
-		this->direction = direction;
-		this->speed = speed;
-		this->map = map;
-		this->damage = damage;
-		
-	}
-
-	void Start() override 
-	{
-
-	}
-
-	void Update() override
-	{
-		position.x = position.x + direction.x * speed * game.DeltaTime();
-		position.y = position.y + direction.y * speed * game.DeltaTime();
-
-		cout << "[info]:子弹坐标,x = " << position.x << ",y = " << position.y << endl;
-
-		if ((int)position.x <0||(int)position.x>=map->w || (int)position.y<0 || (int)position.y >= map->h)
-		{
-			cout << "[info]:子弹越界,x = " << position.x << ",y = " << position.y << endl;
-			Destroy();
-		}
-
-		Uint8  hitObject = map->level[(int)position.y * map->w + (int)position.x];
-
-		if (hitObject == 127
-			|| hitObject == 0)
-		{
-			//命中墙壁
-			
-			cout << "[info]:子弹命中墙壁,x = " << position.x << ",y = " << position.y << endl;
-			Destroy();
-		}
-
-		for (int i = 0;i<gameObjects.size();i++) 
-		{
-			if (!gameObjects[i]->isTrigger)
-			{
-				continue;
-			}
-
-			//计算角色和子弹之间的距离
-
-			float deltaX = gameObjects[i]->position.x - position.x;
-			float deltaY = gameObjects[i]->position.y - position.y;
-
-			float distance = deltaX * deltaX + deltaY * deltaY;
-
-			//执行事件
-			if (distance<1)
-			{
-				vector<void*> other;
-				other.push_back(&damage);
-				gameObjects[i]->OnTriggerEnter(other);
-				Destroy();
-			}
-		}
-
-	}
-};
-
-class Enimy:public GameObject
-{
-
-private:
-	int hp = 200;
-
-	LevelMap* map;
-
-public:
-	Enimy(Sprite enimySprite, Vector startPosition,LevelMap * map) :GameObject(enimySprite, startPosition) {
-		this->map = map;
-		isTrigger = true;
-	}
-
-	void Start() override {
-
-	}
-
-	void Update() override {
-
-	}
-
-	void TakeDamage(int damage) 
-	{
-		game.Debug("角色被攻击");
-		//cout << "[info]:角色被攻击" << endl;
-		hp -= damage;
-		if (hp <= 0)
-		{
-			game.Debug("角色死亡");
-			Destroy();
-		}
-	}
-
-	void OnTriggerEnter(vector<void*> other) override {
-		if (other.size()<=0) {
-			return;
-		}
-
-		TakeDamage(*(int *)other[0]);
-
-	}
-
-};
-
-typedef struct GunFile {
-	int deltax;			//枪支的屏幕坐标偏移量
-	int deltay;				
-	int damage;			//子弹威力
-
-	//第一帧大小
-	int w;
-	int h;
-
-	AnimatorFile amt;	//枪支动画
-};
-
-//用于加载本地的gun文件
-GunFile LoadGunFromFile(const char* file) {
-	GunFile gunFile;
-
-	try {
-		// 创建二进制读取器
-		std::ifstream reader(file, std::ios::binary);
-
-		// 读取枪支属性
-		reader.read(reinterpret_cast<char*>(&gunFile.deltax), sizeof(gunFile.deltax));
-		reader.read(reinterpret_cast<char*>(&gunFile.deltay), sizeof(gunFile.deltay));
-		reader.read(reinterpret_cast<char*>(&gunFile.damage), sizeof(gunFile.damage));
-		reader.read(reinterpret_cast<char*>(&gunFile.w), sizeof(gunFile.w));
-		reader.read(reinterpret_cast<char*>(&gunFile.h), sizeof(gunFile.h));
-
-		// 读取枪支动画属性
-		reader.read(reinterpret_cast<char*>(&gunFile.amt.posx), sizeof(gunFile.amt.posx));
-		reader.read(reinterpret_cast<char*>(&gunFile.amt.posy), sizeof(gunFile.amt.posy));
-		reader.read(reinterpret_cast<char*>(&gunFile.amt.w), sizeof(gunFile.amt.w));
-		reader.read(reinterpret_cast<char*>(&gunFile.amt.h), sizeof(gunFile.amt.h));
-
-		// 读取枪支动画数据
-		for (int i = 0; i < gunFile.amt.h; i++) {
-			uint32_t* frameData = new uint32_t[gunFile.amt.w];
-			reader.read(reinterpret_cast<char*>(frameData), sizeof(uint32_t) * gunFile.amt.w);
-			gunFile.amt.data.push_back(frameData);
-		}
-
-		reader.close();
-	}
-	catch (std::ifstream::failure e) {
-		std::cerr << "读取文件失败: " << e.what() << std::endl;
-	}
-
-	return gunFile;
-}
-
-class Gun {
-	//游戏枪支类
-public:
-	int damage = 200;
-private:
-	//枪支再屏幕的位置
-	int x = 0;
-	int y = 0;
-
-	//deltaX一般有GunFile给出
-	int deltaX = 0;
-	int deltaY = 0;
-
-	//枪支和动画
-	Sprite* sprite;
-	Animator* animator = nullptr;
-
-public:
-	Gun() {
-
-	}
-
-	Gun(Sprite * sprite,Animator * animator) 
-	{
-		this->sprite = sprite;
-		this->animator = animator;
-
-		x = game.PixelWidth() / 2;
-		y = game.PixelHeight() - (int)((sprite->h / sprite->w) * (game.PixelWidth() / 4) * 0.5f);
-	}
-
-	//从本地的文件中加载枪支
-	Gun(const char* filename) 
-	{
-		GunFile gunFile = LoadGunFromFile(filename);
-		animator = new Animator(gunFile.amt);
-		sprite = new Sprite(gunFile.w, gunFile.h, 4, animator->GetCurrentFrameImage());
-		
-		x = game.PixelWidth() / 2;
-		y = game.PixelHeight() - (int)((sprite->h / sprite->w) * (game.PixelWidth() / 4) * 0.5f);
-		
-		this->deltaX = gunFile.deltax;
-		this->deltaY = gunFile.deltay;
-	}
-
-	void RenderGun(nVector offset) {
-		//渲染枪支到屏幕上
-		sprite->DrawSprite(x+offset.x+deltaX, y+offset.y+deltaY, true);
-	}
-
-	void Shoot()
-	{
-		//射击按钮按下
-		animator->Play();
-		sprite->UpdateImage(animator->GetCurrentFrameImage());
-	}
-
-};
-
 #define Object
 
 static LevelMap currentMap;
 static Player player;
 static float distanceToCollider = 0.0f;
-
-//枪支
-static Animator gunAniamtor(7);
-static Sprite gunSprite;
 
 #define AudioManager
 static Audio * gunShotChunk;
@@ -275,7 +31,6 @@ static void DrawMap();
 static float heightOfWall = 1.0f;					//墙壁高度
 
 #define Texture
-//wallTexture
 static Sprite wallTexture("./Assets/Texture/Wall/wall_1.spr",1);
 static Sprite doorTexture("./Assets/Texture/Wall/wall_5.spr", 1);
 static Sprite enimyTexture("./Assets/Texture/Enimy/Enimy.spr", 1);
@@ -284,16 +39,18 @@ vector<float> wallDistanceBuffer;
 
 Gun * gun;
 
-static void GameStart(void)
+Doom game(1920, 1080, NoaGameEngine::FullScreen, "ExampleGame");
+
+void GameStart(void)
 {
 	//这个是地图关卡文件
 	const Map map = LoadMap("./Assets/Level/level_1.map");
 	LevelMap firstMap(map);
 	currentMap = firstMap;
 
-	wallDistanceBuffer = vector<float>(game.PixelWidth(),0.0);
+	wallDistanceBuffer = vector<float>(pixelWidth,0.0);
 
-	//初始化设置玩家位置
+	//初始化物品位置
 	for (int i=0;i<map.w;i++)
 	{
 		for (int j=0;j<map.h;j++) 
@@ -307,6 +64,7 @@ static void GameStart(void)
 			if (map.image[j*map.w+i] == 31)
 			{
 				new Enimy(enimyTexture, Vector(i, j),&currentMap);
+				Debug("添加敌人成功");
 				//std::cout << "[info]:添加敌人成功" << endl;
 			}
 
@@ -315,23 +73,20 @@ static void GameStart(void)
 
 
 	//插入动画帧
-	gunAniamtor.LoadFromAnimatorFile("./Assets/Animator/gun.amt");
-	gunSprite = Sprite(238, 258, 4, gunAniamtor.GetCurrentFrameImage());
-	
-	gunAniamtor.SetFrameEvent(1, GunChuncPlay);
-
-	gun = new Gun(&gunSprite,&gunAniamtor);
+	Animator* gunAnimator = new Animator(7);
+	gunAnimator->LoadFromAnimatorFile("./Assets/Animator/gun.amt");
+	Sprite * gunSprite = new Sprite(238, 258, 4, gunAnimator->GetCurrentFrameImage());
+	gunAnimator->SetFrameEvent(1, GunChuncPlay);
+	gun = new Gun(gunSprite, gunAnimator);
 
 	//枪支声音
 	gunShotChunk = new Audio("./Assets/Chunk/Gun/shotgun.wav", Chunk);
-
 	themeMusic = new Audio("./Assets/Music/theme.mp3", Music);
-
 	themeMusic->Play(true);
 
 }
 
-static void GameUpdate(void) 
+void GameUpdate(void) 
 {
 	GameInput();
 	DrawMap();
@@ -372,7 +127,7 @@ void InteractWithObject(char interactable)
 	];
 	if (hitChar == interactable)
 	{
-		game.Debug("Interact");
+		Debug("Interact");
 		currentMap.level[(int)player.position.y * currentMap.w + (int)player.position.x] = 255;
 	}
 
@@ -383,7 +138,7 @@ void InteractWithObject(char interactable)
 static void GunChuncPlay() 
 {
 	//播放音效
-	game.Debug("Fire");
+	Debug("Fire");
 	Vector bulletDir = Vector(sinf(player.angle), cosf(player.angle));
 	//创建一个子弹类
 	Bullet* bullet = new Bullet(player.position, bulletDir,gun->damage,100, &currentMap);
@@ -434,15 +189,8 @@ static void GameInput()
 
 	if (inputSystem.GetKeyDown(KeyJ)||inputSystem.GetMouseButton(LeftButton))
 	{
-		//鼠标左键按下
-		
-
-		gunAniamtor.Play();
-		gunSprite.UpdateImage(gunAniamtor.GetCurrentFrameImage());
-
+		gun->Shoot();
 	}
-
-	gunSprite.UpdateImage(gunAniamtor.GetCurrentFrameImage());//更新枪支图片
 
 	if (inputSystem.GetKeyHold(KeyE))
 	{
@@ -472,16 +220,16 @@ static void GameInput()
 //绘制游戏画面
 static void DrawMap() 
 {
-	for (int x = 0;x<game.PixelWidth();x++) 
+	for (int x = 0;x<pixelWidth;x++) 
 	{
 		Ray ray = RayCastHit(x, player, currentMap);
 
 		wallDistanceBuffer[x] = ray.distance;
 		
-		const float ceiling = game.PixelHeight() * 0.5f - (float)(game.PixelHeight() * heightOfWall)/ ray.distance;
-		const float ceilingSimpleY = game.PixelHeight() * 0.5f - (float)(game.PixelHeight()) / ray.distance;
-		const float floor = game.PixelHeight() - ceiling;
-		const float floorSimpleY = game.PixelHeight() - ceilingSimpleY;
+		const float ceiling = pixelHeight * 0.5f - (float)(pixelHeight * heightOfWall)/ ray.distance;
+		const float ceilingSimpleY = pixelHeight * 0.5f - (float)(pixelHeight) / ray.distance;
+		const float floor = pixelHeight - ceiling;
+		const float floorSimpleY = pixelHeight - ceilingSimpleY;
 
 		Uint32 color = BLACK;
 
@@ -496,7 +244,7 @@ static void DrawMap()
 
 		sharkCamera = 0;
 
-		for (int y = 0;y< game.PixelHeight();y++)
+		for (int y = 0;y< pixelHeight;y++)
 		{
 			if (y<=ceiling + sharkCamera)
 			{
@@ -523,13 +271,13 @@ static void DrawMap()
 				//绘制地板
 				//根据ray.simple来计算地板贴图坐标
 				//利用地板和墙壁的位置关系，以及ray.angle还有ray.distance还有ray.simple来获取地板贴图坐标
-				const float b = 1.0f - (((float)y - game.PixelHeight() / 2.0f) / ((float)game.PixelHeight() / 2.0f));
+				const float b = 1.0f - (((float)y - pixelHeight / 2.0f) / ((float)pixelHeight / 2.0f));
 				const float deltaRayShine = (1 - b) * (1 - b);
 				const float depth = (1 - b);
 
 				color = WHITE;
 			}
-			game.renderer.DrawPixel(x, y, color);
+			renderer.DrawPixel(x, y, color);
 
 		}
 
@@ -564,16 +312,16 @@ static void DrawMap()
 
 			//绘制物体到屏幕上
 
-			const float fObjectCeiling = (float)(game.PixelHeight() * 0.5)
-				- game.PixelHeight() / (float)fDistanceFromPlayer;
-			const float fObjectFloor = game.PixelHeight() - fObjectCeiling;
+			const float fObjectCeiling = (float)(pixelHeight * 0.5)
+				- pixelHeight / (float)fDistanceFromPlayer;
+			const float fObjectFloor = pixelHeight - fObjectCeiling;
 
 			const float fObjectHeight = fObjectFloor - fObjectCeiling;
 			const float fObjectAspectRatio = (float)object->sprite.h / (float)object->sprite.w;		
 			const float fObjectWidth = fObjectHeight / fObjectAspectRatio;
 
 			const float fMiddleOfObject = (0.5f * (fObjectAngle / (player.FOV * 0.5f)) + 0.5f)
-				* (float)game.PixelWidth();
+				* (float)pixelWidth;
 
 			for (float lx = 0; lx < fObjectWidth; lx++)
 			{
@@ -584,10 +332,10 @@ static void DrawMap()
 					//Uint32 objColor = GetSpriteColor(objSimpleX, objSimpleY, 32, 32, bulletColor);
 					const Uint32 objColor = object->sprite.GetTransposeColor(objSimpleY,objSimpleX);
 					const int nObjectColumn = (int)(fMiddleOfObject + lx - (fObjectWidth * 0.5f));
-					if (nObjectColumn >= 0 && nObjectColumn < game.PixelWidth())
+					if (nObjectColumn >= 0 && nObjectColumn < pixelWidth)
 					{
-						if ((int)(fObjectCeiling + ly) < 0 || (int)(fObjectCeiling + ly) >= game.PixelHeight()
-							|| (nObjectColumn < 0) || (nObjectColumn >= game.PixelWidth())) {
+						if ((int)(fObjectCeiling + ly) < 0 || (int)(fObjectCeiling + ly) >= pixelHeight
+							|| (nObjectColumn < 0) || (nObjectColumn >= pixelWidth)) {
 							continue;
 						}
 						if (objColor == BLACK||wallDistanceBuffer[nObjectColumn]<fDistanceFromPlayer)
@@ -596,7 +344,7 @@ static void DrawMap()
 						}
 						wallDistanceBuffer[nObjectColumn] = fDistanceFromPlayer;
 						//printf("x = %d,y = %d,color = %d\n", nObjectColumn, (int)(fObjectCeiling + ly), objColor);
-						game.renderer.DrawPixel(nObjectColumn, (int)(fObjectCeiling + ly), objColor);
+						renderer.DrawPixel(nObjectColumn, (int)(fObjectCeiling + ly), objColor);
 					}
 				}
 			}
@@ -616,14 +364,12 @@ static void DrawMap()
 
 	gun->RenderGun(offset);
 
-	//const int gunPosX = game.PixelWidth() / 2 + 20 * (sinf(player.position.x) + sinf(player.position.y));
-	//const int gunPosY = game.PixelHeight() - (int)((258.0 / 238.0) * (game.PixelWidth() / 4) * 0.5f) + 15 * ((sinf(2 * player.position.x) + 1) + (sinf(2 * player.position.y) + 1));
+}
+
+int main(int argc, char* argv[])
+{
 	
-	//将图片显示再对应位置
-	//gunSprite.DrawSprite(gunPosX, gunPosY, true);
-
-	//std::printf("X=%3.2f, Y=%3.2f, A=%3.2f FPS=%3.2f\n", player.position.x, player.position.y, player.angle, 1.0f / game.DeltaTime());
-
+	return game.Run();
 }
 
 #endif // DOOM

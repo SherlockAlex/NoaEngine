@@ -10,7 +10,7 @@ void DestroyGameObject(GameObject* gameObject) {
 		gameObjects.erase(it);
 	}
 
-	game.Debug("GameObject被销毁");
+	Debug("GameObject被销毁");
 
 }
 

@@ -46,14 +46,14 @@ public:
 	Renderer(int pixelWidth, int pixelHeight,void * pixelBuffer);
 	//»æÖÆÏñËØµã
 	void DrawPixel(int x,int y,Uint32 color);
-	void DrawImage(
+	/*void DrawImage(
 	int posX,
 	int posY,
 	int inmageW,
 	int imageH,
 	int scaleForSurface,
 	bool isDrawAlpha,
-	Uint32* imageRGB);
+	Uint32* imageRGB);*/
 
 };
 

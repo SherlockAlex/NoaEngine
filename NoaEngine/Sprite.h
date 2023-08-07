@@ -1,7 +1,6 @@
 #ifndef NOAENGINE_SPRITE_H
 #define NOAENGINE_SPRITE_H
 
-
 #include <iostream>
 #include <vector>
 #include <utility>

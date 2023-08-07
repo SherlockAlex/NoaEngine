@@ -4,11 +4,16 @@
 
 //float deltaTime = 0.0f;
 
+int pixelHeight = 0;
+int pixelWidth = 0;
+
+Renderer renderer;
+
 NoaGameEngine::NoaGameEngine(
 	int width,int height,
 	GameWindowMode windowMode,
-	char * gameName,
-	void(*Start)(void), void (*Update)(void))
+	string gameName
+	)
 {
 	
 	//初始化游戏
@@ -18,8 +23,8 @@ NoaGameEngine::NoaGameEngine(
 	this->gameName = gameName;
 
 	//绑定Start和Update
-	this->Start = Start;
-	this->Update = Update;
+	//this->Start = Start;
+	//this->Update = Update;
 
 	int init = SDL_Init(SDL_INIT_EVERYTHING);
 	if (init != 0)
@@ -29,7 +34,7 @@ NoaGameEngine::NoaGameEngine(
 	}
 
 	window = SDL_CreateWindow(
-		gameName,
+		gameName.c_str(),
 		SDL_WINDOWPOS_CENTERED,
 		SDL_WINDOWPOS_CENTERED,
 		width,
@@ -83,6 +88,9 @@ NoaGameEngine::NoaGameEngine(
 		exit(0);
 	}
 
+	pixelWidth = surfaceWidth;
+	pixelHeight = surfaceHeight;
+
 }
 
 NoaGameEngine::~NoaGameEngine() {
@@ -97,25 +105,11 @@ void* NoaGameEngine::PixelBuffer() {
 	return this->pixelBuffer;
 }
 
-int NoaGameEngine::PixelWidth() {
-	return surfaceWidth;
-}
-
-int NoaGameEngine::PixelHeight() {
-	return surfaceHeight;
-}
-
 float NoaGameEngine::DeltaTime() {
 	return deltaTime;
 }
 
 //刷新游戏画面
-int SurfaceUpdate(void* data) {
-	SDL_UnlockTexture(game.GetSurface());
-	SDL_RenderCopy(game.GetMainRenderer(), game.GetSurface(), NULL, NULL);
-	SDL_RenderPresent(game.GetMainRenderer());
-	return 0;
-}
 
 //计算每一帧需要处理几个I0事件
 float EventStep(const float deltaTime) 
@@ -123,10 +117,10 @@ float EventStep(const float deltaTime)
 	return 1000 * deltaTime;
 }
 
-int InputThread(void* data) 
+int InputThread(NoaGameEngine * game) 
 {
 	//主要的线程
-	const float deltaTime = game.DeltaTime();
+	const float deltaTime = game->DeltaTime();
 	const float step = EventStep(deltaTime);
 	int count = 0;
 	for (float i = 0; i < step *deltaTime;i+=deltaTime)
@@ -164,7 +158,7 @@ int NoaGameEngine::Run()
 		tp1 = tp2;
 		deltaTime = elapsedTime.count();
 
-		InputThread(nullptr);
+		InputThread(this);
 		
 		//执行游戏主类的update
 		Update();
@@ -176,7 +170,7 @@ int NoaGameEngine::Run()
 
 		for (int i = 0; i < animatorList.size(); i++)
 		{
-			animatorList[i]->Update();
+			animatorList[i]->Update(this->deltaTime);
 		}
 
 		if (ioEvent.type == SDL_QUIT)
@@ -184,19 +178,21 @@ int NoaGameEngine::Run()
 			break;
 		}
 
-		SurfaceUpdate(nullptr);
+		SDL_UnlockTexture(GetSurface());
+		SDL_RenderCopy(GetMainRenderer(), GetSurface(), NULL, NULL);
+		SDL_RenderPresent(GetMainRenderer());
 
 	}
 
 	return 0;
 }
 
-void NoaGameEngine::Debug(string msg)
+void Debug(string msg)
 {
 	cout << "[INFO]:" << msg << endl;
 }
 
-void NoaGameEngine::Debug(vector<string> msg)
+void Debug(vector<string> msg)
 {
 	cout << "[INFO]:";
 	for (int i = 0;i<msg.size();i++)
@@ -206,82 +202,5 @@ void NoaGameEngine::Debug(vector<string> msg)
 	cout << endl;
 }
 
-
-
-//射线投射算法
-Ray RayCastHit(
-	int pixelX,			//像素点横坐标
-	Player& player,		//玩家对象引用
-	LevelMap& map		//当前关卡地图引用
-)
-{
-	//射线投射算法
-	Ray ray;
-	ray.distance = 0.0f;
-	ray.angle = player.angle -
-		player.FOV * (0.5f - (float)(pixelX) / (float)(game.PixelWidth()));
-	const float rayForwordStep = 0.03f;
-	const float eyeX = sinf(ray.angle);
-	const float eyeY = cosf(ray.angle);
-
-	while (!ray.isHitDoor && !ray.isHitWall && ray.distance < player.viewDepth)
-	{
-		ray.distance += rayForwordStep;
-
-		const float floatHitPointX = player.position.x + ray.distance * eyeX;
-		const float floatHitPointY = player.position.y + ray.distance * eyeY;
-
-		const int intHitPointX = (int)floatHitPointX;
-		const int intHitPointY = (int)floatHitPointY;
-
-		if (intHitPointX < 0 || intHitPointX >= map.w || intHitPointY < 0 || intHitPointY >= map.h)
-		{
-			ray.isHitWall = true;
-			ray.distance = player.viewDepth;
-			continue;
-		}
-
-		const char hitChar = map.level[intHitPointY * map.w + intHitPointX];
-		if (hitChar == 0 || (hitChar == 127))
-		{
-			//这里可以将集中的物体存起来，再其他位置做判断
-			if (hitChar == 0)
-			{
-				ray.isHitWall = true;
-			}
-			else if (hitChar == 127)
-			{
-				ray.isHitDoor = true;
-			}
-
-			const float fBlockMidX = (float)intHitPointX + 0.5f;
-			const float fBlockMidY = (float)intHitPointY + 0.5f;
-			const float fTestAngle = atan2f((floatHitPointY - fBlockMidY), (floatHitPointX - fBlockMidX));
-
-			if (fTestAngle >= -PI * 0.25f && fTestAngle < PI * 0.25f)
-			{
-				ray.simple.x = floatHitPointY - (float)intHitPointY;
-
-			}
-			if (fTestAngle >= PI * 0.25f && fTestAngle < PI * 0.75f)
-			{
-				ray.simple.x = floatHitPointX - (float)intHitPointX;
-			}
-			if (fTestAngle < -PI * 0.25f && fTestAngle >= -PI * 0.75f)
-			{
-				ray.simple.x = floatHitPointX - (float)intHitPointX;
-			}
-			if (fTestAngle >= PI * 0.75f || fTestAngle < -PI * 0.75f)
-			{
-				ray.simple.x = floatHitPointY - (float)intHitPointY;
-			}
-		}
-	}
-
-	ray.distance = ray.distance * cosf(player.angle - ray.angle);
-
-	return ray;
-
-}
 
 

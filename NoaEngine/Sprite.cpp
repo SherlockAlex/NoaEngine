@@ -1,6 +1,8 @@
 #include "Sprite.h"
 #include "NoaEngine.h"
 
+extern Renderer renderer;
+
 ///Sprite类的实现
 Sprite::Sprite(SpriteFile sprFile, int sizeForSurface)
 {
@@ -53,7 +55,7 @@ void Sprite::UpdateImage(Uint32* image)
 void Sprite::DrawSprite(int posX, int posY, bool isRenderAlpha)
 {
 	//计算放大
-	int wannaW = game.PixelWidth() / sizeForSurface;
+	int wannaW = pixelWidth / sizeForSurface;
 	int wannaH = (int)(((float)h / (float)w) * wannaW);
 
 	for (int width = 0; width < wannaW; width++)
@@ -77,11 +79,11 @@ void Sprite::DrawSprite(int posX, int posY, bool isRenderAlpha)
 				}
 			}
 
-			if (x < 0 || x >= game.PixelWidth() || y < 0 || y >= game.PixelHeight())
+			if (x < 0 || x >= pixelWidth || y < 0 || y >= pixelHeight)
 			{
 				continue;
 			}
-			game.renderer.DrawPixel(x, y, pixelColor);
+			renderer.DrawPixel(x, y, pixelColor);
 		}
 	}
 }
@@ -89,7 +91,7 @@ void Sprite::DrawSprite(int posX, int posY, bool isRenderAlpha)
 void Sprite::DrawSprite(bool isRenderAlpha)
 {
 	//计算放大
-	int wannaW = game.PixelWidth() / sizeForSurface;
+	int wannaW = pixelWidth / sizeForSurface;
 	int wannaH = (int)(((float)h / (float)w) * wannaW);
 
 	for (int width = 0; width < wannaW; width++)
@@ -113,12 +115,11 @@ void Sprite::DrawSprite(bool isRenderAlpha)
 				}
 			}
 
-			if (x < 0 || x >= game.PixelWidth() || y < 0 || y >= game.PixelHeight())
+			if (x < 0 || x >= pixelWidth || y < 0 || y >= pixelHeight)
 			{
 				continue;
 			}
-			game.renderer.DrawPixel(x, y, pixelColor);
-			//DrawPixel(x, y, pixelColor);
+			renderer.DrawPixel(x, y, pixelColor);
 		}
 	}
 }
