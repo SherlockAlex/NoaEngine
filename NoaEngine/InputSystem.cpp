@@ -68,9 +68,9 @@ bool InputSystem::GetMouseMoveState()
 	return ioEvent.type == SDL_MOUSEMOTION;
 }
 
-nVector InputSystem::GetMouseMoveDelta()
+Vector<int> InputSystem::GetMouseMoveDelta()
 {
-	nVector delta;
+	Vector<int> delta;
 
 	delta.x = ioEvent.motion.xrel;
 	delta.y = ioEvent.motion.yrel;

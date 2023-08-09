@@ -10,7 +10,7 @@ typedef struct Ray {
 	bool isHitWall = false;
 
 	//·µ»ØÌùÍ¼ÐÅÏ¢
-	Vector simple;
+	Vector<float> simple;
 
 }Ray;
 

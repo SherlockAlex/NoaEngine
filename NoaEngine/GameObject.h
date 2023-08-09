@@ -11,7 +11,7 @@ public:
 public:
 	GameObject(Sprite sprite);
 
-	GameObject(Sprite sprite, Vector startPosition);
+	GameObject(Sprite sprite, Vector<float> startPosition);
 
 	~GameObject();
 

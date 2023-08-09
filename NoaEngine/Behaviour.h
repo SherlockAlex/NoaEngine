@@ -10,7 +10,7 @@ using namespace std;
 class Behaviour {
 public:
 	//表示位置信息
-	Vector position;
+	Vector<float> position;
 
 public:
 	Behaviour();

@@ -5,25 +5,43 @@
 #define PI 3.14159
 
 //∂®“Â2Œ¨ ∏¡ø
-typedef struct Vector {
-	float x = 0.0f;
-	float y = 0.0f;
+template <class T>
+struct Vector {
+	T x;
+	T y;
 
 	Vector() {
 
 	}
 
-	Vector(float x,float y) {
+	Vector(T x,T y) {
 		this->x = x;
 		this->y = y;
 	}
 
-}Vector;
+	Vector operator + (Vector a)
+	{
+		Vector result;
+		result.x = x + a.x;
+		result.y = y + a.y;
+		return result;
+	}
 
-typedef struct nVector {
-	int x = 0;
-	int y = 0;
-}nVector;
+	Vector operator - (Vector a)
+	{
+		Vector result;
+		result.x = x - a.x;
+		result.y = y - a.y;
+		return result;
+	}
+
+	T operator * (Vector a) 
+	{
+		T result = x * a.x + y * a.y;
+		return result;
+	}
+
+};
 
 #endif
 

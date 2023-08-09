@@ -44,7 +44,7 @@ extern Doom game;
 
 class Player {
 public:
-	Vector position;
+	Vector<float> position;
 	float angle = 0.0f;
 	float FOV = PI * 0.25f;
 	float viewDepth = 30.0f;
@@ -69,7 +69,7 @@ extern Ray RayCastHit(
 class Bullet :public Behaviour {
 	//子弹类
 public:
-	Vector direction;
+	Vector<float> direction;
 	float speed = 0;
 	int damage = 50;
 	LevelMap* map = nullptr;
@@ -80,7 +80,7 @@ public:
 
 	}
 
-	Bullet(Vector startPos, Vector direction, int damage, float speed, LevelMap* map) :Behaviour()
+	Bullet(Vector<float> startPos, Vector<float> direction, int damage, float speed, LevelMap* map) :Behaviour()
 	{
 		position = startPos;
 		this->direction = direction;
@@ -155,7 +155,7 @@ private:
 	LevelMap* map;
 
 public:
-	Enimy(Sprite enimySprite, Vector startPosition, LevelMap* map) :GameObject(enimySprite, startPosition) {
+	Enimy(Sprite enimySprite, Vector<float> startPosition, LevelMap* map) :GameObject(enimySprite, startPosition) {
 		this->map = map;
 		isTrigger = true;
 	}
@@ -285,7 +285,7 @@ public:
 		this->deltaY = gunFile.deltay;
 	}
 
-	void RenderGun(nVector offset) {
+	void RenderGun(Vector<int> offset) {
 		//渲染枪支到屏幕上
 		sprite->DrawSprite(x + offset.x + deltaX, y + offset.y + deltaY, true);
 		sprite->UpdateImage(animator->GetCurrentFrameImage());

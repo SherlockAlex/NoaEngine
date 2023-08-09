@@ -63,7 +63,7 @@ void GameStart(void)
 
 			if (map.image[j*map.w+i] == 31)
 			{
-				new Enimy(enimyTexture, Vector(i, j),&currentMap);
+				new Enimy(enimyTexture, Vector<float>(i, j),&currentMap);
 				Debug("添加敌人成功");
 				//std::cout << "[info]:添加敌人成功" << endl;
 			}
@@ -139,7 +139,7 @@ static void GunChuncPlay()
 {
 	//播放音效
 	Debug("Fire");
-	Vector bulletDir = Vector(sinf(player.angle), cosf(player.angle));
+	Vector<float> bulletDir = Vector<float>(sinf(player.angle), cosf(player.angle));
 	//创建一个子弹类
 	Bullet* bullet = new Bullet(player.position, bulletDir,gun->damage,100, &currentMap);
 	gunShotChunk->Play(false);
@@ -157,7 +157,7 @@ static void GameInput()
 	
 	if (inputSystem.GetMouseMoveState())
 	{
-		nVector delta = inputSystem.GetMouseMoveDelta();
+		Vector<int> delta = inputSystem.GetMouseMoveDelta();
 		player.angle += (delta.x)*2 * game.DeltaTime();
 
 	}
@@ -358,7 +358,7 @@ static void DrawMap()
 	// y = surface.height - (sprite.h/sprite.w)*(surface.width/4) + deltay
 	//
 
-	nVector offset;
+	Vector<int> offset;
 	offset.x = 20 * (sinf(player.position.x) + sinf(player.position.y));
 	offset.y = 15 * ((sinf(2 * player.position.x) + 1) + (sinf(2 * player.position.y) + 1));
 

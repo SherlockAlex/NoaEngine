@@ -46,6 +46,7 @@ public:
 	Renderer(int pixelWidth, int pixelHeight,void * pixelBuffer);
 	//»æÖÆÏñËØµã
 	void DrawPixel(int x,int y,Uint32 color);
+
 	/*void DrawImage(
 	int posX,
 	int posY,

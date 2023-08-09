@@ -73,7 +73,7 @@ public:
 	y > 0 鼠标向下移动 : y
 	y < 0 鼠标向上移动 : -y
 	*/
-	nVector GetMouseMoveDelta();
+	Vector<int> GetMouseMoveDelta();
 
 	bool GetMouseButton(MOUSEKEY mouseButton);
 

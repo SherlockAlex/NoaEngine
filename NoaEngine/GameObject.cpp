@@ -20,7 +20,7 @@ GameObject::GameObject(Sprite sprite) :Behaviour()
 	gameObjects.push_back(this);
 }
 
-GameObject::GameObject(Sprite sprite, Vector startPosition) :Behaviour() 
+GameObject::GameObject(Sprite sprite, Vector<float> startPosition) :Behaviour() 
 {
 	this->sprite = sprite;
 	this->position = startPosition;
