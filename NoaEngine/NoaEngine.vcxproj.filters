@@ -48,9 +48,6 @@
     <ClCompile Include="GameObject.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Ray.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="d_RayCastHit.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -84,9 +81,6 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="GameObject.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="Ray.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="d_doom.h">

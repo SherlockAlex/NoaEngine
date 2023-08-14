@@ -20,6 +20,7 @@ typedef unsigned char Uint8;
 
 typedef struct MapFile
 {
+	//地图文件
 	int w;
 	int h;
 	uint8_t* image;
@@ -78,8 +79,6 @@ public:
 	{
 		this->w = width;
 		this->h = height;
-
-		//level = (Uint8*)malloc(sizeof(Uint8) * width * height);
 		level = new Uint8(width * height);
 
 		//加载地图到缓存中
@@ -122,23 +121,6 @@ public:
 		}
 
 		return content;
-	}
-
-	void SaveLevel(const std::wstring& map, const char* filePath) {
-		std::ofstream file(filePath, std::ios::binary);
-
-		if (file.is_open()) {
-			const char* bytes = reinterpret_cast<const char*>(map.c_str());
-			size_t length = sizeof(wchar_t) * map.length();
-
-			file.write(bytes, length);
-			file.close();
-
-			std::cout << "内容已成功保存到二进制文件中。" << std::endl;
-		}
-		else {
-			std::cerr << "无法打开文件。" << std::endl;
-		}
 	}
 
 };

@@ -1,15 +1,15 @@
 /*
-* NoaEngine游戏引擎内容如下
-* Animator
-* Audio
-* Behaviour
-* GameObject
-* InputSystem
-* NoaEngine
-* NoaMath
-* Renderer
-* Scene
-* Sprite
+* NoaEngine游戏引擎内容如下:
+* Animator					动画器
+* Audio						声音模块
+* Behaviour					脚本模块
+* GameObject				游戏物品
+* InputSystem				输入系统
+* NoaEngine					游戏基类
+* NoaMath					常用的数学模块
+* Renderer					渲染器，用于绘制画面
+* Scene						场景地图模块
+* Sprite					精灵模块
 * 
 * 其中还有一个游戏例子d_*开头的项目
 * 
@@ -88,15 +88,16 @@ using namespace std;
 #include "Renderer.h"
 #include "Behaviour.h"
 #include "GameObject.h"
+#include "Animator.h"
+#include "Sprite.h"
 
 //窗口属性
-
 extern int pixelHeight;
 extern int pixelWidth;
 
 extern Renderer renderer;
 
-//游戏主类
+//游戏基类
 class NoaGameEngine {
 public:
 	enum GameWindowMode
@@ -147,8 +148,5 @@ public:
 void Debug(string msg);
 
 void Debug(vector<string> msg);
-
-
-//extern NoaGameEngine game;
 
 #endif // !NOAENGINE_H

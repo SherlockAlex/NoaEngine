@@ -3,6 +3,7 @@
 
 #include "d_doom.h"
 
+extern vector<GameObject*> gameObjects;
 
 //灰度值来判断物品
 //63：	玩家
@@ -39,7 +40,7 @@ vector<float> wallDistanceBuffer;
 
 Gun * gun;
 
-Doom game(1920, 1080, NoaGameEngine::FullScreen, "ExampleGame");
+Doom game(1920/2, 1080/2, NoaGameEngine::WindowMode, "DOOM");
 
 void GameStart(void)
 {
@@ -89,6 +90,7 @@ void GameStart(void)
 void GameUpdate(void) 
 {
 	GameInput();
+
 	DrawMap();
 }
 
@@ -153,14 +155,17 @@ static void GameInput()
 {
 	const float distanceToCollider = 0.0f;
 	//处理玩家输入问题
-	
-	
-	if (inputSystem.GetMouseMoveState())
-	{
-		Vector<int> delta = inputSystem.GetMouseMoveDelta();
-		player.angle += (delta.x)*2 * game.DeltaTime();
 
+	while (SDL_PollEvent(&ioEvent)) {
+		if (inputSystem.GetMouseMoveState())
+		{
+			Vector<float> delta = inputSystem.GetMouseMoveDelta();
+			player.angle += (delta.x) * 0.3 * game.DeltaTime();
+
+		}
 	}
+
+	
 
 	// 处理前进移动和碰撞
 	if (inputSystem.GetKeyHold(KeyW))
@@ -236,8 +241,6 @@ static void DrawMap()
 		const float shadowOfWall = 1 / (1 +
 			ray.distance * ray.distance * ray.distance
 			* ray.distance * ray.distance * 0.00002);
-
-		//float shadowOfWall = 1;
 
 		float sharkCamera = 75*(sinf(1.5f*player.position.x) + sinf(1.5f*player.position.y));
 		sharkCamera = sharkCamera / ray.distance;		//镜头晃动

@@ -199,10 +199,5 @@ void Animator::Update(float deltaTime) {
 		framesEvent[i]();
 	}
 
-	//cout << "Animator is update:" << isPlaying << ",frame:" << i << ",eps:" << abs(i - (int)i) << endl;
-
-	//更新相应的图像
-	//gunSprite.UpdateImage(gunAniamtor.GetCurrentFrameImage());
-
 }
 

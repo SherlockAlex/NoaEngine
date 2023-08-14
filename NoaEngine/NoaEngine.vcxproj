@@ -130,7 +130,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>D:\SDL2\msvc(VS)\SDL2-2.26.0-allinone\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
@@ -153,7 +153,6 @@
     <ClCompile Include="InputSystem.cpp" />
     <ClCompile Include="NoaEngine.cpp" />
     <ClCompile Include="NoaMath.cpp" />
-    <ClCompile Include="Ray.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Sprite.cpp" />
@@ -167,7 +166,6 @@
     <ClInclude Include="InputSystem.h" />
     <ClInclude Include="NoaEngine.h" />
     <ClInclude Include="NoaMath.h" />
-    <ClInclude Include="Ray.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Sprite.h" />

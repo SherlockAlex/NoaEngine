@@ -4,6 +4,10 @@
 
 //float deltaTime = 0.0f;
 
+extern vector <Behaviour*> behaviours;
+extern vector<GameObject*> gameObjects;
+extern vector<Animator*> animatorList;
+
 int pixelHeight = 0;
 int pixelWidth = 0;
 
@@ -111,10 +115,12 @@ float NoaGameEngine::DeltaTime() {
 
 //刷新游戏画面
 
-//计算每一帧需要处理几个I0事件
+
 float EventStep(const float deltaTime) 
 {
-	return 1000 * deltaTime;
+	//计算每一帧需要处理几个I0事件最合适
+	//不同的机器，表达式可能不同
+	return 1024 * deltaTime;
 }
 
 int InputThread(NoaGameEngine * game) 
@@ -151,16 +157,24 @@ int NoaGameEngine::Run()
 		behaviours[i]->Start();
 	}
 
-	while (1)
+	bool isRun = true;
+
+	while (isRun)
 	{
+
 		tp2 = chrono::system_clock::now();
 		elapsedTime = tp2 - tp1;
 		tp1 = tp2;
 		deltaTime = elapsedTime.count();
 
-		InputThread(this);
-		
 		//执行游戏主类的update
+
+		if (ioEvent.type == SDL_QUIT)
+		{
+			isRun = false;
+			break;
+		}
+
 		Update();
 
 		for (int i = 0; i < behaviours.size(); i++)
@@ -173,11 +187,6 @@ int NoaGameEngine::Run()
 			animatorList[i]->Update(this->deltaTime);
 		}
 
-		if (ioEvent.type == SDL_QUIT)
-		{
-			break;
-		}
-
 		SDL_UnlockTexture(texture);
 		SDL_RenderCopy(mainRenderer, texture, nullptr, nullptr);
 		SDL_RenderPresent(mainRenderer);
@@ -187,9 +196,17 @@ int NoaGameEngine::Run()
 	return 0;
 }
 
+#include <ctime>
+
 void Debug(string msg)
 {
-	cout << "[INFO]:" << msg << endl;
+	//下面显示时间的部分的代码可能编译会出现异常，注意在编译的预处理请加上 _CRT_SECURE_NO_WARNINGS
+	std::time_t current_time = std::time(nullptr);
+
+	// 将当前时间转换为字符串格式
+	char time_string[100];
+	std::strftime(time_string, sizeof(time_string), "%Y-%m-%d %H:%M:%S", std::localtime(&current_time));
+	cout << "[INFO " << time_string << "]:" << msg << endl;
 }
 
 void Debug(vector<string> msg)

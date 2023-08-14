@@ -21,6 +21,4 @@ public:
 	virtual void Destroy();
 };
 
-extern vector <Behaviour*> behaviours;
-
 #endif

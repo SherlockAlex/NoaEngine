@@ -55,6 +55,4 @@ public:
 
 };
 
-extern vector<Animator*> animatorList;
-
 #endif

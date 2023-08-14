@@ -2,13 +2,12 @@
 #define D_DOOM_H
 
 #include "NoaEngine.h"
-#include "Animator.h"
-#include "Sprite.h"
-#include "Ray.h"
 #include <map>
 
 extern void GameStart(void);
 extern void GameUpdate(void);
+
+extern vector<GameObject*> gameObjects;
 
 class Doom :public NoaGameEngine {
 
@@ -58,6 +57,18 @@ public:
 		position.y = 5.9f;
 	}
 };
+
+typedef struct Ray {
+	//返回射线碰撞到的信息
+	float angle = 0.0f;
+	float distance = 0.0f;
+	bool isHitDoor = false;
+	bool isHitWall = false;
+
+	//返回贴图信息
+	Vector<float> simple;
+
+}Ray;
 
 extern Ray RayCastHit(
 	int pixelX,			//像素点横坐标

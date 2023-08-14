@@ -63,17 +63,17 @@ public:
 	bool GetKeyHold(char key);
 	bool GetKeyDown(char key);
 
-	
-
 	bool GetMouseMoveState();
 	
+	void Update();
+
 	/*
 	x > 0 鼠标向右移动 : x
 	x < 0 鼠标向左移动 : -x
 	y > 0 鼠标向下移动 : y
 	y < 0 鼠标向上移动 : -y
 	*/
-	Vector<int> GetMouseMoveDelta();
+	Vector<float> GetMouseMoveDelta();
 
 	bool GetMouseButton(MOUSEKEY mouseButton);
 
