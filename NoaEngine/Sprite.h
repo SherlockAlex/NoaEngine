@@ -81,11 +81,11 @@ public:
 
 public:
 	void UpdateImage(Uint32* image);
-	void DrawSprite(int posX, int posY, bool isRenderAlpha);
-	void DrawSprite(bool isRenderAlpha);
+	void DrawSprite(int posX, int posY, bool isRenderAlpha) const;
+	void DrawSprite(bool isRenderAlpha) const;
 
-	Uint32 GetColor(float normalizedX, float normalizedY);
-	Uint32 GetTransposeColor(float normalizedX, float normalizedY);
+	Uint32 GetColor(float normalizedX, float normalizedY) const;
+	Uint32 GetTransposeColor(float normalizedX, float normalizedY) const;
 
 };
 

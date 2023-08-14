@@ -45,7 +45,7 @@ void GameStart(void)
 {
 	//这个是地图关卡文件
 	const Map map = LoadMap("./Assets/Level/level_1.map");
-	LevelMap firstMap(map);
+	const LevelMap firstMap(map);
 	currentMap = firstMap;
 
 	wallDistanceBuffer = vector<float>(pixelWidth,0.0);

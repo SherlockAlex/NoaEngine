@@ -122,10 +122,6 @@ private:
 	int surfaceWidth;
 	int surfaceHeight;
 
-	//”Œœ∑œ‡πÿ
-	//void (*Start)(void);
-	//void (*Update)(void);
-
 	float deltaTime = 0;
 
 public:
@@ -145,14 +141,6 @@ public:
 	void* PixelBuffer();
 	float DeltaTime();
 	int Run();
-
-	SDL_Renderer* GetMainRenderer() {
-		return mainRenderer;
-	}
-
-	SDL_Texture* GetSurface() {
-		return texture;
-	}
 
 };
 

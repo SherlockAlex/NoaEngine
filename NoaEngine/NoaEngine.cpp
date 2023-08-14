@@ -178,9 +178,9 @@ int NoaGameEngine::Run()
 			break;
 		}
 
-		SDL_UnlockTexture(GetSurface());
-		SDL_RenderCopy(GetMainRenderer(), GetSurface(), NULL, NULL);
-		SDL_RenderPresent(GetMainRenderer());
+		SDL_UnlockTexture(texture);
+		SDL_RenderCopy(mainRenderer, texture, nullptr, nullptr);
+		SDL_RenderPresent(mainRenderer);
 
 	}
 

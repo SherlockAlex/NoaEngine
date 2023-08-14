@@ -23,7 +23,7 @@ Animator::Animator(float speed)
 
 Animator::Animator(AnimatorFile animatorFile)
 {
-	vector<Uint32*> animatorData = animatorFile.data;
+	const vector<Uint32*> animatorData = animatorFile.data;
 	for (Uint32* frame : animatorData)
 	{
 		InsertFrameImage(frame);
@@ -91,7 +91,7 @@ std::vector<uint32_t*> LoadAnimator(const char* file)
 /// </summary>
 /// <param name="filePath">动画文件路径</param>
 void Animator::LoadFromAnimatorFile(const char* filePath) {
-	vector<Uint32*> animatorData = LoadAnimator(filePath);
+	const vector<Uint32*> animatorData = LoadAnimator(filePath);
 	for (Uint32* frame : animatorData)
 	{
 		InsertFrameImage(frame);
@@ -192,7 +192,7 @@ void Animator::Update(float deltaTime) {
 
 	this->Play(i);
 	
-	bool isFrameStart = abs(i - (int)i) < speed * deltaTime;
+	const bool isFrameStart = abs(i - (int)i) < speed * deltaTime;
 
 	if (isFrameStart && framesEvent[i] != nullptr)
 	{

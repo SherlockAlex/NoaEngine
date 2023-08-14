@@ -52,24 +52,24 @@ void Sprite::UpdateImage(Uint32* image)
 /// <param name="posX">屏幕坐标x</param>
 /// <param name="posY">屏幕坐标y</param>
 /// <param name="isRenderAlpha">是否采用alpha通道</param>
-void Sprite::DrawSprite(int posX, int posY, bool isRenderAlpha)
+void Sprite::DrawSprite(int posX, int posY, bool isRenderAlpha) const
 {
 	//计算放大
-	int wannaW = pixelWidth / sizeForSurface;
-	int wannaH = (int)(((float)h / (float)w) * wannaW);
+	const int wannaW = pixelWidth / sizeForSurface;
+	const int wannaH = (int)(((float)h / (float)w) * wannaW);
 
 	for (int width = 0; width < wannaW; width++)
 	{
 		for (int height = 0; height < wannaH; height++)
 		{
-			int x = posX - ((float)wannaW * 0.5f) + width;
-			int y = posY - ((float)wannaH * 0.5f) + height;
+			const int x = posX - ((float)wannaW * 0.5f) + width;
+			const int y = posY - ((float)wannaH * 0.5f) + height;
 
-			float fSimpleX = (float)(width) / (float)wannaW;
-			float fSimpleY = (float)(height) / (float)wannaH;
+			const float fSimpleX = (float)(width) / (float)wannaW;
+			const float fSimpleY = (float)(height) / (float)wannaH;
 
 			//Uint32 pixelColor = GetSpriteColor(fSimpleY, fSimpleX, h, w, image);
-			Uint32 pixelColor = GetTransposeColor(fSimpleY, fSimpleX);
+			const Uint32 pixelColor = GetTransposeColor(fSimpleY, fSimpleX);
 
 			if (isRenderAlpha)
 			{
@@ -88,24 +88,24 @@ void Sprite::DrawSprite(int posX, int posY, bool isRenderAlpha)
 	}
 }
 
-void Sprite::DrawSprite(bool isRenderAlpha)
+void Sprite::DrawSprite(bool isRenderAlpha) const
 {
 	//计算放大
-	int wannaW = pixelWidth / sizeForSurface;
-	int wannaH = (int)(((float)h / (float)w) * wannaW);
+	const int wannaW = pixelWidth / sizeForSurface;
+	const int wannaH = (int)(((float)h / (float)w) * wannaW);
 
 	for (int width = 0; width < wannaW; width++)
 	{
 		for (int height = 0; height < wannaH; height++)
 		{
-			int x = posx - ((float)wannaW * 0.5f) + width;
-			int y = posy - ((float)wannaH * 0.5f) + height;
+			const int x = posx - ((float)wannaW * 0.5f) + width;
+			const int y = posy - ((float)wannaH * 0.5f) + height;
 
-			float fSimpleX = (float)(width) / (float)wannaW;
-			float fSimpleY = (float)(height) / (float)wannaH;
+			const float fSimpleX = (float)(width) / (float)wannaW;
+			const float fSimpleY = (float)(height) / (float)wannaH;
 
 			//Uint32 pixelColor = GetSpriteColor(fSimpleY, fSimpleX, h, w, image);
-			Uint32 pixelColor = GetTransposeColor(fSimpleY, fSimpleX);
+			const Uint32 pixelColor = GetTransposeColor(fSimpleY, fSimpleX);
 
 			if (isRenderAlpha)
 			{
@@ -124,7 +124,7 @@ void Sprite::DrawSprite(bool isRenderAlpha)
 	}
 }
 
-Uint32 Sprite::GetColor(float normalizedX, float normalizedY)
+Uint32 Sprite::GetColor(float normalizedX, float normalizedY) const
 {
 	//从图片中获取像素
 	int sx = normalizedX * (float)w;
@@ -143,7 +143,8 @@ Uint32 Sprite::GetColor(float normalizedX, float normalizedY)
 	return image[sy * w + sx];
 }
 
-Uint32 Sprite::GetTransposeColor(float normalizedX, float normalizedY) {
+Uint32 Sprite::GetTransposeColor(float normalizedX, float normalizedY) const
+{
 	//从图片中获取像素
 	int sx = normalizedX * (float)h;
 	int sy = normalizedY * (float)w - 1;

@@ -1,8 +1,11 @@
 #ifndef NOAENGINE_RENDERER__H
 #define NOAENGINE_RENDERER_H
 
-typedef unsigned int Uint32;
-typedef unsigned char Uint8;
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_ttf.h>
+#include <string>
+
+using namespace std;
 
 // Color constant
 #define	BLACK			0x000000
@@ -34,6 +37,8 @@ typedef unsigned char Uint8;
 #define GetGValue(rgb)      (LOBYTE(((unsigned short)(rgb)) >> 8))
 #define GetBValue(rgb)      (LOBYTE((rgb)>>16))
 
+
+
 class Renderer
 {
 private:
@@ -45,16 +50,16 @@ public:
 	Renderer();
 	Renderer(int pixelWidth, int pixelHeight,void * pixelBuffer);
 	//»æÖÆÏñËØµã
-	void DrawPixel(int x,int y,Uint32 color);
-
-	/*void DrawImage(
+	void DrawPixel(int x,int y,Uint32 color) const;
+	void DrawString(int x,int y,const string & str,Uint32 color,const int size);
+	void DrawImage(
 	int posX,
 	int posY,
 	int inmageW,
 	int imageH,
 	int scaleForSurface,
 	bool isDrawAlpha,
-	Uint32* imageRGB);*/
+	Uint32* imageRGB) const;
 
 };
 

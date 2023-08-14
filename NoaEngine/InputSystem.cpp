@@ -81,6 +81,6 @@ Vector<int> InputSystem::GetMouseMoveDelta()
 bool InputSystem::GetMouseButton(MOUSEKEY mouseButton)
 {
 	int mouseX, mouseY;
-	Uint32 mouseState = SDL_GetMouseState(&mouseX, &mouseY);
+	const Uint32 mouseState = SDL_GetMouseState(&mouseX, &mouseY);
 	return mouseState&SDL_BUTTON(mouseButton);
 }
