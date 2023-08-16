@@ -1,4 +1,4 @@
-﻿#define DOOM
+﻿//#define DOOM
 #ifdef DOOM
 
 #include "d_doom.h"
@@ -369,10 +369,10 @@ static void DrawMap()
 
 }
 
-int main(int argc, char* argv[])
-{
-	
-	return game.Run();
-}
+//int main(int argc, char* argv[])
+//{
+//	
+//	return game.Run();
+//}
 
 #endif // DOOM

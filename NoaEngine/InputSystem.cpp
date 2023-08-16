@@ -11,7 +11,7 @@ SDL_Event ioEvent;
 InputSystem::InputSystem()
 {
 	// 开启相对鼠标模式
-	SDL_SetRelativeMouseMode(SDL_TRUE);
+	
 }
 
 bool InputSystem::GetKeyHold(char key) {
@@ -76,6 +76,8 @@ void InputSystem::Update()
 
 Vector<float> InputSystem::GetMouseMoveDelta()
 {
+	SDL_SetRelativeMouseMode(SDL_TRUE);
+
 	Vector<float> delta;
 
 	delta.x = ioEvent.motion.xrel;

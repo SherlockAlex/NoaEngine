@@ -60,9 +60,11 @@ public:
 
 public:
 
+	//无需更新ioEvent
 	bool GetKeyHold(char key);
 	bool GetKeyDown(char key);
 
+	//更新ioEvent
 	bool GetMouseMoveState();
 	
 	void Update();

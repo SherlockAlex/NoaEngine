@@ -175,6 +175,8 @@ int NoaGameEngine::Run()
 			break;
 		}
 
+		SDL_PollEvent(&ioEvent);
+
 		Update();
 
 		for (int i = 0; i < behaviours.size(); i++)
