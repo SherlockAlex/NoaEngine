@@ -1,4 +1,15 @@
-objs=./*.cpp ./*.h
+objs=./obj/Animator.o \
+	 ./obj/Audio.o \
+	 ./obj/Behaviour.o \
+	 ./obj/GameObject.o \
+	 ./obj/InputSystem.o \
+	 ./obj/NoaEngine.o \
+	 ./obj/NoaMath.o \
+	 ./obj/Renderer.o \
+	 ./obj/Scene.o \
+	 ./obj/Sprite.o \
+	 ./obj/d_doom.o \
+	 ./obj/d_RayCastHit.o
 
 CXX=g++
 
@@ -12,6 +23,11 @@ BUILD_DIR=./game-build
 
 GAME_FILE=/game
 
+./obj/%.o:%.cpp
+	mkdir -p obj
+	$(CXX) -c -Bstatic -I$(INCDIRS) -L$(LIBDIRS) $(CFLAGS) $^ -o $@ 
+
+
 install:$(objs)
 	mkdir -p $(BUILD_DIR)
 	$(CXX) $(objs) -Bstatic -I$(INCDIRS) -L$(LIBDIRS) $(CFLAGS) -o $(BUILD_DIR)$(GAME_FILE)
@@ -20,6 +36,7 @@ env-linux:
 	sudo apt-get install libsdl2-dev libsdl2-net-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-ttf-dev
 
 clean:
+	rm -rf *.o
 	rm -rf $(BUILD_DIR)$(GAME_FILE)
 
 run:
