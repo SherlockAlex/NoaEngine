@@ -33,8 +33,7 @@ GameObject::~GameObject()
 	Behaviour::~Behaviour();
 }
 
-void GameObject::Destroy()
+void Destroy(GameObject* gameObject)
 {
-	delete this;
+	delete gameObject;
 }
-

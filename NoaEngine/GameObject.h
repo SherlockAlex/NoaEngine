@@ -18,14 +18,14 @@ public:
 
 	~GameObject();
 
-	void Destroy() override;
-
 	//用于检测碰撞并传递消息
 	virtual void OnTriggerEnter(vector<void*> other) {
 		//用于传递碰撞检测的消息
 	}
 
 };
+
+extern void Destroy(GameObject * gameObject);
 
 #endif // !NOAENGINE_GAMEOBJECT
 

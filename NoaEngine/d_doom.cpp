@@ -87,10 +87,13 @@ void GameStart(void)
 	themeMusic->Play(true);
 
 	//绑定输入事件
-	inputSystem.BandEvent(MouseInput);
-
 #ifdef __linux__
 	inputSystem.BandEvent(GameInput);
+#else
+#ifdef _WIN64
+	inputSystem.BandEvent(MouseInput);
+#endif // _WIN64
+
 #endif // DEBUG
 }
 

@@ -18,7 +18,9 @@ public:
 public:
 	virtual void Start() = 0;
 	virtual void Update() = 0;
-	virtual void Destroy();
 };
+
+//Ïú»ÙÓÎÏ·½Å±¾
+extern void Destroy(Behaviour * behaviour);
 
 #endif

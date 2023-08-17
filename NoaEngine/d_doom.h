@@ -116,7 +116,8 @@ public:
 		if ((int)position.x < 0 || (int)position.x >= map->w || (int)position.y < 0 || (int)position.y >= map->h)
 		{
 			cout << "[info]:子弹越界,x = " << position.x << ",y = " << position.y << endl;
-			Destroy();
+			//Destroy();
+			Destroy(this);
 		}
 
 		Uint8  hitObject = map->level[(int)position.y * map->w + (int)position.x];
@@ -127,7 +128,7 @@ public:
 			//命中墙壁
 
 			cout << "[info]:子弹命中墙壁,x = " << position.x << ",y = " << position.y << endl;
-			Destroy();
+			Destroy(this);
 		}
 
 		for (int i = 0; i < gameObjects.size(); i++)
@@ -150,7 +151,7 @@ public:
 				vector<void*> other;
 				other.push_back(&damage);
 				gameObjects[i]->OnTriggerEnter(other);
-				Destroy();
+				Destroy(this);
 			}
 		}
 
@@ -187,7 +188,7 @@ public:
 		if (hp <= 0)
 		{
 			Debug("角色死亡");
-			Destroy();
+			Destroy(this);
 		}
 	}
 

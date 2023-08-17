@@ -28,8 +28,7 @@ Behaviour::~Behaviour()
 	DestroyBehaviour(this);
 }
 
-//Ïú»ÙBehaviour
-void Behaviour::Destroy()
+void Destroy(Behaviour * behaviour)
 {
-	delete this;
+	delete behaviour;
 }
