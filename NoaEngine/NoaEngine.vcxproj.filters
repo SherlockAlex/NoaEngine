@@ -51,7 +51,7 @@
     <ClCompile Include="d_RayCastHit.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="s_snake.cpp">
+    <ClCompile Include="m_Mario.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

@@ -69,6 +69,8 @@ public:
 	
 	void Update();
 
+	void BandEvent(void (*eventFunc)(void));
+
 	/*
 	x > 0 鼠标向右移动 : x
 	x < 0 鼠标向左移动 : -x

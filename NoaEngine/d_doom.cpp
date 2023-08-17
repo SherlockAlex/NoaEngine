@@ -1,4 +1,4 @@
-﻿//#define DOOM
+﻿#define DOOM
 #ifdef DOOM
 
 #include "d_doom.h"
@@ -25,6 +25,7 @@ static Audio * themeMusic;
 static void GunChuncPlay();
 
 #define Function
+static void MouseInput();
 static void GameInput();
 static void DrawMap();
 
@@ -85,6 +86,12 @@ void GameStart(void)
 	themeMusic = new Audio("./Assets/Music/theme.mp3", Music);
 	themeMusic->Play(true);
 
+	//绑定输入事件
+	inputSystem.BandEvent(MouseInput);
+
+#ifdef __linux__
+	inputSystem.BandEvent(GameInput);
+#endif // DEBUG
 }
 
 void GameUpdate(void) 
@@ -151,21 +158,18 @@ static void GunChuncPlay()
 // 确定玩家的键盘输入
 // 确定玩家可到墙壁或者门的距离
 // 确定每个按键要执行的事件
+static void MouseInput() {
+	if (inputSystem.GetMouseMoveState())
+	{
+		Vector<float> delta = inputSystem.GetMouseMoveDelta();
+		player.angle += (delta.x) * 0.3 * game.DeltaTime();
+	}
+}
+
 static void GameInput() 
 {
 	const float distanceToCollider = 0.0f;
 	//处理玩家输入问题
-
-	while (SDL_PollEvent(&ioEvent)) {
-		if (inputSystem.GetMouseMoveState())
-		{
-			Vector<float> delta = inputSystem.GetMouseMoveDelta();
-			player.angle += (delta.x) * 0.3 * game.DeltaTime();
-
-		}
-	}
-
-	
 
 	// 处理前进移动和碰撞
 	if (inputSystem.GetKeyHold(KeyW))
@@ -369,10 +373,10 @@ static void DrawMap()
 
 }
 
-//int main(int argc, char* argv[])
-//{
-//	
-//	return game.Run();
-//}
+int main(int argc, char* argv[])
+{
+	
+	return game.Run();
+}
 
 #endif // DOOM

@@ -73,7 +73,7 @@ NoaGameEngine::NoaGameEngine(
 
 	int pitch;
 	format = SDL_AllocFormat(SDL_PIXELFORMAT_BGR888);
-	SDL_LockTexture(texture, NULL, &pixelBuffer, &pitch);
+	SDL_LockTexture(texture, nullptr, &pixelBuffer, &pitch);
 
 	surfaceWidth = width;
 	surfaceHeight = height;
@@ -113,33 +113,6 @@ float NoaGameEngine::DeltaTime() {
 	return deltaTime;
 }
 
-//刷新游戏画面
-
-
-float EventStep(const float deltaTime) 
-{
-	//计算每一帧需要处理几个I0事件最合适
-	//不同的机器，表达式可能不同
-	return 1024 * deltaTime;
-}
-
-int InputThread(NoaGameEngine * game) 
-{
-	//主要的线程
-	const float deltaTime = game->DeltaTime();
-	const float step = EventStep(deltaTime);
-	int count = 0;
-	for (float i = 0; i < step *deltaTime;i+=deltaTime)
-	{
-		SDL_PollEvent(&ioEvent);
-		count++;
-	}
-
-	//cout <<"fps:"<<1/deltaTime << "deltaTime:" << deltaTime << ",count" << count << endl;
-	
-	return 0;
-}
-
 int NoaGameEngine::Run()
 {
 	//运行游戏
@@ -169,13 +142,18 @@ int NoaGameEngine::Run()
 
 		//执行游戏主类的update
 
-		if (ioEvent.type == SDL_QUIT)
+		while (SDL_PollEvent(&ioEvent))
 		{
-			isRun = false;
-			break;
-		}
 
-		SDL_PollEvent(&ioEvent);
+			inputSystem.Update();
+
+			if (ioEvent.type == SDL_QUIT)
+			{
+				isRun = false;
+				SDL_Quit();
+				return 0;
+			}
+		}
 
 		Update();
 
@@ -210,16 +188,5 @@ void Debug(string msg)
 	std::strftime(time_string, sizeof(time_string), "%Y-%m-%d %H:%M:%S", std::localtime(&current_time));
 	cout << "[INFO " << time_string << "]:" << msg << endl;
 }
-
-void Debug(vector<string> msg)
-{
-	cout << "[INFO]:";
-	for (int i = 0;i<msg.size();i++)
-	{
-		cout << msg[i];
-	}
-	cout << endl;
-}
-
 
 

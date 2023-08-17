@@ -8,6 +8,9 @@ InputSystem inputSystem;
 
 SDL_Event ioEvent;
 
+typedef void (*eventFunc)(void);
+vector<eventFunc> inputEvents;
+
 InputSystem::InputSystem()
 {
 	// 开启相对鼠标模式
@@ -72,6 +75,14 @@ bool InputSystem::GetMouseMoveState()
 void InputSystem::Update()
 {
 	//实现更新
+	for (int i = 0; i < inputEvents.size();i++) {
+		inputEvents[i]();
+	}
+}
+
+void InputSystem::BandEvent(void(*eventFunc)(void))
+{
+	inputEvents.push_back(eventFunc);
 }
 
 Vector<float> InputSystem::GetMouseMoveDelta()

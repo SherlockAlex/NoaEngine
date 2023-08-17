@@ -123,6 +123,7 @@ private:
 	int surfaceWidth;
 	int surfaceHeight;
 
+protected:
 	float deltaTime = 0;
 
 public:
