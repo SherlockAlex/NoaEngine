@@ -153,6 +153,7 @@
     <ClCompile Include="InputSystem.cpp" />
     <ClCompile Include="NoaEngine.cpp" />
     <ClCompile Include="NoaMath.cpp" />
+    <ClCompile Include="Physics.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Sprite.cpp" />
@@ -167,6 +168,7 @@
     <ClInclude Include="InputSystem.h" />
     <ClInclude Include="NoaEngine.h" />
     <ClInclude Include="NoaMath.h" />
+    <ClInclude Include="Physics.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Sprite.h" />

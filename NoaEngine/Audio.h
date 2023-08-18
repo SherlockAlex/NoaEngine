@@ -19,6 +19,7 @@ public:
 	~Audio();
 public:
 	void Play(bool loop);
+	void Stop();
 };
 
 #endif

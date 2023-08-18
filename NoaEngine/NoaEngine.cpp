@@ -1,15 +1,14 @@
 #include "NoaEngine.h"
-#include "Animator.h"
-#include "Sprite.h"
-
-//float deltaTime = 0.0f;
 
 extern vector <Behaviour*> behaviours;
 extern vector<GameObject*> gameObjects;
 extern vector<Animator*> animatorList;
+extern vector<Physics*> physics;
 
 int pixelHeight = 0;
 int pixelWidth = 0;
+
+float deltaTime = 0;
 
 Renderer renderer;
 
@@ -26,10 +25,6 @@ NoaGameEngine::NoaGameEngine(
 	this->gameWindowMode = windowMode;
 	this->gameName = gameName;
 
-	//绑定Start和Update
-	//this->Start = Start;
-	//this->Update = Update;
-
 	int init = SDL_Init(SDL_INIT_EVERYTHING);
 	if (init != 0)
 	{
@@ -44,8 +39,6 @@ NoaGameEngine::NoaGameEngine(
 		width,
 		height,
 		gameWindowMode
-		//SDL_WINDOW_FULLSCREEN
-		//SDL_WINDOW_FOREIGN
 	);
 	if (window == nullptr)
 	{
@@ -62,8 +55,6 @@ NoaGameEngine::NoaGameEngine(
 	texture = SDL_CreateTexture(mainRenderer,
 		SDL_PIXELFORMAT_BGR888,
 		SDL_TEXTUREACCESS_STREAMING,
-		//surface->w,
-		//surface->h
 		width,
 		height
 	);
@@ -139,8 +130,10 @@ int NoaGameEngine::Run()
 		elapsedTime = tp2 - tp1;
 		tp1 = tp2;
 		deltaTime = elapsedTime.count();
-
 		//执行游戏主类的update
+
+		string windowTitle = gameName + " FPS: " + to_string(1 / deltaTime);
+		SDL_SetWindowTitle(window, windowTitle.c_str());
 
 		while (SDL_PollEvent(&ioEvent))
 		{
@@ -155,6 +148,11 @@ int NoaGameEngine::Run()
 			}
 		}
 
+		for (int i = 0;i<physics.size();i++) 
+		{
+			physics[i]->PhysicsUpdate(deltaTime);
+		}
+
 		Update();
 
 		for (int i = 0; i < behaviours.size(); i++)
@@ -164,7 +162,7 @@ int NoaGameEngine::Run()
 
 		for (int i = 0; i < animatorList.size(); i++)
 		{
-			animatorList[i]->Update(this->deltaTime);
+			animatorList[i]->Update(deltaTime);
 		}
 
 		SDL_UnlockTexture(texture);

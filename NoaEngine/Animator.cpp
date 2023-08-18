@@ -7,6 +7,47 @@
 
 vector<Animator*> animatorList;
 
+std::vector<uint32_t*> LoadAnimator(const char* file);
+
+AnimatorFile LoadAnimatorFile(const char* file) {
+	AnimatorFile animator;
+
+	std::ifstream inputFile(file, std::ios::binary);
+	if (!inputFile) {
+		std::cout << "Error opening file." << std::endl;
+		return animator;
+	}
+
+	int spriteCount;
+	inputFile.read(reinterpret_cast<char*>(&spriteCount), sizeof(int));
+
+	for (int i = 0; i < spriteCount; ++i) {
+		SpriteFile sprite;
+		int imageCount;
+		inputFile.read(reinterpret_cast<char*>(&imageCount), sizeof(int));
+
+		sprite.images = new uint32_t[imageCount];
+		for (int j = 0; j < imageCount; ++j) {
+			inputFile.read(reinterpret_cast<char*>(&sprite.images[j]), sizeof(uint32_t));
+		}
+
+		inputFile.read(reinterpret_cast<char*>(&sprite.x), sizeof(int));
+		inputFile.read(reinterpret_cast<char*>(&sprite.y), sizeof(int));
+		inputFile.read(reinterpret_cast<char*>(&sprite.width), sizeof(int));
+		inputFile.read(reinterpret_cast<char*>(&sprite.height), sizeof(int));
+
+		animator.data.push_back(sprite);
+	}
+
+	inputFile.read(reinterpret_cast<char*>(&animator.posx), sizeof(int));
+	inputFile.read(reinterpret_cast<char*>(&animator.posy), sizeof(int));
+	inputFile.read(reinterpret_cast<char*>(&animator.w), sizeof(int));
+	inputFile.read(reinterpret_cast<char*>(&animator.h), sizeof(int));
+
+	inputFile.close();
+	return animator;
+}
+
 Animator::Animator(float speed)
 {
 	Debug("Init Animator");
@@ -14,37 +55,49 @@ Animator::Animator(float speed)
 	animatorList.push_back(this);
 	if (framesImage.size()>0)
 	{
-		currentFrame = framesImage[0];
-	}
-
-	currentFrame = nullptr;
-
-}
-
-Animator::Animator(AnimatorFile animatorFile)
-{
-	const vector<Uint32*> animatorData = animatorFile.data;
-	for (Uint32* frame : animatorData)
-	{
-		InsertFrameImage(frame);
+		currentFrame = &framesImage[0];
 	}
 
 }
+
+//Animator::Animator(const char* amtFilePath,float speed)
+//{
+//	const vector<Uint32*> animatorData = LoadAnimator(amtFilePath);
+//	this->speed = speed;
+//	animatorList.push_back(this);
+//	currentFrame = animatorData[0];
+//	for (Uint32* frame : animatorData)
+//	{
+//		InsertFrameImage(frame);
+//	}
+//}
+
+//Animator::Animator(AnimatorFile animatorFile, float speed)
+//{
+//	this->speed = speed;
+//	const vector<SpriteFile> animatorData = animatorFile.data;
+//	animatorList.push_back(this);
+//	for (SpriteFile frame : animatorData)
+//	{
+//		InsertFrameImage(frame.images);
+//	}
+//
+//}
 
 /// <summary>
 /// 初始化Animator
 /// </summary>
 /// <param name="frameImage">插入帧图像</param>
-Animator::Animator(Uint32* frameImage, float speed)
-{
-	framesImage.push_back(frameImage);
-	currentFrame = frameImage;
-	this->speed = speed;
-	Debug("Init Animator");
-
-	animatorList.push_back(this);
-
-}
+//Animator::Animator(Uint32* frameImage, float speed)
+//{
+//	framesImage.push_back(frameImage);
+//	currentFrame = frameImage;
+//	this->speed = speed;
+//	Debug("Init Animator");
+//
+//	animatorList.push_back(this);
+//
+//}
 
 Animator::~Animator()
 {
@@ -90,19 +143,23 @@ std::vector<uint32_t*> LoadAnimator(const char* file)
 /// 从本地动画文件加载动画
 /// </summary>
 /// <param name="filePath">动画文件路径</param>
-void Animator::LoadFromAnimatorFile(const char* filePath) {
-	const vector<Uint32*> animatorData = LoadAnimator(filePath);
-	for (Uint32* frame : animatorData)
+void Animator::LoadFromAnimatorFile(const char* filePath) 
+{
+	const AnimatorFile animatorFile = LoadAnimatorFile(filePath);
+	for (SpriteFile frame:animatorFile.data) 
 	{
 		InsertFrameImage(frame);
 	}
+
+	
+
 }
 
 /// <summary>
 /// 获取当前帧的图像
 /// </summary>
 /// <returns></returns>
-Uint32* Animator::GetCurrentFrameImage() {
+SpriteFile* Animator::GetCurrentFrameImage() {
 	return currentFrame;
 }
 
@@ -111,13 +168,13 @@ Uint32* Animator::GetCurrentFrameImage() {
 /// </summary>
 /// <param name="frame">第frame帧</param>
 /// <returns></returns>
-Uint32* Animator::GetFrameImage(int frame) {
+SpriteFile* Animator::GetFrameImage(int frame) {
 	if (framesImage.empty())
 	{
 		return nullptr;
 	}
 	frame = frame & (framesImage.size()-1);
-	return framesImage[frame];
+	return &framesImage[frame];
 }
 
 void Animator::SetFrameEvent(int frame, eventFunc e) {
@@ -145,14 +202,15 @@ void Animator::Play() {
 /// 插入帧图像
 /// </summary>
 /// <param name="frameImage"></param>
-void Animator::InsertFrameImage(Uint32* frameImage)
+void Animator::InsertFrameImage(SpriteFile frameImage)
 {
 	Debug("Insert Animator Frame");
 	framesImage.push_back(frameImage);
 	if (currentFrame == nullptr)
 	{
-		currentFrame = frameImage;
+		currentFrame = &framesImage[0];
 	}
+	//currentFrame = nullptr;
 }
 
 /// <summary>
@@ -160,19 +218,19 @@ void Animator::InsertFrameImage(Uint32* frameImage)
 /// </summary>
 /// <param name="index">帧</param>
 /// <returns></returns>
-Uint32 Animator::GetCurrentFramePixel(int index)
-{
-	if (currentFrame==nullptr)
-	{
-		return BLACK;
-	}
-	if (index < 0 || currentFrame == nullptr)
-	{
-		return BLACK;
-	}
-	//index = index & (currentFrame)
-	return currentFrame[index];
-}
+//Uint32 Animator::GetCurrentFramePixel(int index)
+//{
+//	if (currentFrame==nullptr)
+//	{
+//		return BLACK;
+//	}
+//	if (index < 0 || currentFrame == nullptr)
+//	{
+//		return BLACK;
+//	}
+//	//index = index & (currentFrame)
+//	return currentFrame[index].images;
+//}
 
 /// <summary>
 /// 实时更新刷新
@@ -201,3 +259,7 @@ void Animator::Update(float deltaTime) {
 
 }
 
+//inline AnimatorFile LoadAnimatorFile(const char* file)
+//{
+//	return AnimatorFile();
+//}

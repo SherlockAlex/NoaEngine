@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static NoaTool.Animator;
 using static NoaTool.Sprite;
 
 namespace NoaTool
@@ -80,6 +81,7 @@ namespace NoaTool
                 fileName = saveFileDialog.FileName;
             }
 
+            //保存贴图
             Bitmap bmp = new Bitmap(currentImagePath);
             List<uint> image = Sprite.ReadImageRGB(currentImagePath);
             SpriteFile spriteFile;
@@ -123,20 +125,46 @@ namespace NoaTool
                 fileName = saveFileDialog.FileName;
             }
 
-            List<List<uint>> data= new List<List<uint>>();
+            //List<List<uint>> data= new List<List<uint>>();
+            //for (int i = 0;i<animatorFrameGridView.RowCount-1;i++)
+            //{
+            //    string imagePath = animatorFrameGridView.Rows[i].Cells[0].Value as string;
+            //    List<uint> frame = Sprite.ReadImageRGB(imagePath);
+            //    data.Add(frame);
+            //}
+
+            AnimatorFile animatorFile = new AnimatorFile();
+            animatorFile.data = new List<SpriteFile>();
             for (int i = 0;i<animatorFrameGridView.RowCount-1;i++)
             {
                 string imagePath = animatorFrameGridView.Rows[i].Cells[0].Value as string;
-                List<uint> frame = Sprite.ReadImageRGB(imagePath);
-                data.Add(frame);
+                
+                Bitmap bmp = new Bitmap(imagePath);
+                List<uint> image = Sprite.ReadImageRGB(imagePath);
+                SpriteFile spriteFile;
+                spriteFile.images = image;
+                spriteFile.width = bmp.Width;
+                spriteFile.height = bmp.Height;
+                spriteFile.x = ((int)spritePosXNumericUpDown.Value);
+                spriteFile.y = ((int)spritePosYNumericUpDown.Value);
+
+                animatorFile.data.Add(spriteFile);
+                animatorFile.posx = spriteFile.x;
+                animatorFile.posy = spriteFile.y;
+                animatorFile.w = bmp.Width;
+                animatorFile.h = bmp.Height;
+
+                bmp.Dispose();
+
             }
-            //List<uint> image = Sprite.ReadImageRGB(currentImagePath);
-            if (data == null)
-            {
-                MessageBox.Show("保存失败");
-                return;
-            }
-            int success = Animator.Save(data,fileName);
+
+            //if (animatorFile == null)
+            //{
+            //    MessageBox.Show("保存失败");
+            //    return;
+            //}
+
+            int success = Animator.Save(animatorFile, fileName);
             if (success == 0)
             {
                 MessageBox.Show("保存成功");

@@ -8,13 +8,11 @@ InputSystem inputSystem;
 
 SDL_Event ioEvent;
 
-typedef void (*eventFunc)(void);
-vector<eventFunc> inputEvents;
+vector<function<void()>> inputEvents;
 
 InputSystem::InputSystem()
 {
 	// 开启相对鼠标模式
-	
 }
 
 bool InputSystem::GetKeyHold(char key) {
@@ -46,7 +44,7 @@ bool InputSystem::GetKeyDown(char key)
 {
 	//检测按键按下瞬间
 #ifdef _WIN64
-	if (GetAsyncKeyState((unsigned short)key) & 0x0001) {
+	if (GetAsyncKeyState((unsigned short)key) & 0x8000) {
 		return true;
 	}
 
@@ -80,7 +78,12 @@ void InputSystem::Update()
 	}
 }
 
-void InputSystem::BandEvent(void(*eventFunc)(void))
+void InputSystem::BindEvent(void(*eventFunc)(void))
+{
+	inputEvents.push_back(eventFunc);
+}
+
+void InputSystem::BindEvent(function<void()> eventFunc)
 {
 	inputEvents.push_back(eventFunc);
 }

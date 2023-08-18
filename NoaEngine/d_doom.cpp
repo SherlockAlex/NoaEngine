@@ -1,8 +1,5 @@
-﻿#define DOOM
+﻿#include "d_doom.h"
 #ifdef DOOM
-
-#include "d_doom.h"
-
 extern vector<GameObject*> gameObjects;
 
 //灰度值来判断物品

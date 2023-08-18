@@ -54,6 +54,9 @@
     <ClCompile Include="m_Mario.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Physics.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="NoaEngine.h">
@@ -87,6 +90,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="d_doom.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

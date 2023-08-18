@@ -43,3 +43,15 @@ void Audio::Play(bool loop) {
 	}
 }
 
+void Audio::Stop()
+{
+	if (type == Music)
+	{
+		Mix_PauseMusic();
+	}
+	else if (type == Chunk)
+	{
+		Mix_HaltChannel(-1);
+	}
+}
+

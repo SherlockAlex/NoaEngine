@@ -63,9 +63,14 @@
 #include <utility>
 #include <algorithm>
 #include <chrono>
-using namespace std;
-
 #include <stdio.h>
+#include <list>
+#include <unordered_map>
+#include <fstream>
+#include <string>
+#include <functional>
+
+using namespace std;
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_render.h>
@@ -75,11 +80,6 @@ using namespace std;
 #include <SDL2/SDL_mouse.h>
 #include <SDL2/SDL_mixer.h>
 #include <SDL2/SDL_thread.h>
-#include <list>
-#include <unordered_map>
-
-#include <fstream>
-#include <string>
 
 #include "NoaMath.h"
 #include "Scene.h"
@@ -90,12 +90,15 @@ using namespace std;
 #include "GameObject.h"
 #include "Animator.h"
 #include "Sprite.h"
+#include "Physics.h"
 
 //窗口属性
 extern int pixelHeight;
 extern int pixelWidth;
 
 extern Renderer renderer;
+
+extern float deltaTime;
 
 //游戏基类
 class NoaGameEngine {
@@ -124,7 +127,7 @@ private:
 	int surfaceHeight;
 
 protected:
-	float deltaTime = 0;
+	//float deltaTime = 0;
 
 public:
 	virtual void Start() = 0;

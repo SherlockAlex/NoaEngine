@@ -4,9 +4,12 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using static NoaTool.Animator;
+using static NoaTool.Sprite;
 
 namespace NoaTool
 {
@@ -95,9 +98,10 @@ namespace NoaTool
         /// <param name="file">文件路径</param>
         /// 
 
+        [Serializable]
         public struct AnimatorFile
         {
-            public List<List<uint>> data;
+            public List<SpriteFile> data;
             public int posx;
             public int posy;
             public int w;
@@ -135,10 +139,37 @@ namespace NoaTool
                 return -1; // 返回保存失败的标识
             }
         }
+
+        public static int Save(AnimatorFile animatorFile, string file)
+        {
+            using (BinaryWriter writer = new BinaryWriter(File.Open(file, FileMode.Create)))
+            {
+                writer.Write(animatorFile.data.Count);
+                foreach (var spriteFile in animatorFile.data)
+                {
+                    writer.Write(spriteFile.images.Count);
+                    foreach (var image in spriteFile.images)
+                    {
+                        writer.Write(image);
+                    }
+                    writer.Write(spriteFile.x);
+                    writer.Write(spriteFile.y);
+                    writer.Write(spriteFile.width);
+                    writer.Write(spriteFile.height);
+                }
+                writer.Write(animatorFile.posx);
+                writer.Write(animatorFile.posy);
+                writer.Write(animatorFile.w);
+                writer.Write(animatorFile.h);
+            }
+            return 0;
+        }
+
     }
 
     public static class Sprite{
 
+        [Serializable]
         public struct SpriteFile
         {
             //spr文件信息
@@ -258,60 +289,60 @@ namespace NoaTool
 
     }
 
-    public static class Gun
-    {
-        public struct GunFile
-        {
-            public int deltax;         //枪支的屏幕坐标偏移量
-            public int deltay;
-            public int damage;         //子弹威力
+    //public static class Gun
+    //{
+    //    public struct GunFile
+    //    {
+    //        public int deltax;         //枪支的屏幕坐标偏移量
+    //        public int deltay;
+    //        public int damage;         //子弹威力
 
-            //第一帧大小
-            public int w;
-            public int h;
+    //        //第一帧大小
+    //        public int w;
+    //        public int h;
 
-            public AnimatorFile amt;   //枪支动画
-        }
+    //        public AnimatorFile amt;   //枪支动画
+    //    }
 
-        //将gunFile的数据内容保存到本地二进制文件file中，成功返回0
-        public static int Save(GunFile gunFile, string file)
-        {
-            try
-            {
-                // 创建二进制写入器
-                using (BinaryWriter writer = new BinaryWriter(File.Open(file, FileMode.Create)))
-                {
-                    // 写入枪支属性
-                    writer.Write(gunFile.deltax);
-                    writer.Write(gunFile.deltay);
-                    writer.Write(gunFile.damage);
-                    writer.Write(gunFile.w);
-                    writer.Write(gunFile.h);
+    //    //将gunFile的数据内容保存到本地二进制文件file中，成功返回0
+    //    public static int Save(GunFile gunFile, string file)
+    //    {
+    //        try
+    //        {
+    //            // 创建二进制写入器
+    //            using (BinaryWriter writer = new BinaryWriter(File.Open(file, FileMode.Create)))
+    //            {
+    //                // 写入枪支属性
+    //                writer.Write(gunFile.deltax);
+    //                writer.Write(gunFile.deltay);
+    //                writer.Write(gunFile.damage);
+    //                writer.Write(gunFile.w);
+    //                writer.Write(gunFile.h);
 
-                    // 写入枪支动画属性
-                    writer.Write(gunFile.amt.posx);
-                    writer.Write(gunFile.amt.posy);
-                    writer.Write(gunFile.amt.w);
-                    writer.Write(gunFile.amt.h);
+    //                // 写入枪支动画属性
+    //                writer.Write(gunFile.amt.posx);
+    //                writer.Write(gunFile.amt.posy);
+    //                writer.Write(gunFile.amt.w);
+    //                writer.Write(gunFile.amt.h);
 
-                    // 写入枪支动画数据
-                    foreach (List<uint> frameData in gunFile.amt.data)
-                    {
-                        foreach (uint pixel in frameData)
-                        {
-                            writer.Write(pixel);
-                        }
-                    }
-                }
+    //                // 写入枪支动画数据
+    //                foreach (List<uint> frameData in gunFile.amt.data)
+    //                {
+    //                    foreach (uint pixel in frameData)
+    //                    {
+    //                        writer.Write(pixel);
+    //                    }
+    //                }
+    //            }
 
-                return 0; // 返回0表示成功保存文件
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine($"保存文件失败：{e.Message}");
-                return -1; // 返回-1表示保存文件失败
-            }
-        }
+    //            return 0; // 返回0表示成功保存文件
+    //        }
+    //        catch (Exception e)
+    //        {
+    //            Console.WriteLine($"保存文件失败：{e.Message}");
+    //            return -1; // 返回-1表示保存文件失败
+    //        }
+    //    }
 
-    }
+    //}
 }

@@ -1,3 +1,6 @@
+//#define DOOM
+#ifdef DOOM
+
 #ifndef D_DOOM_H
 #define D_DOOM_H
 
@@ -111,11 +114,11 @@ public:
 		position.x = position.x + direction.x * speed * game.DeltaTime();
 		position.y = position.y + direction.y * speed * game.DeltaTime();
 
-		cout << "[info]:子弹坐标,x = " << position.x << ",y = " << position.y << endl;
+		//cout << "[info]:子弹坐标,x = " << position.x << ",y = " << position.y << endl;
 
 		if ((int)position.x < 0 || (int)position.x >= map->w || (int)position.y < 0 || (int)position.y >= map->h)
 		{
-			cout << "[info]:子弹越界,x = " << position.x << ",y = " << position.y << endl;
+			//cout << "[info]:子弹越界,x = " << position.x << ",y = " << position.y << endl;
 			//Destroy();
 			Destroy(this);
 		}
@@ -127,7 +130,7 @@ public:
 		{
 			//命中墙壁
 
-			cout << "[info]:子弹命中墙壁,x = " << position.x << ",y = " << position.y << endl;
+			//cout << "[info]:子弹命中墙壁,x = " << position.x << ",y = " << position.y << endl;
 			Destroy(this);
 		}
 
@@ -314,3 +317,4 @@ public:
 
 
 #endif
+#endif // DOOM

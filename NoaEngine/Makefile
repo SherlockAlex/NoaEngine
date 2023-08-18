@@ -17,6 +17,9 @@ CXX=g++
 INCDIRS+=/usr/include/SDL2
 LIBDIRS+=/usr/lib
 
+#INCDIRS+=D:\SDL2\mingw(CLion+VSC)\SDL2-2.26.0-allinone\x86_64-w64-mingw32\include
+#LIBDIRS+=D:\SDL2\mingw(CLion+VSC)\SDL2-2.26.0-allinone\x86_64-w64-mingw32\lib
+
 CFLAGS=-lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf -lSDL2_net -static-libstdc++ -lpthread
 
 BUILD_DIR=./game-build
@@ -24,12 +27,12 @@ BUILD_DIR=./game-build
 GAME_FILE=/game
 
 ./obj/%.o:%.cpp
-	mkdir -p obj
+	mkdir obj
 	$(CXX) -c -Bstatic -I$(INCDIRS) -L$(LIBDIRS) $(CFLAGS) $^ -o $@ 
 
 
 install:$(objs)
-	mkdir -p $(BUILD_DIR)
+	mkdir $(BUILD_DIR)
 	$(CXX) $(objs) -Bstatic -I$(INCDIRS) -L$(LIBDIRS) $(CFLAGS) -o $(BUILD_DIR)$(GAME_FILE)
 
 env-linux:

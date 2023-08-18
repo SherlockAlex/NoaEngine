@@ -1,4 +1,6 @@
 #include "d_doom.h"
+#ifdef DOOM
+
 
 //…‰œﬂÕ∂…‰À„∑®
 Ray RayCastHit(
@@ -75,3 +77,6 @@ Ray RayCastHit(
 	return ray;
 
 }
+
+
+#endif // DOOM

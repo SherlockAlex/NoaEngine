@@ -23,6 +23,11 @@ public:
 		//用于传递碰撞检测的消息
 	}
 
+	virtual void RenderGameObject() {
+		//实现绘制物品信息
+		sprite.DrawSprite(position.x, position.y);
+	}
+
 };
 
 extern void Destroy(GameObject * gameObject);

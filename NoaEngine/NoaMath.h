@@ -1,6 +1,8 @@
 #ifndef NOAENGINE_NOAMATH_H
 #define NOAENGINE_NOAMATH_H
 
+#include <math.h>
+
 // Math Constance
 #define PI 3.14159
 
@@ -10,11 +12,13 @@ struct Vector {
 	T x;
 	T y;
 
-	Vector() {
+	Vector() 
+	{
 
 	}
 
-	Vector(T x,T y) {
+	Vector(T x,T y) 
+	{
 		this->x = x;
 		this->y = y;
 	}

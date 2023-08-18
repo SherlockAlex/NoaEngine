@@ -2,13 +2,15 @@
 #define NOAGAMEENGINE_INPUTSYSTEM_H
 
 #include <SDL2/SDL.h>
-
+#include <functional>
 //Windows System
 #ifdef _WIN64
 #include <Windows.h>
 #endif
 
 #include "NoaMath.h"
+
+using namespace std;
 
 extern SDL_Event ioEvent;
 
@@ -69,7 +71,8 @@ public:
 	
 	void Update();
 
-	void BandEvent(void (*eventFunc)(void));
+	void BindEvent(void (*eventFunc)(void));
+	void BindEvent(function<void()> eventFunc);
 
 	/*
 	x > 0  Û±ÍœÚ”““∆∂Ø : x
