@@ -36,7 +36,7 @@ public:
 
 };
 
-class Player :public GameObject
+class Player :public GameObject,public Physics
 {
 private:
 	function<void()> playerControlCallback;
@@ -47,7 +47,7 @@ public:
 	float jumpTime = 0.0;
 	float jumpSpeed = 0;
 	bool isLeft = false;
-	bool isGrounded = false;
+	//bool isGrounded = false;
 
 	Vector<float> colliderSize;
 	Audio coinSFX = Audio("./Assets/JumpMan/Music/coin.mp3", Chunk);
@@ -61,7 +61,7 @@ public:
 	Animator* jump = new Animator(10);
 
 public:
-	Player(Sprite sprite):GameObject(sprite)
+	Player(Sprite sprite):GameObject(sprite),Physics(&(this->position))
 	{
 		//玩家的构造函数
 		colliderSize.x = 0.6;
@@ -131,116 +131,35 @@ public:
 
 		}
 
-		if (inputSystem.GetKeyDown(KeyK))
+		if (inputSystem.GetKeyDown(KeyK)&&isGrounded)
 		{
-			if (isGrounded)
-			{
-				//跳跃
-				if (!isJump)
-				{
-					jumpSpeed = 11;
-					isJump = true;
-					jumpSFX.Play(false);
-					currentAnimatorState = jump;
-				}
-			}
-			
+			Debug("Jump");
+			jumpSFX.Play(false);
+			currentAnimatorState = jump;
+			AddForce(Vector<float>(0, -6), Impulse);
 		}
 
-		
-		float jumpHeight = 0.5;
-
-		if (isJump)
+		//下落的碰撞检测
+		//position.y += jumpSpeed * deltaTime;
+		Vector<float> pos;
+		pos.x = position.x;
+		pos.y = position.y + colliderSize.y;
+		if (ColliderWithMap(255, pos))
 		{
-			if (jumpTime < jumpHeight)
-			{
-				jumpTime += deltaTime;
-				currentAnimatorState = jump;
-
-				jumpSpeed -= 10 * 1.5 * deltaTime;
-				
-				//position.y -= 10 * 0.8 * deltaTime;
-				position.y -= jumpSpeed * deltaTime;
-				Vector<float> pos;
-				pos.x = position.x;
-				pos.y = position.y - colliderSize.y;
-				if (ColliderWithMap(255, pos))
-				{
-					//position.y += 10 * 0.8 * deltaTime;
-					position.y += jumpSpeed * deltaTime;
-					jumpSpeed = 0.0;
-					jumpTime = 0.0;
-					isJump = false;
-					Debug("jump over");
-				}
-				pos.x = position.x - colliderSize.x;
-				pos.y = position.y - colliderSize.y;
-				if (ColliderWithMap(255, pos))
-				{
-					//position.y += 10 * 0.8 * deltaTime;
-					position.y += jumpSpeed * deltaTime;
-					jumpSpeed = 0.0;
-					jumpTime = 0.0;
-					isJump = false;
-					Debug("jump over");
-				}
-				pos.x = position.x + colliderSize.x;
-				pos.y = position.y - colliderSize.y;
-				if (ColliderWithMap(255, pos))
-				{
-					//position.y += 10 * 0.8 * deltaTime;
-					position.y += jumpSpeed * deltaTime;
-					jumpSpeed = 0.0;
-					jumpTime = 0.0;
-					isJump = false;
-					Debug("jump over");
-				}
-
-				if (jumpSpeed<0||jumpTime >= jumpHeight)
-				{
-					jumpSpeed = 0.0;
-					jumpTime = 0.0;
-					isJump = false;
-					Debug("jump over");
-				}
-
-			}
+			position.y -= velocity.y * deltaTime;
 
 		}
-		else {
-			//下落
-			jumpSpeed += 10 * 4.5 * deltaTime;
-
-			position.y += jumpSpeed * deltaTime;
-			//position.y += 10 * 1.2 * deltaTime;
-			Vector<float> pos;
-			pos.x = position.x;
-			pos.y = position.y + colliderSize.y;
-			if (ColliderWithMap(255, pos))
-			{
-				position.y -= jumpSpeed * deltaTime;
-				jumpSpeed = 0;
-				//position.y -= 10 * 1.2 * deltaTime;
-			}
-			pos.x = position.x - colliderSize.x;
-			pos.y = position.y + colliderSize.y;
-			if (ColliderWithMap(255, pos))
-			{
-				position.y -= jumpSpeed * deltaTime;
-				jumpSpeed = 0;
-				//position.y -= 10 * 1.2 * deltaTime;
-			}
-			pos.x = position.x + colliderSize.x;
-			pos.y = position.y + colliderSize.y;
-			if (ColliderWithMap(255, pos))
-			{
-				position.y -= jumpSpeed * deltaTime;
-				jumpSpeed = 0;
-				//position.y -= 10 * 1.2 * deltaTime;
-			}
-			
-			
-
+		pos.x = position.x - colliderSize.x;
+		pos.y = position.y + colliderSize.y;
+		if (ColliderWithMap(255, pos))
+		{
+			position.y -= velocity.y * deltaTime;
+		}
+		pos.x = position.x + colliderSize.x;
+		pos.y = position.y + colliderSize.y;
+		if (ColliderWithMap(255, pos))
+		{
+			position.y -= velocity.y * deltaTime;
 		}
 
 	}
@@ -312,14 +231,14 @@ public:
 			}
 		}
 
-		/*isGrounded = (currentMap->level[
+		isGrounded = (currentMap->level[
 			(int)(position.y+ colliderSize.y+10*1.2*deltaTime) * currentMap->w + (int)position.x] 
 			== 255)|| 
 			(currentMap->level[
-				(int)(position.y + colliderSize.y + 10 * 1.2 * deltaTime) * currentMap->w + (int)(position.x-colliderSize.x)]
+				(int)(position.y + colliderSize.y + 10 * 1.2 * deltaTime) * currentMap->w + (int)(position.x - colliderSize.x)]
 				== 255) || (currentMap->level[
 					(int)(position.y + colliderSize.y + 10 * 1.2 * deltaTime) * currentMap->w + (int)(position.x + colliderSize.x)]
-					== 255);*/
+					== 255);
 				
 
 	}

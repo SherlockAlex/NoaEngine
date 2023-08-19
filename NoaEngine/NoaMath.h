@@ -49,9 +49,23 @@ struct Vector {
 	Vector operator * (T a) 
 	{
 		//向量乘常数
-		this->x = this->x * a;
-		this->y = this->y * a;
-		return *(this);
+		Vector result;
+		result.x = this->x * a;
+		result.y = this->y * a;
+		return result;
+	}
+
+	Vector operator / (T a) 
+	{
+		Vector result;
+		T b = 1 / a;
+		result.x = this->x * b;
+		result.y = this->y * b;
+		return result;
+	}
+
+	bool operator == (Vector a) {
+		return this->x == a.x && this->y == a.y;
 	}
 
 };
