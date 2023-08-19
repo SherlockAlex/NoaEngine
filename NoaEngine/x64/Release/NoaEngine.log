@@ -77,40 +77,40 @@ D:\Work\GitTools\NoaEngine\NoaEngine\m_Mario.cpp(245,31): warning C4244: “参�
           [
               T=int
           ]
-D:\Work\GitTools\NoaEngine\NoaEngine\m_Mario.cpp(317,27): warning C4244: “=”: 从“int”转换到“T”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\m_Mario.cpp(328,27): warning C4244: “=”: 从“int”转换到“T”，可能丢失数据
           with
           [
               T=float
           ]
-D:\Work\GitTools\NoaEngine\NoaEngine\m_Mario.cpp(318,27): warning C4244: “=”: 从“int”转换到“T”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\m_Mario.cpp(329,27): warning C4244: “=”: 从“int”转换到“T”，可能丢失数据
           with
           [
               T=float
           ]
-D:\Work\GitTools\NoaEngine\NoaEngine\m_Mario.cpp(344,69): warning C4244: “=”: 从“double”转换到“T”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\m_Mario.cpp(355,69): warning C4244: “=”: 从“double”转换到“T”，可能丢失数据
           with
           [
               T=int
           ]
-D:\Work\GitTools\NoaEngine\NoaEngine\m_Mario.cpp(345,70): warning C4244: “=”: 从“double”转换到“T”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\m_Mario.cpp(356,70): warning C4244: “=”: 从“double”转换到“T”，可能丢失数据
           with
           [
               T=int
           ]
-D:\Work\GitTools\NoaEngine\NoaEngine\m_Mario.cpp(353,17): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
-D:\Work\GitTools\NoaEngine\NoaEngine\m_Mario.cpp(354,17): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
-D:\Work\GitTools\NoaEngine\NoaEngine\m_Mario.cpp(415,28): warning C4244: “=”: 从“int”转换到“T”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\m_Mario.cpp(364,17): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\m_Mario.cpp(365,17): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\m_Mario.cpp(433,28): warning C4244: “=”: 从“int”转换到“T”，可能丢失数据
           with
           [
               T=float
           ]
-D:\Work\GitTools\NoaEngine\NoaEngine\m_Mario.cpp(416,28): warning C4244: “=”: 从“int”转换到“T”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\m_Mario.cpp(434,28): warning C4244: “=”: 从“int”转换到“T”，可能丢失数据
           with
           [
               T=float
           ]
   正在生成代码
-  1 of 715 functions ( 0.1%) were compiled, the rest were copied from previous compilation.
+  1 of 732 functions ( 0.1%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
     0 functions had inline decision re-evaluated but remain unchanged
   已完成代码的生成

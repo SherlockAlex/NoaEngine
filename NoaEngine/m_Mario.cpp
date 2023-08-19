@@ -250,7 +250,8 @@ public:
 			coinCount++;
 			currentMap->level[testPos.y * currentMap->w + testPos.x] = 0;
 			coinSFX.Play(false);
-			cout << "coin count:" << coinCount << endl;
+			Debug("coin count:" + to_string(coinCount));
+			//cout << "coin count:" << coinCount << endl;
 		}
 
 		if (hitItem == 200) 
@@ -269,7 +270,14 @@ public:
 		sprite.UpdateImage(*(currentAnimatorState->GetCurrentFrameImage()));
 
 		//isGrounded = (oldy == position.y);
-		isGrounded = (currentMap->level[(int)(position.y+ colliderSize.y+10*1.2*deltaTime) * currentMap->w + (int)position.x] == 255);
+		isGrounded = (currentMap->level[
+			(int)(position.y+ colliderSize.y+10*1.2*deltaTime) * currentMap->w + (int)position.x] 
+			== 255)|| 
+			(currentMap->level[
+				(int)(position.y + colliderSize.y + 10 * 1.2 * deltaTime) * currentMap->w + (int)(position.x-colliderSize.x)]
+				== 255) || (currentMap->level[
+					(int)(position.y + colliderSize.y + 10 * 1.2 * deltaTime) * currentMap->w + (int)(position.x + colliderSize.x)]
+					== 255);
 
 	}
 
@@ -283,6 +291,7 @@ private:
 
 	Sprite wallTexture;
 	Sprite coinTexture;
+	Sprite gameOverTexture;
 
 	//Audio BGM = Audio("./Assets/JumpMan/Music/BGM.ogg", Music);
 	//Audio gameOverMusic = Audio("./Assets/JumpMan/Music/gameover.mp3", Chunk);
@@ -298,6 +307,8 @@ public:
 		player = new Player(Sprite(LoadSprFile("./Assets/JumpMan/JumpMan.spr"), 12));
 		wallTexture = Sprite(LoadSprFile("./Assets/JumpMan/Texture/wall.spr"),1);
 		coinTexture = Sprite(LoadSprFile("./Assets/JumpMan/Texture/Coin.spr"), 1);
+
+		gameOverTexture = Sprite(LoadSprFile("./Assets/JumpMan/Texture/gameover.spr"), 1);
 
 		BGM = new Audio("./Assets/JumpMan/Music/BGM.ogg", Music);
 		gameOverMusic = new Audio("./Assets/JumpMan/Music/gameover.mp3", Chunk);
@@ -394,11 +405,18 @@ public:
 			//BGM.Stop();
 			//gameOverMusic.Play(false);
 
+			//float gameoverPanelDelta = gameOverTexture.w / pixelWidth;
+
 			for (int x = 0; x < pixelWidth; x++)
 			{
 				for (int y = 0; y < pixelHeight; y++)
 				{
-					renderer.DrawPixel(x, y, BLACK);
+
+					float testX = (float)(x) / (float)(pixelWidth);
+					float testY = (float)(y) / (float)(pixelHeight);
+
+					Uint32 color = gameOverTexture.GetColor(testX,testY);
+					renderer.DrawPixel(x, y, color);
 				}
 			}
 
