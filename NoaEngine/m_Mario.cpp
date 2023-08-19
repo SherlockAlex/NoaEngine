@@ -92,7 +92,7 @@ public:
 			position.x -= deltaTime * speed;
 			Vector<float> pos;
 			pos.x = position.x - colliderSize.x;
-			pos.y = position.y;
+			pos.y = position.y + colliderSize.y;
 			if (ColliderWithMap(255, pos))
 			{
 				position.x += deltaTime * speed;
@@ -115,7 +115,7 @@ public:
 			position.x += deltaTime * speed;
 			Vector<float> pos;
 			pos.x = position.x + colliderSize.x;
-			pos.y = position.y;
+			pos.y = position.y + colliderSize.y;
 			if (ColliderWithMap(255, pos))
 			{
 				position.x -= deltaTime * speed;
@@ -138,6 +138,7 @@ public:
 				//跳跃
 				if (!isJump)
 				{
+					jumpSpeed = 11;
 					isJump = true;
 					jumpSFX.Play(false);
 					currentAnimatorState = jump;
@@ -147,22 +148,27 @@ public:
 		}
 
 		
+		float jumpHeight = 0.5;
+
 		if (isJump)
 		{
-			if (jumpTime < 0.35)
+			if (jumpTime < jumpHeight)
 			{
 				jumpTime += deltaTime;
-				jumpSpeed -= 10 * deltaTime;
-
 				currentAnimatorState = jump;
 
-				position.y -= 10 * 0.8 * deltaTime;
+				jumpSpeed -= 10 * 1.5 * deltaTime;
+				
+				//position.y -= 10 * 0.8 * deltaTime;
+				position.y -= jumpSpeed * deltaTime;
 				Vector<float> pos;
 				pos.x = position.x;
 				pos.y = position.y - colliderSize.y;
 				if (ColliderWithMap(255, pos))
 				{
-					position.y += 10 * 0.8 * deltaTime;
+					//position.y += 10 * 0.8 * deltaTime;
+					position.y += jumpSpeed * deltaTime;
+					jumpSpeed = 0.0;
 					jumpTime = 0.0;
 					isJump = false;
 					Debug("jump over");
@@ -171,7 +177,9 @@ public:
 				pos.y = position.y - colliderSize.y;
 				if (ColliderWithMap(255, pos))
 				{
-					position.y += 10 * 0.8 * deltaTime;
+					//position.y += 10 * 0.8 * deltaTime;
+					position.y += jumpSpeed * deltaTime;
+					jumpSpeed = 0.0;
 					jumpTime = 0.0;
 					isJump = false;
 					Debug("jump over");
@@ -180,14 +188,17 @@ public:
 				pos.y = position.y - colliderSize.y;
 				if (ColliderWithMap(255, pos))
 				{
-					position.y += 10 * 0.8 * deltaTime;
+					//position.y += 10 * 0.8 * deltaTime;
+					position.y += jumpSpeed * deltaTime;
+					jumpSpeed = 0.0;
 					jumpTime = 0.0;
 					isJump = false;
 					Debug("jump over");
 				}
 
-				if (jumpTime >= 0.35)
+				if (jumpSpeed<0||jumpTime >= jumpHeight)
 				{
+					jumpSpeed = 0.0;
 					jumpTime = 0.0;
 					isJump = false;
 					Debug("jump over");
@@ -197,25 +208,35 @@ public:
 
 		}
 		else {
-			position.y += 10 * 1.2 * deltaTime;
+			//下落
+			jumpSpeed += 10 * 4.5 * deltaTime;
+
+			position.y += jumpSpeed * deltaTime;
+			//position.y += 10 * 1.2 * deltaTime;
 			Vector<float> pos;
 			pos.x = position.x;
 			pos.y = position.y + colliderSize.y;
 			if (ColliderWithMap(255, pos))
 			{
-				position.y -= 10 * 1.2 * deltaTime;
+				position.y -= jumpSpeed * deltaTime;
+				jumpSpeed = 0;
+				//position.y -= 10 * 1.2 * deltaTime;
 			}
 			pos.x = position.x - colliderSize.x;
 			pos.y = position.y + colliderSize.y;
 			if (ColliderWithMap(255, pos))
 			{
-				position.y -= 10 * 1.2 * deltaTime;
+				position.y -= jumpSpeed * deltaTime;
+				jumpSpeed = 0;
+				//position.y -= 10 * 1.2 * deltaTime;
 			}
 			pos.x = position.x + colliderSize.x;
 			pos.y = position.y + colliderSize.y;
 			if (ColliderWithMap(255, pos))
 			{
-				position.y -= 10 * 1.2 * deltaTime;
+				position.y -= jumpSpeed * deltaTime;
+				jumpSpeed = 0;
+				//position.y -= 10 * 1.2 * deltaTime;
 			}
 			
 			
@@ -243,6 +264,12 @@ public:
 		Control();
 #endif // _WIN64
 		Vector<int> testPos(position.x,position.y);
+
+		if (currentMap==nullptr)
+		{
+			return;
+		}
+
 		Uint8 hitItem = currentMap->level[testPos.y * currentMap->w + testPos.x];
 		if (hitItem == 127) 
 		{
@@ -268,16 +295,32 @@ public:
 
 		currentAnimatorState->Play();
 		sprite.UpdateImage(*(currentAnimatorState->GetCurrentFrameImage()));
+		
+		for (float i = 0;i<colliderSize.y;i=i+deltaTime)
+		{
+			isGrounded = (currentMap->level[
+				(int)(position.y + colliderSize.y + i) * currentMap->w + (int)position.x]
+				== 255) ||
+				(currentMap->level[
+					(int)(position.y + colliderSize.y + i) * currentMap->w + (int)(position.x - colliderSize.x)]
+					== 255) || (currentMap->level[
+						(int)(position.y + colliderSize.y + i) * currentMap->w + (int)(position.x + colliderSize.x)]
+						== 255);
+			if (isGrounded)
+			{
+				break;
+			}
+		}
 
-		//isGrounded = (oldy == position.y);
-		isGrounded = (currentMap->level[
+		/*isGrounded = (currentMap->level[
 			(int)(position.y+ colliderSize.y+10*1.2*deltaTime) * currentMap->w + (int)position.x] 
 			== 255)|| 
 			(currentMap->level[
 				(int)(position.y + colliderSize.y + 10 * 1.2 * deltaTime) * currentMap->w + (int)(position.x-colliderSize.x)]
 				== 255) || (currentMap->level[
 					(int)(position.y + colliderSize.y + 10 * 1.2 * deltaTime) * currentMap->w + (int)(position.x + colliderSize.x)]
-					== 255);
+					== 255);*/
+				
 
 	}
 
@@ -420,30 +463,33 @@ public:
 				}
 			}
 
-			delete currentMap;
 			//加载地图
-			currentMap = new LevelMap(LoadMap("./Assets/JumpMan/Map/level.map"));
-			
-			for (int i = 0; i < currentMap->w; i++)
-			{
-				for (int j = 0; j < currentMap->h; j++)
-				{
-					if (currentMap->level[j * currentMap->w + i] == 63)
-					{
-						player->position.x = i;
-						player->position.y = j;
-					}
+			delete currentMap;
 
-					if (currentMap->level[j * currentMap->w + i] == 31)
-					{
-						//如果是白云的化
-					}
-
-				}
-			}
+			currentMap = nullptr;
 
 			if (inputSystem.GetKeyDown(KeyK))
 			{
+				
+				currentMap = new LevelMap(LoadMap("./Assets/JumpMan/Map/level.map"));
+				for (int i = 0; i < currentMap->w; i++)
+				{
+					for (int j = 0; j < currentMap->h; j++)
+					{
+						if (currentMap->level[j * currentMap->w + i] == 63)
+						{
+							player->position.x = i;
+							player->position.y = j;
+						}
+
+						if (currentMap->level[j * currentMap->w + i] == 31)
+						{
+							//如果是白云的化
+						}
+
+					}
+				}
+
 				//重新开始新游戏
 				coinCount = 0;
 				gameOver = false;
@@ -462,6 +508,10 @@ public:
 bool ColliderWithMap(Uint8 byte, Vector<float> colliderPos)
 {
 	//检测玩家和地图的碰撞
+	if (currentMap == nullptr)
+	{
+		return false;
+	}
 	Uint8 hitByte = currentMap->level[(int)(colliderPos.y) * currentMap->w + (int)colliderPos.x];
 	if (hitByte == byte)
 	{

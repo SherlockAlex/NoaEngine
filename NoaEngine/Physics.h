@@ -11,7 +11,9 @@ protected:
 	float mass = 1;
 	float g = 9.81;
 	bool useGravity = true;
+	bool isGrounded = false;
 	Vector<float> velocity;
+
 protected:
 	Physics(Vector<float>* colliderPos);
 	

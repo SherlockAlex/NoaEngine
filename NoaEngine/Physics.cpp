@@ -14,7 +14,13 @@ void Physics::PhysicsUpdate(float deltaTime)
 {
 	if (useGravity) 
 	{
-		//如果使用重力
-		velocity.y -= g * deltaTime;
+
+		if (!isGrounded)
+		{
+			//如果使用重力
+			velocity.y += g * deltaTime;
+			(*colliderPos) = (*colliderPos) + (velocity * deltaTime);
+		}
+
 	}
 }

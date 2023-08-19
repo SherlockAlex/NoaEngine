@@ -41,8 +41,17 @@ struct Vector {
 
 	T operator * (Vector a) 
 	{
+		//向量点乘
 		T result = x * a.x + y * a.y;
 		return result;
+	}
+
+	Vector operator * (T a) 
+	{
+		//向量乘常数
+		this->x = this->x * a;
+		this->y = this->y * a;
+		return *(this);
 	}
 
 };

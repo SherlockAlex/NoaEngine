@@ -89,11 +89,11 @@ NoaGameEngine::NoaGameEngine(
 }
 
 NoaGameEngine::~NoaGameEngine() {
-	free(pixelBuffer);
 	SDL_DestroyRenderer(mainRenderer);
 	SDL_DestroyTexture(texture);
 	SDL_DestroyWindow(window);
 	SDL_Quit();
+	//free(pixelBuffer);
 }
 
 void* NoaGameEngine::PixelBuffer() {
