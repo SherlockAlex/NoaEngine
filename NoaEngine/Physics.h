@@ -22,6 +22,7 @@ protected:
 	float g = 9.81;
 	bool useGravity = true;
 	bool isGrounded = false;
+public:
 	Vector<float> velocity;
 
 protected:

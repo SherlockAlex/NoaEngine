@@ -6,9 +6,12 @@ vector<Physics*> physics;
 
 Vector<float> sumForce(0.0, 0.0);
 
+float invMass = 1;
+
 Physics::Physics(Vector<float>* colliderPos):velocity(0.0,0.0)
 {
 	this->colliderPos = colliderPos;
+	invMass = 1.0 / mass;
 	physics.push_back(this);
 }
 
@@ -34,12 +37,13 @@ void Physics::PhysicsUpdate(float deltaTime)
 	//处理力和速度的关系
 	//F = ma
 
-	velocity = sumForce * deltaTime / mass + velocity;
+	velocity = sumForce * deltaTime * invMass + velocity;
 
 	//将速度的量反馈到物体的位移变化
 	(*colliderPos) = (*colliderPos) + (velocity * deltaTime);
 
-	//Debug("velocity:( "+to_string(velocity.x)+" , "+to_string(velocity.y)+" )");
+	///Debug("velocity:( "+to_string(velocity.x)+" , "+to_string(velocity.y)+" )");
+	Debug("force:( " + to_string(sumForce.x) + " , " + to_string(sumForce.y) + " )");
 
 }
 
@@ -54,7 +58,7 @@ void Physics::AddForce(Vector<float> force, ForceType forceType)
 		break;
 	case Physics::Impulse:
 		//添加一个冲量到物体上，作用完马上就消失
-		velocity = force / mass + velocity;
+		velocity = force * invMass + velocity;
 		break;
 	default:
 		break;

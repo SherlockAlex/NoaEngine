@@ -80,14 +80,19 @@ public:
 	{
 		if (isGrounded) {
 			currentAnimatorState = idle;
+			if (velocity.y == 0) 
+			{
+				isJump = false;
+			}
 		}
 		else {
 			currentAnimatorState = jump;
 		}
 		
 
-		if (inputSystem.GetKeyHold(KeyA))
+		if (inputSystem.GetKeyDown(KeyA))
 		{
+			//AddForce(Vector<float>(-1, 0), ContinuousForce);
 			isLeft = true;
 			position.x -= deltaTime * speed;
 			Vector<float> pos;
@@ -108,8 +113,9 @@ public:
 
 		}
 
-		if (inputSystem.GetKeyHold(KeyD))
+		if (inputSystem.GetKeyDown(KeyD))
 		{
+			//AddForce(Vector<float>(1, 0), ContinuousForce);
 			//Debug("Move right");
 			isLeft = false;
 			position.x += deltaTime * speed;
@@ -133,10 +139,16 @@ public:
 
 		if (inputSystem.GetKeyDown(KeyK)&&isGrounded)
 		{
-			Debug("Jump");
-			jumpSFX.Play(false);
-			currentAnimatorState = jump;
-			AddForce(Vector<float>(0, -6), Impulse);
+			if (!isJump)
+			{
+				Debug("Jump");
+				jumpSFX.Play(false);
+				currentAnimatorState = jump;
+				AddForce(Vector<float>(0, -15), Impulse);
+				//AddForce(Vector<float>(0, -15), ContinuousForce);
+				isJump = true;
+			}
+			
 		}
 
 		//ÏÂÂäµÄÅö×²¼ì²â
@@ -147,7 +159,6 @@ public:
 		if (ColliderWithMap(255, pos))
 		{
 			position.y -= velocity.y * deltaTime;
-
 		}
 		pos.x = position.x - colliderSize.x;
 		pos.y = position.y + colliderSize.y;
@@ -186,6 +197,8 @@ public:
 
 		if (currentMap==nullptr)
 		{
+			velocity.y = 0;
+			velocity.x = 0;
 			return;
 		}
 
@@ -214,31 +227,17 @@ public:
 
 		currentAnimatorState->Play();
 		sprite.UpdateImage(*(currentAnimatorState->GetCurrentFrameImage()));
-		
-		for (float i = 0;i<colliderSize.y;i=i+deltaTime)
-		{
-			isGrounded = (currentMap->level[
-				(int)(position.y + colliderSize.y + i) * currentMap->w + (int)position.x]
-				== 255) ||
-				(currentMap->level[
-					(int)(position.y + colliderSize.y + i) * currentMap->w + (int)(position.x - colliderSize.x)]
-					== 255) || (currentMap->level[
-						(int)(position.y + colliderSize.y + i) * currentMap->w + (int)(position.x + colliderSize.x)]
-						== 255);
-			if (isGrounded)
-			{
-				break;
-			}
-		}
 
 		isGrounded = (currentMap->level[
-			(int)(position.y+ colliderSize.y+10*1.2*deltaTime) * currentMap->w + (int)position.x] 
+			(int)(position.y+ colliderSize.y+0.01+velocity.y*deltaTime) * currentMap->w + (int)position.x] 
 			== 255)|| 
 			(currentMap->level[
-				(int)(position.y + colliderSize.y + 10 * 1.2 * deltaTime) * currentMap->w + (int)(position.x - colliderSize.x)]
+				(int)(position.y + colliderSize.y+0.01 + velocity.y * deltaTime) * currentMap->w + (int)(position.x - colliderSize.x)]
 				== 255) || (currentMap->level[
-					(int)(position.y + colliderSize.y + 10 * 1.2 * deltaTime) * currentMap->w + (int)(position.x + colliderSize.x)]
+					(int)(position.y + colliderSize.y +0.01+ velocity.y * deltaTime) * currentMap->w + (int)(position.x + colliderSize.x)]
 					== 255);
+
+		
 				
 
 	}
@@ -289,6 +288,7 @@ public:
 				{
 					player->position.x = i;
 					player->position.y = j;
+					player->velocity.y = 0;
 				}
 
 				if (currentMap ->level[j*currentMap->w+i] == 31)
