@@ -33,6 +33,8 @@ namespace noa {
 			string windowTitle = gameName + " FPS: " + to_string(1 / deltaTime);
 			SDL_SetWindowTitle(window, windowTitle.c_str());
 
+			
+
 			while (SDL_PollEvent(&ioEvent))
 			{
 
@@ -106,7 +108,7 @@ namespace noa {
 			exit(0);
 		}
 
-		mainRenderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+		mainRenderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC|SDL_RENDERER_TARGETTEXTURE);
 		if (mainRenderer == nullptr)
 		{
 			exit(0);

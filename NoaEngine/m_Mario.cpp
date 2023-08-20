@@ -98,7 +98,7 @@ public:
 		}
 		
 
-		if (inputSystem.GetKeyDown(KeyA))
+		if (inputSystem.GetKeyHold(KeyA))
 		{
 			//AddForce(Vector<float>(-1, 0), ContinuousForce);
 			isLeft = true;
@@ -121,7 +121,7 @@ public:
 
 		}
 
-		if (inputSystem.GetKeyDown(KeyD))
+		if (inputSystem.GetKeyHold(KeyD))
 		{
 			//AddForce(Vector<float>(1, 0), ContinuousForce);
 			//Debug("Move right");
@@ -282,8 +282,8 @@ public:
 		wallTexture = Sprite(LoadSprFile("./Assets/JumpMan/Texture/wall.spr"),1);
 		coinTexture = Sprite(LoadSprFile("./Assets/JumpMan/Texture/Coin.spr"), 1);
 
-		gameOverTexture = Sprite(LoadSprFile("./Assets/JumpMan/Texture/gameover.spr"), 1);
-		//gameOverTexture = Sprite(LoadSprFile("./Assets/JumpMan/Texture/gameBackground.spr"), 1);
+		//gameOverTexture = Sprite(LoadSprFile("./Assets/JumpMan/Texture/gameover.spr"), 1);
+		gameOverTexture = Sprite(LoadSprFile("./Assets/JumpMan/Texture/gameBackground.spr"), 1);
 		BGM = new Audio("./Assets/JumpMan/Music/BGM.ogg", Music);
 		gameOverMusic = new Audio("./Assets/JumpMan/Music/gameover.mp3", Chunk);
 

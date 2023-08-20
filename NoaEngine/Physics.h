@@ -6,6 +6,7 @@
 
 namespace noa {
 	//这个是一个物理刚体，负责模拟物理的运动和一些碰撞
+	//如果想让固体具有物理效果，只要继承此类
 	class Rigidbody
 	{
 	public:
