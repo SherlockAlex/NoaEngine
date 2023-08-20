@@ -114,6 +114,10 @@ namespace noa {
 		};
 
 	private:
+		std::chrono::system_clock::time_point tp1 = chrono::system_clock::now();
+		chrono::duration<float> elapsedTime;
+		std::chrono::system_clock::time_point tp2 = chrono::system_clock::now();
+
 		SDL_Window* window = nullptr;
 		SDL_Renderer* mainRenderer = nullptr;
 		SDL_Texture* texture = nullptr;
@@ -130,10 +134,14 @@ namespace noa {
 		int surfaceWidth;
 		int surfaceHeight;
 
+		bool isRun = true;
+
 	protected:
 		//float deltaTime = 0;
 
 	public:
+		void MainThread();
+
 		virtual void Start() = 0;
 		virtual void Update() = 0;
 

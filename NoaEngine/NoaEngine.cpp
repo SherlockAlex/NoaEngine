@@ -1,5 +1,8 @@
 #include "NoaEngine.h"
 #include <ctime>
+#include <thread>
+#include <mutex>
+#include "SDL2/SDL_thread.h"
 
 namespace noa {
 	extern vector <Behaviour*> behaviours;
@@ -7,12 +10,67 @@ namespace noa {
 	extern vector<Animator*> animatorList;
 	extern vector<Physics*> physics;
 
+	//mutex mtx; // 定义互斥锁对象
+
 	int pixelHeight = 0;
 	int pixelWidth = 0;
 
 	float deltaTime = 0;
 
 	Renderer renderer;
+
+	void NoaGameEngine::MainThread()
+	{
+		while (isRun)
+		{
+			//mtx.lock();
+			tp2 = chrono::system_clock::now();
+			elapsedTime = tp2 - tp1;
+
+			deltaTime = elapsedTime.count();
+			//执行游戏主类的update
+
+			string windowTitle = gameName + " FPS: " + to_string(1 / deltaTime);
+			SDL_SetWindowTitle(window, windowTitle.c_str());
+
+			while (SDL_PollEvent(&ioEvent))
+			{
+
+				inputSystem.Update();
+
+				if (ioEvent.type == SDL_QUIT)
+				{
+					isRun = false;
+					SDL_Quit();
+					return;
+				}
+			}
+
+			for (int i = 0; i < physics.size(); i++)
+			{
+				physics[i]->PhysicsUpdate(deltaTime);
+			}
+
+			Update();
+
+			for (int i = 0; i < behaviours.size(); i++)
+			{
+				behaviours[i]->Update();
+			}
+
+			for (int i = 0; i < animatorList.size(); i++)
+			{
+				animatorList[i]->Update(deltaTime);
+			}
+
+			SDL_UnlockTexture(texture);
+			SDL_RenderCopy(mainRenderer, texture, nullptr, nullptr);
+			SDL_RenderPresent(mainRenderer);
+
+			tp1 = tp2;
+			//mtx.unlock();
+		}
+	}
 
 	NoaGameEngine::NoaGameEngine(
 		int width, int height,
@@ -105,15 +163,22 @@ namespace noa {
 		return deltaTime;
 	}
 
+	int SDL_ThreadFunction(void* data) {
+		// 从传递的data中获取std::function对象，并调用它
+		std::function<void()>* funcPtr = static_cast<std::function<void()>*>(data);
+		(*funcPtr)(); // 调用成员方法
+		return 0;
+	}
+
 	int NoaGameEngine::Run()
 	{
 		//运行游戏
 
-		auto tp1 = chrono::system_clock::now();
+		tp1 = chrono::system_clock::now();
 		chrono::duration<float> elapsedTime;
-		auto tp2 = chrono::system_clock::now();
+		tp2 = chrono::system_clock::now();
 
-		// 创建独立线程，处理输入事件
+		
 
 		Start();
 
@@ -122,55 +187,7 @@ namespace noa {
 			behaviours[i]->Start();
 		}
 
-		bool isRun = true;
-
-		while (isRun)
-		{
-
-			tp2 = chrono::system_clock::now();
-			elapsedTime = tp2 - tp1;
-			tp1 = tp2;
-			deltaTime = elapsedTime.count();
-			//执行游戏主类的update
-
-			string windowTitle = gameName + " FPS: " + to_string(1 / deltaTime);
-			SDL_SetWindowTitle(window, windowTitle.c_str());
-
-			while (SDL_PollEvent(&ioEvent))
-			{
-
-				inputSystem.Update();
-
-				if (ioEvent.type == SDL_QUIT)
-				{
-					isRun = false;
-					SDL_Quit();
-					return 0;
-				}
-			}
-
-			for (int i = 0; i < physics.size(); i++)
-			{
-				physics[i]->PhysicsUpdate(deltaTime);
-			}
-
-			Update();
-
-			for (int i = 0; i < behaviours.size(); i++)
-			{
-				behaviours[i]->Update();
-			}
-
-			for (int i = 0; i < animatorList.size(); i++)
-			{
-				animatorList[i]->Update(deltaTime);
-			}
-
-			SDL_UnlockTexture(texture);
-			SDL_RenderCopy(mainRenderer, texture, nullptr, nullptr);
-			SDL_RenderPresent(mainRenderer);
-
-		}
+		MainThread();
 
 		return 0;
 	}

@@ -373,13 +373,15 @@ public:
 		BGM->Play(true);
 	}
 
+	//bool canDraw = true;
+
 	void Update() override
 	{
 		
 		if (gameOver)
 		{
 			//ÏÈºÚÆÁ
-
+			//canDraw = false;
 			//BGM.Stop();
 			//gameOverMusic.Play(false);
 
@@ -432,6 +434,7 @@ public:
 			}
 		}
 		else {
+			
 			Draw();
 		}
 	}
@@ -457,7 +460,7 @@ bool ColliderWithMap(Uint8 byte, Vector<float> colliderPos)
 
 int main(int argc,char * argv[]) 
 {
-	Mario mario(1920 / 2, 1080 / 2, NoaGameEngine::WindowMode, "Mario");
+	Mario mario(1920/2, 1080/2, NoaGameEngine::WindowMode, "Mario");
 	mario.Run();
 	return 0;
 }
