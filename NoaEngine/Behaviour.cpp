@@ -1,34 +1,38 @@
 #include "Behaviour.h"
 #include "NoaEngine.h"
 
-vector <Behaviour*> behaviours;
+namespace noa {
+	vector <Behaviour*> behaviours;
 
-void DestroyBehaviour(Behaviour * behaviour) {
-	auto it = std::find(behaviours.begin(), behaviours.end(), behaviour);
-	if (it != behaviours.end())
-	{
-		behaviours.erase(it);
+	void DestroyBehaviour(Behaviour* behaviour) {
+		auto it = std::find(behaviours.begin(), behaviours.end(), behaviour);
+		if (it != behaviours.end())
+		{
+			behaviours.erase(it);
+		}
+		//delete behaviour;
+		Debug("Behaviour被销毁");
+
 	}
-	//delete behaviour;
-	Debug("Behaviour被销毁");
+
+	Behaviour::Behaviour()
+	{
+		behaviours.push_back(this);
+	}
+
+	void Behaviour::Start()
+	{
+	}
+
+	Behaviour::~Behaviour()
+	{
+		DestroyBehaviour(this);
+	}
+
+	void Destroy(Behaviour* behaviour)
+	{
+		delete behaviour;
+	}
 
 }
 
-Behaviour::Behaviour()
-{
-	behaviours.push_back(this);
-}
-
-void Behaviour::Start()
-{
-}
-
-Behaviour::~Behaviour()
-{
-	DestroyBehaviour(this);
-}
-
-void Destroy(Behaviour * behaviour)
-{
-	delete behaviour;
-}

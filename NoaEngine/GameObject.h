@@ -4,33 +4,37 @@
 #include "Behaviour.h"
 #include "Sprite.h"
 
-class GameObject :public Behaviour
-{
-	//游戏内的物品
-	//制动绘制游戏物品到屏幕上
-public:
-	Sprite sprite;
-	bool isTrigger = false;
-public:
-	GameObject(Sprite sprite);
+namespace noa {
+	class GameObject :public Behaviour
+	{
+		//游戏内的物品
+		//制动绘制游戏物品到屏幕上
+	public:
+		Sprite sprite;
+		bool isTrigger = false;
+	public:
+		GameObject(Sprite sprite);
 
-	GameObject(Sprite sprite, Vector<float> startPosition);
+		GameObject(Sprite sprite, Vector<float> startPosition);
 
-	~GameObject();
+		~GameObject();
 
-	//用于检测碰撞并传递消息
-	virtual void OnTriggerEnter(vector<void*> other) {
-		//用于传递碰撞检测的消息
-	}
+		//用于检测碰撞并传递消息
+		virtual void OnTriggerEnter(vector<void*> other) {
+			//用于传递碰撞检测的消息
+		}
 
-	virtual void RenderGameObject() {
-		//实现绘制物品信息
-		sprite.DrawSprite(position.x, position.y);
-	}
+		virtual void RenderGameObject() {
+			//实现绘制物品信息
+			sprite.DrawSprite(position.x, position.y);
+		}
 
-};
+	};
 
-extern void Destroy(GameObject * gameObject);
+	extern void Destroy(GameObject* gameObject);
+}
+
+
 
 #endif // !NOAENGINE_GAMEOBJECT
 

@@ -2,66 +2,84 @@
 #include "NoaEngine.h"
 
 using namespace std;
-vector<Physics*> physics;
 
-Vector<float> sumForce(0.0, 0.0);
+namespace noa {
+	vector<Physics*> physics;
 
-float invMass = 1;
+	Vector<float> sumForce(0.0, 0.0);
 
-Physics::Physics(Vector<float>* colliderPos):velocity(0.0,0.0)
-{
-	this->colliderPos = colliderPos;
-	invMass = 1.0 / mass;
-	physics.push_back(this);
-}
+	float invMass = 1;
 
-//实现物理效果
-void Physics::PhysicsUpdate(float deltaTime)
-{
-	if (useGravity) 
+	Physics::Physics(Vector<float>* colliderPos) :velocity(0.0, 0.0)
 	{
-		if (!isGrounded)
+		this->colliderPos = colliderPos;
+		invMass = 1.0 / mass;
+		physics.push_back(this);
+	}
+
+	Physics::~Physics()
+	{
+		//销毁物品
+		auto it = std::find(physics.begin(), physics.end(), this);
+		if (it != physics.end())
 		{
-			//如果使用重力
-			velocity.y += 3.5*g * deltaTime;
+			physics.erase(it);
 		}
-		else {
-			if (velocity.y>0) 
+
+		Debug("物理模块被删除");
+
+	}
+
+	//实现物理效果
+	void Physics::PhysicsUpdate(float deltaTime)
+	{
+		if (useGravity)
+		{
+			if (!isGrounded)
 			{
-				
-				velocity.y = 0;
+				//如果使用重力
+				velocity.y += 3.5 * g * deltaTime;
+			}
+			else {
+				if (velocity.y > 0)
+				{
+
+					velocity.y = 0;
+				}
 			}
 		}
+
+		//处理力和速度的关系
+		//F = ma
+
+		velocity = sumForce * deltaTime * invMass + velocity;
+
+		//将速度的量反馈到物体的位移变化
+		(*colliderPos) = (*colliderPos) + (velocity * deltaTime);
+
+		//Debug("velocity:( "+to_string(velocity.x)+" , "+to_string(velocity.y)+" )");
+		//Debug("force:( " + to_string(sumForce.x) + " , " + to_string(sumForce.y) + " )");
+
 	}
-	
-	//处理力和速度的关系
-	//F = ma
 
-	velocity = sumForce * deltaTime * invMass + velocity;
-
-	//将速度的量反馈到物体的位移变化
-	(*colliderPos) = (*colliderPos) + (velocity * deltaTime);
-
-	///Debug("velocity:( "+to_string(velocity.x)+" , "+to_string(velocity.y)+" )");
-	Debug("force:( " + to_string(sumForce.x) + " , " + to_string(sumForce.y) + " )");
-
-}
-
-void Physics::AddForce(Vector<float> force, ForceType forceType)
-{
-	//添加力到物体上
-	switch (forceType)
+	void Physics::AddForce(Vector<float> force, ForceType forceType)
 	{
-	case Physics::ContinuousForce:
-		//添加恒力到物体上
-		sumForce = sumForce + force;
-		break;
-	case Physics::Impulse:
-		//添加一个冲量到物体上，作用完马上就消失
-		velocity = force * invMass + velocity;
-		break;
-	default:
-		break;
+		//添加力到物体上
+		switch (forceType)
+		{
+		case Physics::ContinuousForce:
+			//添加恒力到物体上
+			sumForce = sumForce + force;
+			break;
+		case Physics::Impulse:
+			//添加一个冲量到物体上，作用完马上就消失
+			velocity = force * invMass + velocity;
+			break;
+		default:
+			break;
+		}
+
 	}
 
 }
+

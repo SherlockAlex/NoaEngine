@@ -7,7 +7,9 @@
 
 using namespace std;
 
-// Color constant
+namespace noa {
+
+	// Color constant
 #define	BLACK			0x000000
 #define	BLUE			0xAA0000
 #define	GREEN			0x00AA00
@@ -39,30 +41,32 @@ using namespace std;
 
 
 
-class Renderer
-{
-private:
-	int pixelWidth;
-	int pixelHeight;
-	Uint32* pixelBuffer;
-	
-public:
-	Renderer();
-	Renderer(int pixelWidth, int pixelHeight,void * pixelBuffer);
-	//绘制像素点
-	void DrawPixel(int x,int y,Uint32 color) const;
-	void DrawLine(int x1, int y1, int x2, int y2, Uint32 color) const;
-	void DrawString(int x,int y,const string & str,Uint32 color,const int size);
-	void DrawImage(
-	int posX,
-	int posY,
-	int inmageW,
-	int imageH,
-	int scaleForSurface,
-	bool isDrawAlpha,
-	Uint32* imageRGB) const;
+	class Renderer
+	{
+	private:
+		int pixelWidth;
+		int pixelHeight;
+		Uint32* pixelBuffer;
 
-};
+	public:
+		Renderer();
+		Renderer(int pixelWidth, int pixelHeight, void* pixelBuffer);
+		//绘制像素点
+		void DrawPixel(int x, int y, Uint32 color) const;
+		void DrawLine(int x1, int y1, int x2, int y2, Uint32 color) const;
+		void DrawString(int x, int y, const string& str, Uint32 color, const int size);
+		void DrawImage(
+			int posX,
+			int posY,
+			int inmageW,
+			int imageH,
+			int scaleForSurface,
+			bool isDrawAlpha,
+			Uint32* imageRGB) const;
+
+	};
+}
+
 
 #endif
 

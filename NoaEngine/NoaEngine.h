@@ -20,6 +20,8 @@
 
 	#include "NoaEngine.h"
 
+	using namespace noa;
+
 	class ExampleGame :public NoaGameEngine {
 	public:
 		ExampleGame(int width, int height,
@@ -93,64 +95,67 @@ using namespace std;
 #include "Physics.h"
 
 //窗口属性
-extern int pixelHeight;
-extern int pixelWidth;
 
-extern Renderer renderer;
+namespace noa {
+	extern int pixelHeight;
+	extern int pixelWidth;
 
-extern float deltaTime;
+	extern Renderer renderer;
 
-//游戏基类
-class NoaGameEngine {
-public:
-	enum GameWindowMode
-	{
-		FullScreen = SDL_WINDOW_FULLSCREEN,
-		WindowMode = SDL_WINDOW_FOREIGN
+	extern float deltaTime;
+
+	//游戏基类
+	class NoaGameEngine {
+	public:
+		enum GameWindowMode
+		{
+			FullScreen = SDL_WINDOW_FULLSCREEN,
+			WindowMode = SDL_WINDOW_FOREIGN
+		};
+
+	private:
+		SDL_Window* window = nullptr;
+		SDL_Renderer* mainRenderer = nullptr;
+		SDL_Texture* texture = nullptr;
+		SDL_PixelFormat* format;
+		void* pixelBuffer = nullptr;
+
+		//窗口
+		int width;
+		int height;
+		string gameName;
+		GameWindowMode gameWindowMode;
+
+		//像素宽度和高度
+		int surfaceWidth;
+		int surfaceHeight;
+
+	protected:
+		//float deltaTime = 0;
+
+	public:
+		virtual void Start() = 0;
+		virtual void Update() = 0;
+
+	public:
+
+		//渲染器
+
+		NoaGameEngine(
+			int width, int height,
+			GameWindowMode windowMode,
+			string gameName
+		);
+		~NoaGameEngine();
+		void* PixelBuffer();
+		float DeltaTime();
+		int Run();
+
 	};
 
-private:
-	SDL_Window* window = nullptr;
-	SDL_Renderer* mainRenderer = nullptr;
-	SDL_Texture* texture = nullptr;
-	SDL_PixelFormat* format;
-	void* pixelBuffer = nullptr;
+	void Debug(string msg);
+}
 
-	//窗口
-	int width;
-	int height;
-	string gameName;
-	GameWindowMode gameWindowMode;
 
-	//像素宽度和高度
-	int surfaceWidth;
-	int surfaceHeight;
-
-protected:
-	//float deltaTime = 0;
-
-public:
-	virtual void Start() = 0;
-	virtual void Update() = 0;
-
-public:
-
-	//渲染器
-	
-	NoaGameEngine(
-		int width, int height,
-		GameWindowMode windowMode,
-		string gameName
-	);
-	~NoaGameEngine();
-	void* PixelBuffer();
-	float DeltaTime();
-	int Run();
-
-};
-
-void Debug(string msg);
-
-void Debug(vector<string> msg);
 
 #endif // !NOAENGINE_H

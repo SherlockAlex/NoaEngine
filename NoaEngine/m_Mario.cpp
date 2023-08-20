@@ -4,6 +4,8 @@
 /// 类似《超级马里奥》的游戏
 /// </summary>
 
+using namespace noa;
+
 extern vector<GameObject*> gameObjects;
 
 LevelMap* currentMap;
@@ -72,6 +74,12 @@ public:
 		jump->LoadFromAnimatorFile("./Assets/JumpMan/Animator/mario_jump.amt");
 
 		currentAnimatorState = idle;
+	}
+
+	~Player() {
+		delete idle;
+		delete run;
+		delete jump;
 	}
 
 public:
@@ -299,6 +307,14 @@ public:
 			}
 		}
 
+	}
+
+	~Mario() {
+		NoaGameEngine::~NoaGameEngine();
+		delete player;
+		delete currentMap;
+		delete BGM;
+		delete gameOverMusic;
 	}
 
 public:
