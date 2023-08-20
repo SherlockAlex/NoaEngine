@@ -38,7 +38,7 @@ public:
 
 };
 
-class Player :public GameObject,public Physics
+class Player :public GameObject,public Rigidbody
 {
 private:
 	function<void()> playerControlCallback;
@@ -63,7 +63,7 @@ public:
 	Animator* jump = new Animator(10);
 
 public:
-	Player(Sprite sprite):GameObject(sprite),Physics(&(this->position))
+	Player(Sprite sprite):GameObject(sprite),Rigidbody(&(this->position))
 	{
 		//玩家的构造函数
 		colliderSize.x = 0.6;
@@ -200,6 +200,11 @@ public:
 
 #ifdef _WIN64
 		Control();
+#else
+#ifdef _WIN32
+		Control();
+#endif // _WIN32
+
 #endif // _WIN64
 		Vector<int> testPos(position.x,position.y);
 
@@ -278,7 +283,7 @@ public:
 		coinTexture = Sprite(LoadSprFile("./Assets/JumpMan/Texture/Coin.spr"), 1);
 
 		gameOverTexture = Sprite(LoadSprFile("./Assets/JumpMan/Texture/gameover.spr"), 1);
-
+		//gameOverTexture = Sprite(LoadSprFile("./Assets/JumpMan/Texture/gameBackground.spr"), 1);
 		BGM = new Audio("./Assets/JumpMan/Music/BGM.ogg", Music);
 		gameOverMusic = new Audio("./Assets/JumpMan/Music/gameover.mp3", Chunk);
 
@@ -387,7 +392,7 @@ public:
 
 			//float gameoverPanelDelta = gameOverTexture.w / pixelWidth;
 
-			for (int x = 0; x < pixelWidth; x++)
+			/*for (int x = 0; x < pixelWidth; x++)
 			{
 				for (int y = 0; y < pixelHeight; y++)
 				{
@@ -398,7 +403,9 @@ public:
 					Uint32 color = gameOverTexture.GetColor(testX,testY);
 					renderer.DrawPixel(x, y, color);
 				}
-			}
+			}*/
+
+			gameOverTexture.DrawSpriteFull();
 
 			//加载地图
 			delete currentMap;

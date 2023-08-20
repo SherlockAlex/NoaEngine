@@ -218,6 +218,22 @@ namespace noa {
 		}
 	}
 
+	void Sprite::DrawSpriteFull()
+	{
+		//全屏绘制图片
+		const float dx = 1.0 / (float)pixelWidth;
+		const float dy = 1.0 / (float)pixelHeight;
+		
+		for (int x = 0;x < pixelWidth;x++) 
+		{
+			for (int y = 0;y < pixelHeight;y++) 
+			{
+				const Uint32 color = GetTransposeColor(y*dy, x*dx);
+				renderer.DrawPixel(x,y,color);
+			}
+		}
+	}
+
 	Uint32 Sprite::GetColor(float normalizedX, float normalizedY) const
 	{
 		//从图片中获取像素

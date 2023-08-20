@@ -5,8 +5,8 @@
 #include "NoaMath.h"
 
 namespace noa {
-	//这个是一个物理类，负责模拟物理的运动和一些碰撞
-	class Physics
+	//这个是一个物理刚体，负责模拟物理的运动和一些碰撞
+	class Rigidbody
 	{
 	public:
 		//力的种类
@@ -27,11 +27,11 @@ namespace noa {
 		Vector<float> velocity;
 
 	protected:
-		Physics(Vector<float>* colliderPos);
-		~Physics();
+		Rigidbody(Vector<float>* colliderPos);
+		~Rigidbody();
 
 	public:
-		void PhysicsUpdate(float deltaTime);
+		void RigidbodyUpdate(float deltaTime);
 
 		/// <summary>
 		/// 给物体施加力

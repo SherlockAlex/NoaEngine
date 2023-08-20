@@ -1,0 +1,155 @@
+{
+  "version": "2.1.0",
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "runs": [
+    {
+      "results": [],
+      "tool": {
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis",
+          "version": "14.34.31933.0",
+          "informationUri": "https://aka.ms/cpp/ca"
+        }
+      },
+      "invocations": [
+        {
+          "executionSuccessful": true
+        }
+      ],
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///d:/work/gittools/noaengine/noaengine/audio.cpp"
+          },
+          "roles": [
+            "analysisTarget"
+          ],
+          "hashes": {
+            "sha-256": "1a4053de364c3569aa9e58f272d78c17f4a433dadec21eaad2dca0a4bf2344b8"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/work/gittools/noaengine/noaengine/audio.h"
+          },
+          "hashes": {
+            "sha-256": "8ffd4e376903453424c40068460e59e483adede99f38acce0b9dce7aa5d6796c"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/sdl2/msvc(vs)/sdl2-2.26.0-allinone/include/sdl2/sdl_audio.h"
+          },
+          "hashes": {
+            "sha-256": "0161cf27e252eaff2c7b4bd48ddf526db6a8eb5d0f1459295686a1cfdb32b01a"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/sdl2/msvc(vs)/sdl2-2.26.0-allinone/include/sdl2/sdl_stdinc.h"
+          },
+          "hashes": {
+            "sha-256": "300b014d9bd0a4f0a572886ddff9f3a46a438b73bba919b567380444acf297eb"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/sdl2/msvc(vs)/sdl2-2.26.0-allinone/include/sdl2/sdl_config.h"
+          },
+          "hashes": {
+            "sha-256": "72a321dc1c068cd02780a1de759c3c2c1d396e0ee1e76668ed60cfd48706f345"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/sdl2/msvc(vs)/sdl2-2.26.0-allinone/include/sdl2/sdl_platform.h"
+          },
+          "hashes": {
+            "sha-256": "fcd295ca5be0bec75574cb323c409c2d8f0ade779503a9f50c2ffb94f30231a9"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/sdl2/msvc(vs)/sdl2-2.26.0-allinone/include/sdl2/begin_code.h"
+          },
+          "hashes": {
+            "sha-256": "98e31da4c61d547c9c88184135b72e3d014a7a69102e5c6d758350237cf6b271"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/sdl2/msvc(vs)/sdl2-2.26.0-allinone/include/sdl2/close_code.h"
+          },
+          "hashes": {
+            "sha-256": "f49100335e21a43455ead0e742f7c816d0494171ce10948e3637b9abf3ca953a"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/sdl2/msvc(vs)/sdl2-2.26.0-allinone/include/sdl2/sdl_error.h"
+          },
+          "hashes": {
+            "sha-256": "470f04a4562305966d7705b774c1e85fb6e9e8ce4c136f2669bd4cc2cc6c922f"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/sdl2/msvc(vs)/sdl2-2.26.0-allinone/include/sdl2/sdl_endian.h"
+          },
+          "hashes": {
+            "sha-256": "7b9920f5e114e8d276c3c4394630c1598012c7f54262dd8f7efa188407e80189"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/sdl2/msvc(vs)/sdl2-2.26.0-allinone/include/sdl2/sdl_mutex.h"
+          },
+          "hashes": {
+            "sha-256": "3a656b533b97a5527a89fcfbb709c37024f7ed293d942a6a3f9ce068273f42d0"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/sdl2/msvc(vs)/sdl2-2.26.0-allinone/include/sdl2/sdl_thread.h"
+          },
+          "hashes": {
+            "sha-256": "8c8cfa7c106e1ede1f437d4a76aabf3b71424c2093ee49ea88ec9c8e15180257"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/sdl2/msvc(vs)/sdl2-2.26.0-allinone/include/sdl2/sdl_atomic.h"
+          },
+          "hashes": {
+            "sha-256": "d0e6546ddc4f01bb503f3aecf15ca25496975e00eeb42d00a8a5978aa26f92b5"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/sdl2/msvc(vs)/sdl2-2.26.0-allinone/include/sdl2/sdl_rwops.h"
+          },
+          "hashes": {
+            "sha-256": "231d792f807225b204ac5950cd76350b8e7c45bd8a47e93e334dccc61446bbbd"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/sdl2/msvc(vs)/sdl2-2.26.0-allinone/include/sdl2/sdl_mixer.h"
+          },
+          "hashes": {
+            "sha-256": "1660e6248bb94eee878fdec25fffd3fd3ce75c92e3636847590d217544e9cb74"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/sdl2/msvc(vs)/sdl2-2.26.0-allinone/include/sdl2/sdl_version.h"
+          },
+          "hashes": {
+            "sha-256": "0327a031241faa20ef769a462ed19003f2dabbfafcae6a77232fff43f5c16b1d"
+          }
+        }
+      ]
+    }
+  ]
+}

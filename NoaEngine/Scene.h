@@ -60,8 +60,8 @@ namespace noa {
 
 	public:
 		Uint8* level = nullptr;
-		int w;
-		int h;
+		int w = 0;
+		int h = 0;
 	public:
 		LevelMap() {
 

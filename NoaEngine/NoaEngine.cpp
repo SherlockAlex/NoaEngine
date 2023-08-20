@@ -8,7 +8,7 @@ namespace noa {
 	extern vector <Behaviour*> behaviours;
 	extern vector<GameObject*> gameObjects;
 	extern vector<Animator*> animatorList;
-	extern vector<Physics*> physics;
+	extern vector<Rigidbody*> rigidbodys;
 
 	//mutex mtx; // 定义互斥锁对象
 
@@ -46,9 +46,9 @@ namespace noa {
 				}
 			}
 
-			for (int i = 0; i < physics.size(); i++)
+			for (int i = 0; i < rigidbodys.size(); i++)
 			{
-				physics[i]->PhysicsUpdate(deltaTime);
+				rigidbodys[i]->RigidbodyUpdate(deltaTime);
 			}
 
 			Update();

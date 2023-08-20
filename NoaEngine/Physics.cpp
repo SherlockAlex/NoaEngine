@@ -4,26 +4,26 @@
 using namespace std;
 
 namespace noa {
-	vector<Physics*> physics;
+	vector<Rigidbody*> rigidbodys;
 
 	Vector<float> sumForce(0.0, 0.0);
 
 	float invMass = 1;
 
-	Physics::Physics(Vector<float>* colliderPos) :velocity(0.0, 0.0)
+	Rigidbody::Rigidbody(Vector<float>* colliderPos) :velocity(0.0, 0.0)
 	{
 		this->colliderPos = colliderPos;
 		invMass = 1.0 / mass;
-		physics.push_back(this);
+		rigidbodys.push_back(this);
 	}
 
-	Physics::~Physics()
+	Rigidbody::~Rigidbody()
 	{
 		//销毁物品
-		auto it = std::find(physics.begin(), physics.end(), this);
-		if (it != physics.end())
+		auto it = std::find(rigidbodys.begin(), rigidbodys.end(), this);
+		if (it != rigidbodys.end())
 		{
-			physics.erase(it);
+			rigidbodys.erase(it);
 		}
 
 		Debug("物理模块被删除");
@@ -31,7 +31,7 @@ namespace noa {
 	}
 
 	//实现物理效果
-	void Physics::PhysicsUpdate(float deltaTime)
+	void Rigidbody::RigidbodyUpdate(float deltaTime)
 	{
 		if (useGravity)
 		{
@@ -62,16 +62,16 @@ namespace noa {
 
 	}
 
-	void Physics::AddForce(Vector<float> force, ForceType forceType)
+	void Rigidbody::AddForce(Vector<float> force, ForceType forceType)
 	{
 		//添加力到物体上
 		switch (forceType)
 		{
-		case Physics::ContinuousForce:
+		case Rigidbody::ContinuousForce:
 			//添加恒力到物体上
 			sumForce = sumForce + force;
 			break;
-		case Physics::Impulse:
+		case Rigidbody::Impulse:
 			//添加一个冲量到物体上，作用完马上就消失
 			velocity = force * invMass + velocity;
 			break;

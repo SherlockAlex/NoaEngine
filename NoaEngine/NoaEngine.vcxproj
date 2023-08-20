@@ -82,6 +82,12 @@
     <LibraryPath>D:\SDL2\msvc(VS)\SDL2-2.26.0-allinone\lib\x64;$(LibraryPath)</LibraryPath>
     <PublicIncludeDirectories>D:\SDL2\msvc(VS)\SDL2-2.26.0-allinone\include;$(PublicIncludeDirectories)</PublicIncludeDirectories>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <IncludePath>D:\SDL2\msvc(VS)\SDL2-2.26.0-allinone\include;$(IncludePath)</IncludePath>
+    <ExternalIncludePath>D:\SDL2\msvc(VS)\SDL2-2.26.0-allinone\include;$(ExternalIncludePath)</ExternalIncludePath>
+    <LibraryPath>D:\SDL2\msvc(VS)\SDL2-2.26.0-allinone\lib\x86;$(LibraryPath)</LibraryPath>
+    <PublicIncludeDirectories>D:\SDL2\msvc(VS)\SDL2-2.26.0-allinone\include;$(PublicIncludeDirectories)</PublicIncludeDirectories>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -100,14 +106,17 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>D:\SDL2\msvc(VS)\SDL2-2.26.0-allinone\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>D:\SDL2\msvc(VS)\SDL2-2.26.0-allinone\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2.lib;SDL2_image.lib;SDL2_mixer.lib;SDL2_ttf.lib;SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">

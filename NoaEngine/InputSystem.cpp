@@ -24,6 +24,12 @@ namespace noa {
 		}
 
 #else 
+#ifdef _WIN32
+		if (GetAsyncKeyState((unsigned short)key) & 0x8000) {
+			return true;
+		}
+#endif // _WIN32
+
 #ifdef __linux__
 
 		const Uint8* keyState = SDL_GetKeyboardState(nullptr);
@@ -49,6 +55,11 @@ namespace noa {
 		}
 
 #else
+#ifdef _WIN32
+		if (GetAsyncKeyState((unsigned short)key) & 0x8000) {
+			return true;
+		}
+#endif // _WIN32
 #ifdef __linux__
 		const Uint8* keyState = SDL_GetKeyboardState(nullptr);
 
