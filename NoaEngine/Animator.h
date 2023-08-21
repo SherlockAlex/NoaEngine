@@ -2,6 +2,7 @@
 #define NOAENGINE_ANIMATOR_H
 
 #include <iostream>
+#include <functional>
 #include <vector>
 #include <utility>
 #include <algorithm>
@@ -17,7 +18,6 @@ using namespace std;
 
 namespace noa {
 	typedef unsigned int Uint32;
-	typedef void(*eventFunc)(void);
 
 	//出现了问题，必须重构
 
@@ -36,7 +36,7 @@ namespace noa {
 	{
 	private:
 		vector<SpriteFile> framesImage;
-		unordered_map<Uint32, eventFunc> framesEvent;
+		unordered_map<Uint32, function<void()>> framesEvent;
 		SpriteFile* currentFrame;
 		bool isPlaying = false;
 		//动画播放速度
@@ -52,7 +52,7 @@ namespace noa {
 		void LoadFromAnimatorFile(const char* filePath);
 		SpriteFile* GetCurrentFrameImage();
 		SpriteFile* GetFrameImage(int frame);
-		void SetFrameEvent(int frame, eventFunc e);
+		void SetFrameEvent(int frame, function<void()> e);
 		void Play(int frame);
 		void Play();
 		void InsertFrameImage(SpriteFile frameImage);

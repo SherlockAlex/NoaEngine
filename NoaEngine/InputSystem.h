@@ -14,8 +14,8 @@
 
 #endif // _WIN32
 
-
 #include "NoaMath.h"
+#include "NoaAction.h"
 
 using namespace std;
 
@@ -67,7 +67,7 @@ namespace noa {
 
 	public:
 		InputSystem();
-
+		NoaEvent<void()> inputEvent;
 	public:
 
 		//无需更新ioEvent
@@ -79,8 +79,8 @@ namespace noa {
 
 		void Update();
 
-		void BindEvent(void (*eventFunc)(void));
-		void BindEvent(function<void()> eventFunc);
+		//void BindEvent(void (*eventFunc)(void));
+		//void BindEvent(function<void()> eventFunc);
 
 		/*
 		x > 0 鼠标向右移动 : x

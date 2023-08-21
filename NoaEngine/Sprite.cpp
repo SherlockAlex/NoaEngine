@@ -236,15 +236,17 @@ namespace noa {
 
 	Uint32 Sprite::GetColor(float normalizedX, float normalizedY) const
 	{
-		//从图片中获取像素
+		if (image==nullptr)
+		{
+			return BLACK;
+		}
+
 		int sx = normalizedX * (float)w;
 		int sy = normalizedY * (float)h - 1;
-		//printf("%d,%d\n", sx, sy);
 		if (sx<0 || sx>w || sy<0 || sy>h)
 		{
 			sx = sx - (int)sx;
 			sy = sy - (int)sy;
-			return BLACK;
 		}
 
 		sx = sx & (w - 1);
@@ -256,18 +258,19 @@ namespace noa {
 	Uint32 Sprite::GetTransposeColor(float normalizedX, float normalizedY) const
 	{
 		//从图片中获取像素
+		if (image == nullptr)
+		{
+			return BLACK;
+		}
+
 		int sx = normalizedX * (float)h;
 		int sy = normalizedY * (float)w - 1;
-		//printf("%d,%d\n", sx, sy);
+
 		if (sx<0 || sx>h || sy<0 || sy>w)
 		{
 			sx = sx - (int)sx;
 			sy = sy - (int)sy;
-			return BLACK;
 		}
-
-		/*sx = sx & (h - 1);
-		sy = sy & (w - 1);*/
 
 		return image[sy * h + sx];
 	}

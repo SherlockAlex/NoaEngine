@@ -14,7 +14,7 @@ namespace noa {
 	InputSystem inputSystem;
 	SDL_Event ioEvent;
 
-	vector<function<void()>> inputEvents;
+	//vector<function<void()>> inputEvents;
 
 	InputSystem::InputSystem()
 	{
@@ -160,20 +160,21 @@ namespace noa {
 	void InputSystem::Update()
 	{
 		//实现更新
-		for (int i = 0; i < inputEvents.size(); i++) {
+		/*for (int i = 0; i < inputEvents.size(); i++) {
 			inputEvents[i]();
-		}
+		}*/
+		inputEvent.Invoke();
 	}
 
-	void InputSystem::BindEvent(void(*eventFunc)(void))
+	/*void InputSystem::BindEvent(void(*eventFunc)(void))
 	{
 		inputEvents.push_back(eventFunc);
-	}
+	}*/
 
-	void InputSystem::BindEvent(function<void()> eventFunc)
+	/*void InputSystem::BindEvent(function<void()> eventFunc)
 	{
 		inputEvents.push_back(eventFunc);
-	}
+	}*/
 
 	Vector<float> InputSystem::GetMouseMoveDelta()
 	{

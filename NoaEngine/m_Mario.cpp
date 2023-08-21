@@ -18,6 +18,13 @@ static bool ColliderWithMap(Uint8 byte, Vector<float> colliderPos);
 static Audio * BGM;
 static Audio * gameOverMusic;
 
+//实现tileMap
+unordered_map <Uint8, Sprite> tileMap =
+{
+	{255,Sprite(LoadSprFile("./Assets/JumpMan/Texture/wall.spr"),1)},
+	{127,Sprite(LoadSprFile("./Assets/JumpMan/Texture/Coin.spr"), 1)}
+};
+
 class Cloud:public GameObject
 {
 public:
@@ -58,7 +65,7 @@ public:
 	//Animator
 	Animator* currentAnimatorState = nullptr;
 
-	Animator* idle = new Animator(10);
+	Animator* idle = new Animator(5);
 	Animator* run = new Animator(10);
 	Animator* jump = new Animator(10);
 
@@ -83,6 +90,11 @@ public:
 	}
 
 public:
+
+	void InputEventTest() 
+	{
+		Debug("the input event is invoke");
+	}
 
 	void Control() 
 	{
@@ -145,7 +157,7 @@ public:
 
 		}
 
-		if (inputSystem.GetKeyDown(KeyK)&&isGrounded)
+		if (inputSystem.GetKeyHold(KeyK)&&isGrounded)
 		{
 			if (!isJump)
 			{
@@ -153,59 +165,67 @@ public:
 				jumpSFX.Play(false);
 				currentAnimatorState = jump;
 				AddForce(Vector<float>(0, -15), Impulse);
-				//AddForce(Vector<float>(0, -15), ContinuousForce);
 				isJump = true;
 			}
 			
 		}
 
 		//下落的碰撞检测
-		//position.y += jumpSpeed * deltaTime;
+
 		Vector<float> pos;
 		pos.x = position.x;
 		pos.y = position.y + colliderSize.y;
-		if (ColliderWithMap(255, pos))
+		if (isGrounded&&ColliderWithMap(255, pos))
 		{
-			position.y -= velocity.y * deltaTime;
+			position.y -= 0.05;
 		}
 		pos.x = position.x - colliderSize.x;
 		pos.y = position.y + colliderSize.y;
-		if (ColliderWithMap(255, pos))
+		if (isGrounded && ColliderWithMap(255, pos))
 		{
-			position.y -= velocity.y * deltaTime;
+			position.y -= 0.05;
 		}
 		pos.x = position.x + colliderSize.x;
 		pos.y = position.y + colliderSize.y;
+		if (isGrounded && ColliderWithMap(255, pos))
+		{
+			position.y -= 0.05;
+		}
+
+		//检测头顶是否顶砖块
+		pos.x = position.x;
+		pos.y = position.y - colliderSize.y;
 		if (ColliderWithMap(255, pos))
 		{
-			position.y -= velocity.y * deltaTime;
+			position.y += velocity.y * deltaTime;
+			velocity.y = 5;
+		}
+		pos.x = position.x - colliderSize.x;
+		pos.y = position.y - colliderSize.y;
+		if (ColliderWithMap(255, pos))
+		{
+			position.y += velocity.y * deltaTime;
+			velocity.y = 5;
+		}
+		pos.x = position.x + colliderSize.x;
+		pos.y = position.y - colliderSize.y;
+		if (ColliderWithMap(255, pos))
+		{
+			position.y += velocity.y * deltaTime;
+			velocity.y = 5;
 		}
 
 	}
 
 	void Start() override 
 	{
-		
-#ifdef __linux
-		playerControlCallback = [this]() {
-			this->Control();
-		};
-		inputSystem.BindEvent(playerControlCallback);
-#endif // __linux
+
 	}
 
 	void Update() override 
 	{
-		//float oldy = position.y;
-
-#ifdef _WIN64
 		Control();
-#else
-#ifdef _WIN32
-		Control();
-#endif // _WIN32
 
-#endif // _WIN64
 		Vector<int> testPos(position.x,position.y);
 
 		if (currentMap==nullptr)
@@ -218,7 +238,6 @@ public:
 		Uint8 hitItem = currentMap->level[testPos.y * currentMap->w + testPos.x];
 		if (hitItem == 127) 
 		{
-			//Debug("Get a Coin");
 			coinCount++;
 			currentMap->level[testPos.y * currentMap->w + testPos.x] = 0;
 			coinSFX.Play(false);
@@ -241,16 +260,22 @@ public:
 		currentAnimatorState->Play();
 		sprite.UpdateImage(*(currentAnimatorState->GetCurrentFrameImage()));
 
-		isGrounded = (currentMap->level[
-			(int)(position.y+ colliderSize.y+0.01+velocity.y*deltaTime) * currentMap->w + (int)position.x] 
+
+		isGrounded = false;
+
+		if ((currentMap->level[
+			(int)(position.y+ colliderSize.y+0.1) * currentMap->w + (int)position.x] 
 			== 255)|| 
 			(currentMap->level[
-				(int)(position.y + colliderSize.y+0.01 + velocity.y * deltaTime) * currentMap->w + (int)(position.x - colliderSize.x)]
+				(int)(position.y + colliderSize.y + 0.1) * currentMap->w + (int)(position.x - colliderSize.x)]
 				== 255) || (currentMap->level[
-					(int)(position.y + colliderSize.y +0.01+ velocity.y * deltaTime) * currentMap->w + (int)(position.x + colliderSize.x)]
-					== 255);
-
+					(int)(position.y + colliderSize.y + 0.1) * currentMap->w + (int)(position.x + colliderSize.x)]
+					== 255))
+		{
+			isGrounded = true;
+		}
 		
+		//Debug("isGrounded:"+to_string(isGrounded));
 				
 
 	}
@@ -263,13 +288,8 @@ private:
 	float deltaSize;
 	Player* player;
 
-	Sprite wallTexture;
-	Sprite coinTexture;
 	Sprite gameOverTexture;
-
-	//Audio BGM = Audio("./Assets/JumpMan/Music/BGM.ogg", Music);
-	//Audio gameOverMusic = Audio("./Assets/JumpMan/Music/gameover.mp3", Chunk);
-
+	Sprite skyboxTexture;
 
 public:
 	Mario(int width, int height,
@@ -278,12 +298,9 @@ public:
 			windowMode,
 			gameName)
 	{
-		player = new Player(Sprite(LoadSprFile("./Assets/JumpMan/JumpMan.spr"), 12));
-		wallTexture = Sprite(LoadSprFile("./Assets/JumpMan/Texture/wall.spr"),1);
-		coinTexture = Sprite(LoadSprFile("./Assets/JumpMan/Texture/Coin.spr"), 1);
-
-		//gameOverTexture = Sprite(LoadSprFile("./Assets/JumpMan/Texture/gameover.spr"), 1);
-		gameOverTexture = Sprite(LoadSprFile("./Assets/JumpMan/Texture/gameBackground.spr"), 1);
+		player = new Player(Sprite(LoadSprFile("./Assets/JumpMan/JumpMan.spr"), 11));
+		gameOverTexture = Sprite(LoadSprFile("./Assets/JumpMan/Texture/gameover.spr"), 1);
+		skyboxTexture = Sprite(LoadSprFile("./Assets/JumpMan/Texture/skybox.spr"), 1);
 		BGM = new Audio("./Assets/JumpMan/Music/BGM.ogg", Music);
 		gameOverMusic = new Audio("./Assets/JumpMan/Music/gameover.mp3", Chunk);
 
@@ -326,12 +343,14 @@ public:
 
 	void Draw() 
 	{
+		skyboxTexture.DrawSpriteFull();
+
 		for (int x = 0;x<pixelWidth;x++) 
 		{
 			for (int y = 0;y<pixelHeight;y++) 
 			{
 
-				Uint32 color = RGB(156,252,240);
+				
 
 				Vector<int> pixelPos;
 				
@@ -349,17 +368,16 @@ public:
 				Vector<float> simple;
 				simple.x = testX - (int)(testX);
 				simple.y = testY - (int)(testY);
-				if (hitByte == 255)
+
+				if (hitByte != 127&&hitByte!=255)
 				{
-					//进行物品贴图
-					color = wallTexture.GetTransposeColor(simple.y,simple.x);
+					continue;	
 				}
-				if (hitByte == 127)
+
+				const Uint32 color = tileMap[hitByte].GetTransposeColor(simple.y, simple.x);
+				if (color == BLACK)
 				{
-					if (coinTexture.GetTransposeColor(simple.y, simple.x)!=BLACK)
-					{
-						color = coinTexture.GetTransposeColor(simple.y, simple.x);
-					}
+					continue;
 				}
 				renderer.DrawPixel(x, y, color);
 

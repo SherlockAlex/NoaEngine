@@ -121,7 +121,7 @@ namespace noa {
 		return &framesImage[frame];
 	}
 
-	void Animator::SetFrameEvent(int frame, eventFunc e) {
+	void Animator::SetFrameEvent(int frame, function<void()> e) {
 		//ÉèÖÃÖ¡ÊÂ¼þ
 		this->framesEvent[frame] = e;
 	}

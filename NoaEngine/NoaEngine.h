@@ -93,6 +93,7 @@ using namespace std;
 #include "Animator.h"
 #include "Sprite.h"
 #include "Physics.h"
+#include "NoaAction.h"
 
 //¥∞ø⁄ Ù–‘
 

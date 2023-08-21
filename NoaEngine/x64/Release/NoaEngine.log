@@ -1,4 +1,18 @@
-﻿  m_Mario.cpp
+﻿  Animator.cpp
+D:\Work\GitTools\NoaEngine\NoaEngine\Sprite.h(42,22): warning C4018: “<”: 有符号/无符号不匹配
+D:\Work\GitTools\NoaEngine\NoaEngine\Scene.h(88,21): warning C4244: “=”: 从“wchar_t”转换到“noa::Uint8”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\Scene.h(97,21): warning C4244: “=”: 从“wchar_t”转换到“noa::Uint8”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\Renderer.h(31,1): warning C4005: “LOBYTE”: 宏重定义
+D:\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(206,1): message : 参见“LOBYTE”的前一个定义
+D:\Work\GitTools\NoaEngine\NoaEngine\Renderer.h(36,1): warning C4005: “RGB”: 宏重定义
+D:\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1859,1): message : 参见“RGB”的前一个定义
+D:\Work\GitTools\NoaEngine\NoaEngine\Renderer.h(39,1): warning C4005: “GetGValue”: 宏重定义
+D:\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1870,1): message : 参见“GetGValue”的前一个定义
+D:\Work\GitTools\NoaEngine\NoaEngine\Physics.h(24,9): warning C4305: “初始化”: 从“double”到“float”截断
+D:\Work\GitTools\NoaEngine\NoaEngine\Animator.cpp(175,14): warning C4244: “参数”: 从“float”转换到“int”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\Animator.cpp(179,35): warning C4244: “参数”: 从“float”转换到“unsigned int”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\Animator.cpp(181,16): warning C4244: “参数”: 从“float”转换到“unsigned int”，可能丢失数据
+  Behaviour.cpp
 D:\Work\GitTools\NoaEngine\NoaEngine\Scene.h(88,21): warning C4244: “=”: 从“wchar_t”转换到“noa::Uint8”，可能丢失数据
 D:\Work\GitTools\NoaEngine\NoaEngine\Scene.h(97,21): warning C4244: “=”: 从“wchar_t”转换到“noa::Uint8”，可能丢失数据
 D:\Work\GitTools\NoaEngine\NoaEngine\Renderer.h(31,1): warning C4005: “LOBYTE”: 宏重定义
@@ -8,18 +22,151 @@ D:\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1859,1): message : 参见“
 D:\Work\GitTools\NoaEngine\NoaEngine\Renderer.h(39,1): warning C4005: “GetGValue”: 宏重定义
 D:\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1870,1): message : 参见“GetGValue”的前一个定义
 D:\Work\GitTools\NoaEngine\NoaEngine\Sprite.h(42,22): warning C4018: “<”: 有符号/无符号不匹配
-D:\Work\GitTools\NoaEngine\NoaEngine\Physics.h(23,9): warning C4305: “初始化”: 从“double”到“float”截断
-D:\Work\GitTools\NoaEngine\NoaEngine\m_Mario.cpp(69,1): warning C4305: “=”: 从“double”到“T”截断
+D:\Work\GitTools\NoaEngine\NoaEngine\Physics.h(24,9): warning C4305: “初始化”: 从“double”到“float”截断
+  GameObject.cpp
+D:\Work\GitTools\NoaEngine\NoaEngine\Sprite.h(42,22): warning C4018: “<”: 有符号/无符号不匹配
+D:\Work\GitTools\NoaEngine\NoaEngine\Scene.h(88,21): warning C4244: “=”: 从“wchar_t”转换到“noa::Uint8”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\Scene.h(97,21): warning C4244: “=”: 从“wchar_t”转换到“noa::Uint8”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\Renderer.h(31,1): warning C4005: “LOBYTE”: 宏重定义
+D:\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(206,1): message : 参见“LOBYTE”的前一个定义
+D:\Work\GitTools\NoaEngine\NoaEngine\Renderer.h(36,1): warning C4005: “RGB”: 宏重定义
+D:\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1859,1): message : 参见“RGB”的前一个定义
+D:\Work\GitTools\NoaEngine\NoaEngine\Renderer.h(39,1): warning C4005: “GetGValue”: 宏重定义
+D:\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1870,1): message : 参见“GetGValue”的前一个定义
+D:\Work\GitTools\NoaEngine\NoaEngine\Physics.h(24,9): warning C4305: “初始化”: 从“double”到“float”截断
+  InputSystem.cpp
+D:\Work\GitTools\NoaEngine\NoaEngine\Scene.h(88,21): warning C4244: “=”: 从“wchar_t”转换到“noa::Uint8”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\Scene.h(97,21): warning C4244: “=”: 从“wchar_t”转换到“noa::Uint8”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\Renderer.h(31,1): warning C4005: “LOBYTE”: 宏重定义
+D:\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(206,1): message : 参见“LOBYTE”的前一个定义
+D:\Work\GitTools\NoaEngine\NoaEngine\Renderer.h(36,1): warning C4005: “RGB”: 宏重定义
+D:\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1859,1): message : 参见“RGB”的前一个定义
+D:\Work\GitTools\NoaEngine\NoaEngine\Renderer.h(39,1): warning C4005: “GetGValue”: 宏重定义
+D:\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1870,1): message : 参见“GetGValue”的前一个定义
+D:\Work\GitTools\NoaEngine\NoaEngine\Sprite.h(42,22): warning C4018: “<”: 有符号/无符号不匹配
+D:\Work\GitTools\NoaEngine\NoaEngine\Physics.h(24,9): warning C4305: “初始化”: 从“double”到“float”截断
+D:\Work\GitTools\NoaEngine\NoaEngine\InputSystem.cpp(185,27): warning C4244: “=”: 从“Sint32”转换到“T”，可能丢失数据
           with
           [
               T=float
           ]
-D:\Work\GitTools\NoaEngine\NoaEngine\m_Mario.cpp(70,1): warning C4305: “=”: 从“double”到“T”截断
+D:\Work\GitTools\NoaEngine\NoaEngine\InputSystem.cpp(186,27): warning C4244: “=”: 从“Sint32”转换到“T”，可能丢失数据
           with
           [
               T=float
           ]
-D:\Work\GitTools\NoaEngine\NoaEngine\m_Mario.cpp(209,42): warning C4244: “参数”: 从“T”转换到“T”，可能丢失数据
+  NoaAction.cpp
+D:\Work\GitTools\NoaEngine\NoaEngine\Scene.h(88,21): warning C4244: “=”: 从“wchar_t”转换到“noa::Uint8”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\Scene.h(97,21): warning C4244: “=”: 从“wchar_t”转换到“noa::Uint8”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\Renderer.h(31,1): warning C4005: “LOBYTE”: 宏重定义
+D:\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(206,1): message : 参见“LOBYTE”的前一个定义
+D:\Work\GitTools\NoaEngine\NoaEngine\Renderer.h(36,1): warning C4005: “RGB”: 宏重定义
+D:\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1859,1): message : 参见“RGB”的前一个定义
+D:\Work\GitTools\NoaEngine\NoaEngine\Renderer.h(39,1): warning C4005: “GetGValue”: 宏重定义
+D:\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1870,1): message : 参见“GetGValue”的前一个定义
+D:\Work\GitTools\NoaEngine\NoaEngine\Sprite.h(42,22): warning C4018: “<”: 有符号/无符号不匹配
+D:\Work\GitTools\NoaEngine\NoaEngine\Physics.h(24,9): warning C4305: “初始化”: 从“double”到“float”截断
+  NoaEngine.cpp
+D:\Work\GitTools\NoaEngine\NoaEngine\Scene.h(88,21): warning C4244: “=”: 从“wchar_t”转换到“noa::Uint8”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\Scene.h(97,21): warning C4244: “=”: 从“wchar_t”转换到“noa::Uint8”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\Renderer.h(31,1): warning C4005: “LOBYTE”: 宏重定义
+D:\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(206,1): message : 参见“LOBYTE”的前一个定义
+D:\Work\GitTools\NoaEngine\NoaEngine\Renderer.h(36,1): warning C4005: “RGB”: 宏重定义
+D:\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1859,1): message : 参见“RGB”的前一个定义
+D:\Work\GitTools\NoaEngine\NoaEngine\Renderer.h(39,1): warning C4005: “GetGValue”: 宏重定义
+D:\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1870,1): message : 参见“GetGValue”的前一个定义
+D:\Work\GitTools\NoaEngine\NoaEngine\Sprite.h(42,22): warning C4018: “<”: 有符号/无符号不匹配
+D:\Work\GitTools\NoaEngine\NoaEngine\Physics.h(24,9): warning C4305: “初始化”: 从“double”到“float”截断
+D:\Work\GitTools\NoaEngine\NoaEngine\NoaEngine.cpp(180,27): warning C4101: “elapsedTime”: 未引用的局部变量
+  Physics.cpp
+D:\Work\GitTools\NoaEngine\NoaEngine\Physics.h(24,9): warning C4305: “初始化”: 从“double”到“float”截断
+D:\Work\GitTools\NoaEngine\NoaEngine\Scene.h(88,21): warning C4244: “=”: 从“wchar_t”转换到“noa::Uint8”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\Scene.h(97,21): warning C4244: “=”: 从“wchar_t”转换到“noa::Uint8”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\Renderer.h(31,1): warning C4005: “LOBYTE”: 宏重定义
+D:\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(206,1): message : 参见“LOBYTE”的前一个定义
+D:\Work\GitTools\NoaEngine\NoaEngine\Renderer.h(36,1): warning C4005: “RGB”: 宏重定义
+D:\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1859,1): message : 参见“RGB”的前一个定义
+D:\Work\GitTools\NoaEngine\NoaEngine\Renderer.h(39,1): warning C4005: “GetGValue”: 宏重定义
+D:\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1870,1): message : 参见“GetGValue”的前一个定义
+D:\Work\GitTools\NoaEngine\NoaEngine\Sprite.h(42,22): warning C4018: “<”: 有符号/无符号不匹配
+D:\Work\GitTools\NoaEngine\NoaEngine\Physics.cpp(16,17): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\Physics.cpp(41,27): warning C4244: “+=”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=float
+          ]
+  Sprite.cpp
+D:\Work\GitTools\NoaEngine\NoaEngine\Sprite.h(42,22): warning C4018: “<”: 有符号/无符号不匹配
+D:\Work\GitTools\NoaEngine\NoaEngine\Scene.h(88,21): warning C4244: “=”: 从“wchar_t”转换到“noa::Uint8”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\Scene.h(97,21): warning C4244: “=”: 从“wchar_t”转换到“noa::Uint8”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\Renderer.h(31,1): warning C4005: “LOBYTE”: 宏重定义
+D:\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(206,1): message : 参见“LOBYTE”的前一个定义
+D:\Work\GitTools\NoaEngine\NoaEngine\Renderer.h(36,1): warning C4005: “RGB”: 宏重定义
+D:\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1859,1): message : 参见“RGB”的前一个定义
+D:\Work\GitTools\NoaEngine\NoaEngine\Renderer.h(39,1): warning C4005: “GetGValue”: 宏重定义
+D:\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1870,1): message : 参见“GetGValue”的前一个定义
+D:\Work\GitTools\NoaEngine\NoaEngine\Physics.h(24,9): warning C4305: “初始化”: 从“double”到“float”截断
+D:\Work\GitTools\NoaEngine\NoaEngine\Sprite.cpp(76,49): warning C4244: “初始化”: 从“float”转换到“int”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\Sprite.cpp(76,17): warning C4244: “初始化”: 从“float”转换到“const int”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\Sprite.cpp(77,49): warning C4244: “初始化”: 从“float”转换到“int”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\Sprite.cpp(77,17): warning C4244: “初始化”: 从“float”转换到“const int”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\Sprite.cpp(112,49): warning C4244: “初始化”: 从“float”转换到“int”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\Sprite.cpp(112,17): warning C4244: “初始化”: 从“float”转换到“const int”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\Sprite.cpp(113,49): warning C4244: “初始化”: 从“float”转换到“int”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\Sprite.cpp(113,17): warning C4244: “初始化”: 从“float”转换到“const int”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\Sprite.cpp(154,49): warning C4244: “初始化”: 从“float”转换到“int”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\Sprite.cpp(154,17): warning C4244: “初始化”: 从“float”转换到“const int”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\Sprite.cpp(155,49): warning C4244: “初始化”: 从“float”转换到“int”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\Sprite.cpp(155,17): warning C4244: “初始化”: 从“float”转换到“const int”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\Sprite.cpp(189,49): warning C4244: “初始化”: 从“float”转换到“int”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\Sprite.cpp(189,17): warning C4244: “初始化”: 从“float”转换到“const int”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\Sprite.cpp(190,49): warning C4244: “初始化”: 从“float”转换到“int”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\Sprite.cpp(190,17): warning C4244: “初始化”: 从“float”转换到“const int”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\Sprite.cpp(224,24): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\Sprite.cpp(224,18): warning C4244: “初始化”: 从“double”转换到“const float”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\Sprite.cpp(225,24): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\Sprite.cpp(225,18): warning C4244: “初始化”: 从“double”转换到“const float”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\Sprite.cpp(244,10): warning C4244: “初始化”: 从“float”转换到“int”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\Sprite.cpp(245,10): warning C4244: “初始化”: 从“float”转换到“int”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\Sprite.cpp(266,10): warning C4244: “初始化”: 从“float”转换到“int”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\Sprite.cpp(267,10): warning C4244: “初始化”: 从“float”转换到“int”，可能丢失数据
+  m_Mario.cpp
+D:\Work\GitTools\NoaEngine\NoaEngine\Scene.h(88,21): warning C4244: “=”: 从“wchar_t”转换到“noa::Uint8”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\Scene.h(97,21): warning C4244: “=”: 从“wchar_t”转换到“noa::Uint8”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\Renderer.h(31,1): warning C4005: “LOBYTE”: 宏重定义
+D:\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(206,1): message : 参见“LOBYTE”的前一个定义
+D:\Work\GitTools\NoaEngine\NoaEngine\Renderer.h(36,1): warning C4005: “RGB”: 宏重定义
+D:\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1859,1): message : 参见“RGB”的前一个定义
+D:\Work\GitTools\NoaEngine\NoaEngine\Renderer.h(39,1): warning C4005: “GetGValue”: 宏重定义
+D:\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1870,1): message : 参见“GetGValue”的前一个定义
+D:\Work\GitTools\NoaEngine\NoaEngine\Sprite.h(42,22): warning C4018: “<”: 有符号/无符号不匹配
+D:\Work\GitTools\NoaEngine\NoaEngine\Physics.h(24,9): warning C4305: “初始化”: 从“double”到“float”截断
+D:\Work\GitTools\NoaEngine\NoaEngine\m_Mario.cpp(76,1): warning C4305: “=”: 从“double”到“T”截断
+          with
+          [
+              T=float
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\m_Mario.cpp(77,1): warning C4305: “=”: 从“double”到“T”截断
+          with
+          [
+              T=float
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\m_Mario.cpp(180,1): warning C4305: “-=”: 从“double”到“T”截断
+          with
+          [
+              T=float
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\m_Mario.cpp(186,1): warning C4305: “-=”: 从“double”到“T”截断
+          with
+          [
+              T=float
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\m_Mario.cpp(192,1): warning C4305: “-=”: 从“double”到“T”截断
+          with
+          [
+              T=float
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\m_Mario.cpp(229,42): warning C4244: “参数”: 从“T”转换到“T”，可能丢失数据
           with
           [
               T=float
@@ -28,7 +175,7 @@ D:\Work\GitTools\NoaEngine\NoaEngine\m_Mario.cpp(209,42): warning C4244: “参�
           [
               T=int
           ]
-D:\Work\GitTools\NoaEngine\NoaEngine\m_Mario.cpp(209,31): warning C4244: “参数”: 从“T”转换到“T”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\m_Mario.cpp(229,31): warning C4244: “参数”: 从“T”转换到“T”，可能丢失数据
           with
           [
               T=float
@@ -37,41 +184,41 @@ D:\Work\GitTools\NoaEngine\NoaEngine\m_Mario.cpp(209,31): warning C4244: “参�
           [
               T=int
           ]
-D:\Work\GitTools\NoaEngine\NoaEngine\m_Mario.cpp(302,27): warning C4244: “=”: 从“int”转换到“T”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\m_Mario.cpp(319,27): warning C4244: “=”: 从“int”转换到“T”，可能丢失数据
           with
           [
               T=float
           ]
-D:\Work\GitTools\NoaEngine\NoaEngine\m_Mario.cpp(303,27): warning C4244: “=”: 从“int”转换到“T”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\m_Mario.cpp(320,27): warning C4244: “=”: 从“int”转换到“T”，可能丢失数据
           with
           [
               T=float
           ]
-D:\Work\GitTools\NoaEngine\NoaEngine\m_Mario.cpp(338,69): warning C4244: “=”: 从“double”转换到“T”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\m_Mario.cpp(357,69): warning C4244: “=”: 从“double”转换到“T”，可能丢失数据
           with
           [
               T=int
           ]
-D:\Work\GitTools\NoaEngine\NoaEngine\m_Mario.cpp(339,70): warning C4244: “=”: 从“double”转换到“T”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\m_Mario.cpp(358,70): warning C4244: “=”: 从“double”转换到“T”，可能丢失数据
           with
           [
               T=int
           ]
-D:\Work\GitTools\NoaEngine\NoaEngine\m_Mario.cpp(347,17): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
-D:\Work\GitTools\NoaEngine\NoaEngine\m_Mario.cpp(348,17): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
-D:\Work\GitTools\NoaEngine\NoaEngine\m_Mario.cpp(425,29): warning C4244: “=”: 从“int”转换到“T”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\m_Mario.cpp(366,17): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\m_Mario.cpp(367,17): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\m_Mario.cpp(443,29): warning C4244: “=”: 从“int”转换到“T”，可能丢失数据
           with
           [
               T=float
           ]
-D:\Work\GitTools\NoaEngine\NoaEngine\m_Mario.cpp(426,29): warning C4244: “=”: 从“int”转换到“T”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\m_Mario.cpp(444,29): warning C4244: “=”: 从“int”转换到“T”，可能丢失数据
           with
           [
               T=float
           ]
   正在生成代码
-  16 of 800 functions ( 2.0%) were compiled, the rest were copied from previous compilation.
+  0 of 973 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    1 functions had inline decision re-evaluated but remain unchanged
+    0 functions had inline decision re-evaluated but remain unchanged
   已完成代码的生成
   NoaEngine.vcxproj -> D:\Work\GitTools\NoaEngine\x64\Release\NoaEngine.exe
