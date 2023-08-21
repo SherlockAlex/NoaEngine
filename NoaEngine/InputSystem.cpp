@@ -24,6 +24,9 @@ namespace noa {
 
 	InputSystem::InputSystem()
 	{
+
+		
+
 		// 开启相对鼠标模式
 #ifdef __linux
 
