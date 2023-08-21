@@ -360,10 +360,14 @@ public:
 
 				//¿ªÊ¼¼ÆËã
 				Uint8 hitByte = 0;
-				hitByte = currentMap->level[
-					pixelPos.y*currentMap->w+
-					pixelPos.x
-				];
+				if (pixelPos.y<=currentMap->h&&pixelPos.y>=0&&pixelPos.x<=currentMap->w&&pixelPos.x>=0)
+				{
+					hitByte = currentMap->level[
+						pixelPos.y * currentMap->w +
+							pixelPos.x
+					];
+				}
+				
 				float testX = (player->position.x - 0.5 * pixelWidth * deltaSize + x * deltaSize);
 				float testY = (player->position.y - 0.5 * pixelHeight * deltaSize + y * deltaSize);
 				Vector<float> simple;
