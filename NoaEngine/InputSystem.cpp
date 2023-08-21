@@ -62,7 +62,8 @@ namespace noa {
 
 		KeyCode keyCode = XKeysymToKeycode(display, (key + 32));
 		char keys_return[32] = {0};
-		return !!(keys_return[keyCode / 8] & (1 << (keyCode & 8)));
+		XQueryKeymap(display, keys_return);
+		return !!(keys_return[keyCode / 8] & (1 << (keyCode % 8)));
 		
 #endif // LINUX
 
@@ -87,7 +88,8 @@ namespace noa {
 #ifdef __linux__
 		KeyCode keyCode = XKeysymToKeycode(display, (key + 32));
 		char keys_return[32] = { 0 };
-		return !!(keys_return[keyCode / 8] & (1 << (keyCode & 8)));
+		XQueryKeymap(display, keys_return);
+		return !!(keys_return[keyCode / 8] & (1 << (keyCode % 8)));
 		
 #endif // _LINUX
 
