@@ -258,8 +258,9 @@ public:
 		}
 
 		currentAnimatorState->Play();
-		sprite.UpdateImage(*(currentAnimatorState->GetCurrentFrameImage()));
 
+		SpriteFile nextFrame = currentAnimatorState->GetCurrentFrameImage();
+		sprite.UpdateImage(nextFrame);
 
 		isGrounded = false;
 

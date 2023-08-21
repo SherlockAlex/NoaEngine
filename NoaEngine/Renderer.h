@@ -4,7 +4,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
 #include <string>
-
+#include <vector>
 using namespace std;
 
 namespace noa {
@@ -62,7 +62,7 @@ namespace noa {
 			int imageH,
 			int scaleForSurface,
 			bool isDrawAlpha,
-			Uint32* imageRGB) const;
+			vector<Uint32> imageRGB) const;
 
 	};
 }

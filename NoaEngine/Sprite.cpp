@@ -29,7 +29,7 @@ namespace noa {
 
 	}
 
-	Sprite::Sprite(int w, int h, int size, Uint32* image)
+	Sprite::Sprite(int w, int h, int size, vector<Uint32> image)
 	{
 		this->w = w;
 		this->h = h;
@@ -42,7 +42,12 @@ namespace noa {
 
 	}
 
-	void Sprite::UpdateImage(Uint32* image)
+	/*void Sprite::UpdateImage(Uint32* image)
+	{
+		this->image = image;
+	}*/
+
+	void Sprite::UpdateImage(vector<Uint32> image)
 	{
 		this->image = image;
 	}
@@ -236,7 +241,7 @@ namespace noa {
 
 	Uint32 Sprite::GetColor(float normalizedX, float normalizedY) const
 	{
-		if (image==nullptr)
+		if (image.empty())
 		{
 			return BLACK;
 		}
@@ -258,7 +263,7 @@ namespace noa {
 	Uint32 Sprite::GetTransposeColor(float normalizedX, float normalizedY) const
 	{
 		//从图片中获取像素
-		if (image == nullptr)
+		if (image.empty())
 		{
 			return BLACK;
 		}

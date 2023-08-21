@@ -67,7 +67,7 @@ namespace noa {
 
 	}
 
-	void Renderer::DrawImage(int posX, int posY, int imageW, int imageH, int scaleForSurface, bool isDrawAlpha, Uint32* imageRGB) const
+	void Renderer::DrawImage(int posX, int posY, int imageW, int imageH, int scaleForSurface, bool isDrawAlpha, vector<Uint32> imageRGB) const
 	{
 		//用于2维视角的游戏
 		//计算放大

@@ -23,9 +23,11 @@ namespace noa {
 			int imageCount;
 			inputFile.read(reinterpret_cast<char*>(&imageCount), sizeof(int));
 
-			sprite.images = new uint32_t[imageCount];
+			//sprite.images = new uint32_t[imageCount];
 			for (int j = 0; j < imageCount; ++j) {
-				inputFile.read(reinterpret_cast<char*>(&sprite.images[j]), sizeof(uint32_t));
+				uint32_t pixel;
+				inputFile.read(reinterpret_cast<char*>(&pixel), sizeof(uint32_t));
+				sprite.images.push_back(pixel);
 			}
 
 			inputFile.read(reinterpret_cast<char*>(&sprite.x), sizeof(int));
@@ -52,9 +54,9 @@ namespace noa {
 		Debug("Init Animator");
 		this->speed = speed;
 		animatorList.push_back(this);
-		if (framesImage.size() > 0)
+		if (!framesImage.empty())
 		{
-			currentFrame = &framesImage[0];
+			currentFrame = framesImage[0];
 		}
 
 	}
@@ -73,7 +75,7 @@ namespace noa {
 
 		if (framesImage.size() > 0)
 		{
-			currentFrame = &framesImage[0];
+			currentFrame = framesImage[0];
 		}
 
 	}
@@ -103,7 +105,7 @@ namespace noa {
 	/// 获取当前帧的图像
 	/// </summary>
 	/// <returns></returns>
-	SpriteFile* Animator::GetCurrentFrameImage() {
+	SpriteFile Animator::GetCurrentFrameImage() {
 		return currentFrame;
 	}
 
@@ -112,13 +114,13 @@ namespace noa {
 	/// </summary>
 	/// <param name="frame">第frame帧</param>
 	/// <returns></returns>
-	SpriteFile* Animator::GetFrameImage(int frame) {
-		if (framesImage.empty())
-		{
-			return nullptr;
-		}
+	SpriteFile Animator::GetFrameImage(int frame) {
+		//if (framesImage.empty())
+		//{
+		//	return nullptr;
+		//}
 		frame = frame & (framesImage.size() - 1);
-		return &framesImage[frame];
+		return framesImage[frame];
 	}
 
 	void Animator::SetFrameEvent(int frame, function<void()> e) {
@@ -150,10 +152,7 @@ namespace noa {
 	{
 		Debug("Insert Animator Frame");
 		framesImage.push_back(frameImage);
-		if (currentFrame == nullptr)
-		{
-			currentFrame = &framesImage[0];
-		}
+		currentFrame = framesImage[0];
 	}
 
 	/// <summary>

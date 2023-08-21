@@ -37,7 +37,7 @@ namespace noa {
 	private:
 		vector<SpriteFile> framesImage;
 		unordered_map<Uint32, function<void()>> framesEvent;
-		SpriteFile* currentFrame;
+		SpriteFile currentFrame;
 		bool isPlaying = false;
 		//动画播放速度
 		float speed = 7;
@@ -50,8 +50,8 @@ namespace noa {
 
 	public:
 		void LoadFromAnimatorFile(const char* filePath);
-		SpriteFile* GetCurrentFrameImage();
-		SpriteFile* GetFrameImage(int frame);
+		SpriteFile GetCurrentFrameImage();
+		SpriteFile GetFrameImage(int frame);
 		void SetFrameEvent(int frame, function<void()> e);
 		void Play(int frame);
 		void Play();

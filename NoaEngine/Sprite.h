@@ -19,7 +19,8 @@ namespace noa {
 	//±¾µØµÄsprFile
 	typedef struct SpriteFile
 	{
-		uint32_t* images;
+		vector<uint32_t> images;
+		//uint32_t* images;
 		int x;
 		int y;
 		int width;
@@ -30,7 +31,7 @@ namespace noa {
 	inline SpriteFile LoadSprFile(const char* file)
 	{
 		SpriteFile spriteFile;
-		spriteFile.images = nullptr;
+		//spriteFile.images = nullptr;
 
 		std::ifstream input(file, std::ios::binary);
 		if (input)
@@ -38,10 +39,13 @@ namespace noa {
 			uint32_t imagesCount;
 			input.read(reinterpret_cast<char*>(&imagesCount), sizeof(uint32_t));
 
-			spriteFile.images = new uint32_t[imagesCount];
+			//spriteFile.images = new uint32_t[imagesCount];
 			for (int i = 0; i < imagesCount; ++i)
 			{
-				input.read(reinterpret_cast<char*>(&spriteFile.images[i]), sizeof(uint32_t));
+				uint32_t imageValue;
+				input.read(reinterpret_cast<char*>(&imageValue), sizeof(uint32_t));
+				spriteFile.images.push_back(imageValue);
+				//input.read(reinterpret_cast<char*>(&spriteFile.images[i]), sizeof(uint32_t));
 			}
 
 			input.read(reinterpret_cast<char*>(&spriteFile.x), sizeof(int));
@@ -71,17 +75,19 @@ namespace noa {
 		int sizeForSurface = 3;
 
 	private:
-		Uint32* image = nullptr;
+		vector<Uint32> image;
+		//Uint32* image = nullptr;
 
 	public:
 		Sprite(SpriteFile sprFile, int sizeForSurface);
 		Sprite(const char* file, int sizeForSurface);
 		Sprite();
-		Sprite(int w, int h, int size, Uint32* image);
+		Sprite(int w, int h, int size, vector<Uint32> image);
 		~Sprite();
 
 	public:
-		void UpdateImage(Uint32* image);
+		//void UpdateImage(Uint32* image);
+		void UpdateImage(vector<Uint32> image);
 		void UpdateImage(SpriteFile image);
 		void DrawSprite(int posX, int posY, bool isRenderAlpha) const;
 		void DrawSprite(int posX, int posY, bool isRenderAlpha, bool isMirror) const;
