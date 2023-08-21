@@ -5,8 +5,9 @@
 #include "NoaEngine.h"
 
 #ifdef __linux
-#include <termios.h>
-#include <unistd.h>
+
+#include <X11/Xlib.h>
+
 #endif // __linux
 
 
@@ -14,11 +15,29 @@ namespace noa {
 	InputSystem inputSystem;
 	SDL_Event ioEvent;
 
-	//vector<function<void()>> inputEvents;
+#ifdef __linux
+
+	Display* display = nullptr;
+
+#endif // __linux
+
 
 	InputSystem::InputSystem()
 	{
 		// 开启相对鼠标模式
+#ifdef __linux
+
+		display = XOpenDisplay(nullptr);
+
+#endif // __linux
+
+	}
+
+	InputSystem::~InputSystem()
+	{
+#ifdef __linux
+		XCloseDisplay(display);
+#endif // __linux
 	}
 
 	bool InputSystem::GetKeyHold(char key) {
@@ -38,43 +57,10 @@ namespace noa {
 
 #ifdef __linux__
 
-		struct termios oldt, newt;
-		tcgetattr(STDIN_FILENO, &oldt);
-		newt = oldt;
-		newt.c_lflag &= ~(ICANON | ECHO);
-		tcsetattr(STDIN_FILENO, TCSANOW, &newt);
-
-		fd_set set;
-		FD_ZERO(&set);
-		FD_SET(STDIN_FILENO, &set);
-
-		struct timeval timeout;
-		timeout.tv_sec = 0;
-		timeout.tv_usec = 0;
-
-		int ret = select(STDIN_FILENO + 1, &set, NULL, NULL, &timeout);
-		if (ret == -1) {
-			perror("select");
-		}
-		else if (ret > 0 && FD_ISSET(STDIN_FILENO, &set)) {
-			char ch;
-			read(STDIN_FILENO, &ch, 1);
-			if (ch == key) {
-				tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
-				return true;
-			}
-		}
-
-		tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
-
-		//const Uint8* keyState = SDL_GetKeyboardState(nullptr);
-
-		//if (keyState[SDL_GetScancodeFromKey(key + 32)])
-		//{
-		//	//SDL_PollEvent(&ioEvent);
-		//	printf("key %c is hold on\n", key);
-		//	return true;
-		//}
+		KeyCode keyCode = XKeysymToKeycode(display, (key + 32));
+		char keys_return[32] = {0};
+		return !!(keys_return[keyCode / 8] & (1 << (keyCode & 8)));
+		
 #endif // LINUX
 
 #endif
@@ -97,53 +83,7 @@ namespace noa {
 #endif // _WIN32
 #ifdef __linux__
 
-		struct termios oldt, newt;
-		tcgetattr(STDIN_FILENO, &oldt);
-		newt = oldt;
-		newt.c_lflag &= ~(ICANON | ECHO);
-		tcsetattr(STDIN_FILENO, TCSANOW, &newt);
-
-		fd_set set;
-		FD_ZERO(&set);
-		FD_SET(STDIN_FILENO, &set);
-
-		struct timeval timeout;
-		timeout.tv_sec = 0;
-		timeout.tv_usec = 0;
-
-		int ret = select(STDIN_FILENO + 1, &set, NULL, NULL, &timeout);
-		if (ret == -1) {
-			perror("select");
-		}
-		else if (ret > 0 && FD_ISSET(STDIN_FILENO, &set)) {
-			char ch;
-			read(STDIN_FILENO, &ch, 1);
-			if (ch == key) {
-				while (true) {
-					ret = select(STDIN_FILENO + 1, &set, NULL, NULL, &timeout);
-					if (ret == -1) {
-						perror("select");
-					}
-					else if (ret > 0 && FD_ISSET(STDIN_FILENO, &set)) {
-						read(STDIN_FILENO, &ch, 1);
-						if (ch != key) {
-							tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
-							return true;
-						}
-					}
-				}
-			}
-		}
-
-		tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
-
-		//const Uint8* keyState = SDL_GetKeyboardState(nullptr);
-
-		//if (keyState[SDL_GetScancodeFromKey(key + 32)])
-		//{
-		//	//SDL_PollEvent(&ioEvent);
-		//	return true;
-		//}
+		
 #endif // _LINUX
 
 #endif // _WIN64

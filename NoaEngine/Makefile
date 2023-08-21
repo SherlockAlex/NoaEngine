@@ -22,7 +22,7 @@ LIBDIRS+=/usr/lib
 #INCDIRS+=D:\SDL2\mingw(CLion+VSC)\SDL2-2.26.0-allinone\x86_64-w64-mingw32\include
 #LIBDIRS+=D:\SDL2\mingw(CLion+VSC)\SDL2-2.26.0-allinone\x86_64-w64-mingw32\lib
 
-CFLAGS=-lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf -lSDL2_net -static-libstdc++ -lpthread
+CFLAGS=-lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf -lSDL2_net -static-libstdc++ -lpthread -lX11
 
 BUILD_DIR=./game-build
 

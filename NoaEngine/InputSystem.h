@@ -67,6 +67,7 @@ namespace noa {
 
 	public:
 		InputSystem();
+		~InputSystem();
 		NoaEvent<void()> inputEvent;
 	public:
 
