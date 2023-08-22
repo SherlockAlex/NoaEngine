@@ -11,8 +11,7 @@ objs=./obj/Animator.o \
 	 ./obj/NoaAction.o \
 	 ./obj/StateMachine.o \
 	 ./obj/Physics.o \
-	 ./obj/d_doom.o \
-	 ./obj/d_RayCastHit.o
+	 ./obj/m_Mario.o \
 #其中d_doom.o和d_RayCastHit.o是游戏引擎的项目示例，你可以替换为你的项目编写编译的目标文件名(.cpp)同名
 
 CXX=g++
@@ -31,12 +30,12 @@ BUILD_DIR=./game-build
 GAME_FILE=/game
 
 ./obj/%.o:%.cpp
-	mkdir obj
+	mkdir -p obj
 	$(CXX) -c -Bstatic -I$(INCDIRS) -L$(LIBDIRS) $(CFLAGS) $^ -o $@ 
 
 
 install:$(objs)
-	mkdir $(BUILD_DIR)
+	mkdir -p $(BUILD_DIR)
 	$(CXX) $(objs) -Bstatic -I$(INCDIRS) -L$(LIBDIRS) $(CFLAGS) -o $(BUILD_DIR)$(GAME_FILE)
 
 env-linux:
