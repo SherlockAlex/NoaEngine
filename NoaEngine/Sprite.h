@@ -11,6 +11,9 @@
 
 #include <fstream>
 #include <string>
+
+#include "NoaMath.h"
+
 using namespace std;
 
 namespace noa {
@@ -98,6 +101,7 @@ namespace noa {
 
 		Uint32 GetColor(float normalizedX, float normalizedY) const;
 		Uint32 GetTransposeColor(float normalizedX, float normalizedY) const;
+		Uint32 GetTransposeColor(const Vector<float>& simple) const;
 
 	};
 }

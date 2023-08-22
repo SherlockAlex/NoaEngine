@@ -344,15 +344,10 @@ public:
 
 	void Draw() 
 	{
-		skyboxTexture.DrawSpriteFull();
-
 		for (int x = 0;x<pixelWidth;x++) 
 		{
 			for (int y = 0;y<pixelHeight;y++) 
 			{
-
-				
-
 				Vector<int> pixelPos;
 				
 				pixelPos.x = (player->position.x - 0.5 * pixelWidth * deltaSize + x * deltaSize);
@@ -374,17 +369,24 @@ public:
 				simple.x = testX - (int)(testX);
 				simple.y = testY - (int)(testY);
 
-				if (hitByte != 127&&hitByte!=255)
+				Uint32 color = 0;
+
+				if (hitByte == 127||hitByte==255)
 				{
-					continue;	
+					color = tileMap[hitByte].GetTransposeColor(simple.y, simple.x);
 				}
 
-				const Uint32 color = tileMap[hitByte].GetTransposeColor(simple.y, simple.x);
 				if (color == BLACK)
 				{
-					continue;
+					//äÖÈ¾Ìì¿Õ
+					simple.x = x / (float)pixelWidth;
+					simple.y = y / (float)pixelHeight;
+					color = skyboxTexture.GetTransposeColor(simple.y, simple.x);
 				}
+
 				renderer.DrawPixel(x, y, color);
+
+				
 
 			}
 		}

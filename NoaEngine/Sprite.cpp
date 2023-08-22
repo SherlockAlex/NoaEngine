@@ -246,16 +246,8 @@ namespace noa {
 			return BLACK;
 		}
 
-		int sx = normalizedX * (float)w;
-		int sy = normalizedY * (float)h - 1;
-		if (sx<0 || sx>w || sy<0 || sy>h)
-		{
-			sx = sx - (int)sx;
-			sy = sy - (int)sy;
-		}
-
-		sx = sx & (w - 1);
-		sy = sy & (h - 1);
+		const int sx = NoaAbs<int>(normalizedX * (float)w) % w;
+		const int sy = NoaAbs<int>(normalizedY * (float)h - 1) % h;
 
 		return image[sy * w + sx];
 	}
@@ -268,14 +260,22 @@ namespace noa {
 			return BLACK;
 		}
 
-		int sx = normalizedX * (float)h;
-		int sy = normalizedY * (float)w - 1;
+		const int sx = NoaAbs<int>(normalizedX * (float)h)%h;
+		const int sy = NoaAbs<int>(normalizedY * (float)w - 1)%w;
 
-		if (sx<0 || sx>h || sy<0 || sy>w)
+		return image[sy * h + sx];
+	}
+
+	Uint32 Sprite::GetTransposeColor(const Vector<float> & simple) const
+	{
+		//从图片中获取像素
+		if (image.empty())
 		{
-			sx = sx - (int)sx;
-			sy = sy - (int)sy;
+			return BLACK;
 		}
+
+		const int sx = NoaAbs<int>(simple.x * (float)h) % h;
+		const int sy = NoaAbs<int>(simple.y * (float)w - 1) % w;
 
 		return image[sy * h + sx];
 	}

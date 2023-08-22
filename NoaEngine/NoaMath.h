@@ -72,5 +72,12 @@ namespace noa {
 	};
 }
 
+///返回的是T的绝对值，注意T只能是数值类型，否则报错
+template<class T>
+inline T NoaAbs(T value) 
+{
+	return (value > 0) ? value : (-value);
+}
+
 #endif
 
