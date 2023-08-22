@@ -20,30 +20,6 @@ namespace noa {
 	Renderer renderer;
 	int pitch;
 
-	void NoaGameEngine::MainThread()
-	{
-		while (isRun)
-		{
-			string windowTitle = gameName + " FPS: " + to_string(1 / deltaTime);
-			SDL_SetWindowTitle(window, windowTitle.c_str());
-
-			while (SDL_PollEvent(&ioEvent))
-			{
-				inputSystem.Update();
-
-				if (ioEvent.type == SDL_QUIT)
-				{
-					isRun = false;
-					SDL_Quit();
-					return;
-				}
-			}
-			
-		}
-
-
-	}
-
 	NoaGameEngine::NoaGameEngine(
 		int width, int height,
 		GameWindowMode windowMode,
@@ -146,8 +122,6 @@ namespace noa {
 		return 0;
 	}
 
-	function<void()> renderThreadFunc;
-
 	int NoaGameEngine::Run()
 	{
 		//运行游戏
@@ -165,28 +139,27 @@ namespace noa {
 			behaviours[i]->Start();
 		}
 
-		
-
-		renderThreadFunc = [this]() {
-			
-			this->RenderFunc();
-		};
-
-		thread renderThread(renderThreadFunc);
-		MainThread();
-		renderThread.join();
-
-		return 0;
-	}
-
-	void NoaGameEngine::RenderFunc()
-	{
-		Debug("create game main thread");
-		while (isRun) {
+		while (isRun)
+		{
 			tp2 = chrono::system_clock::now();
 			elapsedTime = tp2 - tp1;
 			deltaTime = elapsedTime.count();
 			//执行游戏主类的update
+
+			string windowTitle = gameName + " FPS: " + to_string(1 / deltaTime);
+			SDL_SetWindowTitle(window, windowTitle.c_str());
+
+			while (SDL_PollEvent(&ioEvent))
+			{
+				inputSystem.Update();
+
+				if (ioEvent.type == SDL_QUIT)
+				{
+					isRun = false;
+					SDL_Quit();
+					return 0;
+				}
+			}
 
 			for (int i = 0; i < rigidbodys.size(); i++)
 			{
@@ -210,9 +183,11 @@ namespace noa {
 			SDL_RenderPresent(mainRenderer);
 
 			tp1 = tp2;
-		}
-	}
 
+		}
+
+		return 0;
+	}
 
 
 	void Debug(string msg)

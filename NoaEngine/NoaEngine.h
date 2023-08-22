@@ -144,9 +144,6 @@ namespace noa {
 		//float deltaTime = 0;
 
 	public:
-
-		void MainThread();
-
 		virtual void Start() = 0;
 		virtual void Update() = 0;
 
@@ -165,8 +162,6 @@ namespace noa {
 		void* PixelBuffer();
 		float DeltaTime();
 		int Run();
-
-		void RenderFunc();
 
 	};
 
