@@ -140,7 +140,7 @@ namespace noa {
 		};
 
 		thread mainThread(mainThreadFunc);
-		this_thread::sleep_for(std::chrono::seconds(1));
+		this_thread::sleep_for(std::chrono::milliseconds(100));
 
 		while (isRun)
 		{
