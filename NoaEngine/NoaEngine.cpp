@@ -181,6 +181,7 @@ namespace noa {
 
 	void NoaGameEngine::RenderFunc()
 	{
+		Debug("create game main thread");
 		while (isRun) {
 			tp2 = chrono::system_clock::now();
 			elapsedTime = tp2 - tp1;
