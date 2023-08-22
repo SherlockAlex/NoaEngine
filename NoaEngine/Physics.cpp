@@ -26,7 +26,7 @@ namespace noa {
 			rigidbodys.erase(it);
 		}
 
-		Debug("物理模块被删除");
+		Debug("rigidbody has been done");
 
 	}
 

@@ -13,7 +13,7 @@ namespace noa {
 			gameObjects.erase(it);
 		}
 
-		Debug("GameObject±»Ïú»Ù");
+		Debug("GameObject has been destroy");
 
 	}
 

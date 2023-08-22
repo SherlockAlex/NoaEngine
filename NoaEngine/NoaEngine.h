@@ -144,6 +144,7 @@ namespace noa {
 		//float deltaTime = 0;
 
 	public:
+
 		void MainThread();
 
 		virtual void Start() = 0;
@@ -158,10 +159,14 @@ namespace noa {
 			GameWindowMode windowMode,
 			string gameName
 		);
+
+
 		~NoaGameEngine();
 		void* PixelBuffer();
 		float DeltaTime();
 		int Run();
+
+		void RenderFunc();
 
 	};
 

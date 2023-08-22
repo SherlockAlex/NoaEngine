@@ -18,21 +18,14 @@ namespace noa {
 	float deltaTime = 0;
 
 	Renderer renderer;
+	int pitch;
 
 	void NoaGameEngine::MainThread()
 	{
 		while (isRun)
 		{
-			//mtx.lock();
-			tp2 = chrono::system_clock::now();
-			elapsedTime = tp2 - tp1;
-
-			deltaTime = elapsedTime.count();
-			//执行游戏主类的update
-
 			string windowTitle = gameName + " FPS: " + to_string(1 / deltaTime);
 			SDL_SetWindowTitle(window, windowTitle.c_str());
-
 
 			while (SDL_PollEvent(&ioEvent))
 			{
@@ -45,31 +38,10 @@ namespace noa {
 					return;
 				}
 			}
-
-			for (int i = 0; i < rigidbodys.size(); i++)
-			{
-				rigidbodys[i]->RigidbodyUpdate(deltaTime);
-			}
-
-			Update();
-
-			for (int i = 0; i < behaviours.size(); i++)
-			{
-				behaviours[i]->Update();
-			}
-
-			for (int i = 0; i < animatorList.size(); i++)
-			{
-				animatorList[i]->Update(deltaTime);
-			}
-
-			SDL_UnlockTexture(texture);
-			SDL_RenderCopy(mainRenderer, texture, nullptr, nullptr);
-			SDL_RenderPresent(mainRenderer);
-
-			tp1 = tp2;
-			//mtx.unlock();
+			
 		}
+
+
 	}
 
 	NoaGameEngine::NoaGameEngine(
@@ -106,7 +78,7 @@ namespace noa {
 			exit(0);
 		}
 
-		mainRenderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED|SDL_RENDERER_TARGETTEXTURE);
+		mainRenderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 		if (mainRenderer == nullptr)
 		{
 			exit(0);
@@ -122,7 +94,7 @@ namespace noa {
 			exit(0);
 		}
 
-		int pitch;
+		
 		format = SDL_AllocFormat(SDL_PIXELFORMAT_BGR888);
 		SDL_LockTexture(texture, nullptr, &pixelBuffer, &pitch);
 
@@ -139,14 +111,18 @@ namespace noa {
 			4096
 		) == -1)
 		{
-			Debug("初始化音频设备失败");
+			Debug("Init audio device failed");
 			exit(0);
 		}
 
 		pixelWidth = surfaceWidth;
 		pixelHeight = surfaceHeight;
 
+		//禁用垂直同步
+		SDL_GL_SetSwapInterval(0);
 	}
+
+
 
 	NoaGameEngine::~NoaGameEngine() {
 		SDL_DestroyRenderer(mainRenderer);
@@ -170,6 +146,8 @@ namespace noa {
 		return 0;
 	}
 
+	function<void()> renderThreadFunc;
+
 	int NoaGameEngine::Run()
 	{
 		//运行游戏
@@ -187,11 +165,53 @@ namespace noa {
 			behaviours[i]->Start();
 		}
 
+		
+
+		renderThreadFunc = [this]() {
+			
+			this->RenderFunc();
+		};
+
+		thread renderThread(renderThreadFunc);
 		MainThread();
+		renderThread.join();
 
 		return 0;
 	}
 
+	void NoaGameEngine::RenderFunc()
+	{
+		Debug("create game main thread");
+		while (isRun) {
+			tp2 = chrono::system_clock::now();
+			elapsedTime = tp2 - tp1;
+			deltaTime = elapsedTime.count();
+			//执行游戏主类的update
+
+			for (int i = 0; i < rigidbodys.size(); i++)
+			{
+				rigidbodys[i]->RigidbodyUpdate(deltaTime);
+			}
+
+			Update();
+
+			for (int i = 0; i < behaviours.size(); i++)
+			{
+				behaviours[i]->Update();
+			}
+
+			for (int i = 0; i < animatorList.size(); i++)
+			{
+				animatorList[i]->Update(deltaTime);
+			}
+
+			SDL_UnlockTexture(texture);
+			SDL_RenderCopy(mainRenderer, texture, nullptr, nullptr);
+			SDL_RenderPresent(mainRenderer);
+
+			tp1 = tp2;
+		}
+	}
 
 
 

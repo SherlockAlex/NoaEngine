@@ -6,6 +6,8 @@
 
 namespace noa {
 	Audio::Audio(const char* filePath, AudioType type) {
+#if (defined __linux) || (defined _WIN64)
+
 		this->type = type;
 		if (type == Music)
 		{
@@ -15,6 +17,7 @@ namespace noa {
 		{
 			this->chunk = Mix_LoadWAV(filePath);
 		}
+#endif // __linux
 	}
 
 	Audio::~Audio() {
@@ -22,6 +25,8 @@ namespace noa {
 	}
 
 	void Audio::Play(bool loop) {
+#if (defined __linux) || (defined _WIN64)
+
 		if (type == Music)
 		{
 			if (loop)
@@ -41,11 +46,15 @@ namespace noa {
 			else {
 				Mix_PlayChannel(-1, chunk, 0);
 			}
+		
 		}
+#endif // __linux
 	}
 
 	void Audio::Stop()
 	{
+#if (defined __linux) || (defined _WIN64)
+
 		if (type == Music)
 		{
 			Mix_PauseMusic();
@@ -54,6 +63,7 @@ namespace noa {
 		{
 			Mix_HaltChannel(-1);
 		}
+#endif // __linux
 	}
 
 
