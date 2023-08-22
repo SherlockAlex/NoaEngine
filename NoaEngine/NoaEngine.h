@@ -163,6 +163,8 @@ namespace noa {
 		float DeltaTime();
 		int Run();
 
+		void MainThread();
+
 	};
 
 	void Debug(string msg);

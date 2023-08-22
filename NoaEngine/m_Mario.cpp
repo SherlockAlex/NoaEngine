@@ -1,4 +1,4 @@
-//#define MARIO_GAME
+#define MARIO_GAME
 #ifdef MARIO_GAME
 
 #include "NoaEngine.h"
@@ -225,11 +225,13 @@ public:
 
 	}
 
+	Vector<int> testPos;
 	void Update() override 
 	{
 		Control();
 
-		Vector<int> testPos(position.x,position.y);
+		testPos.x = position.x;
+		testPos.y = position.y;
 
 		if (currentMap==nullptr)
 		{
@@ -238,7 +240,7 @@ public:
 			return;
 		}
 
-		Uint8 hitItem = currentMap->level[testPos.y * currentMap->w + testPos.x];
+		const Uint8 hitItem = currentMap->level[testPos.y * currentMap->w + testPos.x];
 		if (hitItem == 127) 
 		{
 			coinCount++;
@@ -262,7 +264,7 @@ public:
 
 		currentAnimatorState->Play();
 
-		SpriteFile nextFrame = currentAnimatorState->GetCurrentFrameImage();
+		const SpriteFile nextFrame = move(currentAnimatorState->GetCurrentFrameImage());
 		sprite.UpdateImage(nextFrame);
 
 		isGrounded = false;
@@ -344,14 +346,14 @@ public:
 	}
 
 public:
-
+	Vector<int> pixelPos;
+	Vector<float> simple;
 	void Draw() 
 	{
 		for (int x = 0;x<pixelWidth;x++) 
 		{
 			for (int y = 0;y<pixelHeight;y++) 
 			{
-				Vector<int> pixelPos;
 				
 				pixelPos.x = (player->position.x - 0.5 * pixelWidth * deltaSize + x * deltaSize);
 				pixelPos.y = (player->position.y - 0.5 * pixelHeight * deltaSize + y * deltaSize);
@@ -368,7 +370,7 @@ public:
 				
 				float testX = (player->position.x - 0.5 * pixelWidth * deltaSize + x * deltaSize);
 				float testY = (player->position.y - 0.5 * pixelHeight * deltaSize + y * deltaSize);
-				Vector<float> simple;
+				
 				simple.x = testX - (int)(testX);
 				simple.y = testY - (int)(testY);
 
