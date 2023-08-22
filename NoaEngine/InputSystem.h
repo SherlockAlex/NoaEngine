@@ -80,9 +80,6 @@ namespace noa {
 
 		void Update();
 
-		//void BindEvent(void (*eventFunc)(void));
-		//void BindEvent(function<void()> eventFunc);
-
 		/*
 		x > 0 鼠标向右移动 : x
 		x < 0 鼠标向左移动 : -x

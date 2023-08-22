@@ -24,7 +24,7 @@ namespace noa {
 		//地图文件
 		int w;
 		int h;
-		uint8_t* image;
+		vector<uint8_t> image;
 	}Map;
 
 
@@ -37,7 +37,7 @@ namespace noa {
 		if (!file)
 		{
 			std::cout << "无法打开文件" << std::endl;
-			map.image = nullptr;
+			//map.image = nullptr;
 			return map;
 		}
 
@@ -45,9 +45,9 @@ namespace noa {
 		file.read(reinterpret_cast<char*>(&map.h), sizeof(int));
 
 		int imageDataSize = map.w * map.h * sizeof(uint8_t);
-		map.image = new uint8_t[imageDataSize];
-
-		file.read(reinterpret_cast<char*>(map.image), imageDataSize);
+		//map.image = new uint8_t[imageDataSize];
+		map.image.resize(imageDataSize);
+		file.read(reinterpret_cast<char*>(map.image.data()), imageDataSize);
 
 		file.close();
 
@@ -59,7 +59,8 @@ namespace noa {
 
 
 	public:
-		Uint8* level = nullptr;
+		vector<uint8_t> level;
+		//Uint8* level = nullptr;
 		int w = 0;
 		int h = 0;
 	public:
@@ -80,12 +81,14 @@ namespace noa {
 		{
 			this->w = width;
 			this->h = height;
-			level = new Uint8(width * height);
+			//level = new Uint8(width * height);
 
 			//加载地图到缓存中
+			level.clear();
 			for (int i = 0; i < map.length(); i++)
 			{
-				level[i] = map[i];
+				level.push_back(map[i]);
+				//level[i] = map[i];
 			}
 
 		}

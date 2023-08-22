@@ -33,18 +33,8 @@ namespace noa {
 			string windowTitle = gameName + " FPS: " + to_string(1 / deltaTime);
 			SDL_SetWindowTitle(window, windowTitle.c_str());
 
-			SDL_PollEvent(&ioEvent);
 
-			inputSystem.Update();
-
-			if (ioEvent.type == SDL_QUIT)
-			{
-				isRun = false;
-				SDL_Quit();
-				return;
-			}
-
-			/*while (SDL_PollEvent(&ioEvent))
+			while (SDL_PollEvent(&ioEvent))
 			{
 				inputSystem.Update();
 
@@ -54,7 +44,7 @@ namespace noa {
 					SDL_Quit();
 					return;
 				}
-			}*/
+			}
 
 			for (int i = 0; i < rigidbodys.size(); i++)
 			{
