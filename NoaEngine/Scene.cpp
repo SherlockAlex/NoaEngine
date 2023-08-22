@@ -1,4 +1,5 @@
 #include "Scene.h"
+#include "NoaEngine.h"
 
 namespace noa 
 {
@@ -9,7 +10,7 @@ namespace noa
 		std::ifstream file(fileName, std::ios::binary);
 		if (!file)
 		{
-			std::cout << "无法打开文件" << std::endl;
+			Debug("load from file" + string(fileName) + "failed");
 			//map.image = nullptr;
 			return map;
 		}

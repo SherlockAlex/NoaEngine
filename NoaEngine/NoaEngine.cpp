@@ -111,7 +111,7 @@ namespace noa {
 			4096
 		) == -1)
 		{
-			Debug("初始化音频设备失败");
+			Debug("Init audio device failed");
 			exit(0);
 		}
 

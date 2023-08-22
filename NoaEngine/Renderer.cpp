@@ -18,11 +18,6 @@ namespace noa {
 
 	void Renderer::DrawPixel(const int x, const int y, const Uint32 color) const
 	{
-		if (pixelBuffer == nullptr)
-		{
-			cout << "pixleBuffer is null" << endl;
-			return;
-		}
 		if (x < 0 || x >= pixelWidth || y < 0 || y >= pixelHeight)
 		{
 			return;
