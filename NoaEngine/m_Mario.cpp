@@ -1,3 +1,6 @@
+//#define MARIO_GAME
+#ifdef MARIO_GAME
+
 #include "NoaEngine.h"
 
 /// <summary>
@@ -390,11 +393,10 @@ public:
 
 			}
 		}
-		
-		//»æÖÆ°×ÔÆ
-
 		//»æÖÆÍæ¼Ò
 		player->sprite.DrawSprite(pixelWidth/2,pixelHeight/2,true,!player->isLeft);
+
+
 
 	}
 
@@ -496,3 +498,5 @@ int main(int argc,char * argv[])
 	mario.Run();
 	return 0;
 }
+
+#endif

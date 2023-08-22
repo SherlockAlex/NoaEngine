@@ -63,6 +63,7 @@ namespace noa {
 			int scaleForSurface,
 			bool isDrawAlpha,
 			vector<Uint32> imageRGB) const;
+		void FullScreen(Uint32 color) const;
 
 	};
 }

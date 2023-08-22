@@ -105,5 +105,10 @@ namespace noa {
 		}
 	}
 
+	void Renderer::FullScreen(Uint32 color) const
+	{
+		return;
+	}
+
 }
 
