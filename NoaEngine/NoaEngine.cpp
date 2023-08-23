@@ -139,12 +139,14 @@ namespace noa {
 			this->MainThread();
 		};
 
-		thread mainThread(mainThreadFunc);
-		this_thread::sleep_for(std::chrono::milliseconds(1));
+		//thread mainThread(mainThreadFunc);
+		//this_thread::sleep_for(std::chrono::milliseconds(1));
 
 		while (isRun)
 		{
-			
+			tp2 = chrono::system_clock::now();
+			elapsedTime = tp2 - tp1;
+			deltaTime = elapsedTime.count();
 			//执行游戏主类的update
 			while (SDL_PollEvent(&ioEvent))
 			{
@@ -154,17 +156,40 @@ namespace noa {
 				{
 					isRun = false;
 					SDL_Quit();
-					mainThread.join();
+					//mainThread.join();
 					return 0;
 				}
 			}
 
+			for (int i = 0; i < rigidbodys.size(); i++)
+			{
+				rigidbodys[i]->RigidbodyUpdate(deltaTime);
+			}
+
+			Update();
+
+			for (int i = 0; i < behaviours.size(); i++)
+			{
+				behaviours[i]->Update();
+			}
+
+			for (int i = 0; i < animatorList.size(); i++)
+			{
+				animatorList[i]->Update(deltaTime);
+			}
+
+			SDL_UnlockTexture(texture);
+			SDL_RenderCopy(mainRenderer, texture, nullptr, nullptr);
+			SDL_RenderPresent(mainRenderer);
+
 			string windowTitle = gameName + " FPS: " + to_string(1 / deltaTime);
 			SDL_SetWindowTitle(window, windowTitle.c_str());
-			
+
+			tp1 = tp2;
+
 		}
 
-		mainThread.join();
+		//mainThread.join();
 		
 		return 0;
 	}
