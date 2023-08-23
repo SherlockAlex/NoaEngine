@@ -5,6 +5,8 @@
 #include <SDL2/SDL_ttf.h>
 #include <string>
 #include <vector>
+
+#include "NoaMath.h"
 using namespace std;
 
 namespace noa {
@@ -54,6 +56,7 @@ namespace noa {
 		//»æÖÆÏñËØµã
 		void DrawPixel(int x, int y, Uint32 color) const;
 		void DrawLine(int x1, int y1, int x2, int y2, Uint32 color) const;
+		void DrawLine(const Vector<int> & point1,const Vector<int> & point2, Uint32 color) const;
 		void DrawString(int x, int y, const string& str, Uint32 color, const int size);
 		void DrawImage(
 			int posX,

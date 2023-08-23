@@ -25,7 +25,7 @@ static Audio * gameOverMusic;
 unordered_map <Uint8, Sprite> tileMap =
 {
 	{0,Sprite(LoadSprFile("./Assets/JumpMan/Texture/wall.spr"),1)},
-	//{127,Sprite(LoadSprFile("./Assets/JumpMan/Texture/Coin.spr"), 1)}
+	{1,Sprite(LoadSprFile("./Assets/JumpMan/Texture/Coin.spr"), 1)}
 };
 
 class Cloud:public GameObject
@@ -76,8 +76,8 @@ public:
 	Player(Sprite sprite):GameObject(sprite),Rigidbody(&(this->position))
 	{
 		//玩家的构造函数
-		colliderSize.x = 0.6;
-		colliderSize.y = 0.7;
+		colliderSize.x = 0.45;
+		colliderSize.y = 0.55;
 
 		idle->LoadFromAnimatorFile("./Assets/JumpMan/Animator/mario_idle.amt");
 		run->LoadFromAnimatorFile("./Assets/JumpMan/Animator/mario_run.amt");
@@ -167,7 +167,7 @@ public:
 				Debug("Jump");
 				jumpSFX.Play(false);
 				currentAnimatorState = jump;
-				AddForce(Vector<float>(0, -15), Impulse);
+				AddForce(Vector<float>(0, -17), Impulse);
 				isJump = true;
 			}
 			
@@ -241,16 +241,17 @@ public:
 		}
 
 		const Uint8 hitItem = currentMap->level[testPos.y * currentMap->w + testPos.x];
-		if (hitItem == 127) 
+		if (hitItem == 1) 
 		{
 			coinCount++;
-			currentMap->level[testPos.y * currentMap->w + testPos.x] = 0;
+			//将金币瓦片动态更新为其他类型瓦片
+			currentMap->level[testPos.y * currentMap->w + testPos.x] = 10;
 			coinSFX.Play(false);
 			Debug("coin count:" + to_string(coinCount));
 			//cout << "coin count:" << coinCount << endl;
 		}
 
-		if (hitItem == 200) 
+		if (hitItem == 32) 
 		{
 
 			gameOver = true;
@@ -315,14 +316,15 @@ public:
 		currentMap = new LevelMap(LoadMapFromCSV("./Assets/JumpMan/Map/level1.csv"));
 
 		deltaSize = (float)currentMap->h / (float)pixelHeight;
-		deltaSize *= 0.25;
+		//deltaSize 最后的系数
+		deltaSize *= 0.4;
 
 		for (int i = 0;i < currentMap->w;i++) 
 		{
 			for (int j = 0; j < currentMap->h;j++)
 			{
 
-				if (currentMap ->level[j*currentMap->w+i] == 31)
+				if (currentMap ->level[j*currentMap->w+i] == 21)
 				{
 					player->position.x = i;
 					player->position.y = j;
@@ -373,7 +375,7 @@ public:
 
 				Uint32 color = 0;
 
-				if (hitByte==0)
+				if (hitByte==0||hitByte == 1)
 				{
 					color = tileMap[hitByte].GetTransposeColor(simple.y, simple.x);
 				}
@@ -394,8 +396,7 @@ public:
 		}
 		//绘制玩家
 		player->sprite.DrawSprite(pixelWidth/2,pixelHeight/2,true,!player->isLeft);
-
-
+		//绘制碰撞体的网格线
 
 	}
 
@@ -447,7 +448,7 @@ public:
 					for (int j = 0; j < currentMap->h; j++)
 					{
 
-						if (currentMap->level[j * currentMap->w + i] == 31)
+						if (currentMap->level[j * currentMap->w + i] == 21)
 						{
 							player->position.x = i;
 							player->position.y = j;

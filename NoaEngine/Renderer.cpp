@@ -61,6 +61,49 @@ namespace noa {
 
 	}
 
+	void Renderer::DrawLine(const Vector<int> & point1,const Vector<int> & point2, Uint32 color) const
+	{
+
+		int x1 = point1.x;
+		int x2 = point2.x;
+
+		int y1 = point1.y;
+		int y2 = point2.y;
+
+		int dx = abs(x2 - x1);
+		int dy = abs(y2 - y1);
+		int sx = (x1 < x2) ? 1 : -1;
+		int sy = (y1 < y2) ? 1 : -1;
+
+		int err = dx - dy;
+
+		while (true)
+		{
+			DrawPixel(x1, y1, color);
+
+			if (x1 == x2 && y1 == y2)
+			{
+				break;
+			}
+
+			int e2 = err * 2;
+
+			if (e2 > -dy)
+			{
+				err -= dy;
+				x1 += sx;
+			}
+
+			if (e2 < dx)
+			{
+				err += dx;
+				y1 += sy;
+			}
+			
+
+		}
+	}
+
 	void Renderer::DrawString(int x, int y, const string& str, Uint32 color, const int size)
 	{
 		//»æÖÆ×Ö·û´®µ½ÆÁÄ»ÉÏ

@@ -52,7 +52,7 @@ namespace noa {
 		this->image = image;
 	}
 
-	void Sprite::UpdateImage(SpriteFile image)
+	void Sprite::UpdateImage(const SpriteFile & image)
 	{
 		this->posx = image.x;
 		this->posx = image.y;

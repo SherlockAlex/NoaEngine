@@ -91,7 +91,7 @@ namespace noa {
 	public:
 		//void UpdateImage(Uint32* image);
 		void UpdateImage(vector<Uint32> image);
-		void UpdateImage(SpriteFile image);
+		void UpdateImage(const SpriteFile & image);
 		void DrawSprite(int posX, int posY, bool isRenderAlpha) const;
 		void DrawSprite(int posX, int posY, bool isRenderAlpha, bool isMirror) const;
 		void DrawSprite(bool isRenderAlpha) const;
