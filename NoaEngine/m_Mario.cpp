@@ -1,4 +1,4 @@
-#define MARIO_GAME
+//#define MARIO_GAME
 #ifdef MARIO_GAME
 
 #include "NoaEngine.h"
@@ -167,7 +167,7 @@ public:
 				Debug("Jump");
 				jumpSFX.Play(false);
 				currentAnimatorState = jump;
-				AddForce(Vector<float>(0, -17), Impulse);
+				AddForce(Vector<float>(0, -15), Impulse);
 				isJump = true;
 			}
 			

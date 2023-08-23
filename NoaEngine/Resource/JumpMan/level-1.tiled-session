@@ -3,8 +3,9 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "",
+    "activeFile": "Level1.tmx",
     "expandedProjectPaths": [
+        "."
     ],
     "fileStates": {
         "": {
@@ -34,19 +35,19 @@
             "scale": 1.5,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 132,
-                "y": 243
+                "x": 1535.6666666666665,
+                "y": 255.66666666666666
             }
         },
         "Level1-backup.tmx#tiled": {
             "scaleInDock": 1
         },
         "Level1.tmx": {
-            "scale": 0.23224283854166666,
+            "scale": 0.75,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 1537.184105403322,
-                "y": 256.1973509005536
+                "x": 394.6666666666667,
+                "y": 174
             }
         },
         "Level1.tmx#tiled": {
@@ -65,10 +66,13 @@
     "map.lastUsedFormat": "tmx",
     "map.renderOrder": null,
     "openFiles": [
-        "111.tmx"
+        "Level1-backup.tmx",
+        "Level1.tmx"
     ],
     "project": "level-1.tiled-project",
     "recentFiles": [
+        "Level1-backup.tmx",
+        "Level1.tmx",
         "111.tmx",
         "GameOver..tsx"
     ],
