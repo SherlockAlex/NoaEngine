@@ -97,8 +97,6 @@ namespace noa {
 			InsertFrameImage(frame);
 		}
 
-
-
 	}
 
 	/// <summary>

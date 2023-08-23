@@ -377,5 +377,41 @@ namespace NoaTool
             MessageBox.Show("保存失败");
 
         }
+
+        private void tileSetFileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //导出地图瓦片
+            if (currentImagePath=="")
+            {
+                return;
+            }
+
+            string fileName;
+            using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+            {
+                saveFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+                saveFileDialog.Filter = "*.tsd|tile set file";
+                saveFileDialog.DefaultExt = ".tsd";
+                saveFileDialog.FileName = "tileSet";
+                saveFileDialog.ShowDialog();
+                fileName = saveFileDialog.FileName;
+
+            }
+
+            Bitmap bmp = new Bitmap(currentImagePath);
+            int x = 32;
+            int y = 32;
+
+            List<TileSet.PixelData> tileSet = TileSet.SplitImage(bmp, x, y);
+
+            //保存tileSet到本地二进制文件中
+            TileSet.SaveTileSetData(tileSet, fileName);
+
+            //关闭图片
+            bmp.Dispose();
+
+            MessageBox.Show("保存成功");
+
+        }
     }
 }

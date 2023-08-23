@@ -330,4 +330,80 @@ namespace NoaTool
     //    }
 
     //}
+
+    public static class TileSet
+    {
+        public struct PixelData
+        {
+            public int id;
+            public SpriteFile sprites;
+            //public List<uint> Pixels;
+        }
+
+        public static List<PixelData> SplitImage(Bitmap image, int width, int height)
+        {
+            List<PixelData> result = new List<PixelData>();
+            int id = 0;
+
+            for (int y = 0; y < image.Height; y += height)
+            {
+                for (int x = 0; x < image.Width; x += width)
+                {
+                    SpriteFile spriteFile = new SpriteFile
+                    {
+                        images = new List<uint>(),
+                        x = x,
+                        y = y,
+                        width = width,
+                        height = height
+                    };
+
+                    for (int i = 0; i < width; i++)
+                    {
+                        for (int j = 0; j < height; j++)
+                        {
+                            Color pixelColor = image.GetPixel(x + i, y + j);
+                            uint pixelValue = (uint)((pixelColor.R) | (pixelColor.G << 8) | pixelColor.B<<16);
+                            spriteFile.images.Add(pixelValue);
+                        }
+                    }
+
+                    PixelData pixelData = new PixelData
+                    {
+                        id = id,
+                        sprites = spriteFile
+                    };
+
+                    result.Add(pixelData);
+                    id++;
+                }
+            }
+
+            return result;
+
+        }
+
+        public static void SaveTileSetData(List<PixelData> tileSet, string fileName)
+        {
+            using (BinaryWriter writer = new BinaryWriter(File.Open(fileName, FileMode.Create)))
+            {
+                writer.Write(tileSet.Count);
+
+                foreach (PixelData pixelData in tileSet)
+                {
+                    writer.Write(pixelData.id);
+                    writer.Write(pixelData.sprites.images.Count);
+                    writer.Write(pixelData.sprites.x);
+                    writer.Write(pixelData.sprites.y);
+                    writer.Write(pixelData.sprites.width);
+                    writer.Write(pixelData.sprites.height);
+
+                    foreach (uint pixelValue in pixelData.sprites.images)
+                    {
+                        writer.Write(pixelValue);
+                    }
+                }
+            }
+        }
+    }
 }

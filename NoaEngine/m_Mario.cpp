@@ -1,4 +1,4 @@
-//#define MARIO_GAME
+#define MARIO_GAME
 #ifdef MARIO_GAME
 
 #include "NoaEngine.h"
@@ -11,7 +11,8 @@ using namespace noa;
 
 extern vector<GameObject*> gameObjects;
 
-LevelMap* currentMap;
+//LevelMap* currentMap;
+TileMap* currentMap;
 
 int coinCount = 0;
 bool gameOver = false;
@@ -22,11 +23,11 @@ static Audio * BGM;
 static Audio * gameOverMusic;
 
 //实现tileMap
-unordered_map <Uint8, Sprite> tileMap =
-{
-	{0,Sprite(LoadSprFile("./Assets/JumpMan/Texture/wall.spr"),1)},
-	{1,Sprite(LoadSprFile("./Assets/JumpMan/Texture/Coin.spr"), 1)}
-};
+//unordered_map <Uint8, Sprite> tileMap =
+//{
+//	{0,Sprite(LoadSprFile("./Assets/JumpMan/Texture/wall.spr"),1)},
+//	{1,Sprite(LoadSprFile("./Assets/JumpMan/Texture/Coin.spr"), 1)}
+//};
 
 class Cloud:public GameObject
 {
@@ -313,7 +314,7 @@ public:
 
 		//加载地图
 		//currentMap = new LevelMap(LoadMap("./Assets/JumpMan/Map/level.map"));
-		currentMap = new LevelMap(LoadMapFromCSV("./Assets/JumpMan/Map/level1.csv"));
+		currentMap = new TileMap(LoadTileFromTsd("./Assets/JumpMan/Tile/tileSet.tsd"), LoadMapFromCSV("./Assets/JumpMan/Map/level1.csv"));
 
 		deltaSize = (float)currentMap->h / (float)pixelHeight;
 		//deltaSize 最后的系数
@@ -377,7 +378,7 @@ public:
 
 				if (hitByte==0||hitByte == 1)
 				{
-					color = tileMap[hitByte].GetTransposeColor(simple.y, simple.x);
+					color = currentMap->tileSet[hitByte].sprite.GetTransposeColor(simple.y, simple.x);
 				}
 
 				if (color == BLACK)
@@ -442,7 +443,9 @@ public:
 			if (inputSystem.GetKeyDown(KeyK))
 			{
 				
-				currentMap = new LevelMap(LoadMapFromCSV("./Assets/JumpMan/Map/level1.csv"));
+				currentMap = new TileMap(
+					LoadTileFromTsd("./Assets/JumpMan/Tile/tileSet.tsd"),
+					LoadMapFromCSV("./Assets/JumpMan/Map/level1.csv"));
 				for (int i = 0; i < currentMap->w; i++)
 				{
 					for (int j = 0; j < currentMap->h; j++)
