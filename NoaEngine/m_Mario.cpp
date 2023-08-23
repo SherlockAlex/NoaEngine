@@ -24,8 +24,8 @@ static Audio * gameOverMusic;
 //实现tileMap
 unordered_map <Uint8, Sprite> tileMap =
 {
-	{255,Sprite(LoadSprFile("./Assets/JumpMan/Texture/wall.spr"),1)},
-	{127,Sprite(LoadSprFile("./Assets/JumpMan/Texture/Coin.spr"), 1)}
+	{0,Sprite(LoadSprFile("./Assets/JumpMan/Texture/wall.spr"),1)},
+	//{127,Sprite(LoadSprFile("./Assets/JumpMan/Texture/Coin.spr"), 1)}
 };
 
 class Cloud:public GameObject
@@ -121,7 +121,7 @@ public:
 			Vector<float> pos;
 			pos.x = position.x - colliderSize.x;
 			pos.y = position.y + colliderSize.y;
-			if (ColliderWithMap(255, pos))
+			if (ColliderWithMap(0, pos))
 			{
 				position.x += deltaTime * speed;
 			}
@@ -145,7 +145,7 @@ public:
 			Vector<float> pos;
 			pos.x = position.x + colliderSize.x;
 			pos.y = position.y + colliderSize.y;
-			if (ColliderWithMap(255, pos))
+			if (ColliderWithMap(0, pos))
 			{
 				position.x -= deltaTime * speed;
 			}
@@ -178,19 +178,19 @@ public:
 		Vector<float> pos;
 		pos.x = position.x;
 		pos.y = position.y + colliderSize.y;
-		if (isGrounded&&ColliderWithMap(255, pos))
+		if (isGrounded&&ColliderWithMap(0, pos))
 		{
 			position.y -= 0.05;
 		}
 		pos.x = position.x - colliderSize.x;
 		pos.y = position.y + colliderSize.y;
-		if (isGrounded && ColliderWithMap(255, pos))
+		if (isGrounded && ColliderWithMap(0, pos))
 		{
 			position.y -= 0.05;
 		}
 		pos.x = position.x + colliderSize.x;
 		pos.y = position.y + colliderSize.y;
-		if (isGrounded && ColliderWithMap(255, pos))
+		if (isGrounded && ColliderWithMap(0, pos))
 		{
 			position.y -= 0.05;
 		}
@@ -198,21 +198,21 @@ public:
 		//检测头顶是否顶砖块
 		pos.x = position.x;
 		pos.y = position.y - colliderSize.y;
-		if (ColliderWithMap(255, pos))
+		if (ColliderWithMap(0, pos))
 		{
 			position.y += velocity.y * deltaTime;
 			velocity.y = 5;
 		}
 		pos.x = position.x - colliderSize.x;
 		pos.y = position.y - colliderSize.y;
-		if (ColliderWithMap(255, pos))
+		if (ColliderWithMap(0, pos))
 		{
 			position.y += velocity.y * deltaTime;
 			velocity.y = 5;
 		}
 		pos.x = position.x + colliderSize.x;
 		pos.y = position.y - colliderSize.y;
-		if (ColliderWithMap(255, pos))
+		if (ColliderWithMap(0, pos))
 		{
 			position.y += velocity.y * deltaTime;
 			velocity.y = 5;
@@ -271,12 +271,12 @@ public:
 
 		if ((currentMap->level[
 			(int)(position.y+ colliderSize.y+0.1) * currentMap->w + (int)position.x] 
-			== 255)|| 
+			== 0)|| 
 			(currentMap->level[
 				(int)(position.y + colliderSize.y + 0.1) * currentMap->w + (int)(position.x - colliderSize.x)]
-				== 255) || (currentMap->level[
+				== 0) || (currentMap->level[
 					(int)(position.y + colliderSize.y + 0.1) * currentMap->w + (int)(position.x + colliderSize.x)]
-					== 255))
+					== 0))
 		{
 			isGrounded = true;
 		}
@@ -311,8 +311,9 @@ public:
 		gameOverMusic = new Audio("./Assets/JumpMan/Music/gameover.mp3", Chunk);
 
 		//加载地图
-		currentMap = new LevelMap(LoadMap("./Assets/JumpMan/Map/level.map"));
-		
+		//currentMap = new LevelMap(LoadMap("./Assets/JumpMan/Map/level.map"));
+		currentMap = new LevelMap(LoadMapFromCSV("./Assets/JumpMan/Map/level1.csv"));
+
 		deltaSize = (float)currentMap->h / (float)pixelHeight;
 		deltaSize *= 0.25;
 
@@ -320,16 +321,12 @@ public:
 		{
 			for (int j = 0; j < currentMap->h;j++)
 			{
-				if (currentMap->level[j*currentMap->w+i]==63)
+
+				if (currentMap ->level[j*currentMap->w+i] == 31)
 				{
 					player->position.x = i;
 					player->position.y = j;
 					player->velocity.y = 0;
-				}
-
-				if (currentMap ->level[j*currentMap->w+i] == 31)
-				{
-					//如果是白云的化
 				}
 
 			}
@@ -359,7 +356,7 @@ public:
 				pixelPos.y = (player->position.y - 0.5 * pixelHeight * deltaSize + y * deltaSize);
 
 				//开始计算
-				Uint8 hitByte = 0;
+				Uint8 hitByte = 10;
 				if (pixelPos.y<=currentMap->h&&pixelPos.y>=0&&pixelPos.x<=currentMap->w&&pixelPos.x>=0)
 				{
 					hitByte = currentMap->level[
@@ -376,7 +373,7 @@ public:
 
 				Uint32 color = 0;
 
-				if (hitByte == 127||hitByte==255)
+				if (hitByte==0)
 				{
 					color = tileMap[hitByte].GetTransposeColor(simple.y, simple.x);
 				}
@@ -444,20 +441,16 @@ public:
 			if (inputSystem.GetKeyDown(KeyK))
 			{
 				
-				currentMap = new LevelMap(LoadMap("./Assets/JumpMan/Map/level.map"));
+				currentMap = new LevelMap(LoadMapFromCSV("./Assets/JumpMan/Map/level1.csv"));
 				for (int i = 0; i < currentMap->w; i++)
 				{
 					for (int j = 0; j < currentMap->h; j++)
 					{
-						if (currentMap->level[j * currentMap->w + i] == 63)
-						{
-							player->position.x = i;
-							player->position.y = j;
-						}
 
 						if (currentMap->level[j * currentMap->w + i] == 31)
 						{
-							//如果是白云的化
+							player->position.x = i;
+							player->position.y = j;
 						}
 
 					}

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -20,69 +21,53 @@ namespace NoaTool
         {
             public int w;
             public int h;
-            public IntPtr image;
+            public List<uint> image;
         }
 
         public static int ExportMap(string imageFilePath, string fileName)
         {
-            List<byte> grayscaleValues = new List<byte>();
-            int width, height;
+            // 读取图像文件
+            Bitmap image = new Bitmap(imageFilePath);
 
-            // 加载图片
-            using (Bitmap image = new Bitmap(imageFilePath))
+            // 创建Map结构体对象
+            Map map = new Map();
+            map.w = image.Width;
+            map.h = image.Height;
+            map.image = new List<uint>();
+
+            // 逐像素读取灰度值并保存到image列表中
+            for (int y = 0; y < image.Height; y++)
             {
-                width = image.Width;
-                height = image.Height;
-
-                // 遍历图片的每个像素
-                for (int y = 0; y < height; y++)
+                for (int x = 0; x < image.Width; x++)
                 {
-                    for (int x = 0; x < width; x++)
+                    Color pixelColor = image.GetPixel(x, y);
+                    uint grayScale = (uint)((pixelColor.R + pixelColor.G + pixelColor.B) / 3);
+                    map.image.Add(grayScale);
+                }
+            }
+
+            // 将结构体保存到本地二进制文件
+            try
+            {
+                using (FileStream fs = new FileStream(fileName, FileMode.Create))
+                {
+                    using (BinaryWriter writer = new BinaryWriter(fs))
                     {
-                        // 获取当前像素的颜色
-                        Color pixelColor = image.GetPixel(x, y);
-
-                        // 将颜色转换为灰度值
-                        byte grayscaleValue = (byte)((pixelColor.R + pixelColor.G + pixelColor.B) / 3);
-
-                        // 将灰度值添加到结果列表
-                        grayscaleValues.Add(grayscaleValue);
+                        writer.Write(map.w);
+                        writer.Write(map.h);
+                        foreach (uint pixel in map.image)
+                        {
+                            writer.Write(pixel);
+                        }
                     }
                 }
             }
-
-            // 将灰度值列表转换为字节数组
-            byte[] data = grayscaleValues.ToArray();
-
-            // 创建 Map 结构体
-            Map map = new Map
+            catch (Exception e)
             {
-                w = width,
-                h = height,
-                image = Marshal.AllocHGlobal(data.Length)
-            };
-
-            // 将字节数组复制到 Map 结构体的内存指针中
-            Marshal.Copy(data, 0, map.image, data.Length);
-
-            // 将 Map 结构体保存到本地二进制文件中
-            using (FileStream fileStream = new FileStream(fileName, FileMode.Create))
-            {
-                using (BinaryWriter writer = new BinaryWriter(fileStream))
-                {
-                    writer.Write(map.w);
-                    writer.Write(map.h);
-
-                    byte[] imageData = new byte[data.Length];
-                    Marshal.Copy(map.image, imageData, 0, data.Length);
-                    writer.Write(imageData);
-                }
+                Console.WriteLine("保存文件出错：" + e.Message);
+                return -1;
             }
 
-            // 释放内存
-            Marshal.FreeHGlobal(map.image);
-
-            Console.WriteLine("Map 已成功导出。");
             return 0;
         }
 

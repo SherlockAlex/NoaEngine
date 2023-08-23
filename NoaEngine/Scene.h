@@ -25,21 +25,23 @@ namespace noa {
 		//地图文件
 		int w;
 		int h;
-		vector<uint8_t> image;
+		vector<uint32_t> image;
 	}Map;
 
 
 	//加载地图
 	extern MapFile LoadMap(const char* fileName);
 
+	extern MapFile LoadMapFromCSV(const std::string filename);
+
 	class LevelMap {
 	public:
-		vector<uint8_t> level;
+		vector<uint32_t> level;
 		int w = 0;
 		int h = 0;
 	public:
 		LevelMap();
-		LevelMap(MapFile map);
+		LevelMap(const MapFile & map);
 	};
 
 	//瓦片地图
