@@ -88,11 +88,11 @@ namespace noa
 		return map;
 	}
 
-	unordered_map<Uint32, Tile> LoadTileFromTsd(const std::string& fileName)
+	unordered_map<Uint32, Tile*> LoadTileFromTsd(const std::string& fileName)
 	{
 		//º”‘ÿ”Œœ∑µƒtileSet
 
-		unordered_map<Uint32, Tile> result;
+		unordered_map<Uint32, Tile*> result;
 		std::vector<PixelData> resultData;
 
 		std::ifstream inputFile(fileName, std::ios::binary);
@@ -129,9 +129,7 @@ namespace noa
 
 		for (PixelData &data: resultData)
 		{
-			Tile tile;
-			tile.isCollision = false;
-			tile.sprite = Sprite(data.sprites, 1);
+			Tile* tile = new Tile(data.sprites);
 			result[data.id] = tile;
 		}
 
@@ -153,9 +151,53 @@ namespace noa
 
 	}
 
-	TileMap::TileMap(unordered_map<Uint32, Tile> tileSet, MapFile map) :LevelMap(map)
+	void LevelMap::Construct(MapFile& map)
+	{
+		this->w = map.w;
+		this->h = map.h;
+
+		level = map.image;
+
+		Debug("load map from file successfully");
+	}
+
+	TileMap::TileMap(unordered_map<Uint32, Tile*> tileSet, MapFile map) :LevelMap(map)
 	{
 		this->tileSet = tileSet;
+	}
+
+	TileMap::TileMap(unordered_map<Uint32, Tile*> tileSet, vector<MapFile> mapLayer)
+	{
+		this->tileSet = tileSet;
+		MapFile map;
+		map.image = mapLayer[0].image;
+		map.w = mapLayer[0].w;
+		map.h = mapLayer[0].h;
+
+		for (int i=1;i<mapLayer.size();i++) 
+		{
+			for (int j = 0;j<mapLayer[i].image.size();j++)
+			{
+				if (mapLayer[i].image[j] == -1)
+				{
+					continue;
+				}
+				map.image[j] = mapLayer[i].image[j];
+			}
+		}
+
+		this->Construct(map);
+
+	}
+
+	bool TileMap::IsTile(Uint32 code)
+	{
+		return ContainKey<Uint32, Tile*>(tileSet, code);
+	}
+
+	Tile& TileMap::GetTile(Uint32 id)
+	{
+		return *(tileSet[id]);
 	}
 
 }

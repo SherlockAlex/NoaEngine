@@ -2,6 +2,7 @@
 #define NOAENGINE_NOAMATH_H
 
 #include <math.h>
+#include <unordered_map>
 
 namespace noa {
 	// Math Constance
@@ -77,6 +78,13 @@ template<class T>
 inline T NoaAbs(T value) 
 {
 	return (value > 0) ? value : (-value);
+}
+
+template <typename KeyType, typename ValueType>
+inline bool ContainKey(const std::unordered_map<KeyType, ValueType>& myMap, const KeyType& keyToCheck) 
+{
+	auto it = myMap.find(keyToCheck);
+	return it != myMap.end();
 }
 
 #endif

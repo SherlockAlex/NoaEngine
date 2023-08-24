@@ -103,7 +103,7 @@ namespace noa {
 	/// 获取当前帧的图像
 	/// </summary>
 	/// <returns></returns>
-	SpriteFile Animator::GetCurrentFrameImage() {
+	SpriteFile& Animator::GetCurrentFrameImage() {
 		return currentFrame;
 	}
 
@@ -112,13 +112,13 @@ namespace noa {
 	/// </summary>
 	/// <param name="frame">第frame帧</param>
 	/// <returns></returns>
-	SpriteFile Animator::GetFrameImage(int frame) {
+	SpriteFile& Animator::GetFrameImage(int frame) {
 		//if (framesImage.empty())
 		//{
 		//	return nullptr;
 		//}
 		frame = frame & (framesImage.size() - 1);
-		return framesImage[frame];
+		return *&framesImage[frame];
 	}
 
 	void Animator::SetFrameEvent(int frame, function<void()> e) {

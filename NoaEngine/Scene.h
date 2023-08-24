@@ -42,6 +42,7 @@ namespace noa {
 	public:
 		LevelMap();
 		LevelMap(MapFile & map);
+		void Construct(MapFile& map);
 	};
 
 	//瓦片地图
@@ -50,17 +51,21 @@ namespace noa {
 		Sprite sprite;
 		bool isCollision = false;
 
-		/*Tile(Sprite sprite,bool isCollision) 
+		Tile() {
+
+		}
+
+		Tile(Sprite sprite,bool isCollision = false) 
 		{
 			this->sprite = sprite;
 			this->isCollision = isCollision;
 		}
 
-		Tile(SpriteFile spriteFile, bool isCollision)
+		Tile(SpriteFile spriteFile, bool isCollision = false)
 		{
 			this->sprite = Sprite(spriteFile,1);
 			this->isCollision = isCollision;
-		}*/
+		}
 
 	}Tile;
 
@@ -71,20 +76,23 @@ namespace noa {
 
 	//extern vector<PixelData> LoadTileFromTsd(const std::string& fileName);
 
-	extern unordered_map<Uint32, Tile> LoadTileFromTsd(const std::string& fileName);
+	extern unordered_map<Uint32, Tile*> LoadTileFromTsd(const std::string& fileName);
 
 	//瓦片地图
 	class TileMap:public LevelMap
 	{
 	public:
-		unordered_map<Uint32, Tile> tileSet;
+		unordered_map<Uint32, Tile*> tileSet;
 	public:
 		/// <summary>
 		/// 加载瓦片地图
 		/// </summary>
 		/// <param name="tileSet">瓦片集合</param>
 		/// <param name="map">地图数据</param>
-		TileMap(unordered_map<Uint32,Tile> tileSet,MapFile map);
+		TileMap(unordered_map<Uint32,Tile*> tileSet,MapFile map);
+		TileMap(unordered_map<Uint32, Tile*> tileSet, vector<MapFile> mapLayer);
+		Tile& GetTile(Uint32 id);
+		bool IsTile(Uint32 code);
 	};
 
 }

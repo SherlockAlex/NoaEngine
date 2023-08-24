@@ -50,8 +50,8 @@ namespace noa {
 
 	public:
 		void LoadFromAnimatorFile(const char* filePath);
-		SpriteFile GetCurrentFrameImage();
-		SpriteFile GetFrameImage(int frame);
+		SpriteFile& GetCurrentFrameImage();
+		SpriteFile& GetFrameImage(int frame);
 		void SetFrameEvent(int frame, function<void()> e);
 		void Play(int frame);
 		void Play();

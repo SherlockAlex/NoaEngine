@@ -261,7 +261,9 @@ namespace noa {
 		}
 
 		const int sx = NoaAbs<int>(normalizedX * (float)h)%h;
-		const int sy = NoaAbs<int>(normalizedY * (float)w - 1)%w;
+		const int sy = NoaAbs<int>(normalizedY * (float)w)%w;
+		//const int sy = NoaAbs<int>(normalizedY * (float)w - 1)%w;
+
 
 		return image[sy * h + sx];
 	}

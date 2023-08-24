@@ -3,15 +3,29 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
-struct Tile {
-    int gid; // Global ID of the tile
-    // Add more attributes as needed
-};
 
-struct Map {
-    int width; // Width of the map in tiles
-    int height; // Height of the map in tiles
-    int tileWidth; // Width of each tile in pixels
-    int tileHeight; // Height of each tile in pixels
-    std::vector<Tile> tiles; // 1D vector to store tile data
-};
+#include <chrono>
+
+using namespace std;
+
+int main() {
+	auto tp1 = chrono::system_clock::now();
+	chrono::duration<float> elapsedTime;
+	auto tp2 = chrono::system_clock::now();
+
+	while (1) {
+		tp1 = chrono::system_clock::now();
+		chrono::duration<float> elapsedTime;
+		tp2 = chrono::system_clock::now();
+		float deltaTime = elapsedTime.count();
+
+		for (int i = 0; i < 1920*1080;i++) {
+
+		}
+		cout << deltaTime << endl;
+
+		tp1 = tp2;
+
+	}
+	return 0;
+}

@@ -39,6 +39,8 @@ namespace noa {
 
 		GLFWwindow* window = nullptr;
 
+		GLuint texture;
+
 		int glPixelWidth = 0;
 		int glPixelHeight = 0;
 

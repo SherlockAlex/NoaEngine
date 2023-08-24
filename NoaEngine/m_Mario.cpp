@@ -11,7 +11,6 @@ using namespace noa;
 
 extern vector<GameObject*> gameObjects;
 
-//LevelMap* currentMap;
 TileMap* currentMap;
 
 int coinCount = 0;
@@ -21,13 +20,6 @@ static bool ColliderWithMap(Uint8 byte, Vector<float> colliderPos);
 
 static Audio * BGM;
 static Audio * gameOverMusic;
-
-//实现tileMap
-//unordered_map <Uint8, Sprite> tileMap =
-//{
-//	{0,Sprite(LoadSprFile("./Assets/JumpMan/Texture/wall.spr"),1)},
-//	{1,Sprite(LoadSprFile("./Assets/JumpMan/Texture/Coin.spr"), 1)}
-//};
 
 class Cloud:public GameObject
 {
@@ -45,7 +37,6 @@ public:
 
 	}
 
-	
 
 };
 
@@ -246,13 +237,13 @@ public:
 		{
 			coinCount++;
 			//将金币瓦片动态更新为其他类型瓦片
-			currentMap->level[testPos.y * currentMap->w + testPos.x] = 10;
+			currentMap->level[testPos.y * currentMap->w + testPos.x] = 25;
 			coinSFX.Play(false);
 			Debug("coin count:" + to_string(coinCount));
 			//cout << "coin count:" << coinCount << endl;
 		}
 
-		if (hitItem == 32) 
+		if (hitItem == 30) 
 		{
 
 			gameOver = true;
@@ -314,18 +305,27 @@ public:
 
 		//加载地图
 		//currentMap = new LevelMap(LoadMap("./Assets/JumpMan/Map/level.map"));
+		//currentMap = new TileMap(LoadTileFromTsd("./Assets/JumpMan/Tile/tileSet.tsd"), LoadMapFromCSV("./Assets/JumpMan/Map/level1.csv"));
+		/*currentMap = new TileMap(LoadTileFromTsd("./Assets/JumpMan/Tile/tileSet.tsd"),
+			{
+						LoadMapFromCSV("./Assets/JumpMan/Map/level1_Sky.csv"),
+						LoadMapFromCSV("./Assets/JumpMan/Map/level1_Panel.csv"),
+			}
+		);*/
+
 		currentMap = new TileMap(LoadTileFromTsd("./Assets/JumpMan/Tile/tileSet.tsd"), LoadMapFromCSV("./Assets/JumpMan/Map/level1.csv"));
+
 
 		deltaSize = (float)currentMap->h / (float)pixelHeight;
 		//deltaSize 最后的系数
-		deltaSize *= 0.4;
+		deltaSize *= 0.3;
 
 		for (int i = 0;i < currentMap->w;i++) 
 		{
 			for (int j = 0; j < currentMap->h;j++)
 			{
 
-				if (currentMap ->level[j*currentMap->w+i] == 21)
+				if (currentMap ->level[j*currentMap->w+i] == 61)
 				{
 					player->position.x = i;
 					player->position.y = j;
@@ -376,9 +376,9 @@ public:
 
 				Uint32 color = 0;
 
-				if (hitByte==0||hitByte == 1)
+				if (currentMap->IsTile(hitByte))
 				{
-					color = currentMap->tileSet[hitByte].sprite.GetTransposeColor(simple.y, simple.x);
+					color = currentMap->GetTile(hitByte).sprite.GetTransposeColor(simple.y, simple.x);
 				}
 
 				if (color == BLACK)
@@ -386,7 +386,7 @@ public:
 					//渲染天空
 					simple.x = x / (float)pixelWidth;
 					simple.y = y / (float)pixelHeight;
-					color = skyboxTexture.GetTransposeColor(simple.y, simple.x);
+					color = currentMap->GetTile(25).sprite.GetTransposeColor(simple.y, simple.x);
 				}
 
 				renderer.DrawPixel(x, y, color);
@@ -443,15 +443,21 @@ public:
 			if (inputSystem.GetKeyDown(KeyK))
 			{
 				
-				currentMap = new TileMap(
-					LoadTileFromTsd("./Assets/JumpMan/Tile/tileSet.tsd"),
-					LoadMapFromCSV("./Assets/JumpMan/Map/level1.csv"));
+				/*currentMap = new TileMap(LoadTileFromTsd("./Assets/JumpMan/Tile/tileSet.tsd"),
+					{
+								LoadMapFromCSV("./Assets/JumpMan/Map/level1_Sky.csv"),
+								LoadMapFromCSV("./Assets/JumpMan/Map/level1_Panel.csv"),
+					}
+				);*/
+
+				currentMap = new TileMap(LoadTileFromTsd("./Assets/JumpMan/Tile/tileSet.tsd"), LoadMapFromCSV("./Assets/JumpMan/Map/level1.csv"));
+
 				for (int i = 0; i < currentMap->w; i++)
 				{
 					for (int j = 0; j < currentMap->h; j++)
 					{
 
-						if (currentMap->level[j * currentMap->w + i] == 21)
+						if (currentMap->level[j * currentMap->w + i] == 61)
 						{
 							player->position.x = i;
 							player->position.y = j;

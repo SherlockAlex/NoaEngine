@@ -4,6 +4,7 @@
 #include <mutex>
 #include "SDL2/SDL_thread.h"
 
+
 namespace noa {
 	extern vector <Behaviour*> behaviours;
 	extern vector<GameObject*> gameObjects;
@@ -54,6 +55,29 @@ namespace noa {
 			exit(0);
 		}
 
+		glContext = SDL_GL_CreateContext(window);
+
+		if (!glContext) {
+			Debug("OpenGL context creation failed: " + string(SDL_GetError()));
+			exit(0);
+		}
+
+		surfaceWidth = width;
+		surfaceHeight = height;
+
+		pixelWidth = surfaceWidth;
+		pixelHeight = surfaceHeight;
+
+		//pixelBuffer = new Uint32[pixelWidth * pixelHeight];
+
+		/*glEnable(GL_TEXTURE_2D);
+		glViewport(0, 0, width, height);
+		glMatrixMode(GL_PROJECTION);
+		glLoadIdentity();
+		glOrtho(0, width, height, 0, -1, 1);
+		glMatrixMode(GL_MODELVIEW);
+		glLoadIdentity();*/
+
 		mainRenderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 		if (mainRenderer == nullptr)
 		{
@@ -73,8 +97,7 @@ namespace noa {
 		format = SDL_AllocFormat(SDL_PIXELFORMAT_BGR888);
 		SDL_LockTexture(texture, nullptr, &pixelBuffer, &pitch);
 
-		surfaceWidth = width;
-		surfaceHeight = height;
+		
 
 		renderer = Renderer(surfaceWidth, surfaceHeight, pixelBuffer);
 
@@ -90,8 +113,7 @@ namespace noa {
 			exit(0);
 		}
 
-		pixelWidth = surfaceWidth;
-		pixelHeight = surfaceHeight;
+		
 
 		//禁用垂直同步
 		SDL_GL_SetSwapInterval(0);
@@ -100,10 +122,33 @@ namespace noa {
 
 
 	NoaGameEngine::~NoaGameEngine() {
+		//delete pixelBuffer;
+		SDL_GL_DeleteContext(glContext);
 		SDL_DestroyRenderer(mainRenderer);
 		SDL_DestroyTexture(texture);
 		SDL_DestroyWindow(window);
 		SDL_Quit();
+	}
+
+	void NoaGameEngine::GLRenderTexture()
+	{
+		/*GLuint textureID;
+		glGenTextures(1, &textureID);
+		glBindTexture(GL_TEXTURE_2D, textureID);
+
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, pixelBuffer);
+
+		glBegin(GL_QUADS);
+		glTexCoord2f(0.0f, 0.0f); glVertex2i(0, 0);
+		glTexCoord2f(1.0f, 0.0f); glVertex2i(width, 0);
+		glTexCoord2f(1.0f, 1.0f); glVertex2i(width, height);
+		glTexCoord2f(0.0f, 1.0f); glVertex2i(0, height);
+		glEnd();
+
+		glDeleteTextures(1, &textureID);*/
 	}
 
 	void* NoaGameEngine::PixelBuffer() {
@@ -177,6 +222,10 @@ namespace noa {
 			{
 				animatorList[i]->Update(deltaTime);
 			}
+
+			/*glClear(GL_COLOR_BUFFER_BIT);
+			GLRenderTexture();
+			SDL_GL_SwapWindow(window);*/
 
 			SDL_UnlockTexture(texture);
 			SDL_RenderCopy(mainRenderer, texture, nullptr, nullptr);
