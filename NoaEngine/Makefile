@@ -11,7 +11,9 @@ objs=./obj/Animator.o \
 	 ./obj/NoaAction.o \
 	 ./obj/StateMachine.o \
 	 ./obj/Physics.o \
-	 ./obj/m_Mario.o \
+	 ./obj/Camera.o \
+	 ./obj/NoaGUI.o \
+	 ./obj/m_SuperMario.o \
 #其中d_doom.o和d_RayCastHit.o是游戏引擎的项目示例，你可以替换为你的项目编写编译的目标文件名(.cpp)同名
 
 CXX=g++
