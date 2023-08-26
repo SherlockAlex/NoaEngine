@@ -60,10 +60,10 @@ namespace noa {
 		//处理力和速度的关系
 		//F = ma
 
-		velocity = sumForce * deltaTime * invMass + velocity;
+		velocity += sumForce * deltaTime * invMass;
 
 		//将速度的量反馈到物体的位移变化
-		(*colliderPos) = (*colliderPos) + (velocity * deltaTime);
+		(*colliderPos) += (velocity * deltaTime);
 		//根据位置进行物体的碰撞检测
 		//如果检测到了碰撞字符，就停止
 
@@ -80,11 +80,11 @@ namespace noa {
 		{
 		case Rigidbody::ContinuousForce:
 			//添加恒力到物体上
-			sumForce = sumForce + force;
+			sumForce += force;
 			break;
 		case Rigidbody::Impulse:
 			//添加一个冲量到物体上，作用完马上就消失
-			velocity = force * invMass + velocity;
+			velocity += force * invMass;
 			break;
 		default:
 			break;
@@ -94,7 +94,8 @@ namespace noa {
 	void Rigidbody::SetCollisionTileID(std::vector<uint32_t> & collisionTileIDs)
 	{
 		//设置Collision Tiles
-		for (int i=0;i<collisionTileIDs.size();i++) 
+		const int collisionTilesCount = collisionTileIDs.size();
+		for (int i=0;i< collisionTilesCount;i++)
 		{
 			collisionTiles[collisionTileIDs[i]] = true;
 		}

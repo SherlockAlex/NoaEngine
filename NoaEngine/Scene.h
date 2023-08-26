@@ -37,12 +37,14 @@ namespace noa {
 	class LevelMap {
 	public:
 		vector<uint32_t> level;
+		vector<vector<uint32_t>> levelLayer;
 		int w = 0;
 		int h = 0;
 	public:
 		LevelMap();
 		LevelMap(MapFile & map);
 		void Construct(MapFile& map);
+		void ConstructLayer(vector<vector<uint32_t>>& layer);
 	};
 
 	//ÍßÆ¬µØÍ¼

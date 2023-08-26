@@ -161,6 +161,11 @@ namespace noa
 		Debug("load map from file successfully");
 	}
 
+	void LevelMap::ConstructLayer(vector<vector<uint32_t>>& layer)
+	{
+		levelLayer = layer;
+	}
+
 	TileMap::TileMap(unordered_map<Uint32, Tile*> tileSet, MapFile map) :LevelMap(map)
 	{
 		this->tileSet = tileSet;
@@ -174,8 +179,11 @@ namespace noa
 		map.w = mapLayer[0].w;
 		map.h = mapLayer[0].h;
 
+		vector<vector<uint32_t>> layer;
+
 		for (int i=1;i<mapLayer.size();i++) 
 		{
+			layer.push_back(mapLayer[i].image);
 			for (int j = 0;j<mapLayer[i].image.size();j++)
 			{
 				if (mapLayer[i].image[j] == -1)
@@ -187,7 +195,7 @@ namespace noa
 		}
 
 		this->Construct(map);
-
+		this->ConstructLayer(layer);
 	}
 
 	bool TileMap::IsTile(Uint32 code)

@@ -331,51 +331,53 @@ public:
 		// 如果最顶层的像素alpha通道不为0，就直接替代这个位置的底层像素
 		// 否则直接跳过
 		
+		const int mapLayerCount = currentMap->levelLayer.size();
 
-		for (int x = 0;x<pixelWidth;x++) 
+		//for (int layerIndex = 0; layerIndex < mapLayerCount;layerIndex++)
 		{
-			for (int y = 0;y<pixelHeight;y++) 
+			for (int x = 0; x < pixelWidth; x++)
 			{
-				
-				pixelPos.x = (player->position.x - 0.5 * pixelWidth * deltaSize + x * deltaSize);
-				pixelPos.y = (player->position.y - 0.5 * pixelHeight * deltaSize + y * deltaSize);
-
-				//开始计算
-				Uint8 hitByte = 10;
-				if (pixelPos.y<=currentMap->h&&pixelPos.y>=0&&pixelPos.x<=currentMap->w&&pixelPos.x>=0)
+				for (int y = 0; y < pixelHeight; y++)
 				{
-					hitByte = currentMap->level[
-						pixelPos.y * currentMap->w +
-							pixelPos.x
-					];
+
+					pixelPos.x = (player->position.x - 0.5 * pixelWidth * deltaSize + x * deltaSize);
+					pixelPos.y = (player->position.y - 0.5 * pixelHeight * deltaSize + y * deltaSize);
+
+					//开始计算
+					Uint8 hitByte = 10;
+					if (pixelPos.y <= currentMap->h && pixelPos.y >= 0 && pixelPos.x <= currentMap->w && pixelPos.x >= 0)
+					{
+						hitByte = currentMap->level[
+							pixelPos.y * currentMap->w +
+								pixelPos.x
+						];
+					}
+
+					const float testX = (player->position.x - 0.5 * pixelWidth * deltaSize + x * deltaSize);
+					const float testY = (player->position.y - 0.5 * pixelHeight * deltaSize + y * deltaSize);
+
+					simple.x = testX - (int)(testX);
+					simple.y = testY - (int)(testY);
+
+					Uint32 color = 0;
+
+					if (currentMap->IsTile(hitByte))
+					{
+						color = currentMap->GetTile(hitByte).sprite->GetTransposeColor(simple.y, simple.x);
+					}
+
+					if (color == BLACK)
+					{
+						//渲染天空
+						simple.x = x / (float)pixelWidth;
+						simple.y = y / (float)pixelHeight;
+						color = currentMap->GetTile(25).sprite->GetTransposeColor(simple.y, simple.x);
+					}
+
+					renderer.DrawPixel(x, y, color);
 				}
-				
-				const float testX = (player->position.x - 0.5 * pixelWidth * deltaSize + x * deltaSize);
-				const float testY = (player->position.y - 0.5 * pixelHeight * deltaSize + y * deltaSize);
-				
-				simple.x = testX - (int)(testX);
-				simple.y = testY - (int)(testY);
-
-				Uint32 color = 0;
-
-				if (currentMap->IsTile(hitByte))
-				{
-					color = currentMap->GetTile(hitByte).sprite->GetTransposeColor(simple.y, simple.x);
-				}
-
-				if (color == BLACK)
-				{
-					//渲染天空
-					simple.x = x / (float)pixelWidth;
-					simple.y = y / (float)pixelHeight;
-					color = currentMap->GetTile(25).sprite->GetTransposeColor(simple.y, simple.x);
-				}
-
-				renderer.DrawPixel(x, y, color);
 			}
 		}
-
-
 
 		//绘制玩家
 		player->sprite->DrawSprite(pixelWidth/2,pixelHeight/2,true,!player->isLeft);

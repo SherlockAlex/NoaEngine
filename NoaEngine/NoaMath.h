@@ -32,7 +32,11 @@ namespace noa {
 			result.y = y + a.y;
 			return result;
 		}
-
+		void operator += (Vector a) 
+		{
+			this->x += a.x;
+			this->y += a.y;
+		}
 		Vector operator - (Vector a)
 		{
 			Vector result;
@@ -40,7 +44,11 @@ namespace noa {
 			result.y = y - a.y;
 			return result;
 		}
-
+		void operator -= (Vector a)
+		{
+			this->x -= a.x;
+			this->y -= a.y;
+		}
 		T operator * (Vector a)
 		{
 			//œÚ¡øµ„≥À
