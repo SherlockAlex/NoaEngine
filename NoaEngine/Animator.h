@@ -13,6 +13,7 @@
 #include <string>
 
 #include "Sprite.h"
+#include "NoaAction.h"
 
 using namespace std;
 
@@ -36,7 +37,8 @@ namespace noa {
 	{
 	private:
 		vector<SpriteFile> framesImage;
-		unordered_map<Uint32, function<void()>> framesEvent;
+		unordered_map<Uint32,NoaEvent<void()>> framesEvent;
+		//unordered_map<Uint32, function<void()>> framesEvent;
 		SpriteFile currentFrame;
 		bool isPlaying = false;
 		//动画播放速度
@@ -56,7 +58,7 @@ namespace noa {
 		void Play(int frame);
 		void Play();
 		void InsertFrameImage(SpriteFile frameImage);
-		void Update(float deltaTime);//更新动画帧
+		void Update(const float deltaTime);//更新动画帧
 
 	};
 }

@@ -18,7 +18,8 @@ namespace noa {
 		
 		//Ö´ÐÐÊÂ¼þ
 		void Invoke() {
-			for (int i = 0; i < functions.size(); i++)
+			const int functionCount = functions.size();
+			for (int i = 0; i < functionCount; i++)
 			{
 				functions[i]();
 			}

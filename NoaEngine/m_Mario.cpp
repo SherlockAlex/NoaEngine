@@ -16,57 +16,35 @@ TileMap* currentMap;
 int coinCount = 0;
 bool gameOver = false;
 
-static bool ColliderWithMap(Uint8 byte, Vector<float> colliderPos);
-
 static Audio * BGM;
 static Audio * gameOverMusic;
-
-class Cloud:public GameObject
-{
-public:
-	Cloud(float x,float y,Sprite sprite) :GameObject(sprite) 
-	{
-		position = Vector<float>(x, y);
-	}
-
-public:
-	void Start() override {
-
-	}
-	void Update() override {
-
-	}
-
-
-};
 
 class Player :public GameObject,public Rigidbody
 {
 private:
 	function<void()> playerControlCallback;
+	
 
 public:
-	float speed = 10;
+	const float speed = 10;
 	bool isJump = false;
 	float jumpTime = 0.0;
 	float jumpSpeed = 0;
 	bool isLeft = false;
-	//bool isGrounded = false;
+	
+	const Audio coinSFX = Audio("./Assets/JumpMan/Music/coin.mp3", Chunk);
+	const Audio jumpSFX = Audio("./Assets/JumpMan/Music/jump.mp3", Chunk);
 
-	Vector<float> colliderSize;
-	Audio coinSFX = Audio("./Assets/JumpMan/Music/coin.mp3", Chunk);
-	Audio jumpSFX = Audio("./Assets/JumpMan/Music/jump.mp3", Chunk);
-
-	//Animator
 	Animator* currentAnimatorState = nullptr;
-
 	Animator* idle = new Animator(5);
 	Animator* run = new Animator(10);
 	Animator* jump = new Animator(10);
 
 public:
-	Player(Sprite sprite):GameObject(sprite),Rigidbody(&(this->position))
+	Player():GameObject(new Sprite(LoadSprFile("./Assets/JumpMan/JumpMan.spr"), 11)),Rigidbody(&(this->position))
 	{
+		//sprite = new Sprite(LoadSprFile("./Assets/JumpMan/JumpMan.spr"), 11);
+
 		//玩家的构造函数
 		colliderSize.x = 0.45;
 		colliderSize.y = 0.55;
@@ -91,6 +69,9 @@ public:
 		Debug("the input event is invoke");
 	}
 
+	static Vector<float> pos;
+	Vector<float> jumpImpuls=Vector<float>(0, -15);
+
 	void Control() 
 	{
 		if (isGrounded) {
@@ -110,13 +91,13 @@ public:
 			//AddForce(Vector<float>(-1, 0), ContinuousForce);
 			isLeft = true;
 			position.x -= deltaTime * speed;
-			Vector<float> pos;
-			pos.x = position.x - colliderSize.x;
+			
+			/*pos.x = position.x - colliderSize.x;
 			pos.y = position.y + colliderSize.y;
 			if (ColliderWithMap(0, pos))
 			{
 				position.x += deltaTime * speed;
-			}
+			}*/
 
 			if (isGrounded) 
 			{
@@ -134,13 +115,12 @@ public:
 			//Debug("Move right");
 			isLeft = false;
 			position.x += deltaTime * speed;
-			Vector<float> pos;
-			pos.x = position.x + colliderSize.x;
+			/*pos.x = position.x + colliderSize.x;
 			pos.y = position.y + colliderSize.y;
 			if (ColliderWithMap(0, pos))
 			{
 				position.x -= deltaTime * speed;
-			}
+			}*/
 			
 			if (isGrounded)
 			{
@@ -159,56 +139,55 @@ public:
 				Debug("Jump");
 				jumpSFX.Play(false);
 				currentAnimatorState = jump;
-				AddForce(Vector<float>(0, -15), Impulse);
+				AddForce(jumpImpuls, Impulse);
 				isJump = true;
 			}
 			
 		}
 
-		//下落的碰撞检测
+		////下落的碰撞检测
 
-		Vector<float> pos;
-		pos.x = position.x;
-		pos.y = position.y + colliderSize.y;
-		if (isGrounded&&ColliderWithMap(0, pos))
-		{
-			position.y -= 0.05;
-		}
-		pos.x = position.x - colliderSize.x;
-		pos.y = position.y + colliderSize.y;
-		if (isGrounded && ColliderWithMap(0, pos))
-		{
-			position.y -= 0.05;
-		}
-		pos.x = position.x + colliderSize.x;
-		pos.y = position.y + colliderSize.y;
-		if (isGrounded && ColliderWithMap(0, pos))
-		{
-			position.y -= 0.05;
-		}
+		//pos.x = position.x;
+		//pos.y = position.y + colliderSize.y;
+		//if (isGrounded&&ColliderWithMap(0, pos))
+		//{
+		//	position.y -= 0.05;
+		//}
+		//pos.x = position.x - colliderSize.x;
+		//pos.y = position.y + colliderSize.y;
+		//if (isGrounded && ColliderWithMap(0, pos))
+		//{
+		//	position.y -= 0.05;
+		//}
+		//pos.x = position.x + colliderSize.x;
+		//pos.y = position.y + colliderSize.y;
+		//if (isGrounded && ColliderWithMap(0, pos))
+		//{
+		//	position.y -= 0.05;
+		//}
 
-		//检测头顶是否顶砖块
-		pos.x = position.x;
-		pos.y = position.y - colliderSize.y;
-		if (ColliderWithMap(0, pos))
-		{
-			position.y += velocity.y * deltaTime;
-			velocity.y = 5;
-		}
-		pos.x = position.x - colliderSize.x;
-		pos.y = position.y - colliderSize.y;
-		if (ColliderWithMap(0, pos))
-		{
-			position.y += velocity.y * deltaTime;
-			velocity.y = 5;
-		}
-		pos.x = position.x + colliderSize.x;
-		pos.y = position.y - colliderSize.y;
-		if (ColliderWithMap(0, pos))
-		{
-			position.y += velocity.y * deltaTime;
-			velocity.y = 5;
-		}
+		////检测头顶是否顶砖块
+		//pos.x = position.x;
+		//pos.y = position.y - colliderSize.y;
+		//if (ColliderWithMap(0, pos))
+		//{
+		//	position.y += velocity.y * deltaTime;
+		//	velocity.y = 5;
+		//}
+		//pos.x = position.x - colliderSize.x;
+		//pos.y = position.y - colliderSize.y;
+		//if (ColliderWithMap(0, pos))
+		//{
+		//	position.y += velocity.y * deltaTime;
+		//	velocity.y = 5;
+		//}
+		//pos.x = position.x + colliderSize.x;
+		//pos.y = position.y - colliderSize.y;
+		//if (ColliderWithMap(0, pos))
+		//{
+		//	position.y += velocity.y * deltaTime;
+		//	velocity.y = 5;
+		//}
 
 	}
 
@@ -232,7 +211,8 @@ public:
 			return;
 		}
 
-		const Uint8 hitItem = currentMap->level[testPos.y * currentMap->w + testPos.x];
+		const int hitItemIndex = testPos.y * currentMap->w + testPos.x;
+		const Uint8 hitItem = currentMap->level[hitItemIndex];
 		if (hitItem == 1) 
 		{
 			coinCount++;
@@ -240,10 +220,9 @@ public:
 			currentMap->level[testPos.y * currentMap->w + testPos.x] = 25;
 			coinSFX.Play(false);
 			Debug("coin count:" + to_string(coinCount));
-			//cout << "coin count:" << coinCount << endl;
 		}
 
-		if (hitItem == 30) 
+		if (hitItem == 37) 
 		{
 
 			gameOver = true;
@@ -258,24 +237,30 @@ public:
 		currentAnimatorState->Play();
 
 		const SpriteFile nextFrame = move(currentAnimatorState->GetCurrentFrameImage());
-		sprite.UpdateImage(nextFrame);
+		sprite->UpdateImage(nextFrame);
 
 		isGrounded = false;
 
-		if ((currentMap->level[
-			(int)(position.y+ colliderSize.y+0.1) * currentMap->w + (int)position.x] 
-			== 0)|| 
-			(currentMap->level[
-				(int)(position.y + colliderSize.y + 0.1) * currentMap->w + (int)(position.x - colliderSize.x)]
-				== 0) || (currentMap->level[
-					(int)(position.y + colliderSize.y + 0.1) * currentMap->w + (int)(position.x + colliderSize.x)]
-					== 0))
+		const int groundIndex = (int)(position.y + colliderSize.y) * currentMap->w + (int)position.x;
+		const int leftGroundIndex = (int)(position.y + colliderSize.y) * currentMap->w + (int)(position.x - colliderSize.x);
+		const int rightGroundIndex = (int)(position.y + colliderSize.y) * currentMap->w + (int)(position.x + colliderSize.x);
+		
+		if (currentMap->level[groundIndex] == 0 || currentMap->level[leftGroundIndex] == 0 || currentMap->level[rightGroundIndex] == 0)
+		{
+			isGrounded = true;
+		}
+
+		// 减少函数调用次数
+		const int newPositionY = (int)(position.y + colliderSize.y);
+		const int newPositionX = (int)position.x;
+
+		if (currentMap->level[newPositionY * currentMap->w + newPositionX] == 0 ||
+			currentMap->level[newPositionY * currentMap->w + (int)(position.x - colliderSize.x)] == 0 ||
+			currentMap->level[newPositionY * currentMap->w + (int)(position.x + colliderSize.x)] == 0)
 		{
 			isGrounded = true;
 		}
 		
-		//Debug("isGrounded:"+to_string(isGrounded));
-				
 
 	}
 
@@ -297,21 +282,11 @@ public:
 			windowMode,
 			gameName)
 	{
-		player = new Player(Sprite(LoadSprFile("./Assets/JumpMan/JumpMan.spr"), 11));
+		player = new Player();
 		gameOverTexture = Sprite(LoadSprFile("./Assets/JumpMan/Texture/gameover.spr"), 1);
 		skyboxTexture = Sprite(LoadSprFile("./Assets/JumpMan/Texture/skybox.spr"), 1);
 		BGM = new Audio("./Assets/JumpMan/Music/BGM.ogg", Music);
 		gameOverMusic = new Audio("./Assets/JumpMan/Music/gameover.mp3", Chunk);
-
-		//加载地图
-		//currentMap = new LevelMap(LoadMap("./Assets/JumpMan/Map/level.map"));
-		//currentMap = new TileMap(LoadTileFromTsd("./Assets/JumpMan/Tile/tileSet.tsd"), LoadMapFromCSV("./Assets/JumpMan/Map/level1.csv"));
-		/*currentMap = new TileMap(LoadTileFromTsd("./Assets/JumpMan/Tile/tileSet.tsd"),
-			{
-						LoadMapFromCSV("./Assets/JumpMan/Map/level1_Sky.csv"),
-						LoadMapFromCSV("./Assets/JumpMan/Map/level1_Panel.csv"),
-			}
-		);*/
 
 		currentMap = new TileMap(LoadTileFromTsd("./Assets/JumpMan/Tile/tileSet.tsd"), LoadMapFromCSV("./Assets/JumpMan/Map/level1.csv"));
 
@@ -350,6 +325,13 @@ public:
 	Vector<float> simple;
 	void Draw() 
 	{
+
+		//对于多图层的渲染
+		//一般的思路是将所有的图像的像素进行叠加
+		// 如果最顶层的像素alpha通道不为0，就直接替代这个位置的底层像素
+		// 否则直接跳过
+		
+
 		for (int x = 0;x<pixelWidth;x++) 
 		{
 			for (int y = 0;y<pixelHeight;y++) 
@@ -368,8 +350,8 @@ public:
 					];
 				}
 				
-				float testX = (player->position.x - 0.5 * pixelWidth * deltaSize + x * deltaSize);
-				float testY = (player->position.y - 0.5 * pixelHeight * deltaSize + y * deltaSize);
+				const float testX = (player->position.x - 0.5 * pixelWidth * deltaSize + x * deltaSize);
+				const float testY = (player->position.y - 0.5 * pixelHeight * deltaSize + y * deltaSize);
 				
 				simple.x = testX - (int)(testX);
 				simple.y = testY - (int)(testY);
@@ -378,7 +360,7 @@ public:
 
 				if (currentMap->IsTile(hitByte))
 				{
-					color = currentMap->GetTile(hitByte).sprite.GetTransposeColor(simple.y, simple.x);
+					color = currentMap->GetTile(hitByte).sprite->GetTransposeColor(simple.y, simple.x);
 				}
 
 				if (color == BLACK)
@@ -386,19 +368,19 @@ public:
 					//渲染天空
 					simple.x = x / (float)pixelWidth;
 					simple.y = y / (float)pixelHeight;
-					color = currentMap->GetTile(25).sprite.GetTransposeColor(simple.y, simple.x);
+					color = currentMap->GetTile(25).sprite->GetTransposeColor(simple.y, simple.x);
 				}
 
 				renderer.DrawPixel(x, y, color);
-
-				
-
 			}
 		}
-		//绘制玩家
-		player->sprite.DrawSprite(pixelWidth/2,pixelHeight/2,true,!player->isLeft);
-		//绘制碰撞体的网格线
 
+
+
+		//绘制玩家
+		player->sprite->DrawSprite(pixelWidth/2,pixelHeight/2,true,!player->isLeft);
+		//绘制碰撞体的网格线
+		//Debug("player position y:" + to_string(player->position.y)+",fix position y:"+to_string(player->position.y - player->colliderSize.y));
 	}
 
 	void Start() override
@@ -413,25 +395,6 @@ public:
 		
 		if (gameOver)
 		{
-			//先黑屏
-			//canDraw = false;
-			//BGM.Stop();
-			//gameOverMusic.Play(false);
-
-			//float gameoverPanelDelta = gameOverTexture.w / pixelWidth;
-
-			/*for (int x = 0; x < pixelWidth; x++)
-			{
-				for (int y = 0; y < pixelHeight; y++)
-				{
-
-					float testX = (float)(x) / (float)(pixelWidth);
-					float testY = (float)(y) / (float)(pixelHeight);
-
-					Uint32 color = gameOverTexture.GetColor(testX,testY);
-					renderer.DrawPixel(x, y, color);
-				}
-			}*/
 
 			gameOverTexture.DrawSpriteFull();
 
@@ -442,13 +405,6 @@ public:
 
 			if (inputSystem.GetKeyDown(KeyK))
 			{
-				
-				/*currentMap = new TileMap(LoadTileFromTsd("./Assets/JumpMan/Tile/tileSet.tsd"),
-					{
-								LoadMapFromCSV("./Assets/JumpMan/Map/level1_Sky.csv"),
-								LoadMapFromCSV("./Assets/JumpMan/Map/level1_Panel.csv"),
-					}
-				);*/
 
 				currentMap = new TileMap(LoadTileFromTsd("./Assets/JumpMan/Tile/tileSet.tsd"), LoadMapFromCSV("./Assets/JumpMan/Map/level1.csv"));
 
@@ -482,20 +438,7 @@ public:
 
 
 
-bool ColliderWithMap(Uint8 byte, Vector<float> colliderPos)
-{
-	//检测玩家和地图的碰撞
-	if (currentMap == nullptr)
-	{
-		return false;
-	}
-	Uint8 hitByte = currentMap->level[(int)(colliderPos.y) * currentMap->w + (int)colliderPos.x];
-	if (hitByte == byte)
-	{
-		return true;
-	}
-	return false;
-}
+
 
 int main(int argc,char * argv[]) 
 {

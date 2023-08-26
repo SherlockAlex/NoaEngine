@@ -107,9 +107,6 @@ namespace noa {
 	void InputSystem::Update()
 	{
 		//实现更新
-		/*for (int i = 0; i < inputEvents.size(); i++) {
-			inputEvents[i]();
-		}*/
 		inputEvent.Invoke();
 	}
 

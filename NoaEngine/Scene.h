@@ -48,14 +48,15 @@ namespace noa {
 	//ÍßÆ¬µØÍ¼
 	typedef struct Tile 
 	{
-		Sprite sprite;
+		Sprite * sprite = nullptr;
 		bool isCollision = false;
 
-		Tile() {
+		Tile() 
+		{
 
 		}
 
-		Tile(Sprite sprite,bool isCollision = false) 
+		Tile(Sprite * sprite,bool isCollision = false) 
 		{
 			this->sprite = sprite;
 			this->isCollision = isCollision;
@@ -63,7 +64,7 @@ namespace noa {
 
 		Tile(SpriteFile spriteFile, bool isCollision = false)
 		{
-			this->sprite = Sprite(spriteFile,1);
+			this->sprite =new Sprite(spriteFile,1);
 			this->isCollision = isCollision;
 		}
 

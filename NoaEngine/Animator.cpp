@@ -67,7 +67,7 @@ namespace noa {
 		this->speed = speed;
 		animatorList.push_back(this);
 
-		const AnimatorFile animatorFile = LoadAnimatorFile(filePath);
+		const AnimatorFile animatorFile = move(LoadAnimatorFile(filePath));
 		for (SpriteFile frame : animatorFile.data)
 		{
 			InsertFrameImage(frame);
@@ -91,7 +91,7 @@ namespace noa {
 	/// <param name="filePath">动画文件路径</param>
 	void Animator::LoadFromAnimatorFile(const char* filePath)
 	{
-		const AnimatorFile animatorFile = LoadAnimatorFile(filePath);
+		const AnimatorFile animatorFile = move(LoadAnimatorFile(filePath));
 		for (SpriteFile frame : animatorFile.data)
 		{
 			InsertFrameImage(frame);
@@ -103,7 +103,8 @@ namespace noa {
 	/// 获取当前帧的图像
 	/// </summary>
 	/// <returns></returns>
-	SpriteFile& Animator::GetCurrentFrameImage() {
+	SpriteFile& Animator::GetCurrentFrameImage()
+	{
 		return currentFrame;
 	}
 
@@ -112,25 +113,24 @@ namespace noa {
 	/// </summary>
 	/// <param name="frame">第frame帧</param>
 	/// <returns></returns>
-	SpriteFile& Animator::GetFrameImage(int frame) {
-		//if (framesImage.empty())
-		//{
-		//	return nullptr;
-		//}
+	SpriteFile& Animator::GetFrameImage(int frame) 
+	{
 		frame = frame & (framesImage.size() - 1);
-		return *&framesImage[frame];
+		return framesImage[frame];
 	}
 
-	void Animator::SetFrameEvent(int frame, function<void()> e) {
+	void Animator::SetFrameEvent(int frame, function<void()> e)
+	{
 		//设置帧事件
-		this->framesEvent[frame] = e;
+		this->framesEvent[frame] += e;
 	}
 
 	/// <summary>
 	/// 播放动画化
 	/// </summary>
 	/// <param name="frame">播放第frame帧的图像</param>
-	void Animator::Play(int frame) {
+	void Animator::Play(int frame)
+	{
 		currentFrame = GetFrameImage(frame);
 	}
 
@@ -156,14 +156,15 @@ namespace noa {
 	/// <summary>
 	/// 实时更新刷新
 	/// </summary>
-	void Animator::Update(float deltaTime) {
+	void Animator::Update(const float deltaTime) {
 		if (!isPlaying)
 		{
 			return;
 		}
 
 		i = i + deltaTime * speed;
-		if (i >= this->framesImage.size())
+		const int frameSize = framesImage.size();
+		if (i >= frameSize)
 		{
 			i = 0;
 			isPlaying = false;
@@ -173,9 +174,9 @@ namespace noa {
 
 		const bool isFrameStart = abs(i - (int)i) < speed * deltaTime;
 
-		if (isFrameStart && framesEvent[i] != nullptr)
+		if (isFrameStart && (framesEvent.empty()))
 		{
-			framesEvent[i]();
+			framesEvent[i].Invoke();
 		}
 
 	}

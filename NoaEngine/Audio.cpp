@@ -24,7 +24,8 @@ namespace noa {
 
 	}
 
-	void Audio::Play(bool loop) {
+	void Audio::Play(bool loop) const
+	{
 #if (defined __linux) || (defined _WIN64)
 
 		if (type == Music)
@@ -51,7 +52,7 @@ namespace noa {
 #endif // __linux
 	}
 
-	void Audio::Stop()
+	void Audio::Stop() const
 	{
 #if (defined __linux) || (defined _WIN64)
 

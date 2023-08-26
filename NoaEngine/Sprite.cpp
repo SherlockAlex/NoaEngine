@@ -107,6 +107,7 @@ namespace noa {
 	void Sprite::DrawSprite(int posX, int posY, bool isRenderAlpha, bool isMirror) const
 	{
 		//º∆À„∑≈¥Û
+
 		const int wannaW = pixelWidth / sizeForSurface;
 		const int wannaH = (int)(((float)h / (float)w) * wannaW);
 
@@ -262,8 +263,6 @@ namespace noa {
 
 		const int sx = NoaAbs<int>(normalizedX * (float)h)%h;
 		const int sy = NoaAbs<int>(normalizedY * (float)w)%w;
-		//const int sy = NoaAbs<int>(normalizedY * (float)w - 1)%w;
-
 
 		return image[sy * h + sx];
 	}

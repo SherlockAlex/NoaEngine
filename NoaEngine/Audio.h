@@ -19,8 +19,8 @@ namespace noa {
 		Audio(const char* filePath, AudioType type);
 		~Audio();
 	public:
-		void Play(bool loop);
-		void Stop();
+		void Play(bool loop) const;
+		void Stop() const;
 	};
 }
 

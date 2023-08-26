@@ -22,6 +22,7 @@ namespace noa {
 
 	void Behaviour::Start()
 	{
+
 	}
 
 	Behaviour::~Behaviour()

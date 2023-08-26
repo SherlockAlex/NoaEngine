@@ -66,7 +66,7 @@ namespace noa {
 			return result;
 		}
 
-		bool operator == (Vector a) {
+		bool operator == (Vector & a) {
 			return this->x == a.x && this->y == a.y;
 		}
 

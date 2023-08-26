@@ -18,15 +18,17 @@ namespace noa {
 		};
 
 	private:
-		Vector<float>* colliderPos;
+		Vector<float>* colliderPos = nullptr;
 	protected:
 		float mass = 1;
 		float g = 9.81;
 		bool useGravity = true;
 		bool isGrounded = false;
 	public:
-		Vector<float> velocity;
-
+		//刚体的速度
+		Vector<float> & velocity = *(new Vector<float>(0.0,0.0));
+		//刚体的碰撞的大小
+		Vector<float> & colliderSize =*(new Vector<float>(0.0, 0.0));
 	protected:
 		Rigidbody(Vector<float>* colliderPos);
 		~Rigidbody();
@@ -39,8 +41,11 @@ namespace noa {
 		/// </summary>
 		/// <param name="force">力的数值，如果力的种类为恒力，其数值表示力，如果是冲量，则表示冲量的大小</param>
 		/// <param name="forceType">力的类型</param>
-		void AddForce(Vector<float> force, ForceType forceType);
-
+		void AddForce(Vector<float> & force, ForceType forceType);
+		void SetCollisionTileID(std::vector<uint32_t> & collisionTileIDs);
+		void UpdateMap(void * map);
+		void ApplyCollision();
+		float FixPosition();
 
 	};
 }

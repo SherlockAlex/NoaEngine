@@ -17,13 +17,13 @@ namespace noa {
 
 	}
 
-	GameObject::GameObject(Sprite sprite) :Behaviour()
+	GameObject::GameObject(Sprite * sprite) :Behaviour()
 	{
 		this->sprite = sprite;
 		gameObjects.push_back(this);
 	}
 
-	GameObject::GameObject(Sprite sprite, Vector<float> startPosition) :Behaviour()
+	GameObject::GameObject(Sprite * sprite, Vector<float> startPosition) :Behaviour()
 	{
 		this->sprite = sprite;
 		this->position = startPosition;

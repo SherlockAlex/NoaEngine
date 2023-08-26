@@ -184,9 +184,6 @@ namespace noa {
 			this->MainThread();
 		};
 
-		//thread mainThread(mainThreadFunc);
-		//this_thread::sleep_for(std::chrono::milliseconds(1));
-
 		while (isRun)
 		{
 			tp2 = chrono::system_clock::now();
@@ -201,24 +198,26 @@ namespace noa {
 				{
 					isRun = false;
 					SDL_Quit();
-					//mainThread.join();
 					return 0;
 				}
 			}
 
-			for (int i = 0; i < rigidbodys.size(); i++)
+			const int rigidbodyCount = rigidbodys.size();
+			for (int i = 0; i < rigidbodyCount; i++)
 			{
 				rigidbodys[i]->RigidbodyUpdate(deltaTime);
 			}
 
 			Update();
 
-			for (int i = 0; i < behaviours.size(); i++)
+			const int behaviourCount = behaviours.size();
+			for (int i = 0; i < behaviourCount; i++)
 			{
 				behaviours[i]->Update();
 			}
 
-			for (int i = 0; i < animatorList.size(); i++)
+			const int animatorCount = animatorList.size();
+			for (int i = 0; i < animatorCount; i++)
 			{
 				animatorList[i]->Update(deltaTime);
 			}
@@ -231,14 +230,14 @@ namespace noa {
 			SDL_RenderCopy(mainRenderer, texture, nullptr, nullptr);
 			SDL_RenderPresent(mainRenderer);
 
-			string windowTitle = gameName + " FPS: " + to_string(1 / deltaTime);
+			// 减少内存访问
+			const double fps = 1.0 / deltaTime;
+			const string windowTitle = gameName + " FPS: " + to_string(fps);
 			SDL_SetWindowTitle(window, windowTitle.c_str());
 
 			tp1 = tp2;
 
 		}
-
-		//mainThread.join();
 		
 		return 0;
 	}
@@ -269,7 +268,6 @@ namespace noa {
 			}
 
 			SDL_UnlockTexture(texture);
-			SDL_RenderCopy(mainRenderer, texture, nullptr, nullptr);
 			SDL_RenderPresent(mainRenderer);
 
 			tp1 = tp2;
@@ -280,10 +278,8 @@ namespace noa {
 
 	void Debug(string msg)
 	{
-		//下面显示时间的部分的代码可能编译会出现异常，注意在编译的预处理请加上 _CRT_SECURE_NO_WARNINGS
 		std::time_t current_time = std::time(nullptr);
 
-		// 将当前时间转换为字符串格式
 		char time_string[100];
 		std::strftime(time_string, sizeof(time_string), "%Y-%m-%d %H:%M:%S", std::localtime(&current_time));
 		cout << "[INFO " << time_string << "]:" << msg << endl;
