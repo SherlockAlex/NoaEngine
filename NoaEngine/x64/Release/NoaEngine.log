@@ -1,4 +1,13 @@
-﻿  m_Mario.cpp
+﻿  Scene.cpp
+D:\Work\GitTools\NoaEngine\NoaEngine\Sprite.h(46,22): warning C4018: “<”: 有符号/无符号不匹配
+D:\Work\GitTools\NoaEngine\NoaEngine\Renderer.h(33,1): warning C4005: “LOBYTE”: 宏重定义
+D:\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(206,1): message : 参见“LOBYTE”的前一个定义
+D:\Work\GitTools\NoaEngine\NoaEngine\Renderer.h(38,1): warning C4005: “RGB”: 宏重定义
+D:\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1859,1): message : 参见“RGB”的前一个定义
+D:\Work\GitTools\NoaEngine\NoaEngine\Renderer.h(41,1): warning C4005: “GetGValue”: 宏重定义
+D:\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1870,1): message : 参见“GetGValue”的前一个定义
+D:\Work\GitTools\NoaEngine\NoaEngine\Physics.h(24,9): warning C4305: “初始化”: 从“double”到“float”截断
+  m_Mario.cpp
 D:\Work\GitTools\NoaEngine\NoaEngine\Sprite.h(46,22): warning C4018: “<”: 有符号/无符号不匹配
 D:\Work\GitTools\NoaEngine\NoaEngine\Renderer.h(33,1): warning C4005: “LOBYTE”: 宏重定义
 D:\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(206,1): message : 参见“LOBYTE”的前一个定义
@@ -35,46 +44,46 @@ D:\Work\GitTools\NoaEngine\NoaEngine\m_Mario.cpp(205,23): warning C4244: “=”
           [
               T=int
           ]
-D:\Work\GitTools\NoaEngine\NoaEngine\m_Mario.cpp(296,1): warning C4305: “*=”: 从“double”到“float”截断
-D:\Work\GitTools\NoaEngine\NoaEngine\m_Mario.cpp(305,27): warning C4244: “=”: 从“int”转换到“T”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\m_Mario.cpp(302,1): warning C4305: “*=”: 从“double”到“float”截断
+D:\Work\GitTools\NoaEngine\NoaEngine\m_Mario.cpp(311,27): warning C4244: “=”: 从“int”转换到“T”，可能丢失数据
           with
           [
               T=float
           ]
-D:\Work\GitTools\NoaEngine\NoaEngine\m_Mario.cpp(306,27): warning C4244: “=”: 从“int”转换到“T”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\m_Mario.cpp(312,27): warning C4244: “=”: 从“int”转换到“T”，可能丢失数据
           with
           [
               T=float
           ]
-D:\Work\GitTools\NoaEngine\NoaEngine\m_Mario.cpp(334,1): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
-D:\Work\GitTools\NoaEngine\NoaEngine\m_Mario.cpp(334,1): warning C4267: “初始化”: 从“size_t”转换到“const int”，可能丢失数据
-D:\Work\GitTools\NoaEngine\NoaEngine\m_Mario.cpp(343,70): warning C4244: “=”: 从“double”转换到“T”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\m_Mario.cpp(340,1): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\m_Mario.cpp(340,1): warning C4267: “初始化”: 从“size_t”转换到“const int”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\m_Mario.cpp(349,70): warning C4244: “=”: 从“double”转换到“T”，可能丢失数据
           with
           [
               T=int
           ]
-D:\Work\GitTools\NoaEngine\NoaEngine\m_Mario.cpp(344,71): warning C4244: “=”: 从“double”转换到“T”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\m_Mario.cpp(350,71): warning C4244: “=”: 从“double”转换到“T”，可能丢失数据
           with
           [
               T=int
           ]
-D:\Work\GitTools\NoaEngine\NoaEngine\m_Mario.cpp(356,77): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
-D:\Work\GitTools\NoaEngine\NoaEngine\m_Mario.cpp(356,24): warning C4244: “初始化”: 从“double”转换到“const float”，可能丢失数据
-D:\Work\GitTools\NoaEngine\NoaEngine\m_Mario.cpp(357,78): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
-D:\Work\GitTools\NoaEngine\NoaEngine\m_Mario.cpp(357,24): warning C4244: “初始化”: 从“double”转换到“const float”，可能丢失数据
-D:\Work\GitTools\NoaEngine\NoaEngine\m_Mario.cpp(420,29): warning C4244: “=”: 从“int”转换到“T”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\m_Mario.cpp(368,77): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\m_Mario.cpp(368,24): warning C4244: “初始化”: 从“double”转换到“const float”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\m_Mario.cpp(369,78): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\m_Mario.cpp(369,24): warning C4244: “初始化”: 从“double”转换到“const float”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\m_Mario.cpp(438,29): warning C4244: “=”: 从“int”转换到“T”，可能丢失数据
           with
           [
               T=float
           ]
-D:\Work\GitTools\NoaEngine\NoaEngine\m_Mario.cpp(421,29): warning C4244: “=”: 从“int”转换到“T”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\m_Mario.cpp(439,29): warning C4244: “=”: 从“int”转换到“T”，可能丢失数据
           with
           [
               T=float
           ]
   正在生成代码
-  5 of 1270 functions ( 0.4%) were compiled, the rest were copied from previous compilation.
+  0 of 1367 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    1 functions had inline decision re-evaluated but remain unchanged
+    0 functions had inline decision re-evaluated but remain unchanged
   已完成代码的生成
   NoaEngine.vcxproj -> D:\Work\GitTools\NoaEngine\x64\Release\NoaEngine.exe

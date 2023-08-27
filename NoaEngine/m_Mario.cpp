@@ -212,12 +212,12 @@ public:
 		}
 
 		const int hitItemIndex = testPos.y * currentMap->w + testPos.x;
-		const Uint8 hitItem = currentMap->level[hitItemIndex];
+		const int hitItem = currentMap->level[hitItemIndex];
 		if (hitItem == 1) 
 		{
 			coinCount++;
 			//将金币瓦片动态更新为其他类型瓦片
-			currentMap->level[testPos.y * currentMap->w + testPos.x] = 25;
+			currentMap->level[testPos.y * currentMap->w + testPos.x] = -1;
 			coinSFX.Play(false);
 			Debug("coin count:" + to_string(coinCount));
 		}
@@ -288,7 +288,13 @@ public:
 		BGM = new Audio("./Assets/JumpMan/Music/BGM.ogg", Music);
 		gameOverMusic = new Audio("./Assets/JumpMan/Music/gameover.mp3", Chunk);
 
-		currentMap = new TileMap(LoadTileFromTsd("./Assets/JumpMan/Tile/tileSet.tsd"), LoadMapFromCSV("./Assets/JumpMan/Map/level1.csv"));
+		currentMap = currentMap = new TileMap(
+			LoadTileFromTsd("./Assets/JumpMan/Tile/tileSet.tsd"),
+			{
+				LoadMapFromCSV("./Assets/JumpMan/Map/level1_Sky.csv"),
+				LoadMapFromCSV("./Assets/JumpMan/Map/level1_Panel.csv")
+			}
+		);
 
 
 		deltaSize = (float)currentMap->h / (float)pixelHeight;
@@ -333,7 +339,7 @@ public:
 		
 		const int mapLayerCount = currentMap->levelLayer.size();
 
-		//for (int layerIndex = 0; layerIndex < mapLayerCount;layerIndex++)
+		for (int layerIndex = 0; layerIndex < mapLayerCount;layerIndex++)
 		{
 			for (int x = 0; x < pixelWidth; x++)
 			{
@@ -344,14 +350,20 @@ public:
 					pixelPos.y = (player->position.y - 0.5 * pixelHeight * deltaSize + y * deltaSize);
 
 					//开始计算
-					Uint8 hitByte = 10;
+					int hitByte = 10;
 					if (pixelPos.y <= currentMap->h && pixelPos.y >= 0 && pixelPos.x <= currentMap->w && pixelPos.x >= 0)
 					{
-						hitByte = currentMap->level[
+						hitByte = currentMap->levelLayer[layerIndex][
 							pixelPos.y * currentMap->w +
 								pixelPos.x
 						];
 					}
+
+					if (hitByte == -1)
+					{
+						continue;
+					}
+
 
 					const float testX = (player->position.x - 0.5 * pixelWidth * deltaSize + x * deltaSize);
 					const float testY = (player->position.y - 0.5 * pixelHeight * deltaSize + y * deltaSize);
@@ -408,7 +420,13 @@ public:
 			if (inputSystem.GetKeyDown(KeyK))
 			{
 
-				currentMap = new TileMap(LoadTileFromTsd("./Assets/JumpMan/Tile/tileSet.tsd"), LoadMapFromCSV("./Assets/JumpMan/Map/level1.csv"));
+				currentMap = new TileMap(
+					LoadTileFromTsd("./Assets/JumpMan/Tile/tileSet.tsd"),
+					{ 
+						LoadMapFromCSV("./Assets/JumpMan/Map/level1_Sky.csv"),
+						LoadMapFromCSV("./Assets/JumpMan/Map/level1_Panel.csv")
+					}
+				);
 
 				for (int i = 0; i < currentMap->w; i++)
 				{

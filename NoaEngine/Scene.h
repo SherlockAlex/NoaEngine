@@ -44,7 +44,7 @@ namespace noa {
 		LevelMap();
 		LevelMap(MapFile & map);
 		void Construct(MapFile& map);
-		void ConstructLayer(vector<vector<uint32_t>>& layer);
+		void ConstructLayer(vector<vector<uint32_t>> layer);
 	};
 
 	//ÍßÆ¬µØÍ¼
