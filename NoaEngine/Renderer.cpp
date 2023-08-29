@@ -18,6 +18,10 @@ namespace noa {
 
 	void Renderer::DrawPixel(const int x, const int y, const Uint32 color) const
 	{
+		if (x<0||x>=pixelWidth||y<0||y>=pixelHeight)
+		{
+			return;
+		}
 		pixelBuffer[y * pixelWidth + x] = color;
 	}
 
@@ -100,6 +104,42 @@ namespace noa {
 		}
 	}
 
+	void Renderer::DrawRect(const Vector<int>& point1, const Vector<int>& point2, Uint32 color) const
+	{
+		int x1 = point1.x;
+		int y1 = point1.y;
+		int x2 = point2.x;
+		int y2 = point2.y;
+
+		for (int x = min(x1, x2); x <= max(x1, x2); x++) {
+			for (int y = min(y1, y2); y <= max(y1, y2); y++) {
+				DrawPixel(x, y, color);
+			}
+		}
+	}
+
+	void Renderer::DrawRect(const Vector<int>& point1, const Vector<int>& point2, Sprite& sprite) const
+	{
+		//将sprite图片填充到矩形上
+		const int x1 = point1.x;
+		const int y1 = point1.y;
+		const int x2 = point2.x;
+		const int y2 = point2.y;
+
+		for (int x = min(x1, x2); x <= max(x1, x2); x++) 
+		{
+			for (int y = min(y1, y2); y <= max(y1, y2); y++) 
+			{
+				const Vector<float> simple(
+					(float)(x - x1) / (x2 - x1), 
+					(float)(y - y1) / (y2 - y1)
+				);
+				const uint32_t color = sprite.GetTransposeColor(simple.y,simple.x);
+				DrawPixel(x, y, color);
+			}
+		}
+	}
+
 	void Renderer::DrawString(int x, int y, const string& str, Uint32 color, const int size)
 	{
 		//绘制字符串到屏幕上
@@ -113,7 +153,7 @@ namespace noa {
 		const int wannaW = pixelWidth / scaleForSurface;
 		const int wannaH = (int)(((float)imageH / (float)imageW) * wannaW);
 
-		const Sprite sprite = Sprite(imageW, imageH, 1, imageRGB);
+		const Sprite sprite = Sprite(imageW, imageH, Vector<float>(1.0,1.0), imageRGB);
 
 		for (int width = 0; width < wannaW; width++)
 		{

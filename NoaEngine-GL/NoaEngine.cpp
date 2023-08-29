@@ -1,5 +1,4 @@
 #include <ctime>
-
 #include "NoaEngine.h"
 
 namespace noa {
@@ -50,38 +49,6 @@ namespace noa {
 		// 上传像素数据到纹理
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, pixelBuffer);
 
-		////初始化
-		//glfwInit();
-
-		//glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-		//glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-		//glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-		//glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
-
-		////创建窗口
-		//window = glfwCreateWindow(width, height, gameName.c_str(), nullptr, nullptr);
-		//if (window == nullptr)
-		//{
-		//	std::cout << "Failed to create GLFW window" << std::endl;
-		//	glfwTerminate();
-		//	exit(0);
-		//	//return -1;
-		//}
-
-		//glfwMakeContextCurrent(window);
-
-		//glewExperimental = GL_TRUE;
-
-		//if (glewInit() != GLEW_OK)
-		//{
-		//	std::cout << "Failed to initialize GLEW" << std::endl;
-		//	exit(0);
-		//}
-
-		//glfwGetFramebufferSize(window, &glPixelWidth, &glPixelHeight);
-		//glViewport(0, 0, glPixelWidth, glPixelHeight);
-
-		//pixelBuffer = new uint32_t[glPixelWidth * glPixelHeight];
 
 	}
 
@@ -127,25 +94,6 @@ namespace noa {
 
 			// 处理事件
 			glfwPollEvents();
-
-			//glfwPollEvents();
-			//glfwSwapBuffers(window);
-
-			//
-
-			//for (int x = 0;x<glPixelWidth;x++) 
-			//{
-			//	for (int y = 0;y<glPixelHeight;y++)
-			//	{
-			//		const uint32_t color = 255;
-			//		pixelBuffer[y * glPixelWidth + x] = color;
-			//	}
-			//}
-
-			//glDrawPixels(glPixelWidth, glPixelHeight, GL_RGBA, GL_UNSIGNED_BYTE, pixelBuffer);
-			//
-			//// 交换缓冲区，显示绘制结果
-			//glfwSwapBuffers(window);
 
 			tp1 = tp2;
 

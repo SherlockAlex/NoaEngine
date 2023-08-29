@@ -25,7 +25,7 @@ namespace noa {
 		//地图文件
 		int w;
 		int h;
-		vector<uint32_t> image;
+		vector<int> image;
 	}Map;
 
 
@@ -36,15 +36,16 @@ namespace noa {
 
 	class LevelMap {
 	public:
-		vector<uint32_t> level;
-		vector<vector<uint32_t>> levelLayer;
+		vector<int> level;
+		vector<vector<int>> levelLayer;
 		int w = 0;
 		int h = 0;
 	public:
 		LevelMap();
 		LevelMap(MapFile & map);
 		void Construct(MapFile& map);
-		void ConstructLayer(vector<vector<uint32_t>> layer);
+		void ConstructLayer(vector<vector<int>> layer);
+		
 	};
 
 	//瓦片地图
@@ -66,7 +67,7 @@ namespace noa {
 
 		Tile(SpriteFile spriteFile, bool isCollision = false)
 		{
-			this->sprite =new Sprite(spriteFile,1);
+			this->sprite =new Sprite(spriteFile,Vector<float>(1.0,1.0));
 			this->isCollision = isCollision;
 		}
 
@@ -94,7 +95,8 @@ namespace noa {
 		/// <param name="map">地图数据</param>
 		TileMap(unordered_map<Uint32,Tile*> tileSet,MapFile map);
 		TileMap(unordered_map<Uint32, Tile*> tileSet, vector<MapFile> mapLayer);
-		Tile& GetTile(Uint32 id);
+		int GetTileID(const int x,const int y);
+		Tile* GetTile(Uint32 id);
 		bool IsTile(Uint32 code);
 	};
 

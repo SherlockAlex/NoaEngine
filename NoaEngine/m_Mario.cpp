@@ -1,4 +1,4 @@
-#define MARIO_GAME
+//#define MARIO_GAME
 #ifdef MARIO_GAME
 
 #include "NoaEngine.h"
@@ -22,7 +22,7 @@ static Audio * gameOverMusic;
 class Player :public GameObject,public Rigidbody
 {
 private:
-	function<void()> playerControlCallback;
+	//function<void()> playerControlCallback;
 	
 
 public:
@@ -43,8 +43,6 @@ public:
 public:
 	Player():GameObject(new Sprite(LoadSprFile("./Assets/JumpMan/JumpMan.spr"), 11)),Rigidbody(&(this->position))
 	{
-		//sprite = new Sprite(LoadSprFile("./Assets/JumpMan/JumpMan.spr"), 11);
-
 		//玩家的构造函数
 		colliderSize.x = 0.45;
 		colliderSize.y = 0.55;
@@ -88,16 +86,8 @@ public:
 
 		if (inputSystem.GetKeyHold(KeyA))
 		{
-			//AddForce(Vector<float>(-1, 0), ContinuousForce);
 			isLeft = true;
-			position.x -= deltaTime * speed;
-			
-			/*pos.x = position.x - colliderSize.x;
-			pos.y = position.y + colliderSize.y;
-			if (ColliderWithMap(0, pos))
-			{
-				position.x += deltaTime * speed;
-			}*/
+			velocity.x = -speed;
 
 			if (isGrounded) 
 			{
@@ -111,16 +101,8 @@ public:
 
 		if (inputSystem.GetKeyHold(KeyD))
 		{
-			//AddForce(Vector<float>(1, 0), ContinuousForce);
-			//Debug("Move right");
 			isLeft = false;
-			position.x += deltaTime * speed;
-			/*pos.x = position.x + colliderSize.x;
-			pos.y = position.y + colliderSize.y;
-			if (ColliderWithMap(0, pos))
-			{
-				position.x -= deltaTime * speed;
-			}*/
+			velocity.x = speed;
 			
 			if (isGrounded)
 			{
@@ -130,6 +112,11 @@ public:
 				currentAnimatorState = jump;
 			}
 
+		}
+
+		if (!inputSystem.GetKeyHold(KeyD)&& !inputSystem.GetKeyHold(KeyA))
+		{
+			velocity.x = 0;
 		}
 
 		if (inputSystem.GetKeyHold(KeyK)&&isGrounded)
@@ -144,50 +131,6 @@ public:
 			}
 			
 		}
-
-		////下落的碰撞检测
-
-		//pos.x = position.x;
-		//pos.y = position.y + colliderSize.y;
-		//if (isGrounded&&ColliderWithMap(0, pos))
-		//{
-		//	position.y -= 0.05;
-		//}
-		//pos.x = position.x - colliderSize.x;
-		//pos.y = position.y + colliderSize.y;
-		//if (isGrounded && ColliderWithMap(0, pos))
-		//{
-		//	position.y -= 0.05;
-		//}
-		//pos.x = position.x + colliderSize.x;
-		//pos.y = position.y + colliderSize.y;
-		//if (isGrounded && ColliderWithMap(0, pos))
-		//{
-		//	position.y -= 0.05;
-		//}
-
-		////检测头顶是否顶砖块
-		//pos.x = position.x;
-		//pos.y = position.y - colliderSize.y;
-		//if (ColliderWithMap(0, pos))
-		//{
-		//	position.y += velocity.y * deltaTime;
-		//	velocity.y = 5;
-		//}
-		//pos.x = position.x - colliderSize.x;
-		//pos.y = position.y - colliderSize.y;
-		//if (ColliderWithMap(0, pos))
-		//{
-		//	position.y += velocity.y * deltaTime;
-		//	velocity.y = 5;
-		//}
-		//pos.x = position.x + colliderSize.x;
-		//pos.y = position.y - colliderSize.y;
-		//if (ColliderWithMap(0, pos))
-		//{
-		//	position.y += velocity.y * deltaTime;
-		//	velocity.y = 5;
-		//}
 
 	}
 
@@ -217,7 +160,7 @@ public:
 		{
 			coinCount++;
 			//将金币瓦片动态更新为其他类型瓦片
-			currentMap->level[testPos.y * currentMap->w + testPos.x] = 25;
+			currentMap->level[hitItemIndex] = 25;
 			coinSFX.Play(false);
 			Debug("coin count:" + to_string(coinCount));
 		}
@@ -452,6 +395,7 @@ public:
 int main(int argc,char * argv[]) 
 {
 	Mario mario(1920/2, 1080/2, NoaGameEngine::WindowMode, "Mario");
+	//Mario mario(1920, 1080, NoaGameEngine::FullScreen, "Mario");
 	mario.Run();
 	return 0;
 }

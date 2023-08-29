@@ -30,7 +30,7 @@ namespace noa
 
 		// 读取图像灰度值
 		map.image.resize(imageSize);
-		file.read(reinterpret_cast<char*>(&map.image[0]), imageSize * sizeof(uint32_t));
+		file.read(reinterpret_cast<char*>(&map.image[0]), imageSize * sizeof(int));
 
 		// 关闭文件
 		file.close();
@@ -46,7 +46,8 @@ namespace noa
 		std::ifstream file(filename);
 		if (!file.is_open())
 		{
-			std::cout << "Failed to open file: " << filename << std::endl;
+			Debug("Failed to open file: "+filename);
+			//std::cout << "Failed to open file: " << filename << std::endl;
 			return map;
 		}
 
@@ -61,7 +62,7 @@ namespace noa
 
 			while (std::getline(ss, cell, ','))
 			{
-				uint32_t value = std::stoi(cell);
+				int value = std::stoi(cell);
 				map.image.push_back(value);
 				col++;
 			}
@@ -72,7 +73,8 @@ namespace noa
 			}
 			else if (col != map.w)
 			{
-				std::cout << "Invalid row width at line: " << row << std::endl;
+				Debug("Invalid row width at line: " + to_string(row));
+				//std::cout << "Invalid row width at line: " << row << std::endl;
 				map.image.clear();
 				break;
 			}
@@ -161,7 +163,7 @@ namespace noa
 		Debug("load map from file successfully");
 	}
 
-	void LevelMap::ConstructLayer(vector<vector<uint32_t>> layer)
+	void LevelMap::ConstructLayer(vector<vector<int>> layer)
 	{
 		levelLayer = layer;
 		Debug("Update the layer map");
@@ -180,7 +182,7 @@ namespace noa
 		map.w = mapLayer[0].w;
 		map.h = mapLayer[0].h;
 
-		vector<vector<uint32_t>> layer;
+		vector<vector<int>> layer;
 
 		for (int i = 0;i<mapLayer.size();i++) 
 		{
@@ -204,14 +206,23 @@ namespace noa
 		this->ConstructLayer(layer);
 	}
 
+	int TileMap::GetTileID(const int x,const int y)
+	{
+		if (x<0||x>=w||y<0||y>=h)
+		{
+			return -1;
+		}
+		return level[y*w+x];
+	}
+
 	bool TileMap::IsTile(Uint32 code)
 	{
 		return ContainKey<Uint32, Tile*>(tileSet, code);
 	}
 
-	Tile& TileMap::GetTile(Uint32 id)
+	Tile* TileMap::GetTile(Uint32 id)
 	{
-		return *(tileSet[id]);
+		return tileSet[id];
 	}
 
 }

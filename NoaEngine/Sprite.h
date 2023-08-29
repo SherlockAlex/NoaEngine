@@ -31,40 +31,7 @@ namespace noa {
 	}SpriteFile;
 
 	//加载本地的spr文件
-	inline SpriteFile LoadSprFile(const char* file)
-	{
-		SpriteFile spriteFile;
-		//spriteFile.images = nullptr;
-
-		std::ifstream input(file, std::ios::binary);
-		if (input)
-		{
-			uint32_t imagesCount;
-			input.read(reinterpret_cast<char*>(&imagesCount), sizeof(uint32_t));
-
-			//spriteFile.images = new uint32_t[imagesCount];
-			for (int i = 0; i < imagesCount; ++i)
-			{
-				uint32_t imageValue;
-				input.read(reinterpret_cast<char*>(&imageValue), sizeof(uint32_t));
-				spriteFile.images.push_back(imageValue);
-				//input.read(reinterpret_cast<char*>(&spriteFile.images[i]), sizeof(uint32_t));
-			}
-
-			input.read(reinterpret_cast<char*>(&spriteFile.x), sizeof(int));
-			input.read(reinterpret_cast<char*>(&spriteFile.y), sizeof(int));
-			input.read(reinterpret_cast<char*>(&spriteFile.width), sizeof(int));
-			input.read(reinterpret_cast<char*>(&spriteFile.height), sizeof(int));
-
-			input.close();
-		}
-		else
-		{
-			std::cerr << "读取失败：" << file << std::endl;
-		}
-
-		return spriteFile;
-	}
+	extern SpriteFile LoadSprFile(const char* file);
 
 	//精灵贴图
 	class Sprite {
@@ -75,17 +42,18 @@ namespace noa {
 		int posy = 0;
 		int w = 1;
 		int h = 1;
-		int sizeForSurface = 3;
+		Vector<float> scale = Vector<float>(1.0, 1.0);
+		//int sizeForSurface = 3;
 
 	private:
 		vector<Uint32> image;
 		//Uint32* image = nullptr;
 
 	public:
-		Sprite(SpriteFile sprFile, int sizeForSurface);
-		Sprite(const char* file, int sizeForSurface);
+		Sprite(SpriteFile sprFile, Vector<float> scale);
+		Sprite(const char* file, Vector<float> scale);
 		Sprite();
-		Sprite(int w, int h, int size, vector<Uint32> image);
+		Sprite(int w, int h, Vector<float> scale, vector<Uint32> image);
 		~Sprite();
 
 	public:

@@ -69,6 +69,12 @@
     <ClCompile Include="r_RetroRacer.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="NoaGUI.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="m_SuperMario.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="NoaEngine.h">
@@ -114,6 +120,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Camera.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="NoaGUI.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

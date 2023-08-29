@@ -5,36 +5,39 @@ namespace noa {
 	extern Renderer renderer;
 
 	///Sprite类的实现
-	Sprite::Sprite(SpriteFile sprFile, int sizeForSurface)
+	Sprite::Sprite(SpriteFile sprFile, Vector<float> scale)
 	{
 		this->posx = sprFile.x;
 		this->posx = sprFile.y;
 		this->w = sprFile.width;
 		this->h = sprFile.height;
 		this->image = sprFile.images;
-		this->sizeForSurface = sizeForSurface;
+		//this->sizeForSurface = sizeForSurface;
+		this->scale = scale;
 	}
 
-	Sprite::Sprite(const char* file, int sizeForSurface) {
-		this->sizeForSurface = sizeForSurface;
+	Sprite::Sprite(const char* file, Vector<float> scale) {
+		//this->sizeForSurface = sizeForSurface;
 		SpriteFile sprFile = LoadSprFile(file);
 		this->posx = sprFile.x;
 		this->posx = sprFile.y;
 		this->w = sprFile.width;
 		this->h = sprFile.height;
 		this->image = sprFile.images;
+		this->scale = scale;
 	}
 
 	Sprite::Sprite() {
 
 	}
 
-	Sprite::Sprite(int w, int h, int size, vector<Uint32> image)
+	Sprite::Sprite(int w, int h, Vector<float> scale, vector<Uint32> image)
 	{
 		this->w = w;
 		this->h = h;
 		this->image = image;
-		this->sizeForSurface = size;
+		this->scale = scale;
+		//this->sizeForSurface = size;
 	}
 
 	Sprite::~Sprite()
@@ -71,45 +74,77 @@ namespace noa {
 	void Sprite::DrawSprite(int posX, int posY, bool isRenderAlpha) const
 	{
 		//计算放大
-		const int wannaW = pixelWidth / sizeForSurface;
-		const int wannaH = (int)(((float)h / (float)w) * wannaW);
+		//const int wannaW = pixelWidth * sizeForSurface;
+		//const int wannaH = (int)(((float)h / (float)w) * wannaW);
 
-		for (int width = 0; width < wannaW; width++)
+		//const int wannaW = w * scale.x;
+		//const int wannaH = h * scale.y;
+
+		//for (int width = 0; width < wannaW; width++)
+		//{
+		//	for (int height = 0; height < wannaH; height++)
+		//	{
+		//		const int x = posX - ((float)wannaW * 0.5f) + width;
+		//		const int y = posY - ((float)wannaH * 0.5f) + height;
+
+		//		const float fSimpleX = (float)(width) / (float)wannaW;
+		//		const float fSimpleY = (float)(height) / (float)wannaH;
+
+		//		//Uint32 pixelColor = GetSpriteColor(fSimpleY, fSimpleX, h, w, image);
+		//		const Uint32 pixelColor = GetTransposeColor(fSimpleY, fSimpleX);
+
+		//		if (isRenderAlpha)
+		//		{
+		//			if (pixelColor == BLACK)
+		//			{
+		//				continue;
+		//			}
+		//		}
+
+		//		if (x < 0 || x >= pixelWidth || y < 0 || y >= pixelHeight)
+		//		{
+		//			continue;
+		//		}
+		//		renderer.DrawPixel(x, y, pixelColor);
+		//	}
+		//}
+
+		//将sprite图片填充到矩形上
+		const int x1 = posX;
+		const int y1 = posY;
+		const int x2 = posX + (w * scale.x);
+		const int y2 = posY + (h * scale.y);
+
+		for (int x = min(x1, x2); x <= max(x1, x2); x++)
 		{
-			for (int height = 0; height < wannaH; height++)
+			for (int y = min(y1, y2); y <= max(y1, y2); y++)
 			{
-				const int x = posX - ((float)wannaW * 0.5f) + width;
-				const int y = posY - ((float)wannaH * 0.5f) + height;
-
-				const float fSimpleX = (float)(width) / (float)wannaW;
-				const float fSimpleY = (float)(height) / (float)wannaH;
-
-				//Uint32 pixelColor = GetSpriteColor(fSimpleY, fSimpleX, h, w, image);
-				const Uint32 pixelColor = GetTransposeColor(fSimpleY, fSimpleX);
-
+				const Vector<float> simple(
+					(float)(x - x1) / (x2 - x1),
+					(float)(y - y1) / (y2 - y1)
+				);
+				const uint32_t color = GetTransposeColor(simple.y, simple.x);
 				if (isRenderAlpha)
 				{
-					if (pixelColor == BLACK)
+					if (color == BLACK)
 					{
 						continue;
 					}
 				}
-
-				if (x < 0 || x >= pixelWidth || y < 0 || y >= pixelHeight)
-				{
-					continue;
-				}
-				renderer.DrawPixel(x, y, pixelColor);
+				renderer.DrawPixel(x, y, color);
 			}
 		}
+
 	}
 
 	void Sprite::DrawSprite(int posX, int posY, bool isRenderAlpha, bool isMirror) const
 	{
 		//计算放大
 
-		const int wannaW = pixelWidth / sizeForSurface;
-		const int wannaH = (int)(((float)h / (float)w) * wannaW);
+		/*const int wannaW = pixelWidth / sizeForSurface;
+		const int wannaH = (int)(((float)h / (float)w) * wannaW);*/
+		const int wannaW = w * scale.x;
+		const int wannaH = h * scale.y;
 
 		for (int width = 0; width < wannaW; width++)
 		{
@@ -150,8 +185,10 @@ namespace noa {
 	void Sprite::DrawSprite(bool isRenderAlpha) const
 	{
 		//计算放大
-		const int wannaW = pixelWidth / sizeForSurface;
-		const int wannaH = (int)(((float)h / (float)w) * wannaW);
+		/*const int wannaW = pixelWidth / sizeForSurface;
+		const int wannaH = (int)(((float)h / (float)w) * wannaW);*/
+		const int wannaW = w * scale.x;
+		const int wannaH = h * scale.y;
 
 		for (int width = 0; width < wannaW; width++)
 		{
@@ -185,8 +222,10 @@ namespace noa {
 	void Sprite::DrawSprite(bool isRenderAlpha, bool isMirror) const
 	{
 		//计算放大
-		const int wannaW = pixelWidth / sizeForSurface;
-		const int wannaH = (int)(((float)h / (float)w) * wannaW);
+		/*const int wannaW = pixelWidth / sizeForSurface;
+		const int wannaH = (int)(((float)h / (float)w) * wannaW);*/
+		const int wannaW = w * scale.x;
+		const int wannaH = h * scale.y;
 
 		for (int width = 0; width < wannaW; width++)
 		{
@@ -261,8 +300,8 @@ namespace noa {
 			return BLACK;
 		}
 
-		const int sx = NoaAbs<int>(normalizedX * (float)h)%h;
-		const int sy = NoaAbs<int>(normalizedY * (float)w)%w;
+		const int sx = (NoaAbs<int>(normalizedX * (float)h))%h;
+		const int sy = (NoaAbs<int>(normalizedY * (float)w))%w;
 
 		return image[sy * h + sx];
 	}
@@ -279,6 +318,43 @@ namespace noa {
 		const int sy = NoaAbs<int>(simple.y * (float)w) % w;
 
 		return image[sy * h + sx];
+	}
+
+
+	SpriteFile LoadSprFile(const char* file)
+	{
+		SpriteFile spriteFile;
+		//spriteFile.images = nullptr;
+
+		std::ifstream input(file, std::ios::binary);
+		if (input)
+		{
+			uint32_t imagesCount;
+			input.read(reinterpret_cast<char*>(&imagesCount), sizeof(uint32_t));
+
+			//spriteFile.images = new uint32_t[imagesCount];
+			for (int i = 0; i < imagesCount; ++i)
+			{
+				uint32_t imageValue;
+				input.read(reinterpret_cast<char*>(&imageValue), sizeof(uint32_t));
+				spriteFile.images.push_back(imageValue);
+				//input.read(reinterpret_cast<char*>(&spriteFile.images[i]), sizeof(uint32_t));
+			}
+
+			input.read(reinterpret_cast<char*>(&spriteFile.x), sizeof(int));
+			input.read(reinterpret_cast<char*>(&spriteFile.y), sizeof(int));
+			input.read(reinterpret_cast<char*>(&spriteFile.width), sizeof(int));
+			input.read(reinterpret_cast<char*>(&spriteFile.height), sizeof(int));
+
+			input.close();
+		}
+		else
+		{
+			Debug("读取失败：" + string(file));
+			//std::cerr << "读取失败：" << file << std::endl;
+		}
+
+		return spriteFile;
 	}
 }
 

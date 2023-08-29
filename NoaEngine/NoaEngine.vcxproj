@@ -161,8 +161,10 @@
     <ClCompile Include="d_RayCastHit.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="InputSystem.cpp" />
+    <ClCompile Include="m_SuperMario.cpp" />
     <ClCompile Include="NoaAction.cpp" />
     <ClCompile Include="NoaEngine.cpp" />
+    <ClCompile Include="NoaGUI.cpp" />
     <ClCompile Include="NoaMath.cpp" />
     <ClCompile Include="Physics.cpp" />
     <ClCompile Include="Renderer.cpp" />
@@ -182,6 +184,7 @@
     <ClInclude Include="InputSystem.h" />
     <ClInclude Include="NoaAction.h" />
     <ClInclude Include="NoaEngine.h" />
+    <ClInclude Include="NoaGUI.h" />
     <ClInclude Include="NoaMath.h" />
     <ClInclude Include="Physics.h" />
     <ClInclude Include="Renderer.h" />

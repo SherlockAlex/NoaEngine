@@ -77,7 +77,10 @@ namespace NoaTool
                 saveFileDialog.Filter = "*.spr|spr file";
                 saveFileDialog.DefaultExt = ".spr";
                 saveFileDialog.FileName = "sprite";
-                saveFileDialog.ShowDialog();
+                if (saveFileDialog.ShowDialog() == DialogResult.Cancel)
+                {
+                    return;
+                }
                 fileName = saveFileDialog.FileName;
             }
 
@@ -121,17 +124,12 @@ namespace NoaTool
                 saveFileDialog.Filter = "*.amt|animator file";
                 saveFileDialog.DefaultExt = ".amt";
                 saveFileDialog.FileName = "animator";
-                saveFileDialog.ShowDialog();
+                if (saveFileDialog.ShowDialog() == DialogResult.Cancel)
+                {
+                    return;
+                }
                 fileName = saveFileDialog.FileName;
             }
-
-            //List<List<uint>> data= new List<List<uint>>();
-            //for (int i = 0;i<animatorFrameGridView.RowCount-1;i++)
-            //{
-            //    string imagePath = animatorFrameGridView.Rows[i].Cells[0].Value as string;
-            //    List<uint> frame = Sprite.ReadImageRGB(imagePath);
-            //    data.Add(frame);
-            //}
 
             AnimatorFile animatorFile = new AnimatorFile();
             animatorFile.data = new List<SpriteFile>();
@@ -158,12 +156,6 @@ namespace NoaTool
 
             }
 
-            //if (animatorFile == null)
-            //{
-            //    MessageBox.Show("保存失败");
-            //    return;
-            //}
-
             int success = Animator.Save(animatorFile, fileName);
             if (success == 0)
             {
@@ -171,7 +163,6 @@ namespace NoaTool
                 return;
             }
             MessageBox.Show("保存失败");
-
             
         }
 
@@ -323,7 +314,10 @@ namespace NoaTool
                 saveFileDialog.Filter = "*.map|map file";
                 saveFileDialog.DefaultExt = ".map";
                 saveFileDialog.FileName = "level";
-                saveFileDialog.ShowDialog();
+                if (saveFileDialog.ShowDialog() == DialogResult.Cancel)
+                {
+                    return;
+                }
                 fileName = saveFileDialog.FileName;
             }
 
@@ -357,7 +351,10 @@ namespace NoaTool
                 saveFileDialog.Filter = "*.map|map file";
                 saveFileDialog.DefaultExt = ".map";
                 saveFileDialog.FileName = "level";
-                saveFileDialog.ShowDialog();
+                if (saveFileDialog.ShowDialog() == DialogResult.Cancel)
+                {
+                    return;
+                }
                 fileName = saveFileDialog.FileName;
             }
 
@@ -393,7 +390,10 @@ namespace NoaTool
                 saveFileDialog.Filter = "*.tsd|tile set file";
                 saveFileDialog.DefaultExt = ".tsd";
                 saveFileDialog.FileName = "tileSet";
-                saveFileDialog.ShowDialog();
+                if (saveFileDialog.ShowDialog() == DialogResult.Cancel)
+                {
+                    return;
+                }
                 fileName = saveFileDialog.FileName;
 
             }

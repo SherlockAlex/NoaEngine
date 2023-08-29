@@ -24,6 +24,7 @@ namespace noa {
 		float g = 9.81;
 		bool useGravity = true;
 		bool isGrounded = false;
+		bool useCollision = true;
 	public:
 		//刚体的速度
 		Vector<float> & velocity = *(new Vector<float>(0.0,0.0));
@@ -42,7 +43,7 @@ namespace noa {
 		/// <param name="force">力的数值，如果力的种类为恒力，其数值表示力，如果是冲量，则表示冲量的大小</param>
 		/// <param name="forceType">力的类型</param>
 		void AddForce(Vector<float> & force, ForceType forceType);
-		void SetCollisionTileID(std::vector<uint32_t> & collisionTileIDs);
+		void SetCollisionTileID(std::vector<int> collisionTileIDs);
 		void UpdateMap(void * map);
 		void ApplyCollision();
 		float FixPosition();

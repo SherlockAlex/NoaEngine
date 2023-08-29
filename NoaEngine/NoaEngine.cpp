@@ -188,13 +188,13 @@ namespace noa {
 			behaviours[i]->Start();
 		}
 		
-		thread mainThread(mainThreadFunc);
+		//thread mainThread(mainThreadFunc);
 		
 		while (isRun)
 		{
-			/*tp2 = chrono::system_clock::now();
+			tp2 = chrono::system_clock::now();
 			elapsedTime = tp2 - tp1;
-			deltaTime = elapsedTime.count();*/
+			deltaTime = elapsedTime.count();
 			//执行游戏主类的update
 			while (SDL_PollEvent(&ioEvent))
 			{
@@ -206,7 +206,7 @@ namespace noa {
 				}
 			}
 
-			/*for (int i = 0; i < rigidbodyCount; i++)
+			for (int i = 0; i < rigidbodyCount; i++)
 			{
 				rigidbodys[i]->RigidbodyUpdate(deltaTime);
 			}
@@ -225,18 +225,18 @@ namespace noa {
 
 			SDL_UnlockTexture(texture);
 			SDL_RenderCopy(mainRenderer, texture, nullptr, nullptr);
-			SDL_RenderPresent(mainRenderer);*/
+			SDL_RenderPresent(mainRenderer);
 
 			// 减少内存访问
 			const double fps = 1.0 / deltaTime;
 			const string windowTitle = gameName + " FPS: " + to_string(fps);
 			SDL_SetWindowTitle(window, windowTitle.c_str());
 
-			/*tp1 = tp2;*/
+			tp1 = tp2;
 
 		}
 
-		mainThread.join();
+		//mainThread.join();
 		
 		return 0;
 	}

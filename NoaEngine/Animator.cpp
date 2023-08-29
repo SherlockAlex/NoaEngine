@@ -11,7 +11,8 @@ namespace noa {
 
 		std::ifstream inputFile(file, std::ios::binary);
 		if (!inputFile) {
-			std::cout << "Error opening file." << std::endl;
+			Debug("Opening file: "+string(file)+" error");
+			//std::cout << "Error opening file." << std::endl;
 			return animator;
 		}
 

@@ -41,7 +41,7 @@ namespace noa {
 #define GetGValue(rgb)      (LOBYTE(((unsigned short)(rgb)) >> 8))
 #define GetBValue(rgb)      (LOBYTE((rgb)>>16))
 
-
+	class Sprite;
 
 	class Renderer
 	{
@@ -57,6 +57,20 @@ namespace noa {
 		void DrawPixel(int x, int y, Uint32 color) const;
 		void DrawLine(int x1, int y1, int x2, int y2, Uint32 color) const;
 		void DrawLine(const Vector<int> & point1,const Vector<int> & point2, Uint32 color) const;
+		/// <summary>
+		/// 绘制矩形
+		/// </summary>
+		/// <param name="point1"></param>
+		/// <param name="point2"></param>
+		/// <param name="color"></param>
+		void DrawRect(const Vector<int> & point1,const Vector<int> & point2,Uint32 color) const;
+		/// <summary>
+		/// 将sprite填充到矩形
+		/// </summary>
+		/// <param name="point1"></param>
+		/// <param name="point2"></param>
+		/// <param name="sprite"></param>
+		void DrawRect(const Vector<int>& point1, const Vector<int>& point2, Sprite & sprite) const;
 		void DrawString(int x, int y, const string& str, Uint32 color, const int size);
 		void DrawImage(
 			int posX,
@@ -67,6 +81,7 @@ namespace noa {
 			bool isDrawAlpha,
 			vector<Uint32> imageRGB) const;
 		void FullScreen(Uint32 color) const;
+		
 
 	};
 }

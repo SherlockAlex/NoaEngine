@@ -111,7 +111,9 @@ namespace noa {
 
 	extern float deltaTime;
 
-	//游戏基类
+	/// <summary>
+	/// 游戏基类，一个抽象类
+	/// </summary>
 	class NoaGameEngine {
 	public:
 		enum GameWindowMode
@@ -130,6 +132,7 @@ namespace noa {
 		SDL_Renderer* mainRenderer = nullptr;
 		SDL_Texture* texture = nullptr;
 		SDL_PixelFormat* format;
+
 		void* pixelBuffer = nullptr;
 
 		//窗口
@@ -155,6 +158,13 @@ namespace noa {
 
 		//渲染器
 
+		/// <summary>
+		/// 游戏构造函数，用于创建游戏基本组件
+		/// </summary>
+		/// <param name="width">窗口宽度</param>
+		/// <param name="height">窗口高度</param>
+		/// <param name="windowMode">窗口模式</param>
+		/// <param name="gameName">游戏名称</param>
 		NoaGameEngine(
 			int width, int height,
 			GameWindowMode windowMode,

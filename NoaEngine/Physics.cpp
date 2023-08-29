@@ -9,10 +9,10 @@ namespace noa {
 	
 	int GetCollisionTile(Vector<float>& colliderPos);
 
-	unordered_map<Uint32,bool> collisionTiles;
+	unordered_map<int,bool> collisionTiles;
 
 	vector<Rigidbody*> rigidbodys;
-	LevelMap* levelMap = nullptr;
+	TileMap* tileMap = nullptr;
 
 	Vector<float> sumForce(0.0, 0.0);
 	float invMass = 1;
@@ -43,17 +43,12 @@ namespace noa {
 	{
 		if (useGravity)
 		{
+			//velocity.y += 3.5 * g * deltaTime;
 			if (!isGrounded)
 			{
 				//如果使用重力
 				velocity.y += 3.5 * g * deltaTime;
 
-			}
-			else {
-				if (velocity.y > 0)
-				{
-					velocity.y = 0;
-				}
 			}
 		}
 
@@ -63,13 +58,56 @@ namespace noa {
 		velocity += sumForce * deltaTime * invMass;
 
 		//将速度的量反馈到物体的位移变化
-		(*colliderPos) += (velocity * deltaTime);
-		//根据位置进行物体的碰撞检测
+		Vector<float> newPosition= move((*colliderPos) + (velocity * deltaTime));
+		
+		//根据速度进行物体的碰撞检测
 		//如果检测到了碰撞字符，就停止
 
-		
-		//ApplyCollision();
-		
+		if (useCollision)
+		{
+			if (velocity.x <= 0)
+			{
+				if (ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x, colliderPos->y + 0.0)) ||
+					ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x, colliderPos->y + 0.999)))
+				{
+					newPosition.x = (int)newPosition.x + 1;
+					velocity.x = 0;
+				}
+			}
+			else
+			{
+				if (ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x + 0.999, colliderPos->y + 0.0)) ||
+					ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x + 0.999, colliderPos->y + 0.999)))
+				{
+					newPosition.x = (int)newPosition.x;
+					velocity.x = 0;
+				}
+			}
+
+			isGrounded = false;
+			if (velocity.y <= 0)
+			{
+				if (ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x + 0.0f, newPosition.y)) ||
+					ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x + 0.999f, newPosition.y)))
+				{
+					newPosition.y = (int)newPosition.y + 1;
+					velocity.y = 0;
+				}
+			}
+			else
+			{
+				if (ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x + 0.0f, newPosition.y + 0.999)) ||
+					ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x + 0.999f, newPosition.y + 0.999)))
+				{
+					newPosition.y = (int)newPosition.y;
+					velocity.y = 0;
+					isGrounded = true;
+				}
+			}
+		}
+
+		*colliderPos = newPosition;
+		//Debug("isGrounded:" + to_string(isGrounded));
 
 	}
 
@@ -91,7 +129,7 @@ namespace noa {
 		}
 
 	}
-	void Rigidbody::SetCollisionTileID(std::vector<uint32_t> & collisionTileIDs)
+	void Rigidbody::SetCollisionTileID(std::vector<int> collisionTileIDs)
 	{
 		//设置Collision Tiles
 		const int collisionTilesCount = collisionTileIDs.size();
@@ -103,94 +141,13 @@ namespace noa {
 
 	void Rigidbody::UpdateMap(void* map)
 	{
-		levelMap = static_cast<LevelMap*>(map);
+		tileMap = static_cast<TileMap*>(map);
 	}
 
 	Vector<float> pos(0.0, 0.0);
 	void Rigidbody::ApplyCollision()
 	{
-		//向下
-		pos.x = int(colliderPos->x);
-		pos.y = int(colliderPos->y) + colliderSize.y;
-		int hitByte = GetCollisionTile(pos);
-		if (hitByte == -1)
-		{
-			return;
-		}
-		if (ContainKey<Uint32, bool>(collisionTiles, hitByte) && collisionTiles[hitByte])
-		{
-			//刚体返回
-			//(*colliderPos) = (*colliderPos) - (velocity * deltaTime);
-		}
-
-		pos.x = int(colliderPos->x) - colliderSize.x;
-		pos.y = int(colliderPos->y) + colliderSize.y;
-		hitByte = GetCollisionTile(pos);
-		if (hitByte == -1)
-		{
-			return;
-		}
-		if (ContainKey<Uint32, bool>(collisionTiles, hitByte) && collisionTiles[hitByte])
-		{
-			//刚体返回
-			//(*colliderPos) = (*colliderPos) - (velocity * deltaTime);
-		}
-
-		pos.x = int(colliderPos->x) + colliderSize.x;
-		pos.y = int(colliderPos->y) + colliderSize.y;
-		hitByte = GetCollisionTile(pos);
-		if (hitByte == -1)
-		{
-			return;
-		}
-		if (ContainKey<Uint32, bool>(collisionTiles, hitByte) && collisionTiles[hitByte])
-		{
-			//刚体返回
-			//(*colliderPos) = (*colliderPos) - (velocity * deltaTime);
-		}
-
-		//向上
-		pos.x = int(colliderPos->x);
-		pos.y = int(colliderPos->y) - colliderSize.y;
-		hitByte = GetCollisionTile(pos);
-		if (hitByte == -1)
-		{
-			return;
-		}
-		if (ContainKey<Uint32, bool>(collisionTiles, hitByte) && collisionTiles[hitByte])
-		{
-			//刚体返回
-			//(*colliderPos) = (*colliderPos) - (velocity * deltaTime);
-		}
-
-		//向上
-		pos.x = int(colliderPos->x) - colliderSize.x;
-		pos.y = int(colliderPos->y) - colliderSize.y;
-		hitByte = GetCollisionTile(pos);
-		if (hitByte == -1)
-		{
-			return;
-		}
-		if (ContainKey<Uint32, bool>(collisionTiles, hitByte) && collisionTiles[hitByte])
-		{
-			//刚体返回
-			//(*colliderPos) = (*colliderPos) - (velocity * deltaTime);
-		}
 		
-
-		//向上
-		pos.x = int(colliderPos->x) + colliderSize.x;
-		pos.y = int(colliderPos->y) - colliderSize.y;
-		hitByte = GetCollisionTile(pos);
-		if (hitByte == -1)
-		{
-			return;
-		}
-		if (ContainKey<Uint32, bool>(collisionTiles, hitByte) && collisionTiles[hitByte])
-		{
-			//刚体返回
-			//(*colliderPos) = (*colliderPos) - (velocity * deltaTime);
-		}
 
 	}
 
@@ -204,12 +161,12 @@ namespace noa {
 	{
 		//检测玩家和地图的碰撞
 		//如果检测到的点位和byte吻合，就返回true
-		if (levelMap == nullptr)
+		if (tileMap == nullptr)
 		{
 			return -1;
 		}
-		const int tileIndex = (int)(colliderPos.y) * levelMap->w + (int)colliderPos.x;
-		const int hitByte = levelMap->level[tileIndex];
+		const int tileIndex = (int)(colliderPos.y) * tileMap->w + (int)colliderPos.x;
+		const int hitByte = tileMap->level[tileIndex];
 		return hitByte;
 	}
 

@@ -12,6 +12,9 @@ namespace noa
 
 	};
 
+	/// <summary>
+	/// 状态类，将每一个状态都抽象乘一个类
+	/// </summary>
 	class State 
 	{
 	public:
@@ -25,6 +28,9 @@ namespace noa
 		virtual void Reason() = 0;
 	};
 
+	/// <summary>
+	/// 状态机，用来管理所有的状态
+	/// </summary>
 	class StateMachine
 	{
 	public:
