@@ -44,6 +44,7 @@ namespace noa {
 		//动画播放速度
 		float speed = 7;
 		float i = 0;
+		float frameSize = 0;
 
 	public:
 		Animator(float speed);

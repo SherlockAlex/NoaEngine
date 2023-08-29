@@ -91,8 +91,7 @@ inline T NoaAbs(T value)
 template <typename KeyType, typename ValueType>
 inline bool ContainKey(const std::unordered_map<KeyType, ValueType>& myMap, const KeyType& keyToCheck) 
 {
-	auto it = myMap.find(keyToCheck);
-	return it != myMap.end();
+	return myMap.count(keyToCheck) > 0;
 }
 
 #endif

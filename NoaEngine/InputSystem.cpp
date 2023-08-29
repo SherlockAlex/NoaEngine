@@ -110,11 +110,6 @@ namespace noa {
 		inputEvent.Invoke();
 	}
 
-	/*void InputSystem::BindEvent(function<void()> eventFunc)
-	{
-		inputEvents.push_back(eventFunc);
-	}*/
-
 	Vector<float> InputSystem::GetMouseMoveDelta()
 	{
 		SDL_SetRelativeMouseMode(SDL_TRUE);

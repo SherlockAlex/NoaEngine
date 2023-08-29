@@ -170,7 +170,13 @@ namespace noa {
 		float DeltaTime();
 		int Run();
 
-		void MainThread();
+		void MainThread(
+			const int rigidbodyCount,
+			const int behaviourCount,
+			const int animatorCount
+			);
+		
+		int Quit();
 
 	};
 

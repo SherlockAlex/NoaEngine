@@ -173,22 +173,28 @@ namespace noa {
 		chrono::duration<float> elapsedTime;
 		tp2 = chrono::system_clock::now();
 
+		const int rigidbodyCount = rigidbodys.size();
+		const int behaviourCount = behaviours.size();
+		const int animatorCount = animatorList.size();
+		
+		function<void()> mainThreadFunc = [this]() {
+			this->MainThread(rigidbodys.size(), behaviours.size(), animatorList.size());
+		};
+
 		Start();
 
 		for (int i = 0; i < behaviours.size(); i++)
 		{
 			behaviours[i]->Start();
 		}
-
-		function<void()> mainThreadFunc = [this]() {
-			this->MainThread();
-		};
-
+		
+		thread mainThread(mainThreadFunc);
+		
 		while (isRun)
 		{
-			tp2 = chrono::system_clock::now();
+			/*tp2 = chrono::system_clock::now();
 			elapsedTime = tp2 - tp1;
-			deltaTime = elapsedTime.count();
+			deltaTime = elapsedTime.count();*/
 			//执行游戏主类的update
 			while (SDL_PollEvent(&ioEvent))
 			{
@@ -196,13 +202,57 @@ namespace noa {
 
 				if (ioEvent.type == SDL_QUIT)
 				{
-					isRun = false;
-					SDL_Quit();
-					return 0;
+					Quit();
 				}
 			}
 
-			const int rigidbodyCount = rigidbodys.size();
+			/*for (int i = 0; i < rigidbodyCount; i++)
+			{
+				rigidbodys[i]->RigidbodyUpdate(deltaTime);
+			}
+
+			Update();
+
+			for (int i = 0; i < behaviourCount; i++)
+			{
+				behaviours[i]->Update();
+			}
+
+			for (int i = 0; i < animatorCount; i++)
+			{
+				animatorList[i]->Update(deltaTime);
+			}
+
+			SDL_UnlockTexture(texture);
+			SDL_RenderCopy(mainRenderer, texture, nullptr, nullptr);
+			SDL_RenderPresent(mainRenderer);*/
+
+			// 减少内存访问
+			const double fps = 1.0 / deltaTime;
+			const string windowTitle = gameName + " FPS: " + to_string(fps);
+			SDL_SetWindowTitle(window, windowTitle.c_str());
+
+			/*tp1 = tp2;*/
+
+		}
+
+		mainThread.join();
+		
+		return 0;
+	}
+
+	void NoaGameEngine::MainThread(
+		const int rigidbodyCount,
+		const int behaviourCount,
+		const int animatorCount)
+	{
+		while (isRun)
+		{
+			tp2 = chrono::system_clock::now();
+			elapsedTime = tp2 - tp1;
+			deltaTime = elapsedTime.count();
+			//执行游戏主类的update
+
 			for (int i = 0; i < rigidbodyCount; i++)
 			{
 				rigidbodys[i]->RigidbodyUpdate(deltaTime);
@@ -210,69 +260,30 @@ namespace noa {
 
 			Update();
 
-			const int behaviourCount = behaviours.size();
 			for (int i = 0; i < behaviourCount; i++)
 			{
 				behaviours[i]->Update();
 			}
 
-			const int animatorCount = animatorList.size();
 			for (int i = 0; i < animatorCount; i++)
 			{
 				animatorList[i]->Update(deltaTime);
 			}
 
-			/*glClear(GL_COLOR_BUFFER_BIT);
-			GLRenderTexture();
-			SDL_GL_SwapWindow(window);*/
-
 			SDL_UnlockTexture(texture);
 			SDL_RenderCopy(mainRenderer, texture, nullptr, nullptr);
 			SDL_RenderPresent(mainRenderer);
 
-			// 减少内存访问
-			const double fps = 1.0 / deltaTime;
-			const string windowTitle = gameName + " FPS: " + to_string(fps);
-			SDL_SetWindowTitle(window, windowTitle.c_str());
-
 			tp1 = tp2;
 
 		}
-		
-		return 0;
 	}
 
-	void NoaGameEngine::MainThread()
+	int NoaGameEngine::Quit()
 	{
-		while (isRun)
-		{
-			tp2 = chrono::system_clock::now();
-			elapsedTime = tp2 - tp1;
-			deltaTime = elapsedTime.count();
-
-			for (int i = 0; i < rigidbodys.size(); i++)
-			{
-				rigidbodys[i]->RigidbodyUpdate(deltaTime);
-			}
-
-			Update();
-
-			for (int i = 0; i < behaviours.size(); i++)
-			{
-				behaviours[i]->Update();
-			}
-
-			for (int i = 0; i < animatorList.size(); i++)
-			{
-				animatorList[i]->Update(deltaTime);
-			}
-
-			SDL_UnlockTexture(texture);
-			SDL_RenderPresent(mainRenderer);
-
-			tp1 = tp2;
-
-		}
+		isRun = false;
+		SDL_Quit();
+		return 0;
 	}
 
 

@@ -217,7 +217,7 @@ public:
 		{
 			coinCount++;
 			//将金币瓦片动态更新为其他类型瓦片
-			currentMap->level[testPos.y * currentMap->w + testPos.x] = -1;
+			currentMap->level[testPos.y * currentMap->w + testPos.x] = 25;
 			coinSFX.Play(false);
 			Debug("coin count:" + to_string(coinCount));
 		}
@@ -290,10 +290,7 @@ public:
 
 		currentMap = currentMap = new TileMap(
 			LoadTileFromTsd("./Assets/JumpMan/Tile/tileSet.tsd"),
-			{
-				LoadMapFromCSV("./Assets/JumpMan/Map/level1_Sky.csv"),
-				LoadMapFromCSV("./Assets/JumpMan/Map/level1_Panel.csv")
-			}
+			LoadMapFromCSV("./Assets/JumpMan/Map/level1.csv")
 		);
 
 
@@ -336,58 +333,53 @@ public:
 		//一般的思路是将所有的图像的像素进行叠加
 		// 如果最顶层的像素alpha通道不为0，就直接替代这个位置的底层像素
 		// 否则直接跳过
-		
-		const int mapLayerCount = currentMap->levelLayer.size();
 
-		for (int layerIndex = 0; layerIndex < mapLayerCount;layerIndex++)
+		for (int x = 0; x < pixelWidth; x++)
 		{
-			for (int x = 0; x < pixelWidth; x++)
+			for (int y = 0; y < pixelHeight; y++)
 			{
-				for (int y = 0; y < pixelHeight; y++)
+
+				pixelPos.x = (player->position.x - 0.5 * pixelWidth * deltaSize + x * deltaSize);
+				pixelPos.y = (player->position.y - 0.5 * pixelHeight * deltaSize + y * deltaSize);
+
+				//开始计算
+				int hitByte = 25;
+				if (pixelPos.y <= currentMap->h && pixelPos.y >= 0 && pixelPos.x <= currentMap->w && pixelPos.x >= 0)
 				{
-
-					pixelPos.x = (player->position.x - 0.5 * pixelWidth * deltaSize + x * deltaSize);
-					pixelPos.y = (player->position.y - 0.5 * pixelHeight * deltaSize + y * deltaSize);
-
-					//开始计算
-					int hitByte = 10;
-					if (pixelPos.y <= currentMap->h && pixelPos.y >= 0 && pixelPos.x <= currentMap->w && pixelPos.x >= 0)
-					{
-						hitByte = currentMap->levelLayer[layerIndex][
-							pixelPos.y * currentMap->w +
-								pixelPos.x
-						];
-					}
-
-					if (hitByte == -1)
-					{
-						continue;
-					}
-
-
-					const float testX = (player->position.x - 0.5 * pixelWidth * deltaSize + x * deltaSize);
-					const float testY = (player->position.y - 0.5 * pixelHeight * deltaSize + y * deltaSize);
-
-					simple.x = testX - (int)(testX);
-					simple.y = testY - (int)(testY);
-
-					Uint32 color = 0;
-
-					if (currentMap->IsTile(hitByte))
-					{
-						color = currentMap->GetTile(hitByte).sprite->GetTransposeColor(simple.y, simple.x);
-					}
-
-					if (color == BLACK)
-					{
-						//渲染天空
-						simple.x = x / (float)pixelWidth;
-						simple.y = y / (float)pixelHeight;
-						color = currentMap->GetTile(25).sprite->GetTransposeColor(simple.y, simple.x);
-					}
-
-					renderer.DrawPixel(x, y, color);
+					hitByte = currentMap->level[
+						pixelPos.y * currentMap->w +
+							pixelPos.x
+					];
 				}
+
+				if (hitByte == -1)
+				{
+					continue;
+				}
+
+
+				const float testX = (player->position.x - 0.5 * pixelWidth * deltaSize + x * deltaSize);
+				const float testY = (player->position.y - 0.5 * pixelHeight * deltaSize + y * deltaSize);
+
+				simple.x = testX - (int)(testX);
+				simple.y = testY - (int)(testY);
+
+				Uint32 color = 0;
+
+				if (currentMap->IsTile(hitByte))
+				{
+					color = currentMap->GetTile(hitByte).sprite->GetTransposeColor(simple.y, simple.x);
+				}
+
+				if (color == BLACK)
+				{
+					//渲染天空
+					simple.x = x / (float)pixelWidth;
+					simple.y = y / (float)pixelHeight;
+					color = currentMap->GetTile(25).sprite->GetTransposeColor(simple.y, simple.x);
+				}
+
+				renderer.DrawPixel(x, y, color);
 			}
 		}
 
@@ -420,12 +412,9 @@ public:
 			if (inputSystem.GetKeyDown(KeyK))
 			{
 
-				currentMap = new TileMap(
+				currentMap = currentMap = new TileMap(
 					LoadTileFromTsd("./Assets/JumpMan/Tile/tileSet.tsd"),
-					{ 
-						LoadMapFromCSV("./Assets/JumpMan/Map/level1_Sky.csv"),
-						LoadMapFromCSV("./Assets/JumpMan/Map/level1_Panel.csv")
-					}
+					LoadMapFromCSV("./Assets/JumpMan/Map/level1.csv")
 				);
 
 				for (int i = 0; i < currentMap->w; i++)

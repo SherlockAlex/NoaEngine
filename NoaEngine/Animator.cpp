@@ -58,6 +58,7 @@ namespace noa {
 		{
 			currentFrame = framesImage[0];
 		}
+		frameSize = framesImage.size();
 
 	}
 
@@ -77,6 +78,8 @@ namespace noa {
 		{
 			currentFrame = framesImage[0];
 		}
+
+		frameSize = framesImage.size();
 
 	}
 
@@ -151,6 +154,7 @@ namespace noa {
 		Debug("Insert Animator Frame");
 		framesImage.push_back(frameImage);
 		currentFrame = framesImage[0];
+		frameSize = framesImage.size();
 	}
 
 	/// <summary>
@@ -163,7 +167,6 @@ namespace noa {
 		}
 
 		i = i + deltaTime * speed;
-		const int frameSize = framesImage.size();
 		if (i >= frameSize)
 		{
 			i = 0;
