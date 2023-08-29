@@ -2,6 +2,8 @@
 
 using namespace noa;
 
+TileMap* currentMap = nullptr;
+
 class Player:public GameObject,public Rigidbody
 {
 public:
@@ -22,6 +24,27 @@ public:
 		Rigidbody::~Rigidbody();
 	}
 
+	void Control() {
+		velocity.x = 0;
+
+		if (inputSystem.GetKeyHold(KeyA))
+		{
+			velocity.x = -speed;
+
+		}
+		if (inputSystem.GetKeyHold(KeyD))
+		{
+			velocity.x = speed;
+
+		}
+
+		if (inputSystem.GetKeyHold(KeyK) && isGrounded)
+		{
+			AddForce(jumpForce, Impulse);
+			jumpSFX.Play(false);
+		}
+	}
+
 	void Start() override 
 	{
 
@@ -29,28 +52,14 @@ public:
 	Vector<float> jumpForce = Vector<float>(0.0, -15.0);
 	void Update() override 
 	{
-		velocity.x = 0;
-		//if (IsFocused()) 
+		Control();
+
+		if (currentMap->GetTileID(position.x+0.5,position.y)==1)
 		{
-
-			if (inputSystem.GetKeyHold(KeyA))
-			{
-				velocity.x = -speed;
-
-			}
-			if (inputSystem.GetKeyHold(KeyD))
-			{
-				velocity.x = speed;
-
-			}
-
-			if (inputSystem.GetKeyHold(KeyK) && isGrounded)
-			{
-				AddForce(jumpForce, Impulse);
-				jumpSFX.Play(false);
-			}
-
+			currentMap->level[position.y * currentMap->w + position.x+0.5] = 25;
+			coinSFX.Play(false);
 		}
+
 	}
 
 public:
@@ -66,6 +75,8 @@ public:
 		player.UpdateMap(&tileMap);
 		player.SetCollisionTileID({ 0 });
 		BGM.Play(true);
+
+		currentMap = &tileMap;
 
 		for (int i = 0; i < tileMap.w; i++)
 		{
