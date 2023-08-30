@@ -51,9 +51,6 @@
     <ClCompile Include="d_RayCastHit.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="m_Mario.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="Physics.cpp">
       <Filter>源文件</Filter>
     </ClCompile>

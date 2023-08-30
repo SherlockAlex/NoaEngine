@@ -2,21 +2,43 @@
 #define NOAENGINE_CAMERA_H
 
 #include "NoaMath.h"
+#include "Scene.h"
 
 namespace noa {
 	//这个是游戏的相机，用来显示游戏的画面内容
 	//主要是用来渲染游戏的场景
 	// 越靠前的就先被渲染
-	// skybox
-	// levelMap
-	// gameobject
-	class Carema
+	class Camera
 	{
 	public:
 		Vector<float>* follow = nullptr;
-		Vector<float> followSize;
 		Vector<float> position;
+
+	public:
+		/// <summary>
+		/// 相机构造函数
+		/// </summary>
+		/// <param name="follow"></param>
+		Camera();
+		Camera(Vector<float> * follow);
+		~Camera();
 	};
+
+	class TileMapCamera :public Camera
+	{
+	private:
+		Vector<int> tileScale = Vector<int>(64, 64);
+	public:
+		TileMapCamera();
+		TileMapCamera(Vector<int> tileScale, Vector<float>* follow);
+		/// <summary>
+		/// 渲染地图
+		/// </summary>
+		/// <param name="tileMap"></param>
+		/// <returns>calculate Top-Leftmost visible tile</returns>
+		Vector<float> Render(TileMap& tileMap);
+	};
+
 }
 
 

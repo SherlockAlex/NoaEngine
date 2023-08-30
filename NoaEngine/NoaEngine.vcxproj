@@ -171,7 +171,6 @@
     <ClCompile Include="r_RetroRacer.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Sprite.cpp" />
-    <ClCompile Include="m_Mario.cpp" />
     <ClCompile Include="StateMachine.cpp" />
   </ItemGroup>
   <ItemGroup>

@@ -1,174 +1,90 @@
-﻿  m_SuperMario.cpp
+﻿  Physics.cpp
+D:\Work\GitTools\NoaEngine\NoaEngine\Physics.h(24,9): warning C4305: “初始化”: 从“double”到“float”截断
 D:\Work\GitTools\NoaEngine\NoaEngine\Renderer.h(33,1): warning C4005: “LOBYTE”: 宏重定义
 D:\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(206,1): message : 参见“LOBYTE”的前一个定义
 D:\Work\GitTools\NoaEngine\NoaEngine\Renderer.h(38,1): warning C4005: “RGB”: 宏重定义
 D:\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1859,1): message : 参见“RGB”的前一个定义
 D:\Work\GitTools\NoaEngine\NoaEngine\Renderer.h(41,1): warning C4005: “GetGValue”: 宏重定义
 D:\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1870,1): message : 参见“GetGValue”的前一个定义
-D:\Work\GitTools\NoaEngine\NoaEngine\Physics.h(24,9): warning C4305: “初始化”: 从“double”到“float”截断
-D:\Work\GitTools\NoaEngine\NoaEngine\m_SuperMario.cpp(10,8): warning C4305: “参数”: 从“double”到“T”截断
+D:\Work\GitTools\NoaEngine\NoaEngine\Physics.cpp(23,17): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\Physics.cpp(50,27): warning C4244: “+=”: 从“double”转换到“T”，可能丢失数据
           with
           [
               T=float
           ]
-D:\Work\GitTools\NoaEngine\NoaEngine\m_SuperMario.cpp(13,1): warning C4305: “=”: 从“double”到“T”截断
+D:\Work\GitTools\NoaEngine\NoaEngine\Physics.cpp(70,96): warning C4244: “参数”: 从“double”转换到“const int”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\Physics.cpp(70,77): warning C4244: “参数”: 从“T”转换到“const int”，可能丢失数据
           with
           [
               T=float
           ]
-D:\Work\GitTools\NoaEngine\NoaEngine\m_SuperMario.cpp(14,1): warning C4305: “=”: 从“double”到“T”截断
+D:\Work\GitTools\NoaEngine\NoaEngine\Physics.cpp(71,93): warning C4244: “参数”: 从“double”转换到“const int”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\Physics.cpp(71,74): warning C4244: “参数”: 从“T”转换到“const int”，可能丢失数据
           with
           [
               T=float
           ]
-D:\Work\GitTools\NoaEngine\NoaEngine\m_SuperMario.cpp(57,52): warning C4244: “参数”: 从“T”转换到“const int”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\Physics.cpp(73,41): warning C4244: “=”: 从“int”转换到“T”，可能丢失数据
           with
           [
               T=float
           ]
-D:\Work\GitTools\NoaEngine\NoaEngine\m_SuperMario.cpp(57,39): warning C4244: “参数”: 从“double”转换到“const int”，可能丢失数据
-D:\Work\GitTools\NoaEngine\NoaEngine\m_SuperMario.cpp(59,61): warning C4244: “参数”: 从“double”转换到“const unsigned __int64”，可能丢失数据
-D:\Work\GitTools\NoaEngine\NoaEngine\m_SuperMario.cpp(88,26): warning C4244: “=”: 从“int”转换到“T”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\Physics.cpp(79,104): warning C4244: “参数”: 从“double”转换到“const int”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\Physics.cpp(79,80): warning C4244: “参数”: 从“double”转换到“const int”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\Physics.cpp(80,101): warning C4244: “参数”: 从“double”转换到“const int”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\Physics.cpp(80,77): warning C4244: “参数”: 从“double”转换到“const int”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\Physics.cpp(82,38): warning C4244: “=”: 从“int”转换到“T”，可能丢失数据
           with
           [
               T=float
           ]
-D:\Work\GitTools\NoaEngine\NoaEngine\m_SuperMario.cpp(89,26): warning C4244: “=”: 从“int”转换到“T”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\Physics.cpp(90,99): warning C4244: “参数”: 从“T”转换到“const int”，可能丢失数据
           with
           [
               T=float
           ]
-D:\Work\GitTools\NoaEngine\NoaEngine\m_SuperMario.cpp(109,64): warning C4244: “参数”: 从“int”转换到“T”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\Physics.cpp(90,80): warning C4244: “参数”: 从“T”转换到“const int”，可能丢失数据
           with
           [
               T=float
           ]
-D:\Work\GitTools\NoaEngine\NoaEngine\m_SuperMario.cpp(109,33): warning C4244: “参数”: 从“int”转换到“T”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\Physics.cpp(91,98): warning C4244: “参数”: 从“T”转换到“const int”，可能丢失数据
           with
           [
               T=float
           ]
-D:\Work\GitTools\NoaEngine\NoaEngine\m_SuperMario.cpp(142,58): warning C4244: “参数”: 从“T”转换到“const int”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\Physics.cpp(91,77): warning C4244: “参数”: 从“T”转换到“const int”，可能丢失数据
           with
           [
               T=float
           ]
-D:\Work\GitTools\NoaEngine\NoaEngine\m_SuperMario.cpp(142,44): warning C4244: “参数”: 从“T”转换到“const int”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\Physics.cpp(93,41): warning C4244: “=”: 从“int”转换到“T”，可能丢失数据
           with
           [
               T=float
           ]
-D:\Work\GitTools\NoaEngine\NoaEngine\m_SuperMario.cpp(145,84): warning C4244: “参数”: 从“T”转换到“T”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\Physics.cpp(99,102): warning C4244: “参数”: 从“double”转换到“const int”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\Physics.cpp(99,80): warning C4244: “参数”: 从“T”转换到“const int”，可能丢失数据
           with
           [
               T=float
           ]
-          and
-          [
-              T=int
-          ]
-D:\Work\GitTools\NoaEngine\NoaEngine\m_SuperMario.cpp(145,52): warning C4244: “参数”: 从“T”转换到“T”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\Physics.cpp(100,101): warning C4244: “参数”: 从“double”转换到“const int”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\Physics.cpp(100,77): warning C4244: “参数”: 从“T”转换到“const int”，可能丢失数据
           with
           [
               T=float
           ]
-          and
-          [
-              T=int
-          ]
-D:\Work\GitTools\NoaEngine\NoaEngine\m_SuperMario.cpp(145,173): warning C4244: “参数”: 从“T”转换到“T”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\Physics.cpp(102,38): warning C4244: “=”: 从“int”转换到“T”，可能丢失数据
           with
           [
               T=float
           ]
-          and
-          [
-              T=int
-          ]
-D:\Work\GitTools\NoaEngine\NoaEngine\m_SuperMario.cpp(145,135): warning C4244: “参数”: 从“T”转换到“T”，可能丢失数据
-          with
-          [
-              T=float
-          ]
-          and
-          [
-              T=int
-          ]
-D:\Work\GitTools\NoaEngine\NoaEngine\m_SuperMario.cpp(149,83): warning C4244: “参数”: 从“T”转换到“T”，可能丢失数据
-          with
-          [
-              T=float
-          ]
-          and
-          [
-              T=int
-          ]
-D:\Work\GitTools\NoaEngine\NoaEngine\m_SuperMario.cpp(149,51): warning C4244: “参数”: 从“T”转换到“T”，可能丢失数据
-          with
-          [
-              T=float
-          ]
-          and
-          [
-              T=int
-          ]
-D:\Work\GitTools\NoaEngine\NoaEngine\m_SuperMario.cpp(149,172): warning C4244: “参数”: 从“T”转换到“T”，可能丢失数据
-          with
-          [
-              T=float
-          ]
-          and
-          [
-              T=int
-          ]
-D:\Work\GitTools\NoaEngine\NoaEngine\m_SuperMario.cpp(149,134): warning C4244: “参数”: 从“T”转换到“T”，可能丢失数据
-          with
-          [
-              T=float
-          ]
-          and
-          [
-              T=int
-          ]
-D:\Work\GitTools\NoaEngine\NoaEngine\m_SuperMario.cpp(156,93): warning C4244: “参数”: 从“T”转换到“T”，可能丢失数据
-          with
-          [
-              T=float
-          ]
-          and
-          [
-              T=int
-          ]
-D:\Work\GitTools\NoaEngine\NoaEngine\m_SuperMario.cpp(156,47): warning C4244: “参数”: 从“T”转换到“T”，可能丢失数据
-          with
-          [
-              T=float
-          ]
-          and
-          [
-              T=int
-          ]
-D:\Work\GitTools\NoaEngine\NoaEngine\m_SuperMario.cpp(157,97): warning C4244: “参数”: 从“T”转换到“T”，可能丢失数据
-          with
-          [
-              T=float
-          ]
-          and
-          [
-              T=int
-          ]
-D:\Work\GitTools\NoaEngine\NoaEngine\m_SuperMario.cpp(157,49): warning C4244: “参数”: 从“T”转换到“T”，可能丢失数据
-          with
-          [
-              T=float
-          ]
-          and
-          [
-              T=int
-          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\Physics.cpp(135,58): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\Physics.cpp(135,58): warning C4267: “初始化”: 从“size_t”转换到“const int”，可能丢失数据
   正在生成代码
-  3 of 1303 functions ( 0.2%) were compiled, the rest were copied from previous compilation.
+  7 of 1430 functions ( 0.5%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    0 functions had inline decision re-evaluated but remain unchanged
+    1 functions had inline decision re-evaluated but remain unchanged
   已完成代码的生成
   NoaEngine.vcxproj -> D:\Work\GitTools\NoaEngine\x64\Release\NoaEngine.exe

@@ -10,12 +10,14 @@ public:
 	Player() :GameObject(new Sprite(LoadSprFile("./Assets/JumpMan/JumpMan.spr"), Vector<float>(0.3,0.3))), Rigidbody(&position)
 	{
 		//玩家的构造函数
-		colliderSize.x = 0.45;
-		colliderSize.y = 0.55;
-
 		position = Vector<float>(0.0, 0.0);
-
 		//useGravity = false;
+
+		idle->LoadFromAnimatorFile("./Assets/JumpMan/Animator/mario_idle.amt");
+		run->LoadFromAnimatorFile("./Assets/JumpMan/Animator/mario_run.amt");
+		jump->LoadFromAnimatorFile("./Assets/JumpMan/Animator/mario_jump.amt");
+
+		currentAnimatorState = idle;
 
 	}
 	~Player()
@@ -24,8 +26,27 @@ public:
 		Rigidbody::~Rigidbody();
 	}
 
-	void Control() {
+	void InitPosition(TileMap& tileMap,const int targetTileID) {
+		//设置玩家的初始位置
+		for (int i = 0; i < tileMap.w; i++)
+		{
+			for (int j = 0; j < tileMap.h; j++)
+			{
+
+				if (tileMap.GetTileID(i, j) == targetTileID)
+				{
+					position.x = i;
+					position.y = j;
+					velocity.y = 0;
+				}
+
+			}
+		}
+	}
+
+	void ActorControl() {
 		velocity.x = 0;
+		//velocity.y = 0;
 
 		if (inputSystem.GetKeyHold(KeyA))
 		{
@@ -37,12 +58,57 @@ public:
 			velocity.x = speed;
 
 		}
+		if (inputSystem.GetKeyHold(KeyW))
+		{
+			velocity.y = -speed;
+
+		}
+		if (inputSystem.GetKeyHold(KeyS))
+		{
+			velocity.y = speed;
+
+		}
+
 
 		if (inputSystem.GetKeyHold(KeySpace) && isGrounded)
 		{
 			AddForce(jumpForce, Impulse);
 			jumpSFX.Play(false);
 		}
+	}
+
+	void AnimatorControl() {
+		if (isGrounded) {
+			currentAnimatorState = idle;
+		}
+		else {
+			currentAnimatorState = jump;
+		}
+
+		if (inputSystem.GetKeyHold(KeyA)|| inputSystem.GetKeyHold(KeyD))
+		{
+			//isLeft = true;
+
+			if (isGrounded)
+			{
+				currentAnimatorState = run;
+			}
+			else {
+				currentAnimatorState = jump;
+			}
+
+		}
+
+		if (inputSystem.GetKeyHold(KeySpace) && isGrounded)
+		{
+			currentAnimatorState = jump;
+		}
+
+		currentAnimatorState->Play();
+
+		const SpriteFile nextFrame = move(currentAnimatorState->GetCurrentFrameImage());
+		sprite->UpdateImage(nextFrame);
+
 	}
 
 	void Start() override 
@@ -52,7 +118,8 @@ public:
 	Vector<float> jumpForce = Vector<float>(0.0, -15.0);
 	void Update() override 
 	{
-		Control();
+		ActorControl();
+		AnimatorControl();
 
 		if (currentMap->GetTileID(position.x+0.5,position.y)==1)
 		{
@@ -64,8 +131,17 @@ public:
 
 public:
 	float speed = 10;
+
+	//音效
 	const Audio coinSFX = Audio("./Assets/JumpMan/Music/coin.mp3", Chunk);
 	const Audio jumpSFX = Audio("./Assets/JumpMan/Music/jump.mp3", Chunk);
+
+	//动画
+	Animator* currentAnimatorState = nullptr;
+	Animator* idle = new Animator(5);
+	Animator* run = new Animator(10);
+	Animator* jump = new Animator(10);
+
 };
 
 class Platformer :public NoaGameEngine {
@@ -74,24 +150,13 @@ public:
 	{
 		player.UpdateMap(&tileMap);
 		player.SetCollisionTileID({ 0 });
+		player.InitPosition(tileMap, 61);
+
 		BGM.Play(true);
 
 		currentMap = &tileMap;
 
-		for (int i = 0; i < tileMap.w; i++)
-		{
-			for (int j = 0; j < tileMap.h; j++)
-			{
-
-				if (tileMap.GetTileID(i,j) == 61)
-				{
-					player.position.x = i;
-					player.position.y = j;
-					player.velocity.y = 0;
-				}
-
-			}
-		}
+		
 	}
 
 	void Start() override
@@ -102,79 +167,36 @@ public:
 	void Update() override 
 	{
 
-		cameraPosition = player.position;
+		//完整的渲染2d游戏
 
-		//Draw level
-		
-		Vector<float> visibleTiles(int(pixelWidth / tileScale.x), int(pixelHeight / tileScale.y));
-
-		//calculate Top-Leftmost visible tile
-		Vector<float> offset = move(cameraPosition - visibleTiles * 0.5);
-
-		//Clamp camera to game boundaries
-		if (offset.x < 0)
-		{
-			offset.x = 0;
-		}
-		if (offset.y < 0)
-		{
-			offset.y = 0;
-		}
-		if (offset.x>tileMap.w - visibleTiles.x)
-		{
-			offset.x = tileMap.w - visibleTiles.x;
-		}
-		if (offset.y > tileMap.h - visibleTiles.y)
-		{
-			offset.y = tileMap.h - visibleTiles.y;
-		}
-		
-		//Get offsets for smooth movement
-		Vector<float> tileOffset;
-		tileOffset.x = (offset.x - (int)offset.x) * tileScale.x;
-		tileOffset.y = (offset.y - (int)offset.y) * tileScale.y;
-
-		for (int x = -2;x<visibleTiles.x+2;x++) 
-		{
-			for (int y = -2; y < visibleTiles.y + 2; y++)
-			{
-				//首先获取tile
-				const int tileID = tileMap.GetTileID(x + offset.x, y + offset.y);
-				if (tileID == -1)
-				{
-					renderer.DrawRect(Vector<int>(x * tileScale.x - tileOffset.x, y * tileScale.y - tileOffset.y), Vector<int>((x + 1) * tileScale.x - tileOffset.x, (y + 1) * tileScale.y - tileOffset.y), BLUE);
-					continue;
-				}
-				//renderer.DrawRect(Vector<int>(x * tileScale.x - tileOffset.x, y * tileScale.y - tileOffset.y), Vector<int>((x + 1) * tileScale.x - tileOffset.x, (y + 1) * tileScale.y - tileOffset.y), RED);
-				renderer.DrawRect(Vector<int>(x * tileScale.x - tileOffset.x, y * tileScale.y - tileOffset.y), Vector<int>((x + 1) * tileScale.x - tileOffset.x, (y + 1) * tileScale.y - tileOffset.y), *tileMap.GetTile(tileID)->sprite);
-				
-			}
-		}
+		Vector<float> offset = camera.Render(tileMap);
 
 		//Draw player
 		renderer.DrawRect(
 			Vector<int>((player.position.x - offset.x) * tileScale.x, (player.position.y - offset.y) * tileScale.y),
 			Vector<int>((player.position.x - offset.x+1) * tileScale.x, (player.position.y - offset.y+1) * tileScale.y),
 			*player.sprite);
-		//player.sprite->DrawSprite((player.position.x - offset.x) * tileScale.x, (player.position.y - offset.y)*tileScale.y, true);
 
 
 	}
 
 private:
+	//地图
 	//0 - wall
 	//1 - coin
-	//other - background
 	TileMap tileMap = TileMap(
 		LoadTileFromTsd("./Assets/JumpMan/Tile/tileSet.tsd"),
 		LoadMapFromCSV("./Assets/JumpMan/Map/level1.csv")
 	);
-
-	Vector<float> cameraPosition = Vector<float>(0.0,0.0);
-	Vector<int> tileScale = Vector<int>(84, 84);
-
+	
+	//玩家
 	Player player;
+	
+	//相机
+	Vector<int> tileScale = Vector<int>(64, 64);
+	TileMapCamera camera = TileMapCamera(tileScale,&player.position);
 
+	//音效
 	Audio BGM = Audio("./Assets/JumpMan/Music/BGM.ogg", Music);
 	Audio gameOverMusic = Audio("./Assets/JumpMan/Music/gameover.mp3", Chunk);
 
@@ -183,7 +205,6 @@ private:
 int main(int argc,char * argv[])
 {
 	Platformer game(1920 / 2, 1080 / 2, NoaGameEngine::WindowMode, "SuperMario");
-	//Platformer game(1920, 1080, NoaGameEngine::FullScreen, "SuperMario");
 	game.Run();
 	return 0;
 }

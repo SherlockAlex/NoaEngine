@@ -97,6 +97,8 @@ using namespace std;
 #include "Sprite.h"
 #include "Physics.h"
 #include "NoaAction.h"
+#include "Camera.h"
+#include "StateMachine.h"
 
 //´°¿ÚÊôĞÔ
 
