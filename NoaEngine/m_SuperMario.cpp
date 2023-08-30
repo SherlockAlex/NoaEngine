@@ -5,7 +5,7 @@
 using namespace noa;
 
 TileMap* currentMap = nullptr;
-Vector<int> tileScale = Vector<int>(64, 64);
+Vector<int> tileScale = Vector<int>(65, 65);
 
 class Player:public GameObject,public Rigidbody
 {
