@@ -72,14 +72,6 @@ namespace noa {
 		/// <param name="sprite"></param>
 		void DrawRect(const Vector<int>& point1, const Vector<int>& point2, Sprite & sprite) const;
 		void DrawString(int x, int y, const string& str, Uint32 color, const int size);
-		void DrawImage(
-			int posX,
-			int posY,
-			int inmageW,
-			int imageH,
-			int scaleForSurface,
-			bool isDrawAlpha,
-			vector<Uint32> imageRGB) const;
 		void FullScreen(Uint32 color) const;
 		
 

@@ -90,11 +90,11 @@ namespace noa
 		return map;
 	}
 
-	unordered_map<Uint32, Tile*> LoadTileFromTsd(const std::string& fileName)
+	unordered_map<int, Tile*> LoadTileFromTsd(const std::string& fileName)
 	{
 		//º”‘ÿ”Œœ∑µƒtileSet
 
-		unordered_map<Uint32, Tile*> result;
+		unordered_map<int, Tile*> result;
 		std::vector<PixelData> resultData;
 
 		std::ifstream inputFile(fileName, std::ios::binary);
@@ -118,8 +118,8 @@ namespace noa
 
 				for (int j = 0; j < imageCount; j++)
 				{
-					uint32_t pixelValue;
-					inputFile.read(reinterpret_cast<char*>(&pixelValue), sizeof(uint32_t));
+					int pixelValue;
+					inputFile.read(reinterpret_cast<char*>(&pixelValue), sizeof(int));
 					pixelData.sprites.images.push_back(pixelValue);
 				}
 
@@ -169,12 +169,12 @@ namespace noa
 		Debug("Update the layer map");
 	}
 
-	TileMap::TileMap(unordered_map<Uint32, Tile*> tileSet, MapFile map) :LevelMap(map)
+	TileMap::TileMap(unordered_map<int, Tile*> tileSet, MapFile map) :LevelMap(map)
 	{
 		this->tileSet = tileSet;
 	}
 
-	TileMap::TileMap(unordered_map<Uint32, Tile*> tileSet, vector<MapFile> mapLayer)
+	TileMap::TileMap(unordered_map<int, Tile*> tileSet, vector<MapFile> mapLayer)
 	{
 		this->tileSet = tileSet;
 		MapFile map;
@@ -215,13 +215,17 @@ namespace noa
 		return level[y*w+x];
 	}
 
-	bool TileMap::IsTile(Uint32 code)
+	bool TileMap::IsTile(int code)
 	{
-		return ContainKey<Uint32, Tile*>(tileSet, code);
+		return ContainKey<int, Tile*>(tileSet, code);
 	}
 
-	Tile* TileMap::GetTile(Uint32 id)
+	Tile* TileMap::GetTile(int id)
 	{
+		if (!IsTile(id))
+		{
+			return nullptr;
+		}
 		return tileSet[id];
 	}
 

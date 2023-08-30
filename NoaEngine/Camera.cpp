@@ -70,6 +70,14 @@ namespace noa {
 					renderer.DrawRect(Vector<int>(x * tileScale.x - tileOffset.x, y * tileScale.y - tileOffset.y), Vector<int>((x + 1) * tileScale.x - tileOffset.x, (y + 1) * tileScale.y - tileOffset.y), BLUE);
 					continue;
 				}
+
+				//Debug("tileID:" + to_string(tileID));
+				Tile* tile = tileMap.GetTile(tileID);
+				if (tile == nullptr)
+				{
+					renderer.DrawRect(Vector<int>(x * tileScale.x - tileOffset.x, y * tileScale.y - tileOffset.y), Vector<int>((x + 1) * tileScale.x - tileOffset.x, (y + 1) * tileScale.y - tileOffset.y), LIGHTRED);
+					continue;
+				}
 				renderer.DrawRect(Vector<int>(x * tileScale.x - tileOffset.x, y * tileScale.y - tileOffset.y), Vector<int>((x + 1) * tileScale.x - tileOffset.x, (y + 1) * tileScale.y - tileOffset.y), *tileMap.GetTile(tileID)->sprite);
 
 			}

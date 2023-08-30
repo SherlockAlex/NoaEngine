@@ -345,9 +345,14 @@ namespace NoaTool
             List<PixelData> result = new List<PixelData>();
             int id = 0;
 
-            for (int y = 0; y < image.Height; y += height)
+            int widthCount = image.Width / width;
+            int heightCount = image.Height / height;
+
+            MessageBox.Show($"切分图片为瓦片\n横:{widthCount}\n纵:{heightCount}");
+
+            for (int y = 0; y < heightCount * height; y += height)
             {
-                for (int x = 0; x < image.Width; x += width)
+                for (int x = 0; x < widthCount * widthCount; x += width)
                 {
                     SpriteFile spriteFile = new SpriteFile
                     {

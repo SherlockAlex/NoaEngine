@@ -43,7 +43,6 @@ namespace noa {
 	{
 		if (useGravity)
 		{
-			//velocity.y += 3.5 * g * deltaTime;
 			if (!isGrounded)
 			{
 				//如果使用重力

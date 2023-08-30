@@ -146,44 +146,6 @@ namespace noa {
 
 	}
 
-	void Renderer::DrawImage(int posX, int posY, int imageW, int imageH, int scaleForSurface, bool isDrawAlpha, vector<Uint32> imageRGB) const
-	{
-		//用于2维视角的游戏
-		//计算放大
-		const int wannaW = pixelWidth / scaleForSurface;
-		const int wannaH = (int)(((float)imageH / (float)imageW) * wannaW);
-
-		const Sprite sprite = Sprite(imageW, imageH, Vector<float>(1.0,1.0), imageRGB);
-
-		for (int width = 0; width < wannaW; width++)
-		{
-			for (int height = 0; height < wannaH; height++)
-			{
-				const int x = posX - ((float)wannaW * 0.5f) + width;
-				const int y = posY - ((float)wannaH * 0.5f) + height;
-
-				const float fSimpleX = (float)(width) / (float)wannaW;
-				const float fSimpleY = (float)(height) / (float)wannaH;
-
-				//Uint32 pixelColor = GetSpriteColor(fSimpleY, fSimpleX, imageH, inmageW, imageRGB);
-				const Uint32 pixelColor = sprite.GetColor(fSimpleY, fSimpleX);
-				if (isDrawAlpha)
-				{
-					if (pixelColor == BLACK)
-					{
-						continue;
-					}
-				}
-
-				if (x < 0 || x >= pixelWidth || y < 0 || y >= pixelHeight)
-				{
-					continue;
-				}
-				DrawPixel(x, y, pixelColor);
-			}
-		}
-	}
-
 	void Renderer::FullScreen(Uint32 color) const
 	{
 		return;

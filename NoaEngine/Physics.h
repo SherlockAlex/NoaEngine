@@ -27,9 +27,9 @@ namespace noa {
 		bool useCollision = true;
 	public:
 		//刚体的速度
-		Vector<float> & velocity = *(new Vector<float>(0.0,0.0));
+		Vector<float> velocity = Vector<float>(0.0,0.0);
 		//刚体的碰撞的大小
-		Vector<float> & colliderSize =*(new Vector<float>(0.0, 0.0));
+		Vector<float> colliderSize = Vector<float>(0.0, 0.0);
 	protected:
 		Rigidbody(Vector<float>* colliderPos);
 		~Rigidbody();

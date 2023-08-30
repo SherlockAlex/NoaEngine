@@ -1,13 +1,16 @@
+#define M_SUPERMARIO
+#ifdef M_SUPERMARIO
 #include "NoaEngine.h"
 
 using namespace noa;
 
 TileMap* currentMap = nullptr;
+Vector<int> tileScale = Vector<int>(64, 64);
 
 class Player:public GameObject,public Rigidbody
 {
 public:
-	Player() :GameObject(new Sprite(LoadSprFile("./Assets/JumpMan/JumpMan.spr"), Vector<float>(0.3,0.3))), Rigidbody(&position)
+	Player() :GameObject(new Sprite(LoadSprFile("./Assets/JumpMan/JumpMan.spr"), tileScale)), Rigidbody(&position)
 	{
 		//玩家的构造函数
 		position = Vector<float>(0.0, 0.0);
@@ -50,11 +53,13 @@ public:
 
 		if (inputSystem.GetKeyHold(KeyA))
 		{
+			isLeft = true;
 			velocity.x = -speed;
 
 		}
 		if (inputSystem.GetKeyHold(KeyD))
 		{
+			isLeft = false;
 			velocity.x = speed;
 
 		}
@@ -78,7 +83,7 @@ public:
 	}
 
 	void AnimatorControl() {
-		if (isGrounded) {
+		if (NoaAbs<float>(velocity.y * deltaTime)<0.001) {
 			currentAnimatorState = idle;
 		}
 		else {
@@ -89,7 +94,7 @@ public:
 		{
 			//isLeft = true;
 
-			if (isGrounded)
+			if (NoaAbs<float>(velocity.y * deltaTime) < 0.001)
 			{
 				currentAnimatorState = run;
 			}
@@ -121,9 +126,9 @@ public:
 		ActorControl();
 		AnimatorControl();
 
-		if (currentMap->GetTileID(position.x+0.5,position.y)==1)
+		if (currentMap->GetTileID(position.x,position.y)==0)
 		{
-			currentMap->level[position.y * currentMap->w + position.x+0.5] = 25;
+			currentMap->level[int(position.y) * currentMap->w + int(position.x)] = 5;
 			coinSFX.Play(false);
 		}
 
@@ -131,6 +136,7 @@ public:
 
 public:
 	float speed = 10;
+	bool isLeft = false;
 
 	//音效
 	const Audio coinSFX = Audio("./Assets/JumpMan/Music/coin.mp3", Chunk);
@@ -149,8 +155,8 @@ public:
 	Platformer(int width, int height, GameWindowMode windowMode, string gameName) :NoaGameEngine(width, height, windowMode, gameName) 
 	{
 		player.UpdateMap(&tileMap);
-		player.SetCollisionTileID({ 0 });
-		player.InitPosition(tileMap, 61);
+		player.SetCollisionTileID({ 1,2 });
+		player.InitPosition(tileMap, 144);
 
 		BGM.Play(true);
 
@@ -172,10 +178,8 @@ public:
 		Vector<float> offset = camera.Render(tileMap);
 
 		//Draw player
-		renderer.DrawRect(
-			Vector<int>((player.position.x - offset.x) * tileScale.x, (player.position.y - offset.y) * tileScale.y),
-			Vector<int>((player.position.x - offset.x+1) * tileScale.x, (player.position.y - offset.y+1) * tileScale.y),
-			*player.sprite);
+		Vector<int> playerDrawPos = Vector<int>((player.position.x - offset.x) * tileScale.x, (player.position.y - offset.y) * tileScale.y);
+		player.sprite->DrawSprite(playerDrawPos.x, playerDrawPos.y, true, !player.isLeft);
 
 
 	}
@@ -193,7 +197,6 @@ private:
 	Player player;
 	
 	//相机
-	Vector<int> tileScale = Vector<int>(64, 64);
 	TileMapCamera camera = TileMapCamera(tileScale,&player.position);
 
 	//音效
@@ -208,3 +211,4 @@ int main(int argc,char * argv[])
 	game.Run();
 	return 0;
 }
+#endif

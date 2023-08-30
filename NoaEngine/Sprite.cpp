@@ -5,7 +5,7 @@ namespace noa {
 	extern Renderer renderer;
 
 	///Sprite类的实现
-	Sprite::Sprite(SpriteFile sprFile, Vector<float> scale)
+	Sprite::Sprite(SpriteFile sprFile, Vector<int> scale)
 	{
 		this->posx = sprFile.x;
 		this->posx = sprFile.y;
@@ -16,7 +16,7 @@ namespace noa {
 		this->scale = scale;
 	}
 
-	Sprite::Sprite(const char* file, Vector<float> scale) {
+	Sprite::Sprite(const char* file, Vector<int> scale) {
 		//this->sizeForSurface = sizeForSurface;
 		SpriteFile sprFile = LoadSprFile(file);
 		this->posx = sprFile.x;
@@ -31,7 +31,7 @@ namespace noa {
 
 	}
 
-	Sprite::Sprite(int w, int h, Vector<float> scale, vector<Uint32> image)
+	Sprite::Sprite(int w, int h, Vector<int> scale, vector<Uint32> image)
 	{
 		this->w = w;
 		this->h = h;
@@ -112,8 +112,8 @@ namespace noa {
 		//将sprite图片填充到矩形上
 		const int x1 = posX;
 		const int y1 = posY;
-		const int x2 = posX + (w * scale.x);
-		const int y2 = posY + (h * scale.y);
+		const int x2 = posX + scale.x;
+		const int y2 = posY + scale.y;
 
 		for (int x = min(x1, x2); x <= max(x1, x2); x++)
 		{
@@ -143,26 +143,64 @@ namespace noa {
 
 		/*const int wannaW = pixelWidth / sizeForSurface;
 		const int wannaH = (int)(((float)h / (float)w) * wannaW);*/
-		const int wannaW = w * scale.x;
-		const int wannaH = h * scale.y;
+		//const int wannaW = w * scale.x;
+		//const int wannaH = h * scale.y;
 
-		for (int width = 0; width < wannaW; width++)
+		//for (int width = 0; width < wannaW; width++)
+		//{
+		//	for (int height = 0; height < wannaH; height++)
+		//	{
+		//		const int x = posX - ((float)wannaW * 0.5f) + width;
+		//		const int y = posY - ((float)wannaH * 0.5f) + height;
+
+		//		const float fSimpleX = (float)(width) / (float)wannaW;
+		//		const float fSimpleY = (float)(height) / (float)wannaH;
+
+		//		//Uint32 pixelColor = GetSpriteColor(fSimpleY, fSimpleX, h, w, image);
+		//		Uint32 pixelColor = GetTransposeColor(fSimpleY, fSimpleX);
+
+		//		if (isMirror)
+		//		{
+		//			//翻转
+		//			pixelColor = GetTransposeColor(fSimpleY, 1 - fSimpleX);
+		//		}
+
+		//		if (isRenderAlpha)
+		//		{
+		//			if (pixelColor == BLACK)
+		//			{
+		//				continue;
+		//			}
+		//		}
+
+		//		if (x < 0 || x >= pixelWidth || y < 0 || y >= pixelHeight)
+		//		{
+		//			continue;
+		//		}
+		//		renderer.DrawPixel(x, y, pixelColor);
+		//	}
+		//}
+
+		const int x1 = posX;
+		const int y1 = posY;
+		const int x2 = posX + scale.x;
+		const int y2 = posY + scale.y;
+
+		for (int x = min(x1, x2); x <= max(x1, x2); x++)
 		{
-			for (int height = 0; height < wannaH; height++)
+			for (int y = min(y1, y2); y <= max(y1, y2); y++)
 			{
-				const int x = posX - ((float)wannaW * 0.5f) + width;
-				const int y = posY - ((float)wannaH * 0.5f) + height;
-
-				const float fSimpleX = (float)(width) / (float)wannaW;
-				const float fSimpleY = (float)(height) / (float)wannaH;
-
-				//Uint32 pixelColor = GetSpriteColor(fSimpleY, fSimpleX, h, w, image);
-				Uint32 pixelColor = GetTransposeColor(fSimpleY, fSimpleX);
+				const Vector<float> simple(
+					(float)(x - x1) / (x2 - x1),
+					(float)(y - y1) / (y2 - y1)
+				);
+				Uint32 pixelColor = GetTransposeColor(simple.y, simple.x);
 
 				if (isMirror)
 				{
 					//翻转
-					pixelColor = GetTransposeColor(fSimpleY, 1 - fSimpleX);
+					pixelColor = GetTransposeColor(simple.y, 1 - simple.x);
+
 				}
 
 				if (isRenderAlpha)
@@ -172,14 +210,10 @@ namespace noa {
 						continue;
 					}
 				}
-
-				if (x < 0 || x >= pixelWidth || y < 0 || y >= pixelHeight)
-				{
-					continue;
-				}
 				renderer.DrawPixel(x, y, pixelColor);
 			}
 		}
+
 	}
 
 	void Sprite::DrawSprite(bool isRenderAlpha) const
@@ -187,7 +221,7 @@ namespace noa {
 		//计算放大
 		/*const int wannaW = pixelWidth / sizeForSurface;
 		const int wannaH = (int)(((float)h / (float)w) * wannaW);*/
-		const int wannaW = w * scale.x;
+		/*const int wannaW = w * scale.x;
 		const int wannaH = h * scale.y;
 
 		for (int width = 0; width < wannaW; width++)
@@ -216,7 +250,33 @@ namespace noa {
 				}
 				renderer.DrawPixel(x, y, pixelColor);
 			}
+		}*/
+
+		const int x1 = posx;
+		const int y1 = posy;
+		const int x2 = posx + scale.x;
+		const int y2 = posy + scale.y;
+
+		for (int x = min(x1, x2); x <= max(x1, x2); x++)
+		{
+			for (int y = min(y1, y2); y <= max(y1, y2); y++)
+			{
+				const Vector<float> simple(
+					(float)(x - x1) / (x2 - x1),
+					(float)(y - y1) / (y2 - y1)
+				);
+				const uint32_t color = GetTransposeColor(simple.y, simple.x);
+				if (isRenderAlpha)
+				{
+					if (color == BLACK)
+					{
+						continue;
+					}
+				}
+				renderer.DrawPixel(x, y, color);
+			}
 		}
+
 	}
 
 	void Sprite::DrawSprite(bool isRenderAlpha, bool isMirror) const
@@ -224,26 +284,64 @@ namespace noa {
 		//计算放大
 		/*const int wannaW = pixelWidth / sizeForSurface;
 		const int wannaH = (int)(((float)h / (float)w) * wannaW);*/
-		const int wannaW = w * scale.x;
-		const int wannaH = h * scale.y;
+		//const int wannaW = w * scale.x;
+		//const int wannaH = h * scale.y;
 
-		for (int width = 0; width < wannaW; width++)
+		//for (int width = 0; width < wannaW; width++)
+		//{
+		//	for (int height = 0; height < wannaH; height++)
+		//	{
+		//		const int x = posx - ((float)wannaW * 0.5f) + width;
+		//		const int y = posy - ((float)wannaH * 0.5f) + height;
+
+		//		const float fSimpleX = (float)(width) / (float)wannaW;
+		//		const float fSimpleY = (float)(height) / (float)wannaH;
+
+
+		//		Uint32 pixelColor = GetTransposeColor(fSimpleY, fSimpleX);
+
+		//		if (isMirror)
+		//		{
+		//			//翻转
+		//			pixelColor = GetTransposeColor(1 - fSimpleY, fSimpleX);
+		//		}
+
+		//		if (isRenderAlpha)
+		//		{
+		//			if (pixelColor == BLACK)
+		//			{
+		//				continue;
+		//			}
+		//		}
+
+		//		if (x < 0 || x >= pixelWidth || y < 0 || y >= pixelHeight)
+		//		{
+		//			continue;
+		//		}
+		//		renderer.DrawPixel(x, y, pixelColor);
+		//	}
+		//}
+
+		const int x1 = posx;
+		const int y1 = posy;
+		const int x2 = posx + scale.x;
+		const int y2 = posy + scale.y;
+
+		for (int x = min(x1, x2); x <= max(x1, x2); x++)
 		{
-			for (int height = 0; height < wannaH; height++)
+			for (int y = min(y1, y2); y <= max(y1, y2); y++)
 			{
-				const int x = posx - ((float)wannaW * 0.5f) + width;
-				const int y = posy - ((float)wannaH * 0.5f) + height;
-
-				const float fSimpleX = (float)(width) / (float)wannaW;
-				const float fSimpleY = (float)(height) / (float)wannaH;
-
-
-				Uint32 pixelColor = GetTransposeColor(fSimpleY, fSimpleX);
+				const Vector<float> simple(
+					(float)(x - x1) / (x2 - x1),
+					(float)(y - y1) / (y2 - y1)
+				);
+				Uint32 pixelColor = GetTransposeColor(simple.y, simple.x);
 
 				if (isMirror)
 				{
 					//翻转
-					pixelColor = GetTransposeColor(1 - fSimpleY, fSimpleX);
+					pixelColor = GetTransposeColor(simple.y, 1 - simple.x);
+
 				}
 
 				if (isRenderAlpha)
@@ -253,14 +351,10 @@ namespace noa {
 						continue;
 					}
 				}
-
-				if (x < 0 || x >= pixelWidth || y < 0 || y >= pixelHeight)
-				{
-					continue;
-				}
 				renderer.DrawPixel(x, y, pixelColor);
 			}
 		}
+
 	}
 
 	void Sprite::DrawSpriteFull()

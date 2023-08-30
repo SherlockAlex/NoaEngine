@@ -42,7 +42,7 @@ namespace noa {
 		int posy = 0;
 		int w = 1;
 		int h = 1;
-		Vector<float> scale = Vector<float>(1.0, 1.0);
+		Vector<int> scale = Vector<int>(1.0, 1.0);
 		//int sizeForSurface = 3;
 
 	private:
@@ -50,10 +50,10 @@ namespace noa {
 		//Uint32* image = nullptr;
 
 	public:
-		Sprite(SpriteFile sprFile, Vector<float> scale);
-		Sprite(const char* file, Vector<float> scale);
+		Sprite(SpriteFile sprFile, Vector<int> scale);
+		Sprite(const char* file, Vector<int> scale);
 		Sprite();
-		Sprite(int w, int h, Vector<float> scale, vector<Uint32> image);
+		Sprite(int w, int h, Vector<int> scale, vector<Uint32> image);
 		~Sprite();
 
 	public:
