@@ -103,6 +103,9 @@ namespace noa {
 					isGrounded = true;
 				}
 			}
+
+			
+
 		}
 
 		*colliderPos = newPosition;

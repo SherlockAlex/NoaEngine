@@ -59,7 +59,7 @@ namespace noa {
 		tileOffset.x = (offset.x - (int)offset.x) * tileScale.x;
 		tileOffset.y = (offset.y - (int)offset.y) * tileScale.y;
 
-		for (int x = -2; x < visibleTiles.x + 2; x++)
+		for (int x = -2; x < visibleTiles.x+2; x++)
 		{
 			for (int y = -2; y < visibleTiles.y + 2; y++)
 			{
@@ -67,7 +67,7 @@ namespace noa {
 				const int tileID = tileMap.GetTileID(x + offset.x, y + offset.y);
 				if (tileID == -1)
 				{
-					renderer.DrawRect(Vector<int>(x * tileScale.x - tileOffset.x, y * tileScale.y - tileOffset.y), Vector<int>((x + 1) * tileScale.x - tileOffset.x, (y + 1) * tileScale.y - tileOffset.y), BLUE);
+					renderer.DrawRect(Vector<int>((x - 0.5) * tileScale.x - tileOffset.x, (y-0.5)*tileScale.y - tileOffset.y), Vector<int>((x + 0.5) * tileScale.x - tileOffset.x, (y + 0.5) * tileScale.y - tileOffset.y), BLUE);
 					continue;
 				}
 
@@ -75,10 +75,10 @@ namespace noa {
 				Tile* tile = tileMap.GetTile(tileID);
 				if (tile == nullptr)
 				{
-					renderer.DrawRect(Vector<int>(x * tileScale.x - tileOffset.x, y * tileScale.y - tileOffset.y), Vector<int>((x + 1) * tileScale.x - tileOffset.x, (y + 1) * tileScale.y - tileOffset.y), LIGHTRED);
+					renderer.DrawRect(Vector<int>((x - 0.5) * tileScale.x - tileOffset.x, (y - 0.5) * tileScale.y - tileOffset.y), Vector<int>((x + 0.5) * tileScale.x - tileOffset.x, (y + 0.5) * tileScale.y - tileOffset.y), LIGHTRED);
 					continue;
 				}
-				renderer.DrawRect(Vector<int>(x * tileScale.x - tileOffset.x, y * tileScale.y - tileOffset.y), Vector<int>((x + 1) * tileScale.x - tileOffset.x, (y + 1) * tileScale.y - tileOffset.y), *tileMap.GetTile(tileID)->sprite);
+				renderer.DrawRect(Vector<int>((x - 0.5) * tileScale.x - tileOffset.x, (y - 0.5) * tileScale.y - tileOffset.y), Vector<int>((x + 0.5) * tileScale.x - tileOffset.x, (y + 0.5) * tileScale.y - tileOffset.y), *tileMap.GetTile(tileID)->sprite);
 
 			}
 		}

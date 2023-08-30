@@ -126,9 +126,9 @@ public:
 		ActorControl();
 		AnimatorControl();
 
-		if (currentMap->GetTileID(position.x,position.y)==0)
+		if (currentMap->GetTileID(position.x+0.5,position.y+0.5)==0)
 		{
-			currentMap->level[int(position.y) * currentMap->w + int(position.x)] = 5;
+			currentMap->level[int(position.y+0.5) * currentMap->w + int(position.x+0.5)] = 5;
 			coinSFX.Play(false);
 		}
 
