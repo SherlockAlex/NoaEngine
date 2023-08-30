@@ -15,115 +15,112 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="NoaEngine.cpp">
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="core\Animator.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="core\Audio.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="core\Behaviour.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="core\Camera.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="core\GameObject.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="core\InputSystem.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="core\NoaAction.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="core\NoaEngine.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="core\NoaGUI.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="core\NoaMath.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="core\Physics.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="core\Renderer.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="core\Scene.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="core\Sprite.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="core\StateMachine.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="core\include\glad\glad.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="core\include\KHR\khrplatform.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="core\Animator.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="d_doom.cpp">
+    <ClCompile Include="core\Audio.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Animator.cpp">
+    <ClCompile Include="core\Behaviour.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Sprite.cpp">
+    <ClCompile Include="core\Camera.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="NoaMath.cpp">
+    <ClCompile Include="core\GameObject.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Scene.cpp">
+    <ClCompile Include="core\InputSystem.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Audio.cpp">
+    <ClCompile Include="core\NoaAction.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="InputSystem.cpp">
+    <ClCompile Include="core\NoaEngine.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Renderer.cpp">
+    <ClCompile Include="core\NoaGUI.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Behaviour.cpp">
+    <ClCompile Include="core\NoaMath.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="GameObject.cpp">
+    <ClCompile Include="core\Physics.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="d_RayCastHit.cpp">
+    <ClCompile Include="core\Renderer.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Physics.cpp">
+    <ClCompile Include="core\Scene.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="StateMachine.cpp">
+    <ClCompile Include="core\Sprite.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="NoaAction.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Camera.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="r_RetroRacer.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="NoaGUI.cpp">
+    <ClCompile Include="core\StateMachine.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="m_SuperMario.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="NoaEngine.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="Animator.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="Sprite.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="NoaMath.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="Audio.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="InputSystem.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderer.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="Behaviour.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObject.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="d_doom.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="Physics.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="StateMachine.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="NoaAction.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="Camera.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="NoaGUI.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
+    <ClCompile Include="core\src\glad.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

@@ -18,7 +18,7 @@ namespace noa {
 
 	void Renderer::DrawPixel(const int x, const int y, const Uint32 color) const
 	{
-		if (x<0||x>=pixelWidth||y<0||y>=pixelHeight)
+		if (x<0||x>=pixelWidth||y<0||y>=pixelHeight||pixelBuffer == nullptr)
 		{
 			return;
 		}

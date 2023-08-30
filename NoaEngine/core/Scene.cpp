@@ -103,6 +103,8 @@ namespace noa
 			int tileCount;
 			inputFile.read(reinterpret_cast<char*>(&tileCount), sizeof(int));
 
+			Debug("tile set size:"+to_string(tileCount));
+
 			for (int i = 0; i < tileCount; i++)
 			{
 				PixelData pixelData;
@@ -129,10 +131,11 @@ namespace noa
 			inputFile.close();
 		}
 
-		for (PixelData &data: resultData)
+		for (PixelData data: resultData)
 		{
 			Tile* tile = new Tile(data.sprites);
 			result[data.id] = tile;
+			Debug("tile id:" + to_string(data.id)+",width:"+to_string(data.sprites.width)+",height:"+to_string(data.sprites.height));
 		}
 
 		return result;

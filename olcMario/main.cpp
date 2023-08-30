@@ -16,7 +16,7 @@ public:
 		{
 			for (int y = 0;y<ScreenHeight();y++) 
 			{
-				Draw(x, y, RED);
+				Draw(x, y, BLUE);
 			}
 		}
 		return true;
@@ -26,7 +26,7 @@ public:
 int main(int argc,char * argv[])
 {
 	ExampleGame game;
-	game.Construct(1920 / 4, 1080 / 4,1920/4,1080/4);
+	game.Construct(1920,1080,1920,1080,true,false,true);
 	game.Start();
 	return 0;
 }

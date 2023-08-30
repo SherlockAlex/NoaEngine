@@ -1,11 +1,11 @@
 #define M_SUPERMARIO
 #ifdef M_SUPERMARIO
-#include "NoaEngine.h"
+#include "./core/NoaEngine.h"
 
 using namespace noa;
 
 TileMap* currentMap = nullptr;
-Vector<int> tileScale = Vector<int>(65, 65);
+Vector<int> tileScale = Vector<int>(70, 70);
 
 class Player:public GameObject,public Rigidbody
 {
@@ -156,7 +156,7 @@ public:
 	{
 		player.UpdateMap(&tileMap);
 		player.SetCollisionTileID({ 1,2 });
-		player.InitPosition(tileMap, 144);
+		player.InitPosition(tileMap, 87);
 
 		BGM.Play(true);
 

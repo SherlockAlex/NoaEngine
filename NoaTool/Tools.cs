@@ -348,11 +348,11 @@ namespace NoaTool
             int widthCount = image.Width / width;
             int heightCount = image.Height / height;
 
-            MessageBox.Show($"切分图片为瓦片\n横:{widthCount}\n纵:{heightCount}");
+            
 
-            for (int y = 0; y < heightCount * height; y += height)
+            for (int y = 0; y < image.Height; y += height)
             {
-                for (int x = 0; x < widthCount * widthCount; x += width)
+                for (int x = 0; x < image.Width; x += width)
                 {
                     SpriteFile spriteFile = new SpriteFile
                     {
@@ -384,6 +384,7 @@ namespace NoaTool
                 }
             }
 
+            MessageBox.Show($"切分图片为瓦片\n横:{widthCount}\n纵:{heightCount}\n总数:{id}");
             return result;
 
         }
@@ -393,6 +394,8 @@ namespace NoaTool
             using (BinaryWriter writer = new BinaryWriter(File.Open(fileName, FileMode.Create)))
             {
                 writer.Write(tileSet.Count);
+
+                MessageBox.Show($"瓦片存储数量:{tileSet.Count}");
 
                 foreach (PixelData pixelData in tileSet)
                 {
