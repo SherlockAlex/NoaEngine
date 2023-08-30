@@ -56,6 +56,7 @@ namespace noa {
 		KeyX = 'X',
 		KeyY = 'Y',
 		KeyZ = 'Z',
+		KeySpace = ' '
 	};
 
 	class InputSystem

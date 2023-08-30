@@ -167,7 +167,7 @@ D:\Work\GitTools\NoaEngine\NoaEngine\m_SuperMario.cpp(157,49): warning C4244: �
               T=int
           ]
   正在生成代码
-  1 of 1303 functions (<0.1%) were compiled, the rest were copied from previous compilation.
+  3 of 1303 functions ( 0.2%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
     0 functions had inline decision re-evaluated but remain unchanged
   已完成代码的生成

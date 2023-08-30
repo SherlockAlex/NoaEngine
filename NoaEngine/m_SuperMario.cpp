@@ -38,7 +38,7 @@ public:
 
 		}
 
-		if (inputSystem.GetKeyHold(KeyK) && isGrounded)
+		if (inputSystem.GetKeyHold(KeySpace) && isGrounded)
 		{
 			AddForce(jumpForce, Impulse);
 			jumpSFX.Play(false);
@@ -109,7 +109,7 @@ public:
 		Vector<float> visibleTiles(int(pixelWidth / tileScale.x), int(pixelHeight / tileScale.y));
 
 		//calculate Top-Leftmost visible tile
-		Vector<float> offset = cameraPosition - visibleTiles * 0.5;
+		Vector<float> offset = move(cameraPosition - visibleTiles * 0.5);
 
 		//Clamp camera to game boundaries
 		if (offset.x < 0)
@@ -171,7 +171,7 @@ private:
 	);
 
 	Vector<float> cameraPosition = Vector<float>(0.0,0.0);
-	Vector<int> tileScale = Vector<int>(64, 64);
+	Vector<int> tileScale = Vector<int>(84, 84);
 
 	Player player;
 
@@ -183,6 +183,7 @@ private:
 int main(int argc,char * argv[])
 {
 	Platformer game(1920 / 2, 1080 / 2, NoaGameEngine::WindowMode, "SuperMario");
+	//Platformer game(1920, 1080, NoaGameEngine::FullScreen, "SuperMario");
 	game.Run();
 	return 0;
 }

@@ -47,7 +47,7 @@ namespace noa {
 			SDL_WINDOWPOS_CENTERED,
 			width,
 			height,
-			gameWindowMode|SDL_WINDOW_OPENGL
+			gameWindowMode
 		);
 		if (window == nullptr)
 		{
@@ -55,12 +55,12 @@ namespace noa {
 			exit(0);
 		}
 
-		glContext = SDL_GL_CreateContext(window);
+		/*glContext = SDL_GL_CreateContext(window);*/
 
-		if (!glContext) {
+		/*if (!glContext) {
 			Debug("OpenGL context creation failed: " + string(SDL_GetError()));
 			exit(0);
-		}
+		}*/
 
 		surfaceWidth = width;
 		surfaceHeight = height;
@@ -116,14 +116,14 @@ namespace noa {
 		
 
 		//禁用垂直同步
-		SDL_GL_SetSwapInterval(0);
+		//SDL_GL_SetSwapInterval(0);
 	}
 
 
 
 	NoaGameEngine::~NoaGameEngine() {
 		//delete pixelBuffer;
-		SDL_GL_DeleteContext(glContext);
+		//SDL_GL_DeleteContext(glContext);
 		SDL_DestroyRenderer(mainRenderer);
 		SDL_DestroyTexture(texture);
 		SDL_DestroyWindow(window);

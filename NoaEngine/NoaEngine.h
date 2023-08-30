@@ -86,9 +86,6 @@ using namespace std;
 #include <SDL2/SDL_mixer.h>
 #include <SDL2/SDL_thread.h>
 
-#include <dwmapi.h>
-#include <GL/gl.h>
-
 #include "NoaMath.h"
 #include "Scene.h"
 #include "Audio.h"
@@ -127,7 +124,7 @@ namespace noa {
 		chrono::duration<float> elapsedTime;
 		std::chrono::system_clock::time_point tp2 = chrono::system_clock::now();
 
-		SDL_GLContext glContext = nullptr;
+		//SDL_GLContext glContext = nullptr;
 		SDL_Window* window = nullptr;
 		SDL_Renderer* mainRenderer = nullptr;
 		SDL_Texture* texture = nullptr;
