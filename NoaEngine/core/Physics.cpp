@@ -54,7 +54,7 @@ namespace noa {
 		//处理力和速度的关系
 		//F = ma
 
-		velocity += sumForce * deltaTime * invMass;
+		velocity += move(sumForce * (deltaTime * invMass));
 
 		//将速度的量反馈到物体的位移变化
 		Vector<float> newPosition= move((*colliderPos) + (velocity * deltaTime));
@@ -108,7 +108,7 @@ namespace noa {
 
 		}
 
-		*colliderPos = newPosition;
+		*colliderPos = move(newPosition);
 		//Debug("isGrounded:" + to_string(isGrounded));
 
 	}

@@ -61,7 +61,7 @@ namespace noa {
 		this->posx = image.y;
 		this->w = image.width;
 		this->h = image.height;
-		this->image = image.images;
+		this->image = move(image.images);
 		//this->sizeForSurface = sizeForSurface;
 	}
 

@@ -25,35 +25,30 @@ namespace noa {
 		visibleTiles = Vector<float>(int(pixelWidth / tileScale.x), int(pixelHeight / tileScale.y));
 	}
 
-	Vector<int> TileMapCamera::Render(TileMap& tileMap)
+	Vector<float> tileOffset;
+	Vector<int> TileMapCamera::Render(TileMap& tileMap, Vector<float>& frontDelta, Vector<float>& endDelta)
 	{
-		//完整的渲染2d游戏
-
+		//完整的渲染瓦片地图
+		
 		position = *follow;
+
+		//检测相机的边界
 		offset = move(position - visibleTiles * 0.5);
-
-		//Clamp camera to game boundaries
-		if (offset.x < 0)
-		{
-			offset.x = 0;
+		if (offset.x < frontDelta.x) {
+			offset.x = frontDelta.x;
 		}
-		if (offset.y < 0)
-		{
-			offset.y =0;
-		}
-		if (offset.x > tileMap.w - visibleTiles.x)
-		{
-			offset.x = tileMap.w - visibleTiles.x;
-		}
-		if (offset.y > tileMap.h - visibleTiles.y-0.5)
-		{
-			offset.y = tileMap.h - visibleTiles.y-0.5;
+		else if (offset.x > tileMap.w - visibleTiles.x + endDelta.x) {
+			offset.x = tileMap.w - visibleTiles.x + endDelta.x;
 		}
 
-		Debug("offset(x,y):" + to_string(offset.x) + "," + to_string(offset.y));
+		if (offset.y < frontDelta.y) {
+			offset.y = frontDelta.y;
+		}
+		else if (offset.y > tileMap.h - visibleTiles.y + endDelta.y) {
+			offset.y = tileMap.h - visibleTiles.y + endDelta.y;
+		}
 
-		//Get offsets for smooth movement
-		Vector<float> tileOffset;
+		//平滑相机窗口的移动
 		tileOffset.x = (offset.x - (int)offset.x) * tileScale.x;
 		tileOffset.y = (offset.y - (int)offset.y) * tileScale.y;
 
@@ -94,7 +89,7 @@ namespace noa {
 		}
 
 
-		followPositionOnScreen = Vector<int>((follow->x - offset.x) * tileScale.x, (follow->y - offset.y) * tileScale.y);
+		followPositionOnScreen = move(Vector<int>((follow->x - offset.x) * tileScale.x, (follow->y - offset.y) * tileScale.y));
 		return followPositionOnScreen;
 
 	}

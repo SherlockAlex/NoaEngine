@@ -106,13 +106,19 @@ namespace noa {
 
 	void Renderer::DrawRect(const Vector<int>& point1, const Vector<int>& point2, Uint32 color) const
 	{
-		int x1 = point1.x;
-		int y1 = point1.y;
-		int x2 = point2.x;
-		int y2 = point2.y;
+		const int x1 = point1.x;
+		const int y1 = point1.y;
+		const int x2 = point2.x;
+		const int y2 = point2.y;
 
-		for (int x = min(x1, x2); x <= max(x1, x2); x++) {
-			for (int y = min(y1, y2); y <= max(y1, y2); y++) {
+
+		const int minX = min(x1, x2);
+		const int maxX = max(x1, x2);
+		const int minY = min(y1, y2);
+		const int maxY = max(y1, y2);
+
+		for (int x = minX; x <= maxX; x++) {
+			for (int y = minY; y <= maxY; y++) {
 				DrawPixel(x, y, color);
 			}
 		}
@@ -126,9 +132,14 @@ namespace noa {
 		const int x2 = point2.x;
 		const int y2 = point2.y;
 
-		for (int x = min(x1, x2); x <= max(x1, x2); x++) 
+		const int minX = min(x1, x2);
+		const int maxX = max(x1, x2);
+		const int minY = min(y1, y2);
+		const int maxY = max(y1, y2);
+
+		for (int x = minX; x <= maxX; x++) 
 		{
-			for (int y = min(y1, y2); y <= max(y1, y2); y++) 
+			for (int y = minY; y <= maxY; y++) 
 			{
 				const Vector<float> simple(
 					(float)(x - x1) / (x2 - x1), 

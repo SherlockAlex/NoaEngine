@@ -175,7 +175,7 @@ public:
 
 		//完整的渲染2d游戏
 
-		Vector<int> playerDrawPos = camera.Render(tileMap);
+		Vector<int> playerDrawPos = camera.Render(tileMap,frontDelta,endDelta);
 
 		//Draw player
 		player.sprite->DrawSprite(playerDrawPos.x, playerDrawPos.y, true, !player.isLeft);
@@ -197,6 +197,8 @@ private:
 	
 	//相机
 	TileMapCamera camera = TileMapCamera(tileScale,&player.position);
+	Vector<float> frontDelta = Vector<float>(0.0,0.0);
+	Vector<float> endDelta = Vector<float>(-1, -1);
 
 	//音效
 	Audio BGM = Audio("./Assets/JumpMan/Music/BGM.ogg", Music);

@@ -35,12 +35,14 @@ namespace noa {
 	public:
 		TileMapCamera();
 		TileMapCamera(Vector<int> tileScale, Vector<float>* follow);
+		
 		/// <summary>
-		/// 渲染地图
+		/// 渲染瓦片地图到屏幕上
 		/// </summary>
-		/// <param name="tileMap"></param>
-		/// <returns>返回跟随物体再屏幕上的坐标</returns>
-		Vector<int> Render(TileMap& tileMap);
+		/// <param name="tileMap">要渲染的瓦片地图</param>
+		/// <param name="frontDelta">相机前边界偏移量</param>
+		/// <param name="endDelta">相机后边界偏移量</param>
+		Vector<int> Render(TileMap& tileMap,Vector<float> & frontDelta,Vector<float> & endDelta);
 	};
 
 }
