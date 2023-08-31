@@ -62,10 +62,10 @@ namespace noa {
 
 		glContext = SDL_GL_CreateContext(window);
 
-		if (!glContext) {
+		/*if (glContext==nullptr) {
 			Debug("OpenGL context creation failed: " + string(SDL_GetError()));
 			exit(0);
-		}
+		}*/
 
 		//gladLoadGL();
 

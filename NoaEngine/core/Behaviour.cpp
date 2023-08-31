@@ -11,7 +11,7 @@ namespace noa {
 			behaviours.erase(it);
 		}
 		//delete behaviour;
-		Debug("Behaviour±»Ïú»Ù");
+		Debug("Behaviour is destroy");
 
 	}
 
