@@ -9,6 +9,8 @@ namespace noa {
 	
 	int GetCollisionTile(Vector<float>& colliderPos);
 
+	extern float deltaTime;
+
 	unordered_map<int,bool> collisionTiles;
 
 	vector<Rigidbody*> rigidbodys;
@@ -35,12 +37,23 @@ namespace noa {
 
 		Debug("rigidbody has been done");
 
+		//Behaviour::~Behaviour();
+
 	}
 
 	
-	//实现物理效果
-	void Rigidbody::RigidbodyUpdate(float deltaTime)
+	void Rigidbody::Start()
 	{
+	}
+
+	//实现物理效果
+	void Rigidbody::Update()
+	{
+		if (!isActive)
+		{
+			return;
+		}
+
 		if (useGravity)
 		{
 			if (!isGrounded)

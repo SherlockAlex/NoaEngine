@@ -6,6 +6,9 @@
 /// </summary>
 
 namespace noa {
+
+	extern float deltaTime;
+
 	AnimatorFile LoadAnimatorFile(const char* file) {
 		AnimatorFile animator;
 
@@ -48,13 +51,13 @@ namespace noa {
 		return animator;
 	}
 
-	vector<Animator*> animatorList;
+	//vector<Animator*> animatorList;
 
-	Animator::Animator(float speed)
+	Animator::Animator(float speed) :Behaviour()
 	{
 		Debug("Init Animator");
 		this->speed = speed;
-		animatorList.push_back(this);
+		//animatorList.push_back(this);
 		if (!framesImage.empty())
 		{
 			currentFrame = framesImage[0];
@@ -63,11 +66,11 @@ namespace noa {
 
 	}
 
-	Animator::Animator(float speed, const char* filePath)
+	Animator::Animator(float speed, const char* filePath) :Behaviour()
 	{
 		Debug("Init Animator");
 		this->speed = speed;
-		animatorList.push_back(this);
+		//animatorList.push_back(this);
 
 		const AnimatorFile animatorFile = move(LoadAnimatorFile(filePath));
 		for (SpriteFile frame : animatorFile.data)
@@ -86,7 +89,7 @@ namespace noa {
 
 	Animator::~Animator()
 	{
-
+		Behaviour::~Behaviour();
 	}
 
 	/// <summary>
@@ -158,10 +161,14 @@ namespace noa {
 		frameSize = framesImage.size();
 	}
 
+	void Animator::Start()
+	{
+	}
+
 	/// <summary>
 	/// 实时更新刷新
 	/// </summary>
-	void Animator::Update(const float deltaTime) {
+	void Animator::Update() {
 		if (!isPlaying)
 		{
 			return;

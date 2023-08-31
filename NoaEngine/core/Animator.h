@@ -14,6 +14,7 @@
 
 #include "Sprite.h"
 #include "NoaAction.h"
+#include "Behaviour.h"
 
 using namespace std;
 
@@ -33,7 +34,7 @@ namespace noa {
 	extern AnimatorFile LoadAnimatorFile(const char* file);
 
 	//动画器
-	class Animator
+	class Animator:public Behaviour
 	{
 	private:
 		vector<SpriteFile> framesImage;
@@ -59,7 +60,9 @@ namespace noa {
 		void Play(int frame);
 		void Play();
 		void InsertFrameImage(SpriteFile frameImage);
-		void Update(const float deltaTime);//更新动画帧
+		
+		void Start() override;
+		void Update() override;//更新动画帧
 
 	};
 }

@@ -8,6 +8,8 @@
 
 namespace noa 
 {
+	SceneManager sceneManager;
+
 	MapFile LoadMap(const char* fileName)
 	{
 
@@ -231,6 +233,49 @@ namespace noa
 			return nullptr;
 		}
 		return tileSet[id];
+	}
+
+	Scene::Scene(string name)
+	{
+		this->name = name;
+		sceneManager.AddScene(this);
+		this->OnEnable();
+	}
+
+	Scene::~Scene()
+	{
+		this->OnDisable();
+	}
+
+	Scene* SceneManager::GetActiveScene()
+	{
+		return activeScene;
+	}
+
+	void SceneManager::LoadScene(string sceneName)
+	{
+		if (ContainKey<string,Scene*>(this->sceneList,sceneName)) 
+		{
+			activeScene->OnDisable();
+			activeScene = sceneList[sceneName];
+			activeScene->OnEnable();
+			Debug("Load scene:"+sceneName);
+		}
+	}
+
+	void SceneManager::AddScene(Scene* scene)
+	{
+		if (scene == nullptr)
+		{
+			return;
+		}
+		if (activeScene==nullptr) 
+		{
+			activeScene = scene;
+		}
+
+		sceneList[scene->name] = scene;
+
 	}
 
 }

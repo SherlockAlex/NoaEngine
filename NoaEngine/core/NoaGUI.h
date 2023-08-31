@@ -45,31 +45,46 @@ namespace noa {
 
 	};
 
-	class UIComponent: public Behaviour
+	class UIComponent
 	{
+	protected:
+		bool isActive = false;
+
 	public:
 		//屏幕位置
 		Vector<int> position = Vector<int>(0.0, 0.0);
 	public:
+
 		UIComponent();
 		~UIComponent();
+
+		virtual void Start() = 0;
+		virtual void Update() = 0;
+
+		void SetActive(bool active);
+		bool GetActive();
 	};
 
-	class NoaCanvase 
+	class NoaCanvase : Behaviour
 	{
-	public:
+	private:
 		vector<UIComponent*> uiComponent;
 
 	public:
 		NoaCanvase();
 		~NoaCanvase();
 
+		void AddComponent(UIComponent* component);
 		void SetActive(bool active);
+
+		void Start() override;
+		void Update() override;
 
 	};
 
 	class NoaButton;
 	class NoaText;
+	class NoaImage;
 
 	class NoaText :public UIComponent {
 	public:
@@ -82,6 +97,23 @@ namespace noa {
 	public:
 		NoaText();
 		~NoaText();
+
+		void Start() override;
+		void Update() override;
+
+	};
+
+	class NoaImage :public UIComponent {
+	public:
+		//宽度高度
+		Vector<int> scale = Vector<int>(150, 150);
+		
+		Sprite * sprite = nullptr;
+		ColorRef color = WHITE;
+
+	public:
+		NoaImage();
+		~NoaImage();
 
 		void Start() override;
 		void Update() override;

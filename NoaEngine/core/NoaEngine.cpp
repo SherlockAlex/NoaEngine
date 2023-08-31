@@ -6,8 +6,8 @@
 
 namespace noa {
 	extern vector <Behaviour*> behaviours;
-	extern vector<GameObject*> gameObjects;
-	extern vector<Animator*> animatorList;
+	//extern vector<GameObject*> gameObjects;
+	//extern vector<Animator*> animatorList;
 	extern vector<Rigidbody*> rigidbodys;
 
 	//mutex mtx; // 定义互斥锁对象
@@ -217,11 +217,11 @@ namespace noa {
 
 			const int rigidbodyCount = rigidbodys.size();
 			const int behaviourCount = behaviours.size();
-			const int animatorCount = animatorList.size();
+			//const int animatorCount = animatorList.size();
 
 			for (int i = 0; i < rigidbodyCount; i++)
 			{
-				rigidbodys[i]->RigidbodyUpdate(deltaTime);
+				rigidbodys[i]->Update();
 			}
 
 			Update();
@@ -235,10 +235,10 @@ namespace noa {
 				behaviours[i]->Update();
 			}
 
-			for (int i = 0; i < animatorCount; i++)
+			/*for (int i = 0; i < animatorCount; i++)
 			{
 				animatorList[i]->Update(deltaTime);
-			}
+			}*/
 
 			SDL_UnlockTexture(texture);
 			SDL_RenderCopy(mainRenderer, texture, nullptr, nullptr);

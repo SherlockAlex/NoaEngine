@@ -58,47 +58,89 @@ private:
 	float speed = 8;
 };
 
-class ZeldaGame :public NoaGameEngine 
-{
+class MainMenuScene :public Scene {
 public:
-	ZeldaGame(int width, int height, GameWindowMode windowMode, string gameName) :
-		NoaGameEngine(width,height,windowMode,gameName) 
-	{
+	MainMenuScene() :Scene("MainMenuScene") {
+
 		text.position = Vector<int>(10, 10);
 		text.textColor = WHITE;
 
-		button.sprite = new Sprite(LoadSprFile("./Assets/Zelda/JumpMan.spr"), Vector<int>(1, 1));
+		//button.sprite = new Sprite(LoadSprFile("./Assets/Zelda/JumpMan.spr"), Vector<int>(1, 1));
+		button.text = "Start";
 		button.position = Vector<int>(pixelWidth / 2, pixelHeight / 2);
 		button.AddClickEvent(
 			[this]()
 			{
-				canvase.SetActive(false);
+				sceneManager.LoadScene("StartScene");
 			});
 
-		canvase.uiComponent.push_back(&button);
-		canvase.uiComponent.push_back(&text);
+		image.position = Vector<int>(0, 0);
+		image.scale = Vector<int>(pixelWidth, pixelHeight);
+		image.color = BLACK;
 
+		this->OnEnable();
+		canvase.AddComponent(&image);
+		canvase.AddComponent(&button);
+		canvase.AddComponent(&text);
 	}
 
-	void Start() override 
+	void OnEnable() override
 	{
+		canvase.SetActive(true);
+	}
+
+	void Start() override {
 
 	}
 
 	void Update() override 
 	{
-		Vector<int> drawPos =  camera.Render(tileMap,frontDelta,endDelta);
+		text.text = "FPS:" + to_string(1 / deltaTime);
+	}
+
+	void OnDisable() override {
+		canvase.SetActive(false);
+	}
+
+private:
+	//ui
+	NoaCanvase canvase;
+
+	NoaText text;
+	NoaButton button;
+	NoaImage image;
+
+};
+
+class StartScene :public Scene {
+
+public:
+	StartScene():Scene("StartScene")
+	{
+	}
+
+	void OnEnable() override
+	{
+		
+	}
+
+	void Start() override 
+	{
+		
+	}
+
+	void Update() override {
+		Vector<int> drawPos = camera.Render(tileMap, frontDelta, endDelta);
 		player.sprite->DrawSprite(drawPos.x, drawPos.y, true);
-
-		text.text = move("FPS:" + to_string(1 / deltaTime));
-
-		if (inputSystem.GetMouseButton(RightButton))
+		if (inputSystem.GetMouseButton(RightButton)) 
 		{
-			canvase.SetActive(true);
+			sceneManager.LoadScene("MainMenuScene");
 		}
+	}
 
-		//renderer.DrawString(("FPS:"+to_string(1/deltaTime)), 10, 10, WHITE, 30);
-
+	void OnDisable() override 
+	{
+		
 	}
 
 private:
@@ -116,11 +158,35 @@ private:
 
 	/*NoaButton button1;*/
 
-	//ui
-	NoaCanvase canvase;
+};
 
-	NoaText text;
-	NoaButton button;
+
+class ZeldaGame :public NoaGameEngine 
+{
+public:
+	ZeldaGame(int width, int height, GameWindowMode windowMode, string gameName) :
+		NoaGameEngine(width,height,windowMode,gameName) 
+	{
+		
+	}
+
+	void Start() override 
+	{
+
+	}
+
+	void Update() override 
+	{
+		Scene* scene = sceneManager.GetActiveScene();
+		if (scene!=nullptr)
+		{
+			scene->Update();
+		}
+	}
+
+private:
+	MainMenuScene mainMenuScene;
+	StartScene startScene;
 
 };
 

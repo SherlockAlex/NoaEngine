@@ -3,6 +3,7 @@
 
 #include <vector>
 #include "NoaMath.h"
+#include "Behaviour.h"
 
 namespace noa {
 	//这个是一个物理刚体，负责模拟物理的运动和一些碰撞
@@ -30,12 +31,16 @@ namespace noa {
 		Vector<float> velocity = Vector<float>(0.0,0.0);
 		//刚体的碰撞的大小
 		Vector<float> colliderSize = Vector<float>(0.0, 0.0);
+
+		bool isActive = true;
+
 	protected:
 		Rigidbody(Vector<float>* colliderPos);
 		~Rigidbody();
 
 	public:
-		void RigidbodyUpdate(float deltaTime);
+		void Start();
+		void Update();
 
 		/// <summary>
 		/// 给物体施加力

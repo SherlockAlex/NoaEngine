@@ -100,6 +100,32 @@ namespace noa {
 		bool IsTile(int code);
 	};
 
+	class Scene 
+	{
+	public:
+		string name = "Scene";
+		virtual void OnEnable() {};
+		virtual void Start() = 0;
+		virtual void Update() = 0;
+		virtual void OnDisable() {};
+
+	public:
+		Scene(string name);
+		~Scene();
+	};
+
+	class SceneManager {
+	public:
+		Scene* GetActiveScene();
+		void LoadScene(string sceneName);
+		void AddScene(Scene* scene);
+	private:
+		Scene* activeScene = nullptr;
+		unordered_map<string, Scene*> sceneList;
+	};
+
+	extern SceneManager sceneManager;
+
 }
 
 

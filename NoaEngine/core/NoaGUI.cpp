@@ -8,6 +8,9 @@ namespace noa {
 	extern void Debug(string msg);
 	extern Renderer renderer;
 
+	extern int pixelWidth;
+	extern int pixelHeight;
+
 	FontAsset::FontAsset(const char * fontPath)
 	{
 		//加载游戏的字体资源
@@ -154,13 +157,24 @@ namespace noa {
 		this->clickEvent += func;
 	}
 
-	UIComponent::UIComponent():Behaviour()
+	UIComponent::UIComponent()
 	{
+
 	}
 
 	UIComponent::~UIComponent()
 	{
-		Behaviour::~Behaviour();
+		
+	}
+
+	void UIComponent::SetActive(bool active)
+	{
+		this->isActive = active;
+	}
+
+	bool UIComponent::GetActive()
+	{
+		return isActive;
 	}
 
 	NoaText::NoaText():UIComponent()
@@ -184,20 +198,81 @@ namespace noa {
 		renderer.DrawString(text, position.x, position.y, textColor, size);
 	}
 
-	NoaCanvase::NoaCanvase()
+	NoaCanvase::NoaCanvase():Behaviour()
 	{
 	}
 
 	NoaCanvase::~NoaCanvase()
 	{
+		Behaviour::~Behaviour();
+	}
+
+	void NoaCanvase::AddComponent(UIComponent* component)
+	{
+		if (component==nullptr)
+		{
+			return;
+		}
+		component->SetActive(true);
+		uiComponent.push_back(component);
 	}
 
 	void NoaCanvase::SetActive(bool active)
 	{
+		isActive = active;
 		for (int i=0;i<uiComponent.size();i++) 
 		{
-			uiComponent[i]->isActive = active;
+			uiComponent[i]->SetActive(active);
 		}
+	}
+
+	void NoaCanvase::Start()
+	{
+		for (int i = 0; i < uiComponent.size(); i++)
+		{
+			uiComponent[i]->Start();
+		}
+	}
+
+	void NoaCanvase::Update()
+	{
+		const int uiComponentCount = uiComponent.size();
+		for (int i=0;i< uiComponentCount;i++)
+		{
+			if (!uiComponent[i]->GetActive())
+			{
+				continue;
+			}
+			uiComponent[i]->Update();
+		}
+	}
+
+	NoaImage::NoaImage():UIComponent()
+	{
+
+	}
+
+	NoaImage::~NoaImage()
+	{
+		UIComponent::~UIComponent();
+	}
+
+	void NoaImage::Start()
+	{
+
+	}
+
+	void NoaImage::Update()
+	{
+		if (sprite==nullptr) 
+		{
+			renderer.DrawRect(position, position + scale, color);
+		}
+		else 
+		{
+			renderer.DrawRect(position, position + scale, sprite, color, true);
+		}
+		
 	}
 
 }
