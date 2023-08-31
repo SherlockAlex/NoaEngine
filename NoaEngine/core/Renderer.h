@@ -75,6 +75,15 @@ namespace noa {
 		void DrawRect(const Vector<int>& point1, const Vector<int>& point2, Sprite & sprite) const;
 		void DrawRect(const Vector<int>& point1, const Vector<int>& point2, Sprite& sprite, Uint32 mutiColor, bool isAlpha) const;
 
+		/// <summary>
+		/// 绘制字符串到屏幕上，
+		/// 引擎目前仅仅支持绘制英文字母到屏幕上
+		/// </summary>
+		/// <param name="str">字符串</param>
+		/// <param name="x">屏幕坐标x</param>
+		/// <param name="y">屏幕坐标y</param>
+		/// <param name="color">字体颜色</param>
+		/// <param name="size">字体大小</param>
 		void DrawString(const std::string& str, int x, int y, Uint32 color, int size);
 		
 		void FullScreen(Uint32 color) const;

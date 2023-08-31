@@ -48,10 +48,16 @@ namespace noa {
 	public:
 		//屏幕位置
 		Vector<int> position;
+		//按键名
+		string text;
 		//宽度高度
 		Vector<int> scale;
+		//字体颜色
+		uint32_t textColor;
+		//按键常亮颜色
 		uint32_t normalColor;
 		uint32_t selectColor;
+		//按键事件
 		NoaEvent<void()> clickEvent;
 	};
 }

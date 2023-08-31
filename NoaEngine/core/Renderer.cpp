@@ -1,8 +1,5 @@
 #include "Renderer.h"
 #include "Sprite.h"
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_ttf.h>
-#include <queue>
 #include "NoaGUI.h"
 
 namespace noa {
@@ -203,17 +200,29 @@ namespace noa {
 
 	void Renderer::DrawString(const std::string& str, int x, int y, Uint32 color, int size)
 	{
+		int row = 0;
+		int offset = 0;
+
+		float narrowx = 0.7;
 		for (int i=0;i<str.length();i++) 
 		{
-			const Font* font = fontAsset.GetFont(str.c_str()[i]);
+			const char c = str.c_str()[i];
+			if (c=='\n')
+			{
+				row++;
+				offset = 0;
+			}
+			const Font* font = fontAsset[c];
 			if (font == nullptr)
 			{
 				continue;
 			}
-			float narrow = 0.7;
-			Vector<int> point1 = Vector<int>(x+(i*size)*narrow, y);
-			Vector<int> point2 = Vector<int>(x+size+(i*size)*narrow, y+size);
+			
+			
+			const Vector<int> point1 = move(Vector<int>(x+(offset *size)* narrowx, y + row * size));
+			const Vector<int> point2 = move(Vector<int>(x+size+(offset *size)* narrowx, y+size + row * size));
 			DrawRect(point1,point2,*font->sprite,color,true);
+			offset++;
 		}
 	}
 

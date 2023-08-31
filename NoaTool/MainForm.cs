@@ -402,6 +402,11 @@ namespace NoaTool
             int x = (int)spritePosXNumericUpDown.Value;
             int y = (int)spritePosYNumericUpDown.Value;
 
+            if (x<=0||y<=0)
+            {
+                MessageBox.Show("请设置切割图像的偏移量x和y");
+            }
+
             List<TileSet.PixelData> tileSet = TileSet.SplitImage(bmp, x, y);
 
             //保存tileSet到本地二进制文件中
