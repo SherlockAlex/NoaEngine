@@ -36,6 +36,7 @@
             this.newAmtToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newSprToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newLevelFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tileSetFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.levelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newMapFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
@@ -45,7 +46,6 @@
             this.spritePosYNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.spritePosXNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.currentPictureBox = new System.Windows.Forms.PictureBox();
-            this.tileSetFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -82,14 +82,14 @@
             // openFileToolStripMenuItem
             // 
             this.openFileToolStripMenuItem.Name = "openFileToolStripMenuItem";
-            this.openFileToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.openFileToolStripMenuItem.Size = new System.Drawing.Size(122, 26);
             this.openFileToolStripMenuItem.Text = "打开";
             this.openFileToolStripMenuItem.Click += new System.EventHandler(this.openFileToolStripMenuItem_Click);
             // 
             // SaveFileToolStripMenuItem
             // 
             this.SaveFileToolStripMenuItem.Name = "SaveFileToolStripMenuItem";
-            this.SaveFileToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.SaveFileToolStripMenuItem.Size = new System.Drawing.Size(122, 26);
             this.SaveFileToolStripMenuItem.Text = "保存";
             this.SaveFileToolStripMenuItem.Click += new System.EventHandler(this.SaveFileToolStripMenuItem_Click);
             // 
@@ -101,29 +101,36 @@
             this.newLevelFileToolStripMenuItem,
             this.tileSetFileToolStripMenuItem});
             this.导出ToolStripMenuItem.Name = "导出ToolStripMenuItem";
-            this.导出ToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.导出ToolStripMenuItem.Size = new System.Drawing.Size(122, 26);
             this.导出ToolStripMenuItem.Text = "导出";
             // 
             // newAmtToolStripMenuItem
             // 
             this.newAmtToolStripMenuItem.Name = "newAmtToolStripMenuItem";
-            this.newAmtToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.newAmtToolStripMenuItem.Size = new System.Drawing.Size(205, 26);
             this.newAmtToolStripMenuItem.Text = "动画文件(*.amt)";
             this.newAmtToolStripMenuItem.Click += new System.EventHandler(this.newAmtToolStripMenuItem_Click);
             // 
             // newSprToolStripMenuItem
             // 
             this.newSprToolStripMenuItem.Name = "newSprToolStripMenuItem";
-            this.newSprToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.newSprToolStripMenuItem.Size = new System.Drawing.Size(205, 26);
             this.newSprToolStripMenuItem.Text = "贴图文件(*.spr)";
             this.newSprToolStripMenuItem.Click += new System.EventHandler(this.newSprToolStripMenuItem_Click);
             // 
             // newLevelFileToolStripMenuItem
             // 
             this.newLevelFileToolStripMenuItem.Name = "newLevelFileToolStripMenuItem";
-            this.newLevelFileToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.newLevelFileToolStripMenuItem.Size = new System.Drawing.Size(205, 26);
             this.newLevelFileToolStripMenuItem.Text = "地图文件(*.map)";
             this.newLevelFileToolStripMenuItem.Click += new System.EventHandler(this.newLevelFileToolStripMenuItem_Click);
+            // 
+            // tileSetFileToolStripMenuItem
+            // 
+            this.tileSetFileToolStripMenuItem.Name = "tileSetFileToolStripMenuItem";
+            this.tileSetFileToolStripMenuItem.Size = new System.Drawing.Size(205, 26);
+            this.tileSetFileToolStripMenuItem.Text = "地图瓦片(*.tst)";
+            this.tileSetFileToolStripMenuItem.Click += new System.EventHandler(this.tileSetFileToolStripMenuItem_Click);
             // 
             // levelToolStripMenuItem
             // 
@@ -136,7 +143,7 @@
             // newMapFileToolStripMenuItem
             // 
             this.newMapFileToolStripMenuItem.Name = "newMapFileToolStripMenuItem";
-            this.newMapFileToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.newMapFileToolStripMenuItem.Size = new System.Drawing.Size(175, 26);
             this.newMapFileToolStripMenuItem.Text = "导出(*.map)";
             this.newMapFileToolStripMenuItem.Click += new System.EventHandler(this.newMapFileToolStripMenuItem_Click);
             // 
@@ -193,6 +200,11 @@
             // spritePosYNumericUpDown
             // 
             this.spritePosYNumericUpDown.Location = new System.Drawing.Point(171, 437);
+            this.spritePosYNumericUpDown.Maximum = new decimal(new int[] {
+            2048,
+            0,
+            0,
+            0});
             this.spritePosYNumericUpDown.Name = "spritePosYNumericUpDown";
             this.spritePosYNumericUpDown.Size = new System.Drawing.Size(143, 25);
             this.spritePosYNumericUpDown.TabIndex = 2;
@@ -200,6 +212,11 @@
             // spritePosXNumericUpDown
             // 
             this.spritePosXNumericUpDown.Location = new System.Drawing.Point(22, 437);
+            this.spritePosXNumericUpDown.Maximum = new decimal(new int[] {
+            2048,
+            0,
+            0,
+            0});
             this.spritePosXNumericUpDown.Name = "spritePosXNumericUpDown";
             this.spritePosXNumericUpDown.Size = new System.Drawing.Size(143, 25);
             this.spritePosXNumericUpDown.TabIndex = 1;
@@ -212,13 +229,6 @@
             this.currentPictureBox.Size = new System.Drawing.Size(480, 270);
             this.currentPictureBox.TabIndex = 0;
             this.currentPictureBox.TabStop = false;
-            // 
-            // tileSetFileToolStripMenuItem
-            // 
-            this.tileSetFileToolStripMenuItem.Name = "tileSetFileToolStripMenuItem";
-            this.tileSetFileToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-            this.tileSetFileToolStripMenuItem.Text = "地图瓦片(*.tst)";
-            this.tileSetFileToolStripMenuItem.Click += new System.EventHandler(this.tileSetFileToolStripMenuItem_Click);
             // 
             // MainForm
             // 

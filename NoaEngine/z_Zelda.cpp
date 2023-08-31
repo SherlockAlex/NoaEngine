@@ -77,7 +77,7 @@ public:
 		Vector<int> drawPos =  camera.Render(tileMap,frontDelta,endDelta);
 		player.sprite->DrawSprite(drawPos.x, drawPos.y, true);
 
-		renderer.DrawString(fontPath, "hello world", pixelWidth / 2, pixelHeight / 2, WHITE, 50);
+		renderer.DrawString(("FPS:"+to_string(1/deltaTime)), 10, 10, WHITE, 30);
 
 	}
 
@@ -93,8 +93,6 @@ private:
 	TileMapCamera camera = TileMapCamera(tileScale, &player.position);
 	Vector<float> frontDelta = Vector<float>(0.0, 0.0);
 	Vector<float> endDelta = Vector<float>(0.0, -0.5);
-
-	string fontPath = "./Assets/ttf/font.ttf";
 
 };
 

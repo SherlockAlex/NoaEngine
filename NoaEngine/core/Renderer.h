@@ -73,8 +73,9 @@ namespace noa {
 		/// <param name="point2"></param>
 		/// <param name="sprite"></param>
 		void DrawRect(const Vector<int>& point1, const Vector<int>& point2, Sprite & sprite) const;
+		void DrawRect(const Vector<int>& point1, const Vector<int>& point2, Sprite& sprite, Uint32 mutiColor, bool isAlpha) const;
 
-		void DrawString(string & file, const std::string& str, int x, int y, Uint32 color, int size);
+		void DrawString(const std::string& str, int x, int y, Uint32 color, int size);
 		
 		void FullScreen(Uint32 color) const;
 		

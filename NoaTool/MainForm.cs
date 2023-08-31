@@ -400,7 +400,7 @@ namespace NoaTool
 
             Bitmap bmp = new Bitmap(currentImagePath);
             int x = (int)spritePosXNumericUpDown.Value;
-            int y = (int)spritePosXNumericUpDown.Value;
+            int y = (int)spritePosYNumericUpDown.Value;
 
             List<TileSet.PixelData> tileSet = TileSet.SplitImage(bmp, x, y);
 

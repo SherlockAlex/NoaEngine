@@ -3,9 +3,12 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
 #include <queue>
+#include "NoaGUI.h"
 
 namespace noa {
 	extern void Debug(string msg);
+
+	FontAsset fontAsset("./Assets/font/font.tsd");
 
 	Renderer::Renderer()
 	{
@@ -161,9 +164,57 @@ namespace noa {
 		}
 	}
 
-	void Renderer::DrawString(string & file, const std::string& str, int x, int y, Uint32 color, int size)
+	void Renderer::DrawRect(const Vector<int>& point1, const Vector<int>& point2, Sprite& sprite,Uint32 mutiColor,bool isAlpha) const
 	{
+		//将sprite图片填充到矩形上
+		const int x1 = point1.x;
+		const int y1 = point1.y;
+		const int x2 = point2.x;
+		const int y2 = point2.y;
 
+		const int minX = min(x1, x2);
+		const int maxX = max(x1, x2);
+		const int minY = min(y1, y2);
+		const int maxY = max(y1, y2);
+
+		for (int x = minX; x <= maxX; x++)
+		{
+			for (int y = minY; y <= maxY; y++)
+			{
+				const Vector<float> simple(
+					(float)(x - x1) / (x2 - x1),
+					(float)(y - y1) / (y2 - y1)
+				);
+				uint32_t color = sprite.GetTransposeColor(simple.y, simple.x);
+				if (isAlpha)
+				{
+					if (color == BLACK) 
+					{
+						continue;
+					}
+				}
+
+
+
+				DrawPixel(x, y, mutiColor);
+			}
+		}
+	}
+
+	void Renderer::DrawString(const std::string& str, int x, int y, Uint32 color, int size)
+	{
+		for (int i=0;i<str.length();i++) 
+		{
+			const Font* font = fontAsset.GetFont(str.c_str()[i]);
+			if (font == nullptr)
+			{
+				continue;
+			}
+			float narrow = 0.7;
+			Vector<int> point1 = Vector<int>(x+(i*size)*narrow, y);
+			Vector<int> point2 = Vector<int>(x+size+(i*size)*narrow, y+size);
+			DrawRect(point1,point2,*font->sprite,color,true);
+		}
 	}
 
 	void Renderer::FullScreen(Uint32 color) const
