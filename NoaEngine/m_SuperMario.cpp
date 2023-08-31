@@ -175,10 +175,9 @@ public:
 
 		//完整的渲染2d游戏
 
-		Vector<float> offset = camera.Render(tileMap);
+		Vector<int> playerDrawPos = camera.Render(tileMap);
 
 		//Draw player
-		Vector<int> playerDrawPos = Vector<int>((player.position.x - offset.x) * tileScale.x, (player.position.y - offset.y) * tileScale.y);
 		player.sprite->DrawSprite(playerDrawPos.x, playerDrawPos.y, true, !player.isLeft);
 
 

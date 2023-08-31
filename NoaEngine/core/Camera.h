@@ -35,8 +35,8 @@ namespace noa {
 		/// 渲染地图
 		/// </summary>
 		/// <param name="tileMap"></param>
-		/// <returns>calculate Top-Leftmost visible tile</returns>
-		Vector<float> Render(TileMap& tileMap);
+		/// <returns>返回跟随物体再屏幕上的坐标</returns>
+		Vector<int> Render(TileMap& tileMap);
 	};
 
 }

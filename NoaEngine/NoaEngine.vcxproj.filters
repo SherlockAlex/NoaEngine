@@ -116,10 +116,10 @@
     <ClCompile Include="core\StateMachine.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="m_SuperMario.cpp">
+    <ClCompile Include="core\src\glad.c">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="core\src\glad.c">
+    <ClCompile Include="m_SuperMario.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

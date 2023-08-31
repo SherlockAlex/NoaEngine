@@ -24,7 +24,7 @@ namespace noa {
 		this->tileScale = tileScale;
 	}
 
-	Vector<float> TileMapCamera::Render(TileMap& tileMap)
+	Vector<int> TileMapCamera::Render(TileMap& tileMap)
 	{
 		//完整的渲染2d游戏
 
@@ -36,6 +36,8 @@ namespace noa {
 		//calculate Top-Leftmost visible tile
 		Vector<float> offset = move(position - visibleTiles * 0.5);
 
+		Vector<int> followPositionOnScreen(0.0,0.0);
+
 		//Clamp camera to game boundaries
 		if (offset.x < 0)
 		{
@@ -43,16 +45,18 @@ namespace noa {
 		}
 		if (offset.y < 0)
 		{
-			offset.y = 0;
+			offset.y =0;
 		}
-		if (offset.x > tileMap.w - visibleTiles.x)
+		if (offset.x > tileMap.w - visibleTiles.x-1)
 		{
-			offset.x = tileMap.w - visibleTiles.x;
+			offset.x = tileMap.w - visibleTiles.x-1;
 		}
-		if (offset.y > tileMap.h - visibleTiles.y)
+		if (offset.y > tileMap.h - visibleTiles.y-1.5)
 		{
-			offset.y = tileMap.h - visibleTiles.y;
+			offset.y = tileMap.h - visibleTiles.y-1.5;
 		}
+
+		Debug("offset(x,y):" + to_string(offset.x) + "," + to_string(offset.y));
 
 		//Get offsets for smooth movement
 		Vector<float> tileOffset;
@@ -83,7 +87,9 @@ namespace noa {
 			}
 		}
 
-		return offset;
+
+		followPositionOnScreen = Vector<int>((follow->x - offset.x) * tileScale.x, (follow->y - offset.y) * tileScale.y);
+		return followPositionOnScreen;
 
 	}
 }
