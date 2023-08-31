@@ -12,7 +12,7 @@ class Player:public GameObject,public Rigidbody
 public:
 	Player() :GameObject(new Sprite(LoadSprFile("./Assets/JumpMan/JumpMan.spr"), tileScale)), Rigidbody(&position)
 	{
-		//Íæ¼ÒµÄ¹¹Ôìº¯Êý
+		//ï¿½ï¿½ÒµÄ¹ï¿½ï¿½ìº¯ï¿½ï¿½
 		position = Vector<float>(0.0, 0.0);
 		//useGravity = false;
 
@@ -30,7 +30,7 @@ public:
 	}
 
 	void InitPosition(TileMap& tileMap,const int targetTileID) {
-		//ÉèÖÃÍæ¼ÒµÄ³õÊ¼Î»ÖÃ
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÒµÄ³ï¿½Ê¼Î»ï¿½ï¿½
 		for (int i = 0; i < tileMap.w; i++)
 		{
 			for (int j = 0; j < tileMap.h; j++)
@@ -75,7 +75,7 @@ public:
 		}
 
 
-		if (inputSystem.GetKeyHold(KeySpace) && isGrounded)
+		if (inputSystem.GetKeyHold(KeyK) && isGrounded)
 		{
 			AddForce(jumpForce, Impulse);
 			jumpSFX.Play(false);
@@ -104,7 +104,7 @@ public:
 
 		}
 
-		if (inputSystem.GetKeyHold(KeySpace) && isGrounded)
+		if (inputSystem.GetKeyHold(KeyK) && isGrounded)
 		{
 			currentAnimatorState = jump;
 		}
@@ -138,11 +138,11 @@ public:
 	float speed = 10;
 	bool isLeft = false;
 
-	//ÒôÐ§
+	//ï¿½ï¿½Ð§
 	const Audio coinSFX = Audio("./Assets/JumpMan/Music/coin.mp3", Chunk);
 	const Audio jumpSFX = Audio("./Assets/JumpMan/Music/jump.mp3", Chunk);
 
-	//¶¯»­
+	//ï¿½ï¿½ï¿½ï¿½
 	Animator* currentAnimatorState = nullptr;
 	Animator* idle = new Animator(5);
 	Animator* run = new Animator(10);
@@ -173,7 +173,7 @@ public:
 	void Update() override 
 	{
 
-		//ÍêÕûµÄäÖÈ¾2dÓÎÏ·
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¾2dï¿½ï¿½Ï·
 
 		Vector<int> playerDrawPos = camera.Render(tileMap,frontDelta,endDelta);
 
@@ -184,7 +184,7 @@ public:
 	}
 
 private:
-	//µØÍ¼
+	//ï¿½ï¿½Í¼
 	//0 - wall
 	//1 - coin
 	TileMap tileMap = TileMap(
@@ -192,15 +192,15 @@ private:
 		LoadMapFromCSV("./Assets/JumpMan/Map/level1.csv")
 	);
 	
-	//Íæ¼Ò
+	//ï¿½ï¿½ï¿½
 	Player player;
 	
-	//Ïà»ú
+	//ï¿½ï¿½ï¿½
 	TileMapCamera camera = TileMapCamera(tileScale,&player.position);
 	Vector<float> frontDelta = Vector<float>(0.0,0.0);
 	Vector<float> endDelta = Vector<float>(-1, -1);
 
-	//ÒôÐ§
+	//ï¿½ï¿½Ð§
 	Audio BGM = Audio("./Assets/JumpMan/Music/BGM.ogg", Music);
 	Audio gameOverMusic = Audio("./Assets/JumpMan/Music/gameover.mp3", Chunk);
 
