@@ -186,9 +186,7 @@ namespace noa {
 		chrono::duration<float> elapsedTime;
 		tp2 = chrono::system_clock::now();
 
-		const int rigidbodyCount = rigidbodys.size();
-		const int behaviourCount = behaviours.size();
-		const int animatorCount = animatorList.size();
+		
 
 		Start();
 
@@ -217,6 +215,10 @@ namespace noa {
 				}
 			}
 
+			const int rigidbodyCount = rigidbodys.size();
+			const int behaviourCount = behaviours.size();
+			const int animatorCount = animatorList.size();
+
 			for (int i = 0; i < rigidbodyCount; i++)
 			{
 				rigidbodys[i]->RigidbodyUpdate(deltaTime);
@@ -226,6 +228,10 @@ namespace noa {
 
 			for (int i = 0; i < behaviourCount; i++)
 			{
+				if (behaviours[i]->isActive == false)
+				{
+					continue;
+				}
 				behaviours[i]->Update();
 			}
 

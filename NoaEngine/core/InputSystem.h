@@ -88,6 +88,7 @@ namespace noa {
 		y < 0 鼠标向上移动 : -y
 		*/
 		Vector<float> GetMouseMoveDelta();
+		Vector<float> GetMousePosition();
 
 		bool GetMouseButton(MOUSEKEY mouseButton);
 

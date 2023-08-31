@@ -161,6 +161,7 @@
     <ClInclude Include="core\Behaviour.h" />
     <ClInclude Include="core\Camera.h" />
     <ClInclude Include="core\GameObject.h" />
+    <ClInclude Include="core\Graphic.h" />
     <ClInclude Include="core\include\glad\glad.h" />
     <ClInclude Include="core\include\KHR\khrplatform.h" />
     <ClInclude Include="core\InputSystem.h" />

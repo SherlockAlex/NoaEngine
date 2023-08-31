@@ -1,9 +1,12 @@
 #include "NoaGUI.h"
 #include <unordered_map>
 #include "Scene.h"
+#include "Renderer.h"
+#include "InputSystem.h"
 
 namespace noa {
 	extern void Debug(string msg);
+	extern Renderer renderer;
 
 	FontAsset::FontAsset(const char * fontPath)
 	{
@@ -76,6 +79,125 @@ namespace noa {
 			return nullptr;
 		}
 		return fonts[c];
+	}
+
+	NoaButton::NoaButton():UIComponent()
+	{
+		
+		inputSystem.inputEvent += [this](void) {SwapState(); };
+	}
+
+	NoaButton::~NoaButton()
+	{
+		UIComponent::~UIComponent();
+	}
+
+	void NoaButton::SwapState()
+	{
+		//检测鼠标的范围，如果在范围内就切换状态
+		if (!isActive)
+		{
+			return;
+		}
+
+		Vector<float> mousePos = inputSystem.GetMousePosition();
+
+		if (mousePos.x>position.x&&mousePos.x<position.x+scale.x
+			&& mousePos.y>position.y && mousePos.y < position.y + scale.y
+			) 
+		{
+			isSelect = true;
+
+			if (inputSystem.GetMouseButton(LeftButton))
+			{
+				this->clickEvent.Invoke();
+			}
+
+		}
+		else {
+			isSelect = false;
+		}
+
+		if (isSelect)
+		{
+			currentColor = selectColor;
+		}
+		else {
+			currentColor = normalColor;
+		}
+
+		
+
+	}
+
+	void NoaButton::Start()
+	{
+
+	}
+
+	void NoaButton::Update()
+	{
+		if (sprite == nullptr)
+		{
+			renderer.DrawRect(position, position + scale, currentColor);
+		}
+		else {
+			renderer.DrawRect(position, position + scale, sprite,currentColor,true);
+		}
+		
+		//显示文字
+		renderer.DrawString(text, position.x + 10, position.y + 10, textColor, 20);
+	}
+
+	void NoaButton::AddClickEvent(function<void()> func)
+	{
+		this->clickEvent += func;
+	}
+
+	UIComponent::UIComponent():Behaviour()
+	{
+	}
+
+	UIComponent::~UIComponent()
+	{
+		Behaviour::~Behaviour();
+	}
+
+	NoaText::NoaText():UIComponent()
+	{
+
+	}
+
+	NoaText::~NoaText()
+	{
+		UIComponent::~UIComponent();
+	}
+
+	void NoaText::Start()
+	{
+
+	}
+
+	void NoaText::Update()
+	{
+		//显示文字
+		renderer.DrawString(text, position.x, position.y, textColor, size);
+	}
+
+	NoaCanvase::NoaCanvase()
+	{
+	}
+
+	NoaCanvase::~NoaCanvase()
+	{
+	}
+
+	void NoaCanvase::SetActive(bool active)
+	{
+		for (int i=0;i<uiComponent.size();i++) 
+		{
+			uiComponent[i]->isActive = active;
+		}
 	}
 
 }

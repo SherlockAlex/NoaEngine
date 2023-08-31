@@ -111,6 +111,7 @@ using namespace std;
 #include "NoaAction.h"
 #include "Camera.h"
 #include "StateMachine.h"
+#include "NoaGUI.h"
 
 //´°¿ÚÊôĞÔ
 

@@ -122,6 +122,16 @@ namespace noa {
 		return delta;
 	}
 
+	Vector<float> InputSystem::GetMousePosition()
+	{
+		Vector<float> delta;
+
+		delta.x = ioEvent.motion.x;
+		delta.y = ioEvent.motion.y;
+
+		return delta;
+	}
+
 	bool InputSystem::GetMouseButton(MOUSEKEY mouseButton)
 	{
 		int mouseX, mouseY;

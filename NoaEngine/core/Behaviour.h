@@ -12,6 +12,7 @@ namespace noa {
 	public:
 		//表示位置信息
 		Vector<float> position;
+		bool isActive = true;
 
 	public:
 		Behaviour();

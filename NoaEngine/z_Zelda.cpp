@@ -64,6 +64,19 @@ public:
 	ZeldaGame(int width, int height, GameWindowMode windowMode, string gameName) :
 		NoaGameEngine(width,height,windowMode,gameName) 
 	{
+		text.position = Vector<int>(10, 10);
+		text.textColor = WHITE;
+
+		button.sprite = new Sprite(LoadSprFile("./Assets/Zelda/JumpMan.spr"), Vector<int>(1, 1));
+		button.position = Vector<int>(pixelWidth / 2, pixelHeight / 2);
+		button.AddClickEvent(
+			[this]()
+			{
+				canvase.SetActive(false);
+			});
+
+		canvase.uiComponent.push_back(&button);
+		canvase.uiComponent.push_back(&text);
 
 	}
 
@@ -77,7 +90,14 @@ public:
 		Vector<int> drawPos =  camera.Render(tileMap,frontDelta,endDelta);
 		player.sprite->DrawSprite(drawPos.x, drawPos.y, true);
 
-		renderer.DrawString(("FPS:"+to_string(1/deltaTime)), 10, 10, WHITE, 30);
+		text.text = move("FPS:" + to_string(1 / deltaTime));
+
+		if (inputSystem.GetMouseButton(RightButton))
+		{
+			canvase.SetActive(true);
+		}
+
+		//renderer.DrawString(("FPS:"+to_string(1/deltaTime)), 10, 10, WHITE, 30);
 
 	}
 
@@ -93,6 +113,14 @@ private:
 	TileMapCamera camera = TileMapCamera(tileScale, &player.position);
 	Vector<float> frontDelta = Vector<float>(0.0, 0.0);
 	Vector<float> endDelta = Vector<float>(0.0, -0.5);
+
+	/*NoaButton button1;*/
+
+	//ui
+	NoaCanvase canvase;
+
+	NoaText text;
+	NoaButton button;
 
 };
 
