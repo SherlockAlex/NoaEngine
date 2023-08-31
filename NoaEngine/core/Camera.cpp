@@ -22,6 +22,7 @@ namespace noa {
 	TileMapCamera::TileMapCamera(Vector<int> tileScale, Vector<float>* follow):Camera(follow)
 	{
 		this->tileScale = tileScale;
+		visibleTiles = Vector<float>(int(pixelWidth / tileScale.x), int(pixelHeight / tileScale.y));
 	}
 
 	Vector<int> TileMapCamera::Render(TileMap& tileMap)
@@ -29,14 +30,7 @@ namespace noa {
 		//完整的渲染2d游戏
 
 		position = *follow;
-
-		//Draw level
-		Vector<float> visibleTiles(int(pixelWidth / tileScale.x), int(pixelHeight / tileScale.y));
-
-		//calculate Top-Leftmost visible tile
-		Vector<float> offset = move(position - visibleTiles * 0.5);
-
-		Vector<int> followPositionOnScreen(0.0,0.0);
+		offset = move(position - visibleTiles * 0.5);
 
 		//Clamp camera to game boundaries
 		if (offset.x < 0)
@@ -47,13 +41,13 @@ namespace noa {
 		{
 			offset.y =0;
 		}
-		if (offset.x > tileMap.w - visibleTiles.x-1)
+		if (offset.x > tileMap.w - visibleTiles.x)
 		{
-			offset.x = tileMap.w - visibleTiles.x-1;
+			offset.x = tileMap.w - visibleTiles.x;
 		}
-		if (offset.y > tileMap.h - visibleTiles.y-1.5)
+		if (offset.y > tileMap.h - visibleTiles.y-0.5)
 		{
-			offset.y = tileMap.h - visibleTiles.y-1.5;
+			offset.y = tileMap.h - visibleTiles.y-0.5;
 		}
 
 		Debug("offset(x,y):" + to_string(offset.x) + "," + to_string(offset.y));
@@ -65,13 +59,17 @@ namespace noa {
 
 		for (int x = -2; x < visibleTiles.x+2; x++)
 		{
-			for (int y = -2; y < visibleTiles.y + 2; y++)
+			for (int y = -2; y < visibleTiles.y+2 ; y++)
 			{
 				//首先获取tile
 				const int tileID = tileMap.GetTileID(x + offset.x, y + offset.y);
 				if (tileID == -1)
 				{
-					renderer.DrawRect(Vector<int>((x - 0.5) * tileScale.x - tileOffset.x, (y-0.5)*tileScale.y - tileOffset.y), Vector<int>((x + 0.5) * tileScale.x - tileOffset.x, (y + 0.5) * tileScale.y - tileOffset.y), BLUE);
+					renderer.DrawRect(
+						Vector<int>((x- 0) * tileScale.x - tileOffset.x, (y- 0)*tileScale.y - tileOffset.y),
+						Vector<int>((x + 1) * tileScale.x - tileOffset.x, (y + 1) * tileScale.y - tileOffset.y),
+						BLUE
+					);
 					continue;
 				}
 
@@ -79,10 +77,18 @@ namespace noa {
 				Tile* tile = tileMap.GetTile(tileID);
 				if (tile == nullptr)
 				{
-					renderer.DrawRect(Vector<int>((x - 0.5) * tileScale.x - tileOffset.x, (y - 0.5) * tileScale.y - tileOffset.y), Vector<int>((x + 0.5) * tileScale.x - tileOffset.x, (y + 0.5) * tileScale.y - tileOffset.y), LIGHTRED);
+					renderer.DrawRect(
+						Vector<int>((x- 0) * tileScale.x - tileOffset.x, (y- 0) * tileScale.y - tileOffset.y),
+						Vector<int>((x + 1) * tileScale.x - tileOffset.x, (y + 1) * tileScale.y - tileOffset.y),
+						LIGHTRED
+					);
 					continue;
 				}
-				renderer.DrawRect(Vector<int>((x - 0.5) * tileScale.x - tileOffset.x, (y - 0.5) * tileScale.y - tileOffset.y), Vector<int>((x + 0.5) * tileScale.x - tileOffset.x, (y + 0.5) * tileScale.y - tileOffset.y), *tileMap.GetTile(tileID)->sprite);
+				renderer.DrawRect(
+					Vector<int>((x- 0) * tileScale.x - tileOffset.x, (y- 0) * tileScale.y - tileOffset.y),
+					Vector<int>((x + 1) * tileScale.x - tileOffset.x, (y + 1) * tileScale.y - tileOffset.y),
+					*tileMap.GetTile(tileID)->sprite
+				);
 
 			}
 		}

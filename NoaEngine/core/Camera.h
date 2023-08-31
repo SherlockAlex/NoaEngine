@@ -10,6 +10,7 @@ namespace noa {
 	// 越靠前的就先被渲染
 	class Camera
 	{
+	
 	public:
 		Vector<float>* follow = nullptr;
 		Vector<float> position;
@@ -28,6 +29,9 @@ namespace noa {
 	{
 	private:
 		Vector<int> tileScale = Vector<int>(64, 64);
+		Vector<float> visibleTiles;
+		Vector<float> offset;
+		Vector<int> followPositionOnScreen = Vector<int>(0.0, 0.0);
 	public:
 		TileMapCamera();
 		TileMapCamera(Vector<int> tileScale, Vector<float>* follow);

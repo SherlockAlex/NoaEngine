@@ -181,10 +181,15 @@ namespace noa {
 		//	}
 		//}
 
-		const int x1 = posX - scale.x*0.5;
+		/*const int x1 = posX - scale.x*0.5;
 		const int y1 = posY - scale.y*0.5;
 		const int x2 = posX + scale.x*0.5;
-		const int y2 = posY + scale.y*0.5;
+		const int y2 = posY + scale.y*0.5;*/
+
+		const int x1 = posX;
+		const int y1 = posY;
+		const int x2 = posX + scale.x;
+		const int y2 = posY + scale.y;
 
 		for (int x = min(x1, x2); x <= max(x1, x2); x++)
 		{
@@ -252,10 +257,15 @@ namespace noa {
 			}
 		}*/
 
-		const int x1 = posx - scale.x * 0.5;
+		/*const int x1 = posx - scale.x * 0.5;
 		const int y1 = posy - scale.y * 0.5;
 		const int x2 = posx + scale.x * 0.5;
-		const int y2 = posy + scale.y * 0.5;
+		const int y2 = posy + scale.y * 0.5;*/
+
+		const int x1 = posx;
+		const int y1 = posy;
+		const int x2 = posx + scale.x;
+		const int y2 = posy + scale.y;
 
 		for (int x = min(x1, x2); x <= max(x1, x2); x++)
 		{
@@ -322,10 +332,15 @@ namespace noa {
 		//	}
 		//}
 
-		const int x1 = posx - scale.x * 0.5;
+		/*const int x1 = posx - scale.x * 0.5;
 		const int y1 = posy - scale.y * 0.5;
 		const int x2 = posx + scale.x * 0.5;
-		const int y2 = posy + scale.y * 0.5;
+		const int y2 = posy + scale.y * 0.5;*/
+
+		const int x1 = posx;
+		const int y1 = posy;
+		const int x2 = posx + scale.x;
+		const int y2 = posy + scale.y;
 
 		for (int x = min(x1, x2); x <= max(x1, x2); x++)
 		{
