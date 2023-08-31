@@ -16,6 +16,7 @@ public:
 
 		useGravity = false;
 
+		//设置地图的碰撞信息
 		SetCollisionTileID({25,26,33,34,19,20,21,27,29,35,36,37});
 		UpdateMap(map);
 	}
@@ -75,6 +76,9 @@ public:
 	{
 		Vector<int> drawPos =  camera.Render(tileMap,frontDelta,endDelta);
 		player.sprite->DrawSprite(drawPos.x, drawPos.y, true);
+
+		renderer.DrawString(fontPath, "hello world", pixelWidth / 2, pixelHeight / 2, WHITE, 50);
+
 	}
 
 private:
@@ -90,6 +94,7 @@ private:
 	Vector<float> frontDelta = Vector<float>(0.0, 0.0);
 	Vector<float> endDelta = Vector<float>(0.0, -0.5);
 
+	string fontPath = "./Assets/ttf/font.ttf";
 
 };
 

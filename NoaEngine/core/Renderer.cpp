@@ -1,19 +1,29 @@
 #include "Renderer.h"
 #include "Sprite.h"
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_ttf.h>
+#include <queue>
 
 namespace noa {
+	extern void Debug(string msg);
+
 	Renderer::Renderer()
 	{
 		pixelBuffer = nullptr;
 		pixelHeight = 0;
 		pixelWidth = 0;
+		this->sdlRenderer = nullptr;
+		this->sdlTexture = nullptr;
 	}
 
-	Renderer::Renderer(int pixelWidth, int pixelHeight, void* pixelBuffer)
+	Renderer::Renderer(int pixelWidth, int pixelHeight, void* pixelBuffer, SDL_Renderer* sdlRenderer,SDL_Texture* sdlTexture)
 	{
 		this->pixelWidth = pixelWidth;
 		this->pixelHeight = pixelHeight;
 		this->pixelBuffer = (Uint32*)pixelBuffer;
+		this->sdlRenderer = sdlRenderer;
+		this->sdlTexture = sdlTexture;
+
 	}
 
 	void Renderer::DrawPixel(const int x, const int y, const Uint32 color) const
@@ -151,9 +161,8 @@ namespace noa {
 		}
 	}
 
-	void Renderer::DrawString(int x, int y, const string& str, Uint32 color, const int size)
+	void Renderer::DrawString(string & file, const std::string& str, int x, int y, Uint32 color, int size)
 	{
-		//»æÖÆ×Ö·û´®µ½ÆÁÄ»ÉÏ
 
 	}
 

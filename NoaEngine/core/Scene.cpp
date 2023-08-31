@@ -135,8 +135,9 @@ namespace noa
 		{
 			Tile* tile = new Tile(data.sprites);
 			result[data.id] = tile;
-			Debug("tile id:" + to_string(data.id)+",width:"+to_string(data.sprites.width)+",height:"+to_string(data.sprites.height));
 		}
+
+		Debug("Init tileset successfully");
 
 		return result;
 	}

@@ -111,7 +111,7 @@ namespace noa {
 		}
 		//pixelBuffer = surface->pixels;
 
-		renderer = Renderer(surfaceWidth, surfaceHeight, pixelBuffer);
+		renderer = Renderer(surfaceWidth, surfaceHeight, pixelBuffer,mainRenderer,texture);
 
 		//处理音频设备初始化
 		if (Mix_OpenAudio(

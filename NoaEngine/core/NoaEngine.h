@@ -78,6 +78,7 @@
 #include <fstream>
 #include <string>
 #include <functional>
+#include <queue>
 
 using namespace std;
 
@@ -196,7 +197,7 @@ namespace noa {
 
 	};
 
-	void Debug(string msg);
+	extern void Debug(string msg);
 }
 
 

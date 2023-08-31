@@ -12,6 +12,8 @@
 #include <fstream>
 #include <string>
 
+#include <SDL2/SDL.h>
+
 #include "NoaMath.h"
 
 using namespace std;
@@ -50,6 +52,7 @@ namespace noa {
 		//Uint32* image = nullptr;
 
 	public:
+		Sprite(SDL_Surface* surface);
 		Sprite(SpriteFile sprFile, Vector<int> scale);
 		Sprite(const char* file, Vector<int> scale);
 		Sprite();
@@ -67,6 +70,7 @@ namespace noa {
 		//È«ÆÁ»æÖÆÍ¼Æ¬
 		void DrawSpriteFull();
 
+		Uint32 GetPixelColor(int x,int y) const;
 		Uint32 GetColor(float normalizedX, float normalizedY) const;
 		Uint32 GetTransposeColor(float normalizedX, float normalizedY) const;
 		Uint32 GetTransposeColor(const Vector<float>& simple) const;

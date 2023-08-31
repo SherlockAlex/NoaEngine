@@ -4,6 +4,36 @@
 namespace noa {
 	extern Renderer renderer;
 
+	Sprite::Sprite(SDL_Surface* surface)
+	{
+		// 获取图片的宽度和高度  
+		int width = surface->w;
+		int height = surface->h;
+
+		// 创建一个vector来保存图片数据  
+		std::vector<uint32_t> rgb888;
+
+		Uint8* pixels = static_cast<Uint8*>(surface->pixels);
+		int pitch = surface->pitch;
+
+		for (int y = 0; y < height; ++y) {
+			for (int x = 0; x < width; ++x) {
+				Uint8 r, g, b;
+				SDL_GetRGB(*reinterpret_cast<Uint32*>(pixels + y * pitch + x * 3), surface->format, &r, &g, &b);
+				uint32_t rgb888Pixel = (static_cast<uint32_t>(r) << 16) | (static_cast<uint32_t>(g) << 8) | static_cast<uint32_t>(b);
+				rgb888.push_back(rgb888Pixel);
+			}
+		}
+
+		this->w = width;
+		this->h = height;
+		this->image = rgb888;
+		this->posx = 0;
+		this->posy = 0;
+		this->scale = Vector<int>(width, height);
+
+	}
+
 	///Sprite类的实现
 	Sprite::Sprite(SpriteFile sprFile, Vector<int> scale)
 	{
@@ -386,6 +416,15 @@ namespace noa {
 				renderer.DrawPixel(x,y,color);
 			}
 		}
+	}
+
+	Uint32 Sprite::GetPixelColor(int x, int y) const
+	{
+		if (x<0||x>=w||y<0||y>=h)
+		{
+			return 0;
+		}
+		return image[y * w + x];
 	}
 
 	Uint32 Sprite::GetColor(float normalizedX, float normalizedY) const

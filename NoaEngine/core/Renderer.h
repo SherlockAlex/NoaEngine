@@ -49,10 +49,12 @@ namespace noa {
 		int pixelWidth;
 		int pixelHeight;
 		Uint32* pixelBuffer;
+		SDL_Renderer* sdlRenderer;
+		SDL_Texture* sdlTexture;
 
 	public:
 		Renderer();
-		Renderer(int pixelWidth, int pixelHeight, void* pixelBuffer);
+		Renderer(int pixelWidth, int pixelHeight, void* pixelBuffer,SDL_Renderer* sdlRenderer, SDL_Texture* sdlTexture);
 		//»æÖÆÏñËØµã
 		void DrawPixel(int x, int y, Uint32 color) const;
 		void DrawLine(int x1, int y1, int x2, int y2, Uint32 color) const;
@@ -71,7 +73,9 @@ namespace noa {
 		/// <param name="point2"></param>
 		/// <param name="sprite"></param>
 		void DrawRect(const Vector<int>& point1, const Vector<int>& point2, Sprite & sprite) const;
-		void DrawString(int x, int y, const string& str, Uint32 color, const int size);
+
+		void DrawString(string & file, const std::string& str, int x, int y, Uint32 color, int size);
+		
 		void FullScreen(Uint32 color) const;
 		
 
