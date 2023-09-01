@@ -133,7 +133,7 @@ public:
 	}
 
 public:
-	float speed = 10;
+	float speed = 12;
 
 };
 

@@ -15,6 +15,7 @@ namespace noa {
 		T x;
 		T y;
 
+
 		Vector()
 		{
 
@@ -26,7 +27,7 @@ namespace noa {
 			this->y = y;
 		}
 
-		Vector Normalize() 
+		Vector Normalize() const
 		{
 			if (this->x==0&&this->y==0)
 			{
@@ -40,7 +41,13 @@ namespace noa {
 
 		}
 
-		Vector operator + (Vector a)
+	
+		float Magnitude() const
+		{
+			return sqrtf(x * x + y * y);
+		}
+
+		Vector operator + (const Vector & a) const
 		{
 			Vector result;
 			result.x = x + a.x;
@@ -48,31 +55,31 @@ namespace noa {
 			return result;
 		}
 
-		void operator += (Vector a) 
+		void operator += (const Vector & a) 
 		{
 			this->x += a.x;
 			this->y += a.y;
 		}
-		Vector operator - (Vector a)
+		Vector operator - (const Vector & a) const
 		{
 			Vector result;
 			result.x = x - a.x;
 			result.y = y - a.y;
 			return result;
 		}
-		void operator -= (Vector a)
+		void operator -= (const Vector & a)
 		{
 			this->x -= a.x;
 			this->y -= a.y;
 		}
-		T operator * (Vector a)
+		T operator * (const Vector & a) const
 		{
 			//向量点乘
 			T result = x * a.x + y * a.y;
 			return result;
 		}
 
-		Vector operator * (T a)
+		Vector operator * (T a) const
 		{
 			//向量乘常数
 			Vector result;
@@ -81,7 +88,7 @@ namespace noa {
 			return result;
 		}
 
-		Vector operator / (T a)
+		Vector operator / (T a) const
 		{
 			Vector result;
 			T b = 1 / a;
@@ -90,7 +97,8 @@ namespace noa {
 			return result;
 		}
 
-		bool operator == (Vector a) {
+		bool operator == (const Vector & a) const
+		{
 			return this->x == a.x && this->y == a.y;
 		}
 

@@ -148,7 +148,8 @@ namespace noa {
 						color = tile->sprite->GetColor(ray.simple.y, ray.simple.x);
 					}
 				}
-				else {
+				else 
+				{
 					const float b = 1.0 - (((float)y - pixelHeight * 0.5) / (float)pixelHeight * 0.5);
 					const float deltaRayShine = (1 - b) * (1 - b);
 					const float depth = (1 - b);
@@ -165,62 +166,61 @@ namespace noa {
 		for (auto object : gameObjects)
 		{
 
-			const float fVecX = object->position.x - follow->position.x;
-			const float fVecY = object->position.y - follow->position.y;
+			const Vector<float> vecToFollow = move(object->position - follow->position);
 
-			const float fDistanceFromPlayer = sqrtf(fVecX * fVecX + fVecY * fVecY);
+			const float distanceFromPlayer = vecToFollow.Magnitude();
 
-			const float fEyeX = sinf(follow->angle);
-			const float fEyeY = cosf(follow->angle);
-			float fObjectAngle = atan2(fEyeY, fEyeX) - atan2(fVecY, fVecX);
-			if (fObjectAngle < -3.14159f)
+			const Vector<float> eye = move(Vector<float>(sinf(follow->angle), cosf(follow->angle)));
+
+			float objectAngle = atan2(eye.y, eye.x) - atan2(vecToFollow.y, vecToFollow.x);
+			if (objectAngle < -3.14159f)
 			{
-				fObjectAngle += 2.0f * 3.14159f;
+				objectAngle += 2.0f * 3.14159f;
 			}
-			if (fObjectAngle > 3.14159)
+			if (objectAngle > 3.14159)
 			{
-				fObjectAngle -= 2.0f * 3.14159f;
+				objectAngle -= 2.0f * 3.14159f;
 			}
-			const bool bInPlayerFOV = fabs(fObjectAngle) < FOV * 0.5f;
+			const bool isInPlayerFOV = fabs(objectAngle) < FOV * 0.5f;
 
-			if (bInPlayerFOV && fDistanceFromPlayer >= 0.5f &&
-				fDistanceFromPlayer < viewDepth)
+			if (isInPlayerFOV && distanceFromPlayer >= 0.5f &&
+				distanceFromPlayer < viewDepth)
 			{
 
 				//绘制物体到屏幕上
 
-				const float fObjectCeiling = (float)(pixelHeight * 0.5)
-					- pixelHeight / (float)fDistanceFromPlayer;
-				const float fObjectFloor = pixelHeight - fObjectCeiling;
+				const float objectCeiling = (float)(pixelHeight * 0.5)
+					- pixelHeight / (float)distanceFromPlayer;
+				const float objectFloor = pixelHeight - objectCeiling;
 
-				const float fObjectHeight = fObjectFloor - fObjectCeiling;
-				const float fObjectAspectRatio = (float)object->sprite->h / (float)object->sprite->w;
-				const float fObjectWidth = fObjectHeight / fObjectAspectRatio;
+				const float objectHeight = objectFloor - objectCeiling;
+				const float objectAspectRatio = (float)object->sprite->h / (float)object->sprite->w;
+				const float objectWidth = objectHeight / objectAspectRatio;
 
-				const float fMiddleOfObject = (0.5f * (fObjectAngle / (FOV * 0.5f)) + 0.5f)
+				const float middleOfObject = (0.5f * (objectAngle / (FOV * 0.5f)) + 0.5f)
 					* (float)pixelWidth;
 
-				for (float lx = 0; lx < fObjectWidth; lx++)
+				for (float lx = 0; lx < objectWidth; lx++)
 				{
-					for (float ly = 0; ly < fObjectHeight; ly++)
+					for (float ly = 0; ly < objectHeight; ly++)
 					{
-						const float objSimpleX = lx / fObjectWidth;
-						const float objSimpleY = ly / fObjectHeight;
+						const float objSimpleX = lx / objectWidth;
+						const float objSimpleY = ly / objectHeight;
 
 						const Uint32 objColor = object->sprite->GetTransposeColor(objSimpleY, objSimpleX);
-						const int nObjectColumn = (int)(fMiddleOfObject + lx - (fObjectWidth * 0.5f));
-						if (nObjectColumn >= 0 && nObjectColumn < pixelWidth)
+						const int objectColumn = (int)(middleOfObject + lx - (objectWidth * 0.5f));
+						if (objectColumn >= 0 && objectColumn < pixelWidth)
 						{
-							if ((int)(fObjectCeiling + ly) < 0 || (int)(fObjectCeiling + ly) >= pixelHeight
-								|| (nObjectColumn < 0) || (nObjectColumn >= pixelWidth)) {
+							if ((int)(objectCeiling + ly) < 0 || (int)(objectCeiling + ly) >= pixelHeight
+								|| (objectColumn < 0) || (objectColumn >= pixelWidth)) {
 								continue;
 							}
-							if (objColor == BLACK || wallDistanceBuffer[nObjectColumn] < fDistanceFromPlayer)
+							if (objColor == BLACK || wallDistanceBuffer[objectColumn] < distanceFromPlayer)
 							{
 								continue;
 							}
-							wallDistanceBuffer[nObjectColumn] = fDistanceFromPlayer;
-							renderer.DrawPixel(nObjectColumn, (int)(fObjectCeiling + ly), objColor);
+							wallDistanceBuffer[objectColumn] = distanceFromPlayer;
+							renderer.DrawPixel(objectColumn, (int)(objectCeiling + ly), objColor);
 						}
 					}
 				}
@@ -236,7 +236,7 @@ namespace noa {
 		ray.distance = 0.0;
 		ray.angle = follow->angle - FOV * (0.5 - (float)pixelX / pixelWidth);
 		const float rayForwordStep = 0.03;
-		Vector<float> eye = Vector<float>(sinf(ray.angle), cosf(ray.angle));
+		const Vector<float> eye = Vector<float>(sinf(ray.angle), cosf(ray.angle));
 
 		while (!IsCollisionTile(ray.hitTile)&&ray.distance<viewDepth) 
 		{
@@ -257,24 +257,25 @@ namespace noa {
 
 			if (IsCollisionTile(ray.hitTile)) 
 			{
-				const float fBlockMidX = (float)intHitPoint.x + 0.5f;
-				const float fBlockMidY = (float)intHitPoint.y + 0.5f;
-				const float fTestAngle = atan2f((floatHitPoint.y - fBlockMidY), (floatHitPoint.x - fBlockMidX));
+				const float blockMidX = (float)intHitPoint.x + 0.5f;
+				const float blockMidY = (float)intHitPoint.y + 0.5f;
 
-				if (fTestAngle >= -PI * 0.25f && fTestAngle < PI * 0.25f)
+				const float testAngle = atan2f((floatHitPoint.y - blockMidY), (floatHitPoint.x - blockMidX));
+
+				if (testAngle >= -PI * 0.25f && testAngle < PI * 0.25f)
 				{
 					ray.simple.x = floatHitPoint.y - (float)intHitPoint.y;
 
 				}
-				if (fTestAngle >= PI * 0.25f && fTestAngle < PI * 0.75f)
+				if (testAngle >= PI * 0.25f && testAngle < PI * 0.75f)
 				{
 					ray.simple.x = floatHitPoint.x - (float)intHitPoint.x;
 				}
-				if (fTestAngle < -PI * 0.25f && fTestAngle >= -PI * 0.75f)
+				if (testAngle < -PI * 0.25f && testAngle >= -PI * 0.75f)
 				{
 					ray.simple.x = floatHitPoint.x - (float)intHitPoint.x;
 				}
-				if (fTestAngle >= PI * 0.75f || fTestAngle < -PI * 0.75f)
+				if (testAngle >= PI * 0.75f || testAngle < -PI * 0.75f)
 				{
 					ray.simple.x = floatHitPoint.y - (float)intHitPoint.y;
 				}
