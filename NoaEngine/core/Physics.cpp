@@ -12,6 +12,8 @@ namespace noa {
 	unordered_map<int,bool> collisionTiles;
 
 	extern bool IsCollisionTile(int tileID);
+	//检测rigid是否和其他刚体相撞，如果相撞就返回
+	extern bool CollisionWithinRigidbody(Rigidbody* rigid,int x,int y);
 
 	vector<Rigidbody*> rigidbodys;
 	TileMap* tileMap = nullptr;
@@ -23,6 +25,7 @@ namespace noa {
 	{
 		this->colliderPos = colliderPos;
 		invMass = 1.0 / mass;
+		
 		rigidbodys.push_back(this);
 	}
 
@@ -47,6 +50,7 @@ namespace noa {
 	//实现物理效果
 	void Rigidbody::Update()
 	{
+		indexInMap = (int)(colliderPos->x) + (int)(colliderPos->y) * tileMap->w;
 		if (isFrozen)
 		{
 			return;
@@ -76,8 +80,13 @@ namespace noa {
 		{
 			if (velocity.x <= 0)
 			{
-				if (ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x, colliderPos->y + 0.0)) ||
-					ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x, colliderPos->y + 0.999)))
+
+				if (ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x, colliderPos->y + 0.0))
+					||ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x, colliderPos->y + 0.999))
+					||CollisionWithinRigidbody(this,newPosition.x,colliderPos->y)
+					||CollisionWithinRigidbody(this, newPosition.x, colliderPos->y+0.999)
+				)
+					
 				{
 					newPosition.x = (int)newPosition.x + 1;
 					velocity.x = 0;
@@ -85,8 +94,11 @@ namespace noa {
 			}
 			else
 			{
-				if (ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x + 0.999, colliderPos->y + 0.0)) ||
-					ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x + 0.999, colliderPos->y + 0.999)))
+				if (ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x + 0.999, colliderPos->y + 0.0))
+					||ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x + 0.999, colliderPos->y + 0.999))
+					|| CollisionWithinRigidbody(this, newPosition.x+0.999, colliderPos->y)
+					|| CollisionWithinRigidbody(this, newPosition.x+0.999, colliderPos->y + 0.999)
+					)
 				{
 					newPosition.x = (int)newPosition.x;
 					velocity.x = 0;
@@ -96,8 +108,11 @@ namespace noa {
 			isGrounded = false;
 			if (velocity.y <= 0)
 			{
-				if (ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x + 0.0f, newPosition.y)) ||
-					ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x + 0.999f, newPosition.y)))
+				if (ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x + 0.0f, newPosition.y))
+					||ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x + 0.999f, newPosition.y))
+					|| CollisionWithinRigidbody(this, newPosition.x, newPosition.y)
+					|| CollisionWithinRigidbody(this, newPosition.x+0.999, newPosition.y)
+					)
 				{
 					newPosition.y = (int)newPosition.y + 1;
 					velocity.y = 0;
@@ -105,8 +120,11 @@ namespace noa {
 			}
 			else
 			{
-				if (ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x + 0.0f, newPosition.y + 0.999)) ||
-					ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x + 0.999f, newPosition.y + 0.999)))
+				if (ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x + 0.0f, newPosition.y + 0.999))
+					||ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x + 0.999f, newPosition.y + 0.999))
+					|| CollisionWithinRigidbody(this, newPosition.x, newPosition.y+0.999)
+					|| CollisionWithinRigidbody(this, newPosition.x + 0.999, newPosition.y+0.999)
+					)
 				{
 					newPosition.y = (int)newPosition.y;
 					velocity.y = 0;
@@ -174,8 +192,33 @@ namespace noa {
 		
 	}
 
+	int Rigidbody::GetIndexInMap()
+	{
+		return this->indexInMap;
+	}
+
 	bool IsCollisionTile(int tileID) {
 		return ContainKey<int, bool>(collisionTiles, tileID);
+	}
+
+	bool CollisionWithinRigidbody(Rigidbody * rigid,int x, int y)
+	{
+
+		//indexInMap是一个动态的概念
+		const int indexInMap = y * tileMap->w + x;
+
+		for (int i=0;i< rigidbodys.size();i++)
+		{
+			if (rigidbodys[i]==rigid)
+			{
+				continue;
+			}
+			if (rigidbodys[i]->GetIndexInMap() == indexInMap)
+			{
+				return true;
+			}
+		}
+		return false;
 	}
 
 }

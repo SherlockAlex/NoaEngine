@@ -5,15 +5,14 @@
     },
     "activeFile": "level.tmx",
     "expandedProjectPaths": [
-        "."
     ],
     "fileStates": {
         "level.tmx": {
-            "scale": 0.75,
+            "scale": 0.125,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": -14,
-                "y": -140.66666666666663
+                "x": 1204,
+                "y": 268
             }
         },
         "tile.tsx": {
@@ -21,19 +20,25 @@
             "scaleInEditor": 1
         }
     },
-    "last.exportedFilePath": "D:/Work/GitTools/NoaEngine/NoaEngine/Assets/Zelda/map",
+    "last.exportedFilePath": "D:/Work/GitTools/NoaEngine/NoaEngine/Assets/Wolf/Map",
     "last.imagePath": "C:/Users/zhang/Downloads",
     "map.fixedSize": false,
-    "map.lastUsedExportFilter": "CSV 文件 (*.csv)",
+    "map.lastUsedExportFilter": "全部文件 (*)",
     "map.lastUsedFormat": "tmx",
+    "map.tileHeight": 64,
+    "map.tileWidth": 64,
     "openFiles": [
         "level.tmx",
         "tile.tsx"
     ],
-    "project": "level.tiled-project",
+    "project": "level1.tiled-project",
     "recentFiles": [
         "tile.tsx",
         "level.tmx"
     ],
-    "tileset.lastUsedFormat": "tsx"
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.tileSize": {
+        "height": 64,
+        "width": 64
+    }
 }

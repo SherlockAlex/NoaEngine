@@ -2,9 +2,12 @@
 
 using namespace noa;
 
-class Enimy :public GameObject {
+class Enimy :public GameObject,public Rigidbody 
+{
 public:
-	Enimy() :GameObject(new Sprite(LoadSprFile("./Assets/Wolf/caco.spr"),Vector<int>(1,1)))
+	Enimy() :
+		GameObject(new Sprite(LoadSprFile("./Assets/Wolf/caco.spr"),Vector<int>(1,1)))
+		,Rigidbody(&position)
 	{
 		position.x = 6;
 		position.y = 2;
@@ -35,18 +38,48 @@ public:
 	{
 		useGravity = false;
 
-		SetCollisionTileID({ 25,26,33,34,19,20,21,27,29,35,36,37 });
+		//SetCollisionTileID({ 25,26,33,34,19,20,21,27,29,35,36,37 });
+		vector<int> collisionTileID;
+		for (int i=0;i<108;i++)
+		{
+			if (i == 106||i == 42)
+			{
+				continue;
+			}
+
+			collisionTileID.push_back(i);
+
+		}
+		SetCollisionTileID(collisionTileID);
 		UpdateMap(map);
 
 		inputSystem.inputEvent += [this]() {
 			this->RotateControl();
 		};
 
+		SetPosition(106, *map);
+		
+
 	}
 
 	~Player() {
 		Behaviour::~Behaviour();
 		Rigidbody::~Rigidbody();
+	}
+
+	void SetPosition(int tileID,TileMap & tileMap)
+	{
+		for (int i=0;i<tileMap.w;i++) 
+		{
+			for (int j=0;j<tileMap.h;j++) 
+			{
+				if (tileMap.GetTileID(i,j)==tileID)
+				{
+					position.x = i;
+					position.y = j;
+				}
+			}
+		}
 	}
 
 	void ActorControl() {
@@ -119,6 +152,7 @@ public:
 
 	void Update() override {
 		camera.Render(tileMap);
+		renderer.DrawString("FPS:"+to_string(1.0/deltaTime),10,10,RED,50);
 	}
 
 private:
@@ -134,7 +168,7 @@ private:
 
 int main()
 {
-	WolfGame game(1920 / 2, 1080 / 2, NoaGameEngine::WindowMode, "Wolf");
+	WolfGame game(1920/2, 1080/2, NoaGameEngine::WindowMode, "Wolf");
 	game.Run();
 
 	return 0;

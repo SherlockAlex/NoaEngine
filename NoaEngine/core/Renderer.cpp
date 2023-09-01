@@ -241,7 +241,7 @@ namespace noa {
 		int row = 0;
 		int offset = 0;
 
-		float narrowx = 0.7;
+		float narrowx = 0.6;
 		const int length = str.length();
 		const char* c_str = str.c_str();
 		for (int i=0;i<length;i++) 

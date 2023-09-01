@@ -39,6 +39,8 @@ namespace noa {
 
 	private:
 		Vector<float>* colliderPos = nullptr;
+		//用于物体之间的碰撞检测
+		int indexInMap = -1;
 	protected:
 		float mass = 1;
 		float g = 9.81;
@@ -74,6 +76,8 @@ namespace noa {
 		void ApplyCollision();
 		float FixPosition();
 		void UpdateCollision(Vector<float> & nextPosition);
+
+		int GetIndexInMap();
 
 	};
 }

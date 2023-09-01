@@ -114,7 +114,7 @@ namespace noa {
 	{
 		for (int x = 0;x<pixelWidth;x++) 
 		{
-			Ray ray = RaycastHit(x, map);
+			Ray ray =move(RaycastHit(x, map));
 			
 			wallDistanceBuffer[x] = ray.distance;
 
@@ -142,7 +142,7 @@ namespace noa {
 					ray.simple.y = ((float)y - (float)(ceiling + sharkCamera))
 						/ ((float)floor - (float)ceiling);
 
-					Tile* tile = map.GetTile(ray.hitTile);
+					const Tile* tile = map.GetTile(ray.hitTile);
 					if (tile!=nullptr) 
 					{
 						color = tile->sprite->GetColor(ray.simple.y, ray.simple.x);

@@ -6,8 +6,6 @@
 
 namespace noa {
 	extern vector <Behaviour*> behaviours;
-	//extern vector<GameObject*> gameObjects;
-	//extern vector<Animator*> animatorList;
 	extern vector<Rigidbody*> rigidbodys;
 
 	//mutex mtx; // 定义互斥锁对象
@@ -215,18 +213,18 @@ namespace noa {
 				}
 			}
 
-			const int rigidbodyCount = rigidbodys.size();
-			const int behaviourCount = behaviours.size();
+			//const int rigidbodyCount = rigidbodys.size();
+			//const int behaviourCount = behaviours.size();
 			//const int animatorCount = animatorList.size();
 
-			for (int i = 0; i < rigidbodyCount; i++)
+			for (int i = 0; i < rigidbodys.size(); i++)
 			{
 				rigidbodys[i]->Update();
 			}
 
 			Update();
 
-			for (int i = 0; i < behaviourCount; i++)
+			for (int i = 0; i < behaviours.size(); i++)
 			{
 				if (behaviours[i]->isActive == false)
 				{
