@@ -74,7 +74,7 @@ public:
 		}
 
 
-		if (inputSystem.GetKeyHold(KeySpace) && isGrounded)
+		if ((inputSystem.GetKeyHold(KeySpace)||inputSystem.GetKeyHold(KeyK)) && isGrounded)
 		{
 			AddForce(jumpForce, Impulse);
 			jumpSFX.Play(false);
@@ -101,11 +101,6 @@ public:
 				currentAnimatorState = jump;
 			}
 
-		}
-
-		if (inputSystem.GetKeyHold(KeyK) && isGrounded)
-		{
-			currentAnimatorState = jump;
 		}
 
 		currentAnimatorState->Play();
@@ -137,11 +132,9 @@ public:
 	float speed = 10;
 	bool isLeft = false;
 
-	//��Ч
 	const Audio coinSFX = Audio("./Assets/JumpMan/Music/coin.mp3", Chunk);
 	const Audio jumpSFX = Audio("./Assets/JumpMan/Music/jump.mp3", Chunk);
 
-	//����
 	Animator* currentAnimatorState = nullptr;
 	Animator* idle = new Animator(5);
 	Animator* run = new Animator(10);
@@ -171,8 +164,6 @@ public:
 
 	void Update() override 
 	{
-
-		//��������Ⱦ2d��Ϸ
 
 		Vector<int> playerDrawPos = camera.Render(tileMap,frontDelta,endDelta);
 
