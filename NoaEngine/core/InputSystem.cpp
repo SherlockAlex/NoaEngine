@@ -5,9 +5,8 @@
 #include "NoaEngine.h"
 
 #ifdef __linux
-
 #include <X11/Xlib.h>
-
+#include <X11/keysym.h>
 #endif // __linux
 
 
