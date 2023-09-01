@@ -11,6 +11,8 @@ namespace noa {
 
 	unordered_map<int,bool> collisionTiles;
 
+	extern bool IsCollisionTile(int tileID);
+
 	vector<Rigidbody*> rigidbodys;
 	TileMap* tileMap = nullptr;
 
@@ -170,6 +172,10 @@ namespace noa {
 	void Rigidbody::UpdateCollision(Vector<float>& nextPosition)
 	{
 		
+	}
+
+	bool IsCollisionTile(int tileID) {
+		return ContainKey<int, bool>(collisionTiles, tileID);
 	}
 
 }

@@ -12,6 +12,7 @@ namespace noa {
 	public:
 		//表示位置信息
 		Vector<float> position;
+		float angle = 0.0;
 		bool isActive = true;
 
 	public:

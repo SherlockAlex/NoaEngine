@@ -2,6 +2,7 @@
 #define NOAENGINE_NOAMATH_H
 
 #include <math.h>
+#include <string>
 #include <unordered_map>
 
 namespace noa {
@@ -25,6 +26,20 @@ namespace noa {
 			this->y = y;
 		}
 
+		Vector Normalize() 
+		{
+			if (this->x==0&&this->y==0)
+			{
+				return Vector(0, 0);
+			}
+			const float invLength =1.0 / sqrtf(this->x * this->x + this->y * this->y);
+			Vector result;
+			result.x = (float)this->x * invLength;
+			result.y = (float)this->y * invLength;
+			return result;
+
+		}
+
 		Vector operator + (Vector a)
 		{
 			Vector result;
@@ -32,6 +47,7 @@ namespace noa {
 			result.y = y + a.y;
 			return result;
 		}
+
 		void operator += (Vector a) 
 		{
 			this->x += a.x;

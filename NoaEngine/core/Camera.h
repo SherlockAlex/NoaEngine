@@ -4,15 +4,19 @@
 #include "NoaMath.h"
 #include "Scene.h"
 
+
 namespace noa {
 	//这个是游戏的相机，用来显示游戏的画面内容
 	//主要是用来渲染游戏的场景
 	// 越靠前的就先被渲染
+	
+	class Behaviour;
 	class Camera
 	{
 	
 	public:
-		Vector<float>* follow = nullptr;
+		Behaviour* follow;
+		//Vector<float>* follow = nullptr;
 		Vector<float> position;
 
 	public:
@@ -21,7 +25,7 @@ namespace noa {
 		/// </summary>
 		/// <param name="follow"></param>
 		Camera();
-		Camera(Vector<float> * follow);
+		Camera(Behaviour* follow);
 		~Camera();
 	};
 
@@ -34,7 +38,7 @@ namespace noa {
 		Vector<int> followPositionOnScreen = Vector<int>(0.0, 0.0);
 	public:
 		TileMapCamera();
-		TileMapCamera(Vector<int> tileScale, Vector<float>* follow);
+		TileMapCamera(Vector<int> tileScale, Behaviour* follow);
 		
 		/// <summary>
 		/// 渲染瓦片地图到屏幕上
@@ -43,6 +47,31 @@ namespace noa {
 		/// <param name="frontDelta">相机前边界偏移量</param>
 		/// <param name="endDelta">相机后边界偏移量</param>
 		Vector<int> Render(TileMap& tileMap,Vector<float> & frontDelta,Vector<float> & endDelta);
+	};
+
+	//光线
+	typedef struct Ray {
+		float angle = 0.0;
+		float distance = 0.0;
+		
+		int hitTile = -1;
+
+		Vector<float> simple;
+	}Ray;
+
+	class FreeCamera :public Camera
+	{
+	public:
+		float FOV = 0.25 * PI;
+		float viewDepth = 30.0;
+	public:
+		FreeCamera();
+		FreeCamera(Behaviour* follow);
+
+		void Render(TileMap& map);
+
+		Ray RaycastHit(int pixelX,TileMap& map);
+
 	};
 
 }
