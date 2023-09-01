@@ -14,6 +14,7 @@
 
 #include "NoaMath.h"
 #include "Sprite.h"
+#include <list>
 
 using namespace std;
 
@@ -23,8 +24,8 @@ namespace noa {
 	typedef struct MapFile
 	{
 		//µØÍ¼ÎÄ¼þ
-		int w;
-		int h;
+		int w = 0;
+		int h = 0;
 		vector<int> image;
 	}Map;
 
@@ -114,13 +115,14 @@ namespace noa {
 		~Scene();
 	};
 
-	class SceneManager {
+	class SceneManager 
+	{
 	public:
-		Scene* GetActiveScene();
+		Scene * GetActiveScene();
 		void LoadScene(string sceneName);
 		void AddScene(Scene* scene);
 	private:
-		Scene* activeScene = nullptr;
+		Scene * activeScene = nullptr;
 		unordered_map<string, Scene*> sceneList;
 	};
 

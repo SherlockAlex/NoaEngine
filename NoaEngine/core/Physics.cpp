@@ -6,8 +6,6 @@
 using namespace std;
 
 namespace noa {
-	
-	int GetCollisionTile(Vector<float>& colliderPos);
 
 	extern float deltaTime;
 
@@ -37,8 +35,6 @@ namespace noa {
 
 		Debug("rigidbody has been done");
 
-		//Behaviour::~Behaviour();
-
 	}
 
 	
@@ -49,11 +45,10 @@ namespace noa {
 	//实现物理效果
 	void Rigidbody::Update()
 	{
-		if (!isActive)
+		if (isFrozen)
 		{
 			return;
 		}
-
 		if (useGravity)
 		{
 			if (!isGrounded)
@@ -172,17 +167,9 @@ namespace noa {
 		return 0.0;
 	}
 
-	int GetCollisionTile(Vector<float>& colliderPos)
+	void Rigidbody::UpdateCollision(Vector<float>& nextPosition)
 	{
-		//检测玩家和地图的碰撞
-		//如果检测到的点位和byte吻合，就返回true
-		if (tileMap == nullptr)
-		{
-			return -1;
-		}
-		const int tileIndex = (int)(colliderPos.y) * tileMap->w + (int)colliderPos.x;
-		const int hitByte = tileMap->level[tileIndex];
-		return hitByte;
+		
 	}
 
 }

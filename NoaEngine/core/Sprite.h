@@ -52,7 +52,6 @@ namespace noa {
 		//Uint32* image = nullptr;
 
 	public:
-		Sprite(SDL_Surface* surface);
 		Sprite(SpriteFile sprFile, Vector<int> scale);
 		Sprite(const char* file, Vector<int> scale);
 		Sprite();

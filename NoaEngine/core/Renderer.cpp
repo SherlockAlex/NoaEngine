@@ -155,6 +155,7 @@ namespace noa {
 					(float)(x - x1) / (x2 - x1), 
 					(float)(y - y1) / (y2 - y1)
 				);
+				//const uint32_t color = RED;
 				const uint32_t color = sprite.GetTransposeColor(simple.y,simple.x);
 				DrawPixel(x, y, color);
 			}
@@ -241,9 +242,11 @@ namespace noa {
 		int offset = 0;
 
 		float narrowx = 0.7;
-		for (int i=0;i<str.length();i++) 
+		const int length = str.length();
+		const char* c_str = str.c_str();
+		for (int i=0;i<length;i++) 
 		{
-			const char c = str.c_str()[i];
+			const char c = c_str[i];
 			if (c=='\n')
 			{
 				row++;

@@ -7,7 +7,8 @@ using namespace noa;
 
 Vector<int> tileScale(64, 64);
 
-class Player :public GameObject, public Rigidbody {
+class Player :public GameObject, public Rigidbody
+{
 public:
 	Player(TileMap* map) :
 		GameObject(new Sprite(LoadSprFile("./Assets/Zelda/JumpMan.spr"),tileScale)),
@@ -121,7 +122,8 @@ public:
 
 	void OnEnable() override
 	{
-		
+		player.isActive = true;
+		player.isFrozen = false;
 	}
 
 	void Start() override 
@@ -132,7 +134,7 @@ public:
 	void Update() override {
 		Vector<int> drawPos = camera.Render(tileMap, frontDelta, endDelta);
 		player.sprite->DrawSprite(drawPos.x, drawPos.y, true);
-		if (inputSystem.GetMouseButton(RightButton)) 
+		if (inputSystem.GetKeyDown(KeyESC)) 
 		{
 			sceneManager.LoadScene("MainMenuScene");
 		}
@@ -140,7 +142,8 @@ public:
 
 	void OnDisable() override 
 	{
-		
+		player.isActive = false;
+		player.isFrozen = true;
 	}
 
 private:

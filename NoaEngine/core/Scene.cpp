@@ -247,7 +247,7 @@ namespace noa
 		this->OnDisable();
 	}
 
-	Scene* SceneManager::GetActiveScene()
+	Scene * SceneManager::GetActiveScene()
 	{
 		return activeScene;
 	}

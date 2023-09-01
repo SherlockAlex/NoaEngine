@@ -31,6 +31,37 @@ namespace noa {
 	//°´¼üÓ³Éä
 	enum KEYCODE
 	{
+#ifdef __linux
+		KeyA = 'a',
+		KeyB = 'b',
+		KeyC = 'c',
+		KeyD = 'd',
+		KeyE = 'e',
+		KeyF = 'f',
+		KeyG = 'g',
+		KeyH = 'h',
+		KeyI = 'i',
+		KeyJ = 'j',
+		KeyK = 'k',
+		KeyL = 'l',
+		KeyM = 'm',
+		KeyN = 'n',
+		KeyO = 'o',
+		KeyP = 'p',
+		KeyQ = 'q',
+		KeyR = 'r',
+		KeyS = 's',
+		KeyT = 't',
+		KeyU = 'u',
+		KeyV = 'v',
+		KeyW = 'w',
+		KeyX = 'x',
+		KeyY = 'y',
+		KeyZ = 'z',
+		KeySpace = ' ',
+		KeyESC = XK_Escape
+#endif // __linux
+#ifdef _WIN64
 		KeyA = 'A',
 		KeyB = 'B',
 		KeyC = 'C',
@@ -51,12 +82,15 @@ namespace noa {
 		KeyR = 'R',
 		KeyS = 'S',
 		KeyT = 'T',
-		KeyU = 'V',
+		KeyU = 'U',
+		KeyV = 'V',
 		KeyW = 'W',
 		KeyX = 'X',
 		KeyY = 'Y',
 		KeyZ = 'Z',
-		KeySpace = ' '
+		KeySpace = ' ',
+		KeyESC = VK_ESCAPE
+#endif // _WIN64
 	};
 
 	class InputSystem

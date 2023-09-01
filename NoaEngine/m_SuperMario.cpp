@@ -30,7 +30,6 @@ public:
 	}
 
 	void InitPosition(TileMap& tileMap,const int targetTileID) {
-		//������ҵĳ�ʼλ��
 		for (int i = 0; i < tileMap.w; i++)
 		{
 			for (int j = 0; j < tileMap.h; j++)
@@ -75,7 +74,7 @@ public:
 		}
 
 
-		if (inputSystem.GetKeyHold(KeyK) && isGrounded)
+		if (inputSystem.GetKeyHold(KeySpace) && isGrounded)
 		{
 			AddForce(jumpForce, Impulse);
 			jumpSFX.Play(false);

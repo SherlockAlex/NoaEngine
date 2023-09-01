@@ -60,7 +60,7 @@ namespace noa {
 		//animatorList.push_back(this);
 		if (!framesImage.empty())
 		{
-			currentFrame = framesImage[0];
+			currentFrame = move(framesImage[0]);
 		}
 		frameSize = framesImage.size();
 
@@ -80,7 +80,7 @@ namespace noa {
 
 		if (framesImage.size() > 0)
 		{
-			currentFrame = framesImage[0];
+			currentFrame = move(framesImage[0]);
 		}
 
 		frameSize = framesImage.size();

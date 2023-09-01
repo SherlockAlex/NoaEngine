@@ -8,6 +8,25 @@
 namespace noa {
 	//这个是一个物理刚体，负责模拟物理的运动和一些碰撞
 	//如果想让固体具有物理效果，只要继承此类
+
+	//存储人物的碰撞信息
+	typedef struct Collision 
+	{
+		int leftUpTile = -1;
+		int leftDownTile = -1;
+		int rightUpTile = -1;
+		int rightDownTile =-1;
+
+		void Update(int leftUp,int leftDown,int rightUp,int rightDown) 
+		{
+			this->leftUpTile = leftUp;
+			this->leftDownTile = leftDown;
+			this->rightUpTile = rightUp;
+			this->rightDownTile = rightDown;
+		}
+
+	}Collision;
+
 	class Rigidbody
 	{
 	public:
@@ -26,13 +45,15 @@ namespace noa {
 		bool useGravity = true;
 		bool isGrounded = false;
 		bool useCollision = true;
+		
 	public:
+		bool isFrozen = false;
 		//刚体的速度
 		Vector<float> velocity = Vector<float>(0.0,0.0);
 		//刚体的碰撞的大小
 		Vector<float> colliderSize = Vector<float>(0.0, 0.0);
 
-		bool isActive = true;
+		Collision collision;
 
 	protected:
 		Rigidbody(Vector<float>* colliderPos);
@@ -52,6 +73,7 @@ namespace noa {
 		void UpdateMap(void * map);
 		void ApplyCollision();
 		float FixPosition();
+		void UpdateCollision(Vector<float> & nextPosition);
 
 	};
 }

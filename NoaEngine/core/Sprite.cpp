@@ -4,36 +4,6 @@
 namespace noa {
 	extern Renderer renderer;
 
-	Sprite::Sprite(SDL_Surface* surface)
-	{
-		// 获取图片的宽度和高度  
-		int width = surface->w;
-		int height = surface->h;
-
-		// 创建一个vector来保存图片数据  
-		std::vector<uint32_t> rgb888;
-
-		Uint8* pixels = static_cast<Uint8*>(surface->pixels);
-		int pitch = surface->pitch;
-
-		for (int y = 0; y < height; ++y) {
-			for (int x = 0; x < width; ++x) {
-				Uint8 r, g, b;
-				SDL_GetRGB(*reinterpret_cast<Uint32*>(pixels + y * pitch + x * 3), surface->format, &r, &g, &b);
-				uint32_t rgb888Pixel = (static_cast<uint32_t>(r) << 16) | (static_cast<uint32_t>(g) << 8) | static_cast<uint32_t>(b);
-				rgb888.push_back(rgb888Pixel);
-			}
-		}
-
-		this->w = width;
-		this->h = height;
-		this->image = rgb888;
-		this->posx = 0;
-		this->posy = 0;
-		this->scale = Vector<int>(width, height);
-
-	}
-
 	///Sprite类的实现
 	Sprite::Sprite(SpriteFile sprFile, Vector<int> scale)
 	{
@@ -82,7 +52,7 @@ namespace noa {
 
 	void Sprite::UpdateImage(vector<Uint32> image)
 	{
-		this->image = image;
+		this->image = move(image);
 	}
 
 	void Sprite::UpdateImage(const SpriteFile & image)
@@ -448,8 +418,8 @@ namespace noa {
 			return BLACK;
 		}
 
-		const int sx = (NoaAbs<int>(normalizedX * (float)h))%h;
-		const int sy = (NoaAbs<int>(normalizedY * (float)w))%w;
+		const int sx = (NoaAbs<int>(normalizedX * h))%h;
+		const int sy = (NoaAbs<int>(normalizedY * w))%w;
 
 		return image[sy * h + sx];
 	}
@@ -462,8 +432,8 @@ namespace noa {
 			return BLACK;
 		}
 
-		const int sx = NoaAbs<int>(simple.x * (float)h) % h;
-		const int sy = NoaAbs<int>(simple.y * (float)w) % w;
+		const int sx = NoaAbs<int>(simple.x * h) % h;
+		const int sy = NoaAbs<int>(simple.y * w) % w;
 
 		return image[sy * h + sx];
 	}
