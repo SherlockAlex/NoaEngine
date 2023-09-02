@@ -119,10 +119,14 @@ public:
 	void Update() override 
 	{
 		ActorControl();
+		hp -= deltaTime*0.00001;
 	}
 
 public:
 	float speed = 12;
+
+	Uint32 maxHp = 100;
+	Uint32 hp = 100;
 
 };
 
@@ -137,12 +141,14 @@ public:
 
 	void Start() override {
 		Debug("Hello");
+		BGM.Play(true);
 	}
 
 	void Update() override {
 		//renderer.DrawRect(Vector<int>(0, 0), Vector<int>(pixelWidth, pixelHeight / 2), sky);
 		camera.Render(tileMap,true,sky);
 		renderer.DrawString("FPS:"+to_string(1.0/deltaTime),10,10,RED,50);
+		renderer.DrawString("HP:" + to_string(player.hp) + "/" + to_string(player.maxHp),10,60,RED,50);
 	}
 
 private:
@@ -156,6 +162,8 @@ private:
 	Enimy enimy;
 
 	Sprite sky = Sprite(LoadSprFile("./Assets/Wolf/sky.spr"),Vector<int>(1.0,1.0));
+
+	Audio BGM = Audio("./Assets/Wolf/Music/theme.mp3",Music);
 
 };
 

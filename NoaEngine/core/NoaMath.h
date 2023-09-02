@@ -112,6 +112,16 @@ inline T NoaAbs(T value)
 	return (value > 0) ? value : (-value);
 }
 
+inline int NoaFastAbs(const int x)
+{
+	// 检查输入值的符号位
+	const int signBit = x >> (sizeof(int) * 8 - 1); // 获取符号位，正数为0，负数为-1
+
+	// 如果输入值是正数，直接返回原值
+	// 如果输入值是负数，将其转换为正数
+	return (x ^ signBit) - signBit;
+}
+
 template <typename KeyType, typename ValueType>
 inline bool ContainKey(const std::unordered_map<KeyType, ValueType>& myMap, const KeyType& keyToCheck) 
 {

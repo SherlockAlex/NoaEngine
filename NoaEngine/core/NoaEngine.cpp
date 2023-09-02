@@ -257,7 +257,7 @@ namespace noa {
 
 			// ºı…Ÿƒ⁄¥Ê∑√Œ 
 			const double fps = 1.0 / deltaTime;
-			const string windowTitle = gameName + " FPS: " + to_string(fps);
+			const string windowTitle = move(gameName + " FPS: " + to_string(fps));
 			SDL_SetWindowTitle(window, windowTitle.c_str());
 
 			tp1 = tp2;

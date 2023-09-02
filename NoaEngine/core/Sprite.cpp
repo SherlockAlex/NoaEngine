@@ -388,7 +388,7 @@ namespace noa {
 		}
 	}
 
-	Uint32 Sprite::GetPixelColor(int x, int y) const
+	Uint32 Sprite::GetPixelColor(const int x,const int y) const
 	{
 		if (x<0||x>=w||y<0||y>=h)
 		{
@@ -397,20 +397,20 @@ namespace noa {
 		return image[y * w + x];
 	}
 
-	Uint32 Sprite::GetColor(float normalizedX, float normalizedY) const
+	Uint32 Sprite::GetColor(const float normalizedX,const float normalizedY) const
 	{
 		if (image.empty())
 		{
 			return BLACK;
 		}
 
-		const int sx = NoaAbs<int>(normalizedX * (float)w) % w;
-		const int sy = NoaAbs<int>(normalizedY * (float)h) % h;
+		const int sx = NoaFastAbs(normalizedX * w) % w;
+		const int sy = NoaFastAbs(normalizedY * h) % h;
 
 		return image[sy * w + sx];
 	}
 
-	Uint32 Sprite::GetTransposeColor(float normalizedX, float normalizedY) const
+	Uint32 Sprite::GetTransposeColor(const float normalizedX,const float normalizedY) const
 	{
 		//从图片中获取像素
 		if (image.empty())
@@ -418,8 +418,8 @@ namespace noa {
 			return BLACK;
 		}
 
-		const int sx = (NoaAbs<int>(normalizedX * h))%h;
-		const int sy = (NoaAbs<int>(normalizedY * w))%w;
+		const int sx = (NoaFastAbs(normalizedX * h))%h;
+		const int sy = (NoaFastAbs(normalizedY * w))%w;
 
 		return image[sy * h + sx];
 	}
@@ -432,8 +432,8 @@ namespace noa {
 			return BLACK;
 		}
 
-		const int sx = NoaAbs<int>(simple.x * h) % h;
-		const int sy = NoaAbs<int>(simple.y * w) % w;
+		const int sx = NoaFastAbs(simple.x * h) % h;
+		const int sy = NoaFastAbs(simple.y * w) % w;
 
 		return image[sy * h + sx];
 	}

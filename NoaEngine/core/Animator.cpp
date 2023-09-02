@@ -1,10 +1,6 @@
 #include "Animator.h"
 #include "NoaEngine.h"
 
-/// <summary>
-/// Animator类的实现
-/// </summary>
-
 namespace noa {
 
 	extern float deltaTime;

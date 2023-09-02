@@ -69,9 +69,9 @@ namespace noa {
 		//È«ÆÁ»æÖÆÍ¼Æ¬
 		void DrawSpriteFull();
 
-		Uint32 GetPixelColor(int x,int y) const;
-		Uint32 GetColor(float normalizedX, float normalizedY) const;
-		Uint32 GetTransposeColor(float normalizedX, float normalizedY) const;
+		Uint32 GetPixelColor(const int x,const int y) const;
+		Uint32 GetColor(const float normalizedX,const float normalizedY) const;
+		Uint32 GetTransposeColor(const float normalizedX,const float normalizedY) const;
 		Uint32 GetTransposeColor(const Vector<float>& simple) const;
 
 	};

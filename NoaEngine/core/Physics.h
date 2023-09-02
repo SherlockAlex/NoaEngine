@@ -78,7 +78,7 @@ namespace noa {
 		float FixPosition();
 		void UpdateCollision(Vector<float> & nextPosition);
 
-		int GetIndexInMap();
+		int GetIndexInMap() const;
 
 	};
 }

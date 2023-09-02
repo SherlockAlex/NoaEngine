@@ -59,6 +59,7 @@ namespace noa {
 		
 		void FullScreen(Uint32 color) const;
 		
+		void UpdateScreen();
 
 	};
 }

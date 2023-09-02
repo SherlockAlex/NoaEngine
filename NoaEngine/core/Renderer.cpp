@@ -183,7 +183,7 @@ namespace noa {
 					(float)(x - x1) / (x2 - x1),
 					(float)(y - y1) / (y2 - y1)
 				);
-				uint32_t color = sprite.GetTransposeColor(simple.y, simple.x);
+				const uint32_t color = sprite.GetTransposeColor(simple.y, simple.x);
 				if (isAlpha)
 				{
 					if (color == BLACK) 
@@ -241,7 +241,7 @@ namespace noa {
 		int row = 0;
 		int offset = 0;
 
-		float narrowx = 0.6;
+		const float narrowx = 0.6;
 		const int length = str.length();
 		const char* c_str = str.c_str();
 		for (int i=0;i<length;i++) 
@@ -269,6 +269,13 @@ namespace noa {
 	void Renderer::FullScreen(Uint32 color) const
 	{
 		return;
+	}
+
+	void Renderer::UpdateScreen()
+	{
+		SDL_UnlockTexture(sdlTexture);
+		SDL_RenderCopy(sdlRenderer, sdlTexture, nullptr, nullptr);
+		SDL_RenderPresent(sdlRenderer);
 	}
 
 }

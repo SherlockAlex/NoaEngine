@@ -125,7 +125,7 @@ namespace noa {
 			float cameraX = -1;
 			float angle = follow->eulerAngle - FOV * (0.5 - (float)0 / pixelWidth);
 
-			for (int y = pixelHeight / 2; y < pixelHeight; y++)
+			for (int y = pixelHeight *0.5; y < pixelHeight; y++)
 			{
 
 				const float dirX = sinf(follow->eulerAngle);
@@ -144,18 +144,18 @@ namespace noa {
 				const float rayDirY1 = dirY + planeY;
 
 				// Current y position compared to the center of the screen (the horizon)
-				const int p = y - pixelHeight / 2;
+				const int p = y - pixelHeight * 0.5;
 
 				// Vertical position of the camera.
 				const float posZ = 0.5 * pixelHeight;
 
 				// Horizontal distance from the camera to the floor for the current row.
-				const float rowDistance = posZ / p;
+				float rowDistance = posZ / p;
 
 				// calculate the real world step vector we have to add for each x (parallel to camera plane)
 				// adding step by step avoids multiplications with a weight in the inner loop
-				const float floorStepX = rowDistance * (rayDirX1 - rayDirX0) / pixelWidth;
-				const float floorStepY = rowDistance * (rayDirY1 - rayDirY0) / pixelWidth;
+				const float floorStepX = rowDistance * (2*planeX) / pixelWidth;
+				const float floorStepY = rowDistance * (2*planeY) / pixelWidth;
 
 				// real world coordinates of the leftmost column. This will be updated as we step to the right.
 				float floorX = follow->position.x + 0.5 + rowDistance * rayDirX0;
@@ -177,8 +177,8 @@ namespace noa {
 					floorY += floorStepY;
 
 					// choose texture and draw the pixel
-					int floorTileID = map.GetTileID(cellX, cellY);
-					Tile* floorTile = map.GetTile(floorTileID);
+					const int floorTileID = map.GetTileID(cellX, cellY);
+					const Tile* floorTile = map.GetTile(floorTileID);
 					if (floorTileID == -1 || floorTile == nullptr)
 					{
 						renderer.DrawPixel(x, y, LIGHTRED);
@@ -203,6 +203,7 @@ namespace noa {
 		//»æÖÆÇ½±Ú
 		for (int x = 0; x < pixelWidth; x++)
 		{
+			//Ray ray = move(RaycastHit(x, map));
 			Ray ray = move(RaycastHit(x, map));
 
 			wallDistanceBuffer[x] = ray.distance;
@@ -240,7 +241,9 @@ namespace noa {
 					if (tile != nullptr)
 					{
 						color = tile->sprite->GetColor(ray.simple.y, ray.simple.x);
+						//color = RGB(GetRValue(color) * shadowOfWall*10, GetGValue(color) * shadowOfWall*10, GetBValue(color) * shadowOfWall*10);
 					}
+
 				}
 				else
 				{
@@ -249,7 +252,7 @@ namespace noa {
 					const float depth = (1 - b);
 					color = WHITE;*/
 					//color = WHITE;
-					if (floor != -1)
+					if (renderFloor)
 					{
 						continue;
 					}
@@ -277,13 +280,13 @@ namespace noa {
 			const Vector<float> eye = move(Vector<float>(sinf(follow->eulerAngle), cosf(follow->eulerAngle)));
 
 			float objectAngle = atan2(eye.y, eye.x) - atan2(vecToFollow.y, vecToFollow.x);
-			if (objectAngle < -3.14159f)
+			if (objectAngle < -PI)
 			{
-				objectAngle += 2.0f * 3.14159f;
+				objectAngle += 2.0f * PI;
 			}
-			if (objectAngle > 3.14159)
+			if (objectAngle > PI)
 			{
-				objectAngle -= 2.0f * 3.14159f;
+				objectAngle -= 2.0f * PI;
 			}
 			const bool isInPlayerFOV = fabs(objectAngle) < FOV * 0.5f;
 
@@ -349,7 +352,7 @@ namespace noa {
 			float cameraX = -1;
 			float angle = follow->eulerAngle - FOV * (0.5 - (float)0 / pixelWidth);
 
-			for (int y = pixelHeight/2; y < pixelHeight; y++)
+			for (int y = pixelHeight*0.5; y < pixelHeight; y++)
 			{
 
 				const float dirX = sinf(follow->eulerAngle);
@@ -427,8 +430,10 @@ namespace noa {
 		//»æÖÆÇ½±Ú
 		for (int x = 0;x<pixelWidth;x++) 
 		{
-			Ray ray =move(RaycastHit(x, map));
+			//Ray ray =move(RaycastHit(x, map));
 			
+			Ray ray = move(RaycastHit(x, map));
+
 			wallDistanceBuffer[x] = ray.distance;
 
 			//»æÖÆÇ½±Ú
@@ -558,7 +563,7 @@ namespace noa {
 		Ray ray;
 		ray.distance = 0.0;
 		ray.angle = follow->eulerAngle - FOV * (0.5 - (float)pixelX / pixelWidth);
-		const float rayForwordStep = 0.05;
+		const float rayForwordStep = 0.03;
 		const Vector<float> eye = move(Vector<float>(sinf(ray.angle), cosf(ray.angle)));
 
 		while (!IsCollisionTile(ray.hitTile)&&ray.distance<viewDepth) 
@@ -610,6 +615,7 @@ namespace noa {
 
 		return ray;
 	}
+
 	void FreeCamera::RenderSkybox(const Sprite& skybox)
 	{
 		//äÖÈ¾Ìì¿Õµ½ÆÁÄ»ÉÏ

@@ -13,7 +13,8 @@ namespace noa {
 
 	extern bool IsCollisionTile(int tileID);
 	//检测rigid是否和其他刚体相撞，如果相撞就返回
-	extern bool CollisionWithinRigidbody(Rigidbody* rigid,int x,int y);
+	extern bool CollisionWithinRigidbody(Rigidbody* rigid,const int x,const int y);
+	extern bool CollisionWithinRigidbody(Rigidbody* rigid, const int x1, const int y1,const int x2,const int y2);
 
 	vector<Rigidbody*> rigidbodys;
 	TileMap* tileMap = nullptr;
@@ -83,8 +84,11 @@ namespace noa {
 
 				if (ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x, colliderPos->position.y + 0.0))
 					||ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x, colliderPos->position.y + 0.999))
-					||CollisionWithinRigidbody(this,newPosition.x,colliderPos->position.y)
-					||CollisionWithinRigidbody(this, newPosition.x, colliderPos->position.y+0.999)
+					||CollisionWithinRigidbody(this
+						,newPosition.x,colliderPos->position.y
+						, newPosition.x, colliderPos->position.y + 0.999
+					)
+					//||CollisionWithinRigidbody(this, newPosition.x, colliderPos->position.y+0.999)
 				)
 					
 				{
@@ -96,8 +100,11 @@ namespace noa {
 			{
 				if (ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x + 0.999, colliderPos->position.y + 0.0))
 					||ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x + 0.999, colliderPos->position.y + 0.999))
-					|| CollisionWithinRigidbody(this, newPosition.x+0.999, colliderPos->position.y)
-					|| CollisionWithinRigidbody(this, newPosition.x+0.999, colliderPos->position.y + 0.999)
+					|| CollisionWithinRigidbody(this
+						, newPosition.x+0.999, colliderPos->position.y
+						, newPosition.x + 0.999, colliderPos->position.y + 0.999
+					)
+					//|| CollisionWithinRigidbody(this, newPosition.x+0.999, colliderPos->position.y + 0.999)
 					)
 				{
 					newPosition.x = (int)newPosition.x;
@@ -110,8 +117,11 @@ namespace noa {
 			{
 				if (ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x + 0.0f, newPosition.y))
 					||ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x + 0.999f, newPosition.y))
-					|| CollisionWithinRigidbody(this, newPosition.x, newPosition.y)
-					|| CollisionWithinRigidbody(this, newPosition.x+0.999, newPosition.y)
+					|| CollisionWithinRigidbody(this,
+						newPosition.x, newPosition.y
+						, newPosition.x + 0.999, newPosition.y
+					)
+					//|| CollisionWithinRigidbody(this, newPosition.x+0.999, newPosition.y)
 					)
 				{
 					newPosition.y = (int)newPosition.y + 1;
@@ -122,8 +132,11 @@ namespace noa {
 			{
 				if (ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x + 0.0f, newPosition.y + 0.999))
 					||ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x + 0.999f, newPosition.y + 0.999))
-					|| CollisionWithinRigidbody(this, newPosition.x, newPosition.y+0.999)
-					|| CollisionWithinRigidbody(this, newPosition.x + 0.999, newPosition.y+0.999)
+					|| CollisionWithinRigidbody(this
+						, newPosition.x, newPosition.y+0.999
+						, newPosition.x + 0.999, newPosition.y + 0.999
+					)
+					//|| CollisionWithinRigidbody(this, newPosition.x + 0.999, newPosition.y+0.999)
 					)
 				{
 					newPosition.y = (int)newPosition.y;
@@ -192,16 +205,17 @@ namespace noa {
 		
 	}
 
-	int Rigidbody::GetIndexInMap()
+	int Rigidbody::GetIndexInMap() const
 	{
 		return this->indexInMap;
 	}
 
-	bool IsCollisionTile(int tileID) {
+	bool IsCollisionTile(int tileID) 
+	{
 		return ContainKey<int, bool>(collisionTiles, tileID);
 	}
 
-	bool CollisionWithinRigidbody(Rigidbody * rigid,int x, int y)
+	bool CollisionWithinRigidbody(Rigidbody * rigid,const int x,const int y)
 	{
 
 		//indexInMap是一个动态的概念
@@ -214,6 +228,27 @@ namespace noa {
 				continue;
 			}
 			if (rigidbodys[i]->GetIndexInMap() == indexInMap)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
+	bool CollisionWithinRigidbody(Rigidbody* rigid, const int x1, const int y1, const int x2, const int y2)
+	{
+		//indexInMap是一个动态的概念
+		const int indexInMap1 = y1 * tileMap->w + x1;
+		const int indexInMap2 = y2 * tileMap->w + x2;
+
+		for (int i = 0; i < rigidbodys.size(); i++)
+		{
+			if (rigidbodys[i] == rigid)
+			{
+				continue;
+			}
+			const int indexOfRigid = rigidbodys[i]->GetIndexInMap();
+			if (indexOfRigid == indexInMap1||indexOfRigid == indexInMap2)
 			{
 				return true;
 			}
