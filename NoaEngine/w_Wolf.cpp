@@ -46,8 +46,9 @@ public:
 			this->RotateControl();
 		};
 
-		SetPosition(107, *map);
-		
+		//SetPosition(107, *map);
+		transform.position.x = 5;
+		transform.position.y = 5;
 
 	}
 
