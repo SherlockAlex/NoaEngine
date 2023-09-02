@@ -63,12 +63,12 @@ namespace noa {
 	{
 	public:
 		float FOV = 0.25 * PI;
-		float viewDepth = 30.0;
+		float viewDepth = 60;
 	public:
 		FreeCamera();
 		FreeCamera(Behaviour* follow);
 
-		void Render(TileMap& map);
+		void Render(TileMap& map,int floorTileID);
 
 		Ray RaycastHit(int pixelX,TileMap& map);
 

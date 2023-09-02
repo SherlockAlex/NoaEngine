@@ -42,7 +42,7 @@ public:
 		vector<int> collisionTileID;
 		for (int i=0;i<108;i++)
 		{
-			if (i == 106||i == 42)
+			if (i == 107)
 			{
 				continue;
 			}
@@ -57,7 +57,7 @@ public:
 			this->RotateControl();
 		};
 
-		SetPosition(106, *map);
+		SetPosition(107, *map);
 		
 
 	}
@@ -151,7 +151,7 @@ public:
 	}
 
 	void Update() override {
-		camera.Render(tileMap);
+		camera.Render(tileMap,107);
 		renderer.DrawString("FPS:"+to_string(1.0/deltaTime),10,10,RED,50);
 	}
 

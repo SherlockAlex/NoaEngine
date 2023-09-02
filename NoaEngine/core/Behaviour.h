@@ -10,8 +10,9 @@ namespace noa {
 	//游戏脚本类
 	class Behaviour {
 	public:
-		//表示位置信息
+		//the position in the world with behaviour
 		Vector<float> position;
+		//the euler angle in the world with behaviour
 		float angle = 0.0;
 		bool isActive = true;
 

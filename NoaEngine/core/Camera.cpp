@@ -110,32 +110,110 @@ namespace noa {
 		wallDistanceBuffer = vector<float>(pixelWidth, 0.0);
 	}
 
-	void FreeCamera::Render(TileMap& map)
+	void FreeCamera::Render(TileMap& map,int floorTileID)
 	{
+
+		//采用画家画图法和射线投射算法绘制
+		
+		//FLOOR CASTING
+		Tile* floorTile = map.GetTile(floorTileID);
+
+		float cameraX = -1;
+		float angle = follow->angle - FOV * (0.5 - (float)0 / pixelWidth);
+		//FLOOR CASTING
+		for (int y = 0; y < pixelHeight; y++)
+		{
+
+			float dirX = sinf(follow->angle);
+			float dirY = cosf(follow->angle);
+
+			float eyeRayX = sinf(angle);
+			float eyeRayY = cosf(angle);
+
+			float planeX = (eyeRayX - dirX) / cameraX;
+			float planeY = (eyeRayY - dirY) / cameraX;
+
+			// rayDir for leftmost ray (x = 0) and rightmost ray (x = w)
+			float rayDirX0 = dirX - planeX;
+			float rayDirY0 = dirY - planeY;
+			float rayDirX1 = dirX + planeX;
+			float rayDirY1 = dirY + planeY;
+
+			// Current y position compared to the center of the screen (the horizon)
+			int p = y - pixelHeight / 2;
+
+			// Vertical position of the camera.
+			float posZ = 0.5 * pixelHeight;
+
+			// Horizontal distance from the camera to the floor for the current row.
+			float rowDistance = posZ / p;
+
+			// calculate the real world step vector we have to add for each x (parallel to camera plane)
+			// adding step by step avoids multiplications with a weight in the inner loop
+			float floorStepX = rowDistance * (rayDirX1 - rayDirX0) / pixelWidth;
+			float floorStepY = rowDistance * (rayDirY1 - rayDirY0) / pixelWidth;
+
+			// real world coordinates of the leftmost column. This will be updated as we step to the right.
+			float floorX = follow->position.x + rowDistance * rayDirX0;
+			float floorY = follow->position.y + rowDistance * rayDirY0;
+
+			for (int x = 0; x < pixelWidth; ++x)
+			{
+				angle = follow->angle - FOV * (0.5 - (float)(x+1.0) / pixelWidth);
+				cameraX = 2 * x / double(pixelWidth) - 1; //x-coordinate in camera space
+
+				// the cell coord is simply got from the integer parts of floorX and floorY
+				int cellX = (int)(floorX);
+				int cellY = (int)(floorY);
+
+				float simpleX = floorX - cellX;
+				float simpleY = floorY - cellY;
+
+				floorX += floorStepX;
+				floorY += floorStepY;
+
+				// choose texture and draw the pixel
+				int floorTexture = 3;
+				int ceilingTexture = 6;
+				Uint32 color;
+
+				// floor
+				color = floorTile->sprite->GetColor(simpleX, simpleY);
+				//color = (color >> 1) & 8355711; // make a bit darker
+				renderer.DrawPixel(x, y, color);
+
+				//ceiling (symmetrical, at screenHeight - y - 1 instead of y)
+				//color = texture[ceilingTexture][texWidth * ty + tx];
+				//color = (color >> 1) & 8355711; // make a bit darker
+				//buffer[screenHeight - y - 1][x] = color;
+			}
+		}
+
+		//绘制墙壁
 		for (int x = 0;x<pixelWidth;x++) 
 		{
 			Ray ray =move(RaycastHit(x, map));
 			
 			wallDistanceBuffer[x] = ray.distance;
 
+			//绘制墙壁
 			const float ceiling = pixelHeight * 0.5 - (float)(pixelHeight) / ray.distance;
 			const float floor = pixelHeight - ceiling;
-
 			uint32_t color = BLACK;
-
 			const float shadowOfWall = 1 / (1 +
 				ray.distance * ray.distance * ray.distance * ray.distance * ray.distance * 0.00002);
-
 			float sharkCamera = 75 * (sinf(1.5 * (follow->position.x)) + sinhf(1.5 * (follow->position.y)));
 			sharkCamera = sharkCamera / ray.distance;
-
 			sharkCamera = 0;
+
+			//绘制地板与天花板
 
 			for (int y = 0;y<pixelHeight;y++)
 			{
 				if (y<=ceiling + sharkCamera)
 				{
 					color = RGB(63, 63, 63);
+					//continue;
 				}
 				else if (y>ceiling + sharkCamera && y<=floor + sharkCamera)
 				{
@@ -150,10 +228,12 @@ namespace noa {
 				}
 				else 
 				{
-					const float b = 1.0 - (((float)y - pixelHeight * 0.5) / (float)pixelHeight * 0.5);
+					/*const float b = 1.0 - (((float)y - pixelHeight * 0.5) / (float)pixelHeight * 0.5);
 					const float deltaRayShine = (1 - b) * (1 - b);
 					const float depth = (1 - b);
-					color = WHITE;
+					color = WHITE;*/
+					//color = WHITE;
+					continue;
 				}
 
 				renderer.DrawPixel(x, y, color);
@@ -163,7 +243,7 @@ namespace noa {
 		}
 
 		//绘制物品
-		for (auto object : gameObjects)
+		for (auto & object : gameObjects)
 		{
 
 			const Vector<float> vecToFollow = move(object->position - follow->position);

@@ -16,12 +16,13 @@
             }
         },
         "tile.tsx": {
+            "dynamicWrapping": false,
             "scaleInDock": 1,
             "scaleInEditor": 1
         }
     },
     "last.exportedFilePath": "D:/Work/GitTools/NoaEngine/NoaEngine/Assets/Wolf/Map",
-    "last.imagePath": "C:/Users/zhang/Downloads",
+    "last.imagePath": "C:/Users/zhang/Desktop",
     "map.fixedSize": false,
     "map.lastUsedExportFilter": "全部文件 (*)",
     "map.lastUsedFormat": "tmx",
