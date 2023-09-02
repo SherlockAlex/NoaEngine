@@ -13,6 +13,7 @@ objs=./obj/Animator.o \
 	 ./obj/Physics.o \
 	 ./obj/Camera.o \
 	 ./obj/NoaGUI.o \
+	 ./obj/Transform \
 	 ./obj/glad.o \
 	 ./obj/w_Wolf.o \
 #其中d_doom.o和d_RayCastHit.o是游戏引擎的项目示例，你可以替换为你的项目编写编译的目标文件名(.cpp)同名
