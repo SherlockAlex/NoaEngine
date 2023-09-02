@@ -47,8 +47,8 @@ public:
 		};
 
 		//SetPosition(107, *map);
-		transform.position.x = 5;
-		transform.position.y = 5;
+		//transform.position.x = 5;
+		//transform.position.y = 5;
 
 	}
 
@@ -162,7 +162,7 @@ private:
 	FreeCamera camera = FreeCamera(&player.transform);
 	Enimy enimy;
 
-	Sprite sky = Sprite(LoadSprFile("./Assets/Wolf/sky.spr"),Vector<int>(1.0,1.0));
+	Sprite sky = Sprite(LoadSprFile("./Assets/Wolf/sky-sun.spr"),Vector<int>(1.0,1.0));
 
 	Audio BGM = Audio("./Assets/Wolf/Music/theme.mp3",Music);
 

@@ -186,7 +186,9 @@ namespace noa {
 					}
 
 					// floor
-					const Uint32 color = floorTile->sprite->GetColor(simpleX, simpleY);
+					Uint32 color = floorTile->sprite->GetColor(simpleX, simpleY);
+					color = BRIGHTER(color, 50);
+					
 					//color = (color >> 1) & 8355711; // make a bit darker
 					renderer.DrawPixel(x, y, color);
 

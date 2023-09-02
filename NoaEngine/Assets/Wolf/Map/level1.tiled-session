@@ -12,8 +12,8 @@
             "scale": 0.25,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 750,
-                "y": 650
+                "x": 1534,
+                "y": 1478
             }
         },
         "tile.tsx": {
@@ -30,8 +30,8 @@
     "map.tileHeight": 64,
     "map.tileWidth": 64,
     "openFiles": [
-        "level.tmx",
-        "tile.tsx"
+        "tile.tsx",
+        "level.tmx"
     ],
     "project": "level1.tiled-project",
     "recentFiles": [
