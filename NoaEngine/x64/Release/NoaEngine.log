@@ -218,9 +218,24 @@ D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(214,33): warning C4244: “
 D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(214,29): warning C4244: “初始化”: 从“double”转换到“const float”，可能丢失数据
 D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(216,39): warning C4244: “参数”: 从“double”转换到“float”，可能丢失数据
 D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(216,75): warning C4244: “参数”: 从“double”转换到“float”，可能丢失数据
-D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(336,34): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
-D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(337,36): warning C4305: “初始化”: 从“double”到“float”截断
-D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(346,78): warning C4244: “参数”: 从“const T”转换到“T”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(227,33): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(227,21): warning C4244: “初始化”: 从“double”转换到“const float”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(350,16): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(374,28): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(374,22): warning C4244: “初始化”: 从“double”转换到“const float”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(385,18): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(386,18): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(390,33): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(391,43): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(435,44): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(435,24): warning C4244: “初始化”: 从“double”转换到“const float”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(438,33): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(438,29): warning C4244: “初始化”: 从“double”转换到“const float”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(440,39): warning C4244: “参数”: 从“double”转换到“float”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(440,75): warning C4244: “参数”: 从“double”转换到“float”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(560,34): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(561,36): warning C4305: “初始化”: 从“double”到“float”截断
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(570,83): warning C4244: “参数”: 从“const T”转换到“T”，可能丢失数据
           with
           [
               T=float
@@ -229,7 +244,7 @@ D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(346,78): warning C4244: “
           [
               T=int
           ]
-D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(346,61): warning C4244: “参数”: 从“const T”转换到“T”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(570,66): warning C4244: “参数”: 从“const T”转换到“T”，可能丢失数据
           with
           [
               T=float
@@ -238,9 +253,11 @@ D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(346,61): warning C4244: “
           [
               T=int
           ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(621,32): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(621,20): warning C4244: “初始化”: 从“double”转换到“const float”，可能丢失数据
   正在生成代码
-  39 of 1610 functions ( 2.4%) were compiled, the rest were copied from previous compilation.
-    1 functions were new in current compilation
-    10 functions had inline decision re-evaluated but remain unchanged
+  1 of 1612 functions (<0.1%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    1 functions had inline decision re-evaluated but remain unchanged
   已完成代码的生成
   NoaEngine.vcxproj -> D:\Work\GitTools\NoaEngine\x64\Release\NoaEngine.exe

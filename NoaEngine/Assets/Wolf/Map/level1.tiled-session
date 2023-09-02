@@ -5,14 +5,15 @@
     },
     "activeFile": "level.tmx",
     "expandedProjectPaths": [
+        "."
     ],
     "fileStates": {
         "level.tmx": {
-            "scale": 0.125,
+            "scale": 0.25,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 1204,
-                "y": 268
+                "x": 750,
+                "y": 650
             }
         },
         "tile.tsx": {

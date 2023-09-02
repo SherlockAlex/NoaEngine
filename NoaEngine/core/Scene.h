@@ -96,9 +96,9 @@ namespace noa {
 		/// <param name="map">µØÍ¼Êý¾Ý</param>
 		TileMap(unordered_map<int,Tile*> tileSet,MapFile map);
 		TileMap(unordered_map<int, Tile*> tileSet, vector<MapFile> mapLayer);
-		int GetTileID(const int x,const int y);
+		int GetTileID(const int x,const int y) const;
 		Tile* GetTile(int id);
-		bool IsTile(int code);
+		bool IsTile(int code) const;
 	};
 
 	class Scene 

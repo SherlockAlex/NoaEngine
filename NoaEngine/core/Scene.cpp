@@ -212,7 +212,7 @@ namespace noa
 		this->ConstructLayer(layer);
 	}
 
-	int TileMap::GetTileID(const int x,const int y)
+	int TileMap::GetTileID(const int x,const int y) const
 	{
 		if (x<0||x>=w||y<0||y>=h)
 		{
@@ -221,7 +221,7 @@ namespace noa
 		return level[y*w+x];
 	}
 
-	bool TileMap::IsTile(int code)
+	bool TileMap::IsTile(int code) const
 	{
 		return ContainKey<int, Tile*>(tileSet, code);
 	}

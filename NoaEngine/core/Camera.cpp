@@ -110,14 +110,238 @@ namespace noa {
 		wallDistanceBuffer = vector<float>(pixelWidth, 0.0);
 	}
 
-	void FreeCamera::Render(TileMap& map,int floorTileID)
+	void FreeCamera::Render(TileMap& map, bool renderFloor,const Sprite & skybox)
+	{
+
+		////采用画家画图法和射线投射算法绘制
+
+		//FLOOR CASTING
+
+		if (renderFloor)
+		{
+			//FLOOR CASTING
+			//Tile* floorTile = map.GetTile(floorTileID);
+
+			float cameraX = -1;
+			float angle = follow->eulerAngle - FOV * (0.5 - (float)0 / pixelWidth);
+
+			for (int y = pixelHeight / 2; y < pixelHeight; y++)
+			{
+
+				const float dirX = sinf(follow->eulerAngle);
+				const float dirY = cosf(follow->eulerAngle);
+
+				const float eyeRayX = sinf(angle);
+				const float eyeRayY = cosf(angle);
+
+				const float planeX = (eyeRayX - dirX) / cameraX;
+				const float planeY = (eyeRayY - dirY) / cameraX;
+
+				// rayDir for leftmost ray (x = 0) and rightmost ray (x = w)
+				const float rayDirX0 = dirX - planeX;
+				const float rayDirY0 = dirY - planeY;
+				const float rayDirX1 = dirX + planeX;
+				const float rayDirY1 = dirY + planeY;
+
+				// Current y position compared to the center of the screen (the horizon)
+				const int p = y - pixelHeight / 2;
+
+				// Vertical position of the camera.
+				const float posZ = 0.5 * pixelHeight;
+
+				// Horizontal distance from the camera to the floor for the current row.
+				const float rowDistance = posZ / p;
+
+				// calculate the real world step vector we have to add for each x (parallel to camera plane)
+				// adding step by step avoids multiplications with a weight in the inner loop
+				const float floorStepX = rowDistance * (rayDirX1 - rayDirX0) / pixelWidth;
+				const float floorStepY = rowDistance * (rayDirY1 - rayDirY0) / pixelWidth;
+
+				// real world coordinates of the leftmost column. This will be updated as we step to the right.
+				float floorX = follow->position.x + 0.5 + rowDistance * rayDirX0;
+				float floorY = follow->position.y + 0.5 + rowDistance * rayDirY0;
+
+				for (int x = 0; x < pixelWidth; ++x)
+				{
+					angle = follow->eulerAngle - FOV * (0.5 - (float)(x + 1.0) / pixelWidth);
+					cameraX = 2 * x / double(pixelWidth) - 1; //x-coordinate in camera space
+
+					// the cell coord is simply got from the integer parts of floorX and floorY
+					const int cellX = (int)(floorX);
+					const int cellY = (int)(floorY);
+
+					const float simpleX = floorX - cellX;
+					const float simpleY = floorY - cellY;
+
+					floorX += floorStepX;
+					floorY += floorStepY;
+
+					// choose texture and draw the pixel
+					int floorTileID = map.GetTileID(cellX, cellY);
+					Tile* floorTile = map.GetTile(floorTileID);
+					if (floorTileID == -1 || floorTile == nullptr)
+					{
+						renderer.DrawPixel(x, y, LIGHTRED);
+						continue;
+					}
+
+					// floor
+					const Uint32 color = floorTile->sprite->GetColor(simpleX, simpleY);
+					//color = (color >> 1) & 8355711; // make a bit darker
+					renderer.DrawPixel(x, y, color);
+
+					//ceiling (symmetrical, at screenHeight - y - 1 instead of y)
+					//color = texture[ceilingTexture][texWidth * ty + tx];
+					//color = (color >> 1) & 8355711; // make a bit darker
+					//buffer[screenHeight - y - 1][x] = color;
+				}
+			}
+		}
+
+
+
+		//绘制墙壁
+		for (int x = 0; x < pixelWidth; x++)
+		{
+			Ray ray = move(RaycastHit(x, map));
+
+			wallDistanceBuffer[x] = ray.distance;
+
+			//绘制墙壁
+			const float ceiling = pixelHeight * 0.5 - (float)(pixelHeight) / ray.distance;
+			const float floor = pixelHeight - ceiling;
+			uint32_t color = BLACK;
+			const float shadowOfWall = 1 / (1 +
+				ray.distance * ray.distance * ray.distance * ray.distance * ray.distance * 0.00002);
+			float sharkCamera = 75 * (sinf(1.5 * (follow->position.x)) + sinhf(1.5 * (follow->position.y)));
+			sharkCamera = sharkCamera / ray.distance;
+			sharkCamera = 0;
+
+			//绘制地板与天花板
+
+			for (int y = 0; y < pixelHeight; y++)
+			{
+				if (y <= ceiling + sharkCamera)
+				{
+					const float dx = (x + 200 * follow->eulerAngle) / pixelWidth;
+					const float dy = (y + 0.0) / (pixelHeight*2);
+
+					const ColorRef color = skybox.GetColor(dy, dx);
+					renderer.DrawPixel(x, y, color);
+					//color = RGB(63, 63, 63);
+					continue;
+				}
+				else if (y > ceiling + sharkCamera && y <= floor + sharkCamera)
+				{
+					ray.simple.y = ((float)y - (float)(ceiling + sharkCamera))
+						/ ((float)floor - (float)ceiling);
+
+					const Tile* tile = map.GetTile(ray.hitTile);
+					if (tile != nullptr)
+					{
+						color = tile->sprite->GetColor(ray.simple.y, ray.simple.x);
+					}
+				}
+				else
+				{
+					/*const float b = 1.0 - (((float)y - pixelHeight * 0.5) / (float)pixelHeight * 0.5);
+					const float deltaRayShine = (1 - b) * (1 - b);
+					const float depth = (1 - b);
+					color = WHITE;*/
+					//color = WHITE;
+					if (floor != -1)
+					{
+						continue;
+					}
+					color = WHITE;
+				}
+
+				renderer.DrawPixel(x, y, color);
+
+			}
+
+		}
+
+
+
+
+
+		//绘制物品
+		for (auto& object : gameObjects)
+		{
+
+			const Vector<float> vecToFollow = move(object->transform.position - follow->position);
+
+			const float distanceFromPlayer = vecToFollow.Magnitude();
+
+			const Vector<float> eye = move(Vector<float>(sinf(follow->eulerAngle), cosf(follow->eulerAngle)));
+
+			float objectAngle = atan2(eye.y, eye.x) - atan2(vecToFollow.y, vecToFollow.x);
+			if (objectAngle < -3.14159f)
+			{
+				objectAngle += 2.0f * 3.14159f;
+			}
+			if (objectAngle > 3.14159)
+			{
+				objectAngle -= 2.0f * 3.14159f;
+			}
+			const bool isInPlayerFOV = fabs(objectAngle) < FOV * 0.5f;
+
+			if (isInPlayerFOV && distanceFromPlayer >= 0.5f &&
+				distanceFromPlayer < viewDepth)
+			{
+
+				//绘制物体到屏幕上
+
+				const float objectCeiling = (float)(pixelHeight * 0.5)
+					- pixelHeight / (float)distanceFromPlayer;
+				const float objectFloor = pixelHeight - objectCeiling;
+
+				const float objectHeight = objectFloor - objectCeiling;
+				const float objectAspectRatio = (float)object->sprite->h / (float)object->sprite->w;
+				const float objectWidth = objectHeight / objectAspectRatio;
+
+				const float middleOfObject = (0.5f * (objectAngle / (FOV * 0.5f)) + 0.5f)
+					* (float)pixelWidth;
+
+				for (float lx = 0; lx < objectWidth; lx++)
+				{
+					for (float ly = 0; ly < objectHeight; ly++)
+					{
+						const float objSimpleX = lx / objectWidth;
+						const float objSimpleY = ly / objectHeight;
+
+						const Uint32 objColor = object->sprite->GetTransposeColor(objSimpleY, objSimpleX);
+						const int objectColumn = (int)(middleOfObject + lx - (objectWidth * 0.5f));
+						if (objectColumn >= 0 && objectColumn < pixelWidth)
+						{
+							if ((int)(objectCeiling + ly) < 0 || (int)(objectCeiling + ly) >= pixelHeight
+								|| (objectColumn < 0) || (objectColumn >= pixelWidth)) {
+								continue;
+							}
+							if (objColor == BLACK || wallDistanceBuffer[objectColumn] < distanceFromPlayer)
+							{
+								continue;
+							}
+							wallDistanceBuffer[objectColumn] = distanceFromPlayer;
+							renderer.DrawPixel(objectColumn, (int)(objectCeiling + ly), objColor);
+						}
+					}
+				}
+			}
+
+		}
+
+	}
+
+	void FreeCamera::Render(TileMap& map, bool renderFloor)
 	{
 
 		////采用画家画图法和射线投射算法绘制
 		
 		//FLOOR CASTING
 
-		if (floorTileID!=-1)
+		if (renderFloor)
 		{
 			//FLOOR CASTING
 			//Tile* floorTile = map.GetTile(floorTileID);
@@ -223,8 +447,8 @@ namespace noa {
 			{
 				if (y<=ceiling + sharkCamera)
 				{
-					color = RGB(63, 63, 63);
-					//continue;
+					//color = RGB(63, 63, 63);
+					continue;
 				}
 				else if (y>ceiling + sharkCamera && y<=floor + sharkCamera)
 				{
@@ -329,21 +553,21 @@ namespace noa {
 
 	}
 
-	Ray FreeCamera::RaycastHit(int pixelX, TileMap& map)
+	Ray FreeCamera::RaycastHit(int pixelX,const TileMap& map)
 	{
 		Ray ray;
 		ray.distance = 0.0;
 		ray.angle = follow->eulerAngle - FOV * (0.5 - (float)pixelX / pixelWidth);
-		const float rayForwordStep = 0.03;
-		const Vector<float> eye = Vector<float>(sinf(ray.angle), cosf(ray.angle));
+		const float rayForwordStep = 0.05;
+		const Vector<float> eye = move(Vector<float>(sinf(ray.angle), cosf(ray.angle)));
 
 		while (!IsCollisionTile(ray.hitTile)&&ray.distance<viewDepth) 
 		{
 			//直到射线集中障碍物
 			ray.distance += rayForwordStep;
 
-			const Vector<float> floatHitPoint = follow->position + Vector<float>(0.5,0.5) + eye * ray.distance;
-			const Vector<int> intHitPoint = Vector<int>(floatHitPoint.x, floatHitPoint.y);
+			const Vector<float> floatHitPoint = move(follow->position + Vector<float>(0.5,0.5) + eye * ray.distance);
+			const Vector<int> intHitPoint = move(Vector<int>(floatHitPoint.x, floatHitPoint.y));
 
 			if (intHitPoint.x < 0||intHitPoint.x >= map.w || intHitPoint.y < 0|| intHitPoint.y >= map.h)
 			{
@@ -385,6 +609,21 @@ namespace noa {
 		ray.distance = ray.distance * cosf(follow->eulerAngle - ray.angle);
 
 		return ray;
+	}
+	void FreeCamera::RenderSkybox(const Sprite& skybox)
+	{
+		//渲染天空到屏幕上
+		for (int x = 0;x<pixelWidth;x++) 
+		{
+			for (int y = 0;y<pixelHeight/2;y++)
+			{
+				const float dx = (x + 200*follow->eulerAngle) / pixelWidth;
+				const float dy = (y + 0.0) / (pixelHeight);
+
+				const ColorRef color = skybox.GetColor(dy, dx);
+				renderer.DrawPixel(x, y, color);
+			}
+		}
 	}
 }
 

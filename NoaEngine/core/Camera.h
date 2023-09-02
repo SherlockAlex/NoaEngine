@@ -68,9 +68,10 @@ namespace noa {
 		FreeCamera();
 		FreeCamera(Transform* follow);
 
-		void Render(TileMap& map,int floorTileID);
-
-		Ray RaycastHit(int pixelX,TileMap& map);
+		void Render(TileMap& map, bool renderFloor, const Sprite& skybox);
+		void Render(TileMap& map, bool renderFloor);
+		void RenderSkybox(const Sprite& skybox);
+		Ray RaycastHit(int pixelX, const TileMap& map);
 
 	};
 

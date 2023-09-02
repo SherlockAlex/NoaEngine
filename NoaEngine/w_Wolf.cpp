@@ -140,7 +140,8 @@ public:
 	}
 
 	void Update() override {
-		camera.Render(tileMap,107);
+		//renderer.DrawRect(Vector<int>(0, 0), Vector<int>(pixelWidth, pixelHeight / 2), sky);
+		camera.Render(tileMap,true,sky);
 		renderer.DrawString("FPS:"+to_string(1.0/deltaTime),10,10,RED,50);
 	}
 
@@ -153,6 +154,9 @@ private:
 	Player player = Player(&tileMap);
 	FreeCamera camera = FreeCamera(&player.transform);
 	Enimy enimy;
+
+	Sprite sky = Sprite(LoadSprFile("./Assets/Wolf/sky.spr"),Vector<int>(1.0,1.0));
+
 };
 
 int main()
