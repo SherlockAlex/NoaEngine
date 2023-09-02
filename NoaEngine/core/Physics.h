@@ -27,6 +27,7 @@ namespace noa {
 
 	}Collision;
 
+	class Transform;
 	class Rigidbody
 	{
 	public:
@@ -38,7 +39,7 @@ namespace noa {
 		};
 
 	private:
-		Vector<float>* colliderPos = nullptr;
+		Transform* colliderPos = nullptr;
 		//用于物体之间的碰撞检测
 		int indexInMap = -1;
 	protected:
@@ -58,7 +59,7 @@ namespace noa {
 		Collision collision;
 
 	protected:
-		Rigidbody(Vector<float>* colliderPos);
+		Rigidbody(Transform* colliderPos);
 		~Rigidbody();
 
 	public:

@@ -7,10 +7,10 @@ class Enimy :public GameObject,public Rigidbody
 public:
 	Enimy() :
 		GameObject(new Sprite(LoadSprFile("./Assets/Wolf/caco.spr"),Vector<int>(1,1)))
-		,Rigidbody(&position)
+		,Rigidbody(&transform)
 	{
-		position.x = 6;
-		position.y = 2;
+		transform.position.x = 6;
+		transform.position.y = 2;
 	}
 
 	~Enimy() 
@@ -18,23 +18,12 @@ public:
 		GameObject::~GameObject();
 	}
 
-	void Start() override 
-	{
-
-	}
-
-	void Update() override 
-	{
-
-	}
-
-
 };
 
 class Player :public Behaviour ,public Rigidbody
 {
 public:
-	Player(TileMap* map) :Behaviour(), Rigidbody(&position)
+	Player(TileMap* map) :Behaviour(), Rigidbody(&transform)
 	{
 		useGravity = false;
 
@@ -75,8 +64,8 @@ public:
 			{
 				if (tileMap.GetTileID(i,j)==tileID)
 				{
-					position.x = i;
-					position.y = j;
+					transform.position.x = i;
+					transform.position.y = j;
 				}
 			}
 		}
@@ -88,26 +77,26 @@ public:
 
 		if (inputSystem.GetKeyHold(KeyW))
 		{
-			velocity.x += sinf(angle);
-			velocity.y += cosf(angle);
+			velocity.x += sinf(transform.eulerAngle);
+			velocity.y += cosf(transform.eulerAngle);
 		}
 
 		if (inputSystem.GetKeyHold(KeyS))
 		{
-			velocity.x += -sinf(angle);
-			velocity.y += -cosf(angle);
+			velocity.x += -sinf(transform.eulerAngle);
+			velocity.y += -cosf(transform.eulerAngle);
 		}
 
 		if (inputSystem.GetKeyHold(KeyA))
 		{
-			velocity.x += -cosf(angle);
-			velocity.y += sinf(angle);
+			velocity.x += -cosf(transform.eulerAngle);
+			velocity.y += sinf(transform.eulerAngle);
 		}
 
 		if (inputSystem.GetKeyHold(KeyD))
 		{
-			velocity.x += cosf(angle);
-			velocity.y += -sinf(angle);
+			velocity.x += cosf(transform.eulerAngle);
+			velocity.y += -sinf(transform.eulerAngle);
 		}
 		
 		velocity = velocity.Normalize()*speed;
@@ -119,7 +108,7 @@ public:
 		if (inputSystem.GetMouseMoveState())
 		{
 			Vector<float> mouseDelta = inputSystem.GetMouseMoveDelta();
-			angle += 0.05*mouseDelta.x*deltaTime;
+			transform.eulerAngle += 0.05*mouseDelta.x*deltaTime;
 		}
 	}
 
@@ -162,7 +151,7 @@ private:
 		LoadMapFromCSV("./Assets/Wolf/Map/level.csv")
 	);
 	Player player = Player(&tileMap);
-	FreeCamera camera = FreeCamera(&player);
+	FreeCamera camera = FreeCamera(&player.transform);
 	Enimy enimy;
 };
 

@@ -98,6 +98,7 @@ using namespace std;
 
 #include "include/glad/glad.h"
 
+#include "Transform.h"
 #include "NoaMath.h"
 #include "Scene.h"
 #include "Audio.h"
@@ -170,7 +171,7 @@ namespace noa {
 	public:
 		virtual void Start() = 0;
 		virtual void Update() = 0;
-
+		virtual void OnDisable() {};
 	public:
 
 		//äÖÈ¾Æ÷

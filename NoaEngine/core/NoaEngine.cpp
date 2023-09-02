@@ -266,6 +266,7 @@ namespace noa {
 
 		//mainThread.join();
 		
+		Quit();
 		return 0;
 	}
 
@@ -306,6 +307,7 @@ namespace noa {
 	{
 		isRun = false;
 		SDL_Quit();
+		OnDisable();
 		return 0;
 	}
 

@@ -10,10 +10,9 @@ Vector<int> tileScale = Vector<int>(70, 70);
 class Player:public GameObject,public Rigidbody
 {
 public:
-	Player() :GameObject(new Sprite(LoadSprFile("./Assets/JumpMan/JumpMan.spr"), tileScale)), Rigidbody(&position)
+	Player() :GameObject(new Sprite(LoadSprFile("./Assets/JumpMan/JumpMan.spr"), tileScale)), Rigidbody(&transform)
 	{
-		//��ҵĹ��캯��
-		position = Vector<float>(0.0, 0.0);
+		transform.position = Vector<float>(0.0, 0.0);
 		//useGravity = false;
 
 		idle->LoadFromAnimatorFile("./Assets/JumpMan/Animator/mario_idle.amt");
@@ -37,8 +36,8 @@ public:
 
 				if (tileMap.GetTileID(i, j) == targetTileID)
 				{
-					position.x = i;
-					position.y = j;
+					transform.position.x = i;
+					transform.position.y = j;
 					velocity.y = 0;
 				}
 
@@ -120,9 +119,9 @@ public:
 		ActorControl();
 		AnimatorControl();
 
-		if (currentMap->GetTileID(position.x+0.5,position.y+0.5)==0)
+		if (currentMap->GetTileID(transform.position.x+0.5,transform.position.y+0.5)==0)
 		{
-			currentMap->level[int(position.y+0.5) * currentMap->w + int(position.x+0.5)] = 5;
+			currentMap->level[int(transform.position.y+0.5) * currentMap->w + int(transform.position.x+0.5)] = 5;
 			coinSFX.Play(false);
 		}
 
@@ -186,7 +185,7 @@ private:
 	Player player;
 	
 	//���
-	TileMapCamera camera = TileMapCamera(tileScale,&player.position);
+	TileMapCamera camera = TileMapCamera(tileScale,&player.transform);
 	Vector<float> frontDelta = Vector<float>(0.0,0.0);
 	Vector<float> endDelta = Vector<float>(-1, -1);
 

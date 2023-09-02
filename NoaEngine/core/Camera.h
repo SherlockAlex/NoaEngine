@@ -10,12 +10,12 @@ namespace noa {
 	//主要是用来渲染游戏的场景
 	// 越靠前的就先被渲染
 	
-	class Behaviour;
+	class Transform;
 	class Camera
 	{
 	
 	public:
-		Behaviour* follow;
+		Transform* follow;
 		//Vector<float>* follow = nullptr;
 		Vector<float> position;
 
@@ -25,7 +25,7 @@ namespace noa {
 		/// </summary>
 		/// <param name="follow"></param>
 		Camera();
-		Camera(Behaviour* follow);
+		Camera(Transform* follow);
 		~Camera();
 	};
 
@@ -38,7 +38,7 @@ namespace noa {
 		Vector<int> followPositionOnScreen = Vector<int>(0.0, 0.0);
 	public:
 		TileMapCamera();
-		TileMapCamera(Vector<int> tileScale, Behaviour* follow);
+		TileMapCamera(Vector<int> tileScale, Transform* follow);
 		
 		/// <summary>
 		/// 渲染瓦片地图到屏幕上
@@ -66,7 +66,7 @@ namespace noa {
 		float viewDepth = 60;
 	public:
 		FreeCamera();
-		FreeCamera(Behaviour* follow);
+		FreeCamera(Transform* follow);
 
 		void Render(TileMap& map,int floorTileID);
 

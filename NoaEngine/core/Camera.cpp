@@ -6,7 +6,7 @@ namespace noa {
 	Camera::Camera()
 	{
 	}
-	Camera::Camera(Behaviour* follow)
+	Camera::Camera(Transform* follow)
 	{
 		this->follow = follow;
 	}
@@ -20,7 +20,7 @@ namespace noa {
 	{
 	}
 
-	TileMapCamera::TileMapCamera(Vector<int> tileScale, Behaviour* follow):
+	TileMapCamera::TileMapCamera(Vector<int> tileScale, Transform* follow):
 		Camera(follow)
 	{
 		this->tileScale = tileScale;
@@ -105,7 +105,7 @@ namespace noa {
 	{
 		wallDistanceBuffer = vector<float>(pixelWidth, 0.0);
 	}
-	FreeCamera::FreeCamera(Behaviour* follow):Camera(follow)
+	FreeCamera::FreeCamera(Transform* follow):Camera(follow)
 	{
 		wallDistanceBuffer = vector<float>(pixelWidth, 0.0);
 	}
@@ -113,81 +113,92 @@ namespace noa {
 	void FreeCamera::Render(TileMap& map,int floorTileID)
 	{
 
-		//采用画家画图法和射线投射算法绘制
+		////采用画家画图法和射线投射算法绘制
 		
 		//FLOOR CASTING
-		Tile* floorTile = map.GetTile(floorTileID);
 
-		float cameraX = -1;
-		float angle = follow->angle - FOV * (0.5 - (float)0 / pixelWidth);
-		//FLOOR CASTING
-		for (int y = 0; y < pixelHeight; y++)
+		if (floorTileID!=-1)
 		{
+			//FLOOR CASTING
+			//Tile* floorTile = map.GetTile(floorTileID);
 
-			float dirX = sinf(follow->angle);
-			float dirY = cosf(follow->angle);
+			float cameraX = -1;
+			float angle = follow->eulerAngle - FOV * (0.5 - (float)0 / pixelWidth);
 
-			float eyeRayX = sinf(angle);
-			float eyeRayY = cosf(angle);
-
-			float planeX = (eyeRayX - dirX) / cameraX;
-			float planeY = (eyeRayY - dirY) / cameraX;
-
-			// rayDir for leftmost ray (x = 0) and rightmost ray (x = w)
-			float rayDirX0 = dirX - planeX;
-			float rayDirY0 = dirY - planeY;
-			float rayDirX1 = dirX + planeX;
-			float rayDirY1 = dirY + planeY;
-
-			// Current y position compared to the center of the screen (the horizon)
-			int p = y - pixelHeight / 2;
-
-			// Vertical position of the camera.
-			float posZ = 0.5 * pixelHeight;
-
-			// Horizontal distance from the camera to the floor for the current row.
-			float rowDistance = posZ / p;
-
-			// calculate the real world step vector we have to add for each x (parallel to camera plane)
-			// adding step by step avoids multiplications with a weight in the inner loop
-			float floorStepX = rowDistance * (rayDirX1 - rayDirX0) / pixelWidth;
-			float floorStepY = rowDistance * (rayDirY1 - rayDirY0) / pixelWidth;
-
-			// real world coordinates of the leftmost column. This will be updated as we step to the right.
-			float floorX = follow->position.x + rowDistance * rayDirX0;
-			float floorY = follow->position.y + rowDistance * rayDirY0;
-
-			for (int x = 0; x < pixelWidth; ++x)
+			for (int y = pixelHeight/2; y < pixelHeight; y++)
 			{
-				angle = follow->angle - FOV * (0.5 - (float)(x+1.0) / pixelWidth);
-				cameraX = 2 * x / double(pixelWidth) - 1; //x-coordinate in camera space
 
-				// the cell coord is simply got from the integer parts of floorX and floorY
-				int cellX = (int)(floorX);
-				int cellY = (int)(floorY);
+				const float dirX = sinf(follow->eulerAngle);
+				const float dirY = cosf(follow->eulerAngle);
 
-				float simpleX = floorX - cellX;
-				float simpleY = floorY - cellY;
+				const float eyeRayX = sinf(angle);
+				const float eyeRayY = cosf(angle);
 
-				floorX += floorStepX;
-				floorY += floorStepY;
+				const float planeX = (eyeRayX - dirX) / cameraX;
+				const float planeY = (eyeRayY - dirY) / cameraX;
 
-				// choose texture and draw the pixel
-				int floorTexture = 3;
-				int ceilingTexture = 6;
-				Uint32 color;
+				// rayDir for leftmost ray (x = 0) and rightmost ray (x = w)
+				const float rayDirX0 = dirX - planeX;
+				const float rayDirY0 = dirY - planeY;
+				const float rayDirX1 = dirX + planeX;
+				const float rayDirY1 = dirY + planeY;
 
-				// floor
-				color = floorTile->sprite->GetColor(simpleX, simpleY);
-				//color = (color >> 1) & 8355711; // make a bit darker
-				renderer.DrawPixel(x, y, color);
+				// Current y position compared to the center of the screen (the horizon)
+				const int p = y - pixelHeight / 2;
 
-				//ceiling (symmetrical, at screenHeight - y - 1 instead of y)
-				//color = texture[ceilingTexture][texWidth * ty + tx];
-				//color = (color >> 1) & 8355711; // make a bit darker
-				//buffer[screenHeight - y - 1][x] = color;
+				// Vertical position of the camera.
+				const float posZ = 0.5 * pixelHeight;
+
+				// Horizontal distance from the camera to the floor for the current row.
+				const float rowDistance = posZ / p;
+
+				// calculate the real world step vector we have to add for each x (parallel to camera plane)
+				// adding step by step avoids multiplications with a weight in the inner loop
+				const float floorStepX = rowDistance * (rayDirX1 - rayDirX0) / pixelWidth;
+				const float floorStepY = rowDistance * (rayDirY1 - rayDirY0) / pixelWidth;
+
+				// real world coordinates of the leftmost column. This will be updated as we step to the right.
+				float floorX = follow->position.x +0.5 + rowDistance * rayDirX0;
+				float floorY = follow->position.y +0.5 + rowDistance * rayDirY0;
+
+				for (int x = 0; x < pixelWidth; ++x)
+				{
+					angle = follow->eulerAngle - FOV * (0.5 - (float)(x + 1.0) / pixelWidth);
+					cameraX = 2 * x / double(pixelWidth) - 1; //x-coordinate in camera space
+
+					// the cell coord is simply got from the integer parts of floorX and floorY
+					const int cellX = (int)(floorX);
+					const int cellY = (int)(floorY);
+
+					const float simpleX = floorX - cellX;
+					const float simpleY = floorY - cellY;
+
+					floorX += floorStepX;
+					floorY += floorStepY;
+
+					// choose texture and draw the pixel
+					int floorTileID = map.GetTileID(cellX, cellY);
+					Tile* floorTile = map.GetTile(floorTileID);
+					if (floorTileID == -1||floorTile == nullptr)
+					{
+						renderer.DrawPixel(x, y, LIGHTRED);
+						continue;
+					}
+					
+					// floor
+					const Uint32 color = floorTile->sprite->GetColor(simpleX, simpleY);
+					//color = (color >> 1) & 8355711; // make a bit darker
+					renderer.DrawPixel(x, y, color);
+
+					//ceiling (symmetrical, at screenHeight - y - 1 instead of y)
+					//color = texture[ceilingTexture][texWidth * ty + tx];
+					//color = (color >> 1) & 8355711; // make a bit darker
+					//buffer[screenHeight - y - 1][x] = color;
+				}
 			}
 		}
+
+		
 
 		//绘制墙壁
 		for (int x = 0;x<pixelWidth;x++) 
@@ -233,7 +244,11 @@ namespace noa {
 					const float depth = (1 - b);
 					color = WHITE;*/
 					//color = WHITE;
-					continue;
+					if (floor!=-1)
+					{
+						continue;
+					}
+					color = WHITE;
 				}
 
 				renderer.DrawPixel(x, y, color);
@@ -242,15 +257,19 @@ namespace noa {
 
 		}
 
+
+
+
+
 		//绘制物品
 		for (auto & object : gameObjects)
 		{
 
-			const Vector<float> vecToFollow = move(object->position - follow->position);
+			const Vector<float> vecToFollow = move(object->transform.position - follow->position);
 
 			const float distanceFromPlayer = vecToFollow.Magnitude();
 
-			const Vector<float> eye = move(Vector<float>(sinf(follow->angle), cosf(follow->angle)));
+			const Vector<float> eye = move(Vector<float>(sinf(follow->eulerAngle), cosf(follow->eulerAngle)));
 
 			float objectAngle = atan2(eye.y, eye.x) - atan2(vecToFollow.y, vecToFollow.x);
 			if (objectAngle < -3.14159f)
@@ -314,7 +333,7 @@ namespace noa {
 	{
 		Ray ray;
 		ray.distance = 0.0;
-		ray.angle = follow->angle - FOV * (0.5 - (float)pixelX / pixelWidth);
+		ray.angle = follow->eulerAngle - FOV * (0.5 - (float)pixelX / pixelWidth);
 		const float rayForwordStep = 0.03;
 		const Vector<float> eye = Vector<float>(sinf(ray.angle), cosf(ray.angle));
 
@@ -363,7 +382,7 @@ namespace noa {
 
 		}
 
-		ray.distance = ray.distance * cosf(follow->angle - ray.angle);
+		ray.distance = ray.distance * cosf(follow->eulerAngle - ray.angle);
 
 		return ray;
 	}

@@ -26,7 +26,7 @@ namespace noa {
 	GameObject::GameObject(Sprite * sprite, Vector<float> startPosition) :Behaviour()
 	{
 		this->sprite = sprite;
-		this->position = startPosition;
+		this->transform.position = startPosition;
 		gameObjects.push_back(this);
 	}
 

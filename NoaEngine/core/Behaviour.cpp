@@ -20,11 +20,6 @@ namespace noa {
 		behaviours.push_back(this);
 	}
 
-	void Behaviour::Start()
-	{
-
-	}
-
 	Behaviour::~Behaviour()
 	{
 		DestroyBehaviour(this);

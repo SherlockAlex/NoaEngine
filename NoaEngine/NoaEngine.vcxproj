@@ -174,6 +174,7 @@
     <ClInclude Include="core\Scene.h" />
     <ClInclude Include="core\Sprite.h" />
     <ClInclude Include="core\StateMachine.h" />
+    <ClInclude Include="core\Transform.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="core\Animator.cpp" />
@@ -192,6 +193,7 @@
     <ClCompile Include="core\Sprite.cpp" />
     <ClCompile Include="core\src\glad.c" />
     <ClCompile Include="core\StateMachine.cpp" />
+    <ClCompile Include="core\Transform.cpp" />
     <ClCompile Include="w_Wolf.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

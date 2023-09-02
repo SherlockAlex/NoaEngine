@@ -12,7 +12,7 @@ class Player :public GameObject, public Rigidbody
 public:
 	Player(TileMap* map) :
 		GameObject(new Sprite(LoadSprFile("./Assets/Zelda/JumpMan.spr"),tileScale)),
-		Rigidbody(&position)
+		Rigidbody(&transform)
 	{
 
 		useGravity = false;
@@ -155,7 +155,7 @@ private:
 	);
 
 	Player player = Player(&tileMap);
-	TileMapCamera camera = TileMapCamera(tileScale, &player.position);
+	TileMapCamera camera = TileMapCamera(tileScale, &player.transform);
 	Vector<float> frontDelta = Vector<float>(0.0, 0.0);
 	Vector<float> endDelta = Vector<float>(0.0, -0.5);
 

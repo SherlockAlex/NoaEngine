@@ -26,7 +26,7 @@ namespace noa {
 
 		virtual void RenderGameObject() {
 			//实现绘制物品信息
-			sprite->DrawSprite(position.x, position.y);
+			sprite->DrawSprite(transform.position.x, transform.position.y);
 		}
 
 	};

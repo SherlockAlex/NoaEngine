@@ -21,7 +21,7 @@ namespace noa {
 	Vector<float> sumForce(0.0, 0.0);
 	float invMass = 1;
 
-	Rigidbody::Rigidbody(Vector<float>* colliderPos)
+	Rigidbody::Rigidbody(Transform* colliderPos)
 	{
 		this->colliderPos = colliderPos;
 		invMass = 1.0 / mass;
@@ -50,7 +50,7 @@ namespace noa {
 	//实现物理效果
 	void Rigidbody::Update()
 	{
-		indexInMap = (int)(colliderPos->x) + (int)(colliderPos->y) * tileMap->w;
+		indexInMap = (int)(colliderPos->position.x) + (int)(colliderPos->position.y) * tileMap->w;
 		if (isFrozen)
 		{
 			return;
@@ -71,7 +71,7 @@ namespace noa {
 		velocity += move(sumForce * (deltaTime * invMass));
 
 		//将速度的量反馈到物体的位移变化
-		Vector<float> newPosition= move((*colliderPos) + (velocity * deltaTime));
+		Vector<float> newPosition= move((colliderPos->position) + (velocity * deltaTime));
 		
 		//根据速度进行物体的碰撞检测
 		//如果检测到了碰撞字符，就停止
@@ -81,10 +81,10 @@ namespace noa {
 			if (velocity.x <= 0)
 			{
 
-				if (ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x, colliderPos->y + 0.0))
-					||ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x, colliderPos->y + 0.999))
-					||CollisionWithinRigidbody(this,newPosition.x,colliderPos->y)
-					||CollisionWithinRigidbody(this, newPosition.x, colliderPos->y+0.999)
+				if (ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x, colliderPos->position.y + 0.0))
+					||ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x, colliderPos->position.y + 0.999))
+					||CollisionWithinRigidbody(this,newPosition.x,colliderPos->position.y)
+					||CollisionWithinRigidbody(this, newPosition.x, colliderPos->position.y+0.999)
 				)
 					
 				{
@@ -94,10 +94,10 @@ namespace noa {
 			}
 			else
 			{
-				if (ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x + 0.999, colliderPos->y + 0.0))
-					||ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x + 0.999, colliderPos->y + 0.999))
-					|| CollisionWithinRigidbody(this, newPosition.x+0.999, colliderPos->y)
-					|| CollisionWithinRigidbody(this, newPosition.x+0.999, colliderPos->y + 0.999)
+				if (ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x + 0.999, colliderPos->position.y + 0.0))
+					||ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x + 0.999, colliderPos->position.y + 0.999))
+					|| CollisionWithinRigidbody(this, newPosition.x+0.999, colliderPos->position.y)
+					|| CollisionWithinRigidbody(this, newPosition.x+0.999, colliderPos->position.y + 0.999)
 					)
 				{
 					newPosition.x = (int)newPosition.x;
@@ -136,7 +136,7 @@ namespace noa {
 
 		}
 
-		*colliderPos = move(newPosition);
+		colliderPos->position = move(newPosition);
 		//Debug("isGrounded:" + to_string(isGrounded));
 
 	}
