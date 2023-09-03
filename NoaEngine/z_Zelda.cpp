@@ -7,6 +7,42 @@ using namespace noa;
 
 Vector<int> tileScale(64, 64);
 
+class Test :public GameObject, public Rigidbody {
+public:
+	Transform* target = nullptr;
+
+	Test() :GameObject(new Sprite(LoadSprFile("./Assets/Zelda/JumpMan.spr"), tileScale)),
+		Rigidbody(&transform) {
+		useGravity = false;
+		//damping = 0.02;
+		transform.position = Vector<float>(2,2);
+
+	}
+
+	void Start() override {
+		AddForce(Vector<float>(10,0),Rigidbody::Impulse);
+		//velocity.x = 10;
+	}
+
+	void Update() override 
+	{
+		//velocity.x = 2;
+		//sprite->DrawSprite(transform.position.x,transform.position.y,true);
+		Vector<float> dir = target->position - transform.position;
+
+		if (dir.SqrMagnitude()<1.5)
+		{
+			return;
+		}
+
+		dir = dir.Normalize();
+		velocity = dir * 5;
+
+		
+
+	}
+};
+
 class Player :public GameObject, public Rigidbody
 {
 public:
@@ -16,6 +52,8 @@ public:
 	{
 
 		useGravity = false;
+
+		damping = 0;
 
 		//设置地图的碰撞信息
 		SetCollisionTileID({25,26,33,34,19,20,21,27,29,35,36,37});
@@ -118,6 +156,7 @@ class StartScene :public Scene {
 public:
 	StartScene():Scene("StartScene")
 	{
+		test.target = &player.transform;
 	}
 
 	void OnEnable() override
@@ -153,7 +192,7 @@ private:
 			LoadMapFromCSV("./Assets/Zelda/map/level.csv")
 		}
 	);
-
+	Test test;
 	Player player = Player(&tileMap);
 	TileMapCamera camera = TileMapCamera(tileScale, &player.transform);
 	Vector<float> frontDelta = Vector<float>(0.0, 0.0);
@@ -188,7 +227,7 @@ public:
 	}
 
 private:
-	MainMenuScene mainMenuScene;
+	//MainMenuScene mainMenuScene;
 	StartScene startScene;
 
 };

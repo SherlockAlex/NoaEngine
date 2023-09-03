@@ -126,6 +126,7 @@ namespace noa {
 		y > 0 鼠标向下移动 : y
 		y < 0 鼠标向上移动 : -y
 		*/
+		void SetRelativeMouseMode(bool mode);
 		Vector<float> GetMouseMoveDelta();
 		Vector<float> GetMousePosition();
 

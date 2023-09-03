@@ -16,6 +16,8 @@ namespace noa {
 	extern bool CollisionWithinRigidbody(Rigidbody* rigid,const int x,const int y);
 	extern bool CollisionWithinRigidbody(Rigidbody* rigid, const int x1, const int y1,const int x2,const int y2);
 
+	void ApplyCollision(Rigidbody* rigid, int posx, int posy);
+
 	vector<Rigidbody*> rigidbodys;
 	TileMap* tileMap = nullptr;
 
@@ -69,7 +71,7 @@ namespace noa {
 		//处理力和速度的关系
 		//F = ma
 
-		velocity += move(sumForce * (deltaTime * invMass));
+		velocity = (velocity * (1-damping)) + (sumForce * (deltaTime * invMass));
 
 		//将速度的量反馈到物体的位移变化
 		Vector<float> newPosition= move((colliderPos->position) + (velocity * deltaTime));
@@ -149,12 +151,34 @@ namespace noa {
 
 		}
 
+		//ApplyCollision(this, colliderPos->position.x, colliderPos->position.y);
+
+		/*if (velocity.x<=0)
+		{
+			ApplyCollision(this, newPosition.x, colliderPos->position.y);
+			ApplyCollision(this, newPosition.x, colliderPos->position.y);
+		}
+		else {
+			ApplyCollision(this, newPosition.x + 0.999, colliderPos->position.y);
+			ApplyCollision(this, newPosition.x + 0.999, colliderPos->position.y + 0.999);
+		}
+		
+		if (velocity.y<=0)
+		{
+			ApplyCollision(this, newPosition.x, newPosition.y);
+			ApplyCollision(this, newPosition.x + 0.999, newPosition.y);
+		}
+		else {
+			ApplyCollision(this, newPosition.x, newPosition.y + 0.999);
+			ApplyCollision(this, newPosition.x + 0.999, newPosition.y + 0.999);
+		}*/
+
 		colliderPos->position = move(newPosition);
 		//Debug("isGrounded:" + to_string(isGrounded));
 
 	}
 
-	void Rigidbody::AddForce(Vector<float> & force, ForceType forceType)
+	void Rigidbody::AddForce(const Vector<float> force, ForceType forceType)
 	{
 		//添加力到物体上
 		switch (forceType)
@@ -188,11 +212,6 @@ namespace noa {
 	}
 
 	Vector<float> pos(0.0, 0.0);
-	void Rigidbody::ApplyCollision()
-	{
-		
-
-	}
 
 	float Rigidbody::FixPosition()
 	{
@@ -200,7 +219,7 @@ namespace noa {
 		return 0.0;
 	}
 
-	void Rigidbody::UpdateCollision(Vector<float>& nextPosition)
+	void Rigidbody::UpdateCollision(const Vector<float> nextPosition)
 	{
 		
 	}
@@ -250,10 +269,54 @@ namespace noa {
 			const int indexOfRigid = rigidbodys[i]->GetIndexInMap();
 			if (indexOfRigid == indexInMap1||indexOfRigid == indexInMap2)
 			{
+				//Debug("发生碰撞");
+				//const float m1 = rigid->mass;
+				//const float m2 = rigidbodys[i]->mass;
+				//const Vector<float> v1 = rigid->velocity;
+				//const Vector<float> v2 = rigidbodys[i]->velocity;
+				//rigid->velocity = ((v1 * m1 + v2 * m2) / (m1 + m2)) * 2.0 - v1;
+				//rigidbodys[i]->velocity = ((v1 * m1 + v2 * m2) / (m1 + m2)) * 2.0 - v2;
+				//给予目标一个推力
+				//Debug("发生碰撞:"+to_string(indexInMap1)+"|"+to_string(indexInMap2) + ":" + to_string(rigid->GetIndexInMap()));
+				//rigidbodys[i]->AddForce((rigid->velocity * (0.01*-rigid->mass)), Rigidbody::Impulse);
 				return true;
 			}
 		}
 		return false;
+	}
+
+	void ApplyCollision(Rigidbody* rigid,int posx,int posy)
+	{
+		//indexInMap是一个动态的概念
+		const int indexInMap = posy * tileMap->w + posx;
+
+		for (int i = 0; i < rigidbodys.size(); i++)
+		{
+			if (rigidbodys[i] == rigid)
+			{
+				continue;
+			}
+			const int indexOfRigid = rigidbodys[i]->GetIndexInMap();
+			if (indexOfRigid == indexInMap)
+			{
+				const float m1 = rigid->mass;
+				const float m2 = rigidbodys[i]->mass;
+				const Vector<float> v1 = rigid->velocity;
+				const Vector<float> v2 = rigidbodys[i]->velocity;
+				rigid->velocity = ((v1 * m1 + v2 * m2) / (m1 + m2)) * 2.0 - v1;
+				rigidbodys[i]->velocity = ((v1 * m1 + v2 * m2) / (m1 + m2)) * 2.0 - v2;
+				Debug("物体碰撞");
+				//实现物体相撞后的处理
+				// 
+				//rigidbodys[i]->AddForce((rigid->velocity * rigid->mass), Rigidbody::Impulse);
+				//rigid->AddForce((rigidbodys[i]->velocity * rigidbodys[i]->mass), Rigidbody::Impulse);
+				//给予目标一个推力
+				//Debug("发生碰撞:" + to_string(indexInMap1) + "|" + to_string(indexInMap2) + ":" + to_string(rigid->GetIndexInMap()));
+				//rigidbodys[i]->AddForce((rigid->velocity * (0.01*-rigid->mass)), Rigidbody::Impulse);
+				//return true;
+				
+			}
+		}
 	}
 
 }

@@ -27,6 +27,26 @@ namespace noa {
 			this->y = y;
 		}
 
+		Vector Left() {
+			return Vector(-1, 0);
+		}
+
+		Vector Right() {
+			return Vector(1, 0);
+		}
+
+		Vector Up() {
+			return Vector(0, -1);
+		}
+
+		Vector Down() {
+			return Vector(0, 1);
+		}
+
+		Vector Zero() {
+			return Vector(0, 0);
+		}
+
 		Vector Normalize() const
 		{
 			if (this->x==0&&this->y==0)
@@ -45,6 +65,11 @@ namespace noa {
 		float Magnitude() const
 		{
 			return sqrtf(x * x + y * y);
+		}
+
+		float SqrMagnitude() const 
+		{
+			return x * x + y * y;
 		}
 
 		Vector operator + (const Vector & a) const

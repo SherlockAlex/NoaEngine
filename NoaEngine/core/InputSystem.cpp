@@ -106,10 +106,13 @@ namespace noa {
 		inputEvent.Invoke();
 	}
 
+	void InputSystem::SetRelativeMouseMode(bool mode)
+	{
+		SDL_SetRelativeMouseMode((SDL_bool)mode);
+	}
+
 	Vector<float> InputSystem::GetMouseMoveDelta()
 	{
-		SDL_SetRelativeMouseMode(SDL_TRUE);
-
 		Vector<float> delta;
 
 		delta.x = ioEvent.motion.xrel;

@@ -1,4 +1,138 @@
-﻿  Camera.cpp
+﻿  Animator.cpp
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Sprite.h(47,40): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Sprite.h(47,35): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Scene.h(71,56): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Scene.h(71,52): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
+D:\Work\GitTools\NoaEngine\NoaEngine\core\include\glad\glad.h(32,1): message : 参见“APIENTRY”的前一个定义
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Graphic.h(26,1): warning C4005: “LOBYTE”: 宏重定义
+D:\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(206,1): message : 参见“LOBYTE”的前一个定义
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Graphic.h(31,1): warning C4005: “RGB”: 宏重定义
+D:\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1859,1): message : 参见“RGB”的前一个定义
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Graphic.h(34,1): warning C4005: “GetGValue”: 宏重定义
+D:\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1870,1): message : 参见“GetGValue”的前一个定义
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Physics.h(43,9): warning C4305: “初始化”: 从“double”到“float”截断
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Physics.h(50,9): warning C4305: “初始化”: 从“double”到“float”截断
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.h(38,57): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.h(38,52): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.h(65,9): warning C4305: “初始化”: 从“double”到“float”截断
+D:\Work\GitTools\NoaEngine\NoaEngine\core\NoaGUI.h(29,59): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\NoaGUI.h(29,54): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\NoaGUI.h(55,43): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\NoaGUI.h(55,38): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Animator.cpp(61,31): warning C4244: “=”: 从“unsigned __int64”转换到“float”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Animator.cpp(82,31): warning C4244: “=”: 从“unsigned __int64”转换到“float”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Animator.cpp(157,31): warning C4244: “=”: 从“unsigned __int64”转换到“float”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Animator.cpp(180,14): warning C4244: “参数”: 从“float”转换到“int”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Animator.cpp(186,16): warning C4244: “参数”: 从“float”转换到“unsigned int”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\NoaAction.h(21,1): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\NoaAction.h(20,1): message : 在编译 类 模板 成员函数“void noa::NoaEvent<void (void)>::Invoke(void)”时
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Animator.cpp(186,25): message : 查看对正在编译的函数 模板 实例化“void noa::NoaEvent<void (void)>::Invoke(void)”的引用
+D:\Work\GitTools\NoaEngine\NoaEngine\core\InputSystem.h(111,20): message : 查看对正在编译的 类 模板 实例化“noa::NoaEvent<void (void)>”的引用
+D:\Work\GitTools\NoaEngine\NoaEngine\core\NoaAction.h(21,1): warning C4267: “初始化”: 从“size_t”转换到“const int”，可能丢失数据
+  Behaviour.cpp
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Sprite.h(47,40): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Sprite.h(47,35): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Scene.h(71,56): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Scene.h(71,52): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
+D:\Work\GitTools\NoaEngine\NoaEngine\core\include\glad\glad.h(32,1): message : 参见“APIENTRY”的前一个定义
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Graphic.h(26,1): warning C4005: “LOBYTE”: 宏重定义
+D:\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(206,1): message : 参见“LOBYTE”的前一个定义
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Graphic.h(31,1): warning C4005: “RGB”: 宏重定义
+D:\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1859,1): message : 参见“RGB”的前一个定义
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Graphic.h(34,1): warning C4005: “GetGValue”: 宏重定义
+D:\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1870,1): message : 参见“GetGValue”的前一个定义
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Physics.h(43,9): warning C4305: “初始化”: 从“double”到“float”截断
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Physics.h(50,9): warning C4305: “初始化”: 从“double”到“float”截断
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.h(38,57): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.h(38,52): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.h(65,9): warning C4305: “初始化”: 从“double”到“float”截断
+D:\Work\GitTools\NoaEngine\NoaEngine\core\NoaGUI.h(29,59): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\NoaGUI.h(29,54): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\NoaGUI.h(55,43): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\NoaGUI.h(55,38): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+  Camera.cpp
 D:\Work\GitTools\NoaEngine\NoaEngine\core\Sprite.h(47,40): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
           with
           [
@@ -38,7 +172,8 @@ D:\Work\GitTools\NoaEngine\NoaEngine\core\Graphic.h(31,1): warning C4005: “RGB
 D:\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1859,1): message : 参见“RGB”的前一个定义
 D:\Work\GitTools\NoaEngine\NoaEngine\core\Graphic.h(34,1): warning C4005: “GetGValue”: 宏重定义
 D:\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1870,1): message : 参见“GetGValue”的前一个定义
-D:\Work\GitTools\NoaEngine\NoaEngine\core\Physics.h(47,9): warning C4305: “初始化”: 从“double”到“float”截断
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Physics.h(43,9): warning C4305: “初始化”: 从“double”到“float”截断
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Physics.h(50,9): warning C4305: “初始化”: 从“double”到“float”截断
 D:\Work\GitTools\NoaEngine\NoaEngine\core\NoaGUI.h(29,59): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
           with
           [
@@ -59,36 +194,27 @@ D:\Work\GitTools\NoaEngine\NoaEngine\core\NoaGUI.h(55,38): warning C4244: “参
           [
               T=int
           ]
-D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(27,66): warning C4244: “参数”: 从“int”转换到“T”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(32,66): warning C4244: “参数”: 从“int”转换到“T”，可能丢失数据
           with
           [
               T=float
           ]
-D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(27,35): warning C4244: “参数”: 从“int”转换到“T”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(32,35): warning C4244: “参数”: 从“int”转换到“T”，可能丢失数据
           with
           [
               T=float
           ]
-D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(62,58): warning C4244: “参数”: 从“T”转换到“const int”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(67,58): warning C4244: “参数”: 从“T”转换到“const int”，可能丢失数据
           with
           [
               T=float
           ]
-D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(62,44): warning C4244: “参数”: 从“T”转换到“const int”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(67,44): warning C4244: “参数”: 从“T”转换到“const int”，可能丢失数据
           with
           [
               T=float
           ]
-D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(66,75): warning C4244: “参数”: 从“T”转换到“T”，可能丢失数据
-          with
-          [
-              T=float
-          ]
-          and
-          [
-              T=int
-          ]
-D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(66,40): warning C4244: “参数”: 从“T”转换到“T”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(71,75): warning C4244: “参数”: 从“T”转换到“T”，可能丢失数据
           with
           [
               T=float
@@ -97,7 +223,7 @@ D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(66,40): warning C4244: “�
           [
               T=int
           ]
-D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(67,79): warning C4244: “参数”: 从“T”转换到“T”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(71,40): warning C4244: “参数”: 从“T”转换到“T”，可能丢失数据
           with
           [
               T=float
@@ -106,7 +232,7 @@ D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(67,79): warning C4244: “�
           [
               T=int
           ]
-D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(67,41): warning C4244: “参数”: 从“T”转换到“T”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(72,79): warning C4244: “参数”: 从“T”转换到“T”，可能丢失数据
           with
           [
               T=float
@@ -115,7 +241,7 @@ D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(67,41): warning C4244: “�
           [
               T=int
           ]
-D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(78,77): warning C4244: “参数”: 从“T”转换到“T”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(72,41): warning C4244: “参数”: 从“T”转换到“T”，可能丢失数据
           with
           [
               T=float
@@ -124,7 +250,7 @@ D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(78,77): warning C4244: “�
           [
               T=int
           ]
-D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(78,40): warning C4244: “参数”: 从“T”转换到“T”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(83,77): warning C4244: “参数”: 从“T”转换到“T”，可能丢失数据
           with
           [
               T=float
@@ -133,7 +259,7 @@ D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(78,40): warning C4244: “�
           [
               T=int
           ]
-D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(79,79): warning C4244: “参数”: 从“T”转换到“T”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(83,40): warning C4244: “参数”: 从“T”转换到“T”，可能丢失数据
           with
           [
               T=float
@@ -142,7 +268,7 @@ D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(79,79): warning C4244: “�
           [
               T=int
           ]
-D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(79,41): warning C4244: “参数”: 从“T”转换到“T”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(84,79): warning C4244: “参数”: 从“T”转换到“T”，可能丢失数据
           with
           [
               T=float
@@ -151,7 +277,7 @@ D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(79,41): warning C4244: “�
           [
               T=int
           ]
-D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(85,76): warning C4244: “参数”: 从“T”转换到“T”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(84,41): warning C4244: “参数”: 从“T”转换到“T”，可能丢失数据
           with
           [
               T=float
@@ -160,7 +286,7 @@ D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(85,76): warning C4244: “�
           [
               T=int
           ]
-D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(85,39): warning C4244: “参数”: 从“T”转换到“T”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(90,76): warning C4244: “参数”: 从“T”转换到“T”，可能丢失数据
           with
           [
               T=float
@@ -169,7 +295,7 @@ D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(85,39): warning C4244: “�
           [
               T=int
           ]
-D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(86,78): warning C4244: “参数”: 从“T”转换到“T”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(90,39): warning C4244: “参数”: 从“T”转换到“T”，可能丢失数据
           with
           [
               T=float
@@ -178,7 +304,7 @@ D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(86,78): warning C4244: “�
           [
               T=int
           ]
-D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(86,40): warning C4244: “参数”: 从“T”转换到“T”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(91,78): warning C4244: “参数”: 从“T”转换到“T”，可能丢失数据
           with
           [
               T=float
@@ -187,7 +313,7 @@ D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(86,40): warning C4244: “�
           [
               T=int
           ]
-D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(94,124): warning C4244: “参数”: 从“T”转换到“T”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(91,40): warning C4244: “参数”: 从“T”转换到“T”，可能丢失数据
           with
           [
               T=float
@@ -196,7 +322,7 @@ D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(94,124): warning C4244: “
           [
               T=int
           ]
-D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(94,77): warning C4244: “参数”: 从“T”转换到“T”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(99,124): warning C4244: “参数”: 从“T”转换到“T”，可能丢失数据
           with
           [
               T=float
@@ -205,43 +331,7 @@ D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(94,77): warning C4244: “�
           [
               T=int
           ]
-D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(126,16): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
-D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(128,15): warning C4244: “初始化”: 从“double”转换到“int”，可能丢失数据
-D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(147,21): warning C4244: “初始化”: 从“double”转换到“int”，可能丢失数据
-D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(147,17): warning C4244: “初始化”: 从“double”转换到“const int”，可能丢失数据
-D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(150,28): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
-D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(150,22): warning C4244: “初始化”: 从“double”转换到“const float”，可能丢失数据
-D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(161,18): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
-D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(162,18): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
-D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(166,33): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
-D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(167,43): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
-D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(214,44): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
-D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(214,24): warning C4244: “初始化”: 从“double”转换到“const float”，可能丢失数据
-D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(217,33): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
-D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(217,29): warning C4244: “初始化”: 从“double”转换到“const float”，可能丢失数据
-D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(219,39): warning C4244: “参数”: 从“double”转换到“float”，可能丢失数据
-D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(219,75): warning C4244: “参数”: 从“double”转换到“float”，可能丢失数据
-D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(230,33): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
-D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(230,21): warning C4244: “初始化”: 从“double”转换到“const float”，可能丢失数据
-D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(287,29): warning C4305: “+=”: 从“double”到“float”截断
-D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(291,29): warning C4305: “-=”: 从“double”到“float”截断
-D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(355,16): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
-D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(357,15): warning C4244: “初始化”: 从“double”转换到“int”，可能丢失数据
-D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(379,28): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
-D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(379,22): warning C4244: “初始化”: 从“double”转换到“const float”，可能丢失数据
-D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(390,18): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
-D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(391,18): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
-D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(395,33): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
-D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(396,43): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
-D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(442,44): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
-D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(442,24): warning C4244: “初始化”: 从“double”转换到“const float”，可能丢失数据
-D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(445,33): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
-D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(445,29): warning C4244: “初始化”: 从“double”转换到“const float”，可能丢失数据
-D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(447,39): warning C4244: “参数”: 从“double”转换到“float”，可能丢失数据
-D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(447,75): warning C4244: “参数”: 从“double”转换到“float”，可能丢失数据
-D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(567,34): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
-D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(568,36): warning C4305: “初始化”: 从“double”到“float”截断
-D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(577,83): warning C4244: “参数”: 从“const T”转换到“T”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(99,77): warning C4244: “参数”: 从“T”转换到“T”，可能丢失数据
           with
           [
               T=float
@@ -250,7 +340,7 @@ D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(577,83): warning C4244: “
           [
               T=int
           ]
-D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(577,66): warning C4244: “参数”: 从“const T”转换到“T”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(106,51): warning C4244: “参数”: 从“T”转换到“T”，可能丢失数据
           with
           [
               T=float
@@ -259,11 +349,834 @@ D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(577,66): warning C4244: “
           [
               T=int
           ]
-D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(629,32): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
-D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(629,20): warning C4244: “初始化”: 从“double”转换到“const float”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(105,51): warning C4244: “参数”: 从“T”转换到“T”，可能丢失数据
+          with
+          [
+              T=float
+          ]
+          and
+          [
+              T=int
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(132,42): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(132,21): warning C4244: “初始化”: 从“double”转换到“const float”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(135,41): warning C4244: “参数”: 从“double”转换到“float”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(135,49): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(135,23): warning C4244: “初始化”: 从“double”转换到“const float”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(136,41): warning C4244: “参数”: 从“double”转换到“float”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(136,49): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(136,23): warning C4244: “初始化”: 从“double”转换到“const float”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(145,14): warning C4244: “初始化”: 从“double”转换到“int”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(148,20): warning C4244: “初始化”: 从“double”转换到“int”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(148,16): warning C4244: “初始化”: 从“double”转换到“const int”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(151,27): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(151,21): warning C4244: “初始化”: 从“double”转换到“const float”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(162,17): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(163,17): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(224,44): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(224,24): warning C4244: “初始化”: 从“double”转换到“const float”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(227,33): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(227,29): warning C4244: “初始化”: 从“double”转换到“const float”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(229,39): warning C4244: “参数”: 从“double”转换到“float”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(229,75): warning C4244: “参数”: 从“double”转换到“float”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(240,33): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(240,21): warning C4244: “初始化”: 从“double”转换到“const float”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(303,44): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(303,24): warning C4244: “初始化”: 从“double”转换到“const float”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(306,39): warning C4244: “参数”: 从“double”转换到“float”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(306,75): warning C4244: “参数”: 从“double”转换到“float”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(312,15): warning C4244: “初始化”: 从“float”转换到“int”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(358,34): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(359,36): warning C4305: “初始化”: 从“double”到“float”截断
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(368,83): warning C4244: “参数”: 从“const T”转换到“T”，可能丢失数据
+          with
+          [
+              T=float
+          ]
+          and
+          [
+              T=int
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(368,66): warning C4244: “参数”: 从“const T”转换到“T”，可能丢失数据
+          with
+          [
+              T=float
+          ]
+          and
+          [
+              T=int
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(420,32): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.cpp(420,20): warning C4244: “初始化”: 从“double”转换到“const float”，可能丢失数据
+  GameObject.cpp
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Sprite.h(47,40): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Sprite.h(47,35): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Scene.h(71,56): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Scene.h(71,52): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
+D:\Work\GitTools\NoaEngine\NoaEngine\core\include\glad\glad.h(32,1): message : 参见“APIENTRY”的前一个定义
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Graphic.h(26,1): warning C4005: “LOBYTE”: 宏重定义
+D:\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(206,1): message : 参见“LOBYTE”的前一个定义
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Graphic.h(31,1): warning C4005: “RGB”: 宏重定义
+D:\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1859,1): message : 参见“RGB”的前一个定义
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Graphic.h(34,1): warning C4005: “GetGValue”: 宏重定义
+D:\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1870,1): message : 参见“GetGValue”的前一个定义
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Physics.h(43,9): warning C4305: “初始化”: 从“double”到“float”截断
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Physics.h(50,9): warning C4305: “初始化”: 从“double”到“float”截断
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.h(38,57): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.h(38,52): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.h(65,9): warning C4305: “初始化”: 从“double”到“float”截断
+D:\Work\GitTools\NoaEngine\NoaEngine\core\NoaGUI.h(29,59): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\NoaGUI.h(29,54): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\NoaGUI.h(55,43): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\NoaGUI.h(55,38): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+  InputSystem.cpp
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Sprite.h(47,40): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Sprite.h(47,35): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Scene.h(71,56): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Scene.h(71,52): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Graphic.h(26,1): warning C4005: “LOBYTE”: 宏重定义
+D:\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(206,1): message : 参见“LOBYTE”的前一个定义
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Graphic.h(31,1): warning C4005: “RGB”: 宏重定义
+D:\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1859,1): message : 参见“RGB”的前一个定义
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Graphic.h(34,1): warning C4005: “GetGValue”: 宏重定义
+D:\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1870,1): message : 参见“GetGValue”的前一个定义
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Physics.h(43,9): warning C4305: “初始化”: 从“double”到“float”截断
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Physics.h(50,9): warning C4305: “初始化”: 从“double”到“float”截断
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.h(38,57): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.h(38,52): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.h(65,9): warning C4305: “初始化”: 从“double”到“float”截断
+D:\Work\GitTools\NoaEngine\NoaEngine\core\NoaGUI.h(29,59): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\NoaGUI.h(29,54): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\NoaGUI.h(55,43): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\NoaGUI.h(55,38): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\InputSystem.cpp(118,27): warning C4244: “=”: 从“Sint32”转换到“T”，可能丢失数据
+          with
+          [
+              T=float
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\InputSystem.cpp(119,27): warning C4244: “=”: 从“Sint32”转换到“T”，可能丢失数据
+          with
+          [
+              T=float
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\InputSystem.cpp(128,27): warning C4244: “=”: 从“Sint32”转换到“T”，可能丢失数据
+          with
+          [
+              T=float
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\InputSystem.cpp(129,27): warning C4244: “=”: 从“Sint32”转换到“T”，可能丢失数据
+          with
+          [
+              T=float
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\NoaAction.h(21,1): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\NoaAction.h(20,1): message : 在编译 类 模板 成员函数“void noa::NoaEvent<void (void)>::Invoke(void)”时
+D:\Work\GitTools\NoaEngine\NoaEngine\core\InputSystem.cpp(106,20): message : 查看对正在编译的函数 模板 实例化“void noa::NoaEvent<void (void)>::Invoke(void)”的引用
+D:\Work\GitTools\NoaEngine\NoaEngine\core\InputSystem.h(111,20): message : 查看对正在编译的 类 模板 实例化“noa::NoaEvent<void (void)>”的引用
+D:\Work\GitTools\NoaEngine\NoaEngine\core\NoaAction.h(21,1): warning C4267: “初始化”: 从“size_t”转换到“const int”，可能丢失数据
+  NoaAction.cpp
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Sprite.h(47,40): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Sprite.h(47,35): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Scene.h(71,56): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Scene.h(71,52): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
+D:\Work\GitTools\NoaEngine\NoaEngine\core\include\glad\glad.h(32,1): message : 参见“APIENTRY”的前一个定义
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Graphic.h(26,1): warning C4005: “LOBYTE”: 宏重定义
+D:\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(206,1): message : 参见“LOBYTE”的前一个定义
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Graphic.h(31,1): warning C4005: “RGB”: 宏重定义
+D:\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1859,1): message : 参见“RGB”的前一个定义
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Graphic.h(34,1): warning C4005: “GetGValue”: 宏重定义
+D:\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1870,1): message : 参见“GetGValue”的前一个定义
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Physics.h(43,9): warning C4305: “初始化”: 从“double”到“float”截断
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Physics.h(50,9): warning C4305: “初始化”: 从“double”到“float”截断
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.h(38,57): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.h(38,52): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.h(65,9): warning C4305: “初始化”: 从“double”到“float”截断
+D:\Work\GitTools\NoaEngine\NoaEngine\core\NoaGUI.h(29,59): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\NoaGUI.h(29,54): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\NoaGUI.h(55,43): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\NoaGUI.h(55,38): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+  NoaEngine.cpp
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Sprite.h(47,40): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Sprite.h(47,35): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Scene.h(71,56): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Scene.h(71,52): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
+D:\Work\GitTools\NoaEngine\NoaEngine\core\include\glad\glad.h(32,1): message : 参见“APIENTRY”的前一个定义
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Graphic.h(26,1): warning C4005: “LOBYTE”: 宏重定义
+D:\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(206,1): message : 参见“LOBYTE”的前一个定义
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Graphic.h(31,1): warning C4005: “RGB”: 宏重定义
+D:\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1859,1): message : 参见“RGB”的前一个定义
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Graphic.h(34,1): warning C4005: “GetGValue”: 宏重定义
+D:\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1870,1): message : 参见“GetGValue”的前一个定义
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Physics.h(43,9): warning C4305: “初始化”: 从“double”到“float”截断
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Physics.h(50,9): warning C4305: “初始化”: 从“double”到“float”截断
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.h(38,57): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.h(38,52): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.h(65,9): warning C4305: “初始化”: 从“double”到“float”截断
+D:\Work\GitTools\NoaEngine\NoaEngine\core\NoaGUI.h(29,59): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\NoaGUI.h(29,54): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\NoaGUI.h(55,43): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\NoaGUI.h(55,38): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+  NoaGUI.cpp
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Sprite.h(47,40): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Sprite.h(47,35): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\NoaGUI.h(29,59): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\NoaGUI.h(29,54): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\NoaGUI.h(55,43): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\NoaGUI.h(55,38): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Scene.h(71,56): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Scene.h(71,52): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(206,1): warning C4005: “LOBYTE”: 宏重定义
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Graphic.h(26,1): message : 参见“LOBYTE”的前一个定义
+D:\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1859,1): warning C4005: “RGB”: 宏重定义
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Graphic.h(31,1): message : 参见“RGB”的前一个定义
+D:\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1870,1): warning C4005: “GetGValue”: 宏重定义
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Graphic.h(34,1): message : 参见“GetGValue”的前一个定义
+D:\Work\GitTools\NoaEngine\NoaEngine\core\NoaGUI.cpp(239,50): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\NoaGUI.cpp(239,50): warning C4267: “初始化”: 从“size_t”转换到“const int”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\NoaAction.h(21,1): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\NoaAction.h(20,1): message : 在编译 类 模板 成员函数“void noa::NoaEvent<void (void)>::Invoke(void)”时
+D:\Work\GitTools\NoaEngine\NoaEngine\core\NoaGUI.cpp(116,28): message : 查看对正在编译的函数 模板 实例化“void noa::NoaEvent<void (void)>::Invoke(void)”的引用
+D:\Work\GitTools\NoaEngine\NoaEngine\core\NoaGUI.h(138,20): message : 查看对正在编译的 类 模板 实例化“noa::NoaEvent<void (void)>”的引用
+D:\Work\GitTools\NoaEngine\NoaEngine\core\NoaAction.h(21,1): warning C4267: “初始化”: 从“size_t”转换到“const int”，可能丢失数据
+  NoaMath.cpp
+  Physics.cpp
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Physics.h(43,9): warning C4305: “初始化”: 从“double”到“float”截断
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Physics.h(50,9): warning C4305: “初始化”: 从“double”到“float”截断
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Sprite.h(47,40): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Sprite.h(47,35): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Scene.h(71,56): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Scene.h(71,52): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
+D:\Work\GitTools\NoaEngine\NoaEngine\core\include\glad\glad.h(32,1): message : 参见“APIENTRY”的前一个定义
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Graphic.h(26,1): warning C4005: “LOBYTE”: 宏重定义
+D:\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(206,1): message : 参见“LOBYTE”的前一个定义
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Graphic.h(31,1): warning C4005: “RGB”: 宏重定义
+D:\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1859,1): message : 参见“RGB”的前一个定义
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Graphic.h(34,1): warning C4005: “GetGValue”: 宏重定义
+D:\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1870,1): message : 参见“GetGValue”的前一个定义
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.h(38,57): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.h(38,52): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.h(65,9): warning C4305: “初始化”: 从“double”到“float”截断
+D:\Work\GitTools\NoaEngine\NoaEngine\core\NoaGUI.h(29,59): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\NoaGUI.h(29,54): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\NoaGUI.h(55,43): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\NoaGUI.h(55,38): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Physics.cpp(30,17): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Physics.cpp(66,27): warning C4244: “+=”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=float
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Physics.cpp(87,105): warning C4244: “参数”: 从“double”转换到“const int”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Physics.cpp(87,77): warning C4244: “参数”: 从“T”转换到“const int”，可能丢失数据
+          with
+          [
+              T=float
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Physics.cpp(88,104): warning C4244: “参数”: 从“double”转换到“const int”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Physics.cpp(88,76): warning C4244: “参数”: 从“T”转换到“const int”，可能丢失数据
+          with
+          [
+              T=float
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Physics.cpp(91,48): warning C4244: “参数”: 从“double”转换到“const int”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Physics.cpp(91,20): warning C4244: “参数”: 从“T”转换到“const int”，可能丢失数据
+          with
+          [
+              T=float
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Physics.cpp(90,43): warning C4244: “参数”: 从“T”转换到“const int”，可能丢失数据
+          with
+          [
+              T=float
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Physics.cpp(90,19): warning C4244: “参数”: 从“T”转换到“const int”，可能丢失数据
+          with
+          [
+              T=float
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Physics.cpp(97,41): warning C4244: “=”: 从“int”转换到“T”，可能丢失数据
+          with
+          [
+              T=float
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Physics.cpp(103,113): warning C4244: “参数”: 从“double”转换到“const int”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Physics.cpp(103,80): warning C4244: “参数”: 从“double”转换到“const int”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Physics.cpp(104,112): warning C4244: “参数”: 从“double”转换到“const int”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Physics.cpp(104,79): warning C4244: “参数”: 从“double”转换到“const int”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Physics.cpp(107,56): warning C4244: “参数”: 从“double”转换到“const int”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Physics.cpp(107,23): warning C4244: “参数”: 从“double”转换到“const int”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Physics.cpp(106,51): warning C4244: “参数”: 从“T”转换到“const int”，可能丢失数据
+          with
+          [
+              T=float
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Physics.cpp(106,22): warning C4244: “参数”: 从“double”转换到“const int”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Physics.cpp(112,38): warning C4244: “=”: 从“int”转换到“T”，可能丢失数据
+          with
+          [
+              T=float
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Physics.cpp(120,99): warning C4244: “参数”: 从“T”转换到“const int”，可能丢失数据
+          with
+          [
+              T=float
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Physics.cpp(120,80): warning C4244: “参数”: 从“T”转换到“const int”，可能丢失数据
+          with
+          [
+              T=float
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Physics.cpp(121,100): warning C4244: “参数”: 从“T”转换到“const int”，可能丢失数据
+          with
+          [
+              T=float
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Physics.cpp(121,79): warning C4244: “参数”: 从“T”转换到“const int”，可能丢失数据
+          with
+          [
+              T=float
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Physics.cpp(124,43): warning C4244: “参数”: 从“T”转换到“const int”，可能丢失数据
+          with
+          [
+              T=float
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Physics.cpp(124,23): warning C4244: “参数”: 从“double”转换到“const int”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Physics.cpp(123,33): warning C4244: “参数”: 从“T”转换到“const int”，可能丢失数据
+          with
+          [
+              T=float
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Physics.cpp(123,18): warning C4244: “参数”: 从“T”转换到“const int”，可能丢失数据
+          with
+          [
+              T=float
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Physics.cpp(129,41): warning C4244: “=”: 从“int”转换到“T”，可能丢失数据
+          with
+          [
+              T=float
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Physics.cpp(135,102): warning C4244: “参数”: 从“double”转换到“const int”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Physics.cpp(135,80): warning C4244: “参数”: 从“T”转换到“const int”，可能丢失数据
+          with
+          [
+              T=float
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Physics.cpp(136,103): warning C4244: “参数”: 从“double”转换到“const int”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Physics.cpp(136,79): warning C4244: “参数”: 从“T”转换到“const int”，可能丢失数据
+          with
+          [
+              T=float
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Physics.cpp(139,46): warning C4244: “参数”: 从“double”转换到“const int”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Physics.cpp(139,23): warning C4244: “参数”: 从“double”转换到“const int”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Physics.cpp(138,37): warning C4244: “参数”: 从“double”转换到“const int”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Physics.cpp(138,20): warning C4244: “参数”: 从“T”转换到“const int”，可能丢失数据
+          with
+          [
+              T=float
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Physics.cpp(144,38): warning C4244: “=”: 从“int”转换到“T”，可能丢失数据
+          with
+          [
+              T=float
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Physics.cpp(202,58): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Physics.cpp(202,58): warning C4267: “初始化”: 从“size_t”转换到“const int”，可能丢失数据
+  Renderer.cpp
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Sprite.h(47,40): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Sprite.h(47,35): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\NoaGUI.h(29,59): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\NoaGUI.h(29,54): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\NoaGUI.h(55,43): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\NoaGUI.h(55,38): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Renderer.cpp(244,28): warning C4305: “初始化”: 从“double”到“float”截断
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Renderer.cpp(245,34): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Renderer.cpp(245,34): warning C4267: “初始化”: 从“size_t”转换到“const int”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Renderer.cpp(262,49): warning C4244: “参数”: 从“float”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Renderer.cpp(263,54): warning C4244: “参数”: 从“float”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+  Scene.cpp
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Sprite.h(47,40): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Sprite.h(47,35): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Scene.h(71,56): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Scene.h(71,52): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
+D:\Work\GitTools\NoaEngine\NoaEngine\core\include\glad\glad.h(32,1): message : 参见“APIENTRY”的前一个定义
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Graphic.h(26,1): warning C4005: “LOBYTE”: 宏重定义
+D:\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(206,1): message : 参见“LOBYTE”的前一个定义
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Graphic.h(31,1): warning C4005: “RGB”: 宏重定义
+D:\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1859,1): message : 参见“RGB”的前一个定义
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Graphic.h(34,1): warning C4005: “GetGValue”: 宏重定义
+D:\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1870,1): message : 参见“GetGValue”的前一个定义
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Physics.h(43,9): warning C4305: “初始化”: 从“double”到“float”截断
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Physics.h(50,9): warning C4305: “初始化”: 从“double”到“float”截断
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.h(38,57): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.h(38,52): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.h(65,9): warning C4305: “初始化”: 从“double”到“float”截断
+D:\Work\GitTools\NoaEngine\NoaEngine\core\NoaGUI.h(29,59): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\NoaGUI.h(29,54): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\NoaGUI.h(55,43): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\NoaGUI.h(55,38): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+  Sprite.cpp
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Sprite.h(47,40): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Sprite.h(47,35): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Scene.h(71,56): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Scene.h(71,52): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
+D:\Work\GitTools\NoaEngine\NoaEngine\core\include\glad\glad.h(32,1): message : 参见“APIENTRY”的前一个定义
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Graphic.h(26,1): warning C4005: “LOBYTE”: 宏重定义
+D:\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(206,1): message : 参见“LOBYTE”的前一个定义
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Graphic.h(31,1): warning C4005: “RGB”: 宏重定义
+D:\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1859,1): message : 参见“RGB”的前一个定义
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Graphic.h(34,1): warning C4005: “GetGValue”: 宏重定义
+D:\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1870,1): message : 参见“GetGValue”的前一个定义
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Physics.h(43,9): warning C4305: “初始化”: 从“double”到“float”截断
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Physics.h(50,9): warning C4305: “初始化”: 从“double”到“float”截断
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.h(38,57): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.h(38,52): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.h(65,9): warning C4305: “初始化”: 从“double”到“float”截断
+D:\Work\GitTools\NoaEngine\NoaEngine\core\NoaGUI.h(29,59): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\NoaGUI.h(29,54): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\NoaGUI.h(55,43): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\NoaGUI.h(55,38): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Sprite.cpp(378,24): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Sprite.cpp(378,18): warning C4244: “初始化”: 从“double”转换到“const float”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Sprite.cpp(379,24): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Sprite.cpp(379,18): warning C4244: “初始化”: 从“double”转换到“const float”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Sprite.cpp(407,41): warning C4244: “参数”: 从“float”转换到“const int”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Sprite.cpp(408,41): warning C4244: “参数”: 从“float”转换到“const int”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Sprite.cpp(421,42): warning C4244: “参数”: 从“float”转换到“const int”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Sprite.cpp(422,42): warning C4244: “参数”: 从“float”转换到“const int”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Sprite.cpp(435,38): warning C4244: “参数”: 从“T”转换到“const int”，可能丢失数据
+          with
+          [
+              T=float
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Sprite.cpp(436,38): warning C4244: “参数”: 从“T”转换到“const int”，可能丢失数据
+          with
+          [
+              T=float
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Sprite.cpp(454,22): warning C4018: “<”: 有符号/无符号不匹配
+  Transform.cpp
+  z_Zelda.cpp
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Sprite.h(47,40): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Sprite.h(47,35): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Scene.h(71,56): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Scene.h(71,52): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
+D:\Work\GitTools\NoaEngine\NoaEngine\core\include\glad\glad.h(32,1): message : 参见“APIENTRY”的前一个定义
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Graphic.h(26,1): warning C4005: “LOBYTE”: 宏重定义
+D:\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(206,1): message : 参见“LOBYTE”的前一个定义
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Graphic.h(31,1): warning C4005: “RGB”: 宏重定义
+D:\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1859,1): message : 参见“RGB”的前一个定义
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Graphic.h(34,1): warning C4005: “GetGValue”: 宏重定义
+D:\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1870,1): message : 参见“GetGValue”的前一个定义
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Physics.h(43,9): warning C4305: “初始化”: 从“double”到“float”截断
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Physics.h(50,9): warning C4305: “初始化”: 从“double”到“float”截断
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.h(38,57): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.h(38,52): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Camera.h(65,9): warning C4305: “初始化”: 从“double”到“float”截断
+D:\Work\GitTools\NoaEngine\NoaEngine\core\NoaGUI.h(29,59): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\NoaGUI.h(29,54): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\NoaGUI.h(55,43): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\NoaGUI.h(55,38): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\GitTools\NoaEngine\NoaEngine\core\NoaMath.h(56,31): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
+D:\Work\GitTools\NoaEngine\NoaEngine\core\NoaMath.h(51,1): message : 在编译 类 模板 成员函数“noa::Vector<float> noa::Vector<float>::Normalize(void) const”时
+D:\Work\GitTools\NoaEngine\NoaEngine\z_Zelda.cpp(38,7): message : 查看对正在编译的函数 模板 实例化“noa::Vector<float> noa::Vector<float>::Normalize(void) const”的引用
+D:\Work\GitTools\NoaEngine\NoaEngine\core\Transform.h(9,17): message : 查看对正在编译的 类 模板 实例化“noa::Vector<float>”的引用
+D:\Work\GitTools\NoaEngine\NoaEngine\core\NoaMath.h(56,26): warning C4244: “初始化”: 从“double”转换到“const float”，可能丢失数据
   正在生成代码
-  2 of 1622 functions ( 0.1%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    0 functions had inline decision re-evaluated but remain unchanged
+  Previous IPDB and IOBJ mismatch, fall back to full compilation.
+  All 1622 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
   已完成代码的生成
   NoaEngine.vcxproj -> D:\Work\GitTools\NoaEngine\x64\Release\NoaEngine.exe

@@ -3,6 +3,11 @@
 
 namespace noa {
 
+	extern unordered_map<int, bool> collisionTiles;
+	extern bool IsCollisionTile(int tileID);
+	extern vector<GameObject*> gameObjects;
+	static vector<float> wallDistanceBuffer;
+
 	Camera::Camera()
 	{
 	}
@@ -92,14 +97,23 @@ namespace noa {
 
 
 		followPositionOnScreen = move(Vector<int>((follow->position.x - offset.x) * tileScale.x, (follow->position.y - offset.y) * tileScale.y));
+		
+		//绘制游戏物品
+		for (auto & gameObject:gameObjects) 
+		{
+			Vector<int> objPos = Vector<int>(
+				(gameObject->transform.position.x - offset.x) * tileScale.x,
+				(gameObject->transform.position.y - offset.y) * tileScale.y
+				);
+			gameObject->sprite->DrawSprite(objPos.x, objPos.y, true);
+
+		}
+		
 		return followPositionOnScreen;
 
 	}
 
-	extern unordered_map<int, bool> collisionTiles;
-	extern bool IsCollisionTile(int tileID);
-	extern vector<GameObject*> gameObjects;
-	static vector<float> wallDistanceBuffer;
+	
 
 	FreeCamera::FreeCamera()
 	{
@@ -108,6 +122,82 @@ namespace noa {
 	FreeCamera::FreeCamera(Transform* follow):Camera(follow)
 	{
 		wallDistanceBuffer = vector<float>(pixelWidth, 0.0);
+	}
+
+	void FreeCamera::RenderFloor(TileMap& map)
+	{
+		//FLOOR CASTING
+			//Tile* floorTile = map.GetTile(floorTileID);
+
+		const float angle = follow->eulerAngle - FOV * 0.5;
+		const float dirX = sinf(follow->eulerAngle);
+		const float dirY = cosf(follow->eulerAngle);
+		const float eyeRayX = (1.0 / cosf(0.5 * FOV)) * sinf(angle);
+		const float eyeRayY = (1.0 / cosf(0.5 * FOV)) * cosf(angle);
+		const float planeX = -eyeRayX + dirX;
+		const float planeY = -eyeRayY + dirY;
+
+		const float rayDirX0 = dirX - planeX;
+		const float rayDirY0 = dirY - planeY;
+		const float rayDirX1 = dirX + planeX;
+		const float rayDirY1 = dirY + planeY;
+
+		for (int y = pixelHeight * 0.5; y < pixelHeight; y++)
+		{
+			// Current y position compared to the center of the screen (the horizon)
+			const int p = y - pixelHeight * 0.5;
+
+			// Vertical position of the camera.
+			const float posZ = 0.5 * pixelHeight;
+
+			// Horizontal distance from the camera to the floor for the current row.
+			float rowDistance = posZ / p;
+
+			// calculate the real world step vector we have to add for each x (parallel to camera plane)
+			// adding step by step avoids multiplications with a weight in the inner loop
+			const float floorStepX = rowDistance * (2 * planeX) / pixelWidth;
+			const float floorStepY = rowDistance * (2 * planeY) / pixelWidth;
+
+			// real world coordinates of the leftmost column. This will be updated as we step to the right.
+			float floorX = follow->position.x + 0.5 + rowDistance * rayDirX0;
+			float floorY = follow->position.y + 0.5 + rowDistance * rayDirY0;
+
+			for (int x = 0; x < pixelWidth; ++x)
+			{
+				// the cell coord is simply got from the integer parts of floorX and floorY
+				const int cellX = (int)(floorX);
+				const int cellY = (int)(floorY);
+
+				const float simpleX = floorX - cellX;
+				const float simpleY = floorY - cellY;
+
+				floorX += floorStepX;
+				floorY += floorStepY;
+
+				// choose texture and draw the pixel
+				const int floorTileID = map.GetTileID(cellX, cellY);
+				const Tile* floorTile = map.GetTile(floorTileID);
+				if (floorTileID == -1 || floorTile == nullptr)
+				{
+					renderer.DrawPixel(x, y, LIGHTRED);
+					continue;
+				}
+
+				// floor
+				Uint32 color = floorTile->sprite->GetColor(simpleX, simpleY);
+				//color = BRIGHTER(color, 50);
+
+				//color = DARKER(color, rowDistance * rowDistance*0.3);
+
+				//color = (color >> 1) & 8355711; // make a bit darker
+				renderer.DrawPixel(x, y, color);
+
+				//ceiling (symmetrical, at screenHeight - y - 1 instead of y)
+				//color = texture[ceilingTexture][texWidth * ty + tx];
+				//color = (color >> 1) & 8355711; // make a bit darker
+				//buffer[screenHeight - y - 1][x] = color;
+			}
+		}
 	}
 
 	void FreeCamera::Render(TileMap& map, bool renderFloor,const Sprite & skybox)
@@ -119,88 +209,8 @@ namespace noa {
 
 		if (renderFloor)
 		{
-			//FLOOR CASTING
-			//Tile* floorTile = map.GetTile(floorTileID);
-
-			float cameraX = -1;
-			float angle = follow->eulerAngle - FOV * (0.5 - (float)0 / pixelWidth);
-
-			for (int y = pixelHeight *0.5; y < pixelHeight; y++)
-			{
-
-				const float dirX = sinf(follow->eulerAngle);
-				const float dirY = cosf(follow->eulerAngle);
-
-				const float eyeRayX = sinf(angle);
-				const float eyeRayY = cosf(angle);
-
-				const float planeX = (eyeRayX - dirX) / cameraX;
-				const float planeY = (eyeRayY - dirY) / cameraX;
-
-				// rayDir for leftmost ray (x = 0) and rightmost ray (x = w)
-				const float rayDirX0 = dirX - planeX;
-				const float rayDirY0 = dirY - planeY;
-				const float rayDirX1 = dirX + planeX;
-				const float rayDirY1 = dirY + planeY;
-
-				// Current y position compared to the center of the screen (the horizon)
-				const int p = y - pixelHeight * 0.5;
-
-				// Vertical position of the camera.
-				const float posZ = 0.5 * pixelHeight;
-
-				// Horizontal distance from the camera to the floor for the current row.
-				float rowDistance = posZ / p;
-
-				// calculate the real world step vector we have to add for each x (parallel to camera plane)
-				// adding step by step avoids multiplications with a weight in the inner loop
-				const float floorStepX = rowDistance * (2*planeX) / pixelWidth;
-				const float floorStepY = rowDistance * (2*planeY) / pixelWidth;
-
-				// real world coordinates of the leftmost column. This will be updated as we step to the right.
-				float floorX = follow->position.x + 0.5 + rowDistance * rayDirX0;
-				float floorY = follow->position.y + 0.5 + rowDistance * rayDirY0;
-
-				for (int x = 0; x < pixelWidth; ++x)
-				{
-					angle = follow->eulerAngle - FOV * (0.5 - (float)(x + 1.0) / pixelWidth);
-					cameraX = 2 * x / double(pixelWidth) - 1; //x-coordinate in camera space
-
-					// the cell coord is simply got from the integer parts of floorX and floorY
-					const int cellX = (int)(floorX);
-					const int cellY = (int)(floorY);
-
-					const float simpleX = floorX - cellX;
-					const float simpleY = floorY - cellY;
-
-					floorX += floorStepX;
-					floorY += floorStepY;
-
-					// choose texture and draw the pixel
-					const int floorTileID = map.GetTileID(cellX, cellY);
-					const Tile* floorTile = map.GetTile(floorTileID);
-					if (floorTileID == -1 || floorTile == nullptr)
-					{
-						renderer.DrawPixel(x, y, LIGHTRED);
-						continue;
-					}
-
-					// floor
-					Uint32 color = floorTile->sprite->GetColor(simpleX, simpleY);
-					color = BRIGHTER(color, 50);
-					
-					//color = (color >> 1) & 8355711; // make a bit darker
-					renderer.DrawPixel(x, y, color);
-
-					//ceiling (symmetrical, at screenHeight - y - 1 instead of y)
-					//color = texture[ceilingTexture][texWidth * ty + tx];
-					//color = (color >> 1) & 8355711; // make a bit darker
-					//buffer[screenHeight - y - 1][x] = color;
-				}
-			}
+			RenderFloor(map);
 		}
-
-
 
 		//绘制墙壁
 		for (int x = 0; x < pixelWidth; x++)
@@ -211,7 +221,7 @@ namespace noa {
 			wallDistanceBuffer[x] = ray.distance;
 
 			//绘制墙壁
-			const float ceiling = pixelHeight * 0.5 - (float)(pixelHeight) / ray.distance;
+			const float ceiling = pixelHeight * 0.5 - pixelHeight / ray.distance;
 			const float floor = pixelHeight - ceiling;
 			uint32_t color = BLACK;
 			const float shadowOfWall = 1 / (1 +
@@ -222,7 +232,7 @@ namespace noa {
 
 			//绘制地板与天花板
 
-			for (int y = 0; y < pixelHeight; y++)
+			for (int y = 0; y < floor + sharkCamera; y++)
 			{
 				if (y <= ceiling + sharkCamera)
 				{
@@ -246,14 +256,11 @@ namespace noa {
 						//color = RGB(GetRValue(color) * shadowOfWall*10, GetGValue(color) * shadowOfWall*10, GetBValue(color) * shadowOfWall*10);
 					}
 
+					//color = DARKER(color, ray.distance * ray.distance *0.3);
+
 				}
 				else
 				{
-					/*const float b = 1.0 - (((float)y - pixelHeight * 0.5) / (float)pixelHeight * 0.5);
-					const float deltaRayShine = (1 - b) * (1 - b);
-					const float depth = (1 - b);
-					color = WHITE;*/
-					//color = WHITE;
 					if (renderFloor)
 					{
 						continue;
@@ -267,75 +274,7 @@ namespace noa {
 
 		}
 
-
-
-
-
-		//绘制物品
-		for (auto& object : gameObjects)
-		{
-
-			const Vector<float> vecToFollow = move(object->transform.position - follow->position);
-
-			const float distanceFromPlayer = vecToFollow.Magnitude();
-
-			const Vector<float> eye = move(Vector<float>(sinf(follow->eulerAngle), cosf(follow->eulerAngle)));
-
-			float objectAngle = atan2(eye.y, eye.x) - atan2(vecToFollow.y, vecToFollow.x);
-			if (objectAngle < -PI)
-			{
-				objectAngle += 2.0f * PI;
-			}
-			if (objectAngle > PI)
-			{
-				objectAngle -= 2.0f * PI;
-			}
-			const bool isInPlayerFOV = fabs(objectAngle) < FOV * 0.5f;
-
-			if (isInPlayerFOV && distanceFromPlayer >= 0.5f &&
-				distanceFromPlayer < viewDepth)
-			{
-
-				//绘制物体到屏幕上
-
-				const float objectCeiling = (float)(pixelHeight * 0.5)
-					- pixelHeight / (float)distanceFromPlayer;
-				const float objectFloor = pixelHeight - objectCeiling;
-
-				const float objectHeight = objectFloor - objectCeiling;
-				const float objectAspectRatio = (float)object->sprite->h / (float)object->sprite->w;
-				const float objectWidth = objectHeight / objectAspectRatio;
-
-				const float middleOfObject = (0.5f * (objectAngle / (FOV * 0.5f)) + 0.5f)
-					* (float)pixelWidth;
-
-				for (float lx = 0; lx < objectWidth; lx++)
-				{
-					for (float ly = 0; ly < objectHeight; ly++)
-					{
-						const float objSimpleX = lx / objectWidth;
-						const float objSimpleY = ly / objectHeight;
-
-						const Uint32 objColor = object->sprite->GetTransposeColor(objSimpleY, objSimpleX);
-						const int objectColumn = (int)(middleOfObject + lx - (objectWidth * 0.5f));
-						if (objectColumn >= 0 && objectColumn < pixelWidth)
-						{
-							if ((int)(objectCeiling + ly) < 0 || (int)(objectCeiling + ly) >= pixelHeight
-								|| (objectColumn < 0) || (objectColumn >= pixelWidth)) {
-								continue;
-							}
-							if (objColor == BLACK || wallDistanceBuffer[objectColumn] < distanceFromPlayer)
-							{
-								continue;
-							}
-							wallDistanceBuffer[objectColumn] = distanceFromPlayer;
-							renderer.DrawPixel(objectColumn, (int)(objectCeiling + ly), objColor);
-						}
-					}
-				}
-			}
-
-		}
+		RenderGameObject();
 
 	}
 
@@ -348,86 +287,8 @@ namespace noa {
 
 		if (renderFloor)
 		{
-			//FLOOR CASTING
-			//Tile* floorTile = map.GetTile(floorTileID);
-
-			float cameraX = -1;
-			float angle = follow->eulerAngle - FOV * (0.5 - (float)0 / pixelWidth);
-
-			for (int y = pixelHeight*0.5; y < pixelHeight; y++)
-			{
-
-				const float dirX = sinf(follow->eulerAngle);
-				const float dirY = cosf(follow->eulerAngle);
-
-				const float eyeRayX = sinf(angle);
-				const float eyeRayY = cosf(angle);
-
-				const float planeX = (eyeRayX - dirX) / cameraX;
-				const float planeY = (eyeRayY - dirY) / cameraX;
-
-				// rayDir for leftmost ray (x = 0) and rightmost ray (x = w)
-				const float rayDirX0 = dirX - planeX;
-				const float rayDirY0 = dirY - planeY;
-				const float rayDirX1 = dirX + planeX;
-				const float rayDirY1 = dirY + planeY;
-
-				// Current y position compared to the center of the screen (the horizon)
-				const int p = y - pixelHeight / 2;
-
-				// Vertical position of the camera.
-				const float posZ = 0.5 * pixelHeight;
-
-				// Horizontal distance from the camera to the floor for the current row.
-				const float rowDistance = posZ / p;
-
-				// calculate the real world step vector we have to add for each x (parallel to camera plane)
-				// adding step by step avoids multiplications with a weight in the inner loop
-				const float floorStepX = rowDistance * (rayDirX1 - rayDirX0) / pixelWidth;
-				const float floorStepY = rowDistance * (rayDirY1 - rayDirY0) / pixelWidth;
-
-				// real world coordinates of the leftmost column. This will be updated as we step to the right.
-				float floorX = follow->position.x +0.5 + rowDistance * rayDirX0;
-				float floorY = follow->position.y +0.5 + rowDistance * rayDirY0;
-
-				for (int x = 0; x < pixelWidth; ++x)
-				{
-					angle = follow->eulerAngle - FOV * (0.5 - (float)(x + 1.0) / pixelWidth);
-					cameraX = 2 * x / double(pixelWidth) - 1; //x-coordinate in camera space
-
-					// the cell coord is simply got from the integer parts of floorX and floorY
-					const int cellX = (int)(floorX);
-					const int cellY = (int)(floorY);
-
-					const float simpleX = floorX - cellX;
-					const float simpleY = floorY - cellY;
-
-					floorX += floorStepX;
-					floorY += floorStepY;
-
-					// choose texture and draw the pixel
-					int floorTileID = map.GetTileID(cellX, cellY);
-					Tile* floorTile = map.GetTile(floorTileID);
-					if (floorTileID == -1||floorTile == nullptr)
-					{
-						renderer.DrawPixel(x, y, LIGHTRED);
-						continue;
-					}
-					
-					// floor
-					const Uint32 color = floorTile->sprite->GetColor(simpleX, simpleY);
-					//color = (color >> 1) & 8355711; // make a bit darker
-					renderer.DrawPixel(x, y, color);
-
-					//ceiling (symmetrical, at screenHeight - y - 1 instead of y)
-					//color = texture[ceilingTexture][texWidth * ty + tx];
-					//color = (color >> 1) & 8355711; // make a bit darker
-					//buffer[screenHeight - y - 1][x] = color;
-				}
-			}
+			RenderFloor(map);
 		}
-
-		
 
 		//绘制墙壁
 		for (int x = 0;x<pixelWidth;x++) 
@@ -442,15 +303,13 @@ namespace noa {
 			const float ceiling = pixelHeight * 0.5 - (float)(pixelHeight) / ray.distance;
 			const float floor = pixelHeight - ceiling;
 			uint32_t color = BLACK;
-			const float shadowOfWall = 1 / (1 +
-				ray.distance * ray.distance * ray.distance * ray.distance * ray.distance * 0.00002);
 			float sharkCamera = 75 * (sinf(1.5 * (follow->position.x)) + sinhf(1.5 * (follow->position.y)));
 			sharkCamera = sharkCamera / ray.distance;
 			sharkCamera = 0;
 
 			//绘制地板与天花板
 
-			for (int y = 0;y<pixelHeight;y++)
+			for (int y = ceiling + sharkCamera;y<floor + sharkCamera;y++)
 			{
 				if (y<=ceiling + sharkCamera)
 				{
@@ -468,19 +327,19 @@ namespace noa {
 						color = tile->sprite->GetColor(ray.simple.y, ray.simple.x);
 					}
 				}
-				else 
-				{
-					/*const float b = 1.0 - (((float)y - pixelHeight * 0.5) / (float)pixelHeight * 0.5);
-					const float deltaRayShine = (1 - b) * (1 - b);
-					const float depth = (1 - b);
-					color = WHITE;*/
-					//color = WHITE;
-					if (floor!=-1)
-					{
-						continue;
-					}
-					color = WHITE;
-				}
+				//else 
+				//{
+				//	/*const float b = 1.0 - (((float)y - pixelHeight * 0.5) / (float)pixelHeight * 0.5);
+				//	const float deltaRayShine = (1 - b) * (1 - b);
+				//	const float depth = (1 - b);
+				//	color = WHITE;*/
+				//	//color = WHITE;
+				//	if (floor!=-1)
+				//	{
+				//		continue;
+				//	}
+				//	color = WHITE;
+				//}
 
 				renderer.DrawPixel(x, y, color);
 
@@ -488,75 +347,7 @@ namespace noa {
 
 		}
 
-
-
-
-
-		//绘制物品
-		for (auto & object : gameObjects)
-		{
-
-			const Vector<float> vecToFollow = move(object->transform.position - follow->position);
-
-			const float distanceFromPlayer = vecToFollow.Magnitude();
-
-			const Vector<float> eye = move(Vector<float>(sinf(follow->eulerAngle), cosf(follow->eulerAngle)));
-
-			float objectAngle = atan2(eye.y, eye.x) - atan2(vecToFollow.y, vecToFollow.x);
-			if (objectAngle < -3.14159f)
-			{
-				objectAngle += 2.0f * 3.14159f;
-			}
-			if (objectAngle > 3.14159)
-			{
-				objectAngle -= 2.0f * 3.14159f;
-			}
-			const bool isInPlayerFOV = fabs(objectAngle) < FOV * 0.5f;
-
-			if (isInPlayerFOV && distanceFromPlayer >= 0.5f &&
-				distanceFromPlayer < viewDepth)
-			{
-
-				//绘制物体到屏幕上
-
-				const float objectCeiling = (float)(pixelHeight * 0.5)
-					- pixelHeight / (float)distanceFromPlayer;
-				const float objectFloor = pixelHeight - objectCeiling;
-
-				const float objectHeight = objectFloor - objectCeiling;
-				const float objectAspectRatio = (float)object->sprite->h / (float)object->sprite->w;
-				const float objectWidth = objectHeight / objectAspectRatio;
-
-				const float middleOfObject = (0.5f * (objectAngle / (FOV * 0.5f)) + 0.5f)
-					* (float)pixelWidth;
-
-				for (float lx = 0; lx < objectWidth; lx++)
-				{
-					for (float ly = 0; ly < objectHeight; ly++)
-					{
-						const float objSimpleX = lx / objectWidth;
-						const float objSimpleY = ly / objectHeight;
-
-						const Uint32 objColor = object->sprite->GetTransposeColor(objSimpleY, objSimpleX);
-						const int objectColumn = (int)(middleOfObject + lx - (objectWidth * 0.5f));
-						if (objectColumn >= 0 && objectColumn < pixelWidth)
-						{
-							if ((int)(objectCeiling + ly) < 0 || (int)(objectCeiling + ly) >= pixelHeight
-								|| (objectColumn < 0) || (objectColumn >= pixelWidth)) {
-								continue;
-							}
-							if (objColor == BLACK || wallDistanceBuffer[objectColumn] < distanceFromPlayer)
-							{
-								continue;
-							}
-							wallDistanceBuffer[objectColumn] = distanceFromPlayer;
-							renderer.DrawPixel(objectColumn, (int)(objectCeiling + ly), objColor);
-						}
-					}
-				}
-			}
-
-		}
+		RenderGameObject();
 
 	}
 
@@ -631,6 +422,74 @@ namespace noa {
 				const ColorRef color = skybox.GetColor(dy, dx);
 				renderer.DrawPixel(x, y, color);
 			}
+		}
+	}
+	void FreeCamera::RenderGameObject()
+	{
+		//绘制物品
+		for (auto& object : gameObjects)
+		{
+
+			const Vector<float> vecToFollow = move(object->transform.position - follow->position);
+
+			const float distanceFromPlayer = vecToFollow.Magnitude();
+
+			const Vector<float> eye = move(Vector<float>(sinf(follow->eulerAngle), cosf(follow->eulerAngle)));
+
+			float objectAngle = atan2(eye.y, eye.x) - atan2(vecToFollow.y, vecToFollow.x);
+			if (objectAngle < -3.14159f)
+			{
+				objectAngle += 2.0f * 3.14159f;
+			}
+			if (objectAngle > 3.14159)
+			{
+				objectAngle -= 2.0f * 3.14159f;
+			}
+			const bool isInPlayerFOV = fabs(objectAngle) < FOV * 0.5f;
+
+			if (isInPlayerFOV && distanceFromPlayer >= 0.5f &&
+				distanceFromPlayer < viewDepth)
+			{
+
+				//绘制物体到屏幕上
+
+				const float objectCeiling = (float)(pixelHeight * 0.5)
+					- pixelHeight / (float)distanceFromPlayer;
+				const float objectFloor = pixelHeight - objectCeiling;
+
+				const float objectHeight = objectFloor - objectCeiling;
+				const float objectAspectRatio = (float)object->sprite->h / (float)object->sprite->w;
+				const float objectWidth = objectHeight / objectAspectRatio;
+
+				const float middleOfObject = (0.5f * (objectAngle / (FOV * 0.5f)) + 0.5f)
+					* (float)pixelWidth;
+
+				for (float lx = 0; lx < objectWidth; lx++)
+				{
+					for (float ly = 0; ly < objectHeight; ly++)
+					{
+						const float objSimpleX = lx / objectWidth;
+						const float objSimpleY = ly / objectHeight;
+
+						const Uint32 objColor = object->sprite->GetTransposeColor(objSimpleY, objSimpleX);
+						const int objectColumn = (int)(middleOfObject + lx - (objectWidth * 0.5f));
+						if (objectColumn >= 0 && objectColumn < pixelWidth)
+						{
+							if ((int)(objectCeiling + ly) < 0 || (int)(objectCeiling + ly) >= pixelHeight
+								|| (objectColumn < 0) || (objectColumn >= pixelWidth)) {
+								continue;
+							}
+							if (objColor == BLACK || wallDistanceBuffer[objectColumn] < distanceFromPlayer)
+							{
+								continue;
+							}
+							wallDistanceBuffer[objectColumn] = distanceFromPlayer;
+							renderer.DrawPixel(objectColumn, (int)(objectCeiling + ly), objColor);
+						}
+					}
+				}
+			}
+
 		}
 	}
 }

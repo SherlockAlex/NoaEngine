@@ -37,13 +37,16 @@ namespace noa {
 			ContinuousForce = 1 << 0,
 			Impulse = 1 << 1,
 		};
-
-	private:
+		//质量
+		float mass = 1;
+		//阻尼系数
+		float damping = 0.02;
 		Transform* colliderPos = nullptr;
+	private:
+		
 		//用于物体之间的碰撞检测
 		int indexInMap = -1;
 	protected:
-		float mass = 1;
 		float g = 9.81;
 		bool useGravity = true;
 		bool isGrounded = false;
@@ -71,12 +74,11 @@ namespace noa {
 		/// </summary>
 		/// <param name="force">力的数值，如果力的种类为恒力，其数值表示力，如果是冲量，则表示冲量的大小</param>
 		/// <param name="forceType">力的类型</param>
-		void AddForce(Vector<float> & force, ForceType forceType);
+		void AddForce(const Vector<float> force, ForceType forceType);
 		void SetCollisionTileID(std::vector<int> collisionTileIDs);
 		void UpdateMap(void * map);
-		void ApplyCollision();
 		float FixPosition();
-		void UpdateCollision(Vector<float> & nextPosition);
+		void UpdateCollision(const Vector<float> nextPosition);
 
 		int GetIndexInMap() const;
 

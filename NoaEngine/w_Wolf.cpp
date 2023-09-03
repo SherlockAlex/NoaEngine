@@ -5,18 +5,31 @@ using namespace noa;
 class Enimy :public GameObject,public Rigidbody 
 {
 public:
+	Transform* player = nullptr;
+
+public:
 	Enimy() :
 		GameObject(new Sprite(LoadSprFile("./Assets/Wolf/caco.spr"),Vector<int>(1,1)))
 		,Rigidbody(&transform)
 	{
 		transform.position.x = 6;
-		transform.position.y = 2;
+		transform.position.y = 6;
 	}
 
 	~Enimy() 
 	{
 		GameObject::~GameObject();
 	}
+
+
+	void Update() override 
+	{
+		//获取玩家的transform
+		Vector<float> dir = player->position - transform.position;
+		dir = dir.Normalize();
+		velocity = dir * 5;
+	}
+
 
 };
 
@@ -29,7 +42,8 @@ public:
 
 		//SetCollisionTileID({ 25,26,33,34,19,20,21,27,29,35,36,37 });
 		vector<int> collisionTileID;
-		for (int i=0;i<108;i++)
+		collisionTileID.push_back(36);
+		/*for (int i=0;i<108;i++)
 		{
 			if (i == 107)
 			{
@@ -38,7 +52,7 @@ public:
 
 			collisionTileID.push_back(i);
 
-		}
+		}*/
 		SetCollisionTileID(collisionTileID);
 		UpdateMap(map);
 
@@ -46,7 +60,7 @@ public:
 			this->RotateControl();
 		};
 
-		//SetPosition(107, *map);
+		SetPosition(28, *map);
 		//transform.position.x = 5;
 		//transform.position.y = 5;
 
@@ -99,6 +113,11 @@ public:
 			velocity.x += cosf(transform.eulerAngle);
 			velocity.y += -sinf(transform.eulerAngle);
 		}
+
+		if (inputSystem.GetKeyHold(KeyESC)) 
+		{
+			inputSystem.SetRelativeMouseMode(false);
+		}
 		
 		velocity = velocity.Normalize()*speed;
 
@@ -137,12 +156,13 @@ public:
 	WolfGame(int width, int height, NoaGameEngine::GameWindowMode windowMode, string gameName) :
 		NoaGameEngine(width,height,windowMode,gameName) 
 	{
-		
+		enimy.player = & player.transform;
 	}
 
 	void Start() override {
 		Debug("Hello");
 		BGM.Play(true);
+		inputSystem.SetRelativeMouseMode(true);
 	}
 
 	void Update() override {
@@ -155,8 +175,8 @@ public:
 private:
 	
 	TileMap tileMap = TileMap(
-		LoadTileFromTsd("./Assets/Wolf/Map/tileSet.tsd"),
-		LoadMapFromCSV("./Assets/Wolf/Map/level.csv")
+		LoadTileFromTsd("./Assets/Wolf/Map/tileSet-1.tsd"),
+		LoadMapFromCSV("./Assets/Wolf/Map/level-1..csv")
 	);
 	Player player = Player(&tileMap);
 	FreeCamera camera = FreeCamera(&player.transform);
