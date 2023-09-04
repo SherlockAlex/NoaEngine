@@ -16,14 +16,17 @@ namespace noa {
 		}*/
 		//delete behaviour;
 		
-		for (int i = 0;i<behaviours.size();i++)
+		/*for (int i = 0;i<behaviours.size();i++)
 		{
 			if (behaviours[i]==behaviour)
 			{
 				behaviours[i] = nullptr;
 				Debug("Behaviour is destroy");
 			}
-		}
+		}*/
+
+		behaviours[behaviour->hashCode] = nullptr;
+		Debug("Behaviour "+to_string(behaviour->hashCode) + " is destroy");
 
 		
 
@@ -32,6 +35,13 @@ namespace noa {
 	Behaviour::Behaviour()
 	{
 		behaviours.push_back(this);
+		for (int i = 0;i<behaviours.size();i++)
+		{
+			if (behaviours[i]==this)
+			{
+				this->hashCode = i;
+			}
+		}
 		//behaviours.push_back(this);
 	}
 

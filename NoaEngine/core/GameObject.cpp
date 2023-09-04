@@ -7,11 +7,6 @@ namespace noa {
 	vector<GameObject*> gameObjects;
 
 	void DestroyGameObject(GameObject* gameObject) {
-		/*auto it = std::find(gameObjects.begin(), gameObjects.end(), gameObject);
-		if (it != gameObjects.end())
-		{
-			gameObjects.erase(it);
-		}*/
 		for (int i = 0;i<gameObjects.size();i++)
 		{
 			if (gameObjects[i] == gameObject)

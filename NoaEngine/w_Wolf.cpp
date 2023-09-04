@@ -173,7 +173,17 @@ public:
 		gunShot->SetFrameEvent(2, [this]() {
 			shotAFX.Play(false);
 
-			Enimy * enimy = camera->GetRayHitInfoAs<Enimy*>(pixelWidth * 0.5);
+			Enimy * enimy = nullptr;
+
+			for (int i = 0.5*pixelWidth-10;i<=0.5*pixelWidth + 10;i++)
+			{
+				enimy = camera->GetRayHitInfoAs<Enimy*>(i);
+				if (enimy!=nullptr)
+				{
+					break;
+				}
+			}
+
 			if (enimy!=nullptr)
 			{
 				enimy->TakeDamage(20);
@@ -252,7 +262,7 @@ private:
 
 int main(int argc,char * argv[])
 {
-	WolfGame game(1920/2, 1080/2, NoaGameEngine::WindowMode, "Wolf");
+	WolfGame game(1920/4, 1080/4, NoaGameEngine::WindowMode, "Wolf");
 	game.Run();
 
 	return 0;

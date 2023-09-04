@@ -20,6 +20,7 @@ namespace noa {
 		////the euler angle in the world with behaviour
 		//float angle = 0.0;
 		bool isActive = true;
+		int hashCode = 0;
 
 	public:
 		Behaviour();
