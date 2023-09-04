@@ -186,7 +186,7 @@ namespace noa {
 				const uint32_t color = sprite.GetTransposeColor(simple.y, simple.x);
 				if (isAlpha)
 				{
-					if (color == BLACK) 
+					if (color == ERRORCOLOR)
 					{
 						continue;
 					}
@@ -223,7 +223,7 @@ namespace noa {
 				uint32_t color = sprite->GetTransposeColor(simple.y, simple.x);
 				if (isAlpha)
 				{
-					if (color == BLACK)
+					if (color == ERRORCOLOR)
 					{
 						continue;
 					}

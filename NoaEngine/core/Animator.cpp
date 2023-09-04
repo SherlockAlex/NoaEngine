@@ -181,7 +181,7 @@ namespace noa {
 
 		const bool isFrameStart = abs(i - (int)i) < speed * deltaTime;
 
-		if (isFrameStart && (framesEvent.empty()))
+		if (isFrameStart && (!framesEvent.empty()))
 		{
 			framesEvent[i].Invoke();
 		}

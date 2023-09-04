@@ -126,7 +126,7 @@ namespace noa {
 				const uint32_t color = GetTransposeColor(simple.y, simple.x);
 				if (isRenderAlpha)
 				{
-					if (color == BLACK)
+					if (color == ERRORCOLOR)
 					{
 						continue;
 					}
@@ -210,7 +210,7 @@ namespace noa {
 
 				if (isRenderAlpha)
 				{
-					if (pixelColor == BLACK)
+					if (pixelColor == ERRORCOLOR)
 					{
 						continue;
 					}
@@ -278,7 +278,7 @@ namespace noa {
 				const uint32_t color = GetTransposeColor(simple.y, simple.x);
 				if (isRenderAlpha)
 				{
-					if (color == BLACK)
+					if (color == ERRORCOLOR)
 					{
 						continue;
 					}
@@ -361,7 +361,7 @@ namespace noa {
 
 				if (isRenderAlpha)
 				{
-					if (pixelColor == BLACK)
+					if (pixelColor == ERRORCOLOR)
 					{
 						continue;
 					}

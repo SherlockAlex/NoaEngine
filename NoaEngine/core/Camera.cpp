@@ -124,21 +124,23 @@ namespace noa {
 		wallDistanceBuffer = vector<float>(pixelWidth, 0.0);
 	}
 
+	
 	void FreeCamera::RenderFloor(TileMap& map)
 	{
 		//FLOOR CASTING
 			//Tile* floorTile = map.GetTile(floorTileID);
-
+		
 		const float angle = follow->eulerAngle - FOV * 0.5;
 		const float dirX = sinf(follow->eulerAngle);
 		const float dirY = cosf(follow->eulerAngle);
-		const float eyeRayX = (1.0 / cosf(0.5 * FOV)) * sinf(angle);
-		const float eyeRayY = (1.0 / cosf(0.5 * FOV)) * cosf(angle);
+		
+		const float eyeRayX = normalEyeRay * sinf(angle);
+		const float eyeRayY = normalEyeRay * cosf(angle);
 		const float planeX = -eyeRayX + dirX;
 		const float planeY = -eyeRayY + dirY;
 
-		const float rayDirX0 = dirX - planeX;
-		const float rayDirY0 = dirY - planeY;
+		const float rayDirX0 = eyeRayX;
+		const float rayDirY0 = eyeRayY;
 		const float rayDirX1 = dirX + planeX;
 		const float rayDirY1 = dirY + planeY;
 
@@ -151,7 +153,7 @@ namespace noa {
 			const float posZ = 0.5 * pixelHeight;
 
 			// Horizontal distance from the camera to the floor for the current row.
-			float rowDistance = posZ / p;
+			const float rowDistance = posZ / p;
 
 			// calculate the real world step vector we have to add for each x (parallel to camera plane)
 			// adding step by step avoids multiplications with a weight in the inner loop
@@ -223,7 +225,7 @@ namespace noa {
 			//»æÖÆÇ½±Ú
 			const float ceiling = pixelHeight * 0.5 - pixelHeight / ray.distance;
 			const float floor = pixelHeight - ceiling;
-			uint32_t color = BLACK;
+			uint32_t color = 980088;
 			const float shadowOfWall = 1 / (1 +
 				ray.distance * ray.distance * ray.distance * ray.distance * ray.distance * 0.00002);
 			float sharkCamera = 75 * (sinf(1.5 * (follow->position.x)) + sinhf(1.5 * (follow->position.y)));
@@ -302,7 +304,7 @@ namespace noa {
 			//»æÖÆÇ½±Ú
 			const float ceiling = pixelHeight * 0.5 - (float)(pixelHeight) / ray.distance;
 			const float floor = pixelHeight - ceiling;
-			uint32_t color = BLACK;
+			uint32_t color = 980088;
 			float sharkCamera = 75 * (sinf(1.5 * (follow->position.x)) + sinhf(1.5 * (follow->position.y)));
 			sharkCamera = sharkCamera / ray.distance;
 			sharkCamera = 0;
@@ -479,7 +481,7 @@ namespace noa {
 								|| (objectColumn < 0) || (objectColumn >= pixelWidth)) {
 								continue;
 							}
-							if (objColor == BLACK || wallDistanceBuffer[objectColumn] < distanceFromPlayer)
+							if (objColor == 980088 || wallDistanceBuffer[objectColumn] < distanceFromPlayer)
 							{
 								continue;
 							}

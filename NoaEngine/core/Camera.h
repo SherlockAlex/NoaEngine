@@ -64,6 +64,10 @@ namespace noa {
 	public:
 		float FOV = 0.25 * PI;
 		float viewDepth = 60;
+
+		const float normalEyeRay = (1.0 / cosf(0.5 * FOV));
+		//const float normalEyeRay = 1;
+
 	public:
 		FreeCamera();
 		FreeCamera(Transform* follow);

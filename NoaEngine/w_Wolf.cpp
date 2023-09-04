@@ -44,7 +44,6 @@ public:
 	{
 		useGravity = false;
 
-		//SetCollisionTileID({ 25,26,33,34,19,20,21,27,29,35,36,37 });
 		vector<int> collisionTileID;
 		collisionTileID.push_back(36);
 		for (int i=0;i<108;i++)
@@ -65,8 +64,6 @@ public:
 		};
 
 		SetPosition(107, *map);
-		//transform.position.x = 5;
-		//transform.position.y = 5;
 
 	}
 
@@ -122,6 +119,14 @@ public:
 		{
 			inputSystem.SetRelativeMouseMode(false);
 		}
+
+		if (inputSystem.GetMouseButton(LeftButton)) 
+		{
+			
+			//shotAFX.Play(false);
+			gunShot->Play();
+			
+		}
 		
 		velocity = velocity.Normalize()*speed;
 
@@ -136,14 +141,22 @@ public:
 		}
 	}
 
-	void Start() override {
-		
+	void Start() override 
+	{
+		//gunNormal->LoadFromAnimatorFile("./Assets/Wolf/gun-normal.amt");
+		gunShot->LoadFromAnimatorFile("./Assets/Wolf/gun-shot.amt");
+		gunShot->SetFrameEvent(1, [this]() {
+			shotAFX.Play(false);
+			Debug("shot");
+			});
 	}
 
 	void Update() override 
 	{
 		ActorControl();
 		hp -= deltaTime*0.00001;
+		gunSprite.UpdateImage(gunShot->GetCurrentFrameImage());
+		gunSprite.DrawSprite(0.4*pixelWidth,0.68*pixelHeight,true);
 	}
 
 public:
@@ -151,6 +164,17 @@ public:
 
 	Uint32 maxHp = 100;
 	Uint32 hp = 100;
+
+	Sprite gunSprite = Sprite(
+		LoadSprFile("./Assets/Wolf/gun.spr")
+		,Vector<int>(0.2*pixelWidth,0.33*pixelHeight));
+
+	Audio shotAFX = Audio("./Assets/Wolf/Music/shotgun.wav",Chunk);
+
+	//bool isShot = false;
+
+	//Animator* gunNormal = new Animator(7);
+	Animator* gunShot = new Animator(7);
 
 };
 
@@ -163,8 +187,8 @@ public:
 		enimy.player = & player.transform;
 	}
 
-	void Start() override {
-		Debug("Hello");
+	void Start() override 
+	{
 		BGM.Play(true);
 		inputSystem.SetRelativeMouseMode(true);
 	}

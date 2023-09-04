@@ -21,6 +21,8 @@ namespace noa {
 	#define	LIGHTMAGENTA	0xFF55FF
 	#define	YELLOW			0x55FFFF
 	#define	WHITE			0xFFFFFF
+
+	
 	
 	//È¡µÍÎ»
 	#define LOBYTE(w)           ((Uint8)(w&0xff))
@@ -33,6 +35,8 @@ namespace noa {
 	#define GetRValue(rgb)      (LOBYTE(rgb))
 	#define GetGValue(rgb)      (LOBYTE(((unsigned short)(rgb)) >> 8))
 	#define GetBValue(rgb)      (LOBYTE((rgb)>>16))
+
+	#define ERRORCOLOR RGB(152,0,136)
 
 	typedef Uint32 ColorRef;
 
