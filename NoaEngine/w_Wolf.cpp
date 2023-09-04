@@ -26,6 +26,10 @@ public:
 	{
 		//获取玩家的transform
 		Vector<float> dir = player->position - transform.position;
+		if (dir.SqrMagnitude()<25.0) 
+		{
+			return;
+		}
 		dir = dir.Normalize();
 		velocity = dir * 5;
 	}
@@ -43,7 +47,7 @@ public:
 		//SetCollisionTileID({ 25,26,33,34,19,20,21,27,29,35,36,37 });
 		vector<int> collisionTileID;
 		collisionTileID.push_back(36);
-		/*for (int i=0;i<108;i++)
+		for (int i=0;i<108;i++)
 		{
 			if (i == 107)
 			{
@@ -52,7 +56,7 @@ public:
 
 			collisionTileID.push_back(i);
 
-		}*/
+		}
 		SetCollisionTileID(collisionTileID);
 		UpdateMap(map);
 
@@ -60,7 +64,7 @@ public:
 			this->RotateControl();
 		};
 
-		SetPosition(28, *map);
+		SetPosition(107, *map);
 		//transform.position.x = 5;
 		//transform.position.y = 5;
 
@@ -175,8 +179,8 @@ public:
 private:
 	
 	TileMap tileMap = TileMap(
-		LoadTileFromTsd("./Assets/Wolf/Map/tileSet-1.tsd"),
-		LoadMapFromCSV("./Assets/Wolf/Map/level-1..csv")
+		LoadTileFromTsd("./Assets/Wolf/Map/tileSet.tsd"),
+		LoadMapFromCSV("./Assets/Wolf/Map/level.csv")
 	);
 	Player player = Player(&tileMap);
 	FreeCamera camera = FreeCamera(&player.transform);
