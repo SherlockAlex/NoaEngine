@@ -252,7 +252,7 @@ private:
 
 int main(int argc,char * argv[])
 {
-	WolfGame game(1920/4, 1080/4, NoaGameEngine::WindowMode, "Wolf");
+	WolfGame game(1920/2, 1080/2, NoaGameEngine::WindowMode, "Wolf");
 	game.Run();
 
 	return 0;
