@@ -73,42 +73,6 @@ namespace noa {
 	/// <param name="isRenderAlpha">是否采用alpha通道</param>
 	void Sprite::DrawSprite(int posX, int posY, bool isRenderAlpha) const
 	{
-		//计算放大
-		//const int wannaW = pixelWidth * sizeForSurface;
-		//const int wannaH = (int)(((float)h / (float)w) * wannaW);
-
-		//const int wannaW = w * scale.x;
-		//const int wannaH = h * scale.y;
-
-		//for (int width = 0; width < wannaW; width++)
-		//{
-		//	for (int height = 0; height < wannaH; height++)
-		//	{
-		//		const int x = posX - ((float)wannaW * 0.5f) + width;
-		//		const int y = posY - ((float)wannaH * 0.5f) + height;
-
-		//		const float fSimpleX = (float)(width) / (float)wannaW;
-		//		const float fSimpleY = (float)(height) / (float)wannaH;
-
-		//		//Uint32 pixelColor = GetSpriteColor(fSimpleY, fSimpleX, h, w, image);
-		//		const Uint32 pixelColor = GetTransposeColor(fSimpleY, fSimpleX);
-
-		//		if (isRenderAlpha)
-		//		{
-		//			if (pixelColor == BLACK)
-		//			{
-		//				continue;
-		//			}
-		//		}
-
-		//		if (x < 0 || x >= pixelWidth || y < 0 || y >= pixelHeight)
-		//		{
-		//			continue;
-		//		}
-		//		renderer.DrawPixel(x, y, pixelColor);
-		//	}
-		//}
-
 		//将sprite图片填充到矩形上
 		const int x1 = posX;
 		const int y1 = posY;

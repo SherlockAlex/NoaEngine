@@ -27,10 +27,11 @@ namespace noa {
 	public:
 		virtual void Start() {};
 		virtual void Update() {};
+		virtual void Destroy();
 	};
 
 	//Ïú»ÙÓÎÏ·½Å±¾
-	extern void Destroy(Behaviour* behaviour);
+	//extern void Destroy(Behaviour* behaviour);
 }
 
 

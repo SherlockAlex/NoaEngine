@@ -118,7 +118,8 @@ namespace noa {
 	/// <returns></returns>
 	SpriteFile& Animator::GetFrameImage(int frame) 
 	{
-		frame = frame & (framesImage.size() - 1);
+		//frame = frame & (framesImage.size() - 1);
+		frame = frame %framesImage.size();
 		return framesImage[frame];
 	}
 

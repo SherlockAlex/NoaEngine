@@ -46,12 +46,17 @@ namespace noa {
 		
 		//用于物体之间的碰撞检测
 		int indexInMap = -1;
+		Rigidbody* collisionRigid;
 	protected:
+		float invMass = 1;
+
 		float g = 9.81;
 		bool useGravity = true;
 		bool isGrounded = false;
 		bool useCollision = true;
 		
+		void* gameObject = nullptr;
+
 	public:
 		bool isFrozen = false;
 		//刚体的速度
@@ -60,6 +65,8 @@ namespace noa {
 		Vector<float> colliderSize = Vector<float>(0.0, 0.0);
 
 		Collision collision;
+		bool isTrigger = false;
+		bool isHitWall = false;
 
 	protected:
 		Rigidbody(Transform* colliderPos);
@@ -79,6 +86,19 @@ namespace noa {
 		void UpdateMap(void * map);
 		float FixPosition();
 		void UpdateCollision(const Vector<float> nextPosition);
+
+		/// <summary>
+		/// 返回与之相撞的物品
+		/// </summary>
+		/// <returns></returns>
+		Rigidbody* GetCollisionRigidbody();
+
+		template<class T>
+		T GetGameObjectAs() {
+			return (T)this->gameObject;
+		}
+
+		void SetCollisionRigidbody(Rigidbody* rigid);
 
 		int GetIndexInMap() const;
 

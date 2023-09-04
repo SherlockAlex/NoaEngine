@@ -2,11 +2,14 @@
 #include <ctime>
 #include <thread>
 #include <mutex>
+#include <queue>
 
 
 namespace noa {
 	extern vector <Behaviour*> behaviours;
 	extern vector<Rigidbody*> rigidbodys;
+
+	extern queue<Behaviour*> destroyBehaviours;
 
 	//mutex mtx; // 定义互斥锁对象
 
@@ -188,8 +191,12 @@ namespace noa {
 
 		Start();
 
-		for (int i = 0; i < behaviours.size(); i++)
+		for (int i=0;i<behaviours.size();i++)
 		{
+			if (behaviours[i] == nullptr)
+			{
+				continue;
+			}
 			behaviours[i]->Start();
 		}
 		
@@ -217,8 +224,25 @@ namespace noa {
 			//const int behaviourCount = behaviours.size();
 			//const int animatorCount = animatorList.size();
 
+			//while (!destroyBehaviours.empty()) 
+			//{
+			//	Behaviour* behaviour = destroyBehaviours.front();
+			//	if (behaviour == nullptr)
+			//	{
+			//		destroyBehaviours.pop();
+			//		continue;
+			//	}
+			//	destroyBehaviours.pop();
+			//	//delete behaviour;
+			//	behaviour = nullptr;
+			//}
+
 			for (int i = 0; i < rigidbodys.size(); i++)
 			{
+				if (rigidbodys[i] == nullptr)
+				{
+					continue;
+				}
 				rigidbodys[i]->Update();
 			}
 
@@ -226,7 +250,7 @@ namespace noa {
 
 			for (int i = 0; i < behaviours.size(); i++)
 			{
-				if (behaviours[i]->isActive == false)
+				if (behaviours[i] == nullptr||behaviours[i]->isActive == false)
 				{
 					continue;
 				}
@@ -259,6 +283,8 @@ namespace noa {
 			const double fps = 1.0 / deltaTime;
 			const string windowTitle = move(gameName + " FPS: " + to_string(fps));
 			SDL_SetWindowTitle(window, windowTitle.c_str());
+
+			
 
 			tp1 = tp2;
 

@@ -2,22 +2,42 @@
 
 using namespace noa;
 
+namespace noa {
+	void DestroyRigidbody(Rigidbody* rigid);
+}
+
 class Enimy :public GameObject,public Rigidbody 
 {
 public:
 	Transform* player = nullptr;
 
 public:
+	void TakeDamage(int damage)
+	{
+		Debug("take damage:" + to_string(damage));
+		hp -= damage;
+		if (hp<=0)
+		{
+			Debug("is die");
+			Destroy();
+			//DestroyRigidbody(this);
+		}
+		
+	}
+
 	Enimy() :
 		GameObject(new Sprite(LoadSprFile("./Assets/Wolf/caco.spr"),Vector<int>(1,1)))
 		,Rigidbody(&transform)
 	{
 		transform.position.x = 6;
 		transform.position.y = 6;
+
+		gameObject = this;
 	}
 
 	~Enimy() 
 	{
+		Rigidbody::~Rigidbody();
 		GameObject::~GameObject();
 	}
 
@@ -34,12 +54,17 @@ public:
 		velocity = dir * 5;
 	}
 
+private:
+	int hp = 100;
+
 
 };
 
 class Player :public Behaviour ,public Rigidbody
 {
 public:
+	FreeCamera* camera;
+
 	Player(TileMap* map) :Behaviour(), Rigidbody(&transform)
 	{
 		useGravity = false;
@@ -144,9 +169,17 @@ public:
 	void Start() override 
 	{
 		//gunNormal->LoadFromAnimatorFile("./Assets/Wolf/gun-normal.amt");
-		gunShot->LoadFromAnimatorFile("./Assets/Wolf/gun-shot.amt");
-		gunShot->SetFrameEvent(1, [this]() {
+		gunShot->LoadFromAnimatorFile("./Assets/Wolf/lgun-shot.amt");
+		gunShot->SetFrameEvent(2, [this]() {
 			shotAFX.Play(false);
+
+			Enimy * enimy = camera->GetRayHitInfoAs<Enimy*>(pixelWidth * 0.5);
+			if (enimy!=nullptr)
+			{
+				enimy->TakeDamage(20);
+			}
+
+
 			Debug("shot");
 			});
 	}
@@ -156,7 +189,7 @@ public:
 		ActorControl();
 		hp -= deltaTime*0.00001;
 		gunSprite.UpdateImage(gunShot->GetCurrentFrameImage());
-		gunSprite.DrawSprite(0.4*pixelWidth,0.68*pixelHeight,true);
+		gunSprite.DrawSprite(0.25*pixelWidth,pixelHeight - 0.5*pixelWidth,true);
 	}
 
 public:
@@ -167,14 +200,17 @@ public:
 
 	Sprite gunSprite = Sprite(
 		LoadSprFile("./Assets/Wolf/gun.spr")
-		,Vector<int>(0.2*pixelWidth,0.33*pixelHeight));
+		,Vector<int>(0.5*pixelWidth, 0.5 * pixelWidth));
 
 	Audio shotAFX = Audio("./Assets/Wolf/Music/shotgun.wav",Chunk);
 
+	Sprite bulletSprite = Sprite(
+		LoadSprFile("./Assets/Wolf/bullet.spr"),
+		Vector<int>(0.1*pixelWidth,0.1*pixelWidth)
+	);
 	//bool isShot = false;
 
-	//Animator* gunNormal = new Animator(7);
-	Animator* gunShot = new Animator(7);
+	Animator* gunShot = new Animator(14);
 
 };
 
@@ -185,6 +221,7 @@ public:
 		NoaGameEngine(width,height,windowMode,gameName) 
 	{
 		enimy.player = & player.transform;
+		player.camera = &camera;
 	}
 
 	void Start() override 
@@ -194,10 +231,7 @@ public:
 	}
 
 	void Update() override {
-		//renderer.DrawRect(Vector<int>(0, 0), Vector<int>(pixelWidth, pixelHeight / 2), sky);
 		camera.Render(tileMap,true,sky);
-		renderer.DrawString("FPS:"+to_string(1.0/deltaTime),10,10,RED,50);
-		renderer.DrawString("HP:" + to_string(player.hp) + "/" + to_string(player.maxHp),10,60,RED,50);
 	}
 
 private:
@@ -218,7 +252,7 @@ private:
 
 int main(int argc,char * argv[])
 {
-	WolfGame game(1920/2, 1080/2, NoaGameEngine::WindowMode, "Wolf");
+	WolfGame game(1920/4, 1080/4, NoaGameEngine::WindowMode, "Wolf");
 	game.Run();
 
 	return 0;

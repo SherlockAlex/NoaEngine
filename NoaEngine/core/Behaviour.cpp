@@ -1,23 +1,38 @@
 #include "Behaviour.h"
 #include "NoaEngine.h"
 
+#include <queue>
+#include <list>
+
 namespace noa {
 	vector <Behaviour*> behaviours;
+	//queue<Behaviour*> destroyBehaviours;
 
 	void DestroyBehaviour(Behaviour* behaviour) {
-		auto it = std::find(behaviours.begin(), behaviours.end(), behaviour);
+		/*auto it = std::find(behaviours.begin(), behaviours.end(), behaviour);
 		if (it != behaviours.end())
 		{
 			behaviours.erase(it);
-		}
+		}*/
 		//delete behaviour;
-		Debug("Behaviour is destroy");
+		
+		for (int i = 0;i<behaviours.size();i++)
+		{
+			if (behaviours[i]==behaviour)
+			{
+				behaviours[i] = nullptr;
+				Debug("Behaviour is destroy");
+			}
+		}
+
+		
 
 	}
 
 	Behaviour::Behaviour()
 	{
 		behaviours.push_back(this);
+		//behaviours.push_back(this);
 	}
 
 	Behaviour::~Behaviour()
@@ -25,10 +40,17 @@ namespace noa {
 		DestroyBehaviour(this);
 	}
 
-	void Destroy(Behaviour* behaviour)
+	void Behaviour::Destroy()
 	{
-		delete behaviour;
+		DestroyBehaviour(this);
 	}
+
+	//void Destroy(Behaviour* behaviour)
+	//{
+	//	
+	//	//destroyBehaviours.push(behaviour);
+	//	//delete behaviour;
+	//}
 
 }
 

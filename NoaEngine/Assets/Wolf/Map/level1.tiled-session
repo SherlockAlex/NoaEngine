@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "level-1.tmx",
+    "activeFile": "level.tmx",
     "expandedProjectPaths": [
         "."
     ],
@@ -12,16 +12,16 @@
             "scale": 0.33,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 431.81818181818176,
-                "y": 525.7575757575759
+                "x": 512.121212121212,
+                "y": 256.0606060606061
             }
         },
         "level.tmx": {
-            "scale": 0.25,
+            "scale": 0.125,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 1530,
-                "y": 1474
+                "x": 512,
+                "y": 1528
             }
         },
         "tile.tsx": {
@@ -34,7 +34,7 @@
             "scaleInEditor": 1
         }
     },
-    "last.exportedFilePath": "D:/Work/GitTools/NoaEngine/NoaEngine/Assets/Wolf/Map",
+    "last.exportedFilePath": "D:/Work/NoaEngine/NoaEngine/Assets/Wolf/Map",
     "last.imagePath": "C:/Users/zhang/Downloads",
     "map.fixedSize": false,
     "map.lastUsedExportFilter": "CSV 文件 (*.csv)",
@@ -43,7 +43,9 @@
     "map.tileWidth": 32,
     "openFiles": [
         "tile2.tsx",
-        "level-1.tmx"
+        "level-1.tmx",
+        "tile.tsx",
+        "level.tmx"
     ],
     "project": "level1.tiled-project",
     "recentFiles": [
@@ -54,7 +56,7 @@
     ],
     "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {
-        "height": 32,
-        "width": 32
+        "height": 64,
+        "width": 64
     }
 }

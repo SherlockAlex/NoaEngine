@@ -10,6 +10,8 @@ namespace noa {
 	//主要是用来渲染游戏的场景
 	// 越靠前的就先被渲染
 	
+	extern int pixelWidth;
+
 	class Transform;
 	class Camera
 	{
@@ -61,11 +63,15 @@ namespace noa {
 
 	class FreeCamera :public Camera
 	{
+	private:
+		vector<void*> objectBufferWithRay = vector<void*>(pixelWidth, nullptr);
+
 	public:
 		float FOV = 0.25 * PI;
+		const float halfFOV = FOV * 0.5;
 		float viewDepth = 60;
-
-		const float normalEyeRay = (1.0 / cosf(0.5 * FOV));
+		const float normalEyeRay = (1.0 / cosf(halfFOV));
+		
 		//const float normalEyeRay = 1;
 
 	public:
@@ -80,7 +86,14 @@ namespace noa {
 
 		Ray RaycastHit(int pixelX, const TileMap& map);
 
+		template<class T>
+		T GetRayHitInfoAs(int index) {
+			return (T)objectBufferWithRay[index];
+		}
+
 	};
+
+	
 
 }
 

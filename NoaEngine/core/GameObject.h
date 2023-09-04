@@ -11,7 +11,6 @@ namespace noa {
 		//制动绘制游戏物品到屏幕上
 	public:
 		Sprite * sprite = nullptr;
-		bool isTrigger = false;
 	public:
 		GameObject(Sprite * sprite);
 
@@ -29,9 +28,11 @@ namespace noa {
 			sprite->DrawSprite(transform.position.x, transform.position.y);
 		}
 
+		void Destroy() override;
+
 	};
 
-	extern void Destroy(GameObject* gameObject);
+	//extern void Destroy(GameObject* gameObject);
 }
 
 

@@ -7,13 +7,21 @@ namespace noa {
 	vector<GameObject*> gameObjects;
 
 	void DestroyGameObject(GameObject* gameObject) {
-		auto it = std::find(gameObjects.begin(), gameObjects.end(), gameObject);
+		/*auto it = std::find(gameObjects.begin(), gameObjects.end(), gameObject);
 		if (it != gameObjects.end())
 		{
 			gameObjects.erase(it);
+		}*/
+		for (int i = 0;i<gameObjects.size();i++)
+		{
+			if (gameObjects[i] == gameObject)
+			{
+				gameObjects[i] = nullptr;
+				Debug("GameObject has been destroy");
+			}
 		}
 
-		Debug("GameObject has been destroy");
+		
 
 	}
 
@@ -32,14 +40,20 @@ namespace noa {
 
 	GameObject::~GameObject()
 	{
+		//DestroyGameObject(this);
 		DestroyGameObject(this);
 		Behaviour::~Behaviour();
 	}
 
-	void Destroy(GameObject* gameObject)
+	void GameObject::Destroy()
 	{
-		delete gameObject;
+		DestroyGameObject(this);
 	}
+
+	//void Destroy(GameObject* gameObject)
+	//{
+	//	//delete gameObject;
+	//}
 
 }
 

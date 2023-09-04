@@ -99,8 +99,14 @@ namespace noa {
 		followPositionOnScreen = move(Vector<int>((follow->position.x - offset.x) * tileScale.x, (follow->position.y - offset.y) * tileScale.y));
 		
 		//绘制游戏物品
-		for (auto & gameObject:gameObjects) 
+		for (auto gameObject:gameObjects) 
 		{
+
+			if (gameObject==nullptr)
+			{
+				continue;
+			}
+
 			Vector<int> objPos = Vector<int>(
 				(gameObject->transform.position.x - offset.x) * tileScale.x,
 				(gameObject->transform.position.y - offset.y) * tileScale.y
@@ -118,19 +124,20 @@ namespace noa {
 	FreeCamera::FreeCamera()
 	{
 		wallDistanceBuffer = vector<float>(pixelWidth, 0.0);
+		objectBufferWithRay = vector<void*>(pixelWidth, nullptr);
 	}
 	FreeCamera::FreeCamera(Transform* follow):Camera(follow)
 	{
 		wallDistanceBuffer = vector<float>(pixelWidth, 0.0);
+		objectBufferWithRay = vector<void*>(pixelWidth, nullptr);
 	}
 
 	
 	void FreeCamera::RenderFloor(TileMap& map)
 	{
 		//FLOOR CASTING
-			//Tile* floorTile = map.GetTile(floorTileID);
 		
-		const float angle = follow->eulerAngle - FOV * 0.5;
+		const float angle = follow->eulerAngle - halfFOV;
 		const float dirX = sinf(follow->eulerAngle);
 		const float dirY = cosf(follow->eulerAngle);
 		
@@ -428,15 +435,28 @@ namespace noa {
 	}
 	void FreeCamera::RenderGameObject()
 	{
-		//绘制物品
-		for (auto& object : gameObjects)
+		for (int i=0;i<objectBufferWithRay.size();i++) 
 		{
+			objectBufferWithRay[i] = nullptr;
+		}
+
+		//绘制物品
+		for (auto object : gameObjects)
+		{
+
+			if (object == nullptr)
+			{
+				continue;
+			}
+
 
 			const Vector<float> vecToFollow = move(object->transform.position - follow->position);
 
 			const float distanceFromPlayer = vecToFollow.Magnitude();
 
 			const Vector<float> eye = move(Vector<float>(sinf(follow->eulerAngle), cosf(follow->eulerAngle)));
+
+			
 
 			float objectAngle = atan2(eye.y, eye.x) - atan2(vecToFollow.y, vecToFollow.x);
 			if (objectAngle < -3.14159f)
@@ -447,7 +467,7 @@ namespace noa {
 			{
 				objectAngle -= 2.0f * 3.14159f;
 			}
-			const bool isInPlayerFOV = fabs(objectAngle) < FOV * 0.5f;
+			const bool isInPlayerFOV = fabs(objectAngle) < halfFOV;
 
 			if (isInPlayerFOV && distanceFromPlayer >= 0.5f &&
 				distanceFromPlayer < viewDepth)
@@ -463,30 +483,31 @@ namespace noa {
 				const float objectAspectRatio = (float)object->sprite->h / (float)object->sprite->w;
 				const float objectWidth = objectHeight / objectAspectRatio;
 
-				const float middleOfObject = (0.5f * (objectAngle / (FOV * 0.5f)) + 0.5f)
+				const float middleOfObject = (0.5f * (objectAngle / halfFOV) + 0.5f)
 					* (float)pixelWidth;
 
 				for (float lx = 0; lx < objectWidth; lx++)
 				{
+					const int objectColumn = (int)(middleOfObject + lx - (objectWidth * 0.5f));
+					const float objSimpleX = lx / objectWidth;
 					for (float ly = 0; ly < objectHeight; ly++)
 					{
-						const float objSimpleX = lx / objectWidth;
 						const float objSimpleY = ly / objectHeight;
-
 						const Uint32 objColor = object->sprite->GetTransposeColor(objSimpleY, objSimpleX);
-						const int objectColumn = (int)(middleOfObject + lx - (objectWidth * 0.5f));
 						if (objectColumn >= 0 && objectColumn < pixelWidth)
 						{
 							if ((int)(objectCeiling + ly) < 0 || (int)(objectCeiling + ly) >= pixelHeight
-								|| (objectColumn < 0) || (objectColumn >= pixelWidth)) {
+								|| (objectColumn < 0) || (objectColumn >= pixelWidth)) 
+							{
 								continue;
 							}
-							if (objColor == 980088 || wallDistanceBuffer[objectColumn] < distanceFromPlayer)
+							if (objColor == ERRORCOLOR || wallDistanceBuffer[objectColumn] < distanceFromPlayer)
 							{
 								continue;
 							}
 							wallDistanceBuffer[objectColumn] = distanceFromPlayer;
 							renderer.DrawPixel(objectColumn, (int)(objectCeiling + ly), objColor);
+							objectBufferWithRay[objectColumn] = (void*)object;
 						}
 					}
 				}
