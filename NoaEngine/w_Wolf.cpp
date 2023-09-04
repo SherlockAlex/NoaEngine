@@ -197,7 +197,6 @@ public:
 	void Update() override 
 	{
 		ActorControl();
-		hp -= deltaTime*0.00001;
 		gunSprite.UpdateImage(gunShot->GetCurrentFrameImage());
 		gunSprite.DrawSprite(0.25*pixelWidth,pixelHeight - 0.5*pixelWidth,true);
 	}
