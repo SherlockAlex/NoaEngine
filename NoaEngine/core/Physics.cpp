@@ -13,12 +13,12 @@ namespace noa {
 
 	extern bool IsCollisionTile(int tileID);
 	//检测rigid是否和其他刚体相撞，如果相撞就返回
-	extern bool CollisionWithinRigidbody(Rigidbody* rigid,const int x,const int y);
+	//extern bool CollisionWithinRigidbody(Rigidbody* rigid,const int x,const int y);
 	extern bool CollisionWithinRigidbody(Rigidbody* rigid, const int x1, const int y1,const int x2,const int y2);
 
-	void ApplyCollision(Rigidbody* rigid, int posx, int posy);
+	//void ApplyCollision(Rigidbody* rigid, int posx, int posy);
 
-	vector<Rigidbody*> rigidbodys;
+	unordered_map<size_t,Rigidbody*> rigidbodys;
 
 	TileMap* tileMap = nullptr;
 
@@ -26,24 +26,23 @@ namespace noa {
 
 	void DestroyRigidbody(const Rigidbody * rigid)
 	{
-		for (int i = 0;i<rigidbodys.size();i++) 
-		{
-			if (rigidbodys[i] == rigid)
-			{
-				rigidbodys[i] = nullptr;
-				Debug("rigidbody has been done");
-			}
-		}
+		rigidbodys[rigid->GetHashCode()] = nullptr;
+		Debug("rigidbody has been done");
 	}
 
 	Rigidbody::Rigidbody(Transform* colliderPos)
 	{
+
+		id = GetNextId();
 		collision.other = nullptr;
 		this->colliderPos = colliderPos;
 		invMass = 1.0 / mass;
-		
-		rigidbodys.push_back(this);
+
+		rigidbodys[GetHashCode()] = this;
 	}
+
+	// 初始化静态计数器
+	size_t Rigidbody::nextId = 0;
 
 	Rigidbody::~Rigidbody()
 	{
@@ -59,25 +58,26 @@ namespace noa {
 	void Rigidbody::Update()
 	{
 		indexInMap = (int)(colliderPos->position.x) + (int)(colliderPos->position.y) * tileMap->w;
+		collision.other = nullptr;
 		collision.isHitCollisionTile = false;
-		if (isFrozen)
+		if (!isFrozen)
 		{
-			return;
-		}
-		if (useGravity)
-		{
-			if (!collision.isGrounded)
+			if (useGravity)
 			{
-				//如果使用重力
-				velocity.y += 3.5 * g * deltaTime;
+				if (!collision.isGrounded)
+				{
+					//如果使用重力
+					velocity.y += 3.5 * g * deltaTime;
 
+				}
 			}
+
+			//处理力和速度的关系
+			//F = ma
+
+			velocity = (velocity * (1 - damping)) + (sumForce * (deltaTime * invMass));
 		}
-
-		//处理力和速度的关系
-		//F = ma
-
-		velocity = (velocity * (1-damping)) + (sumForce * (deltaTime * invMass));
+		
 
 		//将速度的量反馈到物体的位移变化
 		Vector<float> newPosition= move((colliderPos->position) + (velocity * deltaTime));
@@ -178,7 +178,12 @@ namespace noa {
 
 		}
 
-		OnTrigger(collision.other);
+		if (collision.isTrigger)
+		{
+			OnTrigger(collision.other);
+		}
+		collision.other = nullptr;
+		
 
 		//ApplyCollision(this, colliderPos->position.x, colliderPos->position.y);
 
@@ -225,6 +230,7 @@ namespace noa {
 		}
 
 	}
+
 	void Rigidbody::SetCollisionTileID(std::vector<int> collisionTileIDs)
 	{
 		//设置Collision Tiles
@@ -253,11 +259,6 @@ namespace noa {
 		
 	}
 
-	/*void Rigidbody::SetCollisionRigidbody(Rigidbody* rigid)
-	{
-		collision.other = (void*)rigid;
-	}*/
-
 	int Rigidbody::GetIndexInMap() const
 	{
 		return this->indexInMap;
@@ -273,90 +274,94 @@ namespace noa {
 		return ContainKey<int, bool>(collisionTiles, tileID);
 	}
 
-	bool CollisionWithinRigidbody(Rigidbody * rigid,const int x,const int y)
-	{
+	//bool CollisionWithinRigidbody(Rigidbody * rigid,const int x,const int y)
+	//{
 
-		//indexInMap是一个动态的概念
-		const int indexInMap = y * tileMap->w + x;
+	//	//indexInMap是一个动态的概念
+	//	const int indexInMap = y * tileMap->w + x;
 
-		for (int i=0;i< rigidbodys.size();i++)
-		{
-			if (rigidbodys[i] == nullptr||rigid == nullptr||rigidbodys[i]==rigid)
-			{
-				continue;
-			}
-			if (rigidbodys[i]->GetIndexInMap() == indexInMap)
-			{
-				return true;
-			}
-		}
-		return false;
-	}
+	//	for (int i=0;i< rigidbodys.size();i++)
+	//	{
+	//		if (rigidbodys[i] == nullptr||rigid == nullptr||rigidbodys[i]==rigid)
+	//		{
+	//			continue;
+	//		}
+	//		if (rigidbodys[i]->GetIndexInMap() == indexInMap)
+	//		{
+	//			return true;
+	//		}
+	//	}
+	//	return false;
+	//}
 
 	bool CollisionWithinRigidbody(Rigidbody* rigid, const int x1, const int y1, const int x2, const int y2)
 	{
+
+		if (rigid == nullptr)
+		{
+			return false;
+		}
+
 		//indexInMap是一个动态的概念
 		const int indexInMap1 = y1 * tileMap->w + x1;
 		const int indexInMap2 = y2 * tileMap->w + x2;
 
 		bool resultValue = false;
 
-		for (int i = 0; i < rigidbodys.size(); i++)
+		const size_t hashCode = rigid->GetHashCode();
+
+		for (auto & pair:rigidbodys) 
 		{
-			if (rigid==nullptr||rigidbodys[i]==nullptr||rigidbodys[i] == rigid)
+			if (pair.first == hashCode||pair.second == nullptr)
 			{
 				continue;
 			}
-			rigid->collision.other = nullptr;
-			//rigidbodys[i]->SetCollisionRigidbody(nullptr);
-			const int indexOfRigid = rigidbodys[i]->GetIndexInMap();
+			Rigidbody* rigidbody = pair.second;
+			//rigid->collision.other = nullptr;
+
+			const int indexOfRigid = rigidbody->GetIndexInMap();
+
 			if (indexOfRigid == indexInMap1||indexOfRigid == indexInMap2)
 			{
-				rigid->collision.other = rigidbodys[i];
-				/*if (rigid->collision.isTrigger&&rigidbodys[i]!=nullptr&&rigid!=nullptr)
-				{
-					rigid->OnTrigger(rigidbodys[i]);
-					Debug(to_string(i));
-				}*/
+				rigid->collision.other = rigidbody;
 				resultValue = true;
-				if (rigid->collision.isTrigger||rigidbodys[i]->collision.isTrigger)
+				if (rigid->collision.isTrigger || rigidbody->collision.isTrigger)
 				{
 					resultValue = false;
 				}
 				return resultValue;
-				//return true;
 			}
+
 		}
 
 		resultValue = false;
 		return resultValue;
-		//return false;
 	}
 
-	void ApplyCollision(Rigidbody* rigid,int posx,int posy)
-	{
-		//indexInMap是一个动态的概念
-		const int indexInMap = posy * tileMap->w + posx;
+	//void ApplyCollision(Rigidbody* rigid,int posx,int posy)
+	//{
+	//	//indexInMap是一个动态的概念
+	//	const int indexInMap = posy * tileMap->w + posx;
 
-		for (int i = 0; i < rigidbodys.size(); i++)
-		{
-			if (rigidbodys[i] == nullptr||rigid == nullptr||rigidbodys[i] == rigid)
-			{
-				continue;
-			}
-			const int indexOfRigid = rigidbodys[i]->GetIndexInMap();
-			if (indexOfRigid == indexInMap)
-			{
-				const float m1 = rigid->mass;
-				const float m2 = rigidbodys[i]->mass;
-				const Vector<float> v1 = rigid->velocity;
-				const Vector<float> v2 = rigidbodys[i]->velocity;
-				rigid->velocity = ((v1 * m1 + v2 * m2) / (m1 + m2)) * 2.0 - v1;
-				rigidbodys[i]->velocity = ((v1 * m1 + v2 * m2) / (m1 + m2)) * 2.0 - v2;
-				Debug("物体碰撞");
-			}
-		}
-	}
+	//	for (int i = 0; i < rigidbodys.size(); i++)
+	//	{
+	//		if (rigidbodys[i] == nullptr||rigid == nullptr||rigidbodys[i] == rigid)
+	//		{
+	//			continue;
+	//		}
+	//		const int indexOfRigid = rigidbodys[i]->GetIndexInMap();
+	//		if (indexOfRigid == indexInMap)
+	//		{
+	//			const float m1 = rigid->mass;
+	//			const float m2 = rigidbodys[i]->mass;
+	//			const Vector<float> v1 = rigid->velocity;
+	//			const Vector<float> v2 = rigidbodys[i]->velocity;
+	//			rigid->velocity = ((v1 * m1 + v2 * m2) / (m1 + m2)) * 2.0 - v1;
+	//			rigidbodys[i]->velocity = ((v1 * m1 + v2 * m2) / (m1 + m2)) * 2.0 - v2;
+	//			Debug("物体碰撞");
+	//		}
+	//	}
+	//}
 
 }
 

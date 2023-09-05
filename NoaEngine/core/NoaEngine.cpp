@@ -6,10 +6,11 @@
 
 
 namespace noa {
-	extern vector <Behaviour*> behaviours;
-	extern vector<Rigidbody*> rigidbodys;
+	extern unordered_map <size_t,Behaviour*> behaviours;
+	//extern vector<Rigidbody*> rigidbodys;
+	extern unordered_map<size_t, Rigidbody*> rigidbodys;
 
-	extern queue<Behaviour*> destroyBehaviours;
+	//extern queue<Behaviour*> destroyBehaviours;
 
 	//mutex mtx; // 定义互斥锁对象
 
@@ -187,17 +188,15 @@ namespace noa {
 		chrono::duration<float> elapsedTime;
 		tp2 = chrono::system_clock::now();
 
-		
-
 		Start();
 
-		for (int i=0;i<behaviours.size();i++)
+		for (auto & behaviour:behaviours)
 		{
-			if (behaviours[i] == nullptr)
+			if (behaviour.second==nullptr)
 			{
 				continue;
 			}
-			behaviours[i]->Start();
+			behaviour.second->Start();
 		}
 		
 		//thread mainThread(mainThreadFunc);
@@ -210,13 +209,13 @@ namespace noa {
 			elapsedTime = tp2 - tp1;
 			deltaTime = elapsedTime.count();
 			
-			rigidbodys.erase(
+			/*rigidbodys.erase(
 				remove_if(rigidbodys.begin(), rigidbodys.end(), [](Rigidbody* ptr) { return ptr == nullptr; }), rigidbodys.end()
-			);
+			);*/
 
-			behaviours.erase(
+			/*behaviours.erase(
 				remove_if(behaviours.begin(), behaviours.end(), [](Behaviour* ptr) { return ptr == nullptr; }), behaviours.end()
-			);
+			);*/
 			
 			//执行游戏主类的update
 			while (SDL_PollEvent(&ioEvent))
@@ -231,22 +230,22 @@ namespace noa {
 
 			for (auto & rigid:rigidbodys) 
 			{
-				if (rigid == nullptr)
+				if (rigid.second == nullptr)
 				{
 					continue;
 				}
-				rigid->Update();
+				rigid.second->Update();
 			}
 
 			Update();
 
-			for (auto & behaviour:behaviours)
+			for (auto& behaviour : behaviours)
 			{
-				if (behaviour == nullptr||!behaviour->GetActive())
+				if (behaviour.second == nullptr||!behaviour.second->GetActive())
 				{
 					continue;
 				}
-				behaviour->Update();
+				behaviour.second->Update();
 			}
 
 			SDL_UnlockTexture(texture);

@@ -109,6 +109,20 @@ namespace noa {
 
 		void RemoveRigidbody() const;
 
+		// 获取哈希值
+		size_t GetHashCode() const {
+			return id;
+		}
+
+	private:
+		size_t id;
+		static size_t nextId;
+
+		// 静态函数，用于获取下一个独一无二的哈希值
+		static size_t GetNextId() {
+			return nextId++;
+		}
+
 	};
 }
 

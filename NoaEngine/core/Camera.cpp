@@ -5,7 +5,7 @@ namespace noa {
 
 	extern unordered_map<int, bool> collisionTiles;
 	extern bool IsCollisionTile(int tileID);
-	extern vector<GameObject*> gameObjects;
+	extern vector<GameObjectBuffer> gameObjects;
 	static vector<float> wallDistanceBuffer;
 
 	Camera::Camera()
@@ -107,17 +107,17 @@ namespace noa {
 		for (auto& gameObject:gameObjects) 
 		{
 
-			if (gameObject==nullptr)
+			if (gameObject.object==nullptr)
 			{
 				continue;
 			}
 
 			Vector<int> objPos = Vector<int>(
-				(gameObject->transform.position.x - offset.x) * tileScale.x,
-				(gameObject->transform.position.y - offset.y) * tileScale.y
+				(gameObject.object->transform.position.x - offset.x) * tileScale.x,
+				(gameObject.object->transform.position.y - offset.y) * tileScale.y
 				);
-			gameObject->sprite->DrawSprite(objPos.x, objPos.y, true);
-			objectBufferWithRay[objPos.y * pixelWidth + objPos.x] = gameObject;
+			gameObject.object->sprite->DrawSprite(objPos.x, objPos.y, true);
+			objectBufferWithRay[objPos.y * pixelWidth + objPos.x] = gameObject.object;
 
 		}
 		
@@ -439,46 +439,87 @@ namespace noa {
 			}
 		}
 	}
+
+
+	// 快速排序的分区函数
+	int Partition(std::vector<GameObjectBuffer>& arr, int low, int high) {
+		float pivot = arr[high].distanceToPlayer;
+		int i = (low - 1);
+
+		for (int j = low; j <= high - 1; j++) {
+			if (arr[j].distanceToPlayer >= pivot) {
+				i++;
+				std::swap(arr[i], arr[j]);
+			}
+		}
+		std::swap(arr[i + 1], arr[high]);
+		return (i + 1);
+	}
+
+	// 快速排序函数
+	void QuickSort(std::vector<GameObjectBuffer>& arr, int low, int high) {
+		if (low < high) {
+			int pi = Partition(arr, low, high);
+			QuickSort(arr, low, pi - 1);
+			QuickSort(arr, pi + 1, high);
+		}
+	}
+
 	void FreeCamera::RenderGameObject()
 	{
 
-		/*for (int i=0;i<objectBufferWithRay.size();i++) 
+		for (int i=0;i<objectBufferWithRay.size();i++) 
 		{
 			objectBufferWithRay[i] = nullptr;
-		}*/
-
-		for (auto& object:objectBufferWithRay)
-		{
-			object = nullptr;
 		}
 
+
+		for (auto& object:gameObjects) 
+		{
+			//auto& object = gameObjects[i].object;
+			if (object.object == nullptr)
+			{
+				continue;
+			}
+			object.distanceToPlayer = move(object.object->transform.position - follow->position + Vector<float>(0.5, 0.5)).Magnitude();
+			//const float distanceFromPlayer = vecToFollow.Magnitude();
+		}
+
+		QuickSort(gameObjects, 0, gameObjects.size() - 1);
+
 		//绘制物品
-		for (auto& object : gameObjects)
+		for (int i = 0;i<gameObjects.size();i++)
 		{
 
+			auto& object = gameObjects[i].object;
 			if (object == nullptr)
 			{
 				continue;
 			}
 
 
-			const Vector<float> vecToFollow = move(object->transform.position - follow->position);
+			const Vector<float> vecToFollow = move(object->transform.position - follow->position + Vector<float>(0.5,0.5));
 
-			const float distanceFromPlayer = vecToFollow.Magnitude();
+			const float distanceFromPlayer = gameObjects[i].distanceToPlayer;
 
-			const Vector<float> eye = move(Vector<float>(sinf(follow->eulerAngle), cosf(follow->eulerAngle)));
+			
+
+			const Vector<float> eye = move(Vector<float>(normalEyeRay *sinf(follow->eulerAngle), normalEyeRay* cosf(follow->eulerAngle)));
 
 			
 
 			float objectAngle = atan2(eye.y, eye.x) - atan2(vecToFollow.y, vecToFollow.x);
-			if (objectAngle < -3.14159f)
+			if (objectAngle <= -PI-0.02*PI)
 			{
-				objectAngle += 2.0f * 3.14159f;
+				objectAngle += 2.0f * PI;
 			}
-			if (objectAngle > 3.14159)
+			if (objectAngle > PI+0.02*PI)
 			{
-				objectAngle -= 2.0f * 3.14159f;
+				objectAngle -= 2.0f * PI;
 			}
+
+			
+
 			const bool isInPlayerFOV = fabs(objectAngle) < halfFOV;
 
 			if (isInPlayerFOV && distanceFromPlayer >= 0.5f &&
@@ -489,38 +530,42 @@ namespace noa {
 
 				const float objectCeiling = (float)(pixelHeight * 0.5)
 					- pixelHeight / (float)distanceFromPlayer;
+
+				
+
 				const float objectFloor = pixelHeight - objectCeiling;
 
 				const float objectHeight = objectFloor - objectCeiling;
 				const float objectAspectRatio = (float)object->sprite->h / (float)object->sprite->w;
 				const float objectWidth = objectHeight / objectAspectRatio;
 
-				const float middleOfObject = (0.5f * (objectAngle / halfFOV) + 0.5f)
+				const float middleOfObject = ((objectAngle / FOV) + 0.5f)
 					* (float)pixelWidth;
 
 				for (float lx = 0; lx < objectWidth; lx++)
 				{
-					const int objectColumn = (int)(middleOfObject + lx - (objectWidth * 0.5f));
+					const int objectColumn = middleOfObject + lx - objectWidth * 0.5f;
 					const float objSimpleX = lx / objectWidth;
 					for (float ly = 0; ly < objectHeight; ly++)
 					{
 						const float objSimpleY = ly / objectHeight;
 						const Uint32 objColor = object->sprite->GetTransposeColor(objSimpleY, objSimpleX);
-						if (objectColumn >= 0 && objectColumn < pixelWidth)
+						if (
+							  objColor == ERRORCOLOR
+							|| objectColumn < 0 || objectColumn >= pixelWidth
+							||(int)(objectCeiling + ly) < 0 || (int)(objectCeiling + ly) >= pixelHeight
+							|| (objectColumn < 0) || (objectColumn >= pixelWidth)
+							|| wallDistanceBuffer[objectColumn] < distanceFromPlayer
+							)
 						{
-							if ((int)(objectCeiling + ly) < 0 || (int)(objectCeiling + ly) >= pixelHeight
-								|| (objectColumn < 0) || (objectColumn >= pixelWidth)) 
-							{
-								continue;
-							}
-							if (objColor == ERRORCOLOR || wallDistanceBuffer[objectColumn] < distanceFromPlayer)
-							{
-								continue;
-							}
-							wallDistanceBuffer[objectColumn] = distanceFromPlayer;
-							renderer.DrawPixel(objectColumn, (int)(objectCeiling + ly), objColor);
-							objectBufferWithRay[objectColumn] = (void*)object;
+							continue;
 						}
+
+						renderer.DrawPixel(objectColumn, (int)(objectCeiling + ly), objColor);
+						objectBufferWithRay[objectColumn] = (void*)object;
+						wallDistanceBuffer[objectColumn] = distanceFromPlayer;
+
+
 					}
 				}
 			}

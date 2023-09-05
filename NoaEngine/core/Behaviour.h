@@ -17,7 +17,7 @@ namespace noa {
 		bool isActive = true;
 	public:
 		Transform transform;
-		int hashCode = 0;
+		//int hashCode = 0;
 
 	public:
 		Behaviour();
@@ -30,6 +30,21 @@ namespace noa {
 		virtual void Destroy();
 		void SetActive(bool value);
 		bool GetActive();
+
+		// 获取哈希值
+		size_t GetHash() const {
+			return id;
+		}
+
+	private:
+		size_t id;
+		static size_t nextId;
+
+		// 静态函数，用于获取下一个独一无二的哈希值
+		static size_t GetNextId() {
+			return nextId++;
+		}
+
 	};
 
 	//销毁游戏脚本

@@ -14,8 +14,8 @@ public:
 		hp -= damage;
 		if (hp<=0)
 		{
-			isFrozen = true;
 			
+			isFrozen = true;
 			die.Play();
 			Debug("is die");
 			//Destroy();
@@ -32,12 +32,10 @@ public:
 		die.LoadFromAnimatorFile("./Assets/Wolf/caco-die.amt");
 		die.SetFrameEvent(10, [this]() 
 			{
+				
 				Destroy();
 				RemoveRigidbody();
 			});
-
-		transform.position.x = 6;
-		transform.position.y = 6;
 
 		gameObject = this;
 	}
@@ -54,7 +52,7 @@ public:
 		sprite->UpdateImage(die.GetCurrentFrameImage());
 
 		//获取玩家的transform
-		Vector<float> dir = player->position - transform.position;
+		Vector<float> dir = player->position - transform.position - Vector<float>(0.5, 0.5);
 		if (dir.SqrMagnitude()<25.0) 
 		{
 			return;
@@ -138,7 +136,7 @@ public:
 			this->RotateControl();
 		};
 
-		SetPosition(107, *map);
+		//SetPosition(107, *map);
 
 	}
 
@@ -147,13 +145,13 @@ public:
 		Rigidbody::~Rigidbody();
 	}
 
-	void SetPosition(int tileID,TileMap & tileMap)
+	void SetPosition(int tileID,MapFile & tileMap)
 	{
 		for (int i=0;i<tileMap.w;i++) 
 		{
 			for (int j=0;j<tileMap.h;j++) 
 			{
-				if (tileMap.GetTileID(i,j) == tileID)
+				if (tileMap.image[j*tileMap.w + i] == tileID)
 				{
 					transform.position.x = i;
 					transform.position.y = j;
@@ -263,7 +261,7 @@ public:
 	}
 
 public:
-	float speed = 12;
+	float speed = 7;
 
 	Uint32 maxHp = 100;
 	Uint32 hp = 100;
@@ -286,20 +284,49 @@ public:
 	WolfGame(int width, int height, NoaGameEngine::GameWindowMode windowMode, string gameName) :
 		NoaGameEngine(width,height,windowMode,gameName) 
 	{
-		enimy1.player = & player.transform;
-		enimy2.player = &player.transform;
+		player.SetPosition(35, objectMap);
+
+		/*for (int i = 0;i<objectMap.w;i++) 
+		{
+			for (int j = 0;j<objectMap.h;j++) 
+			{
+				if (objectMap.image[j*objectMap.w+i] == 18)
+				{
+					Enimy* enimy = new Enimy(cacoSprite);
+					enimy->player = &player.transform;
+					enimy->transform.position.x = i;
+					enimy->transform.position.y = j;
+				}
+			}
+		}*/
+
+		for (int i = 0; i < objectMap.w; i++)
+		{
+			for (int j = 0; j < objectMap.h; j++)
+			{
+				if (objectMap.image[j * objectMap.w + i] == 28)
+				{
+					Item* bullet = new Item(&bulletSprite);
+					bullet->transform.position.x = i;
+					bullet->transform.position.y = j;
+
+					bullet->pickEvent += [this]() {
+						player.bulletCount += 5;
+						bulletPickUpSFX.Play(false);
+						};
+				}
+			}
+		}
+
 		player.camera = &camera;
 
-		bullet.pickEvent += [this]() {
-			player.bulletCount += 100;
-			bulletPickUpSFX.Play(false);
-			};
+		
 
 	}
 
 	void Start() override 
 	{
-		BGM.Play(true);
+		//BGM.Play(true);
 		inputSystem.SetRelativeMouseMode(true);
 	}
 
@@ -317,7 +344,7 @@ private:
 	Sprite sky = Sprite(LoadSprFile("./Assets/Wolf/sky-sun.spr"), Vector<int>(1.0, 1.0));
 	TileMap tileMap = TileMap(
 		LoadTileFromTsd("./Assets/Wolf/Map/tileSet.tsd"),
-		LoadMapFromCSV("./Assets/Wolf/Map/level.csv")
+		LoadMapFromCSV("./Assets/Wolf/Map/level_地图层.csv")
 	);
 
 	Player player = Player(&tileMap);
@@ -326,14 +353,14 @@ private:
 	Sprite mouse = Sprite(LoadSprFile("./Assets/Wolf/mouse.spr"),Vector<int>(0.03*pixelWidth, 0.03 * pixelWidth));
 	
 	Sprite cacoSprite = Sprite(LoadSprFile("./Assets/Wolf/caco.spr"),Vector<int>(1.0,1.0));
-	Enimy enimy1 = Enimy(cacoSprite);
-	Enimy enimy2 = Enimy(cacoSprite);
 
 	Sprite bulletSprite = Sprite(LoadSprFile("./Assets/Wolf/bullet.spr"), Vector<int>(1.0, 1.0));
-	Item bullet = Item(&bulletSprite);
+
 	Audio bulletPickUpSFX = Audio("./Assets/Wolf/Music/pickUpBullet.mp3",Chunk);
 
 	Audio BGM = Audio("./Assets/Wolf/Music/theme.mp3",Music);
+
+	MapFile objectMap = LoadMapFromCSV("./Assets/Wolf/Map/level_对象.csv");
 
 };
 

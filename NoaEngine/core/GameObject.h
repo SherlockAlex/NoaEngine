@@ -34,6 +34,12 @@ namespace noa {
 	};
 
 	//extern void Destroy(GameObject* gameObject);
+
+	typedef struct GameObjectBuffer {
+		GameObject* object;
+		float distanceToPlayer;
+	}GameObjectBuffer;
+
 }
 
 

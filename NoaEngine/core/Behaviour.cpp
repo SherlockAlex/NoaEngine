@@ -5,44 +5,22 @@
 #include <list>
 
 namespace noa {
-	vector <Behaviour*> behaviours;
+	unordered_map<size_t,Behaviour*> behaviours;
 	//queue<Behaviour*> destroyBehaviours;
 
-	void DestroyBehaviour(Behaviour* behaviour) {
-		/*auto it = std::find(behaviours.begin(), behaviours.end(), behaviour);
-		if (it != behaviours.end())
-		{
-			behaviours.erase(it);
-		}*/
-		//delete behaviour;
-		
-		/*for (int i = 0;i<behaviours.size();i++)
-		{
-			if (behaviours[i]==behaviour)
-			{
-				behaviours[i] = nullptr;
-				Debug("Behaviour is destroy");
-			}
-		}*/
-
-		behaviours[behaviour->hashCode] = nullptr;
-		Debug("Behaviour "+to_string(behaviour->hashCode) + " is destroy");
-
-		
-
+	void DestroyBehaviour(Behaviour* behaviour) 
+	{
+		behaviours[behaviour->GetHash()] = nullptr;
+		Debug("Behaviour "+to_string(behaviour->GetHash()) + " is destroy");
 	}
+
+	// 初始化静态计数器
+	size_t Behaviour::nextId = 0;
 
 	Behaviour::Behaviour()
 	{
-		behaviours.push_back(this);
-		for (int i = 0;i<behaviours.size();i++)
-		{
-			if (behaviours[i]==this)
-			{
-				this->hashCode = i;
-			}
-		}
-		//behaviours.push_back(this);
+		id = GetNextId();
+		behaviours[GetHash()] = this;
 	}
 
 	Behaviour::~Behaviour()
@@ -72,13 +50,6 @@ namespace noa {
 	{
 		return isActive;
 	}
-
-	//void Destroy(Behaviour* behaviour)
-	//{
-	//	
-	//	//destroyBehaviours.push(behaviour);
-	//	//delete behaviour;
-	//}
 
 }
 
