@@ -3,6 +3,7 @@
 
 #include "Behaviour.h"
 #include "Sprite.h"
+#include "NoaMath.h"
 
 namespace noa {
 	class GameObject :public Behaviour
@@ -38,6 +39,7 @@ namespace noa {
 	typedef struct GameObjectBuffer {
 		GameObject* object;
 		float distanceToPlayer;
+		Vector<float> vecToPlayer;
 	}GameObjectBuffer;
 
 }

@@ -17,11 +17,11 @@
             }
         },
         "level.tmx": {
-            "scale": 0.5,
-            "selectedLayer": 0,
+            "scale": 0.33,
+            "selectedLayer": 1,
             "viewCenter": {
-                "x": -529,
-                "y": -17
+                "x": -481.81818181818176,
+                "y": 66.66666666666674
             }
         },
         "object.tsx": {
@@ -49,15 +49,16 @@
         "tile.tsx",
         "tile2.tsx",
         "level-1.tmx",
-        "level.tmx"
+        "level.tmx",
+        "object.tsx"
     ],
     "project": "level1.tiled-project",
     "recentFiles": [
-        "level.tmx",
-        "object.tsx",
         "tile.tsx",
         "tile2.tsx",
-        "level-1.tmx"
+        "level-1.tmx",
+        "object.tsx",
+        "level.tmx"
     ],
     "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {

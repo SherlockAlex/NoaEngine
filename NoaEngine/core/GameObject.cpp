@@ -18,6 +18,7 @@ namespace noa {
 
 		for (auto it = gameObjects.begin(); it != gameObjects.end(); ) {
 			if (it->object == gameObject) {
+				it->distanceToPlayer = -1;
 				it = gameObjects.erase(it);
 				Debug("GameObject has been destroy");
 			}

@@ -481,7 +481,9 @@ namespace noa {
 			{
 				continue;
 			}
-			object.distanceToPlayer = move(object.object->transform.position - follow->position + Vector<float>(0.5, 0.5)).Magnitude();
+			object.vecToPlayer = move(object.object->transform.position - follow->position);
+			object.distanceToPlayer = object.vecToPlayer.Magnitude();
+			
 			//const float distanceFromPlayer = vecToFollow.Magnitude();
 		}
 
@@ -498,7 +500,7 @@ namespace noa {
 			}
 
 
-			const Vector<float> vecToFollow = move(object->transform.position - follow->position + Vector<float>(0.5,0.5));
+			const Vector<float> vecToFollow = move(gameObjects[i].vecToPlayer);
 
 			const float distanceFromPlayer = gameObjects[i].distanceToPlayer;
 
@@ -509,11 +511,11 @@ namespace noa {
 			
 
 			float objectAngle = atan2(eye.y, eye.x) - atan2(vecToFollow.y, vecToFollow.x);
-			if (objectAngle <= -PI-0.02*PI)
+			if (objectAngle <= -PI)
 			{
 				objectAngle += 2.0f * PI;
 			}
-			if (objectAngle > PI+0.02*PI)
+			if (objectAngle > PI)
 			{
 				objectAngle -= 2.0f * PI;
 			}
@@ -551,9 +553,9 @@ namespace noa {
 						const float objSimpleY = ly / objectHeight;
 						const Uint32 objColor = object->sprite->GetTransposeColor(objSimpleY, objSimpleX);
 						if (
-							  objColor == ERRORCOLOR
+							   objColor == ERRORCOLOR
 							|| objectColumn < 0 || objectColumn >= pixelWidth
-							||(int)(objectCeiling + ly) < 0 || (int)(objectCeiling + ly) >= pixelHeight
+							|| (int)(objectCeiling + ly) < 0 || (int)(objectCeiling + ly) >= pixelHeight
 							|| (objectColumn < 0) || (objectColumn >= pixelWidth)
 							|| wallDistanceBuffer[objectColumn] < distanceFromPlayer
 							)

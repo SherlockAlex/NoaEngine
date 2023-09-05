@@ -57,27 +57,32 @@ namespace noa {
 	//实现物理效果
 	void Rigidbody::Update()
 	{
-		indexInMap = (int)(colliderPos->position.x) + (int)(colliderPos->position.y) * tileMap->w;
+		if (isFrozen)
+		{
+			return;
+		}
+		//indexInMap = (int)(colliderPos->position.x) + (int)(colliderPos->position.y) * tileMap->w;
+		const int x = colliderPos->position.x;
+		const int y = colliderPos->position.y;
+		indexInMap = (x << 16) | y;
+
 		collision.other = nullptr;
 		collision.isHitCollisionTile = false;
-		if (!isFrozen)
-		{
-			if (useGravity)
-			{
-				if (!collision.isGrounded)
-				{
-					//如果使用重力
-					velocity.y += 3.5 * g * deltaTime;
-
-				}
-			}
-
-			//处理力和速度的关系
-			//F = ma
-
-			velocity = (velocity * (1 - damping)) + (sumForce * (deltaTime * invMass));
-		}
 		
+		if (useGravity)
+		{
+			if (!collision.isGrounded)
+			{
+				//如果使用重力
+				velocity.y += 3.5 * g * deltaTime;
+
+			}
+		}
+
+		//处理力和速度的关系
+		//F = ma
+
+		velocity = (velocity * (1 - damping)) + (sumForce * (deltaTime * invMass));
 
 		//将速度的量反馈到物体的位移变化
 		Vector<float> newPosition= move((colliderPos->position) + (velocity * deltaTime));
@@ -87,15 +92,19 @@ namespace noa {
 
 		if (useCollision)
 		{
+			const float offset = collision.isTrigger ? 0.2 : 0;
 			if (velocity.x <= 0)
 			{
 
-				if (ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x, colliderPos->position.y + 0.0))
-					||ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x, colliderPos->position.y + 0.999))
-					||CollisionWithinRigidbody(this
-						,newPosition.x,colliderPos->position.y
-						, newPosition.x, colliderPos->position.y + 0.999
+				
+
+				if (
+					   CollisionWithinRigidbody(this
+						,newPosition.x- offset,colliderPos->position.y- offset
+						, newPosition.x- offset, colliderPos->position.y + 0.999+ offset
 					)
+					|| ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x, colliderPos->position.y + 0.0))
+					|| ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x, colliderPos->position.y + 0.999))
 					//||CollisionWithinRigidbody(this, newPosition.x, colliderPos->position.y+0.999)
 				)
 					
@@ -112,12 +121,13 @@ namespace noa {
 			}
 			else
 			{
-				if (ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x + 0.999, colliderPos->position.y + 0.0))
-					||ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x + 0.999, colliderPos->position.y + 0.999))
-					|| CollisionWithinRigidbody(this
-						, newPosition.x+0.999, colliderPos->position.y
-						, newPosition.x + 0.999, colliderPos->position.y + 0.999
+				if (
+					 CollisionWithinRigidbody(this
+						, newPosition.x+0.999+offset, colliderPos->position.y- offset
+						, newPosition.x + 0.999+ offset, colliderPos->position.y + 0.999+ offset
 					)
+					|| ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x + 0.999, colliderPos->position.y + 0.0))
+					|| ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x + 0.999, colliderPos->position.y + 0.999))
 					//|| CollisionWithinRigidbody(this, newPosition.x+0.999, colliderPos->position.y + 0.999)
 					)
 				{
@@ -134,12 +144,13 @@ namespace noa {
 			collision.isGrounded = false;
 			if (velocity.y <= 0)
 			{
-				if (ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x + 0.0f, newPosition.y))
-					||ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x + 0.999f, newPosition.y))
-					|| CollisionWithinRigidbody(this,
-						newPosition.x, newPosition.y
-						, newPosition.x + 0.999, newPosition.y
+				if (
+					   CollisionWithinRigidbody(this,
+						newPosition.x- offset, newPosition.y- offset
+						,newPosition.x + 0.999+ offset, newPosition.y- offset
 					)
+					|| ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x + 0.0f, newPosition.y))
+					|| ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x + 0.999f, newPosition.y))
 					//|| CollisionWithinRigidbody(this, newPosition.x+0.999, newPosition.y)
 					)
 				{
@@ -154,14 +165,16 @@ namespace noa {
 			}
 			else
 			{
-				if (ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x + 0.0f, newPosition.y + 0.999))
-					||ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x + 0.999f, newPosition.y + 0.999))
-					|| CollisionWithinRigidbody(this
-						, newPosition.x, newPosition.y+0.999
-						, newPosition.x + 0.999, newPosition.y + 0.999
+				if (
+					  CollisionWithinRigidbody(this
+						, newPosition.x- offset, newPosition.y+0.999+ offset
+						, newPosition.x + 0.999+ offset, newPosition.y + 0.999+ offset
 					)
+					|| ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x + 0.0f, newPosition.y + 0.999))
+					|| ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x + 0.999f, newPosition.y + 0.999))
 					//|| CollisionWithinRigidbody(this, newPosition.x + 0.999, newPosition.y+0.999)
 					)
+					
 				{
 
 					if (!collision.isTrigger) {
@@ -173,42 +186,14 @@ namespace noa {
 					
 				}
 			}
-
-			
-
 		}
 
-		if (collision.isTrigger)
+		if (collision.isTrigger&&collision.other!=nullptr)
 		{
 			OnTrigger(collision.other);
 		}
 		collision.other = nullptr;
-		
-
-		//ApplyCollision(this, colliderPos->position.x, colliderPos->position.y);
-
-		/*if (velocity.x<=0)
-		{
-			ApplyCollision(this, newPosition.x, colliderPos->position.y);
-			ApplyCollision(this, newPosition.x, colliderPos->position.y);
-		}
-		else {
-			ApplyCollision(this, newPosition.x + 0.999, colliderPos->position.y);
-			ApplyCollision(this, newPosition.x + 0.999, colliderPos->position.y + 0.999);
-		}
-		
-		if (velocity.y<=0)
-		{
-			ApplyCollision(this, newPosition.x, newPosition.y);
-			ApplyCollision(this, newPosition.x + 0.999, newPosition.y);
-		}
-		else {
-			ApplyCollision(this, newPosition.x, newPosition.y + 0.999);
-			ApplyCollision(this, newPosition.x + 0.999, newPosition.y + 0.999);
-		}*/
-
 		colliderPos->position = move(newPosition);
-		//Debug("isGrounded:" + to_string(isGrounded));
 
 	}
 
@@ -297,14 +282,14 @@ namespace noa {
 	bool CollisionWithinRigidbody(Rigidbody* rigid, const int x1, const int y1, const int x2, const int y2)
 	{
 
-		if (rigid == nullptr)
+		if (rigid == nullptr||rigid->isFrozen)
 		{
 			return false;
 		}
 
-		//indexInMap是一个动态的概念
-		const int indexInMap1 = y1 * tileMap->w + x1;
-		const int indexInMap2 = y2 * tileMap->w + x2;
+		//indexInMap是一个动态的概念，获取唯一的map值
+		const int indexInMap1 = (x1<<16)|y1;
+		const int indexInMap2 = (x2<<16)|y2;
 
 		bool resultValue = false;
 
@@ -317,51 +302,25 @@ namespace noa {
 				continue;
 			}
 			Rigidbody* rigidbody = pair.second;
-			//rigid->collision.other = nullptr;
-
 			const int indexOfRigid = rigidbody->GetIndexInMap();
-
-			if (indexOfRigid == indexInMap1||indexOfRigid == indexInMap2)
+			if (indexOfRigid^indexInMap1&&indexOfRigid^indexInMap2)
 			{
-				rigid->collision.other = rigidbody;
-				resultValue = true;
-				if (rigid->collision.isTrigger || rigidbody->collision.isTrigger)
-				{
-					resultValue = false;
-				}
-				return resultValue;
+				continue;
 			}
 
+			rigid->collision.other = rigidbody;
+			if (rigid->collision.isTrigger 
+				|| rigidbody->collision.isTrigger
+				|| rigidbody->isFrozen
+				)
+			{
+				return false;
+			}
+			return true;
+
 		}
+		return false;
 
-		resultValue = false;
-		return resultValue;
 	}
-
-	//void ApplyCollision(Rigidbody* rigid,int posx,int posy)
-	//{
-	//	//indexInMap是一个动态的概念
-	//	const int indexInMap = posy * tileMap->w + posx;
-
-	//	for (int i = 0; i < rigidbodys.size(); i++)
-	//	{
-	//		if (rigidbodys[i] == nullptr||rigid == nullptr||rigidbodys[i] == rigid)
-	//		{
-	//			continue;
-	//		}
-	//		const int indexOfRigid = rigidbodys[i]->GetIndexInMap();
-	//		if (indexOfRigid == indexInMap)
-	//		{
-	//			const float m1 = rigid->mass;
-	//			const float m2 = rigidbodys[i]->mass;
-	//			const Vector<float> v1 = rigid->velocity;
-	//			const Vector<float> v2 = rigidbodys[i]->velocity;
-	//			rigid->velocity = ((v1 * m1 + v2 * m2) / (m1 + m2)) * 2.0 - v1;
-	//			rigidbodys[i]->velocity = ((v1 * m1 + v2 * m2) / (m1 + m2)) * 2.0 - v2;
-	//			Debug("物体碰撞");
-	//		}
-	//	}
-	//}
-
 }
 

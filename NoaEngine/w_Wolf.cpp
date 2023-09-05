@@ -10,7 +10,7 @@ public:
 public:
 	void TakeDamage(int damage)
 	{
-		Debug("take damage:" + to_string(damage));
+		Debug("take "+tag+" damage:" + to_string(damage));
 		hp -= damage;
 		if (hp<=0)
 		{
@@ -28,6 +28,8 @@ public:
 		GameObject(new Sprite(sprite))
 		,Rigidbody(&transform)
 	{
+
+		tag = "Enimy";
 
 		die.LoadFromAnimatorFile("./Assets/Wolf/caco-die.amt");
 		die.SetFrameEvent(10, [this]() 
@@ -51,14 +53,14 @@ public:
 	{
 		sprite->UpdateImage(die.GetCurrentFrameImage());
 
-		//获取玩家的transform
-		Vector<float> dir = player->position - transform.position - Vector<float>(0.5, 0.5);
-		if (dir.SqrMagnitude()<25.0) 
-		{
-			return;
-		}
-		dir = dir.Normalize();
-		velocity = dir * 5;
+		////获取玩家的transform
+		//Vector<float> dir = player->position - transform.position - Vector<float>(0.5, 0.5);
+		//if (dir.SqrMagnitude()<25.0) 
+		//{
+		//	return;
+		//}
+		//dir = dir.Normalize();
+		//velocity = dir * 5;
 	}
 
 private:
@@ -235,6 +237,7 @@ public:
 			for (int i = 0.5*pixelWidth-0.01*pixelWidth;i<=0.5*pixelWidth + 0.01 * pixelWidth;i++)
 			{
 				enimy = camera->GetRayHitInfoAs<Enimy*>(i);
+				
 				if (enimy!=nullptr)
 				{
 					break;
@@ -243,6 +246,10 @@ public:
 
 			if (enimy!=nullptr)
 			{
+				if (enimy->tag != "Enimy")
+				{
+					return;
+				}
 				enimy->TakeDamage(20);
 			}
 
@@ -285,8 +292,11 @@ public:
 		NoaGameEngine(width,height,windowMode,gameName) 
 	{
 		player.SetPosition(35, objectMap);
+		//bulletAnimator.LoadFromAnimatorFile("./Assets/Wolf/bullet.amt");
+		//bulletSprite = new Sprite(bulletAnimator.GetCurrentFrameImage(),Vector<int>(64,64));
+		
 
-		/*for (int i = 0;i<objectMap.w;i++) 
+		for (int i = 0;i<objectMap.w;i++) 
 		{
 			for (int j = 0;j<objectMap.h;j++) 
 			{
@@ -298,7 +308,7 @@ public:
 					enimy->transform.position.y = j;
 				}
 			}
-		}*/
+		}
 
 		for (int i = 0; i < objectMap.w; i++)
 		{
@@ -354,7 +364,8 @@ private:
 	
 	Sprite cacoSprite = Sprite(LoadSprFile("./Assets/Wolf/caco.spr"),Vector<int>(1.0,1.0));
 
-	Sprite bulletSprite = Sprite(LoadSprFile("./Assets/Wolf/bullet.spr"), Vector<int>(1.0, 1.0));
+	//Animator bulletAnimator = Animator(7);
+	Sprite bulletSprite = Sprite(LoadSprFile("./Assets/Wolf/bullet.spr"),Vector<int>(64,64));
 
 	Audio bulletPickUpSFX = Audio("./Assets/Wolf/Music/pickUpBullet.mp3",Chunk);
 
