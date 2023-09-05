@@ -10,6 +10,7 @@ namespace noa {
 		//游戏内的物品
 		//制动绘制游戏物品到屏幕上
 	public:
+		
 		Sprite * sprite = nullptr;
 	public:
 		GameObject(Sprite * sprite);

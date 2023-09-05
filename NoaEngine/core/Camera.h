@@ -11,11 +11,11 @@ namespace noa {
 	// 越靠前的就先被渲染
 	
 	extern int pixelWidth;
+	extern int pixelHeight;
 
 	class Transform;
 	class Camera
 	{
-	
 	public:
 		Transform* follow;
 		//Vector<float>* follow = nullptr;
@@ -29,6 +29,7 @@ namespace noa {
 		Camera();
 		Camera(Transform* follow);
 		~Camera();
+		
 	};
 
 	class TileMapCamera :public Camera
@@ -38,17 +39,25 @@ namespace noa {
 		Vector<float> visibleTiles;
 		Vector<float> offset;
 		Vector<int> followPositionOnScreen = Vector<int>(0.0, 0.0);
+		
+		vector<void*> objectBufferWithRay = vector<void*>(pixelWidth*pixelHeight, nullptr);
 	public:
 		TileMapCamera();
 		TileMapCamera(Vector<int> tileScale, Transform* follow);
-		
+
 		/// <summary>
 		/// 渲染瓦片地图到屏幕上
 		/// </summary>
 		/// <param name="tileMap">要渲染的瓦片地图</param>
 		/// <param name="frontDelta">相机前边界偏移量</param>
 		/// <param name="endDelta">相机后边界偏移量</param>
-		Vector<int> Render(TileMap& tileMap,Vector<float> & frontDelta,Vector<float> & endDelta);
+		Vector<int> Render(TileMap& tileMap,const Vector<float> & frontDelta,const Vector<float> & endDelta);
+	
+		//获取像素点横坐标射线存储的物品信息
+		template<class T>
+		T GetRayHitInfoAs(int index) {
+			return (T)objectBufferWithRay[index];
+		}
 	};
 
 	//光线
@@ -63,7 +72,7 @@ namespace noa {
 
 	class FreeCamera :public Camera
 	{
-	private:
+	protected:
 		vector<void*> objectBufferWithRay = vector<void*>(pixelWidth, nullptr);
 
 	public:
@@ -86,6 +95,7 @@ namespace noa {
 
 		Ray RaycastHit(int pixelX, const TileMap& map);
 
+		//获取像素点横坐标射线存储的物品信息
 		template<class T>
 		T GetRayHitInfoAs(int index) {
 			return (T)objectBufferWithRay[index];

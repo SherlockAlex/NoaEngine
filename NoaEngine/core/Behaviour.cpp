@@ -52,7 +52,25 @@ namespace noa {
 
 	void Behaviour::Destroy()
 	{
+		OnDisable();
 		DestroyBehaviour(this);
+	}
+
+	void Behaviour::SetActive(bool value)
+	{
+		isActive = value;
+		if (isActive)
+		{
+			OnEnable();
+			return;
+		}
+		OnDisable();
+
+	}
+
+	bool Behaviour::GetActive()
+	{
+		return isActive;
 	}
 
 	//void Destroy(Behaviour* behaviour)

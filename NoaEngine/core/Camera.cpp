@@ -33,10 +33,15 @@ namespace noa {
 	}
 
 	Vector<float> tileOffset;
-	Vector<int> TileMapCamera::Render(TileMap& tileMap, Vector<float>& frontDelta, Vector<float>& endDelta)
+	Vector<int> TileMapCamera::Render(TileMap& tileMap,const Vector<float>& frontDelta,const Vector<float>& endDelta)
 	{
 		//完整的渲染瓦片地图
 		
+		for (auto& object:objectBufferWithRay) 
+		{
+			object = nullptr;
+		}
+
 		position = follow->position;
 
 		//检测相机的边界
@@ -99,7 +104,7 @@ namespace noa {
 		followPositionOnScreen = move(Vector<int>((follow->position.x - offset.x) * tileScale.x, (follow->position.y - offset.y) * tileScale.y));
 		
 		//绘制游戏物品
-		for (auto gameObject:gameObjects) 
+		for (auto& gameObject:gameObjects) 
 		{
 
 			if (gameObject==nullptr)
@@ -112,6 +117,7 @@ namespace noa {
 				(gameObject->transform.position.y - offset.y) * tileScale.y
 				);
 			gameObject->sprite->DrawSprite(objPos.x, objPos.y, true);
+			objectBufferWithRay[objPos.y * pixelWidth + objPos.x] = gameObject;
 
 		}
 		
@@ -435,13 +441,19 @@ namespace noa {
 	}
 	void FreeCamera::RenderGameObject()
 	{
-		for (int i=0;i<objectBufferWithRay.size();i++) 
+
+		/*for (int i=0;i<objectBufferWithRay.size();i++) 
 		{
 			objectBufferWithRay[i] = nullptr;
+		}*/
+
+		for (auto& object:objectBufferWithRay)
+		{
+			object = nullptr;
 		}
 
 		//绘制物品
-		for (auto object : gameObjects)
+		for (auto& object : gameObjects)
 		{
 
 			if (object == nullptr)

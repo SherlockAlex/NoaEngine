@@ -9,19 +9,19 @@
     ],
     "fileStates": {
         "level-1.tmx": {
-            "scale": 0.33,
-            "selectedLayer": 0,
-            "viewCenter": {
-                "x": 512.121212121212,
-                "y": 256.0606060606061
-            }
-        },
-        "level.tmx": {
             "scale": 0.125,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 512,
-                "y": 1528
+                "x": 352,
+                "y": 388
+            }
+        },
+        "level.tmx": {
+            "scale": 0.5,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 318,
+                "y": 308
             }
         },
         "tile.tsx": {
@@ -42,16 +42,16 @@
     "map.tileHeight": 32,
     "map.tileWidth": 32,
     "openFiles": [
+        "tile.tsx",
         "tile2.tsx",
         "level-1.tmx",
-        "tile.tsx",
         "level.tmx"
     ],
     "project": "level1.tiled-project",
     "recentFiles": [
+        "tile.tsx",
         "tile2.tsx",
         "level-1.tmx",
-        "tile.tsx",
         "level.tmx"
     ],
     "tileset.lastUsedFormat": "tsx",

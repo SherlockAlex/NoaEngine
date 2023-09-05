@@ -13,22 +13,23 @@ namespace noa {
 	class Transform;
 
 	class Behaviour {
+	private:
+		bool isActive = true;
 	public:
 		Transform transform;
-		////the position in the world with behaviour
-		//Vector<float> position;
-		////the euler angle in the world with behaviour
-		//float angle = 0.0;
-		bool isActive = true;
 		int hashCode = 0;
 
 	public:
 		Behaviour();
 		~Behaviour();
 	public:
-		virtual void Start() {};
-		virtual void Update() {};
+		virtual void OnEnable() {}
+		virtual void Start() {}
+		virtual void Update() {}
+		virtual void OnDisable() {}
 		virtual void Destroy();
+		void SetActive(bool value);
+		bool GetActive();
 	};
 
 	//œ˙ªŸ”Œœ∑Ω≈±æ

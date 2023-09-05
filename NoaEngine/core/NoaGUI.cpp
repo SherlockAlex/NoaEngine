@@ -24,7 +24,7 @@ namespace noa {
 			int tileCount;
 			inputFile.read(reinterpret_cast<char*>(&tileCount), sizeof(int));
 
-			Debug("font asset size:" + to_string(tileCount));
+			Debug("Font asset size:" + to_string(tileCount));
 
 			for (int i = 0; i < tileCount; i++)
 			{
@@ -43,6 +43,11 @@ namespace noa {
 				{
 					int pixelValue;
 					inputFile.read(reinterpret_cast<char*>(&pixelValue), sizeof(int));
+					if (pixelValue == 0) 
+					{
+						//将黑色调为透明色
+						pixelValue = ERRORCOLOR;
+					}
 					pixelData.sprites.images.push_back(pixelValue);
 				}
 
@@ -52,7 +57,7 @@ namespace noa {
 			inputFile.close();
 		}
 		else {
-			Debug("can't find the font assets file");
+			Debug("Can't find the font assets file");
 			exit(0);
 		}
 
@@ -219,7 +224,7 @@ namespace noa {
 
 	void NoaCanvase::SetActive(bool active)
 	{
-		isActive = active;
+		SetActive(active);
 		for (int i=0;i<uiComponent.size();i++) 
 		{
 			uiComponent[i]->SetActive(active);

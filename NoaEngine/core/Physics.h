@@ -12,25 +12,27 @@ namespace noa {
 	//存储人物的碰撞信息
 	typedef struct Collision 
 	{
-		int leftUpTile = -1;
-		int leftDownTile = -1;
-		int rightUpTile = -1;
-		int rightDownTile =-1;
-
-		void Update(int leftUp,int leftDown,int rightUp,int rightDown) 
+		bool isHitCollisionTile = false;
+		bool isGrounded = false;
+		bool isTrigger = false;
+		void* other = nullptr;
+		void Update(bool isHitCollisionTile,bool isGrounded) 
 		{
-			this->leftUpTile = leftUp;
-			this->leftDownTile = leftDown;
-			this->rightUpTile = rightUp;
-			this->rightDownTile = rightDown;
+			this->isHitCollisionTile = isHitCollisionTile;
+			this->isGrounded = isGrounded;
 		}
 
 	}Collision;
 
 	class Transform;
+	/// <summary>
+	/// 刚体类，当不在使用刚体时，或者物品被摧毁是，请使用RemoveRigidbody
+	/// </summary>
 	class Rigidbody
 	{
 	public:
+		string tag = "default";
+
 		//力的种类
 		enum ForceType
 		{
@@ -46,13 +48,13 @@ namespace noa {
 		
 		//用于物体之间的碰撞检测
 		int indexInMap = -1;
-		Rigidbody* collisionRigid;
+		
 	protected:
 		float invMass = 1;
 
 		float g = 9.81;
 		bool useGravity = true;
-		bool isGrounded = false;
+		//bool isGrounded = false;
 		bool useCollision = true;
 		
 		void* gameObject = nullptr;
@@ -65,8 +67,8 @@ namespace noa {
 		Vector<float> colliderSize = Vector<float>(0.0, 0.0);
 
 		Collision collision;
-		bool isTrigger = false;
-		bool isHitWall = false;
+		//bool isTrigger = false;
+		//bool isHitWall = false;
 
 	protected:
 		Rigidbody(Transform* colliderPos);
@@ -87,20 +89,25 @@ namespace noa {
 		float FixPosition();
 		void UpdateCollision(const Vector<float> nextPosition);
 
+		//触发触发器，基于触发对象other以一个void*类型的指针
+		virtual void OnTrigger(void* other) {}
+
 		/// <summary>
 		/// 返回与之相撞的物品
 		/// </summary>
 		/// <returns></returns>
-		Rigidbody* GetCollisionRigidbody();
+		//Rigidbody* GetCollisionRigidbody();
 
 		template<class T>
 		T GetGameObjectAs() {
 			return (T)this->gameObject;
 		}
 
-		void SetCollisionRigidbody(Rigidbody* rigid);
+		//void SetCollisionRigidbody(Rigidbody* rigid);
 
 		int GetIndexInMap() const;
+
+		void RemoveRigidbody() const;
 
 	};
 }

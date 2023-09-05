@@ -2,10 +2,6 @@
 
 using namespace noa;
 
-namespace noa {
-	void DestroyRigidbody(Rigidbody* rigid);
-}
-
 class Enimy :public GameObject,public Rigidbody 
 {
 public:
@@ -18,17 +14,28 @@ public:
 		hp -= damage;
 		if (hp<=0)
 		{
+			isFrozen = true;
+			
+			die.Play();
 			Debug("is die");
-			Destroy();
+			//Destroy();
 			//DestroyRigidbody(this);
 		}
 		
 	}
 
-	Enimy() :
-		GameObject(new Sprite(LoadSprFile("./Assets/Wolf/caco.spr"),Vector<int>(1,1)))
+	Enimy(Sprite sprite) :
+		GameObject(new Sprite(sprite))
 		,Rigidbody(&transform)
 	{
+
+		die.LoadFromAnimatorFile("./Assets/Wolf/caco-die.amt");
+		die.SetFrameEvent(10, [this]() 
+			{
+				Destroy();
+				RemoveRigidbody();
+			});
+
 		transform.position.x = 6;
 		transform.position.y = 6;
 
@@ -44,6 +51,8 @@ public:
 
 	void Update() override 
 	{
+		sprite->UpdateImage(die.GetCurrentFrameImage());
+
 		//获取玩家的transform
 		Vector<float> dir = player->position - transform.position;
 		if (dir.SqrMagnitude()<25.0) 
@@ -56,7 +65,46 @@ public:
 
 private:
 	int hp = 100;
+	Animator die = Animator(5);
 
+};
+
+class Item :public GameObject, public Rigidbody {
+public:
+
+	NoaEvent<void()> pickEvent;
+
+	Item(Sprite* sprite) :GameObject(sprite), Rigidbody(&transform) {
+		
+		useGravity = false;
+		collision.isTrigger = true;
+
+		transform.position.x = 2;
+		transform.position.y = 2;
+
+		tag = "item";
+
+	}
+
+	void OnTrigger(void * other) override
+	{
+		if (other == nullptr)
+		{
+			return;
+		}
+		Rigidbody* rigid = (Rigidbody*)other;
+		if (rigid->tag == "Player")
+		{
+			RemoveRigidbody();
+			Destroy();
+			Debug("Pick up the bullet");
+		}
+	}
+
+	void OnDisable() override
+	{
+		pickEvent.Invoke();
+	}
 
 };
 
@@ -67,6 +115,8 @@ public:
 
 	Player(TileMap* map) :Behaviour(), Rigidbody(&transform)
 	{
+		tag = "Player";
+
 		useGravity = false;
 
 		vector<int> collisionTileID;
@@ -103,16 +153,18 @@ public:
 		{
 			for (int j=0;j<tileMap.h;j++) 
 			{
-				if (tileMap.GetTileID(i,j)==tileID)
+				if (tileMap.GetTileID(i,j) == tileID)
 				{
 					transform.position.x = i;
 					transform.position.y = j;
 				}
+				
 			}
 		}
 	}
 
 	void ActorControl() {
+
 		velocity.x = 0;
 		velocity.y = 0;
 
@@ -149,11 +201,16 @@ public:
 		{
 			
 			//shotAFX.Play(false);
-			gunShot->Play();
+			if (bulletCount>0)
+			{
+				gunShot->Play();
+			}
+			
 			
 		}
 		
-		velocity = velocity.Normalize()*speed;
+		velocity = velocity.Normalize() * speed;
+		
 
 	}
 
@@ -170,12 +227,14 @@ public:
 	{
 		//gunNormal->LoadFromAnimatorFile("./Assets/Wolf/gun-normal.amt");
 		gunShot->LoadFromAnimatorFile("./Assets/Wolf/lgun-shot.amt");
-		gunShot->SetFrameEvent(2, [this]() {
+		gunShot->SetFrameEvent(2, [this]() 
+			{
+			bulletCount--;
 			shotAFX.Play(false);
 
 			Enimy * enimy = nullptr;
 
-			for (int i = 0.5*pixelWidth-10;i<=0.5*pixelWidth + 10;i++)
+			for (int i = 0.5*pixelWidth-0.01*pixelWidth;i<=0.5*pixelWidth + 0.01 * pixelWidth;i++)
 			{
 				enimy = camera->GetRayHitInfoAs<Enimy*>(i);
 				if (enimy!=nullptr)
@@ -190,8 +249,9 @@ public:
 			}
 
 
-			Debug("shot");
+			//Debug("shot");
 			});
+
 	}
 
 	void Update() override 
@@ -199,6 +259,7 @@ public:
 		ActorControl();
 		gunSprite.UpdateImage(gunShot->GetCurrentFrameImage());
 		gunSprite.DrawSprite(0.25*pixelWidth,pixelHeight - 0.5*pixelWidth,true);
+		renderer.DrawString("hp:100\nbullet:" + to_string(bulletCount), 0, 0, RED, pixelHeight / 20);
 	}
 
 public:
@@ -211,13 +272,9 @@ public:
 		LoadSprFile("./Assets/Wolf/gun.spr")
 		,Vector<int>(0.5*pixelWidth, 0.5 * pixelWidth));
 
-	Audio shotAFX = Audio("./Assets/Wolf/Music/shotgun.wav",Chunk);
+	Audio shotAFX = Audio("./Assets/Wolf/Music/handleGunShot.mp3",Chunk);
 
-	Sprite bulletSprite = Sprite(
-		LoadSprFile("./Assets/Wolf/bullet.spr"),
-		Vector<int>(0.1*pixelWidth,0.1*pixelWidth)
-	);
-	//bool isShot = false;
+	int bulletCount = 100;
 
 	Animator* gunShot = new Animator(14);
 
@@ -229,8 +286,15 @@ public:
 	WolfGame(int width, int height, NoaGameEngine::GameWindowMode windowMode, string gameName) :
 		NoaGameEngine(width,height,windowMode,gameName) 
 	{
-		enimy.player = & player.transform;
+		enimy1.player = & player.transform;
+		enimy2.player = &player.transform;
 		player.camera = &camera;
+
+		bullet.pickEvent += [this]() {
+			player.bulletCount += 100;
+			bulletPickUpSFX.Play(false);
+			};
+
 	}
 
 	void Start() override 
@@ -241,19 +305,33 @@ public:
 
 	void Update() override {
 		camera.Render(tileMap,true,sky);
+		mouse.DrawSprite(pixelWidth*0.5-0.5*mouse.scale.x,pixelHeight*0.5-0.5*mouse.scale.y,true);
+		if (inputSystem.GetKeyHold(KeyM))
+		{
+			mapCamera.Render(tileMap,Vector<float>(0.0,0.0),Vector<float>(0.0,0.0));
+		}
 	}
 
 private:
 	
+	Sprite sky = Sprite(LoadSprFile("./Assets/Wolf/sky-sun.spr"), Vector<int>(1.0, 1.0));
 	TileMap tileMap = TileMap(
 		LoadTileFromTsd("./Assets/Wolf/Map/tileSet.tsd"),
 		LoadMapFromCSV("./Assets/Wolf/Map/level.csv")
 	);
+
 	Player player = Player(&tileMap);
 	FreeCamera camera = FreeCamera(&player.transform);
-	Enimy enimy;
+	TileMapCamera mapCamera = TileMapCamera(Vector<int>(32,32),&player.transform);
+	Sprite mouse = Sprite(LoadSprFile("./Assets/Wolf/mouse.spr"),Vector<int>(0.03*pixelWidth, 0.03 * pixelWidth));
+	
+	Sprite cacoSprite = Sprite(LoadSprFile("./Assets/Wolf/caco.spr"),Vector<int>(1.0,1.0));
+	Enimy enimy1 = Enimy(cacoSprite);
+	Enimy enimy2 = Enimy(cacoSprite);
 
-	Sprite sky = Sprite(LoadSprFile("./Assets/Wolf/sky-sun.spr"),Vector<int>(1.0,1.0));
+	Sprite bulletSprite = Sprite(LoadSprFile("./Assets/Wolf/bullet.spr"), Vector<int>(1.0, 1.0));
+	Item bullet = Item(&bulletSprite);
+	Audio bulletPickUpSFX = Audio("./Assets/Wolf/Music/pickUpBullet.mp3",Chunk);
 
 	Audio BGM = Audio("./Assets/Wolf/Music/theme.mp3",Music);
 
@@ -261,7 +339,7 @@ private:
 
 int main(int argc,char * argv[])
 {
-	WolfGame game(1920/4, 1080/4, NoaGameEngine::WindowMode, "Wolf");
+	WolfGame game(1920/2, 1080/2, NoaGameEngine::WindowMode, "Wolf");
 	game.Run();
 
 	return 0;

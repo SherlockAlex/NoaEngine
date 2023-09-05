@@ -209,6 +209,15 @@ namespace noa {
 			tp2 = chrono::system_clock::now();
 			elapsedTime = tp2 - tp1;
 			deltaTime = elapsedTime.count();
+			
+			rigidbodys.erase(
+				remove_if(rigidbodys.begin(), rigidbodys.end(), [](Rigidbody* ptr) { return ptr == nullptr; }), rigidbodys.end()
+			);
+
+			behaviours.erase(
+				remove_if(behaviours.begin(), behaviours.end(), [](Behaviour* ptr) { return ptr == nullptr; }), behaviours.end()
+			);
+			
 			//执行游戏主类的update
 			while (SDL_PollEvent(&ioEvent))
 			{
@@ -220,47 +229,25 @@ namespace noa {
 				}
 			}
 
-			//const int rigidbodyCount = rigidbodys.size();
-			//const int behaviourCount = behaviours.size();
-			//const int animatorCount = animatorList.size();
-
-			//while (!destroyBehaviours.empty()) 
-			//{
-			//	Behaviour* behaviour = destroyBehaviours.front();
-			//	if (behaviour == nullptr)
-			//	{
-			//		destroyBehaviours.pop();
-			//		continue;
-			//	}
-			//	destroyBehaviours.pop();
-			//	//delete behaviour;
-			//	behaviour = nullptr;
-			//}
-
-			for (int i = 0; i < rigidbodys.size(); i++)
+			for (auto & rigid:rigidbodys) 
 			{
-				if (rigidbodys[i] == nullptr)
+				if (rigid == nullptr)
 				{
 					continue;
 				}
-				rigidbodys[i]->Update();
+				rigid->Update();
 			}
 
 			Update();
 
-			for (int i = 0; i < behaviours.size(); i++)
+			for (auto & behaviour:behaviours)
 			{
-				if (behaviours[i] == nullptr||behaviours[i]->isActive == false)
+				if (behaviour == nullptr||!behaviour->GetActive())
 				{
 					continue;
 				}
-				behaviours[i]->Update();
+				behaviour->Update();
 			}
-
-			/*for (int i = 0; i < animatorCount; i++)
-			{
-				animatorList[i]->Update(deltaTime);
-			}*/
 
 			SDL_UnlockTexture(texture);
 			SDL_RenderCopy(mainRenderer, texture, nullptr, nullptr);

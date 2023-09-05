@@ -24,7 +24,7 @@ namespace noa {
 
 	Vector<float> sumForce(0.0, 0.0);
 
-	void DestroyRigidbody(Rigidbody * rigid)
+	void DestroyRigidbody(const Rigidbody * rigid)
 	{
 		for (int i = 0;i<rigidbodys.size();i++) 
 		{
@@ -34,13 +34,11 @@ namespace noa {
 				Debug("rigidbody has been done");
 			}
 		}
-		//rigidbodys.erase(std::remove(rigidbodys.begin(), rigidbodys.end(), rigid), rigidbodys.end());
-		
 	}
 
 	Rigidbody::Rigidbody(Transform* colliderPos)
 	{
-		collisionRigid = nullptr;
+		collision.other = nullptr;
 		this->colliderPos = colliderPos;
 		invMass = 1.0 / mass;
 		
@@ -61,14 +59,14 @@ namespace noa {
 	void Rigidbody::Update()
 	{
 		indexInMap = (int)(colliderPos->position.x) + (int)(colliderPos->position.y) * tileMap->w;
-		isHitWall = false;
+		collision.isHitCollisionTile = false;
 		if (isFrozen)
 		{
 			return;
 		}
 		if (useGravity)
 		{
-			if (!isGrounded)
+			if (!collision.isGrounded)
 			{
 				//如果使用重力
 				velocity.y += 3.5 * g * deltaTime;
@@ -103,9 +101,9 @@ namespace noa {
 					
 				{
 
-					if (!isTrigger)
+					if (!collision.isTrigger)
 					{
-						isHitWall = true;
+						collision.isHitCollisionTile = true;
 						newPosition.x = (int)newPosition.x + 1;
 						velocity.x = 0;
 					}
@@ -123,9 +121,9 @@ namespace noa {
 					//|| CollisionWithinRigidbody(this, newPosition.x+0.999, colliderPos->position.y + 0.999)
 					)
 				{
-					if (!isTrigger)
+					if (!collision.isTrigger)
 					{
-						isHitWall = true;
+						collision.isHitCollisionTile = true;
 						newPosition.x = (int)newPosition.x;
 						velocity.x = 0;
 					}
@@ -133,7 +131,7 @@ namespace noa {
 				}
 			}
 
-			isGrounded = false;
+			collision.isGrounded = false;
 			if (velocity.y <= 0)
 			{
 				if (ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x + 0.0f, newPosition.y))
@@ -146,9 +144,9 @@ namespace noa {
 					)
 				{
 
-					if (!isTrigger)
+					if (!collision.isTrigger)
 					{
-						isHitWall = true;
+						collision.isHitCollisionTile = true;
 						newPosition.y = (int)newPosition.y + 1;
 						velocity.y = 0;
 					}
@@ -166,11 +164,11 @@ namespace noa {
 					)
 				{
 
-					if (!isTrigger) {
-						isHitWall = true;
+					if (!collision.isTrigger) {
+						collision.isHitCollisionTile = true;
 						newPosition.y = (int)newPosition.y;
 						velocity.y = 0;
-						isGrounded = true;
+						collision.isGrounded = true;
 					}
 					
 				}
@@ -179,6 +177,8 @@ namespace noa {
 			
 
 		}
+
+		OnTrigger(collision.other);
 
 		//ApplyCollision(this, colliderPos->position.x, colliderPos->position.y);
 
@@ -253,19 +253,19 @@ namespace noa {
 		
 	}
 
-	Rigidbody* Rigidbody::GetCollisionRigidbody()
+	/*void Rigidbody::SetCollisionRigidbody(Rigidbody* rigid)
 	{
-		return collisionRigid;
-	}
-
-	void Rigidbody::SetCollisionRigidbody(Rigidbody* rigid)
-	{
-		collisionRigid = rigid;
-	}
+		collision.other = (void*)rigid;
+	}*/
 
 	int Rigidbody::GetIndexInMap() const
 	{
 		return this->indexInMap;
+	}
+
+	void Rigidbody::RemoveRigidbody() const
+	{
+		DestroyRigidbody(this);
 	}
 
 	bool IsCollisionTile(int tileID) 
@@ -281,7 +281,7 @@ namespace noa {
 
 		for (int i=0;i< rigidbodys.size();i++)
 		{
-			if (rigidbodys[i]==rigid)
+			if (rigidbodys[i] == nullptr||rigid == nullptr||rigidbodys[i]==rigid)
 			{
 				continue;
 			}
@@ -303,26 +303,23 @@ namespace noa {
 
 		for (int i = 0; i < rigidbodys.size(); i++)
 		{
-			if (rigidbodys[i] == rigid)
+			if (rigid==nullptr||rigidbodys[i]==nullptr||rigidbodys[i] == rigid)
 			{
 				continue;
 			}
+			rigid->collision.other = nullptr;
+			//rigidbodys[i]->SetCollisionRigidbody(nullptr);
 			const int indexOfRigid = rigidbodys[i]->GetIndexInMap();
 			if (indexOfRigid == indexInMap1||indexOfRigid == indexInMap2)
 			{
-				//Debug("发生碰撞");
-				//const float m1 = rigid->mass;
-				//const float m2 = rigidbodys[i]->mass;
-				//const Vector<float> v1 = rigid->velocity;
-				//const Vector<float> v2 = rigidbodys[i]->velocity;
-				//rigid->velocity = ((v1 * m1 + v2 * m2) / (m1 + m2)) * 2.0 - v1;
-				//rigidbodys[i]->velocity = ((v1 * m1 + v2 * m2) / (m1 + m2)) * 2.0 - v2;
-				//给予目标一个推力
-				//Debug("发生碰撞:"+to_string(indexInMap1)+"|"+to_string(indexInMap2) + ":" + to_string(rigid->GetIndexInMap()));
-				//rigidbodys[i]->AddForce((rigid->velocity * (0.01*-rigid->mass)), Rigidbody::Impulse);
-				rigid->SetCollisionRigidbody(rigidbodys[i]);
+				rigid->collision.other = rigidbodys[i];
+				/*if (rigid->collision.isTrigger&&rigidbodys[i]!=nullptr&&rigid!=nullptr)
+				{
+					rigid->OnTrigger(rigidbodys[i]);
+					Debug(to_string(i));
+				}*/
 				resultValue = true;
-				if (rigid->isTrigger||rigidbodys[i]->isTrigger)
+				if (rigid->collision.isTrigger||rigidbodys[i]->collision.isTrigger)
 				{
 					resultValue = false;
 				}
@@ -330,7 +327,7 @@ namespace noa {
 				//return true;
 			}
 		}
-		rigid->SetCollisionRigidbody(nullptr);
+
 		resultValue = false;
 		return resultValue;
 		//return false;
@@ -343,7 +340,7 @@ namespace noa {
 
 		for (int i = 0; i < rigidbodys.size(); i++)
 		{
-			if (rigidbodys[i] == rigid)
+			if (rigidbodys[i] == nullptr||rigid == nullptr||rigidbodys[i] == rigid)
 			{
 				continue;
 			}
@@ -357,15 +354,6 @@ namespace noa {
 				rigid->velocity = ((v1 * m1 + v2 * m2) / (m1 + m2)) * 2.0 - v1;
 				rigidbodys[i]->velocity = ((v1 * m1 + v2 * m2) / (m1 + m2)) * 2.0 - v2;
 				Debug("物体碰撞");
-				//实现物体相撞后的处理
-				// 
-				//rigidbodys[i]->AddForce((rigid->velocity * rigid->mass), Rigidbody::Impulse);
-				//rigid->AddForce((rigidbodys[i]->velocity * rigidbodys[i]->mass), Rigidbody::Impulse);
-				//给予目标一个推力
-				//Debug("发生碰撞:" + to_string(indexInMap1) + "|" + to_string(indexInMap2) + ":" + to_string(rigid->GetIndexInMap()));
-				//rigidbodys[i]->AddForce((rigid->velocity * (0.01*-rigid->mass)), Rigidbody::Impulse);
-				//return true;
-				
 			}
 		}
 	}

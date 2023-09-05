@@ -42,6 +42,7 @@ namespace noa {
 
 	void GameObject::Destroy()
 	{
+		SetActive(false);
 		DestroyGameObject(this);
 	}
 

@@ -37,8 +37,8 @@ namespace noa {
 
 	void Renderer::DrawLine(int x1, int y1, int x2, int y2, Uint32 color) const
 	{
-		int dx = abs(x2 - x1);
-		int dy = abs(y2 - y1);
+		int dx = NoaFastAbs(x2 - x1);
+		int dy = NoaFastAbs(y2 - y1);
 		int sx = (x1 < x2) ? 1 : -1;
 		int sy = (y1 < y2) ? 1 : -1;
 
@@ -53,7 +53,7 @@ namespace noa {
 				break;
 			}
 
-			int e2 = err * 2;
+			const int e2 = err * 2;
 
 			if (e2 > -dy)
 			{
@@ -247,7 +247,7 @@ namespace noa {
 		for (int i=0;i<length;i++) 
 		{
 			const char c = c_str[i];
-			if (c=='\n')
+			if (!(c^'\n'))
 			{
 				row++;
 				offset = 0;
