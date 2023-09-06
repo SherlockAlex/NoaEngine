@@ -90,7 +90,6 @@ namespace noa {
 		void RenderFloor(TileMap& map);
 		void Render(TileMap& map, bool renderFloor, const Sprite& skybox);
 		void Render(TileMap& map, bool renderFloor);
-		void RenderSkybox(const Sprite& skybox);
 		void RenderGameObject();
 
 		Ray RaycastHit(int pixelX, const TileMap& map);

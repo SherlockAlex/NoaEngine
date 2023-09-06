@@ -117,7 +117,12 @@ namespace noa {
 				(gameObject.object->transform.position.y - offset.y) * tileScale.y
 				);
 			gameObject.object->sprite->DrawSprite(objPos.x, objPos.y, true);
-			objectBufferWithRay[objPos.y * pixelWidth + objPos.x] = gameObject.object;
+			if (objPos.y<pixelHeight&&objPos.y>=0
+				&&objPos.x < pixelWidth && objPos.x >= 0
+				) {
+				objectBufferWithRay[objPos.y * pixelWidth + objPos.x] = gameObject.object;
+			}
+			
 
 		}
 		
@@ -296,7 +301,7 @@ namespace noa {
 	void FreeCamera::Render(TileMap& map, bool renderFloor)
 	{
 
-		////采用画家画图法和射线投射算法绘制
+		//采用画家画图法和射线投射算法绘制
 		
 		//FLOOR CASTING
 
@@ -424,26 +429,10 @@ namespace noa {
 		return ray;
 	}
 
-	void FreeCamera::RenderSkybox(const Sprite& skybox)
-	{
-		//渲染天空到屏幕上
-		for (int x = 0;x<pixelWidth;x++) 
-		{
-			for (int y = 0;y<pixelHeight/2;y++)
-			{
-				const float dx = (x + 200*follow->eulerAngle) / pixelWidth;
-				const float dy = (y + 0.0) / (pixelHeight);
-
-				const ColorRef color = skybox.GetColor(dy, dx);
-				renderer.DrawPixel(x, y, color);
-			}
-		}
-	}
-
 
 	// 快速排序的分区函数
 	int Partition(std::vector<GameObjectBuffer>& arr, int low, int high) {
-		float pivot = arr[high].distanceToPlayer;
+		const float pivot = arr[high].distanceToPlayer;
 		int i = (low - 1);
 
 		for (int j = low; j <= high - 1; j++) {
@@ -457,12 +446,17 @@ namespace noa {
 	}
 
 	// 快速排序函数
-	void QuickSort(std::vector<GameObjectBuffer>& arr, int low, int high) {
-		if (low < high) {
-			int pi = Partition(arr, low, high);
-			QuickSort(arr, low, pi - 1);
-			QuickSort(arr, pi + 1, high);
+	void QuickSort(std::vector<GameObjectBuffer>& arr, int low, int high) 
+	{
+		if (low >= high) 
+		{
+			return;
 		}
+
+		int pi = Partition(arr, low, high);
+		QuickSort(arr, low, pi - 1);
+		QuickSort(arr, pi + 1, high);
+
 	}
 
 	void FreeCamera::RenderGameObject()

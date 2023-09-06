@@ -100,11 +100,11 @@ namespace noa {
 
 				if (
 					   CollisionWithinRigidbody(this
-						,newPosition.x- offset,colliderPos->position.y- offset
-						, newPosition.x- offset, colliderPos->position.y + 0.999+ offset
+						,newPosition.x- colliderSize.x,colliderPos->position.y- colliderSize.y
+						, newPosition.x- colliderSize.x, colliderPos->position.y + 0.999+ colliderSize.y
 					)
-					|| ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x, colliderPos->position.y + 0.0))
-					|| ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x, colliderPos->position.y + 0.999))
+					|| ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x- colliderSize.x, colliderPos->position.y - colliderSize.y))
+					|| ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x- colliderSize.x, colliderPos->position.y + 0.999+colliderSize.y))
 					//||CollisionWithinRigidbody(this, newPosition.x, colliderPos->position.y+0.999)
 				)
 					
@@ -113,7 +113,7 @@ namespace noa {
 					if (!collision.isTrigger)
 					{
 						collision.isHitCollisionTile = true;
-						newPosition.x = (int)newPosition.x + 1;
+						newPosition.x = (int)newPosition.x + 1+colliderSize.x;
 						velocity.x = 0;
 					}
 					
@@ -123,18 +123,18 @@ namespace noa {
 			{
 				if (
 					 CollisionWithinRigidbody(this
-						, newPosition.x+0.999+offset, colliderPos->position.y- offset
-						, newPosition.x + 0.999+ offset, colliderPos->position.y + 0.999+ offset
+						, newPosition.x+0.999+ colliderSize.x, colliderPos->position.y- colliderSize.y
+						, newPosition.x + 0.999+ colliderSize.x, colliderPos->position.y + 0.999+ colliderSize.y
 					)
-					|| ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x + 0.999, colliderPos->position.y + 0.0))
-					|| ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x + 0.999, colliderPos->position.y + 0.999))
+					|| ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x + 0.999+ colliderSize.x, colliderPos->position.y - colliderSize.y))
+					|| ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x + 0.999+ colliderSize.x, colliderPos->position.y + 0.999 + colliderSize.y))
 					//|| CollisionWithinRigidbody(this, newPosition.x+0.999, colliderPos->position.y + 0.999)
 					)
 				{
 					if (!collision.isTrigger)
 					{
 						collision.isHitCollisionTile = true;
-						newPosition.x = (int)newPosition.x;
+						newPosition.x = (int)newPosition.x-colliderSize.x;
 						velocity.x = 0;
 					}
 					
@@ -146,11 +146,11 @@ namespace noa {
 			{
 				if (
 					   CollisionWithinRigidbody(this,
-						newPosition.x- offset, newPosition.y- offset
-						,newPosition.x + 0.999+ offset, newPosition.y- offset
+						newPosition.x- colliderSize.x, newPosition.y- colliderSize.y
+						,newPosition.x + 0.999+ colliderSize.x, newPosition.y- colliderSize.y
 					)
-					|| ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x + 0.0f, newPosition.y))
-					|| ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x + 0.999f, newPosition.y))
+					|| ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x -colliderSize.x, newPosition.y- colliderSize.y))
+					|| ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x + 0.999f+ colliderSize.x, newPosition.y- colliderSize.y))
 					//|| CollisionWithinRigidbody(this, newPosition.x+0.999, newPosition.y)
 					)
 				{
@@ -158,7 +158,7 @@ namespace noa {
 					if (!collision.isTrigger)
 					{
 						collision.isHitCollisionTile = true;
-						newPosition.y = (int)newPosition.y + 1;
+						newPosition.y = (int)newPosition.y + 1+colliderSize.y;
 						velocity.y = 0;
 					}
 				}
@@ -167,11 +167,11 @@ namespace noa {
 			{
 				if (
 					  CollisionWithinRigidbody(this
-						, newPosition.x- offset, newPosition.y+0.999+ offset
-						, newPosition.x + 0.999+ offset, newPosition.y + 0.999+ offset
+						, newPosition.x- colliderSize.x, newPosition.y+0.999+ colliderSize.y
+						, newPosition.x + 0.999+ colliderSize.x, newPosition.y + 0.999+ colliderSize.y
 					)
-					|| ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x + 0.0f, newPosition.y + 0.999))
-					|| ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x + 0.999f, newPosition.y + 0.999))
+					|| ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x - colliderSize.x, newPosition.y + 0.999+colliderSize.y))
+					|| ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x + 0.999f+colliderSize.x, newPosition.y + 0.999+colliderSize.y))
 					//|| CollisionWithinRigidbody(this, newPosition.x + 0.999, newPosition.y+0.999)
 					)
 					
@@ -179,7 +179,7 @@ namespace noa {
 
 					if (!collision.isTrigger) {
 						collision.isHitCollisionTile = true;
-						newPosition.y = (int)newPosition.y;
+						newPosition.y = (int)newPosition.y-colliderSize.y;
 						velocity.y = 0;
 						collision.isGrounded = true;
 					}

@@ -53,8 +53,10 @@ public:
 	{
 		sprite->UpdateImage(die.GetCurrentFrameImage());
 
+		//执行Ai逻辑
+
 		////获取玩家的transform
-		//Vector<float> dir = player->position - transform.position - Vector<float>(0.5, 0.5);
+		//Vector<float> dir = player->position - transform.position;
 		//if (dir.SqrMagnitude()<25.0) 
 		//{
 		//	return;
@@ -76,12 +78,11 @@ public:
 
 	Item(Sprite* sprite) :GameObject(sprite), Rigidbody(&transform) {
 		
+		colliderSize.x = 0.2;
+		colliderSize.y = 0.2;
+
 		useGravity = false;
 		collision.isTrigger = true;
-
-		transform.position.x = 2;
-		transform.position.y = 2;
-
 		tag = "item";
 
 	}

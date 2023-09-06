@@ -14,7 +14,7 @@ public:
 	{
 		transform.position = Vector<float>(0.0, 0.0);
 		//useGravity = false;
-
+		damping = 0;
 		idle->LoadFromAnimatorFile("./Assets/JumpMan/Animator/mario_idle.amt");
 		run->LoadFromAnimatorFile("./Assets/JumpMan/Animator/mario_run.amt");
 		jump->LoadFromAnimatorFile("./Assets/JumpMan/Animator/mario_jump.amt");
@@ -73,7 +73,7 @@ public:
 		}
 
 
-		if ((inputSystem.GetKeyHold(KeySpace)||inputSystem.GetKeyHold(KeyK)) && isGrounded)
+		if ((inputSystem.GetKeyHold(KeySpace)||inputSystem.GetKeyHold(KeyK)) && collision.isGrounded)
 		{
 			AddForce(jumpForce, Impulse);
 			jumpSFX.Play(false);
@@ -113,7 +113,7 @@ public:
 	{
 
 	}
-	Vector<float> jumpForce = Vector<float>(0.0, -15.0);
+	Vector<float> jumpForce = Vector<float>(0.0, -15);
 	void Update() override 
 	{
 		ActorControl();
@@ -128,7 +128,7 @@ public:
 	}
 
 public:
-	float speed = 10;
+	float speed = 8;
 	bool isLeft = false;
 
 	const Audio coinSFX = Audio("./Assets/JumpMan/Music/coin.mp3", Chunk);

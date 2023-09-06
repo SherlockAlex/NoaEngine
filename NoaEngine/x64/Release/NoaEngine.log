@@ -1,6 +1,4 @@
-﻿  Physics.cpp
-D:\Work\NoaEngine\NoaEngine\core\Physics.h(45,19): warning C4305: “初始化”: 从“double”到“float”截断
-D:\Work\NoaEngine\NoaEngine\core\Physics.h(55,13): warning C4305: “初始化”: 从“double”到“float”截断
+﻿  w_Wolf.cpp
 D:\Work\NoaEngine\NoaEngine\core\Sprite.h(47,40): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
           with
           [
@@ -29,6 +27,8 @@ D:\Work\NoaEngine\NoaEngine\core\Graphic.h(33,1): warning C4005: “RGB”: 宏�
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1859,1): message : 参见“RGB”的前一个定义
 D:\Work\NoaEngine\NoaEngine\core\Graphic.h(36,1): warning C4005: “GetGValue”: 宏重定义
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1870,1): message : 参见“GetGValue”的前一个定义
+D:\Work\NoaEngine\NoaEngine\core\Physics.h(45,19): warning C4305: “初始化”: 从“double”到“float”截断
+D:\Work\NoaEngine\NoaEngine\core\Physics.h(55,13): warning C4305: “初始化”: 从“double”到“float”截断
 D:\Work\NoaEngine\NoaEngine\core\Camera.h(41,57): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
           with
           [
@@ -62,154 +62,105 @@ D:\Work\NoaEngine\NoaEngine\core\NoaGUI.h(55,38): warning C4244: “参数”: �
           [
               T=int
           ]
-D:\Work\NoaEngine\NoaEngine\core\Physics.cpp(39,17): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
-D:\Work\NoaEngine\NoaEngine\core\Physics.cpp(65,38): warning C4244: “初始化”: 从“T”转换到“int”，可能丢失数据
+D:\Work\NoaEngine\NoaEngine\w_Wolf.cpp(81,20): warning C4305: “=”: 从“double”到“T”截断
           with
           [
               T=float
           ]
-D:\Work\NoaEngine\NoaEngine\core\Physics.cpp(65,15): warning C4244: “初始化”: 从“T”转换到“const int”，可能丢失数据
+D:\Work\NoaEngine\NoaEngine\w_Wolf.cpp(82,20): warning C4305: “=”: 从“double”到“T”截断
           with
           [
               T=float
           ]
-D:\Work\NoaEngine\NoaEngine\core\Physics.cpp(66,38): warning C4244: “初始化”: 从“T”转换到“int”，可能丢失数据
+D:\Work\NoaEngine\NoaEngine\w_Wolf.cpp(279,36): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\NoaEngine\NoaEngine\w_Wolf.cpp(279,19): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\NoaEngine\NoaEngine\w_Wolf.cpp(159,29): warning C4244: “=”: 从“int”转换到“T”，可能丢失数据
           with
           [
               T=float
           ]
-D:\Work\NoaEngine\NoaEngine\core\Physics.cpp(66,15): warning C4244: “初始化”: 从“T”转换到“const int”，可能丢失数据
+D:\Work\NoaEngine\NoaEngine\w_Wolf.cpp(160,29): warning C4244: “=”: 从“int”转换到“T”，可能丢失数据
           with
           [
               T=float
           ]
-D:\Work\NoaEngine\NoaEngine\core\Physics.cpp(77,27): warning C4244: “+=”: 从“double”转换到“T”，可能丢失数据
+D:\Work\NoaEngine\NoaEngine\w_Wolf.cpp(223,45): warning C4244: “+=”: 从“double”转换到“float”，可能丢失数据
+D:\Work\NoaEngine\NoaEngine\w_Wolf.cpp(238,15): warning C4244: “初始化”: 从“double”转换到“int”，可能丢失数据
+D:\Work\NoaEngine\NoaEngine\w_Wolf.cpp(267,52): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+D:\Work\NoaEngine\NoaEngine\w_Wolf.cpp(267,28): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+D:\Work\NoaEngine\NoaEngine\w_Wolf.cpp(355,81): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\NoaEngine\NoaEngine\w_Wolf.cpp(355,76): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\NoaEngine\NoaEngine\w_Wolf.cpp(364,97): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\NoaEngine\NoaEngine\w_Wolf.cpp(364,79): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\NoaEngine\NoaEngine\w_Wolf.cpp(366,83): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\NoaEngine\NoaEngine\w_Wolf.cpp(366,79): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\NoaEngine\NoaEngine\w_Wolf.cpp(308,36): warning C4244: “=”: 从“int”转换到“T”，可能丢失数据
           with
           [
               T=float
           ]
-D:\Work\NoaEngine\NoaEngine\core\Physics.cpp(95,34): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
-D:\Work\NoaEngine\NoaEngine\core\Physics.cpp(95,23): warning C4244: “初始化”: 从“double”转换到“const float”，可能丢失数据
-D:\Work\NoaEngine\NoaEngine\core\Physics.cpp(104,63): warning C4244: “参数”: 从“double”转换到“const int”，可能丢失数据
-D:\Work\NoaEngine\NoaEngine\core\Physics.cpp(104,22): warning C4244: “参数”: 从“T”转换到“const int”，可能丢失数据
+D:\Work\NoaEngine\NoaEngine\w_Wolf.cpp(309,36): warning C4244: “=”: 从“int”转换到“T”，可能丢失数据
           with
           [
               T=float
           ]
-D:\Work\NoaEngine\NoaEngine\core\Physics.cpp(103,53): warning C4244: “参数”: 从“T”转换到“const int”，可能丢失数据
+D:\Work\NoaEngine\NoaEngine\w_Wolf.cpp(321,37): warning C4244: “=”: 从“int”转换到“T”，可能丢失数据
           with
           [
               T=float
           ]
-D:\Work\NoaEngine\NoaEngine\core\Physics.cpp(103,21): warning C4244: “参数”: 从“T”转换到“const int”，可能丢失数据
+D:\Work\NoaEngine\NoaEngine\w_Wolf.cpp(322,37): warning C4244: “=”: 从“int”转换到“T”，可能丢失数据
           with
           [
               T=float
           ]
-D:\Work\NoaEngine\NoaEngine\core\Physics.cpp(106,105): warning C4244: “参数”: 从“double”转换到“const int”，可能丢失数据
-D:\Work\NoaEngine\NoaEngine\core\Physics.cpp(106,77): warning C4244: “参数”: 从“T”转换到“const int”，可能丢失数据
-          with
-          [
-              T=float
-          ]
-D:\Work\NoaEngine\NoaEngine\core\Physics.cpp(107,105): warning C4244: “参数”: 从“double”转换到“const int”，可能丢失数据
-D:\Work\NoaEngine\NoaEngine\core\Physics.cpp(107,77): warning C4244: “参数”: 从“T”转换到“const int”，可能丢失数据
-          with
-          [
-              T=float
-          ]
-D:\Work\NoaEngine\NoaEngine\core\Physics.cpp(116,42): warning C4244: “=”: 从“int”转换到“T”，可能丢失数据
-          with
-          [
-              T=float
-          ]
-D:\Work\NoaEngine\NoaEngine\core\Physics.cpp(127,71): warning C4244: “参数”: 从“double”转换到“const int”，可能丢失数据
-D:\Work\NoaEngine\NoaEngine\core\Physics.cpp(127,30): warning C4244: “参数”: 从“double”转换到“const int”，可能丢失数据
-D:\Work\NoaEngine\NoaEngine\core\Physics.cpp(126,60): warning C4244: “参数”: 从“T”转换到“const int”，可能丢失数据
-          with
-          [
-              T=float
-          ]
-D:\Work\NoaEngine\NoaEngine\core\Physics.cpp(126,28): warning C4244: “参数”: 从“double”转换到“const int”，可能丢失数据
-D:\Work\NoaEngine\NoaEngine\core\Physics.cpp(129,113): warning C4244: “参数”: 从“double”转换到“const int”，可能丢失数据
-D:\Work\NoaEngine\NoaEngine\core\Physics.cpp(129,80): warning C4244: “参数”: 从“double”转换到“const int”，可能丢失数据
-D:\Work\NoaEngine\NoaEngine\core\Physics.cpp(130,113): warning C4244: “参数”: 从“double”转换到“const int”，可能丢失数据
-D:\Work\NoaEngine\NoaEngine\core\Physics.cpp(130,80): warning C4244: “参数”: 从“double”转换到“const int”，可能丢失数据
-D:\Work\NoaEngine\NoaEngine\core\Physics.cpp(137,39): warning C4244: “=”: 从“int”转换到“T”，可能丢失数据
-          with
-          [
-              T=float
-          ]
-D:\Work\NoaEngine\NoaEngine\core\Physics.cpp(150,52): warning C4244: “参数”: 从“T”转换到“const int”，可能丢失数据
-          with
-          [
-              T=float
-          ]
-D:\Work\NoaEngine\NoaEngine\core\Physics.cpp(150,29): warning C4244: “参数”: 从“double”转换到“const int”，可能丢失数据
-D:\Work\NoaEngine\NoaEngine\core\Physics.cpp(149,43): warning C4244: “参数”: 从“T”转换到“const int”，可能丢失数据
-          with
-          [
-              T=float
-          ]
-D:\Work\NoaEngine\NoaEngine\core\Physics.cpp(149,20): warning C4244: “参数”: 从“T”转换到“const int”，可能丢失数据
-          with
-          [
-              T=float
-          ]
-D:\Work\NoaEngine\NoaEngine\core\Physics.cpp(152,99): warning C4244: “参数”: 从“T”转换到“const int”，可能丢失数据
-          with
-          [
-              T=float
-          ]
-D:\Work\NoaEngine\NoaEngine\core\Physics.cpp(152,80): warning C4244: “参数”: 从“T”转换到“const int”，可能丢失数据
-          with
-          [
-              T=float
-          ]
-D:\Work\NoaEngine\NoaEngine\core\Physics.cpp(153,101): warning C4244: “参数”: 从“T”转换到“const int”，可能丢失数据
-          with
-          [
-              T=float
-          ]
-D:\Work\NoaEngine\NoaEngine\core\Physics.cpp(153,80): warning C4244: “参数”: 从“T”转换到“const int”，可能丢失数据
-          with
-          [
-              T=float
-          ]
-D:\Work\NoaEngine\NoaEngine\core\Physics.cpp(161,42): warning C4244: “=”: 从“int”转换到“T”，可能丢失数据
-          with
-          [
-              T=float
-          ]
-D:\Work\NoaEngine\NoaEngine\core\Physics.cpp(171,61): warning C4244: “参数”: 从“double”转换到“const int”，可能丢失数据
-D:\Work\NoaEngine\NoaEngine\core\Physics.cpp(171,30): warning C4244: “参数”: 从“double”转换到“const int”，可能丢失数据
-D:\Work\NoaEngine\NoaEngine\core\Physics.cpp(170,51): warning C4244: “参数”: 从“double”转换到“const int”，可能丢失数据
-D:\Work\NoaEngine\NoaEngine\core\Physics.cpp(170,22): warning C4244: “参数”: 从“T”转换到“const int”，可能丢失数据
-          with
-          [
-              T=float
-          ]
-D:\Work\NoaEngine\NoaEngine\core\Physics.cpp(173,102): warning C4244: “参数”: 从“double”转换到“const int”，可能丢失数据
-D:\Work\NoaEngine\NoaEngine\core\Physics.cpp(173,80): warning C4244: “参数”: 从“T”转换到“const int”，可能丢失数据
-          with
-          [
-              T=float
-          ]
-D:\Work\NoaEngine\NoaEngine\core\Physics.cpp(174,104): warning C4244: “参数”: 从“double”转换到“const int”，可能丢失数据
-D:\Work\NoaEngine\NoaEngine\core\Physics.cpp(174,80): warning C4244: “参数”: 从“T”转换到“const int”，可能丢失数据
-          with
-          [
-              T=float
-          ]
-D:\Work\NoaEngine\NoaEngine\core\Physics.cpp(182,39): warning C4244: “=”: 从“int”转换到“T”，可能丢失数据
-          with
-          [
-              T=float
-          ]
-D:\Work\NoaEngine\NoaEngine\core\Physics.cpp(222,56): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
-D:\Work\NoaEngine\NoaEngine\core\Physics.cpp(222,33): warning C4267: “初始化”: 从“size_t”转换到“const int”，可能丢失数据
+D:\Work\NoaEngine\NoaEngine\w_Wolf.cpp(346,68): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+D:\Work\NoaEngine\NoaEngine\w_Wolf.cpp(346,34): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+D:\Work\NoaEngine\NoaEngine\core\NoaAction.h(21,44): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+D:\Work\NoaEngine\NoaEngine\core\NoaAction.h(20,8): message : 在编译 类 模板 成员函数“void noa::NoaEvent<void (void)>::Invoke(void)”时
+D:\Work\NoaEngine\NoaEngine\w_Wolf.cpp(107,19): message : 请参阅 "Item::OnDisable" 中对 "noa::NoaEvent<void (void)>::Invoke" 的第一个引用
+D:\Work\NoaEngine\NoaEngine\core\InputSystem.h(111,20): message : 查看对正在编译的 类 模板 实例化“noa::NoaEvent<void (void)>”的引用
+D:\Work\NoaEngine\NoaEngine\core\NoaAction.h(21,28): warning C4267: “初始化”: 从“size_t”转换到“const int”，可能丢失数据
+D:\Work\NoaEngine\NoaEngine\core\NoaMath.h(56,31): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
+D:\Work\NoaEngine\NoaEngine\core\NoaMath.h(50,10): message : 在编译 类 模板 成员函数“noa::Vector<float> noa::Vector<float>::Normalize(void) const”时
+D:\Work\NoaEngine\NoaEngine\w_Wolf.cpp(213,12): message : 请参阅 "Player::ActorControl" 中对 "noa::Vector<float>::Normalize" 的第一个引用
+D:\Work\NoaEngine\NoaEngine\core\Transform.h(9,17): message : 查看对正在编译的 类 模板 实例化“noa::Vector<float>”的引用
+D:\Work\NoaEngine\NoaEngine\core\NoaMath.h(56,26): warning C4244: “初始化”: 从“double”转换到“const float”，可能丢失数据
   正在生成代码
-  Previous IPDB and IOBJ mismatch, fall back to full compilation.
-  All 2064 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  2 of 2064 functions (<0.1%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    1 functions had inline decision re-evaluated but remain unchanged
   已完成代码的生成
   NoaEngine.vcxproj -> D:\Work\NoaEngine\x64\Release\NoaEngine.exe
