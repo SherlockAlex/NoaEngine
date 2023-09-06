@@ -8,21 +8,27 @@ using namespace std;
 
 namespace noa 
 {
-	enum Transition {
-
-	};
 
 	/// <summary>
 	/// 状态类，将每一个状态都抽象乘一个类
 	/// </summary>
+	class State;
+	class StateMachine;
+	
 	class State 
 	{
+	private:
+		StateMachine* stateMachine;
 	public:
 		//下一个状态<transition,state>
-		unordered_map<Transition, State*> nextStates;
+		unordered_map<int, State*> nextStates;
 	public:
-		State();
+		State(StateMachine * stateMachine);
 		~State();
+
+		void AddTransition(int transition,State* nextState);
+		void SetTransition(int transition);
+
 	public:
 		virtual void Act() = 0;
 		virtual void Reason() = 0;
@@ -33,11 +39,15 @@ namespace noa
 	/// </summary>
 	class StateMachine
 	{
-	public:
-		State* currentState;
+	private:
 		vector<State*> stateList;
 	public:
-		void PerformTransition(Transition transition);
+		State* currentState;
+	public:
+		StateMachine();
+		StateMachine(vector<State*> stateList);
+		void PerformTransition(int transition);
+		void AddState(State* state);
 		void Act();
 		void Reason();
 	};

@@ -1,22 +1,23 @@
 #include "GameObject.h"
 #include "NoaEngine.h"
-
+#include <thread>
 
 
 namespace noa {
 	vector<GameObjectBuffer> gameObjects;
 
 	void DestroyGameObject(GameObject* gameObject) {
-		/*for (int i = 0;i<gameObjects.size();i++)
-		{
-			if (gameObjects[i].object == gameObject)
-			{
-				gameObjects[i].object = nullptr;
-				Debug("GameObject has been destroy");
-			}
-		}*/
 
-		for (auto it = gameObjects.begin(); it != gameObjects.end(); ) {
+		for (auto& object:gameObjects)
+		{
+			if (object.object == gameObject)
+			{
+				object.distanceToPlayer = -1;
+				object.object = nullptr;
+			}
+		}
+
+		/*for (auto it = gameObjects.begin(); it != gameObjects.end(); ) {
 			if (it->object == gameObject) {
 				it->distanceToPlayer = -1;
 				it = gameObjects.erase(it);
@@ -25,7 +26,7 @@ namespace noa {
 			else {
 				++it;
 			}
-		}
+		}*/
 
 	}
 
@@ -45,14 +46,24 @@ namespace noa {
 	GameObject::~GameObject()
 	{
 		//DestroyGameObject(this);
-		DestroyGameObject(this);
+		//DestroyGameObject(this);
+
+		thread destroyGameObject([this]() {
+			DestroyGameObject(this);
+			});
+		destroyGameObject.detach();
 		Behaviour::~Behaviour();
 	}
 
 	void GameObject::Destroy()
 	{
 		SetActive(false);
-		DestroyGameObject(this);
+
+		thread destroyGameObject([this]() {
+			DestroyGameObject(this);
+			});
+		destroyGameObject.detach();
+		//DestroyGameObject(this);
 	}
 
 	//void Destroy(GameObject* gameObject)

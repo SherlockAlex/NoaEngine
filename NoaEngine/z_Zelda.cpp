@@ -156,12 +156,14 @@ class StartScene :public Scene {
 public:
 	StartScene():Scene("StartScene")
 	{
-		test.target = &player.transform;
+		//test.target = &player.transform;
+		player.transform.position = { 2,2 };
 	}
 
 	void OnEnable() override
 	{
-		player.isActive = true;
+		player.SetActive(true);
+		//player.isActive = true;
 		player.isFrozen = false;
 	}
 
@@ -181,7 +183,8 @@ public:
 
 	void OnDisable() override 
 	{
-		player.isActive = false;
+		player.SetActive(false);
+		//player.isActive = false;
 		player.isFrozen = true;
 	}
 
@@ -192,7 +195,7 @@ private:
 			LoadMapFromCSV("./Assets/Zelda/map/level.csv")
 		}
 	);
-	Test test;
+	//Test test;
 	Player player = Player(&tileMap);
 	TileMapCamera camera = TileMapCamera(tileScale, &player.transform);
 	Vector<float> frontDelta = Vector<float>(0.0, 0.0);

@@ -84,6 +84,12 @@
 #include <string>
 #include <functional>
 #include <queue>
+#include <thread>
+#include <vector>
+#include <queue>
+#include <functional>
+#include <mutex>
+#include <condition_variable>
 
 using namespace std;
 
@@ -204,6 +210,36 @@ namespace noa {
 
 		int Quit();
 
+	};
+
+	//线程池
+	class ThreadPool {
+	public:
+		ThreadPool(size_t numThreads);
+		~ThreadPool();
+
+		// 添加任务到线程池
+		void Enqueue(std::function<void()> task);
+
+	private:
+		// 线程函数
+		void WorkerThread();
+
+		// 线程池的线程数量
+		size_t numThreads;
+
+		// 存储线程对象的容器
+		std::vector<std::thread> threads;
+
+		// 任务队列
+		std::queue<std::function<void()>> tasks;
+
+		// 用于同步的互斥锁和条件变量
+		std::mutex queueMutex;
+		std::condition_variable condition;
+
+		// 用于标志线程池是否关闭
+		bool stop;
 	};
 
 	extern void Debug(string msg);

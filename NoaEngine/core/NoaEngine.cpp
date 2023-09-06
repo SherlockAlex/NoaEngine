@@ -200,22 +200,15 @@ namespace noa {
 		}
 		
 		//thread mainThread(mainThreadFunc);
-		
-		//glClearColor(0, 1, 0, 1);
+
+		//vector<thread> threads;
+		//physicsThread.join();
 
 		while (isRun)
 		{
 			tp2 = chrono::system_clock::now();
 			elapsedTime = tp2 - tp1;
 			deltaTime = elapsedTime.count();
-			
-			/*rigidbodys.erase(
-				remove_if(rigidbodys.begin(), rigidbodys.end(), [](Rigidbody* ptr) { return ptr == nullptr; }), rigidbodys.end()
-			);*/
-
-			/*behaviours.erase(
-				remove_if(behaviours.begin(), behaviours.end(), [](Behaviour* ptr) { return ptr == nullptr; }), behaviours.end()
-			);*/
 			
 			//执行游戏主类的update
 			while (SDL_PollEvent(&ioEvent))
@@ -224,11 +217,25 @@ namespace noa {
 
 				if (ioEvent.type == SDL_QUIT)
 				{
+					//mainThread.detach();
 					Quit();
 				}
 			}
+			
+			/*thread physicsThread([this]()
+				{
+					for (auto& rigid : rigidbodys)
+					{
+						if (rigid.second == nullptr)
+						{
+							continue;
+						}
+						rigid.second->Update();
+					}
+				});
+			physicsThread.join();*/
 
-			for (auto & rigid:rigidbodys) 
+			for (auto& rigid : rigidbodys)
 			{
 				if (rigid.second == nullptr)
 				{
@@ -241,7 +248,7 @@ namespace noa {
 
 			for (auto& behaviour : behaviours)
 			{
-				if (behaviour.second == nullptr||!behaviour.second->GetActive())
+				if (behaviour.second == nullptr || !behaviour.second->GetActive())
 				{
 					continue;
 				}
@@ -276,11 +283,73 @@ namespace noa {
 
 		}
 
-		//mainThread.join();
+		//mainThread.detach();
 		
 		Quit();
 		return 0;
 	}
+
+	//void NoaGameEngine::MainThread()
+	//{
+
+	//	while (isRun)
+	//	{
+	//		tp2 = chrono::system_clock::now();
+	//		elapsedTime = tp2 - tp1;
+	//		deltaTime = elapsedTime.count();
+
+	//		////执行游戏主类的update
+	//		//while (SDL_PollEvent(&ioEvent))
+	//		//{
+	//		//	inputSystem.Update();
+
+	//		//	if (ioEvent.type == SDL_QUIT)
+	//		//	{
+	//		//		Quit();
+	//		//	}
+	//		//}
+
+	//		for (auto& rigid : rigidbodys)
+	//		{
+	//			if (rigid.second == nullptr)
+	//			{
+	//				continue;
+	//			}
+	//			rigid.second->Update();
+	//		}
+
+	//		Update();
+
+	//		for (auto& behaviour : behaviours)
+	//		{
+	//			if (behaviour.second == nullptr || !behaviour.second->GetActive())
+	//			{
+	//				continue;
+	//			}
+	//			behaviour.second->Update();
+	//		}
+
+	//		SDL_UnlockTexture(texture);
+	//		SDL_RenderCopy(mainRenderer, texture, nullptr, nullptr);
+	//		SDL_RenderPresent(mainRenderer);
+
+	//		// 更新OpenGL纹理像素数据并渲染
+	//		//UpdateOpenGLTexture();
+	//		//RenderOpenGLTexture();
+
+	//		//glClear(GL_COLOR_BUFFER_BIT);
+	//		//SDL_GL_SwapWindow(window);
+
+	//		//SDL_UnlockSurface(surface);
+	//		//SDL_UpdateWindowSurface(window);
+
+	//		//UpdateOpenGLTexture();
+	//		//RenderOpenGLTexture();
+
+	//		tp1 = tp2;
+
+	//	}
+	//}
 
 	
 	GLuint openGLTexture;
@@ -318,9 +387,55 @@ namespace noa {
 	int NoaGameEngine::Quit()
 	{
 		isRun = false;
-		SDL_Quit();
 		OnDisable();
 		return 0;
+	}
+
+	ThreadPool::ThreadPool(size_t numThreads) : numThreads(numThreads), stop(false) {
+		for (size_t i = 0; i < numThreads; ++i) {
+			threads.emplace_back(std::bind(&ThreadPool::WorkerThread, this));
+		}
+	}
+
+	ThreadPool::~ThreadPool() {
+		{
+			std::unique_lock<std::mutex> lock(queueMutex);
+			stop = true;
+		}
+		condition.notify_all();
+
+		for (std::thread& thread : threads)
+		{
+			thread.detach();
+		}
+	}
+
+	void ThreadPool::Enqueue(std::function<void()> task) {
+		{
+			std::unique_lock<std::mutex> lock(queueMutex);
+			tasks.emplace(task);
+		}
+		condition.notify_one();
+	}
+
+	void ThreadPool::WorkerThread() {
+		while (true) {
+			std::function<void()> task;
+
+			{
+				std::unique_lock<std::mutex> lock(queueMutex);
+				condition.wait(lock, [this] { return stop || !tasks.empty(); });
+
+				if (stop && tasks.empty()) {
+					return;
+				}
+
+				task = tasks.front();
+				tasks.pop();
+			}
+
+			task();  // 执行任务
+		}
 	}
 
 

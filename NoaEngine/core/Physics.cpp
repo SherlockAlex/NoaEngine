@@ -2,6 +2,7 @@
 #include "NoaEngine.h"
 #include "Scene.h"
 #include <unordered_map>
+#include <thread>
 
 using namespace std;
 
@@ -68,132 +69,41 @@ namespace noa {
 
 		collision.other = nullptr;
 		collision.isHitCollisionTile = false;
-		
-		if (useGravity)
+
+		if (useMotion)
 		{
-			if (!collision.isGrounded)
+			if (useGravity)
 			{
-				//如果使用重力
-				velocity.y += 3.5 * g * deltaTime;
+				if (!collision.isGrounded)
+				{
+					//如果使用重力
+					velocity.y += 3.5 * g * deltaTime;
 
+				}
 			}
+
+			//处理力和速度的关系
+			//F = ma
+
+			velocity = (velocity * (1 - damping)) + (sumForce * (deltaTime * invMass));
+
+			//将速度的量反馈到物体的位移变化
+			newPosition = move((colliderPos->position) + (velocity * deltaTime));
+
+			ApplyCollision();
+
+			colliderPos->position = move(newPosition);
 		}
-
-		//处理力和速度的关系
-		//F = ma
-
-		velocity = (velocity * (1 - damping)) + (sumForce * (deltaTime * invMass));
-
-		//将速度的量反馈到物体的位移变化
-		Vector<float> newPosition= move((colliderPos->position) + (velocity * deltaTime));
-		
 		//根据速度进行物体的碰撞检测
 		//如果检测到了碰撞字符，就停止
+		
 
-		if (useCollision)
-		{
-			const float offset = collision.isTrigger ? 0.2 : 0;
-			if (velocity.x <= 0)
-			{
-
-				
-
-				if (
-					   CollisionWithinRigidbody(this
-						,newPosition.x- colliderSize.x,colliderPos->position.y- colliderSize.y
-						, newPosition.x- colliderSize.x, colliderPos->position.y + 0.999+ colliderSize.y
-					)
-					|| ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x- colliderSize.x, colliderPos->position.y - colliderSize.y))
-					|| ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x- colliderSize.x, colliderPos->position.y + 0.999+colliderSize.y))
-					//||CollisionWithinRigidbody(this, newPosition.x, colliderPos->position.y+0.999)
-				)
-					
-				{
-
-					if (!collision.isTrigger)
-					{
-						collision.isHitCollisionTile = true;
-						newPosition.x = (int)newPosition.x + 1+colliderSize.x;
-						velocity.x = 0;
-					}
-					
-				}
-			}
-			else
-			{
-				if (
-					 CollisionWithinRigidbody(this
-						, newPosition.x+0.999+ colliderSize.x, colliderPos->position.y- colliderSize.y
-						, newPosition.x + 0.999+ colliderSize.x, colliderPos->position.y + 0.999+ colliderSize.y
-					)
-					|| ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x + 0.999+ colliderSize.x, colliderPos->position.y - colliderSize.y))
-					|| ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x + 0.999+ colliderSize.x, colliderPos->position.y + 0.999 + colliderSize.y))
-					//|| CollisionWithinRigidbody(this, newPosition.x+0.999, colliderPos->position.y + 0.999)
-					)
-				{
-					if (!collision.isTrigger)
-					{
-						collision.isHitCollisionTile = true;
-						newPosition.x = (int)newPosition.x-colliderSize.x;
-						velocity.x = 0;
-					}
-					
-				}
-			}
-
-			collision.isGrounded = false;
-			if (velocity.y <= 0)
-			{
-				if (
-					   CollisionWithinRigidbody(this,
-						newPosition.x- colliderSize.x, newPosition.y- colliderSize.y
-						,newPosition.x + 0.999+ colliderSize.x, newPosition.y- colliderSize.y
-					)
-					|| ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x -colliderSize.x, newPosition.y- colliderSize.y))
-					|| ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x + 0.999f+ colliderSize.x, newPosition.y- colliderSize.y))
-					//|| CollisionWithinRigidbody(this, newPosition.x+0.999, newPosition.y)
-					)
-				{
-
-					if (!collision.isTrigger)
-					{
-						collision.isHitCollisionTile = true;
-						newPosition.y = (int)newPosition.y + 1+colliderSize.y;
-						velocity.y = 0;
-					}
-				}
-			}
-			else
-			{
-				if (
-					  CollisionWithinRigidbody(this
-						, newPosition.x- colliderSize.x, newPosition.y+0.999+ colliderSize.y
-						, newPosition.x + 0.999+ colliderSize.x, newPosition.y + 0.999+ colliderSize.y
-					)
-					|| ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x - colliderSize.x, newPosition.y + 0.999+colliderSize.y))
-					|| ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x + 0.999f+colliderSize.x, newPosition.y + 0.999+colliderSize.y))
-					//|| CollisionWithinRigidbody(this, newPosition.x + 0.999, newPosition.y+0.999)
-					)
-					
-				{
-
-					if (!collision.isTrigger) {
-						collision.isHitCollisionTile = true;
-						newPosition.y = (int)newPosition.y-colliderSize.y;
-						velocity.y = 0;
-						collision.isGrounded = true;
-					}
-					
-				}
-			}
-		}
-
-		if (collision.isTrigger&&collision.other!=nullptr)
+		if (collision.isTrigger && collision.other != nullptr)
 		{
 			OnTrigger(collision.other);
 		}
 		collision.other = nullptr;
-		colliderPos->position = move(newPosition);
+		
 
 	}
 
@@ -233,15 +143,201 @@ namespace noa {
 
 	Vector<float> pos(0.0, 0.0);
 
-	float Rigidbody::FixPosition()
+	void Rigidbody::ApplyCollision()
 	{
-		//修复玩家位置
-		return 0.0;
-	}
+		if (!useCollision)
+		{
+			return;
+		}
 
-	void Rigidbody::UpdateCollision(const Vector<float> nextPosition)
-	{
-		
+		//if (velocity.x <= 0)
+		//{
+
+
+
+		//	if (
+		//		CollisionWithinRigidbody(this
+		//			, newPosition.x - colliderSize.x, colliderPos->position.y - colliderSize.y
+		//			, newPosition.x - colliderSize.x, colliderPos->position.y + 0.999 + colliderSize.y
+		//		)
+		//		|| ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x - colliderSize.x, colliderPos->position.y - colliderSize.y))
+		//		|| ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x - colliderSize.x, colliderPos->position.y + 0.999 + colliderSize.y))
+		//		//||CollisionWithinRigidbody(this, newPosition.x, colliderPos->position.y+0.999)
+		//		)
+
+		//	{
+
+		//		if (!collision.isTrigger)
+		//		{
+		//			collision.isHitCollisionTile = true;
+		//			newPosition.x = (int)newPosition.x + 1 + colliderSize.x;
+		//			velocity.x = 0;
+		//		}
+
+		//	}
+		//}
+		//else
+		//{
+		//	if (
+		//		CollisionWithinRigidbody(this
+		//			, newPosition.x + 0.999 + colliderSize.x, colliderPos->position.y - colliderSize.y
+		//			, newPosition.x + 0.999 + colliderSize.x, colliderPos->position.y + 0.999 + colliderSize.y
+		//		)
+		//		|| ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x + 0.999 + colliderSize.x, colliderPos->position.y - colliderSize.y))
+		//		|| ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x + 0.999 + colliderSize.x, colliderPos->position.y + 0.999 + colliderSize.y))
+		//		//|| CollisionWithinRigidbody(this, newPosition.x+0.999, colliderPos->position.y + 0.999)
+		//		)
+		//	{
+		//		if (!collision.isTrigger)
+		//		{
+		//			collision.isHitCollisionTile = true;
+		//			newPosition.x = (int)newPosition.x - colliderSize.x;
+		//			velocity.x = 0;
+		//		}
+
+		//	}
+		//}
+
+		//collision.isGrounded = false;
+		//if (velocity.y <= 0)
+		//{
+		//	if (
+		//		CollisionWithinRigidbody(this,
+		//			newPosition.x - colliderSize.x, newPosition.y - colliderSize.y
+		//			, newPosition.x + 0.999 + colliderSize.x, newPosition.y - colliderSize.y
+		//		)
+		//		|| ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x - colliderSize.x, newPosition.y - colliderSize.y))
+		//		|| ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x + 0.999f + colliderSize.x, newPosition.y - colliderSize.y))
+		//		//|| CollisionWithinRigidbody(this, newPosition.x+0.999, newPosition.y)
+		//		)
+		//	{
+
+		//		if (!collision.isTrigger)
+		//		{
+		//			collision.isHitCollisionTile = true;
+		//			newPosition.y = (int)newPosition.y + 1 + colliderSize.y;
+		//			velocity.y = 0;
+		//		}
+		//	}
+		//}
+		//else
+		//{
+		//	if (
+		//		CollisionWithinRigidbody(this
+		//			, newPosition.x - colliderSize.x, newPosition.y + 0.999 + colliderSize.y
+		//			, newPosition.x + 0.999 + colliderSize.x, newPosition.y + 0.999 + colliderSize.y
+		//		)
+		//		|| ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x - colliderSize.x, newPosition.y + 0.999 + colliderSize.y))
+		//		|| ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x + 0.999f + colliderSize.x, newPosition.y + 0.999 + colliderSize.y))
+		//		//|| CollisionWithinRigidbody(this, newPosition.x + 0.999, newPosition.y+0.999)
+		//		)
+
+		//	{
+
+		//		if (!collision.isTrigger) {
+		//			collision.isHitCollisionTile = true;
+		//			newPosition.y = (int)newPosition.y - colliderSize.y;
+		//			velocity.y = 0;
+		//			collision.isGrounded = true;
+		//		}
+
+		//	}
+		//}
+
+		if (velocity.x <= 0)
+		{
+			//向下
+			if (
+				CollisionWithinRigidbody(this
+					, newPosition.x - colliderSize.x - 0.499, colliderPos->position.y - colliderSize.y -0.499
+					, newPosition.x - colliderSize.x - 0.499, colliderPos->position.y + 0.499 + colliderSize.y
+				)
+				|| ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x - colliderSize.x - 0.499, colliderPos->position.y - colliderSize.y - 0.499))
+				|| ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x - colliderSize.x - 0.499, colliderPos->position.y + colliderSize.y + 0.499))
+				//||CollisionWithinRigidbody(this, newPosition.x, colliderPos->position.y+0.999)
+				)
+
+			{
+
+				if (!collision.isTrigger)
+				{
+					collision.isHitCollisionTile = true;
+					//newPosition.x = (int)newPosition.x + 1 + colliderSize.x + 0.5;
+					newPosition.x = (int)newPosition.x + colliderSize.x + 0.5;
+					velocity.x = 0;
+				}
+
+			}
+		}
+		else
+		{
+			if (
+				CollisionWithinRigidbody(this
+					, newPosition.x + 0.499 + colliderSize.x, colliderPos->position.y - colliderSize.y - 0.499
+					, newPosition.x + 0.499 + colliderSize.x, colliderPos->position.y + 0.499 + colliderSize.y
+				)
+				|| ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x + 0.499 + colliderSize.x, colliderPos->position.y - colliderSize.y-0.499))
+				|| ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x + 0.499 + colliderSize.x, colliderPos->position.y + 0.499 + colliderSize.y))
+				//|| CollisionWithinRigidbody(this, newPosition.x+0.999, colliderPos->position.y + 0.999)
+				)
+			{
+				if (!collision.isTrigger)
+				{
+					collision.isHitCollisionTile = true;
+					newPosition.x = (int)newPosition.x + 0.5 - colliderSize.x;
+					velocity.x = 0;
+				}
+
+			}
+		}
+
+		collision.isGrounded = false;
+		if (velocity.y <= 0)
+		{
+			if (
+				CollisionWithinRigidbody(this,
+					newPosition.x - colliderSize.x - 0.499, newPosition.y - colliderSize.y - 0.499
+					, newPosition.x + 0.499 + colliderSize.x, newPosition.y - colliderSize.y -0.499
+				)
+				|| ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x - colliderSize.x - 0.499, newPosition.y - colliderSize.y - 0.499))
+				|| ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x + 0.499 + colliderSize.x, newPosition.y - colliderSize.y - 0.499))
+				//|| CollisionWithinRigidbody(this, newPosition.x+0.999, newPosition.y)
+				)
+			{
+
+				if (!collision.isTrigger)
+				{
+					collision.isHitCollisionTile = true;
+					//newPosition.y = (int)newPosition.y + 1 + colliderSize.y + 0.5;
+					newPosition.y = (int)newPosition.y + colliderSize.y + 0.5;
+					velocity.y = 0;
+				}
+			}
+		}
+		else
+		{
+			if (
+				CollisionWithinRigidbody(this
+					, newPosition.x - colliderSize.x - 0.499, newPosition.y + 0.499 + colliderSize.y
+					, newPosition.x + 0.499 + colliderSize.x, newPosition.y + 0.499 + colliderSize.y
+				)
+				|| ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x - colliderSize.x -0.499, newPosition.y + 0.499 + colliderSize.y))
+				|| ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x + 0.499 + colliderSize.x, newPosition.y + 0.499 + colliderSize.y))
+				//|| CollisionWithinRigidbody(this, newPosition.x + 0.999, newPosition.y+0.999)
+				)
+
+			{
+
+				if (!collision.isTrigger) {
+					collision.isHitCollisionTile = true;
+					newPosition.y = (int)newPosition.y - colliderSize.y + 0.5;
+					velocity.y = 0;
+					collision.isGrounded = true;
+				}
+
+			}
+		}
+
 	}
 
 	int Rigidbody::GetIndexInMap() const
@@ -259,25 +355,6 @@ namespace noa {
 		return ContainKey<int, bool>(collisionTiles, tileID);
 	}
 
-	//bool CollisionWithinRigidbody(Rigidbody * rigid,const int x,const int y)
-	//{
-
-	//	//indexInMap是一个动态的概念
-	//	const int indexInMap = y * tileMap->w + x;
-
-	//	for (int i=0;i< rigidbodys.size();i++)
-	//	{
-	//		if (rigidbodys[i] == nullptr||rigid == nullptr||rigidbodys[i]==rigid)
-	//		{
-	//			continue;
-	//		}
-	//		if (rigidbodys[i]->GetIndexInMap() == indexInMap)
-	//		{
-	//			return true;
-	//		}
-	//	}
-	//	return false;
-	//}
 
 	bool CollisionWithinRigidbody(Rigidbody* rigid, const int x1, const int y1, const int x2, const int y2)
 	{

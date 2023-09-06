@@ -45,7 +45,7 @@ namespace noa {
 		float damping = 0.02;
 		Transform* colliderPos = nullptr;
 	private:
-		
+		Vector<float> newPosition;
 		//用于物体之间的碰撞检测
 		int indexInMap = -1;
 		
@@ -56,10 +56,10 @@ namespace noa {
 		bool useGravity = true;
 		//bool isGrounded = false;
 		bool useCollision = true;
-		
 		void* gameObject = nullptr;
 
 	public:
+		bool useMotion = true;
 		bool isFrozen = false;
 		//刚体的速度
 		Vector<float> velocity = Vector<float>(0.0,0.0);
@@ -86,8 +86,9 @@ namespace noa {
 		void AddForce(const Vector<float> force, ForceType forceType);
 		void SetCollisionTileID(std::vector<int> collisionTileIDs);
 		void UpdateMap(void * map);
-		float FixPosition();
-		void UpdateCollision(const Vector<float> nextPosition);
+
+		//碰撞检测线程
+		void ApplyCollision();
 
 		//触发触发器，基于触发对象other以一个void*类型的指针
 		virtual void OnTrigger(void* other) {}

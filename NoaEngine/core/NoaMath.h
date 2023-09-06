@@ -7,7 +7,9 @@
 
 namespace noa {
 	// Math Constance
-#define PI 3.14159
+#define PI 3.1415926
+#define HALFPI 1.57079633
+#define MUTIPI 6.28318531
 
 //∂®“Â2Œ¨ ∏¡ø
 	template <class T>

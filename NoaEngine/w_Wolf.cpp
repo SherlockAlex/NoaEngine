@@ -2,11 +2,85 @@
 
 using namespace noa;
 
+enum CacoState
+{
+	Idle,Move
+};
+
+class CacoIdleState :public State 
+{
+private:
+	Transform* target = nullptr;
+	Rigidbody* rigid = nullptr;
+public:
+	CacoIdleState(StateMachine* fsm,Rigidbody* owner,Transform* target) 
+		:State(fsm)
+	{
+		this->rigid = owner;
+		this->target = target;
+	}
+
+	void Act() override {
+		//Debug("the caco is idling");
+		rigid->velocity = Vector<float>(0.0, 0.0);
+		rigid->useMotion = false;
+	}
+
+	void Reason() override {
+		const Vector<float> dir = target->position - rigid->colliderPos->position;
+		const float distanceToPlayer = dir.SqrMagnitude();
+		if (distanceToPlayer<6.5*6.5) 
+		{
+			//Debug("is see player");
+			SetTransition(Move);
+		}
+		
+		
+	}
+
+};
+
+class CacoChaseState :public State {
+public:
+	Transform* target = nullptr;
+	Rigidbody* rigid = nullptr;
+public:
+	CacoChaseState(StateMachine* fsm,Rigidbody* rigid,Transform * target) 
+		:State(fsm) 
+	{
+		this->target = target;
+		this->rigid = rigid;
+	}
+
+	void Act() override {
+		////Debug("is moving");
+		rigid->useMotion = true;
+		const Vector<float> dir = (target->position - rigid->colliderPos->position).Normalize();
+		
+		rigid->velocity = dir * 8;
+
+	}
+
+	void Reason() override 
+	{
+		const Vector<float> dir = target->position - rigid->colliderPos->position;
+		const float distanceToPlayer = dir.SqrMagnitude();
+		if (distanceToPlayer >= 7*7|| distanceToPlayer<=2*2)
+		{
+			rigid->useMotion = false;
+			rigid->velocity = rigid->velocity.Zero();
+			//Debug("Lose player");
+			SetTransition(Idle);
+		}
+	}
+
+};
+
 class Enimy :public GameObject,public Rigidbody 
 {
 public:
 	Transform* player = nullptr;
-
+	StateMachine* fsm = nullptr;
 public:
 	void TakeDamage(int damage)
 	{
@@ -24,7 +98,7 @@ public:
 		
 	}
 
-	Enimy(Sprite sprite) :
+	Enimy(Sprite sprite,Transform* player) :
 		GameObject(new Sprite(sprite))
 		,Rigidbody(&transform)
 	{
@@ -40,6 +114,20 @@ public:
 			});
 
 		gameObject = this;
+		this->player = player;
+		this->useGravity;
+
+		fsm = new StateMachine();
+
+		CacoIdleState* idleState = new CacoIdleState(fsm,this,this->player);
+		CacoChaseState* chaseState = new CacoChaseState(fsm,this, this->player);
+
+		idleState->AddTransition(Move,chaseState);
+		chaseState->AddTransition(Idle, idleState);
+
+		fsm->AddState(idleState);
+		fsm->AddState(chaseState);
+
 	}
 
 	~Enimy() 
@@ -52,6 +140,9 @@ public:
 	void Update() override 
 	{
 		sprite->UpdateImage(die.GetCurrentFrameImage());
+
+		fsm->Act();
+		fsm->Reason();
 
 		//Ö´ÐÐAiÂß¼­
 
@@ -78,8 +169,8 @@ public:
 
 	Item(Sprite* sprite) :GameObject(sprite), Rigidbody(&transform) {
 		
-		colliderSize.x = 0.2;
-		colliderSize.y = 0.2;
+		colliderSize.x = 0;
+		colliderSize.y = 0;
 
 		useGravity = false;
 		collision.isTrigger = true;
@@ -117,8 +208,10 @@ public:
 	Player(TileMap* map) :Behaviour(), Rigidbody(&transform)
 	{
 		tag = "Player";
-
+		colliderSize = {-0.2,-0.2};
 		useGravity = false;
+
+		damping = 0;
 
 		vector<int> collisionTileID;
 		collisionTileID.push_back(36);
@@ -193,10 +286,7 @@ public:
 			velocity.y += -sinf(transform.eulerAngle);
 		}
 
-		if (inputSystem.GetKeyHold(KeyESC)) 
-		{
-			inputSystem.SetRelativeMouseMode(false);
-		}
+		
 
 		if (inputSystem.GetMouseButton(LeftButton)) 
 		{
@@ -264,12 +354,12 @@ public:
 	{
 		ActorControl();
 		gunSprite.UpdateImage(gunShot->GetCurrentFrameImage());
-		gunSprite.DrawSprite(0.25*pixelWidth,pixelHeight - 0.5*pixelWidth,true);
+		gunSprite.DrawSprite(0.5*pixelWidth,pixelHeight - 0.25*pixelWidth,true);
 		renderer.DrawString("hp:100\nbullet:" + to_string(bulletCount), 0, 0, RED, pixelHeight / 20);
 	}
 
 public:
-	float speed = 7;
+	float speed = 10;
 
 	Uint32 maxHp = 100;
 	Uint32 hp = 100;
@@ -303,8 +393,7 @@ public:
 			{
 				if (objectMap.image[j*objectMap.w+i] == 18)
 				{
-					Enimy* enimy = new Enimy(cacoSprite);
-					enimy->player = &player.transform;
+					Enimy* enimy = new Enimy(cacoSprite, &player.transform);
 					enimy->transform.position.x = i;
 					enimy->transform.position.y = j;
 				}
@@ -342,12 +431,19 @@ public:
 	}
 
 	void Update() override {
-		camera.Render(tileMap,true,sky);
+		camera.Render(tileMap,false,nullptr);
 		mouse.DrawSprite(pixelWidth*0.5-0.5*mouse.scale.x,pixelHeight*0.5-0.5*mouse.scale.y,true);
 		if (inputSystem.GetKeyHold(KeyM))
 		{
-			mapCamera.Render(tileMap,Vector<float>(0.0,0.0),Vector<float>(0.0,0.0));
+			Vector<int> drawPos = mapCamera.Render(tileMap,Vector<float>(0.0,0.0),Vector<float>(0.0,0.0));
+			renderer.DrawRect(drawPos, drawPos + Vector<int>(10, 10), WHITE);
 		}
+
+		if (inputSystem.GetKeyHold(KeyESC))
+		{
+			Quit();
+		}
+
 	}
 
 private:
@@ -378,7 +474,7 @@ private:
 
 int main(int argc,char * argv[])
 {
-	WolfGame game(1920/2, 1080/2, NoaGameEngine::WindowMode, "Wolf");
+	WolfGame game(1920/4, 1080/4, NoaGameEngine::WindowMode, "Wolf");
 	game.Run();
 
 	return 0;
