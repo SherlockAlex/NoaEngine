@@ -14,10 +14,7 @@ namespace noa {
 
 	extern bool IsCollisionTile(int tileID);
 	//检测rigid是否和其他刚体相撞，如果相撞就返回
-	//extern bool CollisionWithinRigidbody(Rigidbody* rigid,const int x,const int y);
 	extern bool CollisionWithinRigidbody(Rigidbody* rigid, const int x1, const int y1,const int x2,const int y2);
-
-	//void ApplyCollision(Rigidbody* rigid, int posx, int posy);
 
 	unordered_map<size_t,Rigidbody*> rigidbodys;
 
@@ -84,20 +81,13 @@ namespace noa {
 
 			//处理力和速度的关系
 			//F = ma
-
 			velocity = (velocity * (1 - damping)) + (sumForce * (deltaTime * invMass));
-
-			//将速度的量反馈到物体的位移变化
 			newPosition = move((colliderPos->position) + (velocity * deltaTime));
-
 			ApplyCollision();
-
 			colliderPos->position = move(newPosition);
 		}
 		//根据速度进行物体的碰撞检测
 		//如果检测到了碰撞字符，就停止
-		
-
 		if (collision.isTrigger && collision.other != nullptr)
 		{
 			OnTrigger(collision.other);
@@ -254,7 +244,6 @@ namespace noa {
 				)
 				|| ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x - colliderSize.x - 0.499, colliderPos->position.y - colliderSize.y - 0.499))
 				|| ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x - colliderSize.x - 0.499, colliderPos->position.y + colliderSize.y + 0.499))
-				//||CollisionWithinRigidbody(this, newPosition.x, colliderPos->position.y+0.999)
 				)
 
 			{
@@ -278,7 +267,6 @@ namespace noa {
 				)
 				|| ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x + 0.499 + colliderSize.x, colliderPos->position.y - colliderSize.y-0.499))
 				|| ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x + 0.499 + colliderSize.x, colliderPos->position.y + 0.499 + colliderSize.y))
-				//|| CollisionWithinRigidbody(this, newPosition.x+0.999, colliderPos->position.y + 0.999)
 				)
 			{
 				if (!collision.isTrigger)
@@ -301,7 +289,6 @@ namespace noa {
 				)
 				|| ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x - colliderSize.x - 0.499, newPosition.y - colliderSize.y - 0.499))
 				|| ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x + 0.499 + colliderSize.x, newPosition.y - colliderSize.y - 0.499))
-				//|| CollisionWithinRigidbody(this, newPosition.x+0.999, newPosition.y)
 				)
 			{
 
@@ -323,7 +310,6 @@ namespace noa {
 				)
 				|| ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x - colliderSize.x -0.499, newPosition.y + 0.499 + colliderSize.y))
 				|| ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x + 0.499 + colliderSize.x, newPosition.y + 0.499 + colliderSize.y))
-				//|| CollisionWithinRigidbody(this, newPosition.x + 0.999, newPosition.y+0.999)
 				)
 
 			{

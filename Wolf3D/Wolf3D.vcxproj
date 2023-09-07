@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\NoaEngine\core\Animator.cpp" />
+    <ClCompile Include="..\NoaEngine\core\Audio.cpp" />
+    <ClCompile Include="..\NoaEngine\core\Behaviour.cpp" />
+    <ClCompile Include="..\NoaEngine\core\Camera.cpp" />
+    <ClCompile Include="..\NoaEngine\core\GameObject.cpp" />
+    <ClCompile Include="..\NoaEngine\core\InputSystem.cpp" />
+    <ClCompile Include="..\NoaEngine\core\NoaAction.cpp" />
+    <ClCompile Include="..\NoaEngine\core\NoaEngine.cpp" />
+    <ClCompile Include="..\NoaEngine\core\NoaGUI.cpp" />
+    <ClCompile Include="..\NoaEngine\core\NoaMath.cpp" />
+    <ClCompile Include="..\NoaEngine\core\Physics.cpp" />
+    <ClCompile Include="..\NoaEngine\core\Renderer.cpp" />
+    <ClCompile Include="..\NoaEngine\core\Scene.cpp" />
+    <ClCompile Include="..\NoaEngine\core\Sprite.cpp" />
+    <ClCompile Include="..\NoaEngine\core\src\glad.c" />
+    <ClCompile Include="..\NoaEngine\core\StateMachine.cpp" />
+    <ClCompile Include="..\NoaEngine\core\Transform.cpp" />
+    <ClCompile Include="Caco.cpp" />
+    <ClCompile Include="CacoState.cpp" />
+    <ClCompile Include="Enimy.cpp" />
+    <ClCompile Include="Item.cpp" />
+    <ClCompile Include="LiveEntity.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Player.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\NoaEngine\core\Animator.h" />
+    <ClInclude Include="..\NoaEngine\core\Audio.h" />
+    <ClInclude Include="..\NoaEngine\core\Behaviour.h" />
+    <ClInclude Include="..\NoaEngine\core\Camera.h" />
+    <ClInclude Include="..\NoaEngine\core\GameObject.h" />
+    <ClInclude Include="..\NoaEngine\core\Graphic.h" />
+    <ClInclude Include="..\NoaEngine\core\include\glad\glad.h" />
+    <ClInclude Include="..\NoaEngine\core\include\KHR\khrplatform.h" />
+    <ClInclude Include="..\NoaEngine\core\InputSystem.h" />
+    <ClInclude Include="..\NoaEngine\core\NoaAction.h" />
+    <ClInclude Include="..\NoaEngine\core\NoaEngine.h" />
+    <ClInclude Include="..\NoaEngine\core\NoaGUI.h" />
+    <ClInclude Include="..\NoaEngine\core\NoaMath.h" />
+    <ClInclude Include="..\NoaEngine\core\Physics.h" />
+    <ClInclude Include="..\NoaEngine\core\Renderer.h" />
+    <ClInclude Include="..\NoaEngine\core\Scene.h" />
+    <ClInclude Include="..\NoaEngine\core\Sprite.h" />
+    <ClInclude Include="..\NoaEngine\core\StateMachine.h" />
+    <ClInclude Include="..\NoaEngine\core\Transform.h" />
+    <ClInclude Include="Caco.h" />
+    <ClInclude Include="CacoState.h" />
+    <ClInclude Include="Enimy.h" />
+    <ClInclude Include="GameEngine.h" />
+    <ClInclude Include="Item.h" />
+    <ClInclude Include="LiveEntity.h" />
+    <ClInclude Include="Player.h" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>17.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{a1cc3cb8-b9a1-444e-8805-1ef32edb86e9}</ProjectGuid>
+    <RootNamespace>Wolf3D</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <IncludePath>D:\SDL2\msvc%28VS%29\SDL2-2.26.0-allinone\include;$(IncludePath)</IncludePath>
+    <ExternalIncludePath>D:\SDL2\msvc%28VS%29\SDL2-2.26.0-allinone\include;$(ExternalIncludePath)</ExternalIncludePath>
+    <LibraryPath>D:\SDL2\msvc%28VS%29\SDL2-2.26.0-allinone\lib\x64;$(LibraryPath)</LibraryPath>
+    <PublicIncludeDirectories>D:\SDL2\msvc%28VS%29\SDL2-2.26.0-allinone\include;$(PublicIncludeDirectories)</PublicIncludeDirectories>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>D:\SDL2\msvc%28VS%29\SDL2-2.26.0-allinone\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>SDL2.lib;SDL2_image.lib;SDL2_mixer.lib;SDL2_ttf.lib;SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

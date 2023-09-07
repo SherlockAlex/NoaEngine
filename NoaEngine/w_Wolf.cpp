@@ -4,7 +4,7 @@ using namespace noa;
 
 enum CacoState
 {
-	Idle,Move
+	Idle,Move,Attack
 };
 
 class CacoIdleState :public State 
@@ -65,11 +65,51 @@ public:
 	{
 		const Vector<float> dir = target->position - rigid->colliderPos->position;
 		const float distanceToPlayer = dir.SqrMagnitude();
-		if (distanceToPlayer >= 7*7|| distanceToPlayer<=2*2)
+		if (distanceToPlayer >= 7*7)
 		{
 			rigid->useMotion = false;
 			rigid->velocity = rigid->velocity.Zero();
 			//Debug("Lose player");
+			SetTransition(Idle);
+		}
+		else if (distanceToPlayer <= 2 * 2)
+		{
+			rigid->useMotion = false;
+			rigid->velocity = rigid->velocity.Zero();
+			SetTransition(Attack);
+		}
+	}
+
+};
+
+class CacoAttackState :public State {
+private:
+	Transform* target = nullptr;
+	Rigidbody* rigid = nullptr;
+public:
+	CacoAttackState(StateMachine* fsm, Rigidbody* rigid, Transform* target) 
+		:State(fsm) {
+		this->target = target;
+		this->rigid = rigid;
+	}
+
+	void Act() override 
+	{
+		Vector<float> dir = rigid->colliderPos->position - target->position;
+		rigid->useMotion = false;
+		rigid->velocity = rigid->velocity.Zero();
+		if (dir.SqrMagnitude()<=2*2)
+		{
+			//Attack
+			Debug("Attack");
+		}
+	}
+
+	void Reason() override 
+	{
+		Vector<float> dir = rigid->colliderPos->position - target->position;
+		if (dir.SqrMagnitude()>=4*4)
+		{
 			SetTransition(Idle);
 		}
 	}
@@ -121,12 +161,16 @@ public:
 
 		CacoIdleState* idleState = new CacoIdleState(fsm,this,this->player);
 		CacoChaseState* chaseState = new CacoChaseState(fsm,this, this->player);
+		CacoAttackState* attackState = new CacoAttackState(fsm, this, this->player);
 
 		idleState->AddTransition(Move,chaseState);
 		chaseState->AddTransition(Idle, idleState);
+		chaseState->AddTransition(Attack, attackState);
+		attackState->AddTransition(Idle,idleState);
 
 		fsm->AddState(idleState);
 		fsm->AddState(chaseState);
+		fsm->AddState(attackState);
 
 	}
 
@@ -143,17 +187,6 @@ public:
 
 		fsm->Act();
 		fsm->Reason();
-
-		//执行Ai逻辑
-
-		////获取玩家的transform
-		//Vector<float> dir = player->position - transform.position;
-		//if (dir.SqrMagnitude()<25.0) 
-		//{
-		//	return;
-		//}
-		//dir = dir.Normalize();
-		//velocity = dir * 5;
 	}
 
 private:
@@ -231,8 +264,6 @@ public:
 		inputSystem.inputEvent += [this]() {
 			this->RotateControl();
 		};
-
-		//SetPosition(107, *map);
 
 	}
 

@@ -11,8 +11,7 @@ namespace noa {
 		std::ifstream inputFile(file, std::ios::binary);
 		if (!inputFile) {
 			Debug("Opening file: "+string(file)+" error");
-			//std::cout << "Error opening file." << std::endl;
-			return animator;
+			exit(-1);
 		}
 
 		int spriteCount;
@@ -23,7 +22,6 @@ namespace noa {
 			int imageCount;
 			inputFile.read(reinterpret_cast<char*>(&imageCount), sizeof(int));
 
-			//sprite.images = new uint32_t[imageCount];
 			for (int j = 0; j < imageCount; ++j) {
 				uint32_t pixel;
 				inputFile.read(reinterpret_cast<char*>(&pixel), sizeof(uint32_t));
@@ -58,7 +56,7 @@ namespace noa {
 		{
 			currentFrame = move(framesImage[0]);
 		}
-		frameSize = framesImage.size();
+		//frameSize = framesImage.size();
 
 	}
 
@@ -79,7 +77,7 @@ namespace noa {
 			currentFrame = move(framesImage[0]);
 		}
 
-		frameSize = framesImage.size();
+		//frameSize = framesImage.size();
 
 	}
 
@@ -135,6 +133,10 @@ namespace noa {
 	/// <param name="frame">²¥·ÅµÚframeÖ¡µÄÍ¼Ïñ</param>
 	void Animator::Play(int frame)
 	{
+		if (framesImage.empty())
+		{
+			return;
+		}
 		currentFrame = GetFrameImage(frame);
 	}
 
@@ -155,7 +157,7 @@ namespace noa {
 		Debug("Insert Animator Frame");
 		framesImage.push_back(frameImage);
 		currentFrame = framesImage[0];
-		frameSize = framesImage.size();
+		//frameSize = framesImage.size();
 	}
 
 	void Animator::Start()
@@ -172,7 +174,7 @@ namespace noa {
 		}
 
 		i = i + deltaTime * speed;
-		if (i >= frameSize)
+		if (i >= framesImage.size())
 		{
 			i = 0;
 			isPlaying = false;

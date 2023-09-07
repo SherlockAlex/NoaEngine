@@ -1,0 +1,109 @@
+﻿  Player.cpp
+D:\Work\NoaEngine\NoaEngine\core\Sprite.h(47,40): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\NoaEngine\NoaEngine\core\Sprite.h(47,35): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\NoaEngine\NoaEngine\core\Scene.h(71,56): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\NoaEngine\NoaEngine\core\Scene.h(71,52): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
+D:\Work\NoaEngine\NoaEngine\core\include\glad\glad.h(32,1): message : 参见“APIENTRY”的前一个定义
+D:\Work\NoaEngine\NoaEngine\core\Graphic.h(28,1): warning C4005: “LOBYTE”: 宏重定义
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(206,1): message : 参见“LOBYTE”的前一个定义
+D:\Work\NoaEngine\NoaEngine\core\Graphic.h(33,1): warning C4005: “RGB”: 宏重定义
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1859,1): message : 参见“RGB”的前一个定义
+D:\Work\NoaEngine\NoaEngine\core\Graphic.h(36,1): warning C4005: “GetGValue”: 宏重定义
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1870,1): message : 参见“GetGValue”的前一个定义
+D:\Work\NoaEngine\NoaEngine\core\Physics.h(45,19): warning C4305: “初始化”: 从“double”到“float”截断
+D:\Work\NoaEngine\NoaEngine\core\Physics.h(55,13): warning C4305: “初始化”: 从“double”到“float”截断
+D:\Work\NoaEngine\NoaEngine\core\Camera.h(41,57): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\NoaEngine\NoaEngine\core\Camera.h(41,52): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\NoaEngine\NoaEngine\core\Camera.h(79,20): warning C4305: “初始化”: 从“double”到“float”截断
+D:\Work\NoaEngine\NoaEngine\core\Camera.h(80,29): warning C4244: “初始化”: 从“double”转换到“const float”，可能丢失数据
+D:\Work\NoaEngine\NoaEngine\core\Camera.h(82,35): warning C4244: “初始化”: 从“double”转换到“const float”，可能丢失数据
+D:\Work\NoaEngine\NoaEngine\core\NoaGUI.h(29,59): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\NoaEngine\NoaEngine\core\NoaGUI.h(29,54): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\NoaEngine\NoaEngine\core\NoaGUI.h(55,43): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\NoaEngine\NoaEngine\core\NoaGUI.h(55,38): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\NoaEngine\Wolf3D\Player.h(26,39): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\NoaEngine\Wolf3D\Player.h(26,21): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\NoaEngine\Wolf3D\Player.cpp(7,25): warning C4305: “参数”: 从“double”到“T”截断
+          with
+          [
+              T=float
+          ]
+D:\Work\NoaEngine\Wolf3D\Player.cpp(7,20): warning C4305: “参数”: 从“double”到“T”截断
+          with
+          [
+              T=float
+          ]
+D:\Work\NoaEngine\Wolf3D\Player.cpp(45,28): warning C4244: “=”: 从“int”转换到“T”，可能丢失数据
+          with
+          [
+              T=float
+          ]
+D:\Work\NoaEngine\Wolf3D\Player.cpp(46,28): warning C4244: “=”: 从“int”转换到“T”，可能丢失数据
+          with
+          [
+              T=float
+          ]
+D:\Work\NoaEngine\Wolf3D\Player.cpp(106,47): warning C4244: “+=”: 从“double”转换到“float”，可能丢失数据
+D:\Work\NoaEngine\Wolf3D\Player.cpp(121,15): warning C4244: “初始化”: 从“double”转换到“int”，可能丢失数据
+D:\Work\NoaEngine\Wolf3D\Player.cpp(150,53): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+D:\Work\NoaEngine\Wolf3D\Player.cpp(150,27): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+D:\Work\NoaEngine\NoaEngine\core\NoaMath.h(58,31): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
+D:\Work\NoaEngine\NoaEngine\core\NoaMath.h(52,10): message : 在编译 类 模板 成员函数“noa::Vector<float> noa::Vector<float>::Normalize(void) const”时
+D:\Work\NoaEngine\Wolf3D\Player.cpp(96,11): message : 请参阅 "Player::ActorControl" 中对 "noa::Vector<float>::Normalize" 的第一个引用
+D:\Work\NoaEngine\NoaEngine\core\Transform.h(9,17): message : 查看对正在编译的 类 模板 实例化“noa::Vector<float>”的引用
+D:\Work\NoaEngine\NoaEngine\core\NoaMath.h(58,26): warning C4244: “初始化”: 从“double”转换到“const float”，可能丢失数据
+  正在生成代码
+  6 of 2318 functions ( 0.3%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    35 functions had inline decision re-evaluated but remain unchanged
+  已完成代码的生成
+  Wolf3D.vcxproj -> D:\Work\NoaEngine\x64\Release\Wolf3D.exe

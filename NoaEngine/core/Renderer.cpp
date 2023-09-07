@@ -33,6 +33,9 @@ namespace noa {
 			return;
 		}
 		pixelBuffer[y * pixelWidth + x] = color;
+
+		
+
 	}
 
 	void Renderer::DrawLine(int x1, int y1, int x2, int y2, Uint32 color) const
@@ -268,7 +271,10 @@ namespace noa {
 
 	void Renderer::FullScreen(Uint32 color) const
 	{
-		return;
+		for (int x = 0;x<pixelWidth*pixelHeight;x++) 
+		{
+			pixelBuffer[x] = color;
+		}
 	}
 
 	void Renderer::UpdateScreen()
