@@ -105,7 +105,14 @@ CacoAttackState::CacoAttackState(
 
 	animation.SetFrameEvent(2, [this]() 
 		{
-			this->enimy->enimy->TakeDamage(10);
+			Vector<float> distanceVector = this->target->position - this->enimy->transform.position;
+			const float distance = distanceVector.SqrMagnitude();
+
+			if (distance <= 2 * 2)
+			{
+				this->enimy->enimy->TakeDamage(10);
+			}
+			
 		});
 
 }
