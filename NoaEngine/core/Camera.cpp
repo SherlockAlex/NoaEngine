@@ -217,7 +217,7 @@ namespace noa {
 		}
 	}
 
-	void FreeCamera::Render(TileMap& map, bool renderFloor,Sprite * skybox)
+	void FreeCamera::Render(TileMap& map, bool renderFloor, Sprite* skybox, uint32_t mutiColor)
 	{
 
 		////采用画家画图法和射线投射算法绘制
@@ -256,13 +256,16 @@ namespace noa {
 					
 					if (skybox==nullptr)
 					{
-						renderer.DrawPixel(x, y, RGB(63, 63, 63));
+						color = RGB(63, 63, 63);
+						color = MUTICOLOR(color, mutiColor);
+						renderer.DrawPixel(x, y, color);
 						continue;
 					}
 					const float dx = (x + 200 * follow->eulerAngle) / pixelWidth;
 					const float dy = (y + 0.0) / (pixelHeight*2);
 
 					color = skybox->GetColor(dy, dx);
+
 					renderer.DrawPixel(x, y, color);
 					
 				}
@@ -290,78 +293,7 @@ namespace noa {
 					color = RGB(128,128,128);
 				}
 
-				renderer.DrawPixel(x, y, color);
-
-			}
-
-		}
-
-		RenderGameObject();
-
-	}
-
-	void FreeCamera::Render(TileMap& map, bool renderFloor)
-	{
-
-		//采用画家画图法和射线投射算法绘制
-		
-		//FLOOR CASTING
-
-		if (renderFloor)
-		{
-			RenderFloor(map);
-		}
-
-		//绘制墙壁
-		for (int x = 0;x<pixelWidth;x++) 
-		{
-			//Ray ray =move(RaycastHit(x, map));
-			
-			Ray ray = move(RaycastHit(x, map));
-
-			wallDistanceBuffer[x] = ray.distance;
-
-			//绘制墙壁
-			const float ceiling = pixelHeight * 0.5 - (float)(pixelHeight) / ray.distance;
-			const float floor = pixelHeight - ceiling;
-			uint32_t color = ERRORCOLOR;
-			float sharkCamera = 75 * (sinf(1.5 * (follow->position.x)) + sinf(1.5 * (follow->position.y)));
-			sharkCamera = sharkCamera / ray.distance;
-			sharkCamera = 0;
-
-			//绘制地板与天花板
-
-			for (int y = ceiling + sharkCamera;y<floor + sharkCamera;y++)
-			{
-				if (y<=ceiling + sharkCamera)
-				{
-					//color = RGB(63, 63, 63);
-					continue;
-				}
-				else if (y>ceiling + sharkCamera && y<=floor + sharkCamera)
-				{
-					ray.simple.y = ((float)y - (float)(ceiling + sharkCamera))
-						/ ((float)floor - (float)ceiling);
-
-					const Tile* tile = map.GetTile(ray.hitTile);
-					if (tile!=nullptr) 
-					{
-						color = tile->sprite->GetColor(ray.simple.y, ray.simple.x);
-					}
-				}
-				//else 
-				//{
-				//	/*const float b = 1.0 - (((float)y - pixelHeight * 0.5) / (float)pixelHeight * 0.5);
-				//	const float deltaRayShine = (1 - b) * (1 - b);
-				//	const float depth = (1 - b);
-				//	color = WHITE;*/
-				//	//color = WHITE;
-				//	if (floor!=-1)
-				//	{
-				//		continue;
-				//	}
-				//	color = WHITE;
-				//}
+				color = MUTICOLOR(color, mutiColor);
 
 				renderer.DrawPixel(x, y, color);
 
@@ -372,7 +304,6 @@ namespace noa {
 		RenderGameObject();
 
 	}
-
 	
 
 	Ray FreeCamera::RaycastHit(int pixelX,const TileMap& map)
@@ -465,6 +396,8 @@ namespace noa {
 
 	void FreeCamera::RenderGameObjectEnter()
 	{
+		//对游戏内的物品使用快速排序进行排序
+
 		for (int i = 0; i < objectBufferWithRay.size(); i++)
 		{
 			objectBufferWithRay[i] = nullptr;

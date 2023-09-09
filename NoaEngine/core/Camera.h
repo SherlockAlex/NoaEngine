@@ -88,8 +88,7 @@ namespace noa {
 		FreeCamera(Transform* follow);
 
 		void RenderFloor(TileMap& map);
-		void Render(TileMap& map, bool renderFloor, Sprite * skybox);
-		void Render(TileMap& map, bool renderFloor);
+		void Render(TileMap& map, bool renderFloor, Sprite * skybox,uint32_t mutiColor);
 		void RenderGameObjectEnter();
 		void RenderGameObject();
 

@@ -60,8 +60,24 @@ public:
 		inputSystem.SetRelativeMouseMode(true);
 	}
 
+	float i = 0;
+	uint32_t mutiColor = WHITE;
 	void Update() override {
-		camera.Render(tileMap, false, nullptr);
+		i = i + deltaTime;
+		
+		if (i>0.1&&mutiColor==WHITE)
+		{
+			mutiColor = BLUE;
+			i = 0;
+		}
+		else if (i > 0.5 && mutiColor == BLUE)
+		{
+			mutiColor = WHITE;
+			i = 0;
+		}
+
+		
+		camera.Render(tileMap, false, nullptr, mutiColor);
 		mouse.DrawSprite(pixelWidth * 0.5 - 0.5 * mouse.scale.x, pixelHeight * 0.5 - 0.5 * mouse.scale.y, true);
 		if (inputSystem.GetKeyHold(KeyM))
 		{

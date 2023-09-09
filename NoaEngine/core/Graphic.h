@@ -36,6 +36,7 @@ namespace noa {
 	#define GetGValue(rgb)      (LOBYTE(((unsigned short)(rgb)) >> 8))
 	#define GetBValue(rgb)      (LOBYTE((rgb)>>16))
 
+	#define MUTICOLOR(color,mutiColor) (RGB(GetRValue(color)* (GetRValue(mutiColor) / 255.0), GetGValue(color)* (GetGValue(mutiColor) / 255.0), GetBValue(color)* (GetBValue(mutiColor) / 255.0)))
 	#define ERRORCOLOR RGB(152,0,136)
 
 	typedef Uint32 ColorRef;
