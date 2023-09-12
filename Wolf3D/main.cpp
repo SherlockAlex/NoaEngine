@@ -110,27 +110,27 @@ public:
 
 private:
 
-	Sprite sky = Sprite(LoadSprFile("./Assets/Wolf/sky-sun.spr"), Vector<int>(1.0, 1.0));
+	Sprite sky = Sprite(resource.LoadSprFile("./Assets/Wolf/sky-sun.spr"), Vector<int>(1.0, 1.0));
 	TileMap tileMap = TileMap(
-		LoadTileFromTsd("./Assets/Wolf/Map/tileSet.tsd"),
-		LoadMapFromCSV("./Assets/Wolf/Map/level_地图层.csv")
+		resource.LoadTileFromTsd("./Assets/Wolf/Map/tileSet.tsd"),
+		resource.LoadMapFromCSV("./Assets/Wolf/Map/level_地图层.csv")
 	);
 
 	Player player = Player(&tileMap);
 	FreeCamera camera = FreeCamera(&player.transform);
 	TileMapCamera mapCamera = TileMapCamera(Vector<int>(32, 32), &player.transform);
-	Sprite mouse = Sprite(LoadSprFile("./Assets/Wolf/mouse.spr"), Vector<int>(0.03 * pixelWidth, 0.03 * pixelWidth));
+	Sprite mouse = Sprite(resource.LoadSprFile("./Assets/Wolf/mouse.spr"), Vector<int>(0.03 * pixelWidth, 0.03 * pixelWidth));
 
-	Sprite cacoSprite = Sprite(LoadSprFile("./Assets/Wolf/caco.spr"), Vector<int>(32, 32));
+	Sprite cacoSprite = Sprite(resource.LoadSprFile("./Assets/Wolf/caco.spr"), Vector<int>(32, 32));
 
 	//Animator bulletAnimator = Animator(7);
-	Sprite bulletSprite = Sprite(LoadSprFile("./Assets/Wolf/bullet.spr"), Vector<int>(64, 64));
+	Sprite bulletSprite = Sprite(resource.LoadSprFile("./Assets/Wolf/bullet.spr"), Vector<int>(64, 64));
 
 	Audio bulletPickUpSFX = Audio("./Assets/Wolf/Music/pickUpBullet.mp3", Chunk);
 
 	Audio BGM = Audio("./Assets/Wolf/Music/theme.mp3", Music);
 
-	MapFile objectMap = LoadMapFromCSV("./Assets/Wolf/Map/level_对象.csv");
+	MapFile objectMap = resource.LoadMapFromCSV("./Assets/Wolf/Map/level_对象.csv");
 
 };
 

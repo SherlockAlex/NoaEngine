@@ -3,6 +3,7 @@
 #include "Scene.h"
 #include "Renderer.h"
 #include "InputSystem.h"
+#include "Resource.h"
 
 namespace noa {
 	extern void Debug(string msg);
@@ -16,7 +17,7 @@ namespace noa {
 		//加载游戏的字体资源
 
 		unordered_map<int, Font*> result;
-		std::vector<PixelData> resultData;
+		std::vector<TileData> resultData;
 
 		std::ifstream inputFile(fontPath, std::ios::binary);
 		if (inputFile)
@@ -28,7 +29,7 @@ namespace noa {
 
 			for (int i = 0; i < tileCount; i++)
 			{
-				PixelData pixelData;
+				TileData pixelData;
 				inputFile.read(reinterpret_cast<char*>(&pixelData.id), sizeof(int));
 
 				int imageCount;
@@ -61,7 +62,7 @@ namespace noa {
 			exit(-1);
 		}
 
-		for (PixelData data : resultData)
+		for (TileData data : resultData)
 		{
 			Font* font = new Font(data.sprites);
 			result[data.id] = font;

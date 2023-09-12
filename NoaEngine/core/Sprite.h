@@ -15,25 +15,12 @@
 #include <SDL2/SDL.h>
 
 #include "NoaMath.h"
+#include "Resource.h"
 
 using namespace std;
 
 namespace noa {
 	typedef unsigned int Uint32;
-
-	//本地的sprFile
-	typedef struct SpriteFile
-	{
-		vector<uint32_t> images;
-		//uint32_t* images;
-		int x;
-		int y;
-		int width;
-		int height;
-	}SpriteFile;
-
-	//加载本地的spr文件
-	extern SpriteFile LoadSprFile(const char* file);
 
 	//精灵贴图
 	class Sprite {

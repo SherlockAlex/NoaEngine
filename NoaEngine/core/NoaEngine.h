@@ -11,6 +11,7 @@
 * Scene						场景地图模块
 * Sprite					精灵模块
 * Camera                    摄像机，帮你解决屏幕显示的问题
+* Resource					资源管理器，负责本地资源的加载问题
 * 
 * 如果你是Linux用户，请仔细阅读Makefile文件，你可以使用它快速的配置开发环境
 * 如果你是Windows用户，请考虑使用VS 2022进行开发，注意配置好SDL2的开发环境
@@ -119,6 +120,7 @@ using namespace std;
 #include "Camera.h"
 #include "StateMachine.h"
 #include "NoaGUI.h"
+#include "Resource.h"
 
 //窗口属性
 

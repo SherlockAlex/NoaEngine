@@ -14,26 +14,13 @@
 
 #include "NoaMath.h"
 #include "Sprite.h"
+#include "Resource.h"
 #include <list>
 
 using namespace std;
 
 namespace noa {
 	typedef unsigned char Uint8;
-
-	typedef struct MapFile
-	{
-		//地图文件
-		int w = 0;
-		int h = 0;
-		vector<int> image;
-	}Map;
-
-
-	//加载地图
-	extern MapFile LoadMap(const char* fileName);
-
-	extern MapFile LoadMapFromCSV(const std::string filename);
 
 	class LevelMap {
 	public:
@@ -48,40 +35,6 @@ namespace noa {
 		void ConstructLayer(vector<vector<int>> layer);
 		
 	};
-
-	//瓦片地图
-	typedef struct Tile 
-	{
-		Sprite * sprite = nullptr;
-		bool isCollision = false;
-
-		Tile() 
-		{
-
-		}
-
-		Tile(Sprite * sprite,bool isCollision = false) 
-		{
-			this->sprite = sprite;
-			this->isCollision = isCollision;
-		}
-
-		Tile(SpriteFile spriteFile, bool isCollision = false)
-		{
-			this->sprite =new Sprite(spriteFile,Vector<int>(1.0,1.0));
-			this->isCollision = isCollision;
-		}
-
-	}Tile;
-
-	typedef struct PixelData {
-		int id;
-		SpriteFile sprites;
-	}PixelData;
-
-	//extern vector<PixelData> LoadTileFromTsd(const std::string& fileName);
-
-	extern unordered_map<int, Tile*> LoadTileFromTsd(const std::string& fileName);
 
 	//瓦片地图
 	class TileMap:public LevelMap

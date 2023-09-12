@@ -16,6 +16,7 @@
 #include "NoaAction.h"
 #include "Behaviour.h"
 #include "StateMachine.h"
+#include "Resource.h"
 
 using namespace std;
 
@@ -23,16 +24,6 @@ namespace noa {
 	typedef unsigned int Uint32;
 
 	//出现了问题，必须重构
-
-	typedef struct AnimationFile {
-		vector<SpriteFile> data;
-		int posx;
-		int posy;
-		int w;
-		int h;
-	}AnimationFile;
-
-	extern AnimationFile LoadAnimationFile(const char* file);
 
 	//动画器
 	class Animation:public Behaviour

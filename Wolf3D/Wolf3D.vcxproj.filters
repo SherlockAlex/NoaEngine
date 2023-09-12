@@ -93,6 +93,9 @@
     <ClCompile Include="LiveEntity.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="..\NoaEngine\core\Resource.cpp">
+      <Filter>源文件\core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\NoaEngine\core\Animator.h">
@@ -172,6 +175,9 @@
     </ClInclude>
     <ClInclude Include="LiveEntity.h">
       <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\NoaEngine\core\Resource.h">
+      <Filter>头文件\core</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

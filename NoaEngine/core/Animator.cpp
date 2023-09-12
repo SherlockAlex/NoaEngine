@@ -5,47 +5,6 @@ namespace noa {
 
 	extern float deltaTime;
 
-	AnimationFile LoadAnimationFile(const char* file) 
-	{
-		AnimationFile animator;
-
-		std::ifstream inputFile(file, std::ios::binary);
-		if (!inputFile) {
-			Debug("Opening file: "+string(file)+" error");
-			exit(-1);
-		}
-
-		int spriteCount;
-		inputFile.read(reinterpret_cast<char*>(&spriteCount), sizeof(int));
-
-		for (int i = 0; i < spriteCount; ++i) {
-			SpriteFile sprite;
-			int imageCount;
-			inputFile.read(reinterpret_cast<char*>(&imageCount), sizeof(int));
-
-			for (int j = 0; j < imageCount; ++j) {
-				uint32_t pixel;
-				inputFile.read(reinterpret_cast<char*>(&pixel), sizeof(uint32_t));
-				sprite.images.push_back(pixel);
-			}
-
-			inputFile.read(reinterpret_cast<char*>(&sprite.x), sizeof(int));
-			inputFile.read(reinterpret_cast<char*>(&sprite.y), sizeof(int));
-			inputFile.read(reinterpret_cast<char*>(&sprite.width), sizeof(int));
-			inputFile.read(reinterpret_cast<char*>(&sprite.height), sizeof(int));
-
-			animator.data.push_back(sprite);
-		}
-
-		inputFile.read(reinterpret_cast<char*>(&animator.posx), sizeof(int));
-		inputFile.read(reinterpret_cast<char*>(&animator.posy), sizeof(int));
-		inputFile.read(reinterpret_cast<char*>(&animator.w), sizeof(int));
-		inputFile.read(reinterpret_cast<char*>(&animator.h), sizeof(int));
-
-		inputFile.close();
-		return animator;
-	}
-
 	//vector<Animator*> animatorList;
 
 	Animation::Animation(float speed,bool loop) :Behaviour()
@@ -67,9 +26,8 @@ namespace noa {
 		Debug("Init Animator");
 		this->speed = speed;
 		this->loop = loop;
-		//animatorList.push_back(this);
 
-		const AnimationFile animatorFile = move(LoadAnimationFile(filePath));
+		const AnimationFile animatorFile = move(resource.LoadAnimationFile(filePath));
 		for (SpriteFile frame : animatorFile.data)
 		{
 			InsertFrameImage(frame);
@@ -95,7 +53,7 @@ namespace noa {
 	/// <param name="filePath">动画文件路径</param>
 	void Animation::LoadFromAnimationFile(const char* filePath)
 	{
-		const AnimationFile animatorFile = move(LoadAnimationFile(filePath));
+		const AnimationFile animatorFile = move(resource.LoadAnimationFile(filePath));
 		for (SpriteFile frame : animatorFile.data)
 		{
 			InsertFrameImage(frame);

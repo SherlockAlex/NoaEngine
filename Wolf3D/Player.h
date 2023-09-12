@@ -22,7 +22,7 @@ public:
 	//Uint32 hp = 100;
 
 	Sprite gunSprite = Sprite(
-		LoadSprFile("./Assets/Wolf/gun.spr")
+		resource.LoadSprFile("./Assets/Wolf/gun.spr")
 		, Vector<int>(0.5 * pixelWidth, 0.5 * pixelWidth));
 
 	Audio shotAFX = Audio("./Assets/Wolf/Music/handleGunShot.mp3", Chunk);

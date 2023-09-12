@@ -53,13 +53,11 @@ public:
 		{
 			isLeft = true;
 			velocity.x = -speed;
-
 		}
 		if (inputSystem.GetKeyHold(KeyD))
 		{
 			isLeft = false;
 			velocity.x = speed;
-
 		}
 		if (inputSystem.GetKeyHold(KeyW))
 		{

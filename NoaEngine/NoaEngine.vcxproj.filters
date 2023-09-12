@@ -75,6 +75,9 @@
     <ClInclude Include="core\Transform.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="core\Resource.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="core\Animator.cpp">
@@ -129,6 +132,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="m_SuperMario.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="core\Resource.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

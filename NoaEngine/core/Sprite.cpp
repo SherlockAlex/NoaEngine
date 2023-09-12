@@ -16,7 +16,7 @@ namespace noa {
 	}
 
 	Sprite::Sprite(const char* file, Vector<int> scale) {
-		SpriteFile sprFile = LoadSprFile(file);
+		SpriteFile sprFile = resource.LoadSprFile(file);
 		this->posx = sprFile.x;
 		this->posx = sprFile.y;
 		this->w = sprFile.width;
@@ -241,41 +241,5 @@ namespace noa {
 		return image[sy * h + sx];
 	}
 
-
-	SpriteFile LoadSprFile(const char* file)
-	{
-		SpriteFile spriteFile;
-		//spriteFile.images = nullptr;
-
-		std::ifstream input(file, std::ios::binary);
-		if (input)
-		{
-			uint32_t imagesCount;
-			input.read(reinterpret_cast<char*>(&imagesCount), sizeof(uint32_t));
-
-			//spriteFile.images = new uint32_t[imagesCount];
-			for (int i = 0; i < imagesCount; ++i)
-			{
-				uint32_t imageValue;
-				input.read(reinterpret_cast<char*>(&imageValue), sizeof(uint32_t));
-				spriteFile.images.push_back(imageValue);
-				//input.read(reinterpret_cast<char*>(&spriteFile.images[i]), sizeof(uint32_t));
-			}
-
-			input.read(reinterpret_cast<char*>(&spriteFile.x), sizeof(int));
-			input.read(reinterpret_cast<char*>(&spriteFile.y), sizeof(int));
-			input.read(reinterpret_cast<char*>(&spriteFile.width), sizeof(int));
-			input.read(reinterpret_cast<char*>(&spriteFile.height), sizeof(int));
-
-			input.close();
-		}
-		else
-		{
-			Debug("∂¡»° ß∞‹£∫" + string(file));
-			//std::cerr << "∂¡»° ß∞‹£∫" << file << std::endl;
-		}
-
-		return spriteFile;
-	}
 }
 
