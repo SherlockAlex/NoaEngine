@@ -26,7 +26,7 @@ public:
 					Caco* enimy = new Caco(new Sprite(cacoSprite), &player.transform,&player);
 					enimy->transform.position.x = i;
 					enimy->transform.position.y = j;
-					enimy->transform.posZ = -100;
+					enimy->transform.posZ = 0;
 					enimy->UpdateMap(&tileMap);
 				}
 			}

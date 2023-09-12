@@ -10,7 +10,7 @@ namespace noa {
 
 	extern float deltaTime;
 	//检测rigid是否和其他刚体相撞，如果相撞就返回
-	extern bool CollisionWithinRigidbody(Rigidbody* rigid, const int x1, const int y1,const int x2,const int y2);
+	extern bool CollisionWithinRigidbody(Rigidbody* rigid);
 
 	extern void ApplyRigidbodysCollision();
 
@@ -135,11 +135,7 @@ namespace noa {
 		{
 
 			if (
-				CollisionWithinRigidbody(this
-					, newPosition.x, colliderPos->position.y
-					, newPosition.x, colliderPos->position.y + 0.999
-				)
-				|| tileMap->IsCollisionTile(newPosition.x, colliderPos->position.y)
+				tileMap->IsCollisionTile(newPosition.x, colliderPos->position.y)
 				|| tileMap->IsCollisionTile(newPosition.x, colliderPos->position.y + 0.999)
 				)
 
@@ -155,11 +151,7 @@ namespace noa {
 			}
 		}
 		else if (
-				CollisionWithinRigidbody(this
-					, newPosition.x + 0.999, colliderPos->position.y
-					, newPosition.x + 0.999, colliderPos->position.y + 0.999
-				)
-				|| tileMap->IsCollisionTile(newPosition.x + 0.999, colliderPos->position.y)
+				tileMap->IsCollisionTile(newPosition.x + 0.999, colliderPos->position.y)
 				|| tileMap->IsCollisionTile(newPosition.x + 0.999, colliderPos->position.y + 0.999)
 				)
 		{
@@ -176,11 +168,7 @@ namespace noa {
 		if (velocity.y <= 0)
 		{
 			if (
-				CollisionWithinRigidbody(this,
-					newPosition.x, newPosition.y
-					, newPosition.x + 0.999, newPosition.y
-				)
-				|| tileMap->IsCollisionTile(newPosition.x, newPosition.y)
+				tileMap->IsCollisionTile(newPosition.x, newPosition.y)
 				|| tileMap->IsCollisionTile(newPosition.x + 0.999, newPosition.y)
 				)
 			{
@@ -194,11 +182,7 @@ namespace noa {
 			}
 		}
 		else if (
-				CollisionWithinRigidbody(this
-					, newPosition.x, newPosition.y + 0.999
-					, newPosition.x + 0.999, newPosition.y + 0.999
-				)
-				|| tileMap->IsCollisionTile(newPosition.x, newPosition.y + 0.999)
+				tileMap->IsCollisionTile(newPosition.x, newPosition.y + 0.999)
 				|| tileMap->IsCollisionTile(newPosition.x + 0.999f, newPosition.y + 0.999)
 				)
 
@@ -213,95 +197,7 @@ namespace noa {
 
 		}
 
-		//if (velocity.x <= 0)
-		//{
-		//	//向下
-		//	if (
-		//		CollisionWithinRigidbody(this
-		//			, newPosition.x - colliderSize.x - 0.4999, colliderPos->position.y - colliderSize.y - 0.4999
-		//			, newPosition.x - colliderSize.x - 0.4999, colliderPos->position.y + 0.4999 + colliderSize.y
-		//		)
-		//		|| ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x - colliderSize.x - 0.4999, colliderPos->position.y - colliderSize.y - 0.4999))
-		//		|| ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x - colliderSize.x - 0.4999, colliderPos->position.y + colliderSize.y + 0.4999))
-		//		)
-
-		//	{
-
-		//		if (!collision.isTrigger)
-		//		{
-		//			collision.isHitCollisionTile = true;
-		//			//newPosition.x = (int)newPosition.x + 1 + colliderSize.x + 0.5;
-		//			newPosition.x = (int)newPosition.x + colliderSize.x + 0.5;
-		//			velocity.x = 0;
-		//		}
-
-		//	}
-		//}
-		//else
-		//{
-		//	if (
-		//		CollisionWithinRigidbody(this
-		//			, newPosition.x + 0.4999 + colliderSize.x, colliderPos->position.y - colliderSize.y - 0.4999
-		//			, newPosition.x + 0.4999 + colliderSize.x, colliderPos->position.y + 0.4999 + colliderSize.y
-		//		)
-		//		|| ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x + 0.4999 + colliderSize.x, colliderPos->position.y - colliderSize.y- 0.4999))
-		//		|| ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x + 0.4999 + colliderSize.x, colliderPos->position.y + 0.4999 + colliderSize.y))
-		//		)
-		//	{
-		//		if (!collision.isTrigger)
-		//		{
-		//			collision.isHitCollisionTile = true;
-		//			newPosition.x = (int)newPosition.x + 0.5 - colliderSize.x;
-		//			velocity.x = 0;
-		//		}
-
-		//	}
-		//}
-
-		//collision.isGrounded = false;
-		//if (velocity.y <= 0)
-		//{
-		//	if (
-		//		CollisionWithinRigidbody(this,
-		//			newPosition.x - colliderSize.x - 0.4999, newPosition.y - colliderSize.y - 0.4999
-		//			, newPosition.x + 0.4999 + colliderSize.x, newPosition.y - colliderSize.y - 0.4999
-		//		)
-		//		|| ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x - colliderSize.x - 0.4999, newPosition.y - colliderSize.y - 0.4999))
-		//		|| ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x + 0.4999 + colliderSize.x, newPosition.y - colliderSize.y - 0.4999))
-		//		)
-		//	{
-
-		//		if (!collision.isTrigger)
-		//		{
-		//			collision.isHitCollisionTile = true;
-		//			//newPosition.y = (int)newPosition.y + 1 + colliderSize.y + 0.5;
-		//			newPosition.y = (int)newPosition.y + colliderSize.y + 0.5;
-		//			velocity.y = 0;
-		//		}
-		//	}
-		//}
-		//else
-		//{
-		//	if (
-		//		CollisionWithinRigidbody(this
-		//			, newPosition.x - colliderSize.x - 0.4999, newPosition.y + 0.4999 + colliderSize.y
-		//			, newPosition.x + 0.4999 + colliderSize.x, newPosition.y + 0.4999 + colliderSize.y
-		//		)
-		//		|| ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x - colliderSize.x - 0.4999, newPosition.y + 0.4999 + colliderSize.y))
-		//		|| ContainKey<int, bool>(collisionTiles, tileMap->GetTileID(newPosition.x + 0.4999 + colliderSize.x, newPosition.y + 0.4999 + colliderSize.y))
-		//		)
-
-		//	{
-
-		//		if (!collision.isTrigger) {
-		//			collision.isHitCollisionTile = true;
-		//			newPosition.y = (int)newPosition.y - colliderSize.y + 0.5;
-		//			velocity.y = 0;
-		//			collision.isGrounded = true;
-		//		}
-
-		//	}
-		//}
+		CollisionWithinRigidbody(this);
 
 	}
 
@@ -318,7 +214,7 @@ namespace noa {
 	
 
 
-	bool CollisionWithinRigidbody(Rigidbody* rigid, const int x1, const int y1, const int x2, const int y2)
+	bool CollisionWithinRigidbody(Rigidbody* rigid)
 	{
 
 		//需要进行大优化，重复计算量大
@@ -332,21 +228,42 @@ namespace noa {
 			return false;
 		}
 
-		//indexInMap是一个动态的概念，获取唯一的map值
-		const int indexInMap1 = (x1<<16)|y1;
-		const int indexInMap2 = (x2<<16)|y2;
+		if (rigid->collision.other!=nullptr)
+		{
+			if (rigid->collision.isTrigger)
+			{
+				return false;
+			}
+			return true;
+
+		}
 
 		const size_t hashCode = rigid->GetHashCode();
 
-		for (const auto & pair:rigidbodys) 
+		for (const auto & e:rigidbodys)
 		{
-			if (pair.first == hashCode||pair.second == nullptr)
+			if (e.first == hashCode || e.second == nullptr||e.second->collision.other!=nullptr)
 			{
 				continue;
 			}
-			Rigidbody* rigidbody = pair.second;
-			const int indexOfRigid = rigidbody->GetIndexInMap();
-			if (indexOfRigid!=indexInMap1&&indexOfRigid!=indexInMap2)
+
+			Rigidbody* rigidbody = e.second;
+
+			//检测两个刚体是否会相撞
+			const float x1 = rigid->newPosition.x + 0.5;
+			const float y1 = rigid->newPosition.y + 0.5;
+
+			const float x2 = rigidbody->colliderPos->position.x + 0.5;
+			const float y2 = rigidbody->colliderPos->position.y + 0.5;
+
+			const float deltaX = x1 - x2;
+			const float deltaY = y1 - y2;
+
+			const float distance = sqrtf(deltaX * deltaX + deltaY * deltaY);
+
+			const float distanceValue = rigid->radius + rigidbody->radius;
+
+			if (distance>=distanceValue)
 			{
 				continue;
 			}
@@ -360,9 +277,38 @@ namespace noa {
 			{
 				return false;
 			}
+
+			//处理碰撞后的结果
+			const float dr = distanceValue - distance;
+			const float dx = dr * abs(deltaX) / distance+0.01;
+			const float dy = dr * abs(deltaY) / distance+0.01;
+
+			if (rigid->velocity.x > 0)
+			{
+				rigid->newPosition.x -= dx;
+				rigid->velocity.x = 0;
+			}
+			else if(rigid->velocity.x<0)
+			{
+				rigid->newPosition.x += dx;
+				rigid->velocity.x = 0;
+			}
+
+			if (rigid->velocity.y > 0)
+			{
+				rigid->newPosition.y -= dy;
+				rigid->velocity.y = 0;
+			}
+			else if(rigid->velocity.y<0)
+			{
+				rigid->newPosition.y += dy;
+				rigid->velocity.y = 0;
+			}
+
 			return true;
 
 		}
+
 		return false;
 
 	}
@@ -371,12 +317,6 @@ namespace noa {
 	{
 		//检测物体碰撞
 
-		//检测所有物体的[0][0]:上
-		//检测所有物体的[0][1]:下
-		//检测所有物体的[1][0]:左
-		//检测所有物体的[1][1]:右
-
-		
 		
 
 	}

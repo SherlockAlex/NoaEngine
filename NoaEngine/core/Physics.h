@@ -70,7 +70,10 @@ namespace noa {
 		//刚体的速度
 		Vector<float> velocity = Vector<float>(0.0,0.0);
 		//刚体的碰撞的大小
-		Vector<float> colliderSize = Vector<float>(0.0, 0.0);
+		//Vector<float> colliderSize = Vector<float>(0.0, 0.0);
+
+		//刚体之间碰撞体半径
+		float radius = 0.5;
 
 		Collision collision;
 

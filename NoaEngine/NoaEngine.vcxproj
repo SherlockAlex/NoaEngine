@@ -195,7 +195,7 @@
     <ClCompile Include="core\src\glad.c" />
     <ClCompile Include="core\StateMachine.cpp" />
     <ClCompile Include="core\Transform.cpp" />
-    <ClCompile Include="z_Zelda.cpp" />
+    <ClCompile Include="m_SuperMario.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

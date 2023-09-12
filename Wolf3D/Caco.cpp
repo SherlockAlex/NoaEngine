@@ -8,7 +8,7 @@ Caco::Caco(Sprite * sprite, Transform* player,LiveEntity * enimy) :Enimy(sprite,
 	if (player == nullptr||fsm == nullptr) 
 	{
 		Debug("Get player error");
-		exit(0);
+		exit(-1);
 	}
 	
 	CacoIdleState* idleState = new CacoIdleState(fsm, this, player, "./Assets/Wolf/caco-idle.amt");

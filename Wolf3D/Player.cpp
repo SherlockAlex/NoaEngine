@@ -4,7 +4,6 @@
 Player::Player(TileMap* map) :Behaviour(), Rigidbody(&transform)
 {
 	tag = "Player";
-	colliderSize = { -0.2,-0.2 };
 	useGravity = false;
 
 	damping = 0;

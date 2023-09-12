@@ -48,7 +48,6 @@ namespace noa {
 		float i = 0;
 		bool loop = false;
 		int previousFrameIndex = -1;
-		//float frameSize = 0;
 
 	public:
 		Animation(float speed,bool loop);

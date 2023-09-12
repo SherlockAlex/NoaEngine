@@ -5,7 +5,8 @@ namespace noa {
 
 	extern float deltaTime;
 
-	AnimationFile LoadAnimationFile(const char* file) {
+	AnimationFile LoadAnimationFile(const char* file) 
+	{
 		AnimationFile animator;
 
 		std::ifstream inputFile(file, std::ios::binary);

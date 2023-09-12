@@ -301,7 +301,7 @@ namespace noa {
 		Ray ray;
 		ray.distance = 0.0;
 		ray.angle = follow->eulerAngle - FOV * (0.5 - (float)pixelX / pixelWidth);
-		const float rayForwordStep = 0.05;
+		const float rayForwordStep = 0.03;
 		const Vector<float> eye = move(Vector<float>(sinf(ray.angle), cosf(ray.angle)));
 
 		while (!map.IsCollisionTile(ray.hitTile)&&ray.distance<viewDepth) 

@@ -15,9 +15,9 @@ public:
 		transform.position = Vector<float>(0.0, 0.0);
 		//useGravity = false;
 		damping = 0;
-		idle->LoadFromAnimatorFile("./Assets/JumpMan/Animator/mario_idle.amt");
-		run->LoadFromAnimatorFile("./Assets/JumpMan/Animator/mario_run.amt");
-		jump->LoadFromAnimatorFile("./Assets/JumpMan/Animator/mario_jump.amt");
+		idle->LoadFromAnimationFile("./Assets/JumpMan/Animator/mario_idle.amt");
+		run->LoadFromAnimationFile("./Assets/JumpMan/Animator/mario_run.amt");
+		jump->LoadFromAnimationFile("./Assets/JumpMan/Animator/mario_jump.amt");
 
 		currentAnimatorState = idle;
 
@@ -134,10 +134,10 @@ public:
 	const Audio coinSFX = Audio("./Assets/JumpMan/Music/coin.mp3", Chunk);
 	const Audio jumpSFX = Audio("./Assets/JumpMan/Music/jump.mp3", Chunk);
 
-	Animator* currentAnimatorState = nullptr;
-	Animator* idle = new Animator(5);
-	Animator* run = new Animator(10);
-	Animator* jump = new Animator(10);
+	Animation* currentAnimatorState = nullptr;
+	Animation* idle = new Animation(5,false);
+	Animation* run = new Animation(10,false);
+	Animation* jump = new Animation(10,false);
 
 };
 
@@ -146,7 +146,7 @@ public:
 	Platformer(int width, int height, GameWindowMode windowMode, string gameName) :NoaGameEngine(width, height, windowMode, gameName) 
 	{
 		player.UpdateMap(&tileMap);
-		player.SetCollisionTileID({ 1,2 });
+		tileMap.SetCollisionTileID({ 1,2 });
 		player.InitPosition(tileMap, 87);
 
 		BGM.Play(true);

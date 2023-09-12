@@ -1,4 +1,5 @@
-﻿  Sprite.cpp
+﻿  m_SuperMario.cpp
+D:\Work\NoaEngine\NoaEngine\m_SuperMario.cpp(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
 D:\Work\NoaEngine\NoaEngine\core\Sprite.h(47,40): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
           with
           [
@@ -27,8 +28,8 @@ D:\Work\NoaEngine\NoaEngine\core\Graphic.h(33,1): warning C4005: “RGB”: 宏�
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1859,1): message : 参见“RGB”的前一个定义
 D:\Work\NoaEngine\NoaEngine\core\Graphic.h(36,1): warning C4005: “GetGValue”: 宏重定义
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1870,1): message : 参见“GetGValue”的前一个定义
-D:\Work\NoaEngine\NoaEngine\core\Physics.h(45,19): warning C4305: “初始化”: 从“double”到“float”截断
-D:\Work\NoaEngine\NoaEngine\core\Physics.h(55,13): warning C4305: “初始化”: 从“double”到“float”截断
+D:\Work\NoaEngine\NoaEngine\core\Physics.h(47,19): warning C4305: “初始化”: 从“double”到“float”截断
+D:\Work\NoaEngine\NoaEngine\core\Physics.h(61,13): warning C4305: “初始化”: 从“double”到“float”截断
 D:\Work\NoaEngine\NoaEngine\core\Camera.h(41,57): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
           with
           [
@@ -62,27 +63,20 @@ D:\Work\NoaEngine\NoaEngine\core\NoaGUI.h(55,38): warning C4244: “参数”: �
           [
               T=int
           ]
-D:\Work\NoaEngine\NoaEngine\core\Sprite.cpp(342,24): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
-D:\Work\NoaEngine\NoaEngine\core\Sprite.cpp(342,18): warning C4244: “初始化”: 从“double”转换到“const float”，可能丢失数据
-D:\Work\NoaEngine\NoaEngine\core\Sprite.cpp(343,24): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
-D:\Work\NoaEngine\NoaEngine\core\Sprite.cpp(343,18): warning C4244: “初始化”: 从“double”转换到“const float”，可能丢失数据
-D:\Work\NoaEngine\NoaEngine\core\Sprite.cpp(371,41): warning C4244: “参数”: 从“float”转换到“const int”，可能丢失数据
-D:\Work\NoaEngine\NoaEngine\core\Sprite.cpp(372,41): warning C4244: “参数”: 从“float”转换到“const int”，可能丢失数据
-D:\Work\NoaEngine\NoaEngine\core\Sprite.cpp(385,42): warning C4244: “参数”: 从“float”转换到“const int”，可能丢失数据
-D:\Work\NoaEngine\NoaEngine\core\Sprite.cpp(386,42): warning C4244: “参数”: 从“float”转换到“const int”，可能丢失数据
-D:\Work\NoaEngine\NoaEngine\core\Sprite.cpp(399,38): warning C4244: “参数”: 从“T”转换到“const int”，可能丢失数据
+D:\Work\NoaEngine\NoaEngine\m_SuperMario.cpp(39,29): warning C4244: “=”: 从“int”转换到“T”，可能丢失数据
           with
           [
               T=float
           ]
-D:\Work\NoaEngine\NoaEngine\core\Sprite.cpp(400,38): warning C4244: “参数”: 从“T”转换到“const int”，可能丢失数据
+D:\Work\NoaEngine\NoaEngine\m_SuperMario.cpp(40,29): warning C4244: “=”: 从“int”转换到“T”，可能丢失数据
           with
           [
               T=float
           ]
-D:\Work\NoaEngine\NoaEngine\core\Sprite.cpp(418,22): warning C4018: “<”: 有符号/无符号不匹配
+D:\Work\NoaEngine\NoaEngine\m_SuperMario.cpp(122,74): warning C4244: “参数”: 从“double”转换到“const int”，可能丢失数据
+D:\Work\NoaEngine\NoaEngine\m_SuperMario.cpp(122,49): warning C4244: “参数”: 从“double”转换到“const int”，可能丢失数据
   正在生成代码
-  5 of 1796 functions ( 0.3%) were compiled, the rest were copied from previous compilation.
+  0 of 1973 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
     0 functions had inline decision re-evaluated but remain unchanged
   已完成代码的生成

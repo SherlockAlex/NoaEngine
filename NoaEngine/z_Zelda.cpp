@@ -56,7 +56,7 @@ public:
 		damping = 0;
 
 		//设置地图的碰撞信息
-		SetCollisionTileID({25,26,33,34,19,20,21,27,29,35,36,37});
+		map->SetCollisionTileID({25,26,33,34,19,20,21,27,29,35,36,37});
 		UpdateMap(map);
 	}
 

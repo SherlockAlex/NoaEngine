@@ -1,14 +1,10 @@
 #include "Item.h"
 
-Item::Item(Sprite* sprite) :GameObject(sprite), Rigidbody(&transform) {
-
-	colliderSize.x = 0;
-	colliderSize.y = 0;
-
+Item::Item(Sprite* sprite) :GameObject(sprite), Rigidbody(&transform) 
+{
 	useGravity = false;
 	collision.isTrigger = true;
 	tag = "item";
-
 }
 
 void Item::OnTrigger(void* other)
