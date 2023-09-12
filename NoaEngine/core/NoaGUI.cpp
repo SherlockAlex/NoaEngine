@@ -58,7 +58,7 @@ namespace noa {
 		}
 		else {
 			Debug("Can't find the font assets file");
-			exit(0);
+			exit(-1);
 		}
 
 		for (PixelData data : resultData)

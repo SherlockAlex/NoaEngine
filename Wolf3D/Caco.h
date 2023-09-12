@@ -3,6 +3,6 @@
 class Caco :public Enimy
 {
 public:
-	Caco(Sprite sprite, Transform* player,LiveEntity * enimy);
+	Caco(Sprite* sprite, Transform* player,LiveEntity * enimy);
 };
 

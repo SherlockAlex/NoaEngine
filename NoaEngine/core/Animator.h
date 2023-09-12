@@ -15,6 +15,7 @@
 #include "Sprite.h"
 #include "NoaAction.h"
 #include "Behaviour.h"
+#include "StateMachine.h"
 
 using namespace std;
 
@@ -23,18 +24,18 @@ namespace noa {
 
 	//出现了问题，必须重构
 
-	typedef struct AnimatorFile {
+	typedef struct AnimationFile {
 		vector<SpriteFile> data;
 		int posx;
 		int posy;
 		int w;
 		int h;
-	}AnimatorFile;
+	}AnimationFile;
 
-	extern AnimatorFile LoadAnimatorFile(const char* file);
+	extern AnimationFile LoadAnimationFile(const char* file);
 
 	//动画器
-	class Animator:public Behaviour
+	class Animation:public Behaviour
 	{
 	private:
 		vector<SpriteFile> framesImage;
@@ -45,15 +46,17 @@ namespace noa {
 		//动画播放速度
 		float speed = 7;
 		float i = 0;
+		bool loop = false;
+		int previousFrameIndex = -1;
 		//float frameSize = 0;
 
 	public:
-		Animator(float speed);
-		Animator(float speed, const char* filePath);
-		~Animator();
+		Animation(float speed,bool loop);
+		Animation(float speed,bool loop, const char* filePath);
+		~Animation();
 
 	public:
-		void LoadFromAnimatorFile(const char* filePath);
+		void LoadFromAnimationFile(const char* filePath);
 		SpriteFile& GetCurrentFrameImage();
 		SpriteFile& GetFrameImage(int frame);
 		void SetFrameEvent(int frame, function<void()> e);
@@ -65,6 +68,28 @@ namespace noa {
 		void Update() override;//更新动画帧
 
 	};
+
+	class Animator;
+
+	class AnimationClip:public State
+	{
+	private:
+		Animation* animtion = nullptr;
+		Sprite* sprite = nullptr;
+	public:
+		AnimationClip(Animator* animator);
+		void Act() override;
+		void Reason() override;
+	};
+
+	//动画状态机
+	class Animator:public StateMachine
+	{
+	public:
+		Sprite* sprite = nullptr;
+		
+	};
+
 }
 
 #endif

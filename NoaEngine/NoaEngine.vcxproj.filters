@@ -128,7 +128,7 @@
     <ClCompile Include="core\Transform.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="w_Wolf.cpp">
+    <ClCompile Include="z_Zelda.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

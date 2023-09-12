@@ -3,7 +3,7 @@
 #include "Player.h"
 
 
-Caco::Caco(Sprite sprite, Transform* player,LiveEntity * enimy) :Enimy(sprite, player,enimy)
+Caco::Caco(Sprite * sprite, Transform* player,LiveEntity * enimy) :Enimy(sprite, player,enimy)
 {
 	if (player == nullptr||fsm == nullptr) 
 	{

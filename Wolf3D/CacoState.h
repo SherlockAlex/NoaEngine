@@ -20,7 +20,7 @@ private:
 	
 
 public:
-	Animator animation = Animator(5);
+	Animation animation = Animation(5,false);
 
 	CacoIdleState(
 		StateMachine* stateMachine,
@@ -41,7 +41,7 @@ private:
 	
 
 public:
-	Animator animation = Animator(5);
+	Animation animation = Animation(5,false);
 
 	CacoMoveState(
 		StateMachine* stateMachine,
@@ -61,7 +61,7 @@ public:
 	
 
 public:
-	Animator animation = Animator(5);
+	Animation animation = Animation(5,false);
 
 	CacoAttackState(
 		StateMachine* stateMachine,
@@ -82,7 +82,7 @@ public:
 	
 
 public:
-	Animator animation = Animator(5);
+	Animation animation = Animation(5,false);
 
 	CacoDieState(
 		StateMachine* stateMachine,

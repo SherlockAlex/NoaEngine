@@ -9,20 +9,10 @@ Player::Player(TileMap* map) :Behaviour(), Rigidbody(&transform)
 
 	damping = 0;
 
-	vector<int> collisionTileID;
-	collisionTileID.push_back(36);
-	for (int i = 0; i < 108; i++)
-	{
-		if (i == 107)
-		{
-			continue;
-		}
-
-		collisionTileID.push_back(i);
-
-	}
-	SetCollisionTileID(collisionTileID);
+	
 	UpdateMap(map);
+	
+	
 
 	inputSystem.inputEvent += [this]() {
 		this->RotateControl();
@@ -45,7 +35,6 @@ void Player::SetPosition(int tileID, MapFile& tileMap)
 				transform.position.x = i;
 				transform.position.y = j;
 			}
-
 		}
 	}
 }
@@ -55,45 +44,82 @@ void Player::ActorControl() {
 	velocity.x = 0;
 	velocity.y = 0;
 
-	if (inputSystem.GetKeyHold(KeyW))
+	if (!inputSystem.GetKeyHold(KeyM)) 
 	{
-		velocity.x += sinf(transform.eulerAngle);
-		velocity.y += cosf(transform.eulerAngle);
+		if (inputSystem.GetKeyHold(KeyW))
+		{
+			velocity.x += sinf(transform.eulerAngle);
+			velocity.y += cosf(transform.eulerAngle);
+		}
+
+		if (inputSystem.GetKeyHold(KeyS))
+		{
+			velocity.x += -sinf(transform.eulerAngle);
+			velocity.y += -cosf(transform.eulerAngle);
+		}
+
+		if (inputSystem.GetKeyHold(KeyA))
+		{
+			velocity.x += -cosf(transform.eulerAngle);
+			velocity.y += sinf(transform.eulerAngle);
+		}
+
+		if (inputSystem.GetKeyHold(KeyD))
+		{
+			velocity.x += cosf(transform.eulerAngle);
+			velocity.y += -sinf(transform.eulerAngle);
+		}
+	}
+	else 
+	{
+		if (inputSystem.GetKeyHold(KeyW))
+		{
+			velocity.x += 0;
+			velocity.y += -1;
+		}
+
+		if (inputSystem.GetKeyHold(KeyS))
+		{
+			velocity.x += 0;
+			velocity.y += 1;
+		}
+
+		if (inputSystem.GetKeyHold(KeyA))
+		{
+			velocity.x += -1;
+			velocity.y += 0;
+		}
+
+		if (inputSystem.GetKeyHold(KeyD))
+		{
+			velocity.x += 1;
+			velocity.y += 0;
+		}
 	}
 
-	if (inputSystem.GetKeyHold(KeyS))
-	{
-		velocity.x += -sinf(transform.eulerAngle);
-		velocity.y += -cosf(transform.eulerAngle);
-	}
-
-	if (inputSystem.GetKeyHold(KeyA))
-	{
-		velocity.x += -cosf(transform.eulerAngle);
-		velocity.y += sinf(transform.eulerAngle);
-	}
-
-	if (inputSystem.GetKeyHold(KeyD))
-	{
-		velocity.x += cosf(transform.eulerAngle);
-		velocity.y += -sinf(transform.eulerAngle);
-	}
+	
 
 
 
 	if (inputSystem.GetMouseButton(LeftButton))
 	{
-
 		//shotAFX.Play(false);
 		if (bulletCount > 0)
 		{
 			gunShot->Play();
 		}
-
-
 	}
 
-	velocity = velocity.Normalize() * speed;
+	if (
+		inputSystem.GetKeyHold(KeyW)
+		|| inputSystem.GetKeyHold(KeyA)
+		|| inputSystem.GetKeyHold(KeyS)
+		|| inputSystem.GetKeyHold(KeyD)
+		)
+	{
+		velocity = velocity.Normalize() * speed;
+	}
+	
 
 
 }
@@ -110,7 +136,7 @@ void Player::RotateControl()
 void Player::Start()
 {
 	//gunNormal->LoadFromAnimatorFile("./Assets/Wolf/gun-normal.amt");
-	gunShot->LoadFromAnimatorFile("./Assets/Wolf/lgun-shot.amt");
+	gunShot->LoadFromAnimationFile("./Assets/Wolf/lgun-shot.amt");
 	gunShot->SetFrameEvent(2, [this]()
 		{
 			bulletCount--;
@@ -136,8 +162,6 @@ void Player::Start()
 				}
 				enimy->TakeDamage(20);
 			}
-
-
 			//Debug("shot");
 		});
 
@@ -147,6 +171,10 @@ void Player::Update()
 {
 	ActorControl();
 	gunSprite.UpdateImage(gunShot->GetCurrentFrameImage());
-	gunSprite.DrawSprite(0.5 * pixelWidth, pixelHeight - 0.25 * pixelWidth, true);
+	if (!inputSystem.GetKeyHold(KeyM))
+	{
+		gunSprite.DrawSprite(0.5 * pixelWidth - 0.5 * 0.5 * pixelWidth, pixelHeight - 0.5 * pixelWidth, true);
+	}
+	
 	renderer.DrawString("hp:"+to_string(this->hp)+"\nbullet:" + to_string(bulletCount), 0, 0, RED, pixelHeight / 20);
 }

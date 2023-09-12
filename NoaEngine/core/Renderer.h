@@ -27,7 +27,7 @@ namespace noa {
 		Renderer();
 		Renderer(int pixelWidth, int pixelHeight, void* pixelBuffer,SDL_Renderer* sdlRenderer, SDL_Texture* sdlTexture);
 		//»æÖÆÏñËØµã
-		void DrawPixel(int x, int y, Uint32 color) const;
+		void DrawPixel(const uint32_t x,const uint32_t y,const uint32_t color) const;
 		void DrawLine(int x1, int y1, int x2, int y2, Uint32 color) const;
 		void DrawLine(const Vector<int> & point1,const Vector<int> & point2, Uint32 color) const;
 		/// <summary>

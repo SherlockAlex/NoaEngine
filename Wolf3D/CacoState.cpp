@@ -9,7 +9,7 @@ CacoIdleState::CacoIdleState(
 	const char* animationPath) :
 	State(stateMachine)
 {
-	animation.LoadFromAnimatorFile(animationPath);
+	animation.LoadFromAnimationFile(animationPath);
 	this->enimy = enimy;
 	this->target = target;
 }
@@ -53,7 +53,7 @@ CacoMoveState::CacoMoveState(
 	const char* animationPath) :
 	State(stateMachine)
 {
-	animation.LoadFromAnimatorFile(animationPath);
+	animation.LoadFromAnimationFile(animationPath);
 	this->enimy = enimy;
 	this->target = target;
 }
@@ -99,7 +99,7 @@ CacoAttackState::CacoAttackState(
 	const char* animationPath) :
 	State(stateMachine)
 {
-	animation.LoadFromAnimatorFile(animationPath);
+	animation.LoadFromAnimationFile(animationPath);
 	this->enimy = enimy;
 	this->target = target;
 
@@ -156,7 +156,7 @@ CacoDieState::CacoDieState(
 	const char* animationPath):
 	State(stateMachine)
 {
-	animation.LoadFromAnimatorFile(animationPath);
+	animation.LoadFromAnimationFile(animationPath);
 	this->enimy = enimy;
 	this->target = target;
 	animation.SetFrameEvent(8, [this]()
@@ -173,6 +173,7 @@ void CacoDieState::Act()
 	enimy->currentAnimation = &animation;
 	enimy->useMotion = false;
 	enimy->velocity = { 0,0 };
+	enimy->transform.posZ = 0.5 * enimy->transform.posZ;
 	//²¥·ÅÍê¾Í
 	//enimy->Destroy();
 

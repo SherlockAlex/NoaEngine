@@ -10,7 +10,7 @@ namespace noa {
 	//extern vector<Rigidbody*> rigidbodys;
 	extern unordered_map<size_t, Rigidbody*> rigidbodys;
 
-	//extern queue<Behaviour*> destroyBehaviours;
+	extern void ApplyRigidbodysCollision();
 
 	//mutex mtx; // 定义互斥锁对象
 
@@ -39,7 +39,7 @@ namespace noa {
 		if (init != 0)
 		{
 			Debug("Game init failed");
-			exit(0);
+			exit(-1);
 		}
 
 		//设置opengl
@@ -59,7 +59,7 @@ namespace noa {
 		if (window == nullptr)
 		{
 			Debug("Create window faild");
-			exit(0);
+			exit(-1);
 		}
 
 		glContext = SDL_GL_CreateContext(window);
@@ -90,7 +90,7 @@ namespace noa {
 		mainRenderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 		if (mainRenderer == nullptr)
 		{
-			exit(0);
+			exit(-1);
 		}
 
 		texture = SDL_CreateTexture(mainRenderer,
@@ -100,7 +100,7 @@ namespace noa {
 			height
 		);
 		if (texture == nullptr) {
-			exit(0);
+			exit(-1);
 		}
 
 		format = SDL_AllocFormat(SDL_PIXELFORMAT_BGR888);
@@ -109,7 +109,7 @@ namespace noa {
 		surface = SDL_GetWindowSurface(window);
 		if (surface == nullptr) 
 		{
-			exit(0);
+			exit(-1);
 		}
 		//pixelBuffer = surface->pixels;
 
@@ -124,7 +124,7 @@ namespace noa {
 		) == -1)
 		{
 			Debug("Init audio device failed");
-			exit(0);
+			exit(-1);
 		}
 
 		
@@ -221,21 +221,12 @@ namespace noa {
 					Quit();
 				}
 			}
-			
-			/*thread physicsThread([this]()
-				{
-					for (auto& rigid : rigidbodys)
-					{
-						if (rigid.second == nullptr)
-						{
-							continue;
-						}
-						rigid.second->Update();
-					}
-				});
-			physicsThread.join();*/
 
-			for (auto& rigid : rigidbodys)
+			Update();
+
+			//ApplyRigidbodysCollision();
+
+			for (const auto& rigid : rigidbodys)
 			{
 				if (rigid.second == nullptr)
 				{
@@ -244,9 +235,7 @@ namespace noa {
 				rigid.second->Update();
 			}
 
-			Update();
-
-			for (auto& behaviour : behaviours)
+			for (const auto& behaviour : behaviours)
 			{
 				if (behaviour.second == nullptr || !behaviour.second->GetActive())
 				{

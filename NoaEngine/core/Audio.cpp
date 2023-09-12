@@ -42,7 +42,6 @@ namespace noa {
 			else {
 				Mix_PlayChannel(-1, chunk, 0);
 			}
-
 		}
 	}
 

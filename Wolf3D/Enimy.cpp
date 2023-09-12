@@ -1,7 +1,7 @@
 #include "Enimy.h"
 
-Enimy::Enimy(Sprite sprite, Transform* player,LiveEntity * enimy) :
-	GameObject(new Sprite(sprite))
+Enimy::Enimy(Sprite* sprite, Transform* player,LiveEntity * enimy) :
+	GameObject(sprite)
 	, Rigidbody(&transform)
 {
 

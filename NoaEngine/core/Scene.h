@@ -88,6 +88,7 @@ namespace noa {
 	{
 	public:
 		unordered_map<int, Tile*> tileSet;
+		unordered_map<int, bool> collisionTiles;
 	public:
 		/// <summary>
 		/// º”‘ÿÕﬂ∆¨µÿÕº
@@ -99,6 +100,9 @@ namespace noa {
 		int GetTileID(const int x,const int y) const;
 		Tile* GetTile(int id);
 		bool IsTile(int code) const;
+		bool IsCollisionTile(int tileID) const;
+		bool IsCollisionTile(const int x,const int y) const;
+		void SetCollisionTileID(std::vector<int> collisionTileIDs);
 	};
 
 	class Scene 

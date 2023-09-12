@@ -6,10 +6,12 @@
 #include <unordered_map>
 
 namespace noa {
-	// Math Constance
+// Math Constance
 #define PI 3.1415926
 #define HALFPI 1.57079633
 #define MUTIPI 6.28318531
+#define Min(a,b) ((a>b)?b:a)
+#define Max(a,b) ((a>b)?a:b)
 
 //∂®“Â2Œ¨ ∏¡ø
 	template <class T>

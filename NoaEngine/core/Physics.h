@@ -16,6 +16,7 @@ namespace noa {
 		bool isGrounded = false;
 		bool isTrigger = false;
 		void* other = nullptr;
+		bool collisionInfo[2][2] = { false,false,false,false };
 		void Update(bool isHitCollisionTile,bool isGrounded) 
 		{
 			this->isHitCollisionTile = isHitCollisionTile;
@@ -24,6 +25,7 @@ namespace noa {
 
 	}Collision;
 
+	class TileMap;
 	class Transform;
 	/// <summary>
 	/// 刚体类，当不在使用刚体时，或者物品被摧毁是，请使用RemoveRigidbody
@@ -44,11 +46,15 @@ namespace noa {
 		//阻尼系数
 		float damping = 0.02;
 		Transform* colliderPos = nullptr;
-	private:
 		Vector<float> newPosition;
+	private:
+		
 		//用于物体之间的碰撞检测
 		int indexInMap = -1;
+		TileMap* tileMap = nullptr;
 		
+		Vector<float> sumForce = Vector<float>(0.0, 0.0);
+
 	protected:
 		float invMass = 1;
 
@@ -67,8 +73,6 @@ namespace noa {
 		Vector<float> colliderSize = Vector<float>(0.0, 0.0);
 
 		Collision collision;
-		//bool isTrigger = false;
-		//bool isHitWall = false;
 
 	protected:
 		Rigidbody(Transform* colliderPos);
@@ -84,8 +88,8 @@ namespace noa {
 		/// <param name="force">力的数值，如果力的种类为恒力，其数值表示力，如果是冲量，则表示冲量的大小</param>
 		/// <param name="forceType">力的类型</param>
 		void AddForce(const Vector<float> force, ForceType forceType);
-		void SetCollisionTileID(std::vector<int> collisionTileIDs);
-		void UpdateMap(void * map);
+		
+		void UpdateMap(TileMap * map);
 
 		//碰撞检测线程
 		void ApplyCollision();
@@ -114,6 +118,8 @@ namespace noa {
 		size_t GetHashCode() const {
 			return id;
 		}
+		
+
 
 	private:
 		size_t id;

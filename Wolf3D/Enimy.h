@@ -11,14 +11,14 @@ public:
 	Transform* player = nullptr;
 	StateMachine* fsm = nullptr;
 	NoaEvent<void()> deathEvent;
-	Animator* currentAnimation = nullptr;
+	Animation* currentAnimation = nullptr;
 	LiveEntity* enimy = nullptr;
 	//int hp = 100;
 
 public:
 
 	//void TakeDamage(int damage);
-	Enimy(Sprite sprite, Transform* player,LiveEntity * enimy);
+	Enimy(Sprite* sprite, Transform* player,LiveEntity * enimy);
 	~Enimy();
 	void Update() override;
 

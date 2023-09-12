@@ -17,7 +17,7 @@ namespace noa
 	
 	class State 
 	{
-	private:
+	protected:
 		StateMachine* stateMachine;
 	public:
 		//ÏÂÒ»¸ö×´Ì¬<transition,state>
@@ -46,10 +46,10 @@ namespace noa
 	public:
 		StateMachine();
 		StateMachine(vector<State*> stateList);
-		void PerformTransition(int transition);
-		void AddState(State* state);
-		void Act();
-		void Reason();
+		virtual void PerformTransition(int transition);
+		virtual void AddState(State* state);
+		virtual void Act();
+		virtual void Reason();
 	};
 }
 

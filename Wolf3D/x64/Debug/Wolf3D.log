@@ -1,0 +1,49 @@
+﻿  Animator.cpp
+D:\Work\NoaEngine\NoaEngine\core\Sprite.h(15,10): fatal  error C1083: 无法打开包括文件: “SDL2/SDL.h”: No such file or directory
+  Audio.cpp
+D:\Work\NoaEngine\NoaEngine\core\Audio.h(4,10): fatal  error C1083: 无法打开包括文件: “SDL2/SDL_audio.h”: No such file or directory
+  Behaviour.cpp
+D:\Work\NoaEngine\NoaEngine\core\NoaEngine.h(96,10): fatal  error C1083: 无法打开包括文件: “SDL2/SDL.h”: No such file or directory
+  Camera.cpp
+D:\Work\NoaEngine\NoaEngine\core\Sprite.h(15,10): fatal  error C1083: 无法打开包括文件: “SDL2/SDL.h”: No such file or directory
+  GameObject.cpp
+D:\Work\NoaEngine\NoaEngine\core\Sprite.h(15,10): fatal  error C1083: 无法打开包括文件: “SDL2/SDL.h”: No such file or directory
+  InputSystem.cpp
+D:\Work\NoaEngine\NoaEngine\core\InputSystem.h(4,10): fatal  error C1083: 无法打开包括文件: “SDL2/SDL.h”: No such file or directory
+  NoaAction.cpp
+D:\Work\NoaEngine\NoaEngine\core\NoaEngine.h(96,10): fatal  error C1083: 无法打开包括文件: “SDL2/SDL.h”: No such file or directory
+  NoaEngine.cpp
+D:\Work\NoaEngine\NoaEngine\core\NoaEngine.h(96,10): fatal  error C1083: 无法打开包括文件: “SDL2/SDL.h”: No such file or directory
+  NoaGUI.cpp
+D:\Work\NoaEngine\NoaEngine\core\Sprite.h(15,10): fatal  error C1083: 无法打开包括文件: “SDL2/SDL.h”: No such file or directory
+  NoaMath.cpp
+  Physics.cpp
+D:\Work\NoaEngine\NoaEngine\core\Physics.h(47,19): warning C4305: “初始化”: 从“double”到“float”截断
+D:\Work\NoaEngine\NoaEngine\core\Physics.h(61,13): warning C4305: “初始化”: 从“double”到“float”截断
+D:\Work\NoaEngine\NoaEngine\core\NoaEngine.h(96,10): fatal  error C1083: 无法打开包括文件: “SDL2/SDL.h”: No such file or directory
+  Renderer.cpp
+D:\Work\NoaEngine\NoaEngine\core\Renderer.h(4,10): fatal  error C1083: 无法打开包括文件: “SDL2/SDL.h”: No such file or directory
+  Scene.cpp
+D:\Work\NoaEngine\NoaEngine\core\Sprite.h(15,10): fatal  error C1083: 无法打开包括文件: “SDL2/SDL.h”: No such file or directory
+  Sprite.cpp
+D:\Work\NoaEngine\NoaEngine\core\Sprite.h(15,10): fatal  error C1083: 无法打开包括文件: “SDL2/SDL.h”: No such file or directory
+  StateMachine.cpp
+D:\Work\NoaEngine\NoaEngine\core\NoaEngine.h(96,10): fatal  error C1083: 无法打开包括文件: “SDL2/SDL.h”: No such file or directory
+  Transform.cpp
+  Caco.cpp
+D:\Work\NoaEngine\NoaEngine\core\NoaEngine.h(96,10): fatal  error C1083: 无法打开包括文件: “SDL2/SDL.h”: No such file or directory
+  CacoState.cpp
+D:\Work\NoaEngine\NoaEngine\core\NoaEngine.h(96,10): fatal  error C1083: 无法打开包括文件: “SDL2/SDL.h”: No such file or directory
+  Enimy.cpp
+D:\Work\NoaEngine\NoaEngine\core\NoaEngine.h(96,10): fatal  error C1083: 无法打开包括文件: “SDL2/SDL.h”: No such file or directory
+  Item.cpp
+D:\Work\NoaEngine\NoaEngine\core\NoaEngine.h(96,10): fatal  error C1083: 无法打开包括文件: “SDL2/SDL.h”: No such file or directory
+  正在生成代码...
+  正在编译...
+  LiveEntity.cpp
+D:\Work\NoaEngine\NoaEngine\core\NoaEngine.h(96,10): fatal  error C1083: 无法打开包括文件: “SDL2/SDL.h”: No such file or directory
+  main.cpp
+D:\Work\NoaEngine\NoaEngine\core\NoaEngine.h(96,10): fatal  error C1083: 无法打开包括文件: “SDL2/SDL.h”: No such file or directory
+  Player.cpp
+D:\Work\NoaEngine\NoaEngine\core\NoaEngine.h(96,10): fatal  error C1083: 无法打开包括文件: “SDL2/SDL.h”: No such file or directory
+  正在生成代码...

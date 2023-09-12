@@ -29,6 +29,6 @@ public:
 
 	int bulletCount = 100;
 
-	Animator* gunShot = new Animator(14);
+	Animation* gunShot = new Animation(14,false);
 };
 

@@ -1,6 +1,7 @@
 #include "Renderer.h"
 #include "Sprite.h"
 #include "NoaGUI.h"
+#include "NoaMath.h"
 
 namespace noa {
 	extern void Debug(string msg);
@@ -23,27 +24,26 @@ namespace noa {
 		this->pixelBuffer = (Uint32*)pixelBuffer;
 		this->sdlRenderer = sdlRenderer;
 		this->sdlTexture = sdlTexture;
-
 	}
 
-	void Renderer::DrawPixel(const int x, const int y, const Uint32 color) const
+	void Renderer::DrawPixel(const uint32_t x, const uint32_t y, const uint32_t color) const
 	{
-		if (x<0||x>=pixelWidth||y<0||y>=pixelHeight||pixelBuffer == nullptr)
+		//µ×²ãµÄ»æÍ¼´úÂë£¬µ÷ÓÃÆµ·±
+		if (x>=pixelWidth||y>=pixelHeight||pixelBuffer == nullptr)
 		{
 			return;
 		}
-		pixelBuffer[y * pixelWidth + x] = color;
 
-		
+		pixelBuffer[y * pixelWidth + x] = color;
 
 	}
 
 	void Renderer::DrawLine(int x1, int y1, int x2, int y2, Uint32 color) const
 	{
-		int dx = NoaFastAbs(x2 - x1);
-		int dy = NoaFastAbs(y2 - y1);
-		int sx = (x1 < x2) ? 1 : -1;
-		int sy = (y1 < y2) ? 1 : -1;
+		const int dx = NoaFastAbs(x2 - x1);
+		const int dy = NoaFastAbs(y2 - y1);
+		const int sx = (x1 < x2) ? 1 : -1;
+		const int sy = (y1 < y2) ? 1 : -1;
 
 		int err = dx - dy;
 
@@ -125,10 +125,10 @@ namespace noa {
 		const int y2 = point2.y;
 
 
-		const int minX = min(x1, x2);
-		const int maxX = max(x1, x2);
-		const int minY = min(y1, y2);
-		const int maxY = max(y1, y2);
+		const int minX = Min(x1, x2);
+		const int maxX = Max(x1, x2);
+		const int minY = Min(y1, y2);
+		const int maxY = Max(y1, y2);
 
 		for (int x = minX; x <= maxX; x++) {
 			for (int y = minY; y <= maxY; y++) {
@@ -145,10 +145,10 @@ namespace noa {
 		const int x2 = point2.x;
 		const int y2 = point2.y;
 
-		const int minX = min(x1, x2);
-		const int maxX = max(x1, x2);
-		const int minY = min(y1, y2);
-		const int maxY = max(y1, y2);
+		const int minX = Min(x1, x2);
+		const int maxX = Max(x1, x2);
+		const int minY = Min(y1, y2);
+		const int maxY = Max(y1, y2);
 
 		for (int x = minX; x <= maxX; x++) 
 		{
@@ -173,10 +173,10 @@ namespace noa {
 		const int x2 = point2.x;
 		const int y2 = point2.y;
 
-		const int minX = min(x1, x2);
-		const int maxX = max(x1, x2);
-		const int minY = min(y1, y2);
-		const int maxY = max(y1, y2);
+		const int minX = Min(x1, x2);
+		const int maxX = Max(x1, x2);
+		const int minY = Min(y1, y2);
+		const int maxY = Max(y1, y2);
 
 		for (int x = minX; x <= maxX; x++)
 		{
@@ -187,15 +187,10 @@ namespace noa {
 					(float)(y - y1) / (y2 - y1)
 				);
 				const uint32_t color = sprite.GetTransposeColor(simple.y, simple.x);
-				if (isAlpha)
+				if (isAlpha&& color == ERRORCOLOR)
 				{
-					if (color == ERRORCOLOR)
-					{
-						continue;
-					}
+					continue;
 				}
-
-
 
 				DrawPixel(x, y, mutiColor);
 			}
@@ -210,10 +205,10 @@ namespace noa {
 		const int x2 = point2.x;
 		const int y2 = point2.y;
 
-		const int minX = min(x1, x2);
-		const int maxX = max(x1, x2);
-		const int minY = min(y1, y2);
-		const int maxY = max(y1, y2);
+		const int minX = Min(x1, x2);
+		const int maxX = Max(x1, x2);
+		const int minY = Min(y1, y2);
+		const int maxY = Max(y1, y2);
 
 		for (int x = minX; x <= maxX; x++)
 		{
@@ -224,12 +219,9 @@ namespace noa {
 					(float)(y - y1) / (y2 - y1)
 				);
 				uint32_t color = sprite->GetTransposeColor(simple.y, simple.x);
-				if (isAlpha)
+				if (isAlpha&& color == ERRORCOLOR)
 				{
-					if (color == ERRORCOLOR)
-					{
-						continue;
-					}
+					continue;
 				}
 
 				color = RGB(GetRValue(color) * (GetRValue(mutiColor) / 255.0), GetGValue(color) * (GetGValue(mutiColor) / 255.0), GetBValue(color) * (GetBValue(mutiColor) / 255.0));

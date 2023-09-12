@@ -223,7 +223,31 @@ namespace noa
 
 	bool TileMap::IsTile(int code) const
 	{
-		return ContainKey<int, Tile*>(tileSet, code);
+		return tileSet.count(code) > 0;
+	}
+
+	bool TileMap::IsCollisionTile(int tileID) const
+	{
+		return collisionTiles.count(tileID) > 0;
+	}
+
+	bool TileMap::IsCollisionTile(const int x, const int y) const
+	{
+		if (x < 0 || x >= w || y < 0 || y >= h)
+		{
+			return true;
+		}
+		return collisionTiles.count(level[y * w + x]) > 0;
+	}
+
+	void TileMap::SetCollisionTileID(std::vector<int> collisionTileIDs)
+	{
+		//…Ë÷√Collision Tiles
+		const int collisionTilesCount = collisionTileIDs.size();
+		for (int i = 0; i < collisionTilesCount; i++)
+		{
+			collisionTiles[collisionTileIDs[i]] = true;
+		}
 	}
 
 	Tile* TileMap::GetTile(int id)

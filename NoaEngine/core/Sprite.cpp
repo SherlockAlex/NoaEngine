@@ -74,10 +74,10 @@ namespace noa {
 	void Sprite::DrawSprite(int posX, int posY, bool isRenderAlpha) const
 	{
 		//将sprite图片填充到矩形上
-		const int x1 = posX - 0.5*scale.x;
-		const int y1 = posY - 0.5*scale.y;
-		const int x2 = posX + 0.5*scale.x;
-		const int y2 = posY + 0.5*scale.y;
+		const int x1 = posX;
+		const int y1 = posY;
+		const int x2 = posX + scale.x;
+		const int y2 = posY + scale.y;
 
 		for (int x = min(x1, x2); x <= max(x1, x2); x++)
 		{
@@ -88,12 +88,9 @@ namespace noa {
 					(float)(y - y1) / (y2 - y1)
 				);
 				const uint32_t color = GetTransposeColor(simple.y, simple.x);
-				if (isRenderAlpha)
+				if (isRenderAlpha&& color == ERRORCOLOR)
 				{
-					if (color == ERRORCOLOR)
-					{
-						continue;
-					}
+					continue;
 				}
 				renderer.DrawPixel(x, y, color);
 			}
@@ -150,10 +147,10 @@ namespace noa {
 		const int x2 = posX + scale.x*0.5;
 		const int y2 = posY + scale.y*0.5;*/
 
-		const int x1 = posX - 0.5*scale.x;
-		const int y1 = posY - 0.5*scale.y;
-		const int x2 = posX + 0.5*scale.x;
-		const int y2 = posY + 0.5*scale.y;
+		const int x1 = posX;
+		const int y1 = posY;
+		const int x2 = posX + scale.x;
+		const int y2 = posY + scale.y;
 
 		for (int x = min(x1, x2); x <= max(x1, x2); x++)
 		{
@@ -172,12 +169,9 @@ namespace noa {
 
 				}
 
-				if (isRenderAlpha)
+				if (isRenderAlpha&& pixelColor == ERRORCOLOR)
 				{
-					if (pixelColor == ERRORCOLOR)
-					{
-						continue;
-					}
+					continue;
 				}
 				renderer.DrawPixel(x, y, pixelColor);
 			}
@@ -226,10 +220,10 @@ namespace noa {
 		const int x2 = posx + scale.x * 0.5;
 		const int y2 = posy + scale.y * 0.5;*/
 
-		const int x1 = posx - 0.5*scale.x;
-		const int y1 = posy - 0.5*scale.y;
-		const int x2 = posx + 0.5*scale.x;
-		const int y2 = posy + 0.5*scale.y;
+		const int x1 = posx;
+		const int y1 = posy;
+		const int x2 = posx + scale.x;
+		const int y2 = posy + scale.y;
 
 		for (int x = min(x1, x2); x <= max(x1, x2); x++)
 		{
@@ -240,12 +234,9 @@ namespace noa {
 					(float)(y - y1) / (y2 - y1)
 				);
 				const uint32_t color = GetTransposeColor(simple.y, simple.x);
-				if (isRenderAlpha)
+				if (isRenderAlpha&& color == ERRORCOLOR)
 				{
-					if (color == ERRORCOLOR)
-					{
-						continue;
-					}
+					continue;
 				}
 				renderer.DrawPixel(x, y, color);
 			}
@@ -301,10 +292,10 @@ namespace noa {
 		const int x2 = posx + scale.x * 0.5;
 		const int y2 = posy + scale.y * 0.5;*/
 
-		const int x1 = posx - 0.5*scale.x;
-		const int y1 = posy - 0.5*scale.y;
-		const int x2 = posx + 0.5*scale.x;
-		const int y2 = posy + 0.5*scale.y;
+		const int x1 = posx;
+		const int y1 = posy;
+		const int x2 = posx + scale.x;
+		const int y2 = posy + scale.y;
 
 		for (int x = min(x1, x2); x <= max(x1, x2); x++)
 		{
@@ -323,12 +314,9 @@ namespace noa {
 
 				}
 
-				if (isRenderAlpha)
+				if (isRenderAlpha&& pixelColor == ERRORCOLOR)
 				{
-					if (pixelColor == ERRORCOLOR)
-					{
-						continue;
-					}
+					continue;
 				}
 				renderer.DrawPixel(x, y, pixelColor);
 			}
