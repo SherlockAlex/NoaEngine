@@ -25,6 +25,8 @@ namespace noa {
 
 	}Collision;
 
+	extern float gravityAcceration;
+
 	class TileMap;
 	class Transform;
 	/// <summary>
@@ -47,6 +49,7 @@ namespace noa {
 		float damping = 0.02;
 		Transform* colliderPos = nullptr;
 		Vector<float> newPosition;
+		float gravityWeight = 1.0;
 	private:
 		
 		//用于物体之间的碰撞检测
@@ -57,21 +60,17 @@ namespace noa {
 
 	protected:
 		float invMass = 1;
-
-		float g = 9.81;
 		bool useGravity = true;
 		//bool isGrounded = false;
 		bool useCollision = true;
 		void* gameObject = nullptr;
 
 	public:
+		
 		bool useMotion = true;
 		bool isFrozen = false;
 		//刚体的速度
 		Vector<float> velocity = Vector<float>(0.0,0.0);
-		//刚体的碰撞的大小
-		//Vector<float> colliderSize = Vector<float>(0.0, 0.0);
-
 		//刚体之间碰撞体半径
 		float radius = 0.5;
 

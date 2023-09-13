@@ -21,6 +21,6 @@ public:
 	Enimy(Sprite* sprite, Transform* player,LiveEntity * enimy);
 	~Enimy();
 	void Update() override;
-
+	virtual void OnPain() = 0;
 };
 

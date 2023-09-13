@@ -10,14 +10,13 @@ namespace noa {
 	//extern vector<Rigidbody*> rigidbodys;
 	extern unordered_map<size_t, Rigidbody*> rigidbodys;
 
-	extern void ApplyRigidbodysCollision();
-
 	//mutex mtx; // 定义互斥锁对象
 
 	int pixelHeight = 0;
 	int pixelWidth = 0;
 
 	float deltaTime = 0;
+	float gameTime = 0;
 
 	Renderer renderer;
 	int pitch;
@@ -188,6 +187,8 @@ namespace noa {
 		chrono::duration<float> elapsedTime;
 		tp2 = chrono::system_clock::now();
 
+		
+
 		Start();
 
 		for (auto & behaviour:behaviours)
@@ -210,6 +211,12 @@ namespace noa {
 			elapsedTime = tp2 - tp1;
 			deltaTime = elapsedTime.count();
 			
+			gameTime += deltaTime;
+			if (gameTime > 65535)
+			{
+				gameTime = 0;
+			}
+
 			//执行游戏主类的update
 			while (SDL_PollEvent(&ioEvent))
 			{

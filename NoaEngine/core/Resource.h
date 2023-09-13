@@ -85,6 +85,32 @@ namespace noa {
 		MapFile LoadMapFromCSV(const std::string filename) const;
 
 		unordered_map<int, Tile*> LoadTileFromTsd(const std::string& fileName) const;
+
+	};
+
+	class BinaryFile 
+	{
+	public:
+		enum Mode {
+			READ = 0,
+			WRITE = 1
+		};
+
+	private:
+		ifstream ifile;
+		ofstream ofile;
+	public:
+		BinaryFile(const char * fileName,Mode mode);
+		~BinaryFile();
+
+		//读取文件数据
+		template<class T>
+		T Read();
+
+		//将数据写入二进制文件
+		template<class T>
+		bool Write(T value);
+
 	};
 
 	//资源读取器，读取本地游戏引擎资源

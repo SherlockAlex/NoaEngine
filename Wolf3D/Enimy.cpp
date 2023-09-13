@@ -9,12 +9,10 @@ Enimy::Enimy(Sprite* sprite, Transform* player,LiveEntity * enimy) :
 
 	gameObject = this;
 	this->player = player;
-	this->useGravity;
+	this->useGravity = false;
 	this->enimy = enimy;
 
 	fsm = new StateMachine();
-
-	
 
 }
 
@@ -31,7 +29,7 @@ void Enimy::Update()
 	{
 		sprite->UpdateImage(currentAnimation->GetCurrentFrameImage());
 	}
-
-	fsm->Act();
 	fsm->Reason();
+	fsm->Act();
+	
 }

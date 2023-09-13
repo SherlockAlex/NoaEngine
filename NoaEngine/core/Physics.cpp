@@ -11,8 +11,8 @@ namespace noa {
 	extern float deltaTime;
 	//检测rigid是否和其他刚体相撞，如果相撞就返回
 	extern bool CollisionWithinRigidbody(Rigidbody* rigid);
-
-	extern void ApplyRigidbodysCollision();
+	extern bool BoundingBoxIntersect(Rigidbody* a, Rigidbody* b);
+	float gravityAcceration = 9.81;
 
 	unordered_map<size_t,Rigidbody*> rigidbodys;
 	unordered_map<size_t, bool> isCheckCollision;
@@ -29,7 +29,7 @@ namespace noa {
 		id = GetNextId();
 		collision.other = nullptr;
 		this->colliderPos = colliderPos;
-		this->newPosition = colliderPos->position;
+		this->velocity = { 0,0 };
 		invMass = 1.0 / mass;
 
 		rigidbodys[GetHashCode()] = this;
@@ -57,15 +57,6 @@ namespace noa {
 			return;
 		}
 		
-		//根据速度进行物体的碰撞检测
-		//如果检测到了碰撞字符，就停止
-		if (collision.isTrigger && collision.other != nullptr)
-		{
-			OnTrigger(collision.other);
-		}
-		collision.other = nullptr;
-
-		//indexInMap = (int)(colliderPos->position.x) + (int)(colliderPos->position.y) * tileMap->w;
 		const int x = colliderPos->position.x;
 		const int y = colliderPos->position.y;
 		indexInMap = (x << 16) | y;
@@ -73,9 +64,14 @@ namespace noa {
 		collision.other = nullptr;
 		collision.isHitCollisionTile = false;
 
+		if (deltaTime>1.0/10)
+		{
+			deltaTime = 1.0 / 60;
+		}
+
 		if (useMotion&&useGravity&&(!collision.isGrounded)) 
 		{
-			velocity.y += 3.5 * g * deltaTime;
+			velocity.y += gravityWeight * gravityAcceration * deltaTime;
 		}
 
 		if (useMotion)
@@ -85,11 +81,22 @@ namespace noa {
 			//F = ma
 			velocity = (velocity * (1 - damping)) + (sumForce * (deltaTime * invMass));
 			newPosition = (colliderPos->position) + (velocity * deltaTime);
+			collision.isGrounded = false;
 			ApplyCollision();
 			//处理碰撞检测
+			CollisionWithinRigidbody(this);
+			ApplyCollision();
+			ApplyCollision();
 			colliderPos->position = newPosition;
 		}
 		
+		//根据速度进行物体的碰撞检测
+		//如果检测到了碰撞字符，就停止
+		if (collision.isTrigger && collision.other != nullptr)
+		{
+			OnTrigger(collision.other);
+		}
+		collision.other = nullptr;
 
 	}
 
@@ -123,7 +130,6 @@ namespace noa {
 	}
 
 	Vector<float> pos(0.0, 0.0);
-
 	void Rigidbody::ApplyCollision()
 	{
 		if (!useCollision||tileMap == nullptr)
@@ -131,29 +137,21 @@ namespace noa {
 			return;
 		}
 
-		if (velocity.x <= 0)
+		if (tileMap->IsCollisionTile(newPosition.x, colliderPos->position.y)
+			|| tileMap->IsCollisionTile(newPosition.x, colliderPos->position.y + 0.999)
+		)
 		{
-
-			if (
-				tileMap->IsCollisionTile(newPosition.x, colliderPos->position.y)
-				|| tileMap->IsCollisionTile(newPosition.x, colliderPos->position.y + 0.999)
-				)
-
+			if (!collision.isTrigger)
 			{
-
-				if (!collision.isTrigger)
-				{
-					collision.isHitCollisionTile = true;
-					newPosition.x = (int)newPosition.x + 1;
-					velocity.x = 0;
-				}
-
+				collision.isHitCollisionTile = true;
+				newPosition.x = (int)newPosition.x + 1;
+				velocity.x = 0;
 			}
 		}
-		else if (
-				tileMap->IsCollisionTile(newPosition.x + 0.999, colliderPos->position.y)
-				|| tileMap->IsCollisionTile(newPosition.x + 0.999, colliderPos->position.y + 0.999)
-				)
+
+		if (tileMap->IsCollisionTile(newPosition.x + 0.999, colliderPos->position.y)
+			|| tileMap->IsCollisionTile(newPosition.x + 0.999, colliderPos->position.y + 0.999)
+		)
 		{
 			if (!collision.isTrigger)
 			{
@@ -164,40 +162,29 @@ namespace noa {
 
 		}
 
-		collision.isGrounded = false;
-		if (velocity.y <= 0)
+		if (tileMap->IsCollisionTile(newPosition.x, newPosition.y)
+			|| tileMap->IsCollisionTile(newPosition.x + 0.999, newPosition.y)
+		)
 		{
-			if (
-				tileMap->IsCollisionTile(newPosition.x, newPosition.y)
-				|| tileMap->IsCollisionTile(newPosition.x + 0.999, newPosition.y)
-				)
+			if (!collision.isTrigger)
 			{
-
-				if (!collision.isTrigger)
-				{
-					collision.isHitCollisionTile = true;
-					newPosition.y = (int)newPosition.y + 1;
-					velocity.y = 0;
-				}
+				collision.isHitCollisionTile = true;
+				newPosition.y = (int)newPosition.y + 1;
+				velocity.y = 0;
 			}
 		}
-		else if (
-				tileMap->IsCollisionTile(newPosition.x, newPosition.y + 0.999)
-				|| tileMap->IsCollisionTile(newPosition.x + 0.999f, newPosition.y + 0.999)
-				)
 
+		if (tileMap->IsCollisionTile(newPosition.x, newPosition.y + 0.999)
+			|| tileMap->IsCollisionTile(newPosition.x + 0.999f, newPosition.y + 0.999)
+		)
 		{
-
 			if (!collision.isTrigger) {
+				collision.isGrounded = true;
 				collision.isHitCollisionTile = true;
 				newPosition.y = (int)newPosition.y;
 				velocity.y = 0;
-				collision.isGrounded = true;
 			}
-
 		}
-
-		CollisionWithinRigidbody(this);
 
 	}
 
@@ -211,114 +198,83 @@ namespace noa {
 		DestroyRigidbody(this);
 	}
 
-	
-
-
 	bool CollisionWithinRigidbody(Rigidbody* rigid)
 	{
-
-		//需要进行大优化，重复计算量大
-		//对于两个刚体之间，只要进行一次碰撞检测便可
-		//同时保存与之相碰撞的刚体到其信息中
-		//然后rigid再去四位维数组[x1][y1][x2][y2]处查看保存的与之相撞的刚体是否为空
-		//刚体之间的碰撞只要每一帧去执行一次便可
-
-		if (rigid == nullptr||rigid->isFrozen)
+		if (rigid == nullptr || rigid->isFrozen)
 		{
 			return false;
 		}
 
-		if (rigid->collision.other!=nullptr)
-		{
-			if (rigid->collision.isTrigger)
-			{
-				return false;
-			}
-			return true;
-
-		}
-
 		const size_t hashCode = rigid->GetHashCode();
+		const float rigidRadius = rigid->radius;
+		const float rigidX = rigid->newPosition.x;
+		const float rigidY = rigid->newPosition.y;
+		Vector<float>& rigidVelocity = rigid->velocity;
 
-		for (const auto & e:rigidbodys)
+		bool collisionOccurred = false;
+
+		for (const auto& e : rigidbodys)
 		{
-			if (e.first == hashCode || e.second == nullptr||e.second->collision.other!=nullptr)
+			if (e.first == hashCode || e.second == nullptr)
 			{
 				continue;
 			}
 
 			Rigidbody* rigidbody = e.second;
 
-			//检测两个刚体是否会相撞
-			const float x1 = rigid->newPosition.x + 0.5;
-			const float y1 = rigid->newPosition.y + 0.5;
+			// 检查包围盒是否相交
+			if (!BoundingBoxIntersect(rigid, rigidbody))
+			{
+				continue;
+			}
 
-			const float x2 = rigidbody->colliderPos->position.x + 0.5;
-			const float y2 = rigidbody->colliderPos->position.y + 0.5;
+			// 检测两个刚体是否会相撞（使用平方距离）
+			const float deltaX = rigidX - rigidbody->colliderPos->position.x;
+			const float deltaY = rigidY - rigidbody->colliderPos->position.y;
+			const float distanceSquared = deltaX * deltaX + deltaY * deltaY;
+			const float radiusSumSquared = (rigidRadius + rigidbody->radius) * (rigidRadius + rigidbody->radius);
 
-			const float deltaX = x1 - x2;
-			const float deltaY = y1 - y2;
-
-			const float distance = sqrtf(deltaX * deltaX + deltaY * deltaY);
-
-			const float distanceValue = rigid->radius + rigidbody->radius;
-
-			if (distance>=distanceValue)
+			if (distanceSquared >= radiusSumSquared)
 			{
 				continue;
 			}
 
 			rigid->collision.other = rigidbody;
-			rigidbody->collision.other = rigid;
-			if (rigid->collision.isTrigger 
-				|| rigidbody->collision.isTrigger
-				|| rigidbody->isFrozen
-				)
+
+			if (rigid->collision.isTrigger || rigidbody->collision.isTrigger || rigidbody->isFrozen)
 			{
 				return false;
 			}
 
-			//处理碰撞后的结果
-			const float dr = distanceValue - distance;
-			const float dx = dr * abs(deltaX) / distance+0.01;
-			const float dy = dr * abs(deltaY) / distance+0.01;
+			// 处理碰撞后的结果
+			const float distance = sqrt(distanceSquared);
+			const float dr = sqrt(radiusSumSquared) - distance;
+			const float dx = dr * deltaX / distance;
+			const float dy = dr * deltaY / distance;
 
-			if (rigid->velocity.x > 0)
-			{
-				rigid->newPosition.x -= dx;
-				rigid->velocity.x = 0;
-			}
-			else if(rigid->velocity.x<0)
-			{
-				rigid->newPosition.x += dx;
-				rigid->velocity.x = 0;
-			}
+			rigid->newPosition.x += dx;
+			rigid->newPosition.y += dy;
+			
+			rigid->ApplyCollision();
 
-			if (rigid->velocity.y > 0)
-			{
-				rigid->newPosition.y -= dy;
-				rigid->velocity.y = 0;
-			}
-			else if(rigid->velocity.y<0)
-			{
-				rigid->newPosition.y += dy;
-				rigid->velocity.y = 0;
-			}
+			rigidVelocity.x = 0;
+			rigidVelocity.y = 0;
 
-			return true;
-
+			collisionOccurred = true;
 		}
 
-		return false;
-
+		return collisionOccurred;
 	}
 
-	void ApplyRigidbodysCollision() 
+	bool BoundingBoxIntersect(Rigidbody* a, Rigidbody* b)
 	{
-		//检测物体碰撞
-
-		
-
+		// 实现包围盒相交检测逻辑，如果相交返回true，否则返回false
+		// 你可以根据刚体的形状和位置来实现具体的检测方法
+		// 这里简单示范一个矩形包围盒的检测
+		return (a->newPosition.x - a->radius < b->newPosition.x + b->radius) &&
+			(a->newPosition.x + a->radius > b->newPosition.x - b->radius) &&
+			(a->newPosition.y - a->radius < b->newPosition.y + b->radius) &&
+			(a->newPosition.y + a->radius > b->newPosition.y - b->radius);
 	}
 
 }

@@ -14,6 +14,7 @@ public:
 	void RotateControl();
 	void Start() override;
 	void Update() override;
+	void TakeDamage(int damage) override;
 public:
 	FreeCamera* camera = nullptr;
 	float speed = 10;
@@ -23,12 +24,13 @@ public:
 
 	Sprite gunSprite = Sprite(
 		resource.LoadSprFile("./Assets/Wolf/gun.spr")
-		, Vector<int>(0.5 * pixelWidth, 0.5 * pixelWidth));
+		, Vector<int>(0.25 * pixelWidth, 0.25 * pixelWidth));
 
-	Audio shotAFX = Audio("./Assets/Wolf/Music/handleGunShot.mp3", Chunk);
+	Audio shotAFX = Audio("./Assets/Wolf/Music/shotgun.wav", Chunk);
+	Audio painAFX = Audio("./Assets/Wolf/Music/player_pain.wav",Chunk);
 
 	int bulletCount = 100;
 
-	Animation* gunShot = new Animation(14,false);
+	Animation* gunShot = new Animation(7.5,false);
 };
 

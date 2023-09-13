@@ -8,7 +8,7 @@ class Enimy;
 
 enum EnimyState
 {
-	Idle, Move, Attack, Die
+	Idle, Move, Attack, Die,Pain
 };
 
 
@@ -28,7 +28,7 @@ public:
 		const char * animationPath
 	);
 
-	void Act() override;
+	void OnUpdate() override;
 	void Reason() override;
 
 };
@@ -48,7 +48,7 @@ public:
 		Enimy* enimy, Transform* target,
 		const char* animationPath);
 
-	void Act() override;
+	void OnUpdate() override;
 	void Reason() override;
 
 };
@@ -58,7 +58,7 @@ class CacoAttackState :public State
 public:
 	Enimy* enimy = nullptr;
 	Transform* target = nullptr;
-	
+	Audio audio = Audio("Assets/Wolf/Music/npc_attack.wav", Chunk);
 
 public:
 	Animation animation = Animation(5,false);
@@ -68,7 +68,7 @@ public:
 		Enimy* enimy, Transform* target,
 		const char* animationPath);
 
-	void Act() override;
+	void OnUpdate() override;
 	void Reason() override;
 
 };
@@ -79,17 +79,38 @@ class CacoDieState :public State
 public:
 	Enimy* enimy = nullptr;
 	Transform* target = nullptr;
-	
+	Audio audio = Audio("Assets/Wolf/Music/npc_death.wav", Chunk);
 
 public:
-	Animation animation = Animation(5,false);
+	Animation animation = Animation(12,false);
 
 	CacoDieState(
 		StateMachine* stateMachine,
 		Enimy* enimy, Transform* target,
 		const char* animationPath);
 
-	void Act() override;
+	void OnUpdate() override;
+	void Reason() override;
+
+};
+
+class CacoPainState :public State
+{
+public:
+	Enimy* enimy = nullptr;
+	Transform* target = nullptr;
+
+	Audio audio = Audio("Assets/Wolf/Music/npc_pain.wav", Chunk);
+
+public:
+	Animation animation = Animation(5, false);
+
+	CacoPainState(
+		StateMachine* stateMachine,
+		Enimy* enimy, Transform* target,
+		const char* animationPath);
+
+	void OnUpdate() override;
 	void Reason() override;
 
 };

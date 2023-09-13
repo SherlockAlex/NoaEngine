@@ -45,7 +45,7 @@ void noa::StateMachine::Act()
 	{
 		return;
 	}
-	currentState->Act();
+	currentState->OnUpdate();
 }
 
 void noa::StateMachine::Reason()
@@ -78,5 +78,14 @@ void noa::State::SetTransition(int transition)
 	{
 		Debug("havn't state");
 	}
+	if (stateMachine->currentState!=nullptr)
+	{
+		stateMachine->currentState->OnExit();
+	}
 	stateMachine->currentState = nextStates[transition];
+	if (stateMachine->currentState!=nullptr) 
+	{
+		stateMachine->currentState->OnEnter();
+	}
+	
 }

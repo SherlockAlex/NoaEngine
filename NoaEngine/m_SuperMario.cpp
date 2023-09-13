@@ -10,7 +10,7 @@ Vector<int> tileScale = Vector<int>(70, 70);
 class Player:public GameObject,public Rigidbody
 {
 public:
-	Player() :GameObject(new Sprite(LoadSprFile("./Assets/JumpMan/JumpMan.spr"), tileScale)), Rigidbody(&transform)
+	Player() :GameObject(new Sprite(resource.LoadSprFile("./Assets/JumpMan/JumpMan.spr"), tileScale)), Rigidbody(&transform)
 	{
 		transform.position = Vector<float>(0.0, 0.0);
 		//useGravity = false;
@@ -70,7 +70,7 @@ public:
 
 		}
 
-
+		//Debug(to_string(collision.isGrounded));
 		if ((inputSystem.GetKeyHold(KeySpace)||inputSystem.GetKeyHold(KeyK)) && collision.isGrounded)
 		{
 			AddForce(jumpForce, Impulse);
@@ -109,11 +109,13 @@ public:
 
 	void Start() override 
 	{
-
+		gravityWeight = 3.5;
 	}
+
 	Vector<float> jumpForce = Vector<float>(0.0, -15);
 	void Update() override 
 	{
+
 		ActorControl();
 		AnimatorControl();
 
@@ -175,8 +177,8 @@ private:
 	//0 - wall
 	//1 - coin
 	TileMap tileMap = TileMap(
-		LoadTileFromTsd("./Assets/JumpMan/Tile/tileSet.tsd"),
-		LoadMapFromCSV("./Assets/JumpMan/Map/level1.csv")
+		resource.LoadTileFromTsd("./Assets/JumpMan/Tile/tileSet.tsd"),
+		resource.LoadMapFromCSV("./Assets/JumpMan/Map/level1.csv")
 	);
 	
 	//���

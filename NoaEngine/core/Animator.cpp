@@ -106,6 +106,7 @@ namespace noa {
 		{
 			return;
 		}
+		i = 0;
 		isPlaying = true;
 	}
 
@@ -118,6 +119,12 @@ namespace noa {
 		Debug("Insert Animator Frame");
 		framesImage.push_back(frameImage);
 		currentFrame = framesImage[0];
+	}
+
+	void Animation::Reset()
+	{
+		this->i = 0;
+		this->previousFrameIndex = -1;
 	}
 
 	void Animation::Start()
@@ -138,6 +145,7 @@ namespace noa {
 		if (i>=framesImage.size())
 		{
 			i = 0;
+			previousFrameIndex = -1;
 		}
 		if (!loop&&i==0)
 		{
@@ -168,7 +176,7 @@ namespace noa {
 		sprite = animator->sprite;
 	}
 
-	void AnimationClip::Act()
+	void AnimationClip::OnUpdate()
 	{
 		if (sprite==nullptr) 
 		{

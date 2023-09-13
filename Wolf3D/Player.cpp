@@ -8,14 +8,42 @@ Player::Player(TileMap* map) :Behaviour(), Rigidbody(&transform)
 
 	damping = 0;
 
-	
 	UpdateMap(map);
-	
-	
 
 	inputSystem.inputEvent += [this]() {
 		this->RotateControl();
 		};
+
+	//gunNormal->LoadFromAnimatorFile("./Assets/Wolf/gun-normal.amt");
+	gunShot->LoadFromAnimationFile("./Assets/Wolf/gun-shot.amt");
+	gunShot->SetFrameEvent(1, [this]()
+		{
+			bulletCount--;
+			shotAFX.Play(false);
+
+			Enimy* enimy = nullptr;
+
+			for (int i = 0.5 * pixelWidth - 0.01 * pixelWidth; i <= 0.5 * pixelWidth + 0.01 * pixelWidth; i++)
+			{
+				enimy = camera->GetRayHitInfoAs<Enimy*>(i);
+
+				if (enimy != nullptr)
+				{
+					break;
+				}
+			}
+
+			if (enimy != nullptr)
+			{
+				if (enimy->tag != "Enimy")
+				{
+					return;
+				}
+				enimy->OnPain();
+				enimy->TakeDamage(110);
+			}
+		});
+
 }
 
 Player::~Player() {
@@ -38,6 +66,7 @@ void Player::SetPosition(int tileID, MapFile& tileMap)
 	}
 }
 
+static float walkSpeed = 0;
 void Player::ActorControl() {
 
 	velocity.x = 0;
@@ -109,17 +138,28 @@ void Player::ActorControl() {
 		}
 	}
 
-	if (
+	/*if (
 		inputSystem.GetKeyHold(KeyW)
 		|| inputSystem.GetKeyHold(KeyA)
 		|| inputSystem.GetKeyHold(KeyS)
 		|| inputSystem.GetKeyHold(KeyD)
 		)
 	{
-		velocity = velocity.Normalize() * speed;
+		walkSpeed *= 2;
+		if (walkSpeed == 0)
+		{
+			walkSpeed = 0.1;
+		}
+		if (walkSpeed>speed)
+		{
+			walkSpeed = speed;
+		}
 	}
+	else {
+		walkSpeed *= 0.9;
+	}*/
 	
-
+	velocity = velocity.Normalize() * speed;
 
 }
 
@@ -128,41 +168,13 @@ void Player::RotateControl()
 	if (inputSystem.GetMouseMoveState())
 	{
 		Vector<float> mouseDelta = inputSystem.GetMouseMoveDelta();
-		transform.eulerAngle += 0.05 * mouseDelta.x * deltaTime;
+		transform.eulerAngle += 0.025 * mouseDelta.x * deltaTime;
 	}
 }
 
 void Player::Start()
 {
-	//gunNormal->LoadFromAnimatorFile("./Assets/Wolf/gun-normal.amt");
-	gunShot->LoadFromAnimationFile("./Assets/Wolf/lgun-shot.amt");
-	gunShot->SetFrameEvent(2, [this]()
-		{
-			bulletCount--;
-			shotAFX.Play(false);
-
-			Enimy* enimy = nullptr;
-
-			for (int i = 0.5 * pixelWidth - 0.01 * pixelWidth; i <= 0.5 * pixelWidth + 0.01 * pixelWidth; i++)
-			{
-				enimy = camera->GetRayHitInfoAs<Enimy*>(i);
-
-				if (enimy != nullptr)
-				{
-					break;
-				}
-			}
-
-			if (enimy != nullptr)
-			{
-				if (enimy->tag != "Enimy")
-				{
-					return;
-				}
-				enimy->TakeDamage(20);
-			}
-			//Debug("shot");
-		});
+	
 
 }
 
@@ -170,10 +182,22 @@ void Player::Update()
 {
 	ActorControl();
 	gunSprite.UpdateImage(gunShot->GetCurrentFrameImage());
+
+	float vel = velocity.SqrMagnitude();
+
+	const float offsetX = -0.025*pixelWidth*cos(0.05*vel * gameTime);
+	const float offsetY = 0.025 * pixelWidth * (-sin(0.05 * vel * gameTime)+1);
+
 	if (!inputSystem.GetKeyHold(KeyM))
 	{
-		gunSprite.DrawSprite(0.5 * pixelWidth - 0.5 * 0.5 * pixelWidth, pixelHeight - 0.5 * pixelWidth, true);
+		gunSprite.DrawSprite(0.5 * pixelWidth - 0.5 * 0.25 * pixelWidth + offsetX, pixelHeight - 0.25 * pixelWidth + offsetY, true);
 	}
 	
 	renderer.DrawString("hp:"+to_string(this->hp)+"\nbullet:" + to_string(bulletCount), 0, 0, RED, pixelHeight / 20);
+}
+
+void Player::TakeDamage(int damage)
+{
+	LiveEntity::TakeDamage(damage);
+	painAFX.Play(false);
 }

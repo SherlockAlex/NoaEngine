@@ -3,6 +3,8 @@
 
 #pragma region CacoIdleState
 
+extern Enimy* attackingEnimy;
+
 CacoIdleState::CacoIdleState(
 	StateMachine* stateMachine,
 	Enimy* enimy, Transform* target,
@@ -14,12 +16,16 @@ CacoIdleState::CacoIdleState(
 	this->target = target;
 }
 
-void CacoIdleState::Act()
+void CacoIdleState::OnUpdate()
 {
 	animation.Play();
 	enimy->currentAnimation = &animation;
 	enimy->useMotion = false;
 	enimy->velocity = { 0,0 };
+	if (attackingEnimy == this->enimy)
+	{
+		attackingEnimy = nullptr;
+	}
 }
 
 void CacoIdleState::Reason()
@@ -27,9 +33,10 @@ void CacoIdleState::Reason()
 	Vector<float> distanceVector = target->position - enimy->transform.position;
 	const float distance = distanceVector.SqrMagnitude();
 
-	if (distance <= 7 * 7)
+	if (distance <= 5 * 5)
 	{
 		enimy->useMotion = true;
+		animation.Reset();
 		SetTransition(Move);
 	}
 	if (enimy->hp<=0) 
@@ -37,6 +44,7 @@ void CacoIdleState::Reason()
 		Debug("Enimy die");
 		enimy->useMotion = false;
 		enimy->velocity = { 0,0 };
+		animation.Reset();
 		SetTransition(Die);
 	}
 
@@ -58,8 +66,12 @@ CacoMoveState::CacoMoveState(
 	this->target = target;
 }
 
-void CacoMoveState::Act()
+void CacoMoveState::OnUpdate()
 {
+	if (attackingEnimy == this->enimy)
+	{
+		attackingEnimy = nullptr;
+	}
 	animation.Play();
 	enimy->currentAnimation = &animation;
 	enimy->useMotion = true;
@@ -73,17 +85,25 @@ void CacoMoveState::Reason()
 	Vector<float> distanceVector = target->position - enimy->transform.position;
 	const float distance = distanceVector.SqrMagnitude();
 
-	if (distance <= 2 * 2)
+	if (distance <= 3 * 3)
 	{
 		enimy->useMotion = false;
 		enimy->velocity = { 0,0 };
-		SetTransition(Attack);
+		if (attackingEnimy == nullptr) {
+			animation.Reset();
+			SetTransition(Attack);
+		}
+		else {
+			return;
+		}
+		
 	}
 	if (enimy->hp <= 0)
 	{
 		Debug("Enimy die");
 		enimy->useMotion = false;
 		enimy->velocity = { 0,0 };
+		animation.Reset();
 		SetTransition(Die);
 	}
 
@@ -103,22 +123,24 @@ CacoAttackState::CacoAttackState(
 	this->enimy = enimy;
 	this->target = target;
 
-	animation.SetFrameEvent(2, [this]() 
+	animation.SetFrameEvent(1, [this]() 
 		{
 			Vector<float> distanceVector = this->target->position - this->enimy->transform.position;
 			const float distance = distanceVector.SqrMagnitude();
 
-			if (distance <= 2 * 2)
+			if (distance <= 3 * 3)
 			{
-				this->enimy->enimy->TakeDamage(10);
+				this->enimy->enimy->TakeDamage(2);
+				audio.Play(false);
 			}
 			
 		});
 
 }
 
-void CacoAttackState::Act()
+void CacoAttackState::OnUpdate()
 {
+	attackingEnimy = this->enimy;
 	animation.Play();
 	enimy->currentAnimation = &animation;
 	enimy->useMotion = false;
@@ -131,9 +153,9 @@ void CacoAttackState::Reason()
 	Vector<float> distanceVector = target->position - enimy->transform.position;
 	const float distance = distanceVector.SqrMagnitude();
 
-	if (distance > 2 * 2)
+	if (distance > 3 * 3)
 	{
-		//enimy->useMotion = true;
+		animation.Reset();
 		SetTransition(Move);
 	}
 	if (enimy->hp <= 0)
@@ -141,6 +163,7 @@ void CacoAttackState::Reason()
 		Debug("Enimy die");
 		enimy->useMotion = false;
 		enimy->velocity = { 0,0 };
+		animation.Reset();
 		SetTransition(Die);
 	}
 
@@ -159,23 +182,31 @@ CacoDieState::CacoDieState(
 	animation.LoadFromAnimationFile(animationPath);
 	this->enimy = enimy;
 	this->target = target;
-	animation.SetFrameEvent(8, [this]()
+
+	animation.SetFrameEvent(1, [this]() {
+		audio.Play(false);
+		this->enimy->isFrozen = true;
+	});
+
+	animation.SetFrameEvent(10, [this]()
 		{
-			this->enimy->isFrozen = true;
+			
 			this->enimy->Destroy();
 			this->enimy->RemoveRigidbody();
 		});
 }
 
-void CacoDieState::Act()
+void CacoDieState::OnUpdate()
 {
+	if (attackingEnimy == this->enimy)
+	{
+		attackingEnimy = nullptr;
+	}
 	animation.Play();
 	enimy->currentAnimation = &animation;
 	enimy->useMotion = false;
 	enimy->velocity = { 0,0 };
 	enimy->transform.posZ = 0.5 * enimy->transform.posZ;
-	//²¥·ÅÍê¾Í
-	//enimy->Destroy();
 
 }
 
@@ -186,3 +217,53 @@ void CacoDieState::Reason()
 
 #pragma endregion
 
+#pragma region CacoPainState
+
+CacoPainState::CacoPainState(
+	StateMachine* stateMachine,
+	Enimy* enimy, Transform* target,
+	const char* animationPath) :
+	State(stateMachine)
+{
+	animation.LoadFromAnimationFile(animationPath);
+	this->enimy = enimy;
+	this->target = target;
+
+	animation.SetFrameEvent(1, [this]() {
+		audio.Play(false);
+	});
+
+	animation.SetFrameEvent(1, [this]()
+		{
+			if (this->enimy->hp<=0)
+			{
+				SetTransition(Die);
+			}
+			SetTransition(Idle);
+		});
+}
+
+void CacoPainState::OnUpdate()
+{
+	if (attackingEnimy == this->enimy)
+	{
+		attackingEnimy = nullptr;
+	}
+	animation.Play();
+	enimy->currentAnimation = &animation;
+	enimy->useMotion = false;
+	enimy->velocity = { 0,0 };
+	enimy->transform.posZ = 0.5 * enimy->transform.posZ;
+
+}
+
+void CacoPainState::Reason()
+{
+	if (this->enimy->hp <= 0)
+	{
+		animation.Reset();
+		SetTransition(Die);
+	}
+}
+
+#pragma endregion

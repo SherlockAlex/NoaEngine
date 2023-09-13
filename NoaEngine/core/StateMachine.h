@@ -30,8 +30,10 @@ namespace noa
 		void SetTransition(int transition);
 
 	public:
-		virtual void Act() = 0;
-		virtual void Reason() = 0;
+		virtual void OnEnter() {};
+		virtual void OnUpdate() {};
+		virtual void Reason() {};
+		virtual void OnExit() {};
 	};
 
 	/// <summary>

@@ -36,6 +36,12 @@ namespace noa {
 			return id;
 		}
 
+		// 将Behaviour作为其他组件返回
+		template<class T>
+		T GetComponentAs() {
+			return (T)this;
+		}
+
 	private:
 		size_t id;
 		static size_t nextId;

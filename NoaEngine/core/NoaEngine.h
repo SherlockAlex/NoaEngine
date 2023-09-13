@@ -132,6 +132,8 @@ namespace noa {
 
 	extern float deltaTime;
 
+	extern float gameTime;
+
 	/*
 	* o-----------------------——-o
 	* |    游戏基类，一个抽象类     |

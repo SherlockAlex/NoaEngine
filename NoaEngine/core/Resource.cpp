@@ -234,4 +234,52 @@ namespace noa {
 		this->isCollision = isCollision;
 	}
 
+	BinaryFile::BinaryFile(const char* fileName,Mode mode)
+	{
+		if (mode == READ) 
+		{
+			ifile = ifstream(fileName, ios::binary);
+		}
+		if (mode == WRITE) 
+		{
+			ofile = ofstream(fileName, ios::binary|ios::out);
+		}
+		
+
+	}
+
+	BinaryFile::~BinaryFile()
+	{
+		if (ifile)
+		{
+			ifile.close();
+		}
+	}
+
+	template<class T>
+	inline T BinaryFile::Read()
+	{
+		if (ifile)
+		{
+			Debug("read data from file failed");
+			exit(-1);
+		}
+		T value;
+		ifile.read(reinterpret_cast<char*>(&value), sizeof(T));
+		return value;
+	}
+
+	template<class T>
+	bool BinaryFile::Write(T value)
+	{
+		if (ofile)
+		{
+			Debug("write data to file failed");
+			return false;
+		}
+		T data = value;
+		ofile.write(reinterpret_cast<const char *>(data),sizeof(T));
+		
+	}
+
 }

@@ -24,10 +24,10 @@ public:
 				if (objectMap.image[j * objectMap.w + i] == 18)
 				{
 					Caco* enimy = new Caco(new Sprite(cacoSprite), &player.transform,&player);
+					enimy->UpdateMap(&tileMap);
 					enimy->transform.position.x = i;
 					enimy->transform.position.y = j;
 					enimy->transform.posZ = 0;
-					enimy->UpdateMap(&tileMap);
 				}
 			}
 		}
@@ -39,6 +39,7 @@ public:
 				if (objectMap.image[j * objectMap.w + i] == 28)
 				{
 					Item* bullet = new Item(&bulletSprite);
+					bullet->UpdateMap(&tileMap);
 					bullet->transform.position.x = i;
 					bullet->transform.position.y = j;
 
@@ -47,7 +48,7 @@ public:
 						bulletPickUpSFX.Play(false);
 						};
 
-					bullet->UpdateMap(&tileMap);
+					
 
 				}
 			}
@@ -73,7 +74,7 @@ public:
 
 	void Start() override
 	{
-		//BGM.Play(true);
+		BGM.Play(true);
 		inputSystem.SetRelativeMouseMode(true);
 	}
 

@@ -301,7 +301,7 @@ namespace noa {
 		Ray ray;
 		ray.distance = 0.0;
 		ray.angle = follow->eulerAngle - FOV * (0.5 - (float)pixelX / pixelWidth);
-		const float rayForwordStep = 0.03;
+		const float rayForwordStep = 0.05;
 		const Vector<float> eye = move(Vector<float>(sinf(ray.angle), cosf(ray.angle)));
 
 		while (!map.IsCollisionTile(ray.hitTile)&&ray.distance<viewDepth) 
@@ -323,6 +323,10 @@ namespace noa {
 
 			if (map.IsCollisionTile(ray.hitTile)) 
 			{
+				
+
+
+
 				const float blockMidX = (float)intHitPoint.x + 0.5f;
 				const float blockMidY = (float)intHitPoint.y + 0.5f;
 
@@ -333,15 +337,15 @@ namespace noa {
 					ray.simple.x = floatHitPoint.y - intHitPoint.y;
 
 				}
-				if (testAngle >= PI * 0.25f && testAngle < PI * 0.75f)
+				else if (testAngle >= PI * 0.25f && testAngle < PI * 0.75f)
 				{
 					ray.simple.x = floatHitPoint.x - intHitPoint.x;
 				}
-				if (testAngle < -PI * 0.25f && testAngle >= -PI * 0.75f)
+				else if (testAngle < -PI * 0.25f && testAngle >= -PI * 0.75f)
 				{
 					ray.simple.x = floatHitPoint.x - intHitPoint.x;
 				}
-				if (testAngle >= PI * 0.75f || testAngle < -PI * 0.75f)
+				else if (testAngle >= PI * 0.75f || testAngle < -PI * 0.75f)
 				{
 					ray.simple.x = floatHitPoint.y - intHitPoint.y;
 				}

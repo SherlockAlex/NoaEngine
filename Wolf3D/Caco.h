@@ -4,5 +4,6 @@ class Caco :public Enimy
 {
 public:
 	Caco(Sprite* sprite, Transform* player,LiveEntity * enimy);
+	void OnPain() override;
 };
 

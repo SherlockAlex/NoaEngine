@@ -6,7 +6,6 @@
 
 namespace noa {
 	unordered_map<size_t,Behaviour*> behaviours;
-	//queue<Behaviour*> destroyBehaviours;
 
 	void DestroyBehaviour(Behaviour* behaviour) 
 	{

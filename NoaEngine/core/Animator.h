@@ -53,6 +53,7 @@ namespace noa {
 		void Play(int frame);
 		void Play();
 		void InsertFrameImage(SpriteFile frameImage);
+		void Reset();
 		
 		void Start() override;
 		void Update() override;//¸üÐÂ¶¯»­Ö¡
@@ -68,7 +69,7 @@ namespace noa {
 		Sprite* sprite = nullptr;
 	public:
 		AnimationClip(Animator* animator);
-		void Act() override;
+		void OnUpdate() override;
 		void Reason() override;
 	};
 
