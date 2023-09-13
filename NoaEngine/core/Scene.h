@@ -51,8 +51,8 @@ namespace noa {
 		TileMap(unordered_map<int,Tile*> tileSet,MapFile map);
 		TileMap(unordered_map<int, Tile*> tileSet, vector<MapFile> mapLayer);
 		int GetTileID(const int x,const int y) const;
-		Tile* GetTile(int id);
-		bool IsTile(int code) const;
+		Tile* GetTile(const int id);
+		bool IsTile(const int code) const;
 		bool IsCollisionTile(int tileID) const;
 		bool IsCollisionTile(const int x,const int y) const;
 		void SetCollisionTileID(std::vector<int> collisionTileIDs);

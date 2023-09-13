@@ -13,6 +13,9 @@ namespace noa {
 		this->h = sprFile.height;
 		this->image = sprFile.images;
 		this->scale = scale;
+
+		this->sw = (w / 2) * 2;
+		this->sh = (h / 2) * 2;
 	}
 
 	Sprite::Sprite(const char* file, Vector<int> scale) {
@@ -23,10 +26,15 @@ namespace noa {
 		this->h = sprFile.height;
 		this->image = sprFile.images;
 		this->scale = scale;
+
+		this->sw = (w / 2) * 2;
+		this->sh = (h / 2) * 2;
+
 	}
 
 	Sprite::Sprite() {
-
+		this->sw = (w / 2) * 2;
+		this->sh = (h / 2) * 2;
 	}
 
 	Sprite::Sprite(int w, int h, Vector<int> scale, vector<Uint32> image)
@@ -35,6 +43,9 @@ namespace noa {
 		this->h = h;
 		this->image = image;
 		this->scale = scale;
+
+		this->sw = (w / 2) * 2;
+		this->sh = (h / 2) * 2;
 	}
 
 	Sprite::~Sprite()
@@ -49,6 +60,9 @@ namespace noa {
 		this->w = image.width;
 		this->h = image.height;
 		this->image = image.images;
+
+		this->sw = (w / 2) * 2;
+		this->sh = (h / 2) * 2;
 	}
 
 	void Sprite::DrawSprite(int posX, int posY, bool isRenderAlpha) const
@@ -207,8 +221,10 @@ namespace noa {
 			return BLACK;
 		}
 
-		const int sx = NoaFastAbs(normalizedX * w) % w;
-		const int sy = NoaFastAbs(normalizedY * h) % h;
+		
+
+		const int sx = NOAABS((int)(normalizedX * w)) % w;
+		const int sy = NOAABS((int)(normalizedY * h)) % h;
 
 		return image[sy * w + sx];
 	}
@@ -221,8 +237,8 @@ namespace noa {
 			return BLACK;
 		}
 
-		const int sx = (NoaFastAbs(normalizedX * h))%h;
-		const int sy = (NoaFastAbs(normalizedY * w))%w;
+		const int sx = NOAABS((int)(normalizedX * h))%h;
+		const int sy = NOAABS((int)(normalizedY * w))%w;
 
 		return image[sy * h + sx];
 	}
@@ -235,8 +251,8 @@ namespace noa {
 			return BLACK;
 		}
 
-		const int sx = NoaFastAbs(simple.x * h) % h;
-		const int sy = NoaFastAbs(simple.y * w) % w;
+		const int sx = NOAABS((int)(simple.x * h)) % h;
+		const int sy = NOAABS((int)(simple.y * w)) % w;
 
 		return image[sy * h + sx];
 	}

@@ -29,14 +29,17 @@ namespace noa {
 		//显示再屏幕中的位置
 		int posx = 0;
 		int posy = 0;
-		int w = 1;
-		int h = 1;
-		Vector<int> scale = Vector<int>(1.0, 1.0);
+		int w = 1024;
+		int h = 1024;
+		Vector<int> scale = Vector<int>(32, 32);
 		//int sizeForSurface = 3;
 
 	private:
 		vector<Uint32> image;
 		//Uint32* image = nullptr;
+
+		int sw = 2;
+		int sh = 2;
 
 	public:
 		Sprite(SpriteFile sprFile, Vector<int> scale);

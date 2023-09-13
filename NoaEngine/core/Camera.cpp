@@ -277,6 +277,7 @@ namespace noa {
 						color = tile->sprite->GetColor(ray.simple.y, ray.simple.x);
 					}
 
+
 				}
 				else if (!renderFloor)
 				{

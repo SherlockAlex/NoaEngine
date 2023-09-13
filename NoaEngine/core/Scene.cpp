@@ -87,7 +87,7 @@ namespace noa
 		return level[y*w+x];
 	}
 
-	bool TileMap::IsTile(int code) const
+	bool TileMap::IsTile(const int code) const
 	{
 		return tileSet.count(code) > 0;
 	}
@@ -116,9 +116,10 @@ namespace noa
 		}
 	}
 
-	Tile* TileMap::GetTile(int id)
+	Tile* TileMap::GetTile(const int id)
 	{
-		if (!IsTile(id))
+		const bool isTile = tileSet.count(id) > 0;
+		if (!isTile)
 		{
 			return nullptr;
 		}

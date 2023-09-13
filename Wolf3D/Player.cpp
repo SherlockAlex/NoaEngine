@@ -185,8 +185,11 @@ void Player::Update()
 
 	float vel = velocity.SqrMagnitude();
 
-	const float offsetX = -0.025*pixelWidth*cos(0.05*vel * gameTime);
-	const float offsetY = 0.025 * pixelWidth * (-sin(0.05 * vel * gameTime)+1);
+	//const float offsetX = -0.025*pixelWidth*cos(0.05*vel * gameTime);
+	//const float offsetY = 0.025 * pixelWidth * (-sin(0.05 * vel * gameTime)+1);
+
+	const float offsetX = 0;
+	const float offsetY = 0;
 
 	if (!inputSystem.GetKeyHold(KeyM))
 	{
