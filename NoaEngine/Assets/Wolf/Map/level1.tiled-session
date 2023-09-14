@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "level.tmx",
+    "activeFile": "",
     "expandedProjectPaths": [
         "."
     ],
@@ -12,16 +12,16 @@
             "scale": 0.125,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 516,
-                "y": 252
+                "x": 404,
+                "y": -948
             }
         },
         "level.tmx": {
-            "scale": 0.5,
-            "selectedLayer": 0,
+            "scale": 1,
+            "selectedLayer": 1,
             "viewCenter": {
-                "x": -158,
-                "y": 385
+                "x": -511.5,
+                "y": 1023
             }
         },
         "object.tsx": {
@@ -36,9 +36,17 @@
         "tile2.tsx": {
             "scaleInDock": 1,
             "scaleInEditor": 1
+        },
+        "新手关.tmx": {
+            "scale": 0.5,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 792,
+                "y": -7
+            }
         }
     },
-    "last.exportedFilePath": "D:/Work/NoaEngine/NoaEngine/Assets/Wolf/Map",
+    "last.exportedFilePath": "D:/Work/NoaEngine/Wolf3D/Assets/Wolf/Map",
     "last.imagePath": "D:/Work/NoaEngine/NoaEngine/Resource/Wolf",
     "map.fixedSize": false,
     "map.lastUsedExportFilter": "CSV 文件 (*.csv)",
@@ -47,18 +55,18 @@
     "map.tileWidth": 64,
     "openFiles": [
         "tile.tsx",
-        "tile2.tsx",
-        "level-1.tmx",
         "level.tmx",
-        "object.tsx"
+        "level-1.tmx",
+        "新手关.tmx"
     ],
     "project": "level1.tiled-project",
     "recentFiles": [
         "tile.tsx",
-        "tile2.tsx",
+        "新手关.tmx",
         "level-1.tmx",
+        "level.tmx",
         "object.tsx",
-        "level.tmx"
+        "tile2.tsx"
     ],
     "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {

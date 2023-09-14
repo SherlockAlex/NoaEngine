@@ -1,6 +1,7 @@
 #include "Caco.h"
 #include "CacoState.h"
 #include "Player.h"
+#include "Item.h"
 
 Enimy* attackingEnimy = nullptr;
 
@@ -12,7 +13,9 @@ Caco::Caco(Sprite * sprite, Transform* player,LiveEntity * enimy) :Enimy(sprite,
 		exit(-1);
 	}
 	
-	this->radius = 1;
+	this->isRaycasted = true;
+
+	this->collision.radius = 1;
 
 	CacoIdleState* idleState = new CacoIdleState(fsm, this, player, "./Assets/Wolf/soldier-idle.amt");
 	CacoMoveState* moveState = new CacoMoveState(fsm, this, player, "./Assets/Wolf/soldier-walk.amt");
@@ -43,7 +46,6 @@ Caco::Caco(Sprite * sprite, Transform* player,LiveEntity * enimy) :Enimy(sprite,
 	fsm->AddState(dieState);
 	fsm->AddState(moveState);
 	fsm->AddState(attackState);
-	
 
 }
 
@@ -55,3 +57,12 @@ void Caco::OnPain()
 	}
 	this->fsm->currentState->SetTransition(Pain);
 }
+
+void Caco::OnDeath()
+{
+	Item* bullet = new Item(item);
+	bullet->transform.position = transform.position;
+	bullet->transform.posZ = -250;
+	bullet->pickEvent = this->itemPickEvent;
+}
+

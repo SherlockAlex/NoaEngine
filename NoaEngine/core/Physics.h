@@ -12,6 +12,9 @@ namespace noa {
 	//存储人物的碰撞信息
 	typedef struct Collision 
 	{
+		Vector<float> sacle = Vector<float>(0, 0);
+		float radius = 0.5;
+
 		bool isHitCollisionTile = false;
 		bool isGrounded = false;
 		bool isTrigger = false;
@@ -72,7 +75,7 @@ namespace noa {
 		//刚体的速度
 		Vector<float> velocity = Vector<float>(0.0,0.0);
 		//刚体之间碰撞体半径
-		float radius = 0.5;
+		
 
 		Collision collision;
 

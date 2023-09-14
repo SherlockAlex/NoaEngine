@@ -1,8 +1,11 @@
 #include "Player.h"
 #include "Enimy.h"
 
+
 Player::Player(TileMap* map) :Behaviour(), Rigidbody(&transform)
 {
+	collision.sacle = {-0.2,-0.2};
+
 	tag = "Player";
 	useGravity = false;
 
@@ -14,35 +17,7 @@ Player::Player(TileMap* map) :Behaviour(), Rigidbody(&transform)
 		this->RotateControl();
 		};
 
-	//gunNormal->LoadFromAnimatorFile("./Assets/Wolf/gun-normal.amt");
-	gunShot->LoadFromAnimationFile("./Assets/Wolf/gun-shot.amt");
-	gunShot->SetFrameEvent(1, [this]()
-		{
-			bulletCount--;
-			shotAFX.Play(false);
-
-			Enimy* enimy = nullptr;
-
-			for (int i = 0.5 * pixelWidth - 0.01 * pixelWidth; i <= 0.5 * pixelWidth + 0.01 * pixelWidth; i++)
-			{
-				enimy = camera->GetRayHitInfoAs<Enimy*>(i);
-
-				if (enimy != nullptr)
-				{
-					break;
-				}
-			}
-
-			if (enimy != nullptr)
-			{
-				if (enimy->tag != "Enimy")
-				{
-					return;
-				}
-				enimy->OnPain();
-				enimy->TakeDamage(110);
-			}
-		});
+	MakeGun();
 
 }
 
@@ -125,39 +100,12 @@ void Player::ActorControl() {
 		}
 	}
 
-	
-
-
-
-	if (inputSystem.GetMouseButton(LeftButton))
+	if (inputSystem.GetMouseButton(LeftButton)&&bulletCount>0)
 	{
-		//shotAFX.Play(false);
-		if (bulletCount > 0)
-		{
-			gunShot->Play();
-		}
+		guns[currentGunIndex]->Shoot();
+		//shotgun->Shoot();
 	}
 
-	/*if (
-		inputSystem.GetKeyHold(KeyW)
-		|| inputSystem.GetKeyHold(KeyA)
-		|| inputSystem.GetKeyHold(KeyS)
-		|| inputSystem.GetKeyHold(KeyD)
-		)
-	{
-		walkSpeed *= 2;
-		if (walkSpeed == 0)
-		{
-			walkSpeed = 0.1;
-		}
-		if (walkSpeed>speed)
-		{
-			walkSpeed = speed;
-		}
-	}
-	else {
-		walkSpeed *= 0.9;
-	}*/
 	
 	velocity = velocity.Normalize() * speed;
 
@@ -170,6 +118,26 @@ void Player::RotateControl()
 		Vector<float> mouseDelta = inputSystem.GetMouseMoveDelta();
 		transform.eulerAngle += 0.025 * mouseDelta.x * deltaTime;
 	}
+
+	int deltaIndex = inputSystem.GetMouseWheel().y;
+
+	if (deltaIndex<0)
+	{
+		currentGunIndex--;
+		if (currentGunIndex<0) 
+		{
+			currentGunIndex = guns.size() - 1;
+		}
+		
+	}
+	else if (deltaIndex > 0) {
+		currentGunIndex++;
+		if (currentGunIndex >= guns.size())
+		{
+			currentGunIndex = 0;
+		}
+	}
+
 }
 
 void Player::Start()
@@ -181,20 +149,15 @@ void Player::Start()
 void Player::Update()
 {
 	ActorControl();
-	gunSprite.UpdateImage(gunShot->GetCurrentFrameImage());
 
 	float vel = velocity.SqrMagnitude();
 
-	//const float offsetX = -0.025*pixelWidth*cos(0.05*vel * gameTime);
-	//const float offsetY = 0.025 * pixelWidth * (-sin(0.05 * vel * gameTime)+1);
-
-	const float offsetX = 0;
-	const float offsetY = 0;
-
-	if (!inputSystem.GetKeyHold(KeyM))
+	if (!inputSystem.GetKeyHold(KeyM)) 
 	{
-		gunSprite.DrawSprite(0.5 * pixelWidth - 0.5 * 0.25 * pixelWidth + offsetX, pixelHeight - 0.25 * pixelWidth + offsetY, true);
+		guns[currentGunIndex]->Update();
+		//shotgun->Update();
 	}
+	
 	
 	renderer.DrawString("hp:"+to_string(this->hp)+"\nbullet:" + to_string(bulletCount), 0, 0, RED, pixelHeight / 20);
 }
@@ -203,4 +166,26 @@ void Player::TakeDamage(int damage)
 {
 	LiveEntity::TakeDamage(damage);
 	painAFX.Play(false);
+}
+
+void Player::MakeGun()
+{
+	shotgun = new Shotgun(&bulletCount, this->camera);
+	shotgun->damage = 110;
+	shotgun->takeBullet = 7;
+
+	pistol = new Pistol(&bulletCount, this->camera);
+	pistol->damage = 10;
+	pistol->takeBullet = 1;
+
+	guns.push_back(pistol);
+	guns.push_back(shotgun);
+
+}
+
+void Player::SetCamera(FreeCamera* camera)
+{
+	this->camera = camera;
+	shotgun->camera = camera;
+	pistol->camera = camera;
 }

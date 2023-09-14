@@ -89,6 +89,7 @@ public:
 		Enimy* enimy, Transform* target,
 		const char* animationPath);
 
+	void OnEnter() override;
 	void OnUpdate() override;
 	void Reason() override;
 

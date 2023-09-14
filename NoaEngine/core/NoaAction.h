@@ -26,13 +26,13 @@ namespace noa {
 		}
 
 		//订阅事件
-		void operator += (std::function<T> func) 
+		void operator += (std::function<T> func)
 		{
 			functions.push_back(func);
 		}
 
 		//注销事件
-		void operator -= (std::function<T> func) 
+		void operator -= (std::function<T> func)
 		{
 			auto it = std::find(functions.begin(), functions.end(), func);
 			if (it != functions.end())

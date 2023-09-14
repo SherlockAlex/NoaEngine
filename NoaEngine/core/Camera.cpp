@@ -76,7 +76,7 @@ namespace noa {
 					renderer.DrawRect(
 						Vector<int>((x- 0) * tileScale.x - tileOffset.x, (y- 0)*tileScale.y - tileOffset.y),
 						Vector<int>((x + 1) * tileScale.x - tileOffset.x, (y + 1) * tileScale.y - tileOffset.y),
-						BLUE
+						BLACK
 					);
 					continue;
 				}
@@ -302,7 +302,7 @@ namespace noa {
 		Ray ray;
 		ray.distance = 0.0;
 		ray.angle = follow->eulerAngle - FOV * (0.5 - (float)pixelX / pixelWidth);
-		const float rayForwordStep = 0.05;
+		const float rayForwordStep = 0.02;
 		const Vector<float> eye = move(Vector<float>(sinf(ray.angle), cosf(ray.angle)));
 
 		while (!map.IsCollisionTile(ray.hitTile)&&ray.distance<viewDepth) 
@@ -492,7 +492,10 @@ namespace noa {
 						}
 						objColor = MULTICOLOR(objColor, multiColor);
 						renderer.DrawPixel(objectColumn, (int)(objectCeiling + ly + objectPosZ), objColor);
-						objectBufferWithRay[objectColumn] = (void*)object;
+						if (object->isRaycasted)
+						{
+							objectBufferWithRay[objectColumn] = (void*)object;
+						}
 						wallDistanceBuffer[objectColumn] = distanceFromPlayer;
 
 

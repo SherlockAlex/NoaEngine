@@ -12,10 +12,7 @@ public:
 		NoaGameEngine(width, height, windowMode, gameName)
 	{
 		player.SetPosition(35, objectMap);
-		player.camera = &camera;
-		//bulletAnimator.LoadFromAnimatorFile("./Assets/Wolf/bullet.amt");
-		//bulletSprite = new Sprite(bulletAnimator.GetCurrentFrameImage(),Vector<int>(64,64));
-
+		player.SetCamera(&camera);
 
 		for (int i = 0; i < objectMap.w; i++)
 		{
@@ -25,14 +22,20 @@ public:
 				{
 					Caco* enimy = new Caco(new Sprite(cacoSprite), &player.transform,&player);
 					enimy->UpdateMap(&tileMap);
+					enimy->item = &bulletSprite;
+					enimy->itemPickEvent += [this]() {
+						player.bulletCount += 10;
+						bulletPickUpSFX.Play(false);
+						};
 					enimy->transform.position.x = i;
 					enimy->transform.position.y = j;
 					enimy->transform.posZ = 0;
+
 				}
 			}
 		}
 
-		for (int i = 0; i < objectMap.w; i++)
+		/*for (int i = 0; i < objectMap.w; i++)
 		{
 			for (int j = 0; j < objectMap.h; j++)
 			{
@@ -52,7 +55,7 @@ public:
 
 				}
 			}
-		}
+		}*/
 
 		
 		vector<int> collisionTileID;
@@ -114,8 +117,9 @@ private:
 	Sprite sky = Sprite(resource.LoadSprFile("./Assets/Wolf/sky-sun.spr"), Vector<int>(1.0, 1.0));
 	TileMap tileMap = TileMap(
 		resource.LoadTileFromTsd("./Assets/Wolf/Map/tileSet.tsd"),
-		resource.LoadMapFromCSV("./Assets/Wolf/Map/level_地图层.csv")
+		resource.LoadMapFromCSV("./Assets/Wolf/Map/新手关_图块层 1.csv")
 	);
+	MapFile objectMap = resource.LoadMapFromCSV("./Assets/Wolf/Map/新手关_物品层.csv");
 
 	Player player = Player(&tileMap);
 	FreeCamera camera = FreeCamera(&player.transform);
@@ -124,14 +128,11 @@ private:
 
 	Sprite cacoSprite = Sprite(resource.LoadSprFile("./Assets/Wolf/caco.spr"), Vector<int>(32, 32));
 
-	//Animator bulletAnimator = Animator(7);
 	Sprite bulletSprite = Sprite(resource.LoadSprFile("./Assets/Wolf/bullet.spr"), Vector<int>(64, 64));
 
 	Audio bulletPickUpSFX = Audio("./Assets/Wolf/Music/pickUpBullet.mp3", Chunk);
 
 	Audio BGM = Audio("./Assets/Wolf/Music/theme.mp3", Music);
-
-	MapFile objectMap = resource.LoadMapFromCSV("./Assets/Wolf/Map/level_对象.csv");
 
 };
 

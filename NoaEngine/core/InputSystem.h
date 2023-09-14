@@ -129,6 +129,7 @@ namespace noa {
 		void SetRelativeMouseMode(bool mode);
 		Vector<float> GetMouseMoveDelta();
 		Vector<float> GetMousePosition();
+		Vector<int> GetMouseWheel();
 
 		bool GetMouseButton(MOUSEKEY mouseButton);
 

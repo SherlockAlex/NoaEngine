@@ -68,9 +68,11 @@ namespace noa {
 		Animation* animtion = nullptr;
 		Sprite* sprite = nullptr;
 	public:
-		AnimationClip(Animator* animator);
+		AnimationClip(Animator* animator,Animation* animation);
+		void OnEnter() override;
 		void OnUpdate() override;
 		void Reason() override;
+		void OnExit() override;
 	};
 
 	//¶¯»­×´Ì¬»ú
@@ -78,7 +80,10 @@ namespace noa {
 	{
 	public:
 		Sprite* sprite = nullptr;
-		
+	public:
+		Animator(Sprite * sprite);
+		Animator(Sprite,vector<State*> stateList);
+
 	};
 
 }

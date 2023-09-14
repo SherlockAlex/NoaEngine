@@ -1,5 +1,6 @@
 #include "CacoState.h"
 #include "Enimy.h"
+#include "Caco.h"
 
 #pragma region CacoIdleState
 
@@ -186,6 +187,7 @@ CacoDieState::CacoDieState(
 	animation.SetFrameEvent(1, [this]() {
 		audio.Play(false);
 		this->enimy->isFrozen = true;
+		((Caco*)this->enimy)->OnDeath();
 	});
 
 	animation.SetFrameEvent(10, [this]()
@@ -193,7 +195,13 @@ CacoDieState::CacoDieState(
 			
 			this->enimy->Destroy();
 			this->enimy->RemoveRigidbody();
+			this->enimy->deathEvent.Invoke();
 		});
+}
+
+void CacoDieState::OnEnter()
+{
+	//((Caco*)enimy)->OnDeath();
 }
 
 void CacoDieState::OnUpdate()

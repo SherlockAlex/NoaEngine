@@ -40,10 +40,13 @@
     <ClCompile Include="Caco.cpp" />
     <ClCompile Include="CacoState.cpp" />
     <ClCompile Include="Enimy.cpp" />
+    <ClCompile Include="Gun.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="LiveEntity.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Pistol.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Shotgun.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\NoaEngine\core\Animator.h" />
@@ -70,9 +73,12 @@
     <ClInclude Include="CacoState.h" />
     <ClInclude Include="Enimy.h" />
     <ClInclude Include="GameEngine.h" />
+    <ClInclude Include="Gun.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="LiveEntity.h" />
+    <ClInclude Include="Pistol.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Shotgun.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

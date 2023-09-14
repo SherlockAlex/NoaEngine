@@ -12,12 +12,11 @@ namespace noa {
 		Debug("Init Animator");
 		this->speed = speed;
 		this->loop = loop;
-		//animatorList.push_back(this);
+
 		if (!framesImage.empty())
 		{
 			currentFrame = move(framesImage[0]);
 		}
-		//frameSize = framesImage.size();
 
 	}
 
@@ -37,8 +36,6 @@ namespace noa {
 		{
 			currentFrame = move(framesImage[0]);
 		}
-
-		//frameSize = framesImage.size();
 
 	}
 
@@ -166,14 +163,20 @@ namespace noa {
 	}
 
 
-	AnimationClip::AnimationClip(Animator* animator):State(animator)
+	AnimationClip::AnimationClip(Animator* animator, Animation* animation):State(animator)
 	{
 		if (animator==nullptr)
 		{
 			Debug("init animator failed");
 			exit(-1);
 		}
+		this->animtion = animation;
 		sprite = animator->sprite;
+	}
+
+	void AnimationClip::OnEnter()
+	{
+		animtion->Reset();
 	}
 
 	void AnimationClip::OnUpdate()
@@ -189,6 +192,22 @@ namespace noa {
 	void AnimationClip::Reason()
 	{
 		//¶¯»­×´Ì¬ÇÐ»»
+		//¶¯»­ÇÐ»»ÊÂ¼þ
+	}
+
+	void AnimationClip::OnExit()
+	{
+		animtion->Reset();
+	}
+
+	Animator::Animator(Sprite* sprite):StateMachine()
+	{
+		this->sprite = sprite;
+	}
+
+	Animator::Animator(Sprite, vector<State*> stateList):StateMachine(stateList)
+	{
+		this->sprite = sprite;
 	}
 
 }

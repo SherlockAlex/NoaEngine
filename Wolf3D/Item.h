@@ -8,6 +8,7 @@ public:
 
 	Item(Sprite* sprite);
 	void OnTrigger(void* other) override;
+	void Update() override;
 	void OnDisable() override;
 };
 

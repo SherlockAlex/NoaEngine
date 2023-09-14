@@ -22,6 +22,11 @@ void Item::OnTrigger(void* other)
 	}
 }
 
+void Item::Update()
+{
+	this->transform.posZ *= 0.85;
+}
+
 void Item::OnDisable()
 {
 	pickEvent.Invoke();

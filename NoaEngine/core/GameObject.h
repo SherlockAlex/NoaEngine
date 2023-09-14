@@ -11,7 +11,8 @@ namespace noa {
 		//游戏内的物品
 		//制动绘制游戏物品到屏幕上
 	public:
-		
+		//判断能否被射线击中
+		bool isRaycasted = false;
 		Sprite * sprite = nullptr;
 	public:
 		GameObject(Sprite * sprite);

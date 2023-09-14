@@ -137,51 +137,54 @@ namespace noa {
 			return;
 		}
 
-		if (tileMap->IsCollisionTile(newPosition.x, colliderPos->position.y)
-			|| tileMap->IsCollisionTile(newPosition.x, colliderPos->position.y + 0.999)
+		const float scaleX = collision.sacle.x;
+		const float scaleY = collision.sacle.y;
+
+		if (tileMap->IsCollisionTile(newPosition.x-scaleX, colliderPos->position.y - scaleY)
+			|| tileMap->IsCollisionTile(newPosition.x-scaleX, colliderPos->position.y + 0.999 + scaleY)
 		)
 		{
 			if (!collision.isTrigger)
 			{
 				collision.isHitCollisionTile = true;
-				newPosition.x = (int)newPosition.x + 1;
+				newPosition.x = (int)newPosition.x + 1 + scaleX;
 				velocity.x = 0;
 			}
 		}
 
-		if (tileMap->IsCollisionTile(newPosition.x + 0.999, colliderPos->position.y)
-			|| tileMap->IsCollisionTile(newPosition.x + 0.999, colliderPos->position.y + 0.999)
+		if (tileMap->IsCollisionTile(newPosition.x + 0.999 + scaleX, colliderPos->position.y - scaleY)
+			|| tileMap->IsCollisionTile(newPosition.x + 0.999 + scaleX, colliderPos->position.y + 0.999 + scaleY)
 		)
 		{
 			if (!collision.isTrigger)
 			{
 				collision.isHitCollisionTile = true;
-				newPosition.x = (int)newPosition.x;
+				newPosition.x = (int)newPosition.x - scaleX;
 				velocity.x = 0;
 			}
 
 		}
 
-		if (tileMap->IsCollisionTile(newPosition.x, newPosition.y)
-			|| tileMap->IsCollisionTile(newPosition.x + 0.999, newPosition.y)
+		if (tileMap->IsCollisionTile(newPosition.x - scaleX, newPosition.y - scaleY)
+			|| tileMap->IsCollisionTile(newPosition.x + 0.999 + scaleX, newPosition.y - scaleY)
 		)
 		{
 			if (!collision.isTrigger)
 			{
 				collision.isHitCollisionTile = true;
-				newPosition.y = (int)newPosition.y + 1;
+				newPosition.y = (int)newPosition.y + 1 + scaleY;
 				velocity.y = 0;
 			}
 		}
 
-		if (tileMap->IsCollisionTile(newPosition.x, newPosition.y + 0.999)
-			|| tileMap->IsCollisionTile(newPosition.x + 0.999f, newPosition.y + 0.999)
+		if (tileMap->IsCollisionTile(newPosition.x - scaleX, newPosition.y + 0.999 + scaleY)
+			|| tileMap->IsCollisionTile(newPosition.x + 0.999f+scaleX, newPosition.y + 0.999 + scaleY)
 		)
 		{
 			if (!collision.isTrigger) {
 				collision.isGrounded = true;
 				collision.isHitCollisionTile = true;
-				newPosition.y = (int)newPosition.y;
+				newPosition.y = (int)newPosition.y - scaleY;
 				velocity.y = 0;
 			}
 		}
@@ -206,7 +209,7 @@ namespace noa {
 		}
 
 		const size_t hashCode = rigid->GetHashCode();
-		const float rigidRadius = rigid->radius;
+		const float rigidRadius = rigid->collision.radius;
 		const float rigidX = rigid->newPosition.x;
 		const float rigidY = rigid->newPosition.y;
 		Vector<float>& rigidVelocity = rigid->velocity;
@@ -232,7 +235,7 @@ namespace noa {
 			const float deltaX = rigidX - rigidbody->colliderPos->position.x;
 			const float deltaY = rigidY - rigidbody->colliderPos->position.y;
 			const float distanceSquared = deltaX * deltaX + deltaY * deltaY;
-			const float radiusSumSquared = (rigidRadius + rigidbody->radius) * (rigidRadius + rigidbody->radius);
+			const float radiusSumSquared = (rigidRadius + rigidbody->collision.radius) * (rigidRadius + rigidbody->collision.radius);
 
 			if (distanceSquared >= radiusSumSquared)
 			{
@@ -271,10 +274,10 @@ namespace noa {
 		// 实现包围盒相交检测逻辑，如果相交返回true，否则返回false
 		// 你可以根据刚体的形状和位置来实现具体的检测方法
 		// 这里简单示范一个矩形包围盒的检测
-		return (a->newPosition.x - a->radius < b->newPosition.x + b->radius) &&
-			(a->newPosition.x + a->radius > b->newPosition.x - b->radius) &&
-			(a->newPosition.y - a->radius < b->newPosition.y + b->radius) &&
-			(a->newPosition.y + a->radius > b->newPosition.y - b->radius);
+		return (a->newPosition.x - a->collision.radius < b->newPosition.x + b->collision.radius) &&
+			(a->newPosition.x + a->collision.radius > b->newPosition.x - b->collision.radius) &&
+			(a->newPosition.y - a->collision.radius < b->newPosition.y + b->collision.radius) &&
+			(a->newPosition.y + a->collision.radius > b->newPosition.y - b->collision.radius);
 	}
 
 }

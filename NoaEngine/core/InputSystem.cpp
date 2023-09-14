@@ -131,6 +131,18 @@ namespace noa {
 		return delta;
 	}
 
+	Vector<int> InputSystem::GetMouseWheel()
+	{
+		if (ioEvent.type != SDL_MOUSEWHEEL)
+		{
+			return { 0,0 };
+		}
+		Vector<int> result;
+		result.x = ioEvent.wheel.x;
+		result.y = ioEvent.wheel.y;
+		return result;
+	}
+
 	bool InputSystem::GetMouseButton(MOUSEKEY mouseButton)
 	{
 		int mouseX, mouseY;
