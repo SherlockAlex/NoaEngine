@@ -105,6 +105,9 @@
     <ClCompile Include="Pistol.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="WolfResource.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\NoaEngine\core\Animator.h">
@@ -195,6 +198,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Pistol.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="WolfResource.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

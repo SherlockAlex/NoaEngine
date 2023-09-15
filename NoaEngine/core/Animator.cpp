@@ -13,29 +13,32 @@ namespace noa {
 		this->speed = speed;
 		this->loop = loop;
 
-		if (!framesImage.empty())
+
+		if (this->frameData!=nullptr&&!this->frameData->framesImage.empty())
 		{
-			currentFrame = move(framesImage[0]);
+			currentFrame = move(frameData->framesImage[0]);
 		}
 
 	}
 
-	Animation::Animation(float speed,bool loop, const char* filePath) :Behaviour()
+	Animation::Animation(float speed, bool loop, AnimationFrame* frame) :Behaviour()
 	{
 		Debug("Init Animator");
 		this->speed = speed;
 		this->loop = loop;
 
-		const AnimationFile animatorFile = move(resource.LoadAnimationFile(filePath));
+		this->SetFrame(frame);
+
+		/*const AnimationFile animatorFile = move(resource.LoadAnimationFile(filePath));
 		for (SpriteFile frame : animatorFile.data)
 		{
 			InsertFrameImage(frame);
-		}
+		}*/
 
-		if (framesImage.size() > 0)
+		/*if (framesImage.size() > 0)
 		{
 			currentFrame = move(framesImage[0]);
-		}
+		}*/
 
 	}
 
@@ -48,14 +51,30 @@ namespace noa {
 	/// 从本地动画文件加载动画
 	/// </summary>
 	/// <param name="filePath">动画文件路径</param>
-	void Animation::LoadFromAnimationFile(const char* filePath)
+	/*void Animation::LoadFromAnimationFile(const char* filePath)
 	{
 		const AnimationFile animatorFile = move(resource.LoadAnimationFile(filePath));
-		for (SpriteFile frame : animatorFile.data)
+		for (const SpriteFile & frame : animatorFile.data)
 		{
 			InsertFrameImage(frame);
 		}
 
+	}*/
+
+	void Animation::SetFrame(AnimationFrame* frame)
+	{
+		//设置Frame数据
+		if (frame == nullptr)
+		{
+			Debug("this frame is empty");
+			return;
+		}
+		this->frameData = frame;
+		if (!frameData->framesImage.empty())
+		{
+			currentFrame = frameData->framesImage[0];
+		}
+		
 	}
 
 	/// <summary>
@@ -74,8 +93,13 @@ namespace noa {
 	/// <returns></returns>
 	SpriteFile& Animation::GetFrameImage(int frame)
 	{
-		frame = frame %framesImage.size();
-		return framesImage[frame];
+		if (frameData == nullptr)
+		{
+			Debug("this frame is empty");
+			exit(-1);
+		}
+		frame = frame %frameData->framesImage.size();
+		return frameData->framesImage[frame];
 	}
 
 	void Animation::SetFrameEvent(int frame, function<void()> e)
@@ -90,7 +114,7 @@ namespace noa {
 	/// <param name="frame">播放第frame帧的图像</param>
 	void Animation::Play(int frame)
 	{
-		if (framesImage.empty())
+		if (this->frameData == nullptr||this->frameData->framesImage.empty())
 		{
 			return;
 		}
@@ -111,12 +135,12 @@ namespace noa {
 	/// 插入帧图像
 	/// </summary>
 	/// <param name="frameImage"></param>
-	void Animation::InsertFrameImage(SpriteFile frameImage)
+	/*void Animation::InsertFrameImage(const SpriteFile & frameImage)
 	{
 		Debug("Insert Animator Frame");
 		framesImage.push_back(frameImage);
 		currentFrame = framesImage[0];
-	}
+	}*/
 
 	void Animation::Reset()
 	{
@@ -133,13 +157,13 @@ namespace noa {
 	/// 实时更新刷新
 	/// </summary>
 	void Animation::Update() {
-		if (!isPlaying)
+		if (!isPlaying||this->frameData == nullptr)
 		{
 			return;
 		}
 
 		i += deltaTime * speed;
-		if (i>=framesImage.size())
+		if (i>=this->frameData->framesImage.size())
 		{
 			i = 0;
 			previousFrameIndex = -1;

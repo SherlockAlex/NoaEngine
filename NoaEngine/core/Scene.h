@@ -8,6 +8,7 @@
 #include <chrono>
 #include <list>
 #include <unordered_map>
+#include <functional>
 
 #include <fstream>
 #include <string>
@@ -48,6 +49,7 @@ namespace noa {
 		/// </summary>
 		/// <param name="tileSet">瓦片集合</param>
 		/// <param name="map">地图数据</param>
+		TileMap();
 		TileMap(unordered_map<int,Tile*> tileSet,MapFile map);
 		TileMap(unordered_map<int, Tile*> tileSet, vector<MapFile> mapLayer);
 		int GetTileID(const int x,const int y) const;
@@ -58,23 +60,42 @@ namespace noa {
 		void SetCollisionTileID(std::vector<int> collisionTileIDs);
 	};
 
+	/// <summary>
+	/// map,object,tile set
+	/// </summary>
+	typedef struct SceneInfo
+	{
+		string mapPath = "";
+		string mapObjectPath = "";
+		string mapTileSetPath = "";
+	}SceneInfo;
+
+	typedef struct MapInfo {
+		TileMap mapLayer;
+		MapFile objectLayer;
+	}MapInfo;
+
 	class Scene 
 	{
 	public:
 		string name = "Scene";
-		virtual void OnEnable() {};
-		virtual void Start() = 0;
-		virtual void Update() = 0;
-		virtual void OnDisable() {};
+		SceneInfo info;
 
 	public:
-		Scene(string name);
+		Scene(string name, SceneInfo info);
 		~Scene();
+
+		MapInfo GetTileMap();
+
 	};
 
 	class SceneManager 
 	{
 	public:
+		std::function<void(MapInfo*)> loadAction;
+	public:
+		//加载场景时发生的事件
+		MapInfo activeMapInfo;
 		Scene * GetActiveScene();
 		void LoadScene(string sceneName);
 		void AddScene(Scene* scene);

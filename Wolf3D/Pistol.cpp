@@ -1,5 +1,6 @@
 #include "Pistol.h"
 #include "Enimy.h"
+#include "WolfResource.h"
 
 Pistol::Pistol(int* bulletCount, FreeCamera* camera):Gun(bulletCount,camera)
 {
@@ -10,7 +11,8 @@ Pistol::Pistol(int* bulletCount, FreeCamera* camera):Gun(bulletCount,camera)
 	this->audio = new Audio("./Assets/Wolf/Music/handleGunShot.mp3", Chunk);
 
 	this->animation = new Animation(15, false);
-	animation->LoadFromAnimationFile("./Assets/Wolf/lgun-shot.amt");
+	//animation->LoadFromAnimationFile("./Assets/Wolf/lgun-shot.amt");
+	animation->SetFrame(&wolfResource.pistolFrame);
 	animation->SetFrameEvent(2, [this]()
 		{
 

@@ -2,7 +2,7 @@
 #include "Enimy.h"
 
 
-Player::Player(TileMap* map) :Behaviour(), Rigidbody(&transform)
+Player::Player() :Behaviour(), Rigidbody(&transform)
 {
 	collision.sacle = {-0.2,-0.2};
 
@@ -10,8 +10,6 @@ Player::Player(TileMap* map) :Behaviour(), Rigidbody(&transform)
 	useGravity = false;
 
 	damping = 0;
-
-	UpdateMap(map);
 
 	inputSystem.inputEvent += [this]() {
 		this->RotateControl();
@@ -116,7 +114,7 @@ void Player::RotateControl()
 	if (inputSystem.GetMouseMoveState())
 	{
 		Vector<float> mouseDelta = inputSystem.GetMouseMoveDelta();
-		transform.eulerAngle += 0.025 * mouseDelta.x * deltaTime;
+		transform.eulerAngle += mouseSpeed * mouseDelta.x * deltaTime;
 	}
 
 	int deltaIndex = inputSystem.GetMouseWheel().y;
@@ -175,8 +173,8 @@ void Player::MakeGun()
 	shotgun->takeBullet = 7;
 
 	pistol = new Pistol(&bulletCount, this->camera);
-	pistol->damage = 10;
-	pistol->takeBullet = 1;
+	pistol->damage = 34;
+	pistol->takeBullet = 0;
 
 	guns.push_back(pistol);
 	guns.push_back(shotgun);

@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "",
+    "activeFile": "新手关.tmx",
     "expandedProjectPaths": [
         "."
     ],
@@ -38,11 +38,11 @@
             "scaleInEditor": 1
         },
         "新手关.tmx": {
-            "scale": 0.5,
-            "selectedLayer": 0,
+            "scale": 0.125,
+            "selectedLayer": 1,
             "viewCenter": {
-                "x": 792,
-                "y": -7
+                "x": 64,
+                "y": -708
             }
         }
     },
@@ -62,9 +62,9 @@
     "project": "level1.tiled-project",
     "recentFiles": [
         "tile.tsx",
-        "新手关.tmx",
-        "level-1.tmx",
         "level.tmx",
+        "level-1.tmx",
+        "新手关.tmx",
         "object.tsx",
         "tile2.tsx"
     ],

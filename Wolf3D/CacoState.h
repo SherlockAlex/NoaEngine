@@ -25,7 +25,7 @@ public:
 	CacoIdleState(
 		StateMachine* stateMachine,
 		Enimy* enimy, Transform* target,
-		const char * animationPath
+		AnimationFrame * frameData
 	);
 
 	void OnUpdate() override;
@@ -46,7 +46,8 @@ public:
 	CacoMoveState(
 		StateMachine* stateMachine,
 		Enimy* enimy, Transform* target,
-		const char* animationPath);
+		AnimationFrame* frameData
+	);
 
 	void OnUpdate() override;
 	void Reason() override;
@@ -66,7 +67,8 @@ public:
 	CacoAttackState(
 		StateMachine* stateMachine,
 		Enimy* enimy, Transform* target,
-		const char* animationPath);
+		AnimationFrame* frameData
+	);
 
 	void OnUpdate() override;
 	void Reason() override;
@@ -87,7 +89,8 @@ public:
 	CacoDieState(
 		StateMachine* stateMachine,
 		Enimy* enimy, Transform* target,
-		const char* animationPath);
+		AnimationFrame* frameData
+	);
 
 	void OnEnter() override;
 	void OnUpdate() override;
@@ -109,7 +112,8 @@ public:
 	CacoPainState(
 		StateMachine* stateMachine,
 		Enimy* enimy, Transform* target,
-		const char* animationPath);
+		AnimationFrame* frameData
+	);
 
 	void OnUpdate() override;
 	void Reason() override;

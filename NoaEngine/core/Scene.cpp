@@ -41,6 +41,10 @@ namespace noa
 		Debug("Update the layer map");
 	}
 
+	TileMap::TileMap()
+	{
+	}
+
 	TileMap::TileMap(unordered_map<int, Tile*> tileSet, MapFile map) :LevelMap(map)
 	{
 		this->tileSet = tileSet;
@@ -126,16 +130,30 @@ namespace noa
 		return tileSet[id];
 	}
 
-	Scene::Scene(string name)
+	Scene::Scene(string name, SceneInfo info)
 	{
 		this->name = name;
 		sceneManager.AddScene(this);
-		this->OnEnable();
+		this->info = info;
 	}
 
 	Scene::~Scene()
 	{
-		this->OnDisable();
+		
+	}
+
+	MapInfo Scene::GetTileMap()
+	{
+		
+		TileMap tileMap = TileMap(
+		resource.LoadTileFromTsd(info.mapTileSetPath),
+		resource.LoadMapFromCSV(info.mapPath)
+		);
+		MapFile objectMap = resource.LoadMapFromCSV(info.mapObjectPath);
+
+		MapInfo info = { tileMap,objectMap };
+
+		return info;
 	}
 
 	Scene * SceneManager::GetActiveScene()
@@ -145,13 +163,20 @@ namespace noa
 
 	void SceneManager::LoadScene(string sceneName)
 	{
-		if (ContainKey<string,Scene*>(this->sceneList,sceneName)) 
+		if (!ContainKey<string,Scene*>(this->sceneList,sceneName)) 
 		{
-			activeScene->OnDisable();
-			activeScene = sceneList[sceneName];
-			activeScene->OnEnable();
-			Debug("Load scene:"+sceneName);
+			Debug("Load scene:"+ sceneName+"failed");
+			return;
 		}
+
+		activeScene = sceneList[sceneName];
+		if (activeScene != nullptr)
+		{
+			activeMapInfo = activeScene->GetTileMap();
+			this->loadAction(&this->activeMapInfo);
+		}
+		Debug("Load scene:" + sceneName);
+
 	}
 
 	void SceneManager::AddScene(Scene* scene)
@@ -163,6 +188,8 @@ namespace noa
 		if (activeScene==nullptr) 
 		{
 			activeScene = scene;
+			activeMapInfo = activeScene->GetTileMap();
+			//this->loadAction(&this->activeMapInfo);
 		}
 
 		sceneList[scene->name] = scene;

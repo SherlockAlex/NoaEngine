@@ -1,5 +1,6 @@
 #include "Shotgun.h"
 #include "Enimy.h"
+#include "WolfResource.h"
 
 Shotgun::Shotgun(int* bulletCount,FreeCamera * camera):Gun(bulletCount,camera)
 {
@@ -10,7 +11,8 @@ Shotgun::Shotgun(int* bulletCount,FreeCamera * camera):Gun(bulletCount,camera)
 	this->audio =new Audio("./Assets/Wolf/Music/shotgun.wav", Chunk);
 
 	this->animation = new Animation(7.5, false);
-	animation->LoadFromAnimationFile("./Assets/Wolf/gun-shot.amt");
+	//animation->LoadFromAnimationFile("./Assets/Wolf/gun-shot.amt");
+	animation->SetFrame(&wolfResource.shotgunFrame);
 	animation->SetFrameEvent(1, [this]()
 		{
 

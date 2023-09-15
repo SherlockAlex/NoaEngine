@@ -2,6 +2,7 @@
 #include "CacoState.h"
 #include "Player.h"
 #include "Item.h"
+#include "WolfResource.h"
 
 Enimy* attackingEnimy = nullptr;
 
@@ -17,11 +18,11 @@ Caco::Caco(Sprite * sprite, Transform* player,LiveEntity * enimy) :Enimy(sprite,
 
 	this->collision.radius = 1;
 
-	CacoIdleState* idleState = new CacoIdleState(fsm, this, player, "./Assets/Wolf/soldier-idle.amt");
-	CacoMoveState* moveState = new CacoMoveState(fsm, this, player, "./Assets/Wolf/soldier-walk.amt");
-	CacoAttackState* attackState = new CacoAttackState(fsm, this, player, "./Assets/Wolf/soldier-attack.amt");
-	CacoDieState* dieState = new CacoDieState(fsm, this, player, "./Assets/Wolf/soldier-die.amt");
-	CacoPainState* painState = new CacoPainState(fsm, this, player, "./Assets/Wolf/soldier-pain.amt");
+	CacoIdleState* idleState = new CacoIdleState(fsm, this, player, &wolfResource.cacoIdleFrame);
+	CacoMoveState* moveState = new CacoMoveState(fsm, this, player, &wolfResource.cacoMoveFrame);
+	CacoAttackState* attackState = new CacoAttackState(fsm, this, player, &wolfResource.cacoAttckFrame);
+	CacoDieState* dieState = new CacoDieState(fsm, this, player, &wolfResource.cacoDieFrame);
+	CacoPainState* painState = new CacoPainState(fsm, this, player, &wolfResource.cacoPainFrame);
 
 
 	idleState->AddTransition(Move, moveState);

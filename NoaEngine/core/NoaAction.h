@@ -40,6 +40,12 @@ namespace noa {
 				functions.erase(it);
 			}
 		}
+
+		std::function<T> operator [] (int index) 
+		{
+			return functions[index];
+		}
+
 	};
 	
 }

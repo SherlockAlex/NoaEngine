@@ -9,7 +9,7 @@ using namespace noa;
 class Player:public Behaviour, public Rigidbody,public LiveEntity
 {
 public:
-	Player(TileMap* map);
+	Player();
 	~Player();
 	void SetPosition(int tileID, MapFile& tileMap);
 	void ActorControl();
@@ -24,7 +24,8 @@ public:
 
 public:
 	FreeCamera* camera = nullptr;
-	float speed = 10;
+	float speed = 7;
+	float mouseSpeed = 0.025;
 
 	Audio painAFX = Audio("./Assets/Wolf/Music/player_pain.wav",Chunk);
 
