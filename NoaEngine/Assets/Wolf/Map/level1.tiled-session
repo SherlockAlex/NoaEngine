@@ -12,7 +12,7 @@
             "scale": 0.125,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 404,
+                "x": 512,
                 "y": -948
             }
         },
@@ -20,7 +20,7 @@
             "scale": 1,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": -511.5,
+                "x": -484,
                 "y": 1023
             }
         },
@@ -38,11 +38,11 @@
             "scaleInEditor": 1
         },
         "新手关.tmx": {
-            "scale": 0.125,
+            "scale": 0.25,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 64,
-                "y": -708
+                "x": 888,
+                "y": 142
             }
         }
     },

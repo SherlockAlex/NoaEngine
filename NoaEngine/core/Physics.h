@@ -1,13 +1,17 @@
 #ifndef NOAENGINE_PHISICS
 #define NOAENGINE_PHISICS
 
+#include <iostream>
+
 #include <vector>
 #include "NoaMath.h"
-#include "Behaviour.h"
+#include "Actor.h"
 
 namespace noa {
 	//这个是一个物理刚体，负责模拟物理的运动和一些碰撞
 	//如果想让固体具有物理效果，只要继承此类
+
+	class Rigidbody;
 
 	//存储人物的碰撞信息
 	typedef struct Collision 
@@ -16,9 +20,13 @@ namespace noa {
 		float radius = 0.5;
 
 		bool isHitCollisionTile = false;
+
 		bool isGrounded = false;
 		bool isTrigger = false;
-		void* other = nullptr;
+		Rigidbody * other = nullptr;
+		
+		int hitTileID = -1;
+
 		bool collisionInfo[2][2] = { false,false,false,false };
 		void Update(bool isHitCollisionTile,bool isGrounded) 
 		{
@@ -30,6 +38,7 @@ namespace noa {
 
 	extern float gravityAcceration;
 
+	class Actor;
 	class TileMap;
 	class Transform;
 	/// <summary>
@@ -50,7 +59,8 @@ namespace noa {
 		float mass = 1;
 		//阻尼系数
 		float damping = 0.02;
-		Transform* colliderPos = nullptr;
+		//Transform* colliderPos = nullptr;
+		Actor* actor;
 		Vector<float> newPosition;
 		float gravityWeight = 1.0;
 	private:
@@ -80,7 +90,7 @@ namespace noa {
 		Collision collision;
 
 	protected:
-		Rigidbody(Transform* colliderPos);
+		Rigidbody(Actor* actor);
 		~Rigidbody();
 
 	public:
@@ -94,13 +104,17 @@ namespace noa {
 		/// <param name="forceType">力的类型</param>
 		void AddForce(const Vector<float> force, ForceType forceType);
 		
-		void UpdateMap(TileMap * map);
+		void SetTileMap(TileMap * map);
+
+		TileMap* GetTileMap();
 
 		//碰撞检测线程
 		void ApplyCollision();
 
 		//触发触发器，基于触发对象other以一个void*类型的指针
-		virtual void OnTrigger(void* other) {}
+		virtual void OnTrigger(Collision collision) {}
+
+		virtual void OnHitTile() {}
 
 		/// <summary>
 		/// 返回与之相撞的物品
@@ -111,6 +125,11 @@ namespace noa {
 		template<class T>
 		T GetGameObjectAs() {
 			return (T)this->gameObject;
+		}
+
+		template<class T>
+		T GetActorAs() {
+			return (T)this;
 		}
 
 		//void SetCollisionRigidbody(Rigidbody* rigid);

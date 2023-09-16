@@ -6,7 +6,7 @@
 
 
 namespace noa {
-	extern unordered_map <size_t,Behaviour*> behaviours;
+	extern unordered_map <size_t, Actor*> behaviours;
 	//extern vector<Rigidbody*> rigidbodys;
 	extern unordered_map<size_t, Rigidbody*> rigidbodys;
 

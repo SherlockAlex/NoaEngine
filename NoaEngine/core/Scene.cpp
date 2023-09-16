@@ -91,6 +91,15 @@ namespace noa
 		return level[y*w+x];
 	}
 
+	void TileMap::SetTileID(const int x, const int y, const int tileID)
+	{
+		if (x < 0 || x >= w || y < 0 || y >= h)
+		{
+			return ;
+		}
+		level[y * w + x] = tileID;
+	}
+
 	bool TileMap::IsTile(const int code) const
 	{
 		return tileSet.count(code) > 0;

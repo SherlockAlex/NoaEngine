@@ -1,6 +1,8 @@
 #include "CacoState.h"
 #include "Enimy.h"
 #include "Caco.h"
+#include "Bullet.h"
+#include "WolfResource.h"
 
 #pragma region CacoIdleState
 
@@ -137,7 +139,12 @@ CacoAttackState::CacoAttackState(
 
 			if (distance <= 3 * 3)
 			{
-				this->enimy->enimy->TakeDamage(2);
+				//this->enimy->enimy->TakeDamage(2);
+				//实现角色的raycasting，如果集中的是墙壁
+				Bullet* bullet = new Bullet(&wolfResource.firebomb);
+				bullet->SetTileMap(this->enimy->GetTileMap());
+				bullet->transform.position = this->enimy->transform.position;
+				bullet->dir = distanceVector.Normalize();
 				audio.Play(false);
 			}
 			
@@ -243,7 +250,6 @@ CacoPainState::CacoPainState(
 	State(stateMachine)
 {
 	animation.SetFrame(frameData);
-	//animation.LoadFromAnimationFile(animationPath);
 	this->enimy = enimy;
 	this->target = target;
 

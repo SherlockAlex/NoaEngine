@@ -59,6 +59,8 @@ namespace noa {
 		Sprite* sprite = nullptr;
 		bool isCollision = false;
 
+		//Ìí¼ÓÒ»¸öAnimation
+
 		Tile();
 
 		Tile(Sprite* sprite, bool isCollision = false);

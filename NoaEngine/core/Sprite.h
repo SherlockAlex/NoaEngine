@@ -43,6 +43,7 @@ namespace noa {
 
 	public:
 		Sprite(SpriteFile sprFile, Vector<int> scale);
+		Sprite(Vector<int> scale);
 		Sprite(const char* file, Vector<int> scale);
 		Sprite();
 		Sprite(int w, int h, Vector<int> scale, vector<Uint32> image);

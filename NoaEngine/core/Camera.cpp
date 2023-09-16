@@ -238,6 +238,7 @@ namespace noa {
 			Ray ray = move(RaycastHit(x, map));
 
 			wallDistanceBuffer[x] = ray.distance;
+			rayResult[x] = ray;
 
 			//»æÖÆÇ½±Ú
 			const float ceiling = pixelHeight * 0.5 - pixelHeight / ray.distance;
@@ -276,7 +277,6 @@ namespace noa {
 					{
 						color = tile->sprite->GetColor(ray.simple.y, ray.simple.x);
 					}
-
 
 				}
 				else if (!renderFloor)
@@ -321,12 +321,10 @@ namespace noa {
 			}
 
 			ray.hitTile = map.GetTileID(intHitPoint.x, intHitPoint.y);
+			ray.tilePosition = { intHitPoint.x,intHitPoint.y };
 
 			if (map.IsCollisionTile(ray.hitTile)) 
 			{
-				
-
-
 
 				const float blockMidX = (float)intHitPoint.x + 0.5f;
 				const float blockMidY = (float)intHitPoint.y + 0.5f;
@@ -336,7 +334,6 @@ namespace noa {
 				if (testAngle >= -PI * 0.25f && testAngle < PI * 0.25f)
 				{
 					ray.simple.x = floatHitPoint.y - intHitPoint.y;
-
 				}
 				else if (testAngle >= PI * 0.25f && testAngle < PI * 0.75f)
 				{
@@ -497,7 +494,7 @@ namespace noa {
 							objectBufferWithRay[objectColumn] = (void*)object;
 						}
 						wallDistanceBuffer[objectColumn] = distanceFromPlayer;
-
+						rayResult[objectColumn].hitTile = -1;
 
 					}
 				}

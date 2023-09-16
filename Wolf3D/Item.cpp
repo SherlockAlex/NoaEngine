@@ -1,19 +1,15 @@
 #include "Item.h"
 
-Item::Item(Sprite* sprite) :GameObject(sprite), Rigidbody(&transform) 
+Item::Item(Sprite* sprite) :GameObject(sprite), Rigidbody(this) 
 {
 	useGravity = false;
 	collision.isTrigger = true;
 	tag = "item";
 }
 
-void Item::OnTrigger(void* other)
+void Item::OnTrigger(Collision other)
 {
-	if (other == nullptr)
-	{
-		return;
-	}
-	Rigidbody* rigid = (Rigidbody*)other;
+	Rigidbody* rigid = other.other;
 	if (rigid->tag == "Player")
 	{
 		RemoveRigidbody();

@@ -5,7 +5,7 @@
 #include "NoaMath.h"
 #include "NoaAction.h"
 #include "Graphic.h"
-#include "Behaviour.h"
+#include "Actor.h"
 
 namespace noa {
 
@@ -65,7 +65,7 @@ namespace noa {
 		bool GetActive();
 	};
 
-	class NoaCanvase : Behaviour
+	class NoaCanvase : Actor
 	{
 	private:
 		vector<UIComponent*> uiComponent;

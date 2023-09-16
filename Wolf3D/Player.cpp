@@ -1,8 +1,9 @@
 #include "Player.h"
 #include "Enimy.h"
+#include "M4A1.h"
 
 
-Player::Player() :Behaviour(), Rigidbody(&transform)
+Player::Player() :Actor(), Rigidbody(this)
 {
 	collision.sacle = {-0.2,-0.2};
 
@@ -20,7 +21,7 @@ Player::Player() :Behaviour(), Rigidbody(&transform)
 }
 
 Player::~Player() {
-	Behaviour::~Behaviour();
+	Actor::~Actor();
 	Rigidbody::~Rigidbody();
 }
 
@@ -101,9 +102,23 @@ void Player::ActorControl() {
 	if (inputSystem.GetMouseButton(LeftButton)&&bulletCount>0)
 	{
 		guns[currentGunIndex]->Shoot();
-		//shotgun->Shoot();
 	}
 
+	if (inputSystem.GetKeyDown(KeyE))
+	{
+		const Ray ray = camera->GetRayInfo(pixelWidth * 0.5);
+		const float distanceToWall = ray.distance;
+		if (distanceToWall < 1.5)
+		{
+			if (ray.hitTile == 98) 
+			{
+				this->GetTileMap()->SetTileID(ray.tilePosition.x,ray.tilePosition.y,107);
+				interactAFX.Play(false);
+			}
+			Debug(to_string(camera->GetRayInfo(pixelWidth * 0.5).hitTile));
+		}
+		
+	}
 	
 	velocity = velocity.Normalize() * speed;
 
@@ -126,8 +141,8 @@ void Player::RotateControl()
 		{
 			currentGunIndex = guns.size() - 1;
 		}
-		
 	}
+
 	else if (deltaIndex > 0) {
 		currentGunIndex++;
 		if (currentGunIndex >= guns.size())
@@ -173,11 +188,16 @@ void Player::MakeGun()
 	shotgun->takeBullet = 7;
 
 	pistol = new Pistol(&bulletCount, this->camera);
-	pistol->damage = 34;
+	pistol->damage = 18;
 	pistol->takeBullet = 0;
+
+	m4a1 = new M4A1(&bulletCount, this->camera);
+	m4a1->damage = 32;
+	m4a1->takeBullet = 1;
 
 	guns.push_back(pistol);
 	guns.push_back(shotgun);
+	guns.push_back(m4a1);
 
 }
 
@@ -186,4 +206,5 @@ void Player::SetCamera(FreeCamera* camera)
 	this->camera = camera;
 	shotgun->camera = camera;
 	pistol->camera = camera;
+	m4a1->camera = camera;
 }

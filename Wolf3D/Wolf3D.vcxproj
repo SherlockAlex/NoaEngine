@@ -19,9 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\NoaEngine\core\Actor.cpp" />
     <ClCompile Include="..\NoaEngine\core\Animator.cpp" />
     <ClCompile Include="..\NoaEngine\core\Audio.cpp" />
-    <ClCompile Include="..\NoaEngine\core\Behaviour.cpp" />
     <ClCompile Include="..\NoaEngine\core\Camera.cpp" />
     <ClCompile Include="..\NoaEngine\core\GameObject.cpp" />
     <ClCompile Include="..\NoaEngine\core\InputSystem.cpp" />
@@ -37,12 +37,14 @@
     <ClCompile Include="..\NoaEngine\core\src\glad.c" />
     <ClCompile Include="..\NoaEngine\core\StateMachine.cpp" />
     <ClCompile Include="..\NoaEngine\core\Transform.cpp" />
+    <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Caco.cpp" />
     <ClCompile Include="CacoState.cpp" />
     <ClCompile Include="Enimy.cpp" />
     <ClCompile Include="Gun.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="LiveEntity.cpp" />
+    <ClCompile Include="M4A1.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Pistol.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -50,9 +52,9 @@
     <ClCompile Include="WolfResource.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\NoaEngine\core\Actor.h" />
     <ClInclude Include="..\NoaEngine\core\Animator.h" />
     <ClInclude Include="..\NoaEngine\core\Audio.h" />
-    <ClInclude Include="..\NoaEngine\core\Behaviour.h" />
     <ClInclude Include="..\NoaEngine\core\Camera.h" />
     <ClInclude Include="..\NoaEngine\core\GameObject.h" />
     <ClInclude Include="..\NoaEngine\core\Graphic.h" />
@@ -70,6 +72,7 @@
     <ClInclude Include="..\NoaEngine\core\Sprite.h" />
     <ClInclude Include="..\NoaEngine\core\StateMachine.h" />
     <ClInclude Include="..\NoaEngine\core\Transform.h" />
+    <ClInclude Include="Bullet.h" />
     <ClInclude Include="Caco.h" />
     <ClInclude Include="CacoState.h" />
     <ClInclude Include="Enimy.h" />
@@ -77,6 +80,7 @@
     <ClInclude Include="Gun.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="LiveEntity.h" />
+    <ClInclude Include="M4A1.h" />
     <ClInclude Include="Pistol.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Shotgun.h" />

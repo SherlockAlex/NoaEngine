@@ -2,7 +2,7 @@
 
 Enimy::Enimy(Sprite* sprite, Transform* player,LiveEntity * enimy) :
 	GameObject(sprite)
-	, Rigidbody(&transform)
+	, Rigidbody(this)
 {
 
 	tag = "Enimy";

@@ -14,7 +14,7 @@
 
 #include "Sprite.h"
 #include "NoaAction.h"
-#include "Behaviour.h"
+#include "Actor.h"
 #include "StateMachine.h"
 #include "Resource.h"
 
@@ -41,7 +41,7 @@ namespace noa {
 	}AnimationFrame;
 
 	//动画器
-	class Animation:public Behaviour
+	class Animation:public Actor
 	{
 	private:
 		//framesImage可以通过复用降低内存消耗

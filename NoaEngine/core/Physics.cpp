@@ -3,6 +3,7 @@
 #include "Scene.h"
 #include <unordered_map>
 #include <thread>
+#include "Actor.h"
 
 using namespace std;
 
@@ -23,12 +24,13 @@ namespace noa {
 		Debug("rigidbody has been done");
 	}
 
-	Rigidbody::Rigidbody(Transform* colliderPos)
+	Rigidbody::Rigidbody(Actor * actor)
 	{
 
 		id = GetNextId();
 		collision.other = nullptr;
-		this->colliderPos = colliderPos;
+		this->actor = actor;
+		//this->colliderPos = colliderPos;
 		this->velocity = { 0,0 };
 		invMass = 1.0 / mass;
 
@@ -57,8 +59,10 @@ namespace noa {
 			return;
 		}
 		
-		const int x = colliderPos->position.x;
-		const int y = colliderPos->position.y;
+		const int x = this->actor->transform.position.x;
+		const int y = this->actor->transform.position.y;
+		//const int x = colliderPos->position.x;
+		//const int y = colliderPos->position.y;
 		indexInMap = (x << 16) | y;
 
 		collision.other = nullptr;
@@ -80,23 +84,35 @@ namespace noa {
 			//处理力和速度的关系
 			//F = ma
 			velocity = (velocity * (1 - damping)) + (sumForce * (deltaTime * invMass));
-			newPosition = (colliderPos->position) + (velocity * deltaTime);
+			//newPosition = (colliderPos->position) + (velocity * deltaTime);
+			newPosition = (this->actor->transform.position) + (velocity * deltaTime);
 			collision.isGrounded = false;
+			//collision.isHitCollisionTile = false;
+			collision.hitTileID = -1;
 			ApplyCollision();
 			//处理碰撞检测
 			CollisionWithinRigidbody(this);
 			ApplyCollision();
 			ApplyCollision();
-			colliderPos->position = newPosition;
+			this->actor->transform.position = newPosition;
+			//colliderPos->position = newPosition;
 		}
 		
+		if (collision.isHitCollisionTile)
+		{
+			this->OnHitTile();
+		}
+		collision.isHitCollisionTile = false;
+
 		//根据速度进行物体的碰撞检测
 		//如果检测到了碰撞字符，就停止
 		if (collision.isTrigger && collision.other != nullptr)
 		{
-			OnTrigger(collision.other);
+			OnTrigger(collision);
 		}
 		collision.other = nullptr;
+
+		
 
 	}
 
@@ -119,7 +135,7 @@ namespace noa {
 
 	}
 
-	void Rigidbody::UpdateMap(TileMap* map)
+	void Rigidbody::SetTileMap(TileMap* map)
 	{
 		this->tileMap = map;
 		if (this->tileMap==nullptr)
@@ -140,7 +156,60 @@ namespace noa {
 		const float scaleX = collision.sacle.x;
 		const float scaleY = collision.sacle.y;
 
-		if (tileMap->IsCollisionTile(newPosition.x-scaleX, colliderPos->position.y - scaleY)
+		if (tileMap->IsCollisionTile(newPosition.x - scaleX, this->actor->transform.position.y - scaleY)
+			|| tileMap->IsCollisionTile(newPosition.x - scaleX, this->actor->transform.position.y + 0.999 + scaleY)
+		)
+		{
+			collision.isHitCollisionTile = true;
+			if (!collision.isTrigger)
+			{
+				
+				newPosition.x = (int)newPosition.x + 1 + scaleX;
+				velocity.x = 0;
+			}
+		}
+
+		if (tileMap->IsCollisionTile(newPosition.x + 0.999 + scaleX, this->actor->transform.position.y - scaleY)
+			|| tileMap->IsCollisionTile(newPosition.x + 0.999 + scaleX, this->actor->transform.position.y + 0.999 + scaleY)
+		)
+		{
+			collision.isHitCollisionTile = true;
+			if (!collision.isTrigger)
+			{
+				
+				newPosition.x = (int)newPosition.x - scaleX;
+				velocity.x = 0;
+			}
+
+		}
+
+		if (tileMap->IsCollisionTile(newPosition.x - scaleX, newPosition.y - scaleY)
+			|| tileMap->IsCollisionTile(newPosition.x + 0.999 + scaleX, newPosition.y - scaleY)
+		)
+		{
+			collision.isHitCollisionTile = true;
+			if (!collision.isTrigger)
+			{
+				
+				newPosition.y = (int)newPosition.y + 1 + scaleY;
+				velocity.y = 0;
+			}
+		}
+
+		if (tileMap->IsCollisionTile(newPosition.x - scaleX, newPosition.y + 0.999 + scaleY)
+			|| tileMap->IsCollisionTile(newPosition.x + 0.999f + scaleX, newPosition.y + 0.999 + scaleY)
+		)
+		{
+			collision.isHitCollisionTile = true;
+			if (!collision.isTrigger) {
+				collision.isGrounded = true;
+				
+				newPosition.y = (int)newPosition.y - scaleY;
+				velocity.y = 0;
+			}
+		}
+
+		/*if (tileMap->IsCollisionTile(newPosition.x-scaleX, colliderPos->position.y - scaleY)
 			|| tileMap->IsCollisionTile(newPosition.x-scaleX, colliderPos->position.y + 0.999 + scaleY)
 		)
 		{
@@ -187,8 +256,13 @@ namespace noa {
 				newPosition.y = (int)newPosition.y - scaleY;
 				velocity.y = 0;
 			}
-		}
+		}*/
 
+	}
+
+	TileMap* Rigidbody::GetTileMap()
+	{
+		return this->tileMap;
 	}
 
 	int Rigidbody::GetIndexInMap() const
@@ -232,8 +306,8 @@ namespace noa {
 			}
 
 			// 检测两个刚体是否会相撞（使用平方距离）
-			const float deltaX = rigidX - rigidbody->colliderPos->position.x;
-			const float deltaY = rigidY - rigidbody->colliderPos->position.y;
+			const float deltaX = rigidX - rigidbody->actor->transform.position.x;
+			const float deltaY = rigidY - rigidbody->actor->transform.position.y;
 			const float distanceSquared = deltaX * deltaX + deltaY * deltaY;
 			const float radiusSumSquared = (rigidRadius + rigidbody->collision.radius) * (rigidRadius + rigidbody->collision.radius);
 

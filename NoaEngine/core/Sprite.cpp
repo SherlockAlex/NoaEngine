@@ -18,6 +18,11 @@ namespace noa {
 		this->sh = (h / 2) * 2;
 	}
 
+	Sprite::Sprite(Vector<int> scale)
+	{
+		this->scale = scale;
+	}
+
 	Sprite::Sprite(const char* file, Vector<int> scale) {
 		SpriteFile sprFile = resource.LoadSprFile(file);
 		this->posx = sprFile.x;

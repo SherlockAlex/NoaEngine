@@ -204,13 +204,13 @@ namespace noa {
 		renderer.DrawString(text, position.x, position.y, textColor, size);
 	}
 
-	NoaCanvase::NoaCanvase():Behaviour()
+	NoaCanvase::NoaCanvase():Actor()
 	{
 	}
 
 	NoaCanvase::~NoaCanvase()
 	{
-		Behaviour::~Behaviour();
+		Actor::~Actor();
 	}
 
 	void NoaCanvase::AddComponent(UIComponent* component)

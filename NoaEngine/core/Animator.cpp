@@ -7,7 +7,7 @@ namespace noa {
 
 	//vector<Animator*> animatorList;
 
-	Animation::Animation(float speed,bool loop) :Behaviour()
+	Animation::Animation(float speed,bool loop) :Actor()
 	{
 		Debug("Init Animator");
 		this->speed = speed;
@@ -21,7 +21,7 @@ namespace noa {
 
 	}
 
-	Animation::Animation(float speed, bool loop, AnimationFrame* frame) :Behaviour()
+	Animation::Animation(float speed, bool loop, AnimationFrame* frame) :Actor()
 	{
 		Debug("Init Animator");
 		this->speed = speed;
@@ -44,7 +44,7 @@ namespace noa {
 
 	Animation::~Animation()
 	{
-		Behaviour::~Behaviour();
+		Actor::~Actor();
 	}
 
 	/// <summary>

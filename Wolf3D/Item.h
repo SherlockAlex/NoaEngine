@@ -7,7 +7,7 @@ public:
 	NoaEvent<void()> pickEvent;
 
 	Item(Sprite* sprite);
-	void OnTrigger(void* other) override;
+	void OnTrigger(Collision other) override;
 	void Update() override;
 	void OnDisable() override;
 };

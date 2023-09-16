@@ -33,9 +33,6 @@
     <ClCompile Include="..\NoaEngine\core\Audio.cpp">
       <Filter>源文件\core</Filter>
     </ClCompile>
-    <ClCompile Include="..\NoaEngine\core\Behaviour.cpp">
-      <Filter>源文件\core</Filter>
-    </ClCompile>
     <ClCompile Include="..\NoaEngine\core\Camera.cpp">
       <Filter>源文件\core</Filter>
     </ClCompile>
@@ -108,15 +105,21 @@
     <ClCompile Include="WolfResource.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="M4A1.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\NoaEngine\core\Actor.cpp">
+      <Filter>源文件\core</Filter>
+    </ClCompile>
+    <ClCompile Include="Bullet.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\NoaEngine\core\Animator.h">
       <Filter>头文件\core</Filter>
     </ClInclude>
     <ClInclude Include="..\NoaEngine\core\Audio.h">
-      <Filter>头文件\core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\NoaEngine\core\Behaviour.h">
       <Filter>头文件\core</Filter>
     </ClInclude>
     <ClInclude Include="..\NoaEngine\core\Camera.h">
@@ -201,6 +204,15 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="WolfResource.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="M4A1.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\NoaEngine\core\Actor.h">
+      <Filter>头文件\core</Filter>
+    </ClInclude>
+    <ClInclude Include="Bullet.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

@@ -3,10 +3,11 @@
 #include "LiveEntity.h"
 #include "Shotgun.h"
 #include "Pistol.h"
+#include "M4A1.h"
 
 using namespace noa;
 
-class Player:public Behaviour, public Rigidbody,public LiveEntity
+class Player:public Actor, public Rigidbody,public LiveEntity
 {
 public:
 	Player();
@@ -29,12 +30,15 @@ public:
 
 	Audio painAFX = Audio("./Assets/Wolf/Music/player_pain.wav",Chunk);
 
+	Audio interactAFX = Audio("./Assets/Wolf/Music/switch.wav", Chunk);
+
 	int bulletCount = 100;
 
 	int currentGunIndex = 0;
 
 	Shotgun* shotgun = nullptr;
 	Pistol* pistol = nullptr;
+	M4A1* m4a1 = nullptr;
 
 	vector<Gun*> guns;
 

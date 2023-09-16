@@ -9,8 +9,11 @@ using namespace noa;
 class WolfResource
 {
 public:
+	Sprite firebomb = Sprite(resource.LoadSprFile("./Assets/Wolf/firebomb.spr"), Vector<int>(32, 32));
+
 	AnimationFrame pistolFrame = AnimationFrame("./Assets/Wolf/lgun-shot.amt");
 	AnimationFrame shotgunFrame = AnimationFrame("./Assets/Wolf/gun-shot.amt");
+	AnimationFrame m4a1Frame = AnimationFrame("./Assets/Wolf/mgun-shot.amt");
 
 	AnimationFrame cacoIdleFrame = AnimationFrame("./Assets/Wolf/soldier-idle.amt");
 	AnimationFrame cacoMoveFrame = AnimationFrame("./Assets/Wolf/soldier-walk.amt");

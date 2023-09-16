@@ -159,7 +159,7 @@
   <ItemGroup>
     <ClInclude Include="core\Animator.h" />
     <ClInclude Include="core\Audio.h" />
-    <ClInclude Include="core\Behaviour.h" />
+    <ClInclude Include="core\Actor.h" />
     <ClInclude Include="core\Camera.h" />
     <ClInclude Include="core\GameObject.h" />
     <ClInclude Include="core\Graphic.h" />
@@ -181,7 +181,7 @@
   <ItemGroup>
     <ClCompile Include="core\Animator.cpp" />
     <ClCompile Include="core\Audio.cpp" />
-    <ClCompile Include="core\Behaviour.cpp" />
+    <ClCompile Include="core\Actor.cpp" />
     <ClCompile Include="core\Camera.cpp" />
     <ClCompile Include="core\GameObject.cpp" />
     <ClCompile Include="core\InputSystem.cpp" />

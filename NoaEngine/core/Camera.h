@@ -40,6 +40,7 @@ namespace noa {
 		Vector<float> offset;
 		Vector<int> followPositionOnScreen = Vector<int>(0.0, 0.0);
 		
+		//获取射线射中的物品
 		vector<void*> objectBufferWithRay = vector<void*>(pixelWidth*pixelHeight, nullptr);
 	public:
 		TileMapCamera();
@@ -65,16 +66,19 @@ namespace noa {
 		float angle = 0.0;
 		float distance = 0.0;
 		
+		Vector<int> tilePosition = {0,0};
+
 		int hitTile = -1;
 
-		Vector<float> simple;
+		Vector<float> simple = {0,0};
 	}Ray;
 
 	class FreeCamera :public Camera
 	{
 	protected:
+		//获取射线射中的物品
 		vector<void*> objectBufferWithRay = vector<void*>(pixelWidth, nullptr);
-
+		vector<Ray> rayResult = vector<Ray>(pixelWidth, Ray());
 	public:
 		float FOV = 0.25 * PI;
 		const float halfFOV = FOV * 0.5;
@@ -98,6 +102,10 @@ namespace noa {
 		template<class T>
 		T GetRayHitInfoAs(int index) {
 			return (T)objectBufferWithRay[index];
+		}
+
+		Ray GetRayInfo(int index) {
+			return rayResult[index];
 		}
 
 	};

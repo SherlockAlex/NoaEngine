@@ -2,8 +2,8 @@
 * NoaEngine游戏引擎内容如下:
 * Animator					动画器
 * Audio						声音模块
-* Behaviour					脚本模块
-* GameObject				游戏物品
+* Actor						脚本模块
+* GameObject				游戏物品,可以快速构建场景中的游戏物品
 * InputSystem				输入系统
 * NoaEngine					游戏基类
 * NoaMath					常用的数学模块
@@ -111,7 +111,7 @@ using namespace std;
 #include "Audio.h"
 #include "InputSystem.h"
 #include "Renderer.h"
-#include "Behaviour.h"
+#include "Actor.h"
 #include "GameObject.h"
 #include "Animator.h"
 #include "Sprite.h"

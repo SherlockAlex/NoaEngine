@@ -30,13 +30,13 @@ namespace noa {
 
 	}
 
-	GameObject::GameObject(Sprite * sprite) :Behaviour()
+	GameObject::GameObject(Sprite * sprite) :Actor()
 	{
 		this->sprite = sprite;
 		gameObjects.push_back({this,0});
 	}
 
-	GameObject::GameObject(Sprite * sprite, Vector<float> startPosition) :Behaviour()
+	GameObject::GameObject(Sprite * sprite, Vector<float> startPosition) :Actor()
 	{
 		this->sprite = sprite;
 		this->transform.position = startPosition;
@@ -52,7 +52,7 @@ namespace noa {
 			DestroyGameObject(this);
 			});
 		destroyGameObject.detach();
-		Behaviour::~Behaviour();
+		Actor::~Actor();
 	}
 
 	void GameObject::Destroy()

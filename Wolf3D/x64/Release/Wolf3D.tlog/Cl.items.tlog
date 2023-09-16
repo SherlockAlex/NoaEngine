@@ -1,6 +1,6 @@
+D:\Work\NoaEngine\NoaEngine\core\Actor.cpp;D:\Work\NoaEngine\Wolf3D\x64\Release\Actor.obj
 D:\Work\NoaEngine\NoaEngine\core\Animator.cpp;D:\Work\NoaEngine\Wolf3D\x64\Release\Animator.obj
 D:\Work\NoaEngine\NoaEngine\core\Audio.cpp;D:\Work\NoaEngine\Wolf3D\x64\Release\Audio.obj
-D:\Work\NoaEngine\NoaEngine\core\Behaviour.cpp;D:\Work\NoaEngine\Wolf3D\x64\Release\Behaviour.obj
 D:\Work\NoaEngine\NoaEngine\core\Camera.cpp;D:\Work\NoaEngine\Wolf3D\x64\Release\Camera.obj
 D:\Work\NoaEngine\NoaEngine\core\GameObject.cpp;D:\Work\NoaEngine\Wolf3D\x64\Release\GameObject.obj
 D:\Work\NoaEngine\NoaEngine\core\InputSystem.cpp;D:\Work\NoaEngine\Wolf3D\x64\Release\InputSystem.obj
@@ -16,12 +16,14 @@ D:\Work\NoaEngine\NoaEngine\core\Sprite.cpp;D:\Work\NoaEngine\Wolf3D\x64\Release
 D:\Work\NoaEngine\NoaEngine\core\src\glad.c;D:\Work\NoaEngine\Wolf3D\x64\Release\glad.obj
 D:\Work\NoaEngine\NoaEngine\core\StateMachine.cpp;D:\Work\NoaEngine\Wolf3D\x64\Release\StateMachine.obj
 D:\Work\NoaEngine\NoaEngine\core\Transform.cpp;D:\Work\NoaEngine\Wolf3D\x64\Release\Transform.obj
+D:\Work\NoaEngine\Wolf3D\Bullet.cpp;D:\Work\NoaEngine\Wolf3D\x64\Release\Bullet.obj
 D:\Work\NoaEngine\Wolf3D\Caco.cpp;D:\Work\NoaEngine\Wolf3D\x64\Release\Caco.obj
 D:\Work\NoaEngine\Wolf3D\CacoState.cpp;D:\Work\NoaEngine\Wolf3D\x64\Release\CacoState.obj
 D:\Work\NoaEngine\Wolf3D\Enimy.cpp;D:\Work\NoaEngine\Wolf3D\x64\Release\Enimy.obj
 D:\Work\NoaEngine\Wolf3D\Gun.cpp;D:\Work\NoaEngine\Wolf3D\x64\Release\Gun.obj
 D:\Work\NoaEngine\Wolf3D\Item.cpp;D:\Work\NoaEngine\Wolf3D\x64\Release\Item.obj
 D:\Work\NoaEngine\Wolf3D\LiveEntity.cpp;D:\Work\NoaEngine\Wolf3D\x64\Release\LiveEntity.obj
+D:\Work\NoaEngine\Wolf3D\M4A1.cpp;D:\Work\NoaEngine\Wolf3D\x64\Release\M4A1.obj
 D:\Work\NoaEngine\Wolf3D\main.cpp;D:\Work\NoaEngine\Wolf3D\x64\Release\main.obj
 D:\Work\NoaEngine\Wolf3D\Pistol.cpp;D:\Work\NoaEngine\Wolf3D\x64\Release\Pistol.obj
 D:\Work\NoaEngine\Wolf3D\Player.cpp;D:\Work\NoaEngine\Wolf3D\x64\Release\Player.obj

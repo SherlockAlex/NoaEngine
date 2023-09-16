@@ -24,7 +24,7 @@
     <ClInclude Include="core\Audio.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="core\Behaviour.h">
+    <ClInclude Include="core\Actor.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="core\Camera.h">
@@ -86,7 +86,7 @@
     <ClCompile Include="core\Audio.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="core\Behaviour.cpp">
+    <ClCompile Include="core\Actor.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="core\Camera.cpp">

@@ -53,6 +53,8 @@ namespace noa {
 		TileMap(unordered_map<int,Tile*> tileSet,MapFile map);
 		TileMap(unordered_map<int, Tile*> tileSet, vector<MapFile> mapLayer);
 		int GetTileID(const int x,const int y) const;
+		void SetTileID(const int x, const int y,const int tileID);
+		//仅仅适用于静态的全局Tile，不使用于带动画的事件Tile
 		Tile* GetTile(const int id);
 		bool IsTile(const int code) const;
 		bool IsCollisionTile(int tileID) const;

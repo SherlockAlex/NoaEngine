@@ -1,12 +1,12 @@
 #ifndef NOAENGINE_GAMEOBJECT
 #define NOAENGINE_GAMEOBJECT
 
-#include "Behaviour.h"
+#include "Actor.h"
 #include "Sprite.h"
 #include "NoaMath.h"
 
 namespace noa {
-	class GameObject :public Behaviour
+	class GameObject :public Actor
 	{
 		//游戏内的物品
 		//制动绘制游戏物品到屏幕上
@@ -21,15 +21,15 @@ namespace noa {
 
 		~GameObject();
 
-		//用于检测碰撞并传递消息
-		virtual void OnTriggerEnter(vector<void*> other) {
-			//用于传递碰撞检测的消息
-		}
+		////用于检测碰撞并传递消息
+		//virtual void OnTriggerEnter(vector<void*> other) {
+		//	//用于传递碰撞检测的消息
+		//}
 
-		virtual void RenderGameObject() {
-			//实现绘制物品信息
-			sprite->DrawSprite(transform.position.x, transform.position.y);
-		}
+		//virtual void RenderGameObject() {
+		//	//实现绘制物品信息
+		//	sprite->DrawSprite(transform.position.x, transform.position.y);
+		//}
 
 		void Destroy() override;
 

@@ -38,7 +38,7 @@ public:
 					if (map->objectLayer.image[j * map->objectLayer.w + i] == 18)
 					{
 						Caco* enimy = new Caco(new Sprite(cacoSprite), &player.transform, &player);
-						enimy->UpdateMap(&map->mapLayer);
+						enimy->SetTileMap(&map->mapLayer);
 						enimy->item = &bulletSprite;
 						enimy->itemPickEvent += [this]() {
 							player.bulletCount += 10;
@@ -53,25 +53,29 @@ public:
 			}
 
 			//场景生成物品
-			/*for (int i = 0; i < objectMap.w; i++)
+			for (int i = 0; i < map->objectLayer.w; i++)
 			{
-				for (int j = 0; j < objectMap.h; j++)
+				for (int j = 0; j < map->objectLayer.h; j++)
 				{
-					if (objectMap.image[j * objectMap.w + i] == 28)
+					if (map->objectLayer.image[j * map->objectLayer.w + i] == 27)
 					{
-						Item* bullet = new Item(&bulletSprite);
-						bullet->UpdateMap(&tileMap);
-						bullet->transform.position.x = i;
-						bullet->transform.position.y = j;
+						Item* healthBox = new Item(&healthBoxSprite);
+						healthBox->SetTileMap(&map->mapLayer);
+						healthBox->transform.position.x = i;
+						healthBox->transform.position.y = j;
 
-						bullet->pickEvent += [this]() {
-							player.bulletCount += 5;
+						healthBox->pickEvent += [this]() {
+							player.hp += 5;
+							if (player.hp>player.maxHp) 
+							{
+								player.hp = player.maxHp;
+							}
 							bulletPickUpSFX.Play(false);
 							};
 
 					}
 				}
-			}*/
+			}
 
 			//设置场景的碰撞区域
 			vector<int> collisionTileID;
@@ -89,7 +93,7 @@ public:
 			map->mapLayer.SetCollisionTileID(collisionTileID);
 
 			//传递当前场景地图给玩家
-			player.UpdateMap(&map->mapLayer);
+			player.SetTileMap(&map->mapLayer);
 
 			//设置玩家位置
 			player.SetPosition(35, map->objectLayer);
@@ -104,6 +108,7 @@ public:
 
 	void Start() override
 	{
+		BGM.volume = 0.4;
 		BGM.Play(true);
 		inputSystem.SetRelativeMouseMode(true);
 	}
@@ -145,7 +150,7 @@ private:
 		"NewGame",
 		{
 			"./Assets/Wolf/Map/新手关_图块层 1.csv" ,
-			"./Assets/Wolf/Map/新手关_物品层.csv",
+			"./Assets/Wolf/Map/新手关_对象层.csv",
 			"./Assets/Wolf/Map/tileSet.tsd"
 		}
 	);
@@ -159,9 +164,11 @@ private:
 	//资源相关
 	Sprite mouse = Sprite(resource.LoadSprFile("./Assets/Wolf/mouse.spr"), Vector<int>(0.03 * pixelWidth, 0.03 * pixelWidth));
 
-	Sprite cacoSprite = Sprite(resource.LoadSprFile("./Assets/Wolf/caco.spr"), Vector<int>(32, 32));
+	//Sprite cacoSprite = Sprite(resource.LoadSprFile("./Assets/Wolf/caco.spr"), Vector<int>(32, 32));
+	Sprite cacoSprite = Sprite(Vector<int>(32, 32));
 
 	Sprite bulletSprite = Sprite(resource.LoadSprFile("./Assets/Wolf/bullet.spr"), Vector<int>(64, 64));
+	Sprite healthBoxSprite = Sprite(resource.LoadSprFile("./Assets/Wolf/health-box.spr"), Vector<int>(64, 64));
 
 	Audio bulletPickUpSFX = Audio("./Assets/Wolf/Music/pickUpBullet.mp3", Chunk);
 
