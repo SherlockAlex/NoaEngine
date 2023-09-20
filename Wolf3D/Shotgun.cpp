@@ -8,7 +8,7 @@ Shotgun::Shotgun(int* bulletCount,FreeCamera * camera):Gun(bulletCount,camera)
 		resource.LoadSprFile("./Assets/Wolf/gun.spr")
 		, Vector<int>(0.25 * pixelWidth, 0.25 * pixelWidth));
 
-	this->audio =new Audio("./Assets/Wolf/Music/shotgun.wav", Chunk);
+	this->audio =new Audio("./Assets/Wolf/Music/sg552-2.wav", Chunk);
 
 	this->animation = new Animation(7.5, false);
 	//animation->LoadFromAnimationFile("./Assets/Wolf/gun-shot.amt");

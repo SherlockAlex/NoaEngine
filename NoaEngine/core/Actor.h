@@ -22,6 +22,7 @@ namespace noa {
 		Actor();
 		~Actor();
 	public:
+		void Awake();
 		virtual void OnEnable() {}
 		virtual void Start() {}
 		virtual void Update() {}
@@ -41,6 +42,10 @@ namespace noa {
 			return (T)this;
 		}
 
+		Actor* GetActor() {
+			return this;
+		}
+
 	private:
 		size_t id;
 		static size_t nextId;
@@ -52,8 +57,6 @@ namespace noa {
 
 	};
 
-	//œ˙ªŸ”Œœ∑Ω≈±æ
-	//extern void Destroy(Behaviour* behaviour);
 }
 
 

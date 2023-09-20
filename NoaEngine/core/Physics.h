@@ -59,7 +59,6 @@ namespace noa {
 		float mass = 1;
 		//×èÄáÏµÊý
 		float damping = 0.02;
-		//Transform* colliderPos = nullptr;
 		Actor* actor;
 		Vector<float> newPosition;
 		float gravityWeight = 1.0;
@@ -76,7 +75,7 @@ namespace noa {
 		bool useGravity = true;
 		//bool isGrounded = false;
 		bool useCollision = true;
-		void* gameObject = nullptr;
+		//void* gameObject = nullptr;
 
 	public:
 		
@@ -89,11 +88,12 @@ namespace noa {
 
 		Collision collision;
 
-	protected:
+	public:
 		Rigidbody(Actor* actor);
 		~Rigidbody();
 
 	public:
+		void Awake();
 		void Start();
 		void Update();
 
@@ -122,14 +122,14 @@ namespace noa {
 		/// <returns></returns>
 		//Rigidbody* GetCollisionRigidbody();
 
-		template<class T>
+		/*template<class T>
 		T GetGameObjectAs() {
 			return (T)this->gameObject;
-		}
+		}*/
 
 		template<class T>
 		T GetActorAs() {
-			return (T)this;
+			return (T)this->actor;
 		}
 
 		//void SetCollisionRigidbody(Rigidbody* rigid);

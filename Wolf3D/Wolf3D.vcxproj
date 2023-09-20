@@ -43,6 +43,8 @@
     <ClCompile Include="Enimy.cpp" />
     <ClCompile Include="Gun.cpp" />
     <ClCompile Include="Item.cpp" />
+    <ClCompile Include="Level00.cpp" />
+    <ClCompile Include="Level01.cpp" />
     <ClCompile Include="LiveEntity.cpp" />
     <ClCompile Include="M4A1.cpp" />
     <ClCompile Include="main.cpp" />
@@ -79,6 +81,8 @@
     <ClInclude Include="GameEngine.h" />
     <ClInclude Include="Gun.h" />
     <ClInclude Include="Item.h" />
+    <ClInclude Include="Level00.h" />
+    <ClInclude Include="Level01.h" />
     <ClInclude Include="LiveEntity.h" />
     <ClInclude Include="M4A1.h" />
     <ClInclude Include="Pistol.h" />

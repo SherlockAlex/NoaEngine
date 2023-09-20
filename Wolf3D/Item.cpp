@@ -12,6 +12,7 @@ void Item::OnTrigger(Collision other)
 	Rigidbody* rigid = other.other;
 	if (rigid->tag == "Player")
 	{
+		pickEvent.Invoke();
 		RemoveRigidbody();
 		Destroy();
 		Debug("Pick up the bullet");
@@ -25,5 +26,5 @@ void Item::Update()
 
 void Item::OnDisable()
 {
-	pickEvent.Invoke();
+	
 }

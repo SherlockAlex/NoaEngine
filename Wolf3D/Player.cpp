@@ -2,7 +2,6 @@
 #include "Enimy.h"
 #include "M4A1.h"
 
-
 Player::Player() :Actor(), Rigidbody(this)
 {
 	collision.sacle = {-0.2,-0.2};
@@ -115,7 +114,11 @@ void Player::ActorControl() {
 				this->GetTileMap()->SetTileID(ray.tilePosition.x,ray.tilePosition.y,107);
 				interactAFX.Play(false);
 			}
-			Debug(to_string(camera->GetRayInfo(pixelWidth * 0.5).hitTile));
+			else if (ray.hitTile == 102&&sceneManager.GetActiveScene()->name == "NewGame")
+			{
+				sceneManager.LoadScene("SecondFloor");
+			}
+			//Debug(to_string(camera->GetRayInfo(pixelWidth * 0.5).hitTile));
 		}
 		
 	}
@@ -170,8 +173,7 @@ void Player::Update()
 		guns[currentGunIndex]->Update();
 		//shotgun->Update();
 	}
-	
-	
+
 	renderer.DrawString("hp:"+to_string(this->hp)+"\nbullet:" + to_string(bulletCount), 0, 0, RED, pixelHeight / 20);
 }
 

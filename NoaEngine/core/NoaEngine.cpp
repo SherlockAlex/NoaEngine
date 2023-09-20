@@ -7,7 +7,6 @@
 
 namespace noa {
 	extern unordered_map <size_t, Actor*> behaviours;
-	//extern vector<Rigidbody*> rigidbodys;
 	extern unordered_map<size_t, Rigidbody*> rigidbodys;
 
 	//mutex mtx; // 定义互斥锁对象
@@ -63,28 +62,11 @@ namespace noa {
 
 		glContext = SDL_GL_CreateContext(window);
 
-		/*if (glContext==nullptr) {
-			Debug("OpenGL context creation failed: " + string(SDL_GetError()));
-			exit(0);
-		}*/
-
-		//gladLoadGL();
-
 		surfaceWidth = width;
 		surfaceHeight = height;
 
 		pixelWidth = surfaceWidth;
 		pixelHeight = surfaceHeight;
-
-		//pixelBuffer = new Uint32[pixelWidth * pixelHeight];
-
-		/*glEnable(GL_TEXTURE_2D);
-		glViewport(0, 0, width, height);
-		glMatrixMode(GL_PROJECTION);
-		glLoadIdentity();
-		glOrtho(0, width, height, 0, -1, 1);
-		glMatrixMode(GL_MODELVIEW);
-		glLoadIdentity();*/
 
 		mainRenderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 		if (mainRenderer == nullptr)
@@ -110,7 +92,6 @@ namespace noa {
 		{
 			exit(-1);
 		}
-		//pixelBuffer = surface->pixels;
 
 		renderer = Renderer(surfaceWidth, surfaceHeight, pixelBuffer,mainRenderer,texture);
 
@@ -126,16 +107,11 @@ namespace noa {
 			exit(-1);
 		}
 
-		
-
-		//禁用垂直同步
-		SDL_GL_SetSwapInterval(0);
 	}
 
 
 
 	NoaGameEngine::~NoaGameEngine() {
-		//delete pixelBuffer;
 		
 		SDL_GL_DeleteContext(glContext);
 		SDL_DestroyRenderer(mainRenderer);
@@ -146,23 +122,7 @@ namespace noa {
 
 	void NoaGameEngine::GLRenderTexture()
 	{
-		/*GLuint textureID;
-		glGenTextures(1, &textureID);
-		glBindTexture(GL_TEXTURE_2D, textureID);
 
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, pixelBuffer);
-
-		glBegin(GL_QUADS);
-		glTexCoord2f(0.0f, 0.0f); glVertex2i(0, 0);
-		glTexCoord2f(1.0f, 0.0f); glVertex2i(width, 0);
-		glTexCoord2f(1.0f, 1.0f); glVertex2i(width, height);
-		glTexCoord2f(0.0f, 1.0f); glVertex2i(0, height);
-		glEnd();
-
-		glDeleteTextures(1, &textureID);*/
 	}
 
 	void* NoaGameEngine::PixelBuffer() {
@@ -187,23 +147,16 @@ namespace noa {
 		chrono::duration<float> elapsedTime;
 		tp2 = chrono::system_clock::now();
 
-		
-
 		Start();
 
-		for (auto & behaviour:behaviours)
+		/*for (auto & behaviour:behaviours)
 		{
 			if (behaviour.second==nullptr)
 			{
 				continue;
 			}
 			behaviour.second->Start();
-		}
-		
-		//thread mainThread(mainThreadFunc);
-
-		//vector<thread> threads;
-		//physicsThread.join();
+		}*/
 
 		while (isRun)
 		{
@@ -224,16 +177,14 @@ namespace noa {
 
 				if (ioEvent.type == SDL_QUIT)
 				{
-					//mainThread.detach();
 					Quit();
 				}
 			}
 
+			sceneManager.Update();
 			Update();
 
-			//ApplyRigidbodysCollision();
-
-			for (const auto& rigid : rigidbodys)
+			/*for (const auto& rigid : rigidbodys)
 			{
 				if (rigid.second == nullptr)
 				{
@@ -249,104 +200,24 @@ namespace noa {
 					continue;
 				}
 				behaviour.second->Update();
-			}
+			}*/
 
 			SDL_UnlockTexture(texture);
 			SDL_RenderCopy(mainRenderer, texture, nullptr, nullptr);
 			SDL_RenderPresent(mainRenderer);
-			
-			// 更新OpenGL纹理像素数据并渲染
-			//UpdateOpenGLTexture();
-			//RenderOpenGLTexture();
-
-			//glClear(GL_COLOR_BUFFER_BIT);
-			//SDL_GL_SwapWindow(window);
-
-			//SDL_UnlockSurface(surface);
-			//SDL_UpdateWindowSurface(window);
-
-			//UpdateOpenGLTexture();
-			//RenderOpenGLTexture();
 
 			// 减少内存访问
 			const double fps = 1.0 / deltaTime;
 			const string windowTitle = move(gameName + " FPS: " + to_string(fps));
 			SDL_SetWindowTitle(window, windowTitle.c_str());
 
-			
-
 			tp1 = tp2;
 
 		}
-
-		//mainThread.detach();
 		
 		Quit();
 		return 0;
 	}
-
-	//void NoaGameEngine::MainThread()
-	//{
-
-	//	while (isRun)
-	//	{
-	//		tp2 = chrono::system_clock::now();
-	//		elapsedTime = tp2 - tp1;
-	//		deltaTime = elapsedTime.count();
-
-	//		////执行游戏主类的update
-	//		//while (SDL_PollEvent(&ioEvent))
-	//		//{
-	//		//	inputSystem.Update();
-
-	//		//	if (ioEvent.type == SDL_QUIT)
-	//		//	{
-	//		//		Quit();
-	//		//	}
-	//		//}
-
-	//		for (auto& rigid : rigidbodys)
-	//		{
-	//			if (rigid.second == nullptr)
-	//			{
-	//				continue;
-	//			}
-	//			rigid.second->Update();
-	//		}
-
-	//		Update();
-
-	//		for (auto& behaviour : behaviours)
-	//		{
-	//			if (behaviour.second == nullptr || !behaviour.second->GetActive())
-	//			{
-	//				continue;
-	//			}
-	//			behaviour.second->Update();
-	//		}
-
-	//		SDL_UnlockTexture(texture);
-	//		SDL_RenderCopy(mainRenderer, texture, nullptr, nullptr);
-	//		SDL_RenderPresent(mainRenderer);
-
-	//		// 更新OpenGL纹理像素数据并渲染
-	//		//UpdateOpenGLTexture();
-	//		//RenderOpenGLTexture();
-
-	//		//glClear(GL_COLOR_BUFFER_BIT);
-	//		//SDL_GL_SwapWindow(window);
-
-	//		//SDL_UnlockSurface(surface);
-	//		//SDL_UpdateWindowSurface(window);
-
-	//		//UpdateOpenGLTexture();
-	//		//RenderOpenGLTexture();
-
-	//		tp1 = tp2;
-
-	//	}
-	//}
-
 	
 	GLuint openGLTexture;
 	void NoaGameEngine::UpdateOpenGLTexture()

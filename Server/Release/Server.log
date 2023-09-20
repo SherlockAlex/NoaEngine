@@ -1,0 +1,12 @@
+﻿  Server.cpp
+Server.obj : error LNK2001: 无法解析的外部符号 __imp__htons@4
+Server.obj : error LNK2001: 无法解析的外部符号 __imp__recv@16
+Server.obj : error LNK2001: 无法解析的外部符号 __imp__socket@12
+Server.obj : error LNK2001: 无法解析的外部符号 __imp__send@16
+Server.obj : error LNK2001: 无法解析的外部符号 __imp__WSAStartup@8
+Server.obj : error LNK2001: 无法解析的外部符号 __imp__listen@8
+Server.obj : error LNK2001: 无法解析的外部符号 __imp__closesocket@4
+Server.obj : error LNK2001: 无法解析的外部符号 __imp__bind@12
+Server.obj : error LNK2001: 无法解析的外部符号 __imp__accept@12
+Server.obj : error LNK2001: 无法解析的外部符号 __imp__WSACleanup@0
+D:\Work\NoaEngine\Release\Server.exe : fatal error LNK1120: 10 个无法解析的外部命令

@@ -144,6 +144,7 @@ namespace noa
 		this->name = name;
 		sceneManager.AddScene(this);
 		this->info = info;
+
 	}
 
 	Scene::~Scene()
@@ -177,13 +178,20 @@ namespace noa
 			Debug("Load scene:"+ sceneName+"failed");
 			return;
 		}
-
+		//执行老场景的逐渐卸载
+		Destroy();
+		//加载新场景
 		activeScene = sceneList[sceneName];
+		Awake();
 		if (activeScene != nullptr)
 		{
 			activeMapInfo = activeScene->GetTileMap();
+			//执行场景切换事件
 			this->loadAction(&this->activeMapInfo);
+			
 		}
+		//初始化场景物品
+		Start();
 		Debug("Load scene:" + sceneName);
 
 	}
@@ -203,6 +211,160 @@ namespace noa
 
 		sceneList[scene->name] = scene;
 
+	}
+
+	void SceneManager::AddActor(Actor* actor)
+	{
+		if (actor == nullptr) 
+		{
+			return;
+		}
+		actors[actor->GetHash()] = actor;
+	}
+
+	void SceneManager::RemoveActor(Actor* actor)
+	{
+		if (actor == nullptr||!(actors.count(actor->GetHash())>0))
+		{
+			return;
+		}
+		actors[actor->GetHash()] = nullptr;
+	}
+
+	void SceneManager::AddRigidbody(Rigidbody* rigid)
+	{
+		if (rigid == nullptr) 
+		{
+			return;
+		}
+		rigidbodys[rigid->GetHashCode()] = rigid;
+	}
+
+	void SceneManager::RemoveRigidbody(const Rigidbody* rigid)
+	{
+		if (rigid == nullptr||!(rigidbodys.count(rigid->GetHashCode())>0)) 
+		{
+			return;
+		}
+		rigidbodys[rigid->GetHashCode()] = nullptr;
+	}
+
+	void SceneManager::Awake()
+	{
+		//清理actor和rigidbodys
+		if (activeScene != nullptr)
+		{
+			activeScene->Awake();
+		}
+	}
+
+	void SceneManager::Destroy()
+	{
+		//清理actor和rigidbodys
+		if (activeScene != nullptr)
+		{
+			activeScene->Unload();
+		}
+
+		for (const auto& actor : actors)
+		{
+			if (actor.second == nullptr || !actor.second->GetActive())
+			{
+				continue;
+			}
+			actor.second->Destroy();
+		}
+
+		for (const auto& rigid : rigidbodys)
+		{
+			if (rigid.second == nullptr)
+			{
+				continue;
+			}
+			rigid.second->RemoveRigidbody();
+		}
+
+		rigidbodys.clear();
+		actors.clear();
+	}
+
+	void SceneManager::Start()
+	{
+		if (activeScene != nullptr)
+		{
+			activeScene->Start();
+		}
+		RigidbodyStart();
+		ActorStart();
+		
+	}
+
+	void SceneManager::Update()
+	{
+		if (activeScene != nullptr)
+		{
+			activeScene->Update();
+		}
+		RigidbodyUpdate();
+		ActorUpdate();
+		
+	}
+
+	void SceneManager::ActorAwake()
+	{
+	}
+
+	void SceneManager::ActorStart()
+	{
+		for (const auto& actor : actors)
+		{
+			if (actor.second == nullptr || !actor.second->GetActive())
+			{
+				continue;
+			}
+			actor.second->Start();
+		}
+	}
+
+	void SceneManager::ActorUpdate()
+	{
+		for (const auto& actor : actors)
+		{
+			if (actor.second == nullptr || !actor.second->GetActive())
+			{
+				continue;
+			}
+			actor.second->Update();
+		}
+	}
+
+	void SceneManager::RigidbodyAwake()
+	{
+		
+	}
+
+	void SceneManager::RigidbodyStart()
+	{
+		for (const auto& rigid : rigidbodys)
+		{
+			if (rigid.second == nullptr)
+			{
+				continue;
+			}
+			rigid.second->Start();
+		}
+	}
+
+	void SceneManager::RigidbodyUpdate()
+	{
+		for (const auto& rigid : rigidbodys)
+		{
+			if (rigid.second == nullptr)
+			{
+				continue;
+			}
+			rigid.second->Update();
+		}
 	}
 
 }

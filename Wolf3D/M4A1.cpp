@@ -8,9 +8,9 @@ M4A1::M4A1(int* bulletCount, FreeCamera* camera) :Gun(bulletCount, camera)
 		resource.LoadSprFile("./Assets/Wolf/gun.spr")
 		, Vector<int>(0.5 * pixelWidth, 0.5 * pixelWidth));
 
-	this->audio = new Audio("./Assets/Wolf/Music/handleGunShot.mp3", Chunk);
+	this->audio = new Audio("./Assets/Wolf/Music/m4a1.wav", Chunk);
 
-	this->animation = new Animation(17, false);
+	this->animation = new Animation(15, false);
 	//animation->LoadFromAnimationFile("./Assets/Wolf/lgun-shot.amt");
 	animation->SetFrame(&wolfResource.m4a1Frame);
 	animation->SetFrameEvent(2, [this]()

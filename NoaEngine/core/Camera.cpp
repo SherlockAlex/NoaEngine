@@ -138,6 +138,7 @@ namespace noa {
 		wallDistanceBuffer = vector<float>(pixelWidth, 0.0);
 		objectBufferWithRay = vector<void*>(pixelWidth, nullptr);
 	}
+
 	FreeCamera::FreeCamera(Transform* follow):Camera(follow)
 	{
 		wallDistanceBuffer = vector<float>(pixelWidth, 0.0);

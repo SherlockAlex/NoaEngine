@@ -7,17 +7,20 @@ using namespace noa;
 TileMap* currentMap = nullptr;
 Vector<int> tileScale = Vector<int>(70, 70);
 
-class Player:public GameObject,public Rigidbody
+AnimationFrame idleFrame = AnimationFrame("./Assets/JumpMan/Animator/mario_idle.amt");
+AnimationFrame runFrame = AnimationFrame("./Assets/JumpMan/Animator/mario_run.amt");
+AnimationFrame jumpFrame = AnimationFrame("./Assets/JumpMan/Animator/mario_jump.amt");
+
+class Player:public GameObject
 {
 public:
-	Player() :GameObject(new Sprite(resource.LoadSprFile("./Assets/JumpMan/JumpMan.spr"), tileScale)), Rigidbody(&transform)
+	Player() :GameObject(new Sprite(resource.LoadSprFile("./Assets/JumpMan/JumpMan.spr"), tileScale))
 	{
 		transform.position = Vector<float>(0.0, 0.0);
-		//useGravity = false;
-		damping = 0;
-		idle->LoadFromAnimationFile("./Assets/JumpMan/Animator/mario_idle.amt");
-		run->LoadFromAnimationFile("./Assets/JumpMan/Animator/mario_run.amt");
-		jump->LoadFromAnimationFile("./Assets/JumpMan/Animator/mario_jump.amt");
+		rigid->damping = 0;
+		idle->SetFrame(&idleFrame);
+		run->SetFrame(&runFrame);
+		jump->SetFrame(&jumpFrame);
 
 		currentAnimatorState = idle;
 
@@ -25,7 +28,6 @@ public:
 	~Player()
 	{
 		GameObject::~GameObject();
-		Rigidbody::~Rigidbody();
 	}
 
 	void InitPosition(TileMap& tileMap,const int targetTileID) {
@@ -38,7 +40,7 @@ public:
 				{
 					transform.position.x = i;
 					transform.position.y = j;
-					velocity.y = 0;
+					rigid->velocity.y = 0;
 				}
 
 			}
@@ -46,40 +48,39 @@ public:
 	}
 
 	void ActorControl() {
-		velocity.x = 0;
+		rigid->velocity.x = 0;
 		//velocity.y = 0;
 
 		if (inputSystem.GetKeyHold(KeyA))
 		{
 			isLeft = true;
-			velocity.x = -speed;
+			rigid->velocity.x = -speed;
 		}
 		if (inputSystem.GetKeyHold(KeyD))
 		{
 			isLeft = false;
-			velocity.x = speed;
+			rigid->velocity.x = speed;
 		}
 		if (inputSystem.GetKeyHold(KeyW))
 		{
-			velocity.y = -speed;
+			rigid->velocity.y = -speed;
 
 		}
 		if (inputSystem.GetKeyHold(KeyS))
 		{
-			velocity.y = speed;
-
+			rigid->velocity.y = speed;
 		}
 
 		//Debug(to_string(collision.isGrounded));
-		if ((inputSystem.GetKeyHold(KeySpace)||inputSystem.GetKeyHold(KeyK)) && collision.isGrounded)
+		if ((inputSystem.GetKeyHold(KeySpace)||inputSystem.GetKeyHold(KeyK)) && rigid->collision.isGrounded)
 		{
-			AddForce(jumpForce, Impulse);
+			rigid->AddForce(jumpForce, rigid->Impulse);
 			jumpSFX.Play(false);
 		}
 	}
 
 	void AnimatorControl() {
-		if (NoaAbs<float>(velocity.y * deltaTime)<0.001) {
+		if (NoaAbs<float>(rigid->velocity.y * deltaTime)<0.001) {
 			currentAnimatorState = idle;
 		}
 		else {
@@ -90,7 +91,7 @@ public:
 		{
 			//isLeft = true;
 
-			if (NoaAbs<float>(velocity.y * deltaTime) < 0.001)
+			if (NoaAbs<float>(rigid->velocity.y * deltaTime) < 0.001)
 			{
 				currentAnimatorState = run;
 			}
@@ -109,7 +110,7 @@ public:
 
 	void Start() override 
 	{
-		gravityWeight = 3.5;
+		rigid->gravityWeight = 3.5;
 	}
 
 	Vector<float> jumpForce = Vector<float>(0.0, -15);
@@ -128,6 +129,8 @@ public:
 	}
 
 public:
+	Rigidbody* rigid = new Rigidbody(this);
+
 	float speed = 8;
 	bool isLeft = false;
 
@@ -145,15 +148,13 @@ class Platformer :public NoaGameEngine {
 public:
 	Platformer(int width, int height, GameWindowMode windowMode, string gameName) :NoaGameEngine(width, height, windowMode, gameName) 
 	{
-		player.UpdateMap(&tileMap);
+		player.rigid->SetTileMap(&tileMap);
 		tileMap.SetCollisionTileID({ 1,2 });
 		player.InitPosition(tileMap, 87);
 
 		BGM.Play(true);
 
 		currentMap = &tileMap;
-
-		
 	}
 
 	void Start() override

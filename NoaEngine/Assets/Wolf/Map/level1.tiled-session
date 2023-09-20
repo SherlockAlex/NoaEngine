@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "新手关.tmx",
+    "activeFile": "第二关.tmx",
     "expandedProjectPaths": [
         "."
     ],
@@ -41,8 +41,16 @@
             "scale": 0.25,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 888,
-                "y": 142
+                "x": 884,
+                "y": -1374
+            }
+        },
+        "第二关.tmx": {
+            "scale": 0.25,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": -628,
+                "y": -950
             }
         }
     },
@@ -57,7 +65,8 @@
         "tile.tsx",
         "level.tmx",
         "level-1.tmx",
-        "新手关.tmx"
+        "新手关.tmx",
+        "第二关.tmx"
     ],
     "project": "level1.tiled-project",
     "recentFiles": [
@@ -65,6 +74,7 @@
         "level.tmx",
         "level-1.tmx",
         "新手关.tmx",
+        "第二关.tmx",
         "object.tsx",
         "tile2.tsx"
     ],

@@ -7,7 +7,6 @@ Enimy::Enimy(Sprite* sprite, Transform* player,LiveEntity * enimy) :
 
 	tag = "Enimy";
 
-	gameObject = this;
 	this->player = player;
 	this->useGravity = false;
 	this->enimy = enimy;

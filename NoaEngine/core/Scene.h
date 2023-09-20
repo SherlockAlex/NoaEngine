@@ -82,26 +82,58 @@ namespace noa {
 	public:
 		string name = "Scene";
 		SceneInfo info;
-
 	public:
 		Scene(string name, SceneInfo info);
 		~Scene();
 
 		MapInfo GetTileMap();
 
+		virtual void Awake() {}
+		virtual void Start() {}
+		virtual void Update() {}
+		virtual void Unload() {}
+
 	};
 
+	class Actor;
+	class Rigidbody;
 	class SceneManager 
 	{
 	public:
-		std::function<void(MapInfo*)> loadAction;
+		std::function<void(MapInfo*)> loadAction = [this](MapInfo* mapInfo) {};
 	public:
 		//加载场景时发生的事件
 		MapInfo activeMapInfo;
 		Scene * GetActiveScene();
 		void LoadScene(string sceneName);
 		void AddScene(Scene* scene);
+
+		void AddActor(Actor* actor);
+		void RemoveActor(Actor* actor);
+
+		void AddRigidbody(Rigidbody* rigid);
+		void RemoveRigidbody(const Rigidbody* rigid);
+
+		void Awake();
+		void Destroy();
+		void Start();
+		void Update();
+		
+		void ActorAwake();
+		void ActorStart();
+		void ActorUpdate();
+		
+		void RigidbodyAwake();
+		void RigidbodyStart();
+		void RigidbodyUpdate();
+
+	public:
+		//保存当前场景的刚体和actors
+		unordered_map<size_t, Rigidbody*> rigidbodys;
+		unordered_map<size_t, Actor*> actors;
+
 	private:
+		Scene* oldScene = nullptr;
 		Scene * activeScene = nullptr;
 		unordered_map<string, Scene*> sceneList;
 	};
