@@ -7,10 +7,10 @@
 
 using namespace noa;
 
-class Player:public Actor, public Rigidbody,public LiveEntity
+class Player:public Actor,public LiveEntity
 {
 public:
-	Player();
+	Player(Scene * scene);
 	~Player();
 	void SetPosition(int tileID, MapFile& tileMap);
 	void ActorControl();
@@ -24,6 +24,8 @@ public:
 	void SetCamera(FreeCamera * camera);
 
 public:
+	Rigidbody* rigid = new Rigidbody(this);
+
 	FreeCamera* camera = nullptr;
 	float speed = 7;
 	float mouseSpeed = 0.025;

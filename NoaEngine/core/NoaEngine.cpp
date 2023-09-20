@@ -149,15 +149,6 @@ namespace noa {
 
 		Start();
 
-		/*for (auto & behaviour:behaviours)
-		{
-			if (behaviour.second==nullptr)
-			{
-				continue;
-			}
-			behaviour.second->Start();
-		}*/
-
 		while (isRun)
 		{
 			tp2 = chrono::system_clock::now();
@@ -183,24 +174,6 @@ namespace noa {
 
 			sceneManager.Update();
 			Update();
-
-			/*for (const auto& rigid : rigidbodys)
-			{
-				if (rigid.second == nullptr)
-				{
-					continue;
-				}
-				rigid.second->Update();
-			}
-
-			for (const auto& behaviour : behaviours)
-			{
-				if (behaviour.second == nullptr || !behaviour.second->GetActive())
-				{
-					continue;
-				}
-				behaviour.second->Update();
-			}*/
 
 			SDL_UnlockTexture(texture);
 			SDL_RenderCopy(mainRenderer, texture, nullptr, nullptr);

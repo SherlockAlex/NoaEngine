@@ -1,14 +1,13 @@
 #include "Enimy.h"
 
-Enimy::Enimy(Sprite* sprite, Transform* player,LiveEntity * enimy) :
-	GameObject(sprite)
-	, Rigidbody(this)
+Enimy::Enimy(Scene* scene, Sprite* sprite, Transform* player, LiveEntity* enimy) :
+	GameObject(scene,sprite)
 {
 
-	tag = "Enimy";
+	rigid->tag = "Enimy";
 
 	this->player = player;
-	this->useGravity = false;
+	rigid->useGravity = false;
 	this->enimy = enimy;
 
 	fsm = new StateMachine();
@@ -17,7 +16,7 @@ Enimy::Enimy(Sprite* sprite, Transform* player,LiveEntity * enimy) :
 
 Enimy::~Enimy()
 {
-	Rigidbody::~Rigidbody();
+	//Rigidbody::~Rigidbody();
 	GameObject::~GameObject();
 }
 

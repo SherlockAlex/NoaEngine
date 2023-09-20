@@ -4,52 +4,43 @@
 
 
 namespace noa {
-	vector<GameObjectBuffer> gameObjects;
+	//vector<GameObjectBuffer> gameObjects;
 
 	void DestroyGameObject(GameObject* gameObject) {
 
-		for (auto& object:gameObjects)
+		/*for (auto& object:gameObjects)
 		{
 			if (object.object == gameObject)
 			{
 				object.distanceToPlayer = -1;
 				object.object = nullptr;
 			}
-		}
-
-		/*for (auto it = gameObjects.begin(); it != gameObjects.end(); ) {
-			if (it->object == gameObject) {
-				it->distanceToPlayer = -1;
-				it = gameObjects.erase(it);
-				Debug("GameObject has been destroy");
-			}
-			else {
-				++it;
-			}
 		}*/
 
 	}
 
-	GameObject::GameObject(Sprite * sprite) :Actor()
+	GameObject::GameObject(Scene* activeScene, Sprite * sprite) :Actor(activeScene)
 	{
 		this->sprite = sprite;
-		gameObjects.push_back({this,0});
+		this->activeScene->AddGameObject({this,0});
+		//this.activeScene.AddGameObject()
+		//gameObjects.push_back({this,0});
 	}
 
-	GameObject::GameObject(Sprite * sprite, Vector<float> startPosition) :Actor()
+	GameObject::GameObject(Scene* activeScene, Sprite * sprite, Vector<float> startPosition) :Actor(activeScene)
 	{
 		this->sprite = sprite;
 		this->transform.position = startPosition;
-		gameObjects.push_back({ this,0 });
+		this->activeScene->AddGameObject({ this,0 });
+		//gameObjects.push_back({ this,0 });
 	}
 
 	GameObject::~GameObject()
 	{
-		//DestroyGameObject(this);
-		//DestroyGameObject(this);
 
 		thread destroyGameObject([this]() {
-			DestroyGameObject(this);
+			//DestroyGameObject(this);
+			this->GetActiveScene()->RemoveGameObject(this);
 			});
 		destroyGameObject.detach();
 		Actor::~Actor();
@@ -58,18 +49,15 @@ namespace noa {
 	void GameObject::Destroy()
 	{
 		SetActive(false);
+		
 
 		thread destroyGameObject([this]() {
-			DestroyGameObject(this);
-			});
+			this->GetActiveScene()->RemoveGameObject(this);
+		});
 		destroyGameObject.detach();
-		//DestroyGameObject(this);
-	}
+		Actor::Destroy();
 
-	//void Destroy(GameObject* gameObject)
-	//{
-	//	//delete gameObject;
-	//}
+	}
 
 }
 

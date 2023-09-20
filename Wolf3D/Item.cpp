@@ -1,10 +1,10 @@
 #include "Item.h"
 
-Item::Item(Sprite* sprite) :GameObject(sprite), Rigidbody(this) 
+Item::Item(Scene* scene, Sprite* sprite) :GameObject(scene,sprite)
 {
-	useGravity = false;
-	collision.isTrigger = true;
-	tag = "item";
+	rigid->useGravity = false;
+	rigid->collision.isTrigger = true;
+	rigid->tag = "item";
 }
 
 void Item::OnTrigger(Collision other)
@@ -13,7 +13,7 @@ void Item::OnTrigger(Collision other)
 	if (rigid->tag == "Player")
 	{
 		pickEvent.Invoke();
-		RemoveRigidbody();
+		this->rigid->Destroy();
 		Destroy();
 		Debug("Pick up the bullet");
 	}

@@ -1,14 +1,15 @@
 #pragma once
 #include "GameEngine.h"
 using namespace noa;
-class Bullet:public GameObject,public Rigidbody
+class Bullet:public GameObject
 {
 public:
+	Rigidbody* rigid = new Rigidbody(this);
 	Vector<float> dir = {0,0};
 	float speed = 9;
 
 
-	Bullet(Sprite* sprite);
+	Bullet(Scene* scene, Sprite* sprite);
 	~Bullet();
 
 	void Update() override;

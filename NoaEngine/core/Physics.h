@@ -11,6 +11,7 @@ namespace noa {
 	//这个是一个物理刚体，负责模拟物理的运动和一些碰撞
 	//如果想让固体具有物理效果，只要继承此类
 
+	//Rigidbody只能实例化，没办法继承
 	class Rigidbody;
 
 	//存储人物的碰撞信息
@@ -38,13 +39,14 @@ namespace noa {
 
 	extern float gravityAcceration;
 
+	class Scene;
 	class Actor;
 	class TileMap;
 	class Transform;
 	/// <summary>
 	/// 刚体类，当不在使用刚体时，或者物品被摧毁是，请使用RemoveRigidbody
 	/// </summary>
-	class Rigidbody
+	class Rigidbody final
 	{
 	public:
 		string tag = "default";
@@ -70,12 +72,8 @@ namespace noa {
 		
 		Vector<float> sumForce = Vector<float>(0.0, 0.0);
 
-	protected:
 		float invMass = 1;
-		bool useGravity = true;
-		//bool isGrounded = false;
-		bool useCollision = true;
-		//void* gameObject = nullptr;
+		
 
 	public:
 		
@@ -88,14 +86,19 @@ namespace noa {
 
 		Collision collision;
 
+		bool useGravity = true;
+		//bool isGrounded = false;
+		bool useCollision = true;
+		//void* gameObject = nullptr;
+
 	public:
 		Rigidbody(Actor* actor);
 		~Rigidbody();
 
 	public:
-		void Awake();
 		void Start();
 		void Update();
+		void Destroy();
 
 		/// <summary>
 		/// 给物体施加力
@@ -111,10 +114,7 @@ namespace noa {
 		//碰撞检测线程
 		void ApplyCollision();
 
-		//触发触发器，基于触发对象other以一个void*类型的指针
-		virtual void OnTrigger(Collision collision) {}
-
-		virtual void OnHitTile() {}
+		
 
 		/// <summary>
 		/// 返回与之相撞的物品
@@ -129,14 +129,14 @@ namespace noa {
 
 		template<class T>
 		T GetActorAs() {
-			return (T)this->actor;
+			return dynamic_cast<T>(this->actor);
 		}
 
 		//void SetCollisionRigidbody(Rigidbody* rigid);
 
 		int GetIndexInMap() const;
 
-		void RemoveRigidbody() const;
+		//void RemoveRigidbody() const;
 
 		// 获取哈希值
 		size_t GetHashCode() const {
@@ -154,7 +154,12 @@ namespace noa {
 			return nextId++;
 		}
 
+	public:
+		bool CollisionWithinRigidbody();
+
 	};
+
+	
 }
 
 

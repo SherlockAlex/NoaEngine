@@ -37,7 +37,7 @@ M4A1::M4A1(int* bulletCount, FreeCamera* camera) :Gun(bulletCount, camera)
 
 			if (enimy != nullptr)
 			{
-				if (enimy->tag != "Enimy")
+				if (enimy->rigid->tag != "Enimy")
 				{
 					return;
 				}

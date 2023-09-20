@@ -16,6 +16,7 @@ CacoIdleState::CacoIdleState(
 	State(stateMachine)
 {
 	animation.SetFrame(frameData);
+	animation.SetActiveScene(enimy->GetActiveScene());
 	//animation.LoadFromAnimationFile(animationPath);
 	this->enimy = enimy;
 	this->target = target;
@@ -25,8 +26,8 @@ void CacoIdleState::OnUpdate()
 {
 	animation.Play();
 	enimy->currentAnimation = &animation;
-	enimy->useMotion = false;
-	enimy->velocity = { 0,0 };
+	enimy->rigid->useMotion = false;
+	enimy->rigid->velocity = { 0,0 };
 	if (attackingEnimy == this->enimy)
 	{
 		attackingEnimy = nullptr;
@@ -40,15 +41,15 @@ void CacoIdleState::Reason()
 
 	if (distance <= 5 * 5)
 	{
-		enimy->useMotion = true;
+		enimy->rigid->useMotion = true;
 		animation.Reset();
 		SetTransition(Move);
 	}
 	if (enimy->hp<=0) 
 	{
 		Debug("Enimy die");
-		enimy->useMotion = false;
-		enimy->velocity = { 0,0 };
+		enimy->rigid->useMotion = false;
+		enimy->rigid->velocity = { 0,0 };
 		animation.Reset();
 		SetTransition(Die);
 	}
@@ -68,6 +69,7 @@ CacoMoveState::CacoMoveState(
 	State(stateMachine)
 {
 	animation.SetFrame(frameData);
+	animation.SetActiveScene(enimy->GetActiveScene());
 	//animation.LoadFromAnimationFile(animationPath);
 	this->enimy = enimy;
 	this->target = target;
@@ -81,10 +83,10 @@ void CacoMoveState::OnUpdate()
 	}
 	animation.Play();
 	enimy->currentAnimation = &animation;
-	enimy->useMotion = true;
+	enimy->rigid->useMotion = true;
 	Vector<float> distanceVector = target->position - enimy->transform.position;
 	const float distance = distanceVector.SqrMagnitude();
-	enimy->velocity = distanceVector.Normalize() * 2;
+	enimy->rigid->velocity = distanceVector.Normalize() * 2;
 }
 
 void CacoMoveState::Reason()
@@ -94,8 +96,8 @@ void CacoMoveState::Reason()
 
 	if (distance <= 3 * 3)
 	{
-		enimy->useMotion = false;
-		enimy->velocity = { 0,0 };
+		enimy->rigid->useMotion = false;
+		enimy->rigid->velocity = { 0,0 };
 		if (attackingEnimy == nullptr) {
 			animation.Reset();
 			SetTransition(Attack);
@@ -108,8 +110,8 @@ void CacoMoveState::Reason()
 	if (enimy->hp <= 0)
 	{
 		Debug("Enimy die");
-		enimy->useMotion = false;
-		enimy->velocity = { 0,0 };
+		enimy->rigid->useMotion = false;
+		enimy->rigid->velocity = { 0,0 };
 		animation.Reset();
 		SetTransition(Die);
 	}
@@ -128,6 +130,7 @@ CacoAttackState::CacoAttackState(
 	State(stateMachine)
 {
 	animation.SetFrame(frameData);
+	animation.SetActiveScene(enimy->GetActiveScene());
 	//animation.LoadFromAnimationFile(animationPath);
 	this->enimy = enimy;
 	this->target = target;
@@ -141,8 +144,8 @@ CacoAttackState::CacoAttackState(
 			{
 				//this->enimy->enimy->TakeDamage(2);
 				//实现角色的raycasting，如果集中的是墙壁
-				Bullet* bullet = new Bullet(&wolfResource.firebomb);
-				bullet->SetTileMap(this->enimy->GetTileMap());
+				Bullet* bullet = new Bullet(this->enimy->GetActiveScene(), &wolfResource.firebomb);
+				bullet->rigid->SetTileMap(this->enimy->rigid->GetTileMap());
 				bullet->transform.position = this->enimy->transform.position;
 				bullet->dir = distanceVector.Normalize();
 				audio.Play(false);
@@ -157,8 +160,8 @@ void CacoAttackState::OnUpdate()
 	attackingEnimy = this->enimy;
 	animation.Play();
 	enimy->currentAnimation = &animation;
-	enimy->useMotion = false;
-	enimy->velocity = {0,0};
+	enimy->rigid->useMotion = false;
+	enimy->rigid->velocity = {0,0};
 	//攻击完一次就返回Idle
 }
 
@@ -175,8 +178,8 @@ void CacoAttackState::Reason()
 	if (enimy->hp <= 0)
 	{
 		Debug("Enimy die");
-		enimy->useMotion = false;
-		enimy->velocity = { 0,0 };
+		enimy->rigid->useMotion = false;
+		enimy->rigid->velocity = { 0,0 };
 		animation.Reset();
 		SetTransition(Die);
 	}
@@ -195,13 +198,14 @@ CacoDieState::CacoDieState(
 	State(stateMachine)
 {
 	animation.SetFrame(frameData);
+	animation.SetActiveScene(enimy->GetActiveScene());
 	//animation.LoadFromAnimationFile(animationPath);
 	this->enimy = enimy;
 	this->target = target;
 
 	animation.SetFrameEvent(1, [this]() {
 		audio.Play(false);
-		this->enimy->isFrozen = true;
+		this->enimy->rigid->isFrozen = true;
 		((Caco*)this->enimy)->OnDeath();
 	});
 
@@ -209,7 +213,7 @@ CacoDieState::CacoDieState(
 		{
 			
 			this->enimy->Destroy();
-			this->enimy->RemoveRigidbody();
+			this->enimy->rigid->Destroy();
 			this->enimy->deathEvent.Invoke();
 		});
 }
@@ -227,8 +231,8 @@ void CacoDieState::OnUpdate()
 	}
 	animation.Play();
 	enimy->currentAnimation = &animation;
-	enimy->useMotion = false;
-	enimy->velocity = { 0,0 };
+	enimy->rigid->useMotion = false;
+	enimy->rigid->velocity = { 0,0 };
 	enimy->transform.posZ = 0.5 * enimy->transform.posZ;
 
 }
@@ -250,6 +254,7 @@ CacoPainState::CacoPainState(
 	State(stateMachine)
 {
 	animation.SetFrame(frameData);
+	animation.SetActiveScene(enimy->GetActiveScene());
 	this->enimy = enimy;
 	this->target = target;
 
@@ -275,8 +280,8 @@ void CacoPainState::OnUpdate()
 	}
 	animation.Play();
 	enimy->currentAnimation = &animation;
-	enimy->useMotion = false;
-	enimy->velocity = { 0,0 };
+	enimy->rigid->useMotion = false;
+	enimy->rigid->velocity = { 0,0 };
 	enimy->transform.posZ = 0.5 * enimy->transform.posZ;
 
 }

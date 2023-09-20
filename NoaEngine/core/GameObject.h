@@ -15,21 +15,11 @@ namespace noa {
 		bool isRaycasted = false;
 		Sprite * sprite = nullptr;
 	public:
-		GameObject(Sprite * sprite);
+		GameObject(Scene * activeScene,Sprite * sprite);
 
-		GameObject(Sprite * sprite, Vector<float> startPosition);
+		GameObject(Scene* activeScene, Sprite * sprite, Vector<float> startPosition);
 
 		~GameObject();
-
-		////用于检测碰撞并传递消息
-		//virtual void OnTriggerEnter(vector<void*> other) {
-		//	//用于传递碰撞检测的消息
-		//}
-
-		//virtual void RenderGameObject() {
-		//	//实现绘制物品信息
-		//	sprite->DrawSprite(transform.position.x, transform.position.y);
-		//}
 
 		void Destroy() override;
 

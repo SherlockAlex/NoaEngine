@@ -7,7 +7,7 @@ public:
 	Sprite* item = nullptr;
 	NoaEvent<void()> itemPickEvent;
 
-	Caco(Sprite* sprite, Transform* player,LiveEntity * enimy);
+	Caco(Scene * scene,Sprite* sprite, Transform* player,LiveEntity * enimy);
 	void OnPain() override;
 	void OnDeath();
 

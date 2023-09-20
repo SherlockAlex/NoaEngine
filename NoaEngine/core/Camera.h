@@ -3,6 +3,7 @@
 
 #include "NoaMath.h"
 #include "Scene.h"
+#include "GameObject.h"
 
 
 namespace noa {
@@ -16,19 +17,19 @@ namespace noa {
 	class Transform;
 	class Camera
 	{
+	protected:
+		//要渲染的物品
+		
+
 	public:
 		Transform* follow;
-		//Vector<float>* follow = nullptr;
 		Vector<float> position;
 
 	public:
-		/// <summary>
-		/// 相机构造函数
-		/// </summary>
-		/// <param name="follow"></param>
 		Camera();
 		Camera(Transform* follow);
 		~Camera();
+		
 		
 	};
 
@@ -77,6 +78,7 @@ namespace noa {
 	{
 	protected:
 		//获取射线射中的物品
+		vector<float> wallDistanceBuffer;
 		vector<void*> objectBufferWithRay = vector<void*>(pixelWidth, nullptr);
 		vector<Ray> rayResult = vector<Ray>(pixelWidth, Ray());
 	public:

@@ -204,7 +204,7 @@ namespace noa {
 		renderer.DrawString(text, position.x, position.y, textColor, size);
 	}
 
-	NoaCanvase::NoaCanvase():Actor()
+	NoaCanvase::NoaCanvase(Scene* scene):Actor(scene)
 	{
 	}
 

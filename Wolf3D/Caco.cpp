@@ -6,7 +6,7 @@
 
 Enimy* attackingEnimy = nullptr;
 
-Caco::Caco(Sprite * sprite, Transform* player,LiveEntity * enimy) :Enimy(sprite, player,enimy)
+Caco::Caco(Scene* scene, Sprite* sprite, Transform* player, LiveEntity* enimy) :Enimy(scene,sprite, player,enimy)
 {
 	if (player == nullptr||fsm == nullptr) 
 	{
@@ -16,7 +16,7 @@ Caco::Caco(Sprite * sprite, Transform* player,LiveEntity * enimy) :Enimy(sprite,
 	
 	this->isRaycasted = true;
 
-	this->collision.radius = 1;
+	this->rigid->collision.radius = 1;
 
 	CacoIdleState* idleState = new CacoIdleState(fsm, this, player, &wolfResource.cacoIdleFrame);
 	CacoMoveState* moveState = new CacoMoveState(fsm, this, player, &wolfResource.cacoMoveFrame);
@@ -61,7 +61,7 @@ void Caco::OnPain()
 
 void Caco::OnDeath()
 {
-	Item* bullet = new Item(item);
+	Item* bullet = new Item(this->activeScene,item);
 	bullet->transform.position = transform.position;
 	bullet->transform.posZ = -250;
 	bullet->pickEvent = this->itemPickEvent;

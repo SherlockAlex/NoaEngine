@@ -71,7 +71,7 @@ namespace noa {
 		vector<UIComponent*> uiComponent;
 
 	public:
-		NoaCanvase();
+		NoaCanvase(Scene * scene);
 		~NoaCanvase();
 
 		void AddComponent(UIComponent* component);

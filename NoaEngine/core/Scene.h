@@ -23,6 +23,10 @@ using namespace std;
 namespace noa {
 	typedef unsigned char Uint8;
 
+	class GameObject;
+	class Actor;
+	class Rigidbody;
+
 	class LevelMap {
 	public:
 		vector<int> level;
@@ -62,6 +66,9 @@ namespace noa {
 		void SetCollisionTileID(std::vector<int> collisionTileIDs);
 	};
 
+	struct GameObjectBuffer;
+	typedef struct GameObjectBuffer GameObjectBuffer;
+
 	/// <summary>
 	/// map,object,tile set
 	/// </summary>
@@ -82,6 +89,10 @@ namespace noa {
 	public:
 		string name = "Scene";
 		SceneInfo info;
+
+		unordered_map<size_t, Rigidbody*> rigidbodys;
+		unordered_map<size_t, Actor*> actors;//调用
+		vector<GameObjectBuffer> gameObjects;//绘图用的
 	public:
 		Scene(string name, SceneInfo info);
 		~Scene();
@@ -93,14 +104,26 @@ namespace noa {
 		virtual void Update() {}
 		virtual void Unload() {}
 
+	public:
+		void AddActor(Actor* actor);
+		void RemoveActor(Actor * actor);
+
+		void AddGameObject(GameObjectBuffer gameObject);
+		void RemoveGameObject(GameObject* gameObject);
+		
+		void AddRigidbody(Rigidbody* actor);
+		void RemoveRigidbody(Rigidbody* actor);
+
+		void ActorAwake();
+		void ActorOnEnable();
+		void ActorStart();
+		void ActorUpdate();
+		void ActorOnDisable();
+
 	};
 
-	class Actor;
-	class Rigidbody;
 	class SceneManager 
 	{
-	public:
-		std::function<void(MapInfo*)> loadAction = [this](MapInfo* mapInfo) {};
 	public:
 		//加载场景时发生的事件
 		MapInfo activeMapInfo;
@@ -108,29 +131,14 @@ namespace noa {
 		void LoadScene(string sceneName);
 		void AddScene(Scene* scene);
 
-		void AddActor(Actor* actor);
-		void RemoveActor(Actor* actor);
-
-		void AddRigidbody(Rigidbody* rigid);
-		void RemoveRigidbody(const Rigidbody* rigid);
-
 		void Awake();
 		void Destroy();
 		void Start();
 		void Update();
-		
-		void ActorAwake();
-		void ActorStart();
-		void ActorUpdate();
-		
-		void RigidbodyAwake();
-		void RigidbodyStart();
-		void RigidbodyUpdate();
 
 	public:
 		//保存当前场景的刚体和actors
-		unordered_map<size_t, Rigidbody*> rigidbodys;
-		unordered_map<size_t, Actor*> actors;
+		
 
 	private:
 		Scene* oldScene = nullptr;

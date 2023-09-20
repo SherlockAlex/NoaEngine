@@ -12,22 +12,11 @@ namespace noa
 
 	extern float deltaTime;
 	//检测rigid是否和其他刚体相撞，如果相撞就返回
-	extern bool CollisionWithinRigidbody(Rigidbody* rigid);
+	extern bool CollisionWithRigidbody(Rigidbody* rigid);
 	extern bool BoundingBoxIntersect(Rigidbody* a, Rigidbody* b);
 	float gravityAcceration = 9.81;
-
-	//负责管理所有的rigidbody
-	//unordered_map<size_t,Rigidbody*> rigidbodys;
 	
 	unordered_map<size_t, bool> isCheckCollision;
-
-	//销毁游戏刚体
-	void DestroyRigidbody(const Rigidbody * rigid)
-	{
-		sceneManager.RemoveRigidbody(rigid);
-
-		Debug("rigidbody has been done");
-	}
 
 	Rigidbody::Rigidbody(Actor * actor)
 	{
@@ -37,8 +26,8 @@ namespace noa
 		this->actor = actor;
 		this->velocity = { 0,0 };
 		invMass = 1.0 / mass;
-
-		sceneManager.AddRigidbody(this);
+		actor->GetActiveScene()->AddRigidbody(this);
+		//sceneManager.AddRigidbody(this);
 	}
 
 	// 初始化静态计数器
@@ -46,17 +35,13 @@ namespace noa
 
 	Rigidbody::~Rigidbody()
 	{
-		DestroyRigidbody(this);
-	}
-
-	void Rigidbody::Awake()
-	{
-		
+		Destroy();
+		//DestroyRigidbody(this);
 	}
 	
 	void Rigidbody::Start()
 	{
-		
+		//this->velocity = { 0,0 };
 	}
 
 	//实现物理效果
@@ -74,10 +59,10 @@ namespace noa
 		collision.other = nullptr;
 		collision.isHitCollisionTile = false;
 
-		if (deltaTime>1.0/10)
+		/*if (deltaTime>1.0/10)
 		{
 			deltaTime = 1.0 / 60;
-		}
+		}*/
 
 		if (useMotion&&useGravity&&(!collision.isGrounded)) 
 		{
@@ -95,24 +80,25 @@ namespace noa
 			collision.hitTileID = -1;
 			ApplyCollision();
 			//处理碰撞检测
-			CollisionWithinRigidbody(this);
-			ApplyCollision();
+			CollisionWithinRigidbody();
 			ApplyCollision();
 			this->actor->transform.position = newPosition;
 			//colliderPos->position = newPosition;
 		}
 		
-		if (collision.isHitCollisionTile)
+		if (collision.isHitCollisionTile&& this->actor!=nullptr)
 		{
-			this->OnHitTile();
+			this->actor->OnHitTile();
+			//OnHitTile();
 		}
 		collision.isHitCollisionTile = false;
 
 		//根据速度进行物体的碰撞检测
 		//如果检测到了碰撞字符，就停止
-		if (collision.isTrigger && collision.other != nullptr)
+		if (collision.isTrigger && collision.other != nullptr && this->actor != nullptr)
 		{
-			OnTrigger(collision);
+			this->actor->OnTrigger(collision);
+			//OnTrigger(collision);
 		}
 		collision.other = nullptr;
 
@@ -222,19 +208,90 @@ namespace noa
 		return this->tileMap;
 	}
 
+	void Rigidbody::Destroy()
+	{
+		this->actor->GetActiveScene()->RemoveRigidbody(this);
+	}
+
 	int Rigidbody::GetIndexInMap() const
 	{
 		return this->indexInMap;
 	}
 
-	void Rigidbody::RemoveRigidbody() const
+	bool Rigidbody::CollisionWithinRigidbody()
 	{
-		DestroyRigidbody(this);
+		if (this->isFrozen|| this->actor->GetActiveScene() == nullptr)
+		{
+			return false;
+		}
+
+		const size_t hashCode = this->GetHashCode();
+		const float rigidRadius = this->collision.radius;
+		const float rigidX = this->newPosition.x;
+		const float rigidY = this->newPosition.y;
+		Vector<float>& rigidVelocity = this->velocity;
+
+		bool collisionOccurred = false;
+
+		for (const auto& e : this->actor->GetActiveScene()->rigidbodys)
+		{
+			if (e.second == nullptr||e.first == hashCode)
+			{
+				continue;
+			}
+
+			Rigidbody* rigidbody = e.second;
+
+			// 检查包围盒是否相交
+			if (!BoundingBoxIntersect(this, rigidbody))
+			{
+				continue;
+			}
+
+			// 检测两个刚体是否会相撞（使用平方距离）
+			const float deltaX = rigidX - rigidbody->actor->transform.position.x;
+			const float deltaY = rigidY - rigidbody->actor->transform.position.y;
+			const float distanceSquared = deltaX * deltaX + deltaY * deltaY;
+			const float radiusSumSquared = (rigidRadius + rigidbody->collision.radius) * (rigidRadius + rigidbody->collision.radius);
+
+			if (distanceSquared >= radiusSumSquared)
+			{
+				continue;
+			}
+
+			this->collision.other = rigidbody;
+
+			if (this->collision.isTrigger || rigidbody->collision.isTrigger || rigidbody->isFrozen)
+			{
+				return false;
+			}
+
+			// 处理碰撞后的结果
+			const float distance = sqrt(distanceSquared);
+			const float dr = sqrt(radiusSumSquared) - distance;
+			const float dx = distance == 0?0:(dr * deltaX / distance);
+			const float dy = distance == 0?0:(dr * deltaY / distance);
+
+			this->newPosition.x += dx;
+			this->newPosition.y += dy;
+
+			rigidVelocity.x = 0;
+			rigidVelocity.y = 0;
+
+			collisionOccurred = true;
+		}
+
+		return collisionOccurred;
 	}
 
-	bool CollisionWithinRigidbody(Rigidbody* rigid)
+	/*void Rigidbody::RemoveRigidbody() const
 	{
-		if (rigid == nullptr || rigid->isFrozen)
+		DestroyRigidbody(this);
+	}*/
+
+	bool CollisionWithRigidbody(Rigidbody* rigid)
+	{
+		if (sceneManager.GetActiveScene() == nullptr||rigid == nullptr || rigid->isFrozen)
 		{
 			return false;
 		}
@@ -247,7 +304,7 @@ namespace noa
 
 		bool collisionOccurred = false;
 
-		for (const auto& e : sceneManager.rigidbodys)
+		for (const auto& e : sceneManager.GetActiveScene()->rigidbodys)
 		{
 			if (e.first == hashCode || e.second == nullptr)
 			{

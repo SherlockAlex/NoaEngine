@@ -2,7 +2,6 @@
 #define NOAENGINE_ACTOR_H
 
 #include <vector>
-//#include "NoaMath.h"
 #include "Transform.h"
 
 using namespace std;
@@ -10,26 +9,35 @@ using namespace std;
 namespace noa {
 	//游戏脚本类
 
+	struct Collision;
+	typedef struct Collision Collision;
+
 	class Transform;
+	class Scene;
 
 	class Actor {
+	protected:
+		Scene* activeScene = nullptr;
 	private:
 		bool isActive = true;
 	public:
 		Transform transform;
 
 	public:
-		Actor();
+		Actor(Scene* activeScene);
 		~Actor();
 	public:
-		void Awake();
+		virtual void Awake() {};
 		virtual void OnEnable() {}
 		virtual void Start() {}
 		virtual void Update() {}
 		virtual void OnDisable() {}
+
 		virtual void Destroy();
+
 		void SetActive(bool value);
 		bool GetActive();
+		Scene* GetActiveScene();
 
 		// 获取哈希值
 		size_t GetHash() const {
@@ -45,6 +53,13 @@ namespace noa {
 		Actor* GetActor() {
 			return this;
 		}
+
+		void SetActiveScene(Scene * scene);
+
+		//触发触发器，基于触发对象other以一个void*类型的指针
+		virtual void OnTrigger(Collision collision);
+
+		virtual void OnHitTile() {}
 
 	private:
 		size_t id;

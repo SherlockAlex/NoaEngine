@@ -1,31 +1,31 @@
 #include "Bullet.h"
 #include "Player.h"
 
-Bullet::Bullet(Sprite* sprite) :GameObject(sprite, {32,32}),Rigidbody(this)
+Bullet::Bullet(Scene * scene,Sprite* sprite) :GameObject(scene,sprite, {32,32})
 {
-	collision.sacle = { -0.3,-0.3 };
-	collision.radius = 0.2;
-	collision.isTrigger = true;
-	this->useGravity = false;
-	tag = "Bullet";
+	rigid->collision.sacle = { -0.3,-0.3 };
+	rigid->collision.radius = 0.2;
+	rigid->collision.isTrigger = true;
+	rigid->useGravity = false;
+	rigid->tag = "Bullet";
 	
 }
 
 Bullet::~Bullet()
 {
 	GameObject::~GameObject();
-	Rigidbody::~Rigidbody();
+	//Rigidbody::~Rigidbody();
 }
 
 void Bullet::Update()
 {
-	velocity = dir.Normalize() * speed;
+	rigid->velocity = dir.Normalize() * speed;
 }
 
 void Bullet::OnHitTile()
 {
 	Destroy();
-	RemoveRigidbody();
+	rigid->Destroy();
 }
 
 void Bullet::OnTrigger(Collision other)
@@ -33,11 +33,11 @@ void Bullet::OnTrigger(Collision other)
 	Rigidbody* rigid = other.other;
 
 	Player* player = rigid->GetActorAs<Player*>();
-	if (player->tag == "Player")
+	if (player!=nullptr&&rigid->tag == "Player")
 	{
 		player->TakeDamage(3);
+		this->rigid->Destroy();
 		Destroy();
-		RemoveRigidbody();
 	}
 
 }

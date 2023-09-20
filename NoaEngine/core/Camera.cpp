@@ -6,12 +6,13 @@
 namespace noa {
 
 	//extern unordered_map<int, bool> collisionTiles;
-	extern vector<GameObjectBuffer> gameObjects;
-	static vector<float> wallDistanceBuffer;
+	//extern vector<GameObjectBuffer> gameObjects;
 
 	Camera::Camera()
 	{
+
 	}
+
 	Camera::Camera(Transform* follow)
 	{
 		this->follow = follow;
@@ -21,6 +22,7 @@ namespace noa {
 	{
 
 	}
+
 
 	TileMapCamera::TileMapCamera()
 	{
@@ -105,7 +107,7 @@ namespace noa {
 		followPositionOnScreen = move(Vector<int>((follow->position.x - offset.x) * tileScale.x, (follow->position.y - offset.y) * tileScale.y));
 		
 		//绘制游戏物品
-		for (auto& gameObject:gameObjects) 
+		for (auto& gameObject:sceneManager.GetActiveScene()->gameObjects) 
 		{
 
 			if (gameObject.object==nullptr)
@@ -397,7 +399,7 @@ namespace noa {
 		}
 
 
-		for (auto& object : gameObjects)
+		for (auto& object : sceneManager.GetActiveScene()->gameObjects)
 		{
 			//auto& object = gameObjects[i].object;
 			if (object.object == nullptr)
@@ -410,26 +412,26 @@ namespace noa {
 			//const float distanceFromPlayer = vecToFollow.Magnitude();
 		}
 
-		QuickSort(gameObjects, 0, gameObjects.size() - 1);
+		QuickSort(sceneManager.GetActiveScene()->gameObjects, 0, sceneManager.GetActiveScene()->gameObjects.size() - 1);
 	}
 
 	void FreeCamera::RenderGameObject(uint32_t multiColor)
 	{
 		RenderGameObjectEnter();
 		//绘制物品
-		for (int i = 0;i<gameObjects.size();i++)
+		for (int i = 0;i< sceneManager.GetActiveScene()->gameObjects.size();i++)
 		{
 
-			auto& object = gameObjects[i].object;
+			auto& object = sceneManager.GetActiveScene()->gameObjects[i].object;
 			if (object == nullptr)
 			{
 				continue;
 			}
 
 
-			const Vector<float> & vecToFollow = gameObjects[i].vecToPlayer;
+			const Vector<float> & vecToFollow = sceneManager.GetActiveScene()->gameObjects[i].vecToPlayer;
 
-			const float distanceFromPlayer = gameObjects[i].distanceToPlayer;
+			const float distanceFromPlayer = sceneManager.GetActiveScene()->gameObjects[i].distanceToPlayer;
 
 			const Vector<float> eye = move(Vector<float>(sinf(follow->eulerAngle),cosf(follow->eulerAngle)));
 

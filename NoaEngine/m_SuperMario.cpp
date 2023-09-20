@@ -14,13 +14,21 @@ AnimationFrame jumpFrame = AnimationFrame("./Assets/JumpMan/Animator/mario_jump.
 class Player:public GameObject
 {
 public:
-	Player() :GameObject(new Sprite(resource.LoadSprFile("./Assets/JumpMan/JumpMan.spr"), tileScale))
+	Player(Scene * scene) :GameObject(scene,new Sprite(resource.LoadSprFile("./Assets/JumpMan/JumpMan.spr"), tileScale))
 	{
 		transform.position = Vector<float>(0.0, 0.0);
 		rigid->damping = 0;
+
 		idle->SetFrame(&idleFrame);
+		idle->SetActiveScene(this->GetActiveScene());
+
 		run->SetFrame(&runFrame);
+		run->SetActiveScene(this->GetActiveScene());
+
 		jump->SetFrame(&jumpFrame);
+		jump->SetActiveScene(this->GetActiveScene());
+
+
 
 		currentAnimatorState = idle;
 
@@ -144,10 +152,18 @@ public:
 
 };
 
-class Platformer :public NoaGameEngine {
+class TestScene1 :public Scene {
 public:
-	Platformer(int width, int height, GameWindowMode windowMode, string gameName) :NoaGameEngine(width, height, windowMode, gameName) 
+	TestScene1() :Scene("Test",{
+		"./Assets/JumpMan/Map/level1.csv",
+		"",
+		"./Assets/JumpMan/Tile/tileSet.tsd"
+		})
 	{
+
+	}
+
+	void Awake() override {
 		player.rigid->SetTileMap(&tileMap);
 		tileMap.SetCollisionTileID({ 1,2 });
 		player.InitPosition(tileMap, 87);
@@ -157,20 +173,11 @@ public:
 		currentMap = &tileMap;
 	}
 
-	void Start() override
-	{
-
-	}
-
-	void Update() override 
-	{
-
-		Vector<int> playerDrawPos = camera.Render(tileMap,frontDelta,endDelta);
+	void Update() override {
+		Vector<int> playerDrawPos = camera.Render(tileMap, frontDelta, endDelta);
 
 		//Draw player
 		player.sprite->DrawSprite(playerDrawPos.x, playerDrawPos.y, true, !player.isLeft);
-
-
 	}
 
 private:
@@ -181,18 +188,42 @@ private:
 		resource.LoadTileFromTsd("./Assets/JumpMan/Tile/tileSet.tsd"),
 		resource.LoadMapFromCSV("./Assets/JumpMan/Map/level1.csv")
 	);
-	
+
 	//���
-	Player player;
-	
+	Player player = Player(this);
+
 	//���
-	TileMapCamera camera = TileMapCamera(tileScale,&player.transform);
-	Vector<float> frontDelta = Vector<float>(0.0,0.0);
+	TileMapCamera camera = TileMapCamera(tileScale, &player.transform);
+	Vector<float> frontDelta = Vector<float>(0.0, 0.0);
 	Vector<float> endDelta = Vector<float>(-1, -1);
 
 	//��Ч
 	Audio BGM = Audio("./Assets/JumpMan/Music/BGM.ogg", Music);
 	Audio gameOverMusic = Audio("./Assets/JumpMan/Music/gameover.mp3", Chunk);
+};
+
+class Platformer :public NoaGameEngine {
+public:
+	Platformer(int width, int height, GameWindowMode windowMode, string gameName) :NoaGameEngine(width, height, windowMode, gameName) 
+	{
+		sceneManager.LoadScene("Test");
+	}
+
+	void Start() override
+	{
+
+	}
+
+	void Update() override 
+	{
+
+		
+
+
+	}
+
+private:
+	TestScene1 scene;
 
 };
 

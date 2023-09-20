@@ -6,7 +6,7 @@ namespace noa {
 	class Transform
 	{
 	public:
-		Vector<float> position;
+		Vector<float> position = {0,0};
 		//the euler angle in the world with behaviour
 		float eulerAngle = 0.0;
 		//the height information with behaviour

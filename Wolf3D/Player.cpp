@@ -2,14 +2,14 @@
 #include "Enimy.h"
 #include "M4A1.h"
 
-Player::Player() :Actor(), Rigidbody(this)
+Player::Player(Scene* scene) :Actor(scene)
 {
-	collision.sacle = {-0.2,-0.2};
+	rigid->collision.sacle = {-0.2,-0.2};
 
-	tag = "Player";
-	useGravity = false;
+	rigid->tag = "Player";
+	rigid->useGravity = false;
 
-	damping = 0;
+	rigid->damping = 0;
 
 	inputSystem.inputEvent += [this]() {
 		this->RotateControl();
@@ -21,7 +21,7 @@ Player::Player() :Actor(), Rigidbody(this)
 
 Player::~Player() {
 	Actor::~Actor();
-	Rigidbody::~Rigidbody();
+	//Rigidbody::~Rigidbody();
 }
 
 void Player::SetPosition(int tileID, MapFile& tileMap)
@@ -37,64 +37,68 @@ void Player::SetPosition(int tileID, MapFile& tileMap)
 			}
 		}
 	}
+
+	
+
 }
 
 static float walkSpeed = 0;
-void Player::ActorControl() {
+void Player::ActorControl() 
+{
 
-	velocity.x = 0;
-	velocity.y = 0;
+	rigid->velocity.x = 0;
+	rigid->velocity.y = 0;
 
 	if (!inputSystem.GetKeyHold(KeyM)) 
 	{
 		if (inputSystem.GetKeyHold(KeyW))
 		{
-			velocity.x += sinf(transform.eulerAngle);
-			velocity.y += cosf(transform.eulerAngle);
+			rigid->velocity.x += sinf(transform.eulerAngle);
+			rigid->velocity.y += cosf(transform.eulerAngle);
 		}
 
 		if (inputSystem.GetKeyHold(KeyS))
 		{
-			velocity.x += -sinf(transform.eulerAngle);
-			velocity.y += -cosf(transform.eulerAngle);
+			rigid->velocity.x += -sinf(transform.eulerAngle);
+			rigid->velocity.y += -cosf(transform.eulerAngle);
 		}
 
 		if (inputSystem.GetKeyHold(KeyA))
 		{
-			velocity.x += -cosf(transform.eulerAngle);
-			velocity.y += sinf(transform.eulerAngle);
+			rigid->velocity.x += -cosf(transform.eulerAngle);
+			rigid->velocity.y += sinf(transform.eulerAngle);
 		}
 
 		if (inputSystem.GetKeyHold(KeyD))
 		{
-			velocity.x += cosf(transform.eulerAngle);
-			velocity.y += -sinf(transform.eulerAngle);
+			rigid->velocity.x += cosf(transform.eulerAngle);
+			rigid->velocity.y += -sinf(transform.eulerAngle);
 		}
 	}
 	else 
 	{
 		if (inputSystem.GetKeyHold(KeyW))
 		{
-			velocity.x += 0;
-			velocity.y += -1;
+			rigid->velocity.x += 0;
+			rigid->velocity.y += -1;
 		}
 
 		if (inputSystem.GetKeyHold(KeyS))
 		{
-			velocity.x += 0;
-			velocity.y += 1;
+			rigid->velocity.x += 0;
+			rigid->velocity.y += 1;
 		}
 
 		if (inputSystem.GetKeyHold(KeyA))
 		{
-			velocity.x += -1;
-			velocity.y += 0;
+			rigid->velocity.x += -1;
+			rigid->velocity.y += 0;
 		}
 
 		if (inputSystem.GetKeyHold(KeyD))
 		{
-			velocity.x += 1;
-			velocity.y += 0;
+			rigid->velocity.x += 1;
+			rigid->velocity.y += 0;
 		}
 	}
 
@@ -111,7 +115,7 @@ void Player::ActorControl() {
 		{
 			if (ray.hitTile == 98) 
 			{
-				this->GetTileMap()->SetTileID(ray.tilePosition.x,ray.tilePosition.y,107);
+				this->rigid->GetTileMap()->SetTileID(ray.tilePosition.x,ray.tilePosition.y,107);
 				interactAFX.Play(false);
 			}
 			else if (ray.hitTile == 102&&sceneManager.GetActiveScene()->name == "NewGame")
@@ -123,7 +127,7 @@ void Player::ActorControl() {
 		
 	}
 	
-	velocity = velocity.Normalize() * speed;
+	rigid->velocity = rigid->velocity.Normalize() * speed;
 
 }
 
@@ -166,7 +170,7 @@ void Player::Update()
 {
 	ActorControl();
 
-	float vel = velocity.SqrMagnitude();
+	float vel = rigid->velocity.SqrMagnitude();
 
 	if (!inputSystem.GetKeyHold(KeyM)) 
 	{
@@ -175,6 +179,8 @@ void Player::Update()
 	}
 
 	renderer.DrawString("hp:"+to_string(this->hp)+"\nbullet:" + to_string(bulletCount), 0, 0, RED, pixelHeight / 20);
+
+	//Debug("Player pos:" + to_string(transform.position.x) + ":" + to_string(transform.position.y));
 }
 
 void Player::TakeDamage(int damage)
@@ -186,14 +192,17 @@ void Player::TakeDamage(int damage)
 void Player::MakeGun()
 {
 	shotgun = new Shotgun(&bulletCount, this->camera);
+	shotgun->animation->SetActiveScene(this->activeScene);
 	shotgun->damage = 110;
 	shotgun->takeBullet = 7;
 
 	pistol = new Pistol(&bulletCount, this->camera);
+	pistol->animation->SetActiveScene(this->activeScene);
 	pistol->damage = 18;
 	pistol->takeBullet = 0;
 
 	m4a1 = new M4A1(&bulletCount, this->camera);
+	m4a1->animation->SetActiveScene(this->activeScene);
 	m4a1->damage = 32;
 	m4a1->takeBullet = 1;
 

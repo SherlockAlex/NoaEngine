@@ -23,7 +23,7 @@ Level00::~Level00()
 
 void Level00::Awake()
 {
-	player = new Player();
+	player = new Player(this);
 	camera = new FreeCamera(&player->transform);
 	mapCamera = new TileMapCamera(Vector<int>(32, 32), &player->transform);
 
@@ -35,8 +35,8 @@ void Level00::Awake()
 		{
 			if (map->objectLayer.image[j * map->objectLayer.w + i] == 18)
 			{
-				Caco * enimy = new Caco(new Sprite(), &player->transform, player);
-				enimy->SetTileMap(&map->mapLayer);
+				Caco * enimy = new Caco(this,new Sprite(), &player->transform, player);
+				enimy->rigid->SetTileMap(&map->mapLayer);
 				enimy->item = &bulletSprite;
 				enimy->itemPickEvent += [this]() {
 					player->bulletCount += 10;
@@ -57,8 +57,8 @@ void Level00::Awake()
 		{
 			if (map->objectLayer.image[j * map->objectLayer.w + i] == 27)
 			{
-				Item * healthBox = new Item(&healthBoxSprite);
-				healthBox->SetTileMap(&map->mapLayer);
+				Item * healthBox = new Item(this,&healthBoxSprite);
+				healthBox->rigid->SetTileMap(&map->mapLayer);
 				healthBox->transform.position.x = i;
 				healthBox->transform.position.y = j;
 
@@ -91,7 +91,7 @@ void Level00::Awake()
 	map->mapLayer.SetCollisionTileID(collisionTileID);
 
 	//传递当前场景地图给玩家
-	player->SetTileMap(&map->mapLayer);
+	player->rigid->SetTileMap(&map->mapLayer);
 	//设置玩家位置
 	player->SetPosition(35, map->objectLayer);
 }
@@ -101,10 +101,12 @@ void Level00::Start()
 	BGM.volume = 0.4;
 	BGM.Play(true);
 	inputSystem.SetRelativeMouseMode(true);
+	player->SetPosition(35, map->objectLayer);
 }
 
 void Level00::Update()
 {
+	//player->SetPosition(35, map->objectLayer);
 	camera->Render(map->mapLayer, false, nullptr, WHITE);
 	mouse.DrawSprite(pixelWidth * 0.5 - 0.5 * mouse.scale.x, pixelHeight * 0.5 - 0.5 * mouse.scale.y, true);
 	if (inputSystem.GetKeyHold(KeyM))
