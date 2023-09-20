@@ -50,6 +50,11 @@ Caco::Caco(Scene* scene, Sprite* sprite, Transform* player, LiveEntity* enimy) :
 
 }
 
+Caco* Caco::Create(Scene* scene, Sprite* sprite, Transform* player, LiveEntity* enimy)
+{
+	return new Caco(scene, sprite, player, enimy);
+}
+
 void Caco::OnPain()
 {
 	if (fsm == nullptr||fsm->currentState == nullptr) 
@@ -61,7 +66,7 @@ void Caco::OnPain()
 
 void Caco::OnDeath()
 {
-	Item* bullet = new Item(this->activeScene,item);
+	Item* bullet = Item::Create(this->activeScene,item);
 	bullet->transform.position = transform.position;
 	bullet->transform.posZ = -250;
 	bullet->pickEvent = this->itemPickEvent;

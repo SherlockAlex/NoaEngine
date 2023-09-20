@@ -42,6 +42,16 @@ namespace noa {
 
 	}
 
+	Animation* Animation::Create(float speed, bool loop)
+	{
+		return new Animation(speed, loop);
+	}
+
+	Animation* Animation::Create(float speed, bool loop, AnimationFrame* frame)
+	{
+		return new Animation(speed, loop, frame);
+	}
+
 	Animation::~Animation()
 	{
 		Actor::~Actor();

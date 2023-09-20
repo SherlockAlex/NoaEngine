@@ -10,7 +10,7 @@ M4A1::M4A1(int* bulletCount, FreeCamera* camera) :Gun(bulletCount, camera)
 
 	this->audio = new Audio("./Assets/Wolf/Music/m4a1.wav", Chunk);
 
-	this->animation = new Animation(15, false);
+	this->animation = Animation::Create(15, false);
 	//animation->LoadFromAnimationFile("./Assets/Wolf/lgun-shot.amt");
 	animation->SetFrame(&wolfResource.m4a1Frame);
 	animation->SetFrameEvent(2, [this]()

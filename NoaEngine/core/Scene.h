@@ -120,6 +120,8 @@ namespace noa {
 		void ActorUpdate();
 		void ActorOnDisable();
 
+		void DestoyScene();
+
 	};
 
 	class SceneManager 

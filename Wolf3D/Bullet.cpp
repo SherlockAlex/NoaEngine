@@ -11,6 +11,11 @@ Bullet::Bullet(Scene * scene,Sprite* sprite) :GameObject(scene,sprite, {32,32})
 	
 }
 
+Bullet* Bullet::Create(Scene* scene, Sprite* sprite)
+{
+	return new Bullet(scene, sprite);
+}
+
 Bullet::~Bullet()
 {
 	GameObject::~GameObject();

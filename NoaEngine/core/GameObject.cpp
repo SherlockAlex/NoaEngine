@@ -35,26 +35,25 @@ namespace noa {
 		//gameObjects.push_back({ this,0 });
 	}
 
+	GameObject* GameObject::Create(Scene* activeScene, Sprite* sprite)
+	{
+		return new GameObject(activeScene, sprite);
+	}
+
+	GameObject* GameObject::Create(Scene* activeScene, Sprite* sprite, Vector<float> startPosition)
+	{
+		return new GameObject(activeScene, sprite, startPosition);
+	}
+
 	GameObject::~GameObject()
 	{
-
-		thread destroyGameObject([this]() {
-			//DestroyGameObject(this);
-			this->GetActiveScene()->RemoveGameObject(this);
-			});
-		destroyGameObject.detach();
 		Actor::~Actor();
 	}
 
 	void GameObject::Destroy()
 	{
 		SetActive(false);
-		
-
-		thread destroyGameObject([this]() {
-			this->GetActiveScene()->RemoveGameObject(this);
-		});
-		destroyGameObject.detach();
+		this->GetActiveScene()->RemoveGameObject(this);
 		Actor::Destroy();
 
 	}

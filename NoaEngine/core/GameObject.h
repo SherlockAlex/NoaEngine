@@ -14,10 +14,14 @@ namespace noa {
 		//判断能否被射线击中
 		bool isRaycasted = false;
 		Sprite * sprite = nullptr;
-	public:
+	protected:
 		GameObject(Scene * activeScene,Sprite * sprite);
 
 		GameObject(Scene* activeScene, Sprite * sprite, Vector<float> startPosition);
+
+	public:
+		static GameObject* Create(Scene* activeScene, Sprite* sprite);
+		static GameObject* Create(Scene* activeScene, Sprite* sprite, Vector<float> startPosition);
 
 		~GameObject();
 

@@ -23,7 +23,7 @@ Level00::~Level00()
 
 void Level00::Awake()
 {
-	player = new Player(this);
+	player = Player::Create(this);
 	camera = new FreeCamera(&player->transform);
 	mapCamera = new TileMapCamera(Vector<int>(32, 32), &player->transform);
 
@@ -35,7 +35,7 @@ void Level00::Awake()
 		{
 			if (map->objectLayer.image[j * map->objectLayer.w + i] == 18)
 			{
-				Caco * enimy = new Caco(this,new Sprite(), &player->transform, player);
+				Caco * enimy = Caco::Create(this,new Sprite(), &player->transform, player);
 				enimy->rigid->SetTileMap(&map->mapLayer);
 				enimy->item = &bulletSprite;
 				enimy->itemPickEvent += [this]() {
@@ -57,7 +57,7 @@ void Level00::Awake()
 		{
 			if (map->objectLayer.image[j * map->objectLayer.w + i] == 27)
 			{
-				Item * healthBox = new Item(this,&healthBoxSprite);
+				Item * healthBox = Item::Create(this,&healthBoxSprite);
 				healthBox->rigid->SetTileMap(&map->mapLayer);
 				healthBox->transform.position.x = i;
 				healthBox->transform.position.y = j;
@@ -120,20 +120,5 @@ void Level00::Update()
 
 void Level00::Unload()
 {
-	
-	/*if (player != nullptr)
-	{
-		player->Destroy();
-		player->RemoveRigidbody();
-		delete this->player;
-	}
-	if (camera != nullptr)
-	{
-		delete this->camera;
-	}
-	if (mapCamera != nullptr)
-	{
-		delete this->mapCamera;
-	}*/
 
 }

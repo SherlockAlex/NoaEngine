@@ -177,12 +177,26 @@ namespace noa
 
 	void Scene::RemoveActor(Actor* actor)
 	{
+		//if (actor == nullptr)
+		//{
+		//	return;
+		//}
+		//this->actors[actor->GetHash()] = nullptr;
+		////delete actor;
+
 		if (actor == nullptr)
 		{
 			return;
 		}
-		this->actors[actor->GetHash()] = nullptr;
-		//delete actor;
+		auto it = actors.find(actor->GetHash());
+		if (it != actors.end()) 
+		{
+			actors.erase(it); // 从map中移除
+		}
+
+		delete actor;
+
+
 	}
 
 	void Scene::AddGameObject(GameObjectBuffer gameObject)
@@ -192,14 +206,28 @@ namespace noa
 
 	void Scene::RemoveGameObject(GameObject* gameObject)
 	{
-		for (auto& object:gameObjects)
+		if (gameObject == nullptr)
+		{
+			return;
+		}
+
+		// 使用迭代器查找要删除的对象
+		for (auto it = gameObjects.begin(); it != gameObjects.end(); ++it) {
+			if (it->object == gameObject) 
+			{
+				gameObjects.erase(it); // 删除匹配的对象
+				break; // 一旦删除，就可以退出循环
+			}
+		}
+
+		/*for (auto& object:gameObjects)
 		{
 			if (object.object == gameObject)
 			{
 				object.distanceToPlayer = -1;
 				object.object = nullptr;
 			}
-		}
+		}*/
 	}
 
 	void Scene::AddRigidbody(Rigidbody* actor)
@@ -219,15 +247,16 @@ namespace noa
 		}
 		auto it = rigidbodys.find(actor->GetHashCode());
 		if (it != rigidbodys.end()) {
-			delete it->second; // 释放内存
 			rigidbodys.erase(it); // 从map中移除
 		}
+		
+		delete actor; // 释放内存
 		//this->rigidbodys[actor->GetHashCode()] = nullptr;
 	}
 
 	void Scene::ActorAwake()
 	{
-		for (auto & e:this->actors)
+		for (auto e:this->actors)
 		{
 			Actor* actor = e.second;
 			if (actor == nullptr) 
@@ -240,7 +269,7 @@ namespace noa
 
 	void Scene::ActorOnEnable()
 	{
-		for (auto& e : this->actors)
+		for (auto e : this->actors)
 		{
 			Actor* actor = e.second;
 			if (actor == nullptr)
@@ -253,7 +282,7 @@ namespace noa
 
 	void Scene::ActorStart()
 	{
-		for (auto& e : this->rigidbodys)
+		for (auto e : this->rigidbodys)
 		{
 			Rigidbody* actor = e.second;
 			if (actor == nullptr)
@@ -263,7 +292,7 @@ namespace noa
 			actor->Start();
 		}
 
-		for (auto& e : this->actors)
+		for (auto e : this->actors)
 		{
 			Actor* actor = e.second;
 			if (actor == nullptr)
@@ -276,18 +305,26 @@ namespace noa
 
 	void Scene::ActorUpdate()
 	{
-		for (auto& e : this->rigidbodys)
+		for (auto e : this->rigidbodys)
 		{
-			Rigidbody* actor = e.second;
-			if (actor == nullptr)
+			if (rigidbodys.count(e.first)<=0)
 			{
 				continue;
 			}
-			actor->Update();
+			Rigidbody* rigid = e.second;
+			if (rigid == nullptr)
+			{
+				continue;
+			}
+			rigid->Update();
 		}
 
-		for (auto& e : this->actors)
+		for (auto e : this->actors)
 		{
+			if (actors.count(e.first) <= 0)
+			{
+				continue;
+			}
 			Actor* actor = e.second;
 			if (actor == nullptr)
 			{
@@ -295,11 +332,12 @@ namespace noa
 			}
 			actor->Update();
 		}
+		
 	}
 
 	void Scene::ActorOnDisable()
 	{
-		for (auto& e : this->actors)
+		for (auto e : this->actors)
 		{
 			Actor* actor = e.second;
 			if (actor == nullptr)
@@ -308,6 +346,39 @@ namespace noa
 			}
 			actor->OnDisable();
 		}
+	}
+
+	void Scene::DestoyScene()
+	{
+
+		while (!rigidbodys.empty()||!actors.empty())
+		{
+			for (auto& e : rigidbodys)
+			{
+				if (e.second == nullptr)
+				{
+					continue;
+				}
+				delete e.second;
+			}
+
+			for (auto& e : actors)
+			{
+				if (e.second == nullptr)
+				{
+					continue;
+				}
+				delete e.second;
+			}
+
+			actors.clear();
+			gameObjects.clear();
+			rigidbodys.clear();
+
+			Debug("Destroying scene");
+
+		}
+
 	}
 
 	Scene * SceneManager::GetActiveScene()
@@ -368,6 +439,7 @@ namespace noa
 		if (activeScene != nullptr)
 		{
 			activeScene->ActorOnDisable();
+			activeScene->DestoyScene();
 			activeScene->Unload();
 			activeScene = nullptr;
 		}

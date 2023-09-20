@@ -8,8 +8,11 @@ public:
 	Vector<float> dir = {0,0};
 	float speed = 9;
 
-
+protected:
 	Bullet(Scene* scene, Sprite* sprite);
+public:
+	static Bullet * Create(Scene* scene, Sprite* sprite);
+
 	~Bullet();
 
 	void Update() override;

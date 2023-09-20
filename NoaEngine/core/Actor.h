@@ -23,10 +23,13 @@ namespace noa {
 	public:
 		Transform transform;
 
-	public:
+	protected:
 		Actor(Scene* activeScene);
-		~Actor();
+		
 	public:
+		~Actor();
+		static Actor* Create(Scene* activeScene);
+
 		virtual void Awake() {};
 		virtual void OnEnable() {}
 		virtual void Start() {}

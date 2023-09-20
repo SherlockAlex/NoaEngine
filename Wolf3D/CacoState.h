@@ -20,7 +20,7 @@ private:
 	
 
 public:
-	Animation animation = Animation(5,false);
+	Animation * animation = Animation::Create(5,false);
 
 	CacoIdleState(
 		StateMachine* stateMachine,
@@ -41,7 +41,7 @@ private:
 	
 
 public:
-	Animation animation = Animation(5,false);
+	Animation * animation = Animation::Create(5,false);
 
 	CacoMoveState(
 		StateMachine* stateMachine,
@@ -62,7 +62,7 @@ public:
 	Audio audio = Audio("Assets/Wolf/Music/npc_attack.wav", Chunk);
 
 public:
-	Animation animation = Animation(5,false);
+	Animation * animation = Animation::Create(5,false);
 
 	CacoAttackState(
 		StateMachine* stateMachine,
@@ -84,7 +84,7 @@ public:
 	Audio audio = Audio("Assets/Wolf/Music/npc_death.wav", Chunk);
 
 public:
-	Animation animation = Animation(12,false);
+	Animation* animation = Animation::Create(12,false);
 
 	CacoDieState(
 		StateMachine* stateMachine,
@@ -107,7 +107,7 @@ public:
 	Audio audio = Audio("Assets/Wolf/Music/npc_pain.wav", Chunk);
 
 public:
-	Animation animation = Animation(5, false);
+	Animation *animation = Animation::Create(5, false);
 
 	CacoPainState(
 		StateMachine* stateMachine,

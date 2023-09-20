@@ -7,6 +7,11 @@ Item::Item(Scene* scene, Sprite* sprite) :GameObject(scene,sprite)
 	rigid->tag = "item";
 }
 
+Item* Item::Create(Scene* scene, Sprite* sprite)
+{
+	return new Item(scene, sprite);
+}
+
 void Item::OnTrigger(Collision other)
 {
 	Rigidbody* rigid = other.other;

@@ -16,10 +16,10 @@ public:
 	LiveEntity* enimy = nullptr;
 	//int hp = 100;
 
-public:
-
+protected:
 	//void TakeDamage(int damage);
 	Enimy(Scene * scene,Sprite* sprite, Transform* player,LiveEntity * enimy);
+public:
 	~Enimy();
 	void Update() override;
 	virtual void OnPain() = 0;

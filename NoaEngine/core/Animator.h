@@ -57,12 +57,16 @@ namespace noa {
 		bool loop = false;
 		int previousFrameIndex = -1;
 
-	public:
+	protected:
 		Animation(float speed,bool loop);
 		Animation(float speed,bool loop, AnimationFrame* frame);
-		~Animation();
+		
 
 	public:
+		static Animation* Create(float speed, bool loop);
+		static Animation* Create(float speed, bool loop, AnimationFrame* frame);
+
+		~Animation();
 		void SetFrame(AnimationFrame * frame);
 		//void LoadFromAnimationFile(const char* filePath);
 		SpriteFile& GetCurrentFrameImage();

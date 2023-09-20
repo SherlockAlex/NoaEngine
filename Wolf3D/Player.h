@@ -9,8 +9,10 @@ using namespace noa;
 
 class Player:public Actor,public LiveEntity
 {
-public:
+private:
 	Player(Scene * scene);
+public:
+	static Player* Create(Scene* scene);
 	~Player();
 	void SetPosition(int tileID, MapFile& tileMap);
 	void ActorControl();

@@ -35,8 +35,12 @@ namespace noa
 
 	Actor::~Actor()
 	{
-		activeScene->RemoveActor(this);
-		//DestroyBehaviour(this);
+		Debug("Destory actor");
+	}
+
+	Actor* Actor::Create(Scene* activeScene)
+	{
+		return new Actor(activeScene);
 	}
 
 	//销毁游戏物品
@@ -44,7 +48,6 @@ namespace noa
 	{
 		OnDisable();
 		activeScene->RemoveActor(this);
-		//DestroyBehaviour(this);
 	}
 
 	void Actor::SetActive(bool value)

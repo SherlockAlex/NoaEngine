@@ -7,8 +7,11 @@ public:
 	NoaEvent<void()> pickEvent;
 
 	Rigidbody* rigid = Rigidbody::Create(this);
-
+private:
 	Item(Scene * scene,Sprite* sprite);
+public:
+	static Item* Create(Scene* scene, Sprite* sprite);
+
 	void OnTrigger(Collision other) override;
 	void Update() override;
 	void OnDisable() override;

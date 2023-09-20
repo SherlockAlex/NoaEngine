@@ -35,13 +35,12 @@ namespace noa
 
 	Rigidbody::~Rigidbody()
 	{
-		//Destroy();
-		//DestroyRigidbody(this);
+		Debug("Destory rigidBody");
 	}
 
 	void Rigidbody::Start()
 	{
-		//this->velocity = { 0,0 };
+
 	}
 
 	//实现物理效果
@@ -59,10 +58,10 @@ namespace noa
 		collision.other = nullptr;
 		collision.isHitCollisionTile = false;
 
-		/*if (deltaTime>1.0/10)
+		if (deltaTime>1.0/10)
 		{
 			deltaTime = 1.0 / 60;
-		}*/
+		}
 
 		if (useMotion&&useGravity&&(!collision.isGrounded)) 
 		{

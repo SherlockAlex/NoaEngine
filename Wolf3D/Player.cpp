@@ -19,6 +19,11 @@ Player::Player(Scene* scene) :Actor(scene)
 
 }
 
+Player* Player::Create(Scene* scene)
+{
+	return new Player(scene);
+}
+
 Player::~Player() {
 	Actor::~Actor();
 	//Rigidbody::~Rigidbody();

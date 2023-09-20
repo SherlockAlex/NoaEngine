@@ -10,7 +10,7 @@ Shotgun::Shotgun(int* bulletCount,FreeCamera * camera):Gun(bulletCount,camera)
 
 	this->audio =new Audio("./Assets/Wolf/Music/sg552-2.wav", Chunk);
 
-	this->animation = new Animation(7.5, false);
+	this->animation = Animation::Create(7.5, false);
 	//animation->LoadFromAnimationFile("./Assets/Wolf/gun-shot.amt");
 	animation->SetFrame(&wolfResource.shotgunFrame);
 	animation->SetFrameEvent(1, [this]()
