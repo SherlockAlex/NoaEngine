@@ -91,11 +91,16 @@ namespace noa {
 		bool useCollision = true;
 		//void* gameObject = nullptr;
 
-	public:
+	private:
 		Rigidbody(Actor* actor);
-		~Rigidbody();
+		
+		Rigidbody(const Rigidbody&);
+		Rigidbody& operator = (const Rigidbody&);
 
 	public:
+		~Rigidbody();
+		static Rigidbody* Create(Actor* actor);
+
 		void Start();
 		void Update();
 		void Destroy();

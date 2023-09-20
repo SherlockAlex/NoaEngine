@@ -6,7 +6,7 @@ class Item :public GameObject
 public:
 	NoaEvent<void()> pickEvent;
 
-	Rigidbody* rigid = new Rigidbody(this);
+	Rigidbody* rigid = Rigidbody::Create(this);
 
 	Item(Scene * scene,Sprite* sprite);
 	void OnTrigger(Collision other) override;

@@ -35,10 +35,10 @@ namespace noa
 
 	Rigidbody::~Rigidbody()
 	{
-		Destroy();
+		//Destroy();
 		//DestroyRigidbody(this);
 	}
-	
+
 	void Rigidbody::Start()
 	{
 		//this->velocity = { 0,0 };
@@ -208,6 +208,11 @@ namespace noa
 		return this->tileMap;
 	}
 
+	Rigidbody* Rigidbody::Create(Actor* actor)
+	{
+		return new Rigidbody(actor);
+	}
+
 	void Rigidbody::Destroy()
 	{
 		this->actor->GetActiveScene()->RemoveRigidbody(this);
@@ -235,7 +240,7 @@ namespace noa
 
 		for (const auto& e : this->actor->GetActiveScene()->rigidbodys)
 		{
-			if (e.second == nullptr||e.first == hashCode)
+			if (e.first == hashCode)
 			{
 				continue;
 			}

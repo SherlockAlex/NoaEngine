@@ -24,7 +24,7 @@ public:
 	void SetCamera(FreeCamera * camera);
 
 public:
-	Rigidbody* rigid = new Rigidbody(this);
+	Rigidbody* rigid = Rigidbody::Create(this);
 
 	FreeCamera* camera = nullptr;
 	float speed = 7;

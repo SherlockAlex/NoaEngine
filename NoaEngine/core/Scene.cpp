@@ -217,7 +217,12 @@ namespace noa
 		{
 			return;
 		}
-		this->rigidbodys[actor->GetHashCode()] = nullptr;
+		auto it = rigidbodys.find(actor->GetHashCode());
+		if (it != rigidbodys.end()) {
+			delete it->second; // 释放内存
+			rigidbodys.erase(it); // 从map中移除
+		}
+		//this->rigidbodys[actor->GetHashCode()] = nullptr;
 	}
 
 	void Scene::ActorAwake()

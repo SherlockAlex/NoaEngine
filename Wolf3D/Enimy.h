@@ -8,7 +8,7 @@ using namespace noa;
 class Enimy :public GameObject,public LiveEntity
 {
 public:
-	Rigidbody* rigid = new Rigidbody(this);
+	Rigidbody* rigid = Rigidbody::Create(this);
 	Transform* player = nullptr;
 	StateMachine* fsm = nullptr;
 	NoaEvent<void()> deathEvent;
