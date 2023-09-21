@@ -226,8 +226,8 @@ namespace noa {
 
 	int NoaGameEngine::Quit()
 	{
-		isRun = false;
 		OnDisable();
+		isRun = false;
 		return 0;
 	}
 

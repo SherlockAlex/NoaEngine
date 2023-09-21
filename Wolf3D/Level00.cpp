@@ -18,7 +18,6 @@ Level00::Level00():Scene(
 Level00::~Level00()
 {
 	Scene::~Scene();
-	delete this->map;
 }
 
 void Level00::Awake()
@@ -94,6 +93,7 @@ void Level00::Awake()
 	player->rigid->SetTileMap(&map->mapLayer);
 	//ÉèÖÃÍæ¼ÒÎ»ÖÃ
 	player->SetPosition(35, map->objectLayer);
+	player->transform.eulerAngle = PI;
 }
 
 void Level00::Start()
@@ -101,12 +101,11 @@ void Level00::Start()
 	BGM.volume = 0.4;
 	BGM.Play(true);
 	inputSystem.SetRelativeMouseMode(true);
-	player->SetPosition(35, map->objectLayer);
 }
 
 void Level00::Update()
 {
-	//player->SetPosition(35, map->objectLayer);
+	
 	camera->Render(map->mapLayer, false, nullptr, WHITE);
 	mouse.DrawSprite(pixelWidth * 0.5 - 0.5 * mouse.scale.x, pixelHeight * 0.5 - 0.5 * mouse.scale.y, true);
 	if (inputSystem.GetKeyHold(KeyM))

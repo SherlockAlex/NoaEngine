@@ -185,7 +185,6 @@ void Player::Update()
 
 	renderer.DrawString("hp:"+to_string(this->hp)+"\nbullet:" + to_string(bulletCount), 0, 0, RED, pixelHeight / 20);
 
-	//Debug("Player pos:" + to_string(transform.position.x) + ":" + to_string(transform.position.y));
 }
 
 void Player::TakeDamage(int damage)

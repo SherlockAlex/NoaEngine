@@ -18,7 +18,6 @@ Level01::Level01() :Scene(
 Level01::~Level01()
 {
 	Scene::~Scene();
-	delete this->map;
 }
 
 void Level01::Awake()
@@ -94,6 +93,7 @@ void Level01::Awake()
 	player->rigid->SetTileMap(&map->mapLayer);
 	//ÉèÖÃÍæ¼ÒÎ»ÖÃ
 	player->SetPosition(35, map->objectLayer);
+	player->transform.eulerAngle = PI;
 }
 
 void Level01::Start()
@@ -117,7 +117,5 @@ void Level01::Update()
 
 void Level01::Unload()
 {
-	//delete this->player;
-	//delete this->camera;
-	//delete this->mapCamera;
+	
 }

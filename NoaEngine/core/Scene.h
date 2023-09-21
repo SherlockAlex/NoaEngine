@@ -144,6 +144,9 @@ namespace noa {
 		void Start();
 		void Update();
 
+		~SceneManager();
+
+
 	public:
 		//保存当前场景的刚体和actors
 		

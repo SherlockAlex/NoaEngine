@@ -149,7 +149,7 @@ namespace noa
 
 	Scene::~Scene()
 	{
-		//DestoyScene();
+		
 	}
 
 	MapInfo Scene::GetTileMap()
@@ -209,14 +209,7 @@ namespace noa
 			}
 		}
 
-		/*for (auto& object:gameObjects)
-		{
-			if (object.object == gameObject)
-			{
-				object.distanceToPlayer = -1;
-				object.object = nullptr;
-			}
-		}*/
+		
 	}
 
 	void Scene::AddRigidbody(Rigidbody* rigid)
@@ -234,14 +227,8 @@ namespace noa
 		{
 			return;
 		}
-		//auto it = rigidbodys.find(rigid->GetHashCode());
-		//if (it != rigidbodys.end()) {
-		//	rigidbodys.erase(it); // 从map中移除
-		//}
 		rigidbodys[rigid->GetHashCode()] = nullptr;
 		destroyRigids.push_back(rigid);
-		//delete actor; // 释放内存
-		//this->rigidbodys[actor->GetHashCode()] = nullptr;
 	}
 
 	void Scene::ActorAwake()
@@ -362,7 +349,7 @@ namespace noa
 		while (!destroyRigids.empty()||!destroyActors.empty())
 		{
 
-			for (auto e:actors) 
+			for (auto & e:actors) 
 			{
 				if (e.second == nullptr)
 				{
@@ -371,7 +358,7 @@ namespace noa
 				destroyActors.push_back(e.second);
 			}
 
-			for (auto e : rigidbodys)
+			for (auto & e : rigidbodys)
 			{
 				if (e.second == nullptr)
 				{
@@ -379,8 +366,6 @@ namespace noa
 				}
 				destroyRigids.push_back(e.second);
 			}
-
-			
 
 			for (int i = 0;i<destroyRigids.size();i++)
 			{
@@ -405,8 +390,6 @@ namespace noa
 			rigidbodys.clear();
 			destroyActors.clear();
 			destroyRigids.clear();
-
-			Debug("Destroying scene");
 
 		}
 
@@ -522,6 +505,11 @@ namespace noa
 			}
 		}
 
+	}
+
+	SceneManager::~SceneManager()
+	{
+		
 	}
 
 }
