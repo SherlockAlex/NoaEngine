@@ -52,9 +52,15 @@ namespace noa {
 		return new Animation(speed, loop, frame);
 	}
 
+	void Animation::Delete()
+	{
+		delete this;
+	}
+
 	Animation::~Animation()
 	{
 		Actor::~Actor();
+		Debug("Remove animation");
 	}
 
 	/// <summary>

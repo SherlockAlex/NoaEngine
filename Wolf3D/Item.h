@@ -9,8 +9,10 @@ public:
 	Rigidbody* rigid = Rigidbody::Create(this);
 private:
 	Item(Scene * scene,Sprite* sprite);
+	~Item();
 public:
 	static Item* Create(Scene* scene, Sprite* sprite);
+	void Delete() override;
 
 	void OnTrigger(Collision other) override;
 	void Update() override;

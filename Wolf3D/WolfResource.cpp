@@ -1,3 +1,3 @@
 #include "WolfResource.h"
 
-WolfResource wolfResource;
+WolfResource * wolfResource = nullptr;

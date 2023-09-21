@@ -329,8 +329,8 @@ namespace noa {
 			if (map.IsCollisionTile(ray.hitTile)) 
 			{
 
-				const float blockMidX = (float)intHitPoint.x + 0.5f;
-				const float blockMidY = (float)intHitPoint.y + 0.5f;
+				const float blockMidX = (float)intHitPoint.x + 0.5;
+				const float blockMidY = (float)intHitPoint.y + 0.5;
 
 				const float testAngle = atan2f((floatHitPoint.y - blockMidY), (floatHitPoint.x - blockMidX));
 

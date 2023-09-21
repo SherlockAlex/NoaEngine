@@ -12,7 +12,7 @@ M4A1::M4A1(int* bulletCount, FreeCamera* camera) :Gun(bulletCount, camera)
 
 	this->animation = Animation::Create(15, false);
 	//animation->LoadFromAnimationFile("./Assets/Wolf/lgun-shot.amt");
-	animation->SetFrame(&wolfResource.m4a1Frame);
+	animation->SetFrame(&wolfResource->m4a1Frame);
 	animation->SetFrameEvent(2, [this]()
 		{
 

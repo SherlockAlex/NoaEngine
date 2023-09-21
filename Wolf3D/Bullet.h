@@ -12,6 +12,7 @@ protected:
 	Bullet(Scene* scene, Sprite* sprite);
 public:
 	static Bullet * Create(Scene* scene, Sprite* sprite);
+	void Delete() override;
 
 	~Bullet();
 

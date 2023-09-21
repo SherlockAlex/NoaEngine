@@ -139,11 +139,11 @@ namespace noa
 		return tileSet[id];
 	}
 
-	Scene::Scene(string name, SceneInfo info)
+	Scene::Scene(string name)
 	{
 		this->name = name;
 		sceneManager.AddScene(this);
-		this->info = info;
+		//this->info = info;
 
 	}
 
@@ -152,7 +152,7 @@ namespace noa
 		
 	}
 
-	MapInfo Scene::GetTileMap()
+	/*MapInfo Scene::GetTileMap()
 	{
 		
 		TileMap tileMap = TileMap(
@@ -164,7 +164,7 @@ namespace noa
 		MapInfo info = { tileMap,objectMap };
 
 		return info;
-	}
+	}*/
 
 	void Scene::AddActor(Actor* actor)
 	{
@@ -184,7 +184,12 @@ namespace noa
 		}
 
 		actors[actor->GetHash()] = nullptr;
-		destroyActors.push_back(actor);
+		//destroyActors.push_back(actor);
+		auto it = find(destroyActors.begin(),destroyActors.end(),actor);
+		if (it == destroyActors.end()) 
+		{
+			destroyActors.push_back(actor);
+		}
 
 	}
 
@@ -228,7 +233,12 @@ namespace noa
 			return;
 		}
 		rigidbodys[rigid->GetHashCode()] = nullptr;
-		destroyRigids.push_back(rigid);
+		//destroyRigids.push_back(rigid);
+		auto it = find(destroyRigids.begin(),destroyRigids.end(),rigid);
+		if (it == destroyRigids.end())
+		{
+			destroyRigids.push_back(rigid);
+		}
 	}
 
 	void Scene::ActorAwake()
@@ -355,7 +365,12 @@ namespace noa
 				{
 					continue;
 				}
-				destroyActors.push_back(e.second);
+				auto it = find(destroyActors.begin(), destroyActors.end(), e.second);
+				if (it == destroyActors.end())
+				{
+					destroyActors.push_back(e.second);
+				}
+				
 			}
 
 			for (auto & e : rigidbodys)
@@ -364,11 +379,17 @@ namespace noa
 				{
 					continue;
 				}
-				destroyRigids.push_back(e.second);
+				
+				auto it = find(destroyRigids.begin(), destroyRigids.end(), e.second);
+				if (it == destroyRigids.end())
+				{
+					destroyRigids.push_back(e.second);
+				}
 			}
 
 			for (int i = 0;i<destroyRigids.size();i++)
 			{
+				//会出现野指针的情况，就是一个值会出现两次
 				if (destroyRigids[i] == nullptr)
 				{
 					continue;
@@ -382,7 +403,8 @@ namespace noa
 				{
 					continue;
 				}
-				delete destroyActors[i];
+				destroyActors[i]->OnDestroy();
+				destroyActors[i]->Delete();
 			}
 
 			actors.clear();
@@ -422,10 +444,10 @@ namespace noa
 		
 
 		Awake();
-		if (activeScene != nullptr)
+		/*if (activeScene != nullptr)
 		{
 			activeMapInfo = activeScene->GetTileMap();
-		}
+		}*/
 		//初始化场景物品
 		Start();
 
@@ -444,7 +466,7 @@ namespace noa
 		if (activeScene==nullptr) 
 		{
 			activeScene = scene;
-			activeMapInfo = activeScene->GetTileMap();
+			//activeMapInfo = activeScene->GetTileMap();
 		}
 
 		sceneList[scene->name] = scene;

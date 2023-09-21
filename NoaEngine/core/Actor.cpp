@@ -35,12 +35,17 @@ namespace noa
 
 	Actor::~Actor()
 	{
-		Debug("Destory actor");
+		Debug("Remove actor");
 	}
 
 	Actor* Actor::Create(Scene* activeScene)
 	{
 		return new Actor(activeScene);
+	}
+
+	void Actor::Delete()
+	{
+		delete this;
 	}
 
 	//销毁游戏物品

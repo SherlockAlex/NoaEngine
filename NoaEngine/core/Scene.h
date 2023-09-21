@@ -82,15 +82,15 @@ namespace noa {
 	}SceneInfo;
 
 	typedef struct MapInfo {
-		TileMap mapLayer;
-		MapFile objectLayer;
+		TileMap * mapLayer;
+		MapFile * objectLayer;
 	}MapInfo;
 
 	class Scene 
 	{
 	public:
 		string name = "Scene";
-		SceneInfo info;
+		//SceneInfo info;
 
 		map<size_t, Rigidbody*> rigidbodys;
 		map<size_t, Actor*> actors;//µ÷ÓÃ
@@ -100,10 +100,10 @@ namespace noa {
 		vector<Actor*> destroyActors;
 
 	public:
-		Scene(string name, SceneInfo info);
+		Scene(string name);
 		~Scene();
 
-		MapInfo GetTileMap();
+		//MapInfo GetTileMap();
 
 		virtual void Awake() {}
 		virtual void Start() {}

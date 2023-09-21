@@ -28,6 +28,11 @@ public:
 		AnimationFrame * frameData
 	);
 
+	~CacoIdleState() 
+	{
+		State::~State();
+	}
+
 	void OnUpdate() override;
 	void Reason() override;
 
@@ -48,6 +53,10 @@ public:
 		Enimy* enimy, Transform* target,
 		AnimationFrame* frameData
 	);
+	~CacoMoveState()
+	{
+		State::~State();
+	}
 
 	void OnUpdate() override;
 	void Reason() override;
@@ -69,6 +78,10 @@ public:
 		Enimy* enimy, Transform* target,
 		AnimationFrame* frameData
 	);
+	~CacoAttackState()
+	{
+		State::~State();
+	}
 
 	void OnUpdate() override;
 	void Reason() override;
@@ -91,6 +104,10 @@ public:
 		Enimy* enimy, Transform* target,
 		AnimationFrame* frameData
 	);
+	~CacoDieState()
+	{
+		State::~State();
+	}
 
 	void OnEnter() override;
 	void OnUpdate() override;
@@ -114,6 +131,10 @@ public:
 		Enimy* enimy, Transform* target,
 		AnimationFrame* frameData
 	);
+	~CacoPainState()
+	{
+		State::~State();
+	}
 
 	void OnUpdate() override;
 	void Reason() override;

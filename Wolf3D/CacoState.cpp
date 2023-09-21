@@ -144,10 +144,12 @@ CacoAttackState::CacoAttackState(
 			{
 				//this->enimy->enimy->TakeDamage(2);
 				//实现角色的raycasting，如果集中的是墙壁
-				Bullet* bullet = Bullet::Create(this->enimy->GetActiveScene(), &wolfResource.firebomb);
+				Bullet* bullet = Bullet::Create(this->enimy->GetActiveScene(), &wolfResource->firebomb);
 				bullet->rigid->SetTileMap(this->enimy->rigid->GetTileMap());
 				bullet->transform.position = this->enimy->transform.position;
 				bullet->dir = distanceVector.Normalize();
+
+				audio.volume = 1.0 / sqrt(distance);
 				audio.Play(false);
 			}
 			
@@ -204,6 +206,8 @@ CacoDieState::CacoDieState(
 	this->target = target;
 
 	animation->SetFrameEvent(1, [this]() {
+		float distance = (this->enimy->transform.position - this->target->position).Magnitude();
+		audio.volume = 1.0 / (distance);
 		audio.Play(false);
 		this->enimy->rigid->isFrozen = true;
 		((Caco*)this->enimy)->OnDeath();
@@ -259,6 +263,8 @@ CacoPainState::CacoPainState(
 	this->target = target;
 
 	animation->SetFrameEvent(1, [this]() {
+		float distance = (this->enimy->transform.position - this->target->position).Magnitude();
+		audio.volume = 1.0 / (distance);
 		audio.Play(false);
 	});
 

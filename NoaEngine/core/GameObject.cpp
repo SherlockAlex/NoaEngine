@@ -45,9 +45,16 @@ namespace noa {
 		return new GameObject(activeScene, sprite, startPosition);
 	}
 
+	void GameObject::Delete()
+	{
+		
+		delete this;
+	}
+
 	GameObject::~GameObject()
 	{
 		Actor::~Actor();
+		Debug("Remove gameObject");
 	}
 
 	void GameObject::Destroy()

@@ -113,6 +113,7 @@ namespace noa {
 
 	NoaGameEngine::~NoaGameEngine() {
 		
+		Mix_CloseAudio();
 		SDL_GL_DeleteContext(glContext);
 		SDL_DestroyRenderer(mainRenderer);
 		SDL_DestroyTexture(texture);

@@ -16,10 +16,15 @@ Bullet* Bullet::Create(Scene* scene, Sprite* sprite)
 	return new Bullet(scene, sprite);
 }
 
+void Bullet::Delete()
+{
+	delete this;
+}
+
 Bullet::~Bullet()
 {
 	GameObject::~GameObject();
-	//Rigidbody::~Rigidbody();
+	Debug("Remove bullet");
 }
 
 void Bullet::Update()

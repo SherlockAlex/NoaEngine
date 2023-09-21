@@ -12,7 +12,7 @@ Shotgun::Shotgun(int* bulletCount,FreeCamera * camera):Gun(bulletCount,camera)
 
 	this->animation = Animation::Create(7.5, false);
 	//animation->LoadFromAnimationFile("./Assets/Wolf/gun-shot.amt");
-	animation->SetFrame(&wolfResource.shotgunFrame);
+	animation->SetFrame(&wolfResource->shotgunFrame);
 	animation->SetFrameEvent(1, [this]()
 		{
 

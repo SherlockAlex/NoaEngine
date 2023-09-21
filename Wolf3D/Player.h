@@ -11,9 +11,11 @@ class Player:public Actor,public LiveEntity
 {
 private:
 	Player(Scene * scene);
+	~Player();
 public:
 	static Player* Create(Scene* scene);
-	~Player();
+	void Delete() override;
+	
 	void SetPosition(int tileID, MapFile& tileMap);
 	void ActorControl();
 	void RotateControl();

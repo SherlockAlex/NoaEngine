@@ -45,9 +45,16 @@ namespace noa
 		vector<State*> stateList;
 	public:
 		State* currentState;
-	public:
+	protected:
 		StateMachine();
 		StateMachine(vector<State*> stateList);
+		~StateMachine();
+
+	public:
+		static StateMachine* Create();
+		static StateMachine* Create(vector<State*> stateList);
+		virtual void Delete();
+
 		virtual void PerformTransition(int transition);
 		virtual void AddState(State* state);
 		virtual void Act();

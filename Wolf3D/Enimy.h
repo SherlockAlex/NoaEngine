@@ -19,9 +19,11 @@ public:
 protected:
 	//void TakeDamage(int damage);
 	Enimy(Scene * scene,Sprite* sprite, Transform* player,LiveEntity * enimy);
-public:
 	~Enimy();
+public:
+	
 	void Update() override;
+	void OnDestroy() override;
 	virtual void OnPain() = 0;
 };
 

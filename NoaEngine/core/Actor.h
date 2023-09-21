@@ -25,16 +25,19 @@ namespace noa {
 
 	protected:
 		Actor(Scene* activeScene);
-		
-	public:
 		~Actor();
+
+	public:
+		
 		static Actor* Create(Scene* activeScene);
+		virtual void Delete();
 
 		virtual void Awake() {};
 		virtual void OnEnable() {}
 		virtual void Start() {}
 		virtual void Update() {}
 		virtual void OnDisable() {}
+		virtual void OnDestroy() {}
 
 		virtual void Destroy();
 
@@ -49,8 +52,8 @@ namespace noa {
 
 		// 将Behaviour作为其他组件返回
 		template<class T>
-		T GetComponentAs() {
-			return (T)this;
+		T GetActorAs() {
+			return dynamic_cast<T>(this);
 		}
 
 		Actor* GetActor() {

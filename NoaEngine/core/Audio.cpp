@@ -1,11 +1,12 @@
 #include "Audio.h"
-
+#include "NoaEngine.h"
 /// <summary>
 /// Audio类的实现
 /// </summary>
 
 namespace noa {
 	Audio::Audio(const char* filePath, AudioType type) {
+
 		this->type = type;
 		if (type == Music)
 		{
@@ -20,7 +21,7 @@ namespace noa {
 	}
 
 	Audio::~Audio() {
-		Mix_CloseAudio();
+		Debug("Remove audio resource successfully");
 	}
 
 	void Audio::Play(bool loop) const

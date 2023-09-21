@@ -24,8 +24,14 @@ Player* Player::Create(Scene* scene)
 	return new Player(scene);
 }
 
+void Player::Delete()
+{
+	delete this;
+}
+
 Player::~Player() {
 	Actor::~Actor();
+	Debug("É¾³ýÍæ¼Ò");
 	//Rigidbody::~Rigidbody();
 }
 
@@ -126,6 +132,10 @@ void Player::ActorControl()
 			else if (ray.hitTile == 102&&sceneManager.GetActiveScene()->name == "NewGame")
 			{
 				sceneManager.LoadScene("SecondFloor");
+			}
+			else if (ray.hitTile == 102 && sceneManager.GetActiveScene()->name == "SecondFloor")
+			{
+				sceneManager.LoadScene("NewGame");
 			}
 			//Debug(to_string(camera->GetRayInfo(pixelWidth * 0.5).hitTile));
 		}

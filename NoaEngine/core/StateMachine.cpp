@@ -2,90 +2,125 @@
 #include "NoaMath.h"
 #include "NoaEngine.h"
 
-
-noa::StateMachine::StateMachine()
-{
-	currentState = nullptr;
-}
-
-noa::StateMachine::StateMachine(vector<State*> stateList)
-{
-	this->stateList = stateList;
-	if (!stateList.empty())
+namespace noa {
+	StateMachine::StateMachine()
 	{
-		currentState = stateList[0];
+		currentState = nullptr;
 	}
-}
 
-void noa::StateMachine::PerformTransition(int transition)
-{
-	//切换到下一个状态
-	if (currentState == nullptr
-		||ContainKey<int,State*>(currentState->nextStates,transition)
-		) 
+	StateMachine::StateMachine(vector<State*> stateList)
 	{
-		return;
+		this->stateList = stateList;
+		if (!stateList.empty())
+		{
+			currentState = stateList[0];
+		}
 	}
-	currentState = currentState->nextStates[transition];
-}
 
-void noa::StateMachine::AddState(State* state)
-{
-	//添加状态
-	stateList.push_back(state);
-	if (currentState == nullptr)
+	StateMachine::~StateMachine()
 	{
-		currentState = state;
+		if (!stateList.empty())
+		{
+			for (int i = 0; i < stateList.size(); i++)
+			{
+				if (stateList[i] != nullptr)
+				{
+					delete stateList[i];
+				}
+			}
+			stateList.clear();
+		}
+		
+		Debug("Remove finite state machine");
 	}
-}
 
-void noa::StateMachine::Act()
-{
-	if (currentState == nullptr)
+	StateMachine* StateMachine::Create()
 	{
-		return;
+		return new StateMachine();
 	}
-	currentState->OnUpdate();
-}
 
-void noa::StateMachine::Reason()
-{
-	if (currentState == nullptr)
+	StateMachine* StateMachine::Create(vector<State*> stateList)
 	{
-		return;
+		return new StateMachine(stateList);
 	}
-	currentState->Reason();
-}
 
-noa::State::State(StateMachine* stateMachine)
-{
-	this->stateMachine = stateMachine;
-}
-
-noa::State::~State()
-{
-
-}
-
-void noa::State::AddTransition(int transition, State* nextState)
-{
-	nextStates[transition] = nextState;
-}
-
-void noa::State::SetTransition(int transition)
-{
-	if (!ContainKey<int,State*>(nextStates,transition))
+	void StateMachine::Delete()
 	{
-		Debug("havn't state");
+		delete this;
 	}
-	if (stateMachine->currentState!=nullptr)
+
+	void StateMachine::PerformTransition(int transition)
 	{
-		stateMachine->currentState->OnExit();
+		//切换到下一个状态
+		if (currentState == nullptr
+			|| ContainKey<int, State*>(currentState->nextStates, transition)
+			)
+		{
+			return;
+		}
+		currentState = currentState->nextStates[transition];
 	}
-	stateMachine->currentState = nextStates[transition];
-	if (stateMachine->currentState!=nullptr) 
+
+	void StateMachine::AddState(State* state)
 	{
-		stateMachine->currentState->OnEnter();
+		//添加状态
+		stateList.push_back(state);
+		if (currentState == nullptr)
+		{
+			currentState = state;
+		}
 	}
-	
+
+	void StateMachine::Act()
+	{
+		if (currentState == nullptr)
+		{
+			return;
+		}
+		currentState->OnUpdate();
+	}
+
+	void StateMachine::Reason()
+	{
+		if (currentState == nullptr)
+		{
+			return;
+		}
+		currentState->Reason();
+	}
+
+	State::State(StateMachine* stateMachine)
+	{
+		this->stateMachine = stateMachine;
+	}
+
+	State::~State()
+	{
+		Debug("Remove state successfully");
+	}
+
+	void State::AddTransition(int transition, State* nextState)
+	{
+		nextStates[transition] = nextState;
+	}
+
+	void State::SetTransition(int transition)
+	{
+		if (!ContainKey<int, State*>(nextStates, transition))
+		{
+			Debug("havn't state");
+		}
+		if (stateMachine->currentState != nullptr)
+		{
+			stateMachine->currentState->OnExit();
+		}
+		stateMachine->currentState = nextStates[transition];
+		if (stateMachine->currentState != nullptr)
+		{
+			stateMachine->currentState->OnEnter();
+		}
+
+	}
+
 }
+
