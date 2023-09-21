@@ -9,7 +9,7 @@
 
 ## 引擎内容
 
-* Scene:游戏场景，此为非必须类，但是如果你想使用游戏引擎提供的Animation，Actor，GameObject等游戏逐渐，你必须编写你自己的场景子类，并编写相应场景的活动规则，只要场景实例化对象，便会自动在sceneManager中的场景列表自动注册场景，同时游戏引擎会自动执行sceneManager.activeScene的内容。
+* Scene:游戏场景，此为非必须类，但是如果你想使用游戏引擎提供的Animation，Actor，GameObject等游戏组件，你必须编写你自己的场景子类，并编写相应场景的活动规则，只要实例化场景对象，便会自动在sceneManager中的场景列表自动注册场景，同时游戏引擎会自动执行sceneManager.activeScene的内容。
 
 * Actor:游戏活动物体，只能使用Create()进行实例化对象，并分配到堆空间上，其中，Actor必须先持有一个Scene * activeScene才能执行，实例化后会自动在activeScene的actors列表中自动登记，并每一帧去执行Actor的内容。
 
