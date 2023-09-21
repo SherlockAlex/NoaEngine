@@ -239,7 +239,7 @@ namespace noa
 
 		for (const auto& e : this->actor->GetActiveScene()->rigidbodys)
 		{
-			if (e.first == hashCode)
+			if (e.first == hashCode|| e.second == nullptr)
 			{
 				continue;
 			}

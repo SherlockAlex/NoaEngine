@@ -149,7 +149,7 @@ namespace noa
 
 	Scene::~Scene()
 	{
-		
+		//DestoyScene();
 	}
 
 	MapInfo Scene::GetTileMap()
@@ -177,25 +177,14 @@ namespace noa
 
 	void Scene::RemoveActor(Actor* actor)
 	{
-		//if (actor == nullptr)
-		//{
-		//	return;
-		//}
-		//this->actors[actor->GetHash()] = nullptr;
-		////delete actor;
 
 		if (actor == nullptr)
 		{
 			return;
 		}
-		auto it = actors.find(actor->GetHash());
-		if (it != actors.end()) 
-		{
-			actors.erase(it); // 从map中移除
-		}
 
-		delete actor;
-
+		actors[actor->GetHash()] = nullptr;
+		destroyActors.push_back(actor);
 
 	}
 
@@ -230,27 +219,28 @@ namespace noa
 		}*/
 	}
 
-	void Scene::AddRigidbody(Rigidbody* actor)
+	void Scene::AddRigidbody(Rigidbody* rigid)
 	{
-		if (actor == nullptr)
+		if (rigid == nullptr)
 		{
 			return;
 		}
-		this->rigidbodys[actor->GetHashCode()] = actor;
+		this->rigidbodys[rigid->GetHashCode()] = rigid;
 	}
 
-	void Scene::RemoveRigidbody(Rigidbody* actor)
+	void Scene::RemoveRigidbody(Rigidbody* rigid)
 	{
-		if (actor == nullptr)
+		if (rigid == nullptr)
 		{
 			return;
 		}
-		auto it = rigidbodys.find(actor->GetHashCode());
-		if (it != rigidbodys.end()) {
-			rigidbodys.erase(it); // 从map中移除
-		}
-		
-		delete actor; // 释放内存
+		//auto it = rigidbodys.find(rigid->GetHashCode());
+		//if (it != rigidbodys.end()) {
+		//	rigidbodys.erase(it); // 从map中移除
+		//}
+		rigidbodys[rigid->GetHashCode()] = nullptr;
+		destroyRigids.push_back(rigid);
+		//delete actor; // 释放内存
 		//this->rigidbodys[actor->GetHashCode()] = nullptr;
 	}
 
@@ -258,11 +248,11 @@ namespace noa
 	{
 		for (auto e:this->actors)
 		{
-			Actor* actor = e.second;
-			if (actor == nullptr) 
+			if (e.second == nullptr)
 			{
 				continue;
 			}
+			Actor* actor = e.second;
 			actor->Awake();
 		}
 	}
@@ -271,11 +261,12 @@ namespace noa
 	{
 		for (auto e : this->actors)
 		{
-			Actor* actor = e.second;
-			if (actor == nullptr)
+			
+			if (e.second == nullptr)
 			{
 				continue;
 			}
+			Actor* actor = e.second;
 			actor->OnEnable();
 		}
 	}
@@ -284,66 +275,83 @@ namespace noa
 	{
 		for (auto e : this->rigidbodys)
 		{
-			Rigidbody* actor = e.second;
-			if (actor == nullptr)
+			
+			if (e.second == nullptr)
 			{
 				continue;
 			}
+			Rigidbody* actor = e.second;
 			actor->Start();
 		}
 
 		for (auto e : this->actors)
 		{
-			Actor* actor = e.second;
-			if (actor == nullptr)
+			
+			if (e.second == nullptr)
 			{
 				continue;
 			}
+			Actor* actor = e.second;
 			actor->Start();
 		}
 	}
 
 	void Scene::ActorUpdate()
 	{
-		for (auto e : this->rigidbodys)
+		/*for (auto & e : this->rigidbodys)
 		{
-			if (rigidbodys.count(e.first)<=0)
+			
+			if (e.second == nullptr)
 			{
 				continue;
 			}
 			Rigidbody* rigid = e.second;
-			if (rigid == nullptr)
-			{
-				continue;
-			}
 			rigid->Update();
 		}
 
-		for (auto e : this->actors)
+		for (auto & e : this->actors)
 		{
-			if (actors.count(e.first) <= 0)
+			
+			if (e.second == nullptr)
 			{
 				continue;
 			}
 			Actor* actor = e.second;
-			if (actor == nullptr)
+			actor->Update();
+		}*/
+		
+		for (auto i = rigidbodys.begin();i!=rigidbodys.end();i++) 
+		{
+			if (i->second == nullptr)
 			{
 				continue;
 			}
+			Rigidbody * rigid = i->second;
+			rigid->Update();
+		}
+
+		for (auto i = actors.begin();i!=actors.end();i++) 
+		{
+			if (i->second == nullptr) 
+			{
+				continue;
+			}
+			Actor * actor = i->second;
 			actor->Update();
 		}
-		
+
 	}
 
 	void Scene::ActorOnDisable()
 	{
-		for (auto e : this->actors)
+		for (auto & e : this->actors)
 		{
-			Actor* actor = e.second;
-			if (actor == nullptr)
+			
+			if (e.second == nullptr)
 			{
 				continue;
 			}
+			Actor* actor = e.second;
 			actor->OnDisable();
 		}
 	}
@@ -351,29 +359,52 @@ namespace noa
 	void Scene::DestoyScene()
 	{
 
-		while (!rigidbodys.empty()||!actors.empty())
+		while (!destroyRigids.empty()||!destroyActors.empty())
 		{
-			for (auto& e : rigidbodys)
+
+			for (auto e:actors) 
 			{
 				if (e.second == nullptr)
 				{
 					continue;
 				}
-				delete e.second;
+				destroyActors.push_back(e.second);
 			}
 
-			for (auto& e : actors)
+			for (auto e : rigidbodys)
 			{
 				if (e.second == nullptr)
 				{
 					continue;
 				}
-				delete e.second;
+				destroyRigids.push_back(e.second);
+			}
+
+			
+
+			for (int i = 0;i<destroyRigids.size();i++)
+			{
+				if (destroyRigids[i] == nullptr)
+				{
+					continue;
+				}
+				delete destroyRigids[i];
+			}
+
+			for (int i = 0; i < destroyActors.size(); i++)
+			{
+				if (destroyActors[i] == nullptr)
+				{
+					continue;
+				}
+				delete destroyActors[i];
 			}
 
 			actors.clear();
 			gameObjects.clear();
 			rigidbodys.clear();
+			destroyActors.clear();
+			destroyRigids.clear();
 
 			Debug("Destroying scene");
 
@@ -393,10 +424,20 @@ namespace noa
 			Debug("Load scene:"+ sceneName+"failed");
 			return;
 		}
+		nextScene = sceneList[sceneName];
+		done = false;
+
+
 		//执行老场景的逐渐卸载
-		Destroy();
+		//Destroy();
 		//加载新场景
-		activeScene = sceneList[sceneName];
+		//等带所有的update执行完后
+		oldScene = activeScene;
+		activeScene = nextScene;
+		nextScene = nullptr;
+
+		
+
 		Awake();
 		if (activeScene != nullptr)
 		{
@@ -404,7 +445,10 @@ namespace noa
 		}
 		//初始化场景物品
 		Start();
-		Debug("Load scene:" + sceneName);
+
+		
+
+		//done = true;
 
 	}
 
@@ -438,9 +482,7 @@ namespace noa
 		//清理actor和rigidbodys
 		if (activeScene != nullptr)
 		{
-			activeScene->ActorOnDisable();
-			activeScene->DestoyScene();
-			activeScene->Unload();
+			oldScene = activeScene;
 			activeScene = nullptr;
 		}
 	}
@@ -466,7 +508,20 @@ namespace noa
 
 		activeScene->Update();
 		activeScene->ActorUpdate();
-		
+
+		if (!done)
+		{
+			//处理老场景资源
+			if (oldScene != nullptr&&oldScene!=activeScene)
+			{
+				oldScene->ActorOnDisable();
+				oldScene->Unload();
+				oldScene->DestoyScene();
+				oldScene = nullptr;
+				done = true;
+			}
+		}
+
 	}
 
 }

@@ -4,6 +4,7 @@
 #include <math.h>
 #include <string>
 #include <unordered_map>
+#include <map>
 
 namespace noa {
 // Math Constance
@@ -153,6 +154,12 @@ inline int NoaFastAbs(const int x)
 
 template <typename KeyType, typename ValueType>
 inline bool ContainKey(const std::unordered_map<KeyType, ValueType>& myMap, const KeyType& keyToCheck) 
+{
+	return myMap.count(keyToCheck) > 0;
+}
+
+template <typename KeyType, typename ValueType>
+inline bool ContainKey(const std::map<KeyType, ValueType>& myMap, const KeyType& keyToCheck)
 {
 	return myMap.count(keyToCheck) > 0;
 }

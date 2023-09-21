@@ -9,6 +9,8 @@
 #include <list>
 #include <unordered_map>
 #include <functional>
+#include <list>
+#include <map>
 
 #include <fstream>
 #include <string>
@@ -16,7 +18,7 @@
 #include "NoaMath.h"
 #include "Sprite.h"
 #include "Resource.h"
-#include <list>
+
 
 using namespace std;
 
@@ -90,9 +92,13 @@ namespace noa {
 		string name = "Scene";
 		SceneInfo info;
 
-		unordered_map<size_t, Rigidbody*> rigidbodys;
-		unordered_map<size_t, Actor*> actors;//调用
+		map<size_t, Rigidbody*> rigidbodys;
+		map<size_t, Actor*> actors;//调用
 		vector<GameObjectBuffer> gameObjects;//绘图用的
+
+		vector<Rigidbody*> destroyRigids;
+		vector<Actor*> destroyActors;
+
 	public:
 		Scene(string name, SceneInfo info);
 		~Scene();
@@ -145,7 +151,11 @@ namespace noa {
 	private:
 		Scene* oldScene = nullptr;
 		Scene * activeScene = nullptr;
-		unordered_map<string, Scene*> sceneList;
+		Scene* nextScene = nullptr;
+		map<string, Scene*> sceneList;
+
+		bool done = true;
+
 	};
 
 	extern SceneManager sceneManager;

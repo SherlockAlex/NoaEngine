@@ -44,8 +44,8 @@ D:\Work\NoaEngine\NoaEngine\core\NoaGUI.h(55,38): warning C4244: “参数”: �
 D:\Work\NoaEngine\NoaEngine\core\Scene.cpp(125,56): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
 D:\Work\NoaEngine\NoaEngine\core\Scene.cpp(125,33): warning C4267: “初始化”: 从“size_t”转换到“const int”，可能丢失数据
   正在生成代码
-  16 of 2902 functions ( 0.6%) were compiled, the rest were copied from previous compilation.
-    2 functions were new in current compilation
-    10 functions had inline decision re-evaluated but remain unchanged
+  1 of 2827 functions (<0.1%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    1 functions had inline decision re-evaluated but remain unchanged
   已完成代码的生成
   Wolf3D.vcxproj -> D:\Work\NoaEngine\x64\Release\Wolf3D.exe
