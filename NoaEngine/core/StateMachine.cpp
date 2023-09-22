@@ -10,16 +10,23 @@ namespace noa {
 
 	StateMachine::~StateMachine()
 	{
+
 		currentState = nullptr;
+
 		if (!stateList.empty())
 		{
-			/*for (int i = 0; i < stateList.size(); i++)
+
+			auto last = std::unique(stateList.begin(), stateList.end());
+			stateList.erase(last, stateList.end());
+
+			for (int i = 0;i<stateList.size();i++)
 			{
-				if (stateList[i] != nullptr)
+				if (stateList[i] == nullptr)
 				{
-					stateList[i]->Delete();
+					continue;
 				}
-			}*/
+				//stateList[i]->Delete();
+			}
 			stateList.clear();
 		}
 		
@@ -64,22 +71,22 @@ namespace noa {
 		}
 	}
 
-	void StateMachine::Act(Actor* owner)
+	void StateMachine::Act()
 	{
 		if (currentState == nullptr)
 		{
 			return;
 		}
-		currentState->OnUpdate(owner);
+		currentState->OnUpdate();
 	}
 
-	void StateMachine::Reason(Actor* owner)
+	void StateMachine::Reason()
 	{
 		if (currentState == nullptr)
 		{
 			return;
 		}
-		currentState->Reason(owner);
+		currentState->Reason();
 	}
 
 	State::State(StateMachine* stateMachine)
@@ -89,6 +96,8 @@ namespace noa {
 
 	State::~State()
 	{
+		//stateMachine = nullptr;
+		this->nextStates.clear();
 		Debug("Remove state successfully");
 	}
 
@@ -99,6 +108,7 @@ namespace noa {
 
 	void State::Delete()
 	{
+		
 		delete this;
 	}
 
@@ -109,6 +119,10 @@ namespace noa {
 
 	void State::SetTransition(int transition)
 	{
+		if (stateMachine == nullptr) 
+		{
+			return;
+		}
 		if (!ContainKey<int, State*>(nextStates, transition))
 		{
 			Debug("havn't state");

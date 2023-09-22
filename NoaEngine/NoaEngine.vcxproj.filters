@@ -78,6 +78,9 @@
     <ClInclude Include="core\Resource.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="core\ScriptableActor.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="core\Animator.cpp">

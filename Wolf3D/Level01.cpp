@@ -28,6 +28,8 @@ void Level01::Delete()
 
 void Level01::Awake()
 {
+	allStates.clear();
+
 	if (wolfResource == nullptr)
 	{
 		wolfResource = new WolfResource();
@@ -143,4 +145,26 @@ void Level01::Unload()
 	}
 	delete camera;
 	delete mapCamera;
+
+	if (!allStates.empty()) 
+	{
+		auto last = std::unique(allStates.begin(), allStates.end());
+		allStates.erase(last, allStates.end());
+
+		for (int i = 0; i < allStates.size(); i++)
+		{
+			if (allStates[i] == nullptr)
+			{
+				continue;
+			}
+			allStates[i]->Delete();
+			//allStates[i] = nullptr;
+		}
+
+	}
+
+	allStates.clear();
+
+	
+
 }

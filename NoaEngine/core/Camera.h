@@ -28,7 +28,7 @@ namespace noa {
 	public:
 		Camera();
 		Camera(Transform* follow);
-		~Camera();
+		virtual ~Camera();
 		
 		
 	};

@@ -427,6 +427,38 @@ namespace noa
 
 	}
 
+	void Scene::AddScriptableActor(ScriptableActor* SA)
+	{
+		if (SA == nullptr) 
+		{
+			return;
+		}
+		this->destroyScriptableActors.push_back(SA);
+	}
+
+	void Scene::ClearSA()
+	{
+		if (destroyScriptableActors.empty())
+		{
+			return;
+		}
+
+		auto last = std::unique(destroyScriptableActors.begin(), destroyScriptableActors.end());
+		destroyScriptableActors.erase(last, destroyScriptableActors.end());
+
+		for (int i = 0;i< destroyScriptableActors.size();i++)
+		{
+			if (destroyScriptableActors[i] == nullptr)
+			{
+				continue;
+			}
+			destroyScriptableActors[i]->Delete();
+		}
+
+		destroyScriptableActors.clear();
+
+	}
+
 	Scene * SceneManager::GetActiveScene()
 	{
 		return activeScene;
@@ -521,6 +553,7 @@ namespace noa
 			return;
 		}
 
+
 		activeScene->Update();
 		activeScene->ActorUpdate();
 
@@ -529,9 +562,12 @@ namespace noa
 			//处理老场景资源
 			if (oldScene != nullptr&&oldScene!=activeScene)
 			{
+				
 				oldScene->ActorOnDisable();
 				oldScene->Unload();
 				oldScene->DestoyScene();
+				oldScene->ClearSA();
+
 				oldScene = nullptr;
 				done = true;
 			}

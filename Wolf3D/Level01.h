@@ -19,6 +19,8 @@ public:
 
 public:
 
+	std::vector<State*> allStates;
+
 	Player* player = nullptr;
 	FreeCamera* camera = nullptr;
 	TileMapCamera* mapCamera = nullptr;

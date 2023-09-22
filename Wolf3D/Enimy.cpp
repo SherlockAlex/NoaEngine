@@ -14,10 +14,9 @@ Enimy::Enimy(Scene* scene, Sprite* sprite, Transform* player, LiveEntity* enimy)
 
 Enimy::~Enimy()
 {
-
+	fsm->Delete();
 	//Rigidbody::~Rigidbody();
 	GameObject::~GameObject();
-	
 	Debug("Remove enimy");
 }
 
@@ -28,8 +27,8 @@ void Enimy::Update()
 	{
 		sprite->UpdateImage(currentAnimation->GetCurrentFrameImage());
 	}
-	fsm.Reason();
-	fsm.Act();
+	fsm->Reason();
+	fsm->Act();
 	
 }
 

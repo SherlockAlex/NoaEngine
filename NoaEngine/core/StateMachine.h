@@ -4,6 +4,7 @@
 #include <vector>
 #include <unordered_map>
 #include <memory>
+#include "ScriptableActor.h"
 
 /*
 * 此状态机可以对他进行一个优化，注意到状态机的Reason()和Act(),一群小怪可能持有的状态机是相同的，不同的地方是自身属性输入,
@@ -19,14 +20,15 @@ namespace noa
 	class State;
 	class Actor;
 	class StateMachine;
-	
+
 	class State 
 	{
 	protected:
+		
 		StateMachine* stateMachine;
 	public:
 		std::unordered_map<int, State*> nextStates;
-	public:
+	protected:
 		State(StateMachine* stateMachine);
 		virtual ~State();
 	public:
@@ -37,9 +39,12 @@ namespace noa
 		void SetTransition(int transition);
 
 	public:
+
+		bool isDelete = false;
+
 		virtual void OnEnter() {};
-		virtual void OnUpdate(Actor * owner) {};
-		virtual void Reason(Actor* owner) {};
+		virtual void OnUpdate() {};
+		virtual void Reason() {};
 		virtual void OnExit() {};
 	};
 
@@ -52,7 +57,7 @@ namespace noa
 		std::vector<State*> stateList;
 	public:
 		State* currentState = nullptr;
-	public:
+	protected:
 		StateMachine();
 		virtual ~StateMachine();
 
@@ -62,8 +67,8 @@ namespace noa
 
 		virtual void PerformTransition(int transition);
 		virtual void AddState(State* state);
-		virtual void Act(Actor* owner);
-		virtual void Reason(Actor* owner);
+		virtual void Act();
+		virtual void Reason();
 	};
 }
 

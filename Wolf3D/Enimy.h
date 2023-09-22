@@ -10,7 +10,7 @@ class Enimy :public GameObject,public LiveEntity
 public:
 	Rigidbody* rigid = Rigidbody::Create(this);
 	Transform* player = nullptr;
-	StateMachine fsm = StateMachine();
+	StateMachine* fsm = StateMachine::Create();
 	NoaEvent<void()> deathEvent;
 	Animation* currentAnimation = nullptr;
 	LiveEntity* enimy = nullptr;

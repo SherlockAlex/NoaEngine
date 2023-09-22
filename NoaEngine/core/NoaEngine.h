@@ -121,6 +121,7 @@
 #include "StateMachine.h"
 #include "NoaGUI.h"
 #include "Resource.h"
+#include "ScriptableActor.h"
 
 //´°¿ÚÊôĞÔ
 

@@ -25,6 +25,8 @@ public:
 	void OnPain() override;
 	void OnDeath();
 
+	void Awake() override;
+
 	void OnDestroy() override;
 
 public:

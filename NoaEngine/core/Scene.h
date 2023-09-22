@@ -26,6 +26,7 @@ namespace noa {
 	class GameObject;
 	class Actor;
 	class Rigidbody;
+	class ScriptableActor;
 
 	class LevelMap {
 	public:
@@ -113,6 +114,8 @@ namespace noa {
 		std::vector<Rigidbody*> destroyRigids;
 		std::vector<Actor*> destroyActors;
 
+		std::vector<ScriptableActor*> destroyScriptableActors;
+
 	protected:
 		Scene(std::string name);
 		virtual ~Scene();
@@ -145,6 +148,10 @@ namespace noa {
 		void ActorOnDisable();
 
 		void DestoyScene();
+
+		void AddScriptableActor(ScriptableActor * SA);
+		void ClearSA();
+
 
 	};
 
