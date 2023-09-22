@@ -20,15 +20,10 @@ public:
 		rigid->damping = 0;
 
 		idle->SetFrame(&idleFrame);
-		idle->SetActiveScene(this->GetActiveScene());
 
 		run->SetFrame(&runFrame);
-		run->SetActiveScene(this->GetActiveScene());
 
 		jump->SetFrame(&jumpFrame);
-		jump->SetActiveScene(this->GetActiveScene());
-
-
 
 		currentAnimatorState = idle;
 
@@ -137,7 +132,7 @@ public:
 	}
 
 public:
-	Rigidbody* rigid = new Rigidbody(this);
+	Rigidbody* rigid = Rigidbody::Create(this);
 
 	float speed = 8;
 	bool isLeft = false;
@@ -146,21 +141,30 @@ public:
 	const Audio jumpSFX = Audio("./Assets/JumpMan/Music/jump.mp3", Chunk);
 
 	Animation* currentAnimatorState = nullptr;
-	Animation* idle = new Animation(5,false);
-	Animation* run = new Animation(10,false);
-	Animation* jump = new Animation(10,false);
+	Animation* idle = Animation::Create(this,5,false);
+	Animation* run = Animation::Create(this,10,false);
+	Animation* jump = Animation::Create(this,10,false);
 
 };
 
 class TestScene1 :public Scene {
-public:
-	TestScene1() :Scene("Test",{
-		"./Assets/JumpMan/Map/level1.csv",
-		"",
-		"./Assets/JumpMan/Tile/tileSet.tsd"
-		})
+private:
+	TestScene1() :Scene("Test")
 	{
 
+	}
+
+	~TestScene1() {
+		Scene::~Scene();
+	}
+
+public:
+	static TestScene1* Create() {
+		return new TestScene1();
+	}
+
+	void Delete() override {
+		delete this;
 	}
 
 	void Awake() override {
@@ -181,32 +185,84 @@ public:
 	}
 
 private:
-	//��ͼ
-	//0 - wall
-	//1 - coin
+
 	TileMap tileMap = TileMap(
 		resource.LoadTileFromTsd("./Assets/JumpMan/Tile/tileSet.tsd"),
 		resource.LoadMapFromCSV("./Assets/JumpMan/Map/level1.csv")
 	);
 
-	//���
+
 	Player player = Player(this);
 
-	//���
+
 	TileMapCamera camera = TileMapCamera(tileScale, &player.transform);
 	Vector<float> frontDelta = Vector<float>(0.0, 0.0);
 	Vector<float> endDelta = Vector<float>(-1, -1);
 
-	//��Ч
+
 	Audio BGM = Audio("./Assets/JumpMan/Music/BGM.ogg", Music);
 	Audio gameOverMusic = Audio("./Assets/JumpMan/Music/gameover.mp3", Chunk);
+};
+
+class MainMenu :public Scene {
+private:
+	MainMenu() :Scene("MainMenu") {
+
+	}
+
+	~MainMenu() {
+		Scene::~Scene();
+	}
+
+public:
+	static MainMenu* Create() {
+		return new MainMenu();
+	}
+
+	void Delete() override {
+		delete this;
+	}
+
+	void Awake() override {
+		backGround->color = BLACK;
+		backGround->scale = { pixelWidth,pixelHeight };
+		
+		startButton->text = "START";
+		startButton->scale = { (int)(pixelWidth * 0.25),(int)(pixelHeight * 0.25) };
+
+		startButton->transform.position = { (int)(pixelWidth * 0.5 - 0.5 * 0.25 * pixelWidth),(int)(pixelHeight * 0.5) };
+
+		startButton->AddClickEvent([this]() 
+			{
+				sceneManager.LoadScene("Test");
+			});
+
+		canvas->AddComponent(backGround);
+		canvas->AddComponent(startButton);
+	}
+
+	void Update() override {
+
+	}
+
+	void Unload() override {
+
+	}
+
+private:
+	NoaCanvase* canvas = NoaCanvase::Create(this);
+
+	NoaImage* backGround = NoaImage::Create();
+
+	NoaButton* startButton = NoaButton::Create();
+
 };
 
 class Platformer :public NoaGameEngine {
 public:
 	Platformer(int width, int height, GameWindowMode windowMode, string gameName) :NoaGameEngine(width, height, windowMode, gameName) 
 	{
-		sceneManager.LoadScene("Test");
+		sceneManager.LoadScene("MainMenu");
 	}
 
 	void Start() override
@@ -217,13 +273,11 @@ public:
 	void Update() override 
 	{
 
-		
-
-
 	}
 
 private:
-	TestScene1 scene;
+	MainMenu* menu = MainMenu::Create();
+	TestScene1 * scene = TestScene1::Create();
 
 };
 

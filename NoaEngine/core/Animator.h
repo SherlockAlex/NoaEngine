@@ -17,6 +17,7 @@
 #include "Actor.h"
 #include "StateMachine.h"
 #include "Resource.h"
+#include "ActorComponent.h"
 
 namespace noa {
 	typedef unsigned int Uint32;
@@ -39,7 +40,7 @@ namespace noa {
 	}AnimationFrame;
 
 	//动画器
-	class Animation:public Actor
+	class Animation:public ActorComponent
 	{
 	private:
 		//framesImage可以通过复用降低内存消耗
@@ -56,13 +57,14 @@ namespace noa {
 		int previousFrameIndex = -1;
 
 	protected:
-		Animation(float speed,bool loop);
-		Animation(float speed,bool loop, AnimationFrame* frame);
+		Animation(Actor * actor);
+		Animation(Actor* actor,float speed,bool loop);
+		Animation(Actor* actor,float speed,bool loop, AnimationFrame* frame);
 		~Animation();
 
 	public:
-		static Animation* Create(float speed, bool loop);
-		static Animation* Create(float speed, bool loop, AnimationFrame* frame);
+		static Animation* Create(Actor* actor, float speed, bool loop);
+		static Animation* Create(Actor* actor, float speed, bool loop, AnimationFrame* frame);
 		void Delete() override;
 		
 		void SetFrame(AnimationFrame * frame);
@@ -101,8 +103,8 @@ namespace noa {
 	public:
 		Sprite* sprite = nullptr;
 	public:
-		Animator(Sprite * sprite);
-		Animator(Sprite, std::vector<State*> stateList);
+		Animator(Actor * actor,Sprite * sprite);
+		Animator(Actor* actor, Sprite, std::vector<State*> stateList);
 
 	};
 

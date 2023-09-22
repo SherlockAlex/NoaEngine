@@ -6,6 +6,10 @@
 #include "NoaMath.h"
 
 namespace noa {
+
+	/// <summary>
+	/// 可视化活动类，可以在Scene中游戏物品，可以被Camera直接渲染
+	/// </summary>
 	class GameObject :public Actor
 	{
 		//游戏内的物品

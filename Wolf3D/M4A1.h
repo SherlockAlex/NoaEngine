@@ -3,9 +3,9 @@
 class M4A1:public Gun
 {
 protected:
-	M4A1(int* bulletCount, FreeCamera* camera);
+	M4A1(Player* player, int* bulletCount, FreeCamera* camera);
 public:
-	static M4A1* Create(int* bulletCount, FreeCamera* camera);
+	static M4A1* Create(Player* player, int* bulletCount, FreeCamera* camera);
 
 	void Update() override;
 	void Delete() override;

@@ -74,11 +74,15 @@ namespace noa {
 
 		float invMass = 1;
 		
+		bool active = true;
 
 	public:
 		
 		bool useMotion = true;
 		bool isFrozen = false;
+
+		
+
 		//刚体的速度
 		Vector<float> velocity = Vector<float>(0.0,0.0);
 		//刚体之间碰撞体半径
@@ -148,6 +152,9 @@ namespace noa {
 			return id;
 		}
 		
+		void SetActive(bool value);
+
+		bool GetActive();
 
 
 	private:

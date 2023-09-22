@@ -122,6 +122,7 @@
 #include "NoaGUI.h"
 #include "Resource.h"
 #include "ScriptableActor.h"
+#include "ActorComponent.h"
 
 //¥∞ø⁄ Ù–‘
 

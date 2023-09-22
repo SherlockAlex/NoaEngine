@@ -9,7 +9,11 @@ namespace noa {
 
 	//vector<Animator*> animatorList;
 
-	Animation::Animation(float speed,bool loop) :Actor(nullptr)
+	Animation::Animation(Actor* actor):ActorComponent(actor)
+	{
+	}
+
+	Animation::Animation(Actor* actor,float speed,bool loop) :ActorComponent(actor)
 	{
 		Debug("Init Animator");
 		this->speed = speed;
@@ -23,7 +27,7 @@ namespace noa {
 
 	}
 
-	Animation::Animation(float speed, bool loop, AnimationFrame* frame) :Actor(nullptr)
+	Animation::Animation(Actor* actor,float speed, bool loop, AnimationFrame* frame) :ActorComponent(actor)
 	{
 		Debug("Init Animator");
 		this->speed = speed;
@@ -44,14 +48,14 @@ namespace noa {
 
 	}
 
-	Animation* Animation::Create(float speed, bool loop)
+	Animation* Animation::Create(Actor* actor, float speed, bool loop)
 	{
-		return new Animation(speed, loop);
+		return new Animation(actor,speed, loop);
 	}
 
-	Animation* Animation::Create(float speed, bool loop, AnimationFrame* frame)
+	Animation* Animation::Create(Actor* actor, float speed, bool loop, AnimationFrame* frame)
 	{
-		return new Animation(speed, loop, frame);
+		return new Animation(actor,speed, loop, frame);
 	}
 
 	void Animation::Delete()
@@ -61,7 +65,7 @@ namespace noa {
 
 	Animation::~Animation()
 	{
-		Actor::~Actor();
+		ActorComponent::~ActorComponent();
 		Debug("Remove animation");
 	}
 
@@ -242,12 +246,12 @@ namespace noa {
 		animtion->Reset();
 	}
 
-	Animator::Animator(Sprite* sprite):StateMachine()
+	Animator::Animator(Actor* actor, Sprite* sprite):StateMachine(actor)
 	{
 		this->sprite = sprite;
 	}
 
-	Animator::Animator(Sprite, vector<State*> stateList)
+	Animator::Animator(Actor* actor, Sprite, vector<State*> stateList) :StateMachine(actor)
 	{
 		this->sprite = sprite;
 	}

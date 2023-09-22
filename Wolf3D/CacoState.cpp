@@ -15,8 +15,8 @@ CacoIdleState::CacoIdleState(
 ) :
 	State(stateMachine)
 {
+	animation = Animation::Create(enimy, 5, false);
 	animation->SetFrame(frameData);
-	animation->SetActiveScene(enimy->GetActiveScene());
 	//animation.LoadFromAnimationFile(animationPath);
 	this->enimy = enimy;
 	this->target = target;
@@ -68,8 +68,8 @@ CacoMoveState::CacoMoveState(
 ) :
 	State(stateMachine)
 {
+	animation = Animation::Create(enimy,5, false);
 	animation->SetFrame(frameData);
-	animation->SetActiveScene(enimy->GetActiveScene());
 	//animation.LoadFromAnimationFile(animationPath);
 	this->enimy = enimy;
 	this->target = target;
@@ -129,9 +129,8 @@ CacoAttackState::CacoAttackState(
 ) :
 	State(stateMachine)
 {
+	animation = Animation::Create(enimy,5, false);
 	animation->SetFrame(frameData);
-	animation->SetActiveScene(enimy->GetActiveScene());
-	//animation.LoadFromAnimationFile(animationPath);
 	this->enimy = enimy;
 	this->target = target;
 
@@ -199,8 +198,8 @@ CacoDieState::CacoDieState(
 ):
 	State(stateMachine)
 {
+	animation = Animation::Create(enimy,12, false);
 	animation->SetFrame(frameData);
-	animation->SetActiveScene(enimy->GetActiveScene());
 	//animation.LoadFromAnimationFile(animationPath);
 	this->enimy = enimy;
 	this->target = target;
@@ -257,8 +256,8 @@ CacoPainState::CacoPainState(
 ) :
 	State(stateMachine)
 {
+	animation = Animation::Create(enimy,5, false);
 	animation->SetFrame(frameData);
-	animation->SetActiveScene(enimy->GetActiveScene());
 	this->enimy = enimy;
 	this->target = target;
 

@@ -6,6 +6,7 @@
 #include "NoaAction.h"
 #include "Graphic.h"
 #include "Actor.h"
+#include "Transform.h"
 
 namespace noa {
 
@@ -52,11 +53,14 @@ namespace noa {
 
 	public:
 		//屏幕位置
-		Vector<int> position = Vector<int>(0.0, 0.0);
-	public:
+		UITransform transform;
+	protected:
 
 		UIComponent();
-		~UIComponent();
+		virtual ~UIComponent();
+
+	public:
+		virtual void Delete() = 0;
 
 		virtual void Start() = 0;
 		virtual void Update() = 0;
@@ -70,12 +74,15 @@ namespace noa {
 	private:
 		std::vector<UIComponent*> uiComponent;
 
-	public:
+	private:
 		NoaCanvase(Scene * scene);
 		~NoaCanvase();
+	public:
+		static NoaCanvase* Create(Scene* scene);
+		void Delete() override;
 
 		void AddComponent(UIComponent* component);
-		void SetActive(bool active);
+		void SetActive(bool active) override;
 
 		void Start() override;
 		void Update() override;
@@ -86,7 +93,8 @@ namespace noa {
 	class NoaText;
 	class NoaImage;
 
-	class NoaText :public UIComponent {
+	class NoaText :public UIComponent 
+	{
 	public:
 		std::string text = "text";
 		//字体颜色
@@ -94,9 +102,14 @@ namespace noa {
 		//字体大小
 		int size = 25;
 	
-	public:
+	protected:
 		NoaText();
 		~NoaText();
+
+	public:
+
+		static NoaText* Create();
+		void Delete() override;
 
 		void Start() override;
 		void Update() override;
@@ -114,6 +127,11 @@ namespace noa {
 	public:
 		NoaImage();
 		~NoaImage();
+
+	public:
+
+		static NoaImage* Create();
+		void Delete() override;
 
 		void Start() override;
 		void Update() override;
@@ -141,9 +159,13 @@ namespace noa {
 		bool isSelect = false;
 		ColorRef currentColor = normalColor;
 
-	public:
+	private:
 		NoaButton();
 		~NoaButton();
+
+	public:
+		static NoaButton* Create();
+		void Delete() override;
 
 		void SwapState();
 

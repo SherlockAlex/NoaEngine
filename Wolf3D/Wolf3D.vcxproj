@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\NoaEngine\core\Actor.cpp" />
+    <ClCompile Include="..\NoaEngine\core\ActorComponent.cpp" />
     <ClCompile Include="..\NoaEngine\core\Animator.cpp" />
     <ClCompile Include="..\NoaEngine\core\Audio.cpp" />
     <ClCompile Include="..\NoaEngine\core\Camera.cpp" />
@@ -55,6 +56,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\NoaEngine\core\Actor.h" />
+    <ClInclude Include="..\NoaEngine\core\ActorComponent.h" />
     <ClInclude Include="..\NoaEngine\core\Animator.h" />
     <ClInclude Include="..\NoaEngine\core\Audio.h" />
     <ClInclude Include="..\NoaEngine\core\Camera.h" />

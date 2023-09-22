@@ -1,8 +1,9 @@
 #include "M4A1.h"
 #include "Enimy.h"
 #include "WolfResource.h"
+#include "Player.h"
 
-M4A1::M4A1(int* bulletCount, FreeCamera* camera) :Gun(bulletCount, camera)
+M4A1::M4A1(Player* player, int* bulletCount, FreeCamera* camera) :Gun(bulletCount, camera)
 {
 	this->sprite = new Sprite(
 		resource.LoadSprFile("./Assets/Wolf/gun.spr")
@@ -10,7 +11,7 @@ M4A1::M4A1(int* bulletCount, FreeCamera* camera) :Gun(bulletCount, camera)
 
 	this->audio = new Audio("./Assets/Wolf/Music/m4a1.wav", Chunk);
 
-	this->animation = Animation::Create(15, false);
+	this->animation = Animation::Create(player,15, false);
 	//animation->LoadFromAnimationFile("./Assets/Wolf/lgun-shot.amt");
 	animation->SetFrame(&wolfResource->m4a1Frame);
 	animation->SetFrameEvent(2, [this]()
@@ -47,9 +48,9 @@ M4A1::M4A1(int* bulletCount, FreeCamera* camera) :Gun(bulletCount, camera)
 		});
 }
 
-M4A1* M4A1::Create(int* bulletCount, FreeCamera* camera)
+M4A1* M4A1::Create(Player* player, int* bulletCount, FreeCamera* camera)
 {
-	return new M4A1(bulletCount,camera);
+	return new M4A1(player,bulletCount,camera);
 }
 
 void M4A1::Update()

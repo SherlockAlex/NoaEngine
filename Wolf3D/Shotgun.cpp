@@ -1,8 +1,9 @@
 #include "Shotgun.h"
 #include "Enimy.h"
 #include "WolfResource.h"
+#include "Player.h"
 
-Shotgun::Shotgun(int* bulletCount,FreeCamera * camera):Gun(bulletCount,camera)
+Shotgun::Shotgun(Player* player, int* bulletCount,FreeCamera * camera):Gun(bulletCount,camera)
 {
 	this->sprite =new Sprite(
 		resource.LoadSprFile("./Assets/Wolf/gun.spr")
@@ -10,7 +11,7 @@ Shotgun::Shotgun(int* bulletCount,FreeCamera * camera):Gun(bulletCount,camera)
 
 	this->audio =new Audio("./Assets/Wolf/Music/sg552-2.wav", Chunk);
 
-	this->animation = Animation::Create(7.5, false);
+	this->animation = Animation::Create(player,7.5, false);
 	//animation->LoadFromAnimationFile("./Assets/Wolf/gun-shot.amt");
 	animation->SetFrame(&wolfResource->shotgunFrame);
 	animation->SetFrameEvent(1, [this]()
@@ -47,9 +48,9 @@ Shotgun::Shotgun(int* bulletCount,FreeCamera * camera):Gun(bulletCount,camera)
 		});
 }
 
-Shotgun* Shotgun::Create(int* bulletCount, FreeCamera* camera)
+Shotgun* Shotgun::Create(Player* player, int* bulletCount, FreeCamera* camera)
 {
-	return new Shotgun(bulletCount,camera);
+	return new Shotgun(player,bulletCount,camera);
 }
 
 void Shotgun::Update()

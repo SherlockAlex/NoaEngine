@@ -3,7 +3,7 @@
 #include "NoaEngine.h"
 
 namespace noa {
-	StateMachine::StateMachine()
+	StateMachine::StateMachine(Actor * actor):ActorComponent(actor)
 	{
 		currentState = nullptr;
 	}
@@ -34,9 +34,9 @@ namespace noa {
 		Debug("Remove finite state machine");
 	}
 
-	StateMachine* StateMachine::Create()
+	StateMachine* StateMachine::Create(Actor* actor)
 	{
-		return new StateMachine();
+		return new StateMachine(actor);
 	}
 
 	/*StateMachine* StateMachine::Create(vector<shared_ptr<State>> stateList)
@@ -87,6 +87,12 @@ namespace noa {
 			return;
 		}
 		currentState->Reason();
+	}
+
+	void StateMachine::Update()
+	{
+		Reason();
+		Act();
 	}
 
 	State::State(StateMachine* stateMachine)

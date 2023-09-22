@@ -1,5 +1,6 @@
 #include "Actor.h"
 #include "NoaEngine.h"
+#include "ActorComponent.h"
 
 #include <queue>
 #include <list>
@@ -37,7 +38,112 @@ namespace noa
 
 	Actor::~Actor()
 	{
+		DestroyComponent();
 		Debug("Remove actor");
+	}
+
+	void Actor::AddComponent(ActorComponent* component)
+	{
+		if (component == nullptr)
+		{
+			return;
+		}
+		components.push_back(component);
+
+		auto last = std::unique(components.begin(), components.end());
+		components.erase(last,components.end());
+
+	}
+
+	void Actor::ComponentAwake()
+	{
+		for (int i = 0;i<components.size();i++)
+		{
+			if (components[i]== nullptr) 
+			{
+				continue;
+			}
+			components[i]->Awake();
+		}
+	}
+
+	void Actor::ComponentOnEnable()
+	{
+		for (int i = 0; i < components.size(); i++)
+		{
+			if (components[i] == nullptr)
+			{
+				continue;
+			}
+			components[i]->OnEnable();
+		}
+	}
+
+	void Actor::ComponentStart()
+	{
+		for (int i = 0; i < components.size(); i++)
+		{
+			if (components[i] == nullptr)
+			{
+				continue;
+			}
+			components[i]->Start();
+		}
+	}
+
+	void Actor::ComponentUpdate()
+	{
+		for (int i = 0; i < components.size(); i++)
+		{
+			if (components[i] == nullptr)
+			{
+				continue;
+			}
+			components[i]->Update();
+		}
+	}
+
+	void Actor::ComponentOnDisable()
+	{
+		for (int i = 0; i < components.size(); i++)
+		{
+			if (components[i] == nullptr)
+			{
+				continue;
+			}
+			components[i]->OnDisable();
+		}
+	}
+
+	void Actor::ComponentOnDestroy()
+	{
+		for (int i = 0; i < components.size(); i++)
+		{
+			if (components[i] == nullptr)
+			{
+				continue;
+			}
+			components[i]->OnDestroy();
+		}
+	}
+
+	void Actor::DestroyComponent()
+	{
+		if (components.empty()) 
+		{
+			return;
+		}
+
+		for (int i = 0; i < components.size(); i++)
+		{
+			if (components[i] == nullptr)
+			{
+				continue;
+			}
+			components[i]->OnDestroy();
+			components[i]->Delete();
+		}
+		components.clear();
 	}
 
 	Actor* Actor::Create(Scene* activeScene)

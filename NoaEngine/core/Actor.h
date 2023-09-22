@@ -12,18 +12,27 @@ namespace noa {
 
 	class Transform;
 	class Scene;
+	class ActorComponent;
 
+	/// <summary>
+	/// 活动类，可以在Scene中游戏物品
+	/// </summary>
 	class Actor {
 	protected:
 		Scene* activeScene = nullptr;
 	private:
 		bool isActive = true;
+
+		std::vector<ActorComponent*> components;
+
 	public:
 		Transform transform;
 
 	protected:
 		Actor(Scene* activeScene);
 		virtual ~Actor();
+
+		
 
 	public:
 		
@@ -39,8 +48,8 @@ namespace noa {
 
 		virtual void Destroy();
 
-		void SetActive(bool value);
-		bool GetActive();
+		virtual void SetActive(bool value);
+		virtual bool GetActive();
 		Scene* GetActiveScene();
 
 		// 获取哈希值
@@ -64,6 +73,18 @@ namespace noa {
 		virtual void OnTrigger(Collision collision);
 
 		virtual void OnHitTile() {}
+
+		//组件相关
+		void AddComponent(ActorComponent* component);
+
+		void ComponentAwake();
+		void ComponentOnEnable();
+		void ComponentStart();
+		void ComponentUpdate();
+		void ComponentOnDisable();
+		void ComponentOnDestroy();
+
+		void DestroyComponent();
 
 	private:
 		size_t id;

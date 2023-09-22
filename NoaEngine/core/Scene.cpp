@@ -254,6 +254,7 @@ namespace noa
 				continue;
 			}
 			Actor* actor = e.second;
+			actor->ComponentAwake();
 			actor->Awake();
 		}
 	}
@@ -263,11 +264,12 @@ namespace noa
 		for (auto e : this->actors)
 		{
 			
-			if (e.second == nullptr)
+			if (e.second == nullptr||(!e.second->GetActive()))
 			{
 				continue;
 			}
 			Actor* actor = e.second;
+			actor->ComponentOnEnable();
 			actor->OnEnable();
 		}
 	}
@@ -277,53 +279,33 @@ namespace noa
 		for (auto e : this->rigidbodys)
 		{
 			
-			if (e.second == nullptr)
+			if (e.second == nullptr||(!e.second->GetActive()))
 			{
 				continue;
 			}
-			Rigidbody* actor = e.second;
-			actor->Start();
+			Rigidbody* rigid = e.second;
+			rigid->Start();
 		}
 
 		for (auto e : this->actors)
 		{
 			
-			if (e.second == nullptr)
+			if (e.second == nullptr||(!e.second->GetActive()))
 			{
 				continue;
 			}
 			Actor* actor = e.second;
+			actor->ComponentStart();
 			actor->Start();
 		}
 	}
 
 	void Scene::ActorUpdate()
 	{
-		/*for (auto & e : this->rigidbodys)
-		{
-			
-			if (e.second == nullptr)
-			{
-				continue;
-			}
-			Rigidbody* rigid = e.second;
-			rigid->Update();
-		}
-
-		for (auto & e : this->actors)
-		{
-			
-			if (e.second == nullptr)
-			{
-				continue;
-			}
-			Actor* actor = e.second;
-			actor->Update();
-		}*/
 		
 		for (auto i = rigidbodys.begin();i!=rigidbodys.end();i++) 
 		{
-			if (i->second == nullptr)
+			if (i->second == nullptr||(!i->second->GetActive()))
 			{
 				continue;
 			}
@@ -333,11 +315,12 @@ namespace noa
 
 		for (auto i = actors.begin();i!=actors.end();i++) 
 		{
-			if (i->second == nullptr) 
+			if (i->second == nullptr||(!i->second->GetActive())) 
 			{
 				continue;
 			}
 			Actor * actor = i->second;
+			actor->ComponentUpdate();
 			actor->Update();
 		}
 
@@ -353,6 +336,7 @@ namespace noa
 				continue;
 			}
 			Actor* actor = e.second;
+			actor->ComponentOnDisable();
 			actor->OnDisable();
 		}
 	}

@@ -3,6 +3,8 @@
 
 using namespace noa;
 
+class Player;
+
 class Gun
 {
 public:

@@ -20,7 +20,7 @@ private:
 	
 
 public:
-	Animation * animation = Animation::Create(5,false);
+	Animation * animation = nullptr;
 
 public:
 
@@ -61,7 +61,7 @@ private:
 	
 
 public:
-	Animation * animation = Animation::Create(5,false);
+	Animation* animation = nullptr;
 
 public:
 
@@ -102,7 +102,7 @@ public:
 	
 
 public:
-	Animation * animation = Animation::Create(5,false);
+	Animation* animation = nullptr;
 
 public:
 	CacoAttackState() :State(nullptr) {}
@@ -143,7 +143,7 @@ public:
 	
 
 public:
-	Animation* animation = Animation::Create(12,false);
+	Animation* animation = nullptr;
 
 public:
 	CacoDieState() :State(nullptr) {}
@@ -185,7 +185,7 @@ public:
 	
 
 public:
-	Animation *animation = Animation::Create(5, false);
+	Animation* animation = nullptr;
 
 public:
 	CacoPainState() :State(nullptr) {}

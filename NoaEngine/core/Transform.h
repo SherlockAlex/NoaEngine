@@ -12,6 +12,11 @@ namespace noa {
 		//the height information with behaviour
 		float posZ = 0.0;
 	};
+
+	class UITransform {
+	public:
+		Vector<int> position = { 0,0 };
+	};
 }
 
 #endif // !NOAENGINE_TRANSFORM_H

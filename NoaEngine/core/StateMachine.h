@@ -5,6 +5,7 @@
 #include <unordered_map>
 #include <memory>
 #include "ScriptableActor.h"
+#include "ActorComponent.h"
 
 /*
 * 此状态机可以对他进行一个优化，注意到状态机的Reason()和Act(),一群小怪可能持有的状态机是相同的，不同的地方是自身属性输入,
@@ -51,24 +52,27 @@ namespace noa
 	/// <summary>
 	/// 状态机，用来管理所有的状态
 	/// </summary>
-	class StateMachine
+	class StateMachine:ActorComponent
 	{
 	private:
 		std::vector<State*> stateList;
 	public:
 		State* currentState = nullptr;
 	protected:
-		StateMachine();
-		virtual ~StateMachine();
+		StateMachine(Actor * actor);
+		virtual ~StateMachine() override;
 
 	public:
-		static StateMachine* Create();
-		virtual void Delete();
+		static StateMachine* Create(Actor* actor);
+		virtual void Delete() override;
 
 		virtual void PerformTransition(int transition);
 		virtual void AddState(State* state);
 		virtual void Act();
 		virtual void Reason();
+
+		virtual void Update() override;
+
 	};
 }
 

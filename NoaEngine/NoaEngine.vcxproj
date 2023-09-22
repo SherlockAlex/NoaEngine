@@ -157,6 +157,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="core\ActorComponent.h" />
     <ClInclude Include="core\Animator.h" />
     <ClInclude Include="core\Audio.h" />
     <ClInclude Include="core\Actor.h" />
@@ -180,6 +181,7 @@
     <ClInclude Include="core\Transform.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="core\ActorComponent.cpp" />
     <ClCompile Include="core\Animator.cpp" />
     <ClCompile Include="core\Audio.cpp" />
     <ClCompile Include="core\Actor.cpp" />

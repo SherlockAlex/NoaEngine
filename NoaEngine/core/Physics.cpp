@@ -46,10 +46,6 @@ namespace noa
 	//实现物理效果
 	void Rigidbody::Update()
 	{
-		if (isFrozen)
-		{
-			return;
-		}
 		
 		const int x = this->actor->transform.position.x;
 		const int y = this->actor->transform.position.y;
@@ -81,10 +77,15 @@ namespace noa
 			//处理碰撞检测
 			CollisionWithinRigidbody();
 			ApplyCollision();
-			this->actor->transform.position = newPosition;
+			
 			//colliderPos->position = newPosition;
 		}
-		
+
+		if (useMotion&&(!isFrozen))
+		{
+			this->actor->transform.position = newPosition;
+		}
+
 		if (collision.isHitCollisionTile&& this->actor!=nullptr)
 		{
 			this->actor->OnHitTile();
@@ -222,9 +223,19 @@ namespace noa
 		return this->indexInMap;
 	}
 
+	void Rigidbody::SetActive(bool value)
+	{
+		active = value;
+	}
+
+	bool Rigidbody::GetActive()
+	{
+		return active;
+	}
+
 	bool Rigidbody::CollisionWithinRigidbody()
 	{
-		if (this->isFrozen|| this->actor->GetActiveScene() == nullptr)
+		if (!this->active|| this->actor->GetActiveScene() == nullptr)
 		{
 			return false;
 		}
@@ -239,7 +250,7 @@ namespace noa
 
 		for (const auto& e : this->actor->GetActiveScene()->rigidbodys)
 		{
-			if (e.first == hashCode|| e.second == nullptr)
+			if (e.first == hashCode|| e.second == nullptr||!e.second->GetActive())
 			{
 				continue;
 			}

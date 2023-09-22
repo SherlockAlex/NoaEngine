@@ -216,18 +216,15 @@ void Player::TakeDamage(int damage)
 
 void Player::MakeGun()
 {
-	shotgun = Shotgun::Create(&bulletCount, this->camera);
-	shotgun->animation->SetActiveScene(this->activeScene);
+	shotgun = Shotgun::Create(this,&bulletCount, this->camera);
 	shotgun->damage = 110;
 	shotgun->takeBullet = 7;
 
-	pistol = Pistol::Create(&bulletCount, this->camera);
-	pistol->animation->SetActiveScene(this->activeScene);
+	pistol = Pistol::Create(this,&bulletCount, this->camera);
 	pistol->damage = 18;
 	pistol->takeBullet = 0;
 
-	m4a1 = M4A1::Create(&bulletCount, this->camera);
-	m4a1->animation->SetActiveScene(this->activeScene);
+	m4a1 = M4A1::Create(this,&bulletCount, this->camera);
 	m4a1->damage = 32;
 	m4a1->takeBullet = 1;
 

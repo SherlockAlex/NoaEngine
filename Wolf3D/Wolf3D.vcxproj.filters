@@ -120,6 +120,9 @@
     <ClCompile Include="Level01.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="..\NoaEngine\core\ActorComponent.cpp">
+      <Filter>头文件\core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\NoaEngine\core\Animator.h">
@@ -226,6 +229,9 @@
     </ClInclude>
     <ClInclude Include="Level01.h">
       <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\NoaEngine\core\ActorComponent.h">
+      <Filter>头文件\core</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -101,6 +101,16 @@ namespace noa {
 		UIComponent::~UIComponent();
 	}
 
+	NoaButton* NoaButton::Create()
+	{
+		return new NoaButton();
+	}
+
+	void NoaButton::Delete()
+	{
+		delete this;
+	}
+
 	void NoaButton::SwapState()
 	{
 		//检测鼠标的范围，如果在范围内就切换状态
@@ -111,8 +121,8 @@ namespace noa {
 
 		Vector<float> mousePos = inputSystem.GetMousePosition();
 
-		if (mousePos.x>position.x&&mousePos.x<position.x+scale.x
-			&& mousePos.y>position.y && mousePos.y < position.y + scale.y
+		if (mousePos.x>transform.position.x&&mousePos.x<transform.position.x+scale.x
+			&& mousePos.y>transform.position.y && mousePos.y < transform.position.y + scale.y
 			) 
 		{
 			isSelect = true;
@@ -148,14 +158,14 @@ namespace noa {
 	{
 		if (sprite == nullptr)
 		{
-			renderer.DrawRect(position, position + scale, currentColor);
+			renderer.DrawRect(transform.position, transform.position + scale, currentColor);
 		}
 		else {
-			renderer.DrawRect(position, position + scale, sprite,currentColor,true);
+			renderer.DrawRect(transform.position, transform.position + scale, sprite,currentColor,true);
 		}
 		
 		//显示文字
-		renderer.DrawString(text, position.x + 10, position.y + 10, textColor, 20);
+		renderer.DrawString(text, transform.position.x + 10, transform.position.y + 10, textColor, 20);
 	}
 
 	void NoaButton::AddClickEvent(std::function<void()> func)
@@ -193,6 +203,16 @@ namespace noa {
 		UIComponent::~UIComponent();
 	}
 
+	NoaText* NoaText::Create()
+	{
+		return new NoaText();
+	}
+
+	void NoaText::Delete()
+	{
+		delete this;
+	}
+
 	void NoaText::Start()
 	{
 
@@ -201,16 +221,40 @@ namespace noa {
 	void NoaText::Update()
 	{
 		//显示文字
-		renderer.DrawString(text, position.x, position.y, textColor, size);
+		renderer.DrawString(text, transform.position.x, transform.position.y, textColor, size);
 	}
 
 	NoaCanvase::NoaCanvase(Scene* scene):Actor(scene)
 	{
+
 	}
 
 	NoaCanvase::~NoaCanvase()
 	{
 		Actor::~Actor();
+		if (!this->uiComponent.empty())
+		{
+			auto last = std::unique(uiComponent.begin(), uiComponent.end());
+			uiComponent.erase(last, uiComponent.end());
+			for (int i = 0;i<uiComponent.size();i++) 
+			{
+				if (uiComponent[i]==nullptr)
+				{
+					continue;
+				}
+				uiComponent[i]->Delete();
+			}
+		}
+	}
+
+	NoaCanvase* NoaCanvase::Create(Scene* scene)
+	{
+		return new NoaCanvase(scene);
+	}
+
+	void NoaCanvase::Delete()
+	{
+		delete this;
 	}
 
 	void NoaCanvase::AddComponent(UIComponent* component)
@@ -225,7 +269,7 @@ namespace noa {
 
 	void NoaCanvase::SetActive(bool active)
 	{
-		SetActive(active);
+		Actor::SetActive(active);
 		for (int i=0;i<uiComponent.size();i++) 
 		{
 			uiComponent[i]->SetActive(active);
@@ -263,6 +307,16 @@ namespace noa {
 		UIComponent::~UIComponent();
 	}
 
+	NoaImage* NoaImage::Create()
+	{
+		return new NoaImage();
+	}
+
+	void NoaImage::Delete()
+	{
+		delete this;
+	}
+
 	void NoaImage::Start()
 	{
 
@@ -272,11 +326,11 @@ namespace noa {
 	{
 		if (sprite==nullptr) 
 		{
-			renderer.DrawRect(position, position + scale, color);
+			renderer.DrawRect(transform.position, transform.position + scale, color);
 		}
 		else 
 		{
-			renderer.DrawRect(position, position + scale, sprite, color, true);
+			renderer.DrawRect(transform.position, transform.position + scale, sprite, color, true);
 		}
 		
 	}

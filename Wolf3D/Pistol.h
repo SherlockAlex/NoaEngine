@@ -3,10 +3,10 @@
 class Pistol :public Gun
 {
 protected:
-	Pistol(int* bulletCount, FreeCamera* camera);
+	Pistol(Player* player, int* bulletCount, FreeCamera* camera);
 
 public:
-	static Pistol* Create(int* bulletCount, FreeCamera* camera);
+	static Pistol* Create(Player* player, int* bulletCount, FreeCamera* camera);
 	void Update() override;
 	void Delete() override;
 };
