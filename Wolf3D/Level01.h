@@ -5,9 +5,12 @@ using namespace noa;
 
 class Level01 : public Scene
 {
-public:
+private:
 	Level01();
 	~Level01();
+public:
+	static Level01* Create();
+	void Delete() override;
 
 	void Awake() override;
 	void Start() override;

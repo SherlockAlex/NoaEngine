@@ -16,6 +16,16 @@ Level00::~Level00()
 	Scene::~Scene();
 }
 
+Level00* Level00::Create()
+{
+	return new Level00();
+}
+
+void Level00::Delete()
+{
+	delete this;
+}
+
 void Level00::Awake()
 {
 	if (wolfResource == nullptr)

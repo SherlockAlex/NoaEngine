@@ -10,18 +10,19 @@ namespace noa {
 
 	StateMachine::~StateMachine()
 	{
-		/*if (!stateList.empty())
+		currentState = nullptr;
+		if (!stateList.empty())
 		{
-			for (int i = 0; i < stateList.size(); i++)
+			/*for (int i = 0; i < stateList.size(); i++)
 			{
 				if (stateList[i] != nullptr)
 				{
-					stateList[i].reset();
+					stateList[i]->Delete();
 				}
-			}
+			}*/
 			stateList.clear();
 		}
-		*/
+		
 		
 		Debug("Remove finite state machine");
 	}
@@ -63,22 +64,22 @@ namespace noa {
 		}
 	}
 
-	void StateMachine::Act()
+	void StateMachine::Act(Actor* owner)
 	{
 		if (currentState == nullptr)
 		{
 			return;
 		}
-		currentState->OnUpdate();
+		currentState->OnUpdate(owner);
 	}
 
-	void StateMachine::Reason()
+	void StateMachine::Reason(Actor* owner)
 	{
 		if (currentState == nullptr)
 		{
 			return;
 		}
-		currentState->Reason();
+		currentState->Reason(owner);
 	}
 
 	State::State(StateMachine* stateMachine)

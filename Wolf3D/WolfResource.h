@@ -37,6 +37,12 @@ public:
 
 	Audio * BGM = new Audio("./Assets/Wolf/Music/theme.mp3", Music);
 
+	Audio * npcAttack = new Audio("Assets/Wolf/Music/npc_attack.wav", Chunk);
+
+	Audio * npcDeath = new Audio("Assets/Wolf/Music/npc_death.wav", Chunk);
+
+	Audio * npcPain = new Audio("Assets/Wolf/Music/npc_pain.wav", Chunk);
+
 };
 
 extern WolfResource * wolfResource;

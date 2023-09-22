@@ -113,9 +113,13 @@ namespace noa {
 		std::vector<Rigidbody*> destroyRigids;
 		std::vector<Actor*> destroyActors;
 
-	public:
+	protected:
 		Scene(std::string name);
 		virtual ~Scene();
+
+	public:
+		static Scene* Create(std::string name);
+		virtual void Delete();
 
 		//MapInfo GetTileMap();
 
@@ -160,6 +164,8 @@ namespace noa {
 
 		~SceneManager();
 
+		void Quit();
+
 
 	public:
 		//保存当前场景的刚体和actors
@@ -172,6 +178,11 @@ namespace noa {
 		std::map<std::string, Scene*> sceneList;
 
 		bool done = true;
+
+		
+	public:
+		bool isQuit = false;
+		bool quited = false;
 
 	};
 

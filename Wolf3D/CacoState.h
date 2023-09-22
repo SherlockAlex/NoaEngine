@@ -23,6 +23,9 @@ public:
 	Animation * animation = Animation::Create(5,false);
 
 public:
+
+	CacoIdleState():State(nullptr) {}
+
 	CacoIdleState(
 		StateMachine* stateMachine,
 		Enimy* enimy, Transform* target,
@@ -61,6 +64,9 @@ public:
 	Animation * animation = Animation::Create(5,false);
 
 public:
+
+	CacoMoveState() :State(nullptr) {}
+
 	CacoMoveState(
 		StateMachine* stateMachine,
 		Enimy* enimy, Transform* target,
@@ -93,12 +99,14 @@ class CacoAttackState :public State
 public:
 	Enimy* enimy = nullptr;
 	Transform* target = nullptr;
-	Audio audio = Audio("Assets/Wolf/Music/npc_attack.wav", Chunk);
+	
 
 public:
 	Animation * animation = Animation::Create(5,false);
 
 public:
+	CacoAttackState() :State(nullptr) {}
+
 	CacoAttackState(
 		StateMachine* stateMachine,
 		Enimy* enimy, Transform* target,
@@ -132,12 +140,14 @@ class CacoDieState :public State
 public:
 	Enimy* enimy = nullptr;
 	Transform* target = nullptr;
-	Audio audio = Audio("Assets/Wolf/Music/npc_death.wav", Chunk);
+	
 
 public:
 	Animation* animation = Animation::Create(12,false);
 
 public:
+	CacoDieState() :State(nullptr) {}
+
 	CacoDieState(
 		StateMachine* stateMachine,
 		Enimy* enimy, Transform* target,
@@ -172,12 +182,14 @@ public:
 	Enimy* enimy = nullptr;
 	Transform* target = nullptr;
 
-	Audio audio = Audio("Assets/Wolf/Music/npc_pain.wav", Chunk);
+	
 
 public:
 	Animation *animation = Animation::Create(5, false);
 
 public:
+	CacoPainState() :State(nullptr) {}
+
 	CacoPainState(
 		StateMachine* stateMachine,
 		Enimy* enimy, Transform* target,

@@ -229,6 +229,7 @@ namespace noa {
 	int NoaGameEngine::Quit()
 	{
 		OnDisable();
+		sceneManager.Quit();
 		isRun = false;
 		return 0;
 	}

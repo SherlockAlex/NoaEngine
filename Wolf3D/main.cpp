@@ -45,8 +45,8 @@ public:
 
 private:
 
-	Level00 level00 = Level00();
-	Level01 level01 = Level01();
+	Level00 * level00 = Level00::Create();
+	Level01 * level01 = Level01::Create();
 
 };
 

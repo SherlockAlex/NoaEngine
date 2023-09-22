@@ -156,9 +156,18 @@ namespace noa
 
 	Scene::~Scene()
 	{
-		//清楚所有的资源
+		//清除所有的资源
 		DestoyScene();
-		
+	}
+
+	Scene* Scene::Create(std::string name)
+	{
+		return new Scene(name);
+	}
+
+	void Scene::Delete()
+	{
+		delete this;
 	}
 
 	void Scene::AddActor(Actor* actor)
@@ -528,10 +537,23 @@ namespace noa
 			}
 		}
 
+		
+
 	}
 
 	SceneManager::~SceneManager()
 	{
+		/*for (auto i = sceneList.begin();i!=sceneList.end();i++) 
+		{
+			i->second->Delete();
+		}
+		sceneList.clear();*/
+		sceneList.clear();
+	}
+
+	void SceneManager::Quit()
+	{
+		isQuit = true;
 		
 	}
 

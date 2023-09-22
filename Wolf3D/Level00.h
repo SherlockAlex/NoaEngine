@@ -6,10 +6,13 @@ using namespace noa;
 
 class Level00 :public Scene
 {
-public:
 
+private:
 	Level00();
 	~Level00();
+public:
+	static Level00* Create();
+	void Delete() override;
 
 	void Awake() override;
 	void Start() override;

@@ -10,8 +10,6 @@ Enimy::Enimy(Scene* scene, Sprite* sprite, Transform* player, LiveEntity* enimy)
 	rigid->useGravity = false;
 	this->enimy = enimy;
 
-	fsm = make_shared<StateMachine>();
-
 }
 
 Enimy::~Enimy()
@@ -30,8 +28,8 @@ void Enimy::Update()
 	{
 		sprite->UpdateImage(currentAnimation->GetCurrentFrameImage());
 	}
-	fsm->Reason();
-	fsm->Act();
+	fsm.Reason();
+	fsm.Act();
 	
 }
 

@@ -5,6 +5,11 @@
 #include <unordered_map>
 #include <memory>
 
+/*
+* 此状态机可以对他进行一个优化，注意到状态机的Reason()和Act(),一群小怪可能持有的状态机是相同的，不同的地方是自身属性输入,
+* 状态机可以提供计算的方法流程，但是输入是输入小怪
+*/
+
 namespace noa 
 {
 
@@ -12,6 +17,7 @@ namespace noa
 	/// 状态类，将每一个状态都抽象乘一个类
 	/// </summary>
 	class State;
+	class Actor;
 	class StateMachine;
 	
 	class State 
@@ -20,7 +26,7 @@ namespace noa
 		StateMachine* stateMachine;
 	public:
 		std::unordered_map<int, State*> nextStates;
-	protected:
+	public:
 		State(StateMachine* stateMachine);
 		virtual ~State();
 	public:
@@ -32,8 +38,8 @@ namespace noa
 
 	public:
 		virtual void OnEnter() {};
-		virtual void OnUpdate() {};
-		virtual void Reason() {};
+		virtual void OnUpdate(Actor * owner) {};
+		virtual void Reason(Actor* owner) {};
 		virtual void OnExit() {};
 	};
 
@@ -56,8 +62,8 @@ namespace noa
 
 		virtual void PerformTransition(int transition);
 		virtual void AddState(State* state);
-		virtual void Act();
-		virtual void Reason();
+		virtual void Act(Actor* owner);
+		virtual void Reason(Actor* owner);
 	};
 }
 
