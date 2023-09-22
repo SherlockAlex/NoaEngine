@@ -20,8 +20,6 @@
 #include "Resource.h"
 
 
-using namespace std;
-
 namespace noa {
 	typedef unsigned char Uint8;
 
@@ -31,15 +29,15 @@ namespace noa {
 
 	class LevelMap {
 	public:
-		vector<int> level;
-		vector<vector<int>> levelLayer;
+		std::vector<int> level;
+		std::vector<std::vector<int>> levelLayer;
 		int w = 0;
 		int h = 0;
 	public:
 		LevelMap();
 		LevelMap(MapFile & map);
 		void Construct(MapFile& map);
-		void ConstructLayer(vector<vector<int>> layer);
+		void ConstructLayer(std::vector<std::vector<int>> layer);
 		
 	};
 
@@ -47,8 +45,8 @@ namespace noa {
 	class TileMap:public LevelMap
 	{
 	public:
-		unordered_map<int, Tile*> tileSet;
-		unordered_map<int, bool> collisionTiles;
+		std::unordered_map<int, Tile> tileSet;
+		std::unordered_map<int, bool> collisionTiles;
 	public:
 		/// <summary>
 		/// 加载瓦片地图
@@ -56,8 +54,10 @@ namespace noa {
 		/// <param name="tileSet">瓦片集合</param>
 		/// <param name="map">地图数据</param>
 		TileMap();
-		TileMap(unordered_map<int,Tile*> tileSet,MapFile map);
-		TileMap(unordered_map<int, Tile*> tileSet, vector<MapFile> mapLayer);
+		TileMap(std::unordered_map<int,Tile> tileSet,MapFile map);
+		TileMap(std::unordered_map<int, Tile> tileSet, std::vector<MapFile> mapLayer);
+		virtual ~TileMap();
+
 		int GetTileID(const int x,const int y) const;
 		void SetTileID(const int x, const int y,const int tileID);
 		//仅仅适用于静态的全局Tile，不使用于带动画的事件Tile
@@ -76,32 +76,46 @@ namespace noa {
 	/// </summary>
 	typedef struct SceneInfo
 	{
-		string mapPath = "";
-		string mapObjectPath = "";
-		string mapTileSetPath = "";
+		std::string mapPath = "";
+		std::string mapObjectPath = "";
+		std::string mapTileSetPath = "";
 	}SceneInfo;
 
 	typedef struct MapInfo {
 		TileMap * mapLayer;
 		MapFile * objectLayer;
+
+		~MapInfo() {
+			if (mapLayer!=nullptr)
+			{
+				delete mapLayer;
+			}
+
+			if (objectLayer!=nullptr)
+			{
+				delete objectLayer;
+			}
+
+		}
+
 	}MapInfo;
 
 	class Scene 
 	{
 	public:
-		string name = "Scene";
+		std::string name = "Scene";
 		//SceneInfo info;
 
-		map<size_t, Rigidbody*> rigidbodys;
-		map<size_t, Actor*> actors;//调用
-		vector<GameObjectBuffer> gameObjects;//绘图用的
+		std::map<size_t, Rigidbody*> rigidbodys;
+		std::map<size_t, Actor*> actors;//调用
+		std::vector<GameObjectBuffer> gameObjects;//绘图用的
 
-		vector<Rigidbody*> destroyRigids;
-		vector<Actor*> destroyActors;
+		std::vector<Rigidbody*> destroyRigids;
+		std::vector<Actor*> destroyActors;
 
 	public:
-		Scene(string name);
-		~Scene();
+		Scene(std::string name);
+		virtual ~Scene();
 
 		//MapInfo GetTileMap();
 
@@ -134,9 +148,9 @@ namespace noa {
 	{
 	public:
 		//加载场景时发生的事件
-		MapInfo activeMapInfo;
+		//MapInfo activeMapInfo;
 		Scene * GetActiveScene();
-		void LoadScene(string sceneName);
+		void LoadScene(std::string sceneName);
 		void AddScene(Scene* scene);
 
 		void Awake();
@@ -155,7 +169,7 @@ namespace noa {
 		Scene* oldScene = nullptr;
 		Scene * activeScene = nullptr;
 		Scene* nextScene = nullptr;
-		map<string, Scene*> sceneList;
+		std::map<std::string, Scene*> sceneList;
 
 		bool done = true;
 

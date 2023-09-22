@@ -10,7 +10,7 @@ class Enimy :public GameObject,public LiveEntity
 public:
 	Rigidbody* rigid = Rigidbody::Create(this);
 	Transform* player = nullptr;
-	StateMachine* fsm = nullptr;
+	shared_ptr<StateMachine> fsm = nullptr;
 	NoaEvent<void()> deathEvent;
 	Animation* currentAnimation = nullptr;
 	LiveEntity* enimy = nullptr;
@@ -19,7 +19,7 @@ public:
 protected:
 	//void TakeDamage(int damage);
 	Enimy(Scene * scene,Sprite* sprite, Transform* player,LiveEntity * enimy);
-	~Enimy();
+	virtual ~Enimy();
 public:
 	
 	void Update() override;

@@ -4,6 +4,7 @@
 #include <mutex>
 #include <queue>
 
+using namespace std;
 
 namespace noa {
 	extern unordered_map <size_t, Actor*> behaviours;

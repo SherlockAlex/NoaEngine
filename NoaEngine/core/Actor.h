@@ -4,8 +4,6 @@
 #include <vector>
 #include "Transform.h"
 
-using namespace std;
-
 namespace noa {
 	//”Œœ∑Ω≈±æ¿‡
 
@@ -25,7 +23,7 @@ namespace noa {
 
 	protected:
 		Actor(Scene* activeScene);
-		~Actor();
+		virtual ~Actor();
 
 	public:
 		

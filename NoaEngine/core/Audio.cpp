@@ -21,6 +21,14 @@ namespace noa {
 	}
 
 	Audio::~Audio() {
+		if (chunk!=nullptr)
+		{
+			Mix_FreeChunk(chunk);
+		}
+		if (music!=nullptr)
+		{
+			Mix_FreeMusic(music);
+		}
 		Debug("Remove audio resource successfully");
 	}
 

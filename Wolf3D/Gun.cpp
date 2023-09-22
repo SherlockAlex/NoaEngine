@@ -11,6 +11,11 @@ Gun::~Gun()
 
 }
 
+void Gun::Delete()
+{
+	delete this;
+}
+
 void Gun::Update()
 {
 	if (sprite!=nullptr&&animation!=nullptr) 

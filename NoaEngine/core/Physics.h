@@ -49,7 +49,7 @@ namespace noa {
 	class Rigidbody final
 	{
 	public:
-		string tag = "default";
+		std::string tag = "default";
 
 		//力的种类
 		enum ForceType

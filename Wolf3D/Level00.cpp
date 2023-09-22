@@ -130,8 +130,6 @@ void Level00::Unload()
 {
 	if (map!=nullptr)
 	{
-		delete map->mapLayer;
-		delete map->objectLayer;
 		delete map;
 		Debug("–∂‘ÿ≥°æ∞≥…π¶");
 	}

@@ -1,6 +1,8 @@
 #include "Sprite.h"
 #include "NoaEngine.h"
 
+using namespace std;
+
 namespace noa {
 	extern Renderer renderer;
 
@@ -55,7 +57,7 @@ namespace noa {
 
 	Sprite::~Sprite()
 	{
-
+		Debug("Remove sprite successfully");
 	}
 
 	void Sprite::UpdateImage(const SpriteFile & image)

@@ -8,28 +8,20 @@ namespace noa {
 		currentState = nullptr;
 	}
 
-	StateMachine::StateMachine(vector<State*> stateList)
-	{
-		this->stateList = stateList;
-		if (!stateList.empty())
-		{
-			currentState = stateList[0];
-		}
-	}
-
 	StateMachine::~StateMachine()
 	{
-		if (!stateList.empty())
+		/*if (!stateList.empty())
 		{
 			for (int i = 0; i < stateList.size(); i++)
 			{
 				if (stateList[i] != nullptr)
 				{
-					delete stateList[i];
+					stateList[i].reset();
 				}
 			}
 			stateList.clear();
 		}
+		*/
 		
 		Debug("Remove finite state machine");
 	}
@@ -39,10 +31,10 @@ namespace noa {
 		return new StateMachine();
 	}
 
-	StateMachine* StateMachine::Create(vector<State*> stateList)
+	/*StateMachine* StateMachine::Create(vector<shared_ptr<State>> stateList)
 	{
 		return new StateMachine(stateList);
-	}
+	}*/
 
 	void StateMachine::Delete()
 	{
@@ -97,6 +89,16 @@ namespace noa {
 	State::~State()
 	{
 		Debug("Remove state successfully");
+	}
+
+	State* State::Create(StateMachine* stateMachine)
+	{
+		return new State(stateMachine);
+	}
+
+	void State::Delete()
+	{
+		delete this;
 	}
 
 	void State::AddTransition(int transition, State* nextState)

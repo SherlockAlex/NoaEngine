@@ -47,6 +47,11 @@ Pistol::Pistol(int* bulletCount, FreeCamera* camera):Gun(bulletCount,camera)
 		});
 }
 
+Pistol* Pistol::Create(int* bulletCount, FreeCamera* camera)
+{
+	return new Pistol(bulletCount,camera);
+}
+
 void Pistol::Update()
 {
 	Gun::Update();
@@ -55,4 +60,11 @@ void Pistol::Update()
 	const float offsetY = 0;
 
 	this->sprite->DrawSprite(0.5 * pixelWidth - 0.5 * 0.5 * pixelWidth + offsetX, pixelHeight - 0.5 * pixelWidth + offsetY, true);
+}
+
+void Pistol::Delete()
+{
+	delete this->sprite;
+	delete this->audio;
+	delete this;
 }

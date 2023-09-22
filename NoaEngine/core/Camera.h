@@ -42,7 +42,7 @@ namespace noa {
 		Vector<int> followPositionOnScreen = Vector<int>(0.0, 0.0);
 		
 		//获取射线射中的物品
-		vector<void*> objectBufferWithRay = vector<void*>(pixelWidth*pixelHeight, nullptr);
+		std::vector<void*> objectBufferWithRay = std::vector<void*>(pixelWidth*pixelHeight, nullptr);
 	public:
 		TileMapCamera();
 		TileMapCamera(Vector<int> tileScale, Transform* follow);
@@ -78,9 +78,9 @@ namespace noa {
 	{
 	protected:
 		//获取射线射中的物品
-		vector<float> wallDistanceBuffer;
-		vector<void*> objectBufferWithRay = vector<void*>(pixelWidth, nullptr);
-		vector<Ray> rayResult = vector<Ray>(pixelWidth, Ray());
+		std::vector<float> wallDistanceBuffer;
+		std::vector<void*> objectBufferWithRay = std::vector<void*>(pixelWidth, nullptr);
+		std::vector<Ray> rayResult = std::vector<Ray>(pixelWidth, Ray());
 	public:
 		float FOV = 0.25 * PI;
 		const float halfFOV = FOV * 0.5;

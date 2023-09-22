@@ -4,6 +4,8 @@
 #include <queue>
 #include <list>
 
+using namespace std;
+
 namespace noa 
 {
 

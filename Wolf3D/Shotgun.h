@@ -2,10 +2,13 @@
 #include "Gun.h"
 class Shotgun :public Gun
 {
-public:
+protected:
 	Shotgun(int* bulletCount,FreeCamera* camera);
+public:
+	static Shotgun* Create(int* bulletCount, FreeCamera* camera);
 
 	void Update() override;
+	void Delete() override;
 
 };
 

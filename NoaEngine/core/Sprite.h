@@ -17,8 +17,6 @@
 #include "NoaMath.h"
 #include "Resource.h"
 
-using namespace std;
-
 namespace noa {
 	typedef unsigned int Uint32;
 
@@ -35,7 +33,7 @@ namespace noa {
 		//int sizeForSurface = 3;
 
 	private:
-		vector<Uint32> image;
+		std::vector<Uint32> image;
 		//Uint32* image = nullptr;
 
 		int sw = 2;
@@ -46,7 +44,7 @@ namespace noa {
 		Sprite(Vector<int> scale);
 		Sprite(const char* file, Vector<int> scale);
 		Sprite();
-		Sprite(int w, int h, Vector<int> scale, vector<Uint32> image);
+		Sprite(int w, int h, Vector<int> scale, std::vector<Uint32> image);
 		~Sprite();
 
 	public:

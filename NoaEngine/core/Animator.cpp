@@ -1,6 +1,8 @@
 #include "Animator.h"
 #include "NoaEngine.h"
 
+using namespace std;
+
 namespace noa {
 
 	extern float deltaTime;
@@ -245,7 +247,7 @@ namespace noa {
 		this->sprite = sprite;
 	}
 
-	Animator::Animator(Sprite, vector<State*> stateList):StateMachine(stateList)
+	Animator::Animator(Sprite, vector<State*> stateList)
 	{
 		this->sprite = sprite;
 	}

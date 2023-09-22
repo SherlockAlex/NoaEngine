@@ -16,7 +16,7 @@ namespace noa {
 	{
 		//加载游戏的字体资源
 
-		unordered_map<int, Font*> result;
+		std::unordered_map<int, Font*> result;
 		std::vector<TileData> resultData;
 
 		std::ifstream inputFile(fontPath, std::ios::binary);
@@ -158,7 +158,7 @@ namespace noa {
 		renderer.DrawString(text, position.x + 10, position.y + 10, textColor, 20);
 	}
 
-	void NoaButton::AddClickEvent(function<void()> func)
+	void NoaButton::AddClickEvent(std::function<void()> func)
 	{
 		this->clickEvent += func;
 	}

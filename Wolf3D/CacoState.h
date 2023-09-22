@@ -22,15 +22,27 @@ private:
 public:
 	Animation * animation = Animation::Create(5,false);
 
+public:
 	CacoIdleState(
 		StateMachine* stateMachine,
 		Enimy* enimy, Transform* target,
 		AnimationFrame * frameData
 	);
 
-	~CacoIdleState() 
+	~CacoIdleState() override
 	{
 		State::~State();
+		Debug("Remove Caco state successfully !!!!!!!");
+	}
+public:
+	static CacoIdleState* Create(StateMachine* stateMachine,
+		Enimy* enimy, Transform* target,
+		AnimationFrame* frameData) {
+		return new CacoIdleState(stateMachine,enimy,target,frameData);
+	}
+
+	void Delete() override {
+		delete this;
 	}
 
 	void OnUpdate() override;
@@ -48,14 +60,27 @@ private:
 public:
 	Animation * animation = Animation::Create(5,false);
 
+public:
 	CacoMoveState(
 		StateMachine* stateMachine,
 		Enimy* enimy, Transform* target,
 		AnimationFrame* frameData
 	);
-	~CacoMoveState()
+	~CacoMoveState() override
 	{
 		State::~State();
+		Debug("Remove Caco state successfully !!!!!!!");
+	}
+
+public:
+	static CacoMoveState* Create(StateMachine* stateMachine,
+		Enimy* enimy, Transform* target,
+		AnimationFrame* frameData) {
+		return new CacoMoveState(stateMachine, enimy, target, frameData);
+	}
+
+	void Delete() override {
+		delete this;
 	}
 
 	void OnUpdate() override;
@@ -73,14 +98,27 @@ public:
 public:
 	Animation * animation = Animation::Create(5,false);
 
+public:
 	CacoAttackState(
 		StateMachine* stateMachine,
 		Enimy* enimy, Transform* target,
 		AnimationFrame* frameData
 	);
-	~CacoAttackState()
+	~CacoAttackState() override
 	{
 		State::~State();
+		Debug("Remove Caco state successfully !!!!!!!");
+	}
+
+public:
+	static CacoAttackState* Create(StateMachine* stateMachine,
+		Enimy* enimy, Transform* target,
+		AnimationFrame* frameData) {
+		return new CacoAttackState(stateMachine, enimy, target, frameData);
+	}
+
+	void Delete() override {
+		delete this;
 	}
 
 	void OnUpdate() override;
@@ -99,14 +137,27 @@ public:
 public:
 	Animation* animation = Animation::Create(12,false);
 
+public:
 	CacoDieState(
 		StateMachine* stateMachine,
 		Enimy* enimy, Transform* target,
 		AnimationFrame* frameData
 	);
-	~CacoDieState()
+	~CacoDieState() override
 	{
 		State::~State();
+		Debug("Remove Caco state successfully !!!!!!!");
+	}
+
+public:
+	static CacoDieState* Create(StateMachine* stateMachine,
+		Enimy* enimy, Transform* target,
+		AnimationFrame* frameData) {
+		return new CacoDieState(stateMachine, enimy, target, frameData);
+	}
+
+	void Delete() override {
+		delete this;
 	}
 
 	void OnEnter() override;
@@ -126,14 +177,27 @@ public:
 public:
 	Animation *animation = Animation::Create(5, false);
 
+public:
 	CacoPainState(
 		StateMachine* stateMachine,
 		Enimy* enimy, Transform* target,
 		AnimationFrame* frameData
 	);
-	~CacoPainState()
+	~CacoPainState() override
 	{
 		State::~State();
+		Debug("Remove Caco state successfully !!!!!!!");
+	}
+
+public:
+	static CacoPainState* Create(StateMachine* stateMachine,
+		Enimy* enimy, Transform* target,
+		AnimationFrame* frameData) {
+		return new CacoPainState(stateMachine, enimy, target, frameData);
+	}
+
+	void Delete() override {
+		delete this;
 	}
 
 	void OnUpdate() override;

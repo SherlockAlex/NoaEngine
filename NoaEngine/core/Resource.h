@@ -19,15 +19,13 @@
 #include <sstream>
 #include <vector>
 
-using namespace std;
-
 namespace noa {
 	//资源管理系统
 	
 	//本地的精灵资源文件
 	typedef struct SpriteFile
 	{
-		vector<uint32_t> images;
+		std::vector<uint32_t> images;
 		int x;
 		int y;
 		int width;
@@ -36,7 +34,7 @@ namespace noa {
 
 	//本地动画文件
 	typedef struct AnimationFile {
-		vector<SpriteFile> data;
+		std::vector<SpriteFile> data;
 		int posx;
 		int posy;
 		int w;
@@ -49,23 +47,26 @@ namespace noa {
 		//地图文件
 		int w = 0;
 		int h = 0;
-		vector<int> image;
+		std::vector<int> image;
 	}Map;
 
 	class Sprite;
 	//瓦片
 	typedef struct Tile
 	{
-		Sprite* sprite = nullptr;
+		std::shared_ptr<Sprite> sprite = nullptr;
 		bool isCollision = false;
 
 		//添加一个Animation
 
 		Tile();
 
-		Tile(Sprite* sprite, bool isCollision = false);
+		Tile(std::shared_ptr<Sprite> sprite, bool isCollision = false);
 
 		Tile(SpriteFile spriteFile, bool isCollision = false);
+
+		~Tile();
+
 
 	}Tile;
 
@@ -86,7 +87,7 @@ namespace noa {
 
 		MapFile LoadMapFromCSV(const std::string filename) const;
 
-		unordered_map<int, Tile*> LoadTileFromTsd(const std::string& fileName) const;
+		std::unordered_map<int, Tile> LoadTileFromTsd(const std::string& fileName) const;
 
 	};
 
@@ -99,8 +100,8 @@ namespace noa {
 		};
 
 	private:
-		ifstream ifile;
-		ofstream ofile;
+		std::ifstream ifile;
+		std::ofstream ofile;
 	public:
 		BinaryFile(const char * fileName,Mode mode);
 		~BinaryFile();

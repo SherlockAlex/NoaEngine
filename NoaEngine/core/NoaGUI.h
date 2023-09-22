@@ -33,7 +33,7 @@ namespace noa {
 
 	class FontAsset {
 	private:
-		unordered_map<char, Font*> fonts;
+		std::unordered_map<char, Font*> fonts;
 	public:
 		FontAsset(const char * fontPath);
 		Font* GetFont(char c);
@@ -68,7 +68,7 @@ namespace noa {
 	class NoaCanvase : Actor
 	{
 	private:
-		vector<UIComponent*> uiComponent;
+		std::vector<UIComponent*> uiComponent;
 
 	public:
 		NoaCanvase(Scene * scene);
@@ -88,7 +88,7 @@ namespace noa {
 
 	class NoaText :public UIComponent {
 	public:
-		string text = "text";
+		std::string text = "text";
 		//字体颜色
 		uint32_t textColor = BLACK;
 		//字体大小
@@ -126,7 +126,7 @@ namespace noa {
 		//宽度高度
 		Vector<int> scale = Vector<int>(150, 50);
 		//按键名
-		string text = "BUTTON";
+		std::string text = "BUTTON";
 		//字体颜色
 		uint32_t textColor = BLACK;
 		
@@ -151,7 +151,7 @@ namespace noa {
 
 		void Update() override;
 
-		void AddClickEvent(function<void()> func);
+		void AddClickEvent(std::function<void()> func);
 
 	};
 }

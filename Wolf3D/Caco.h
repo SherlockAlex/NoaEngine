@@ -17,7 +17,7 @@ public:
 private:
 
 	Caco(Scene * scene,Sprite* sprite, Transform* player,LiveEntity * enimy);
-	~Caco();
+	~Caco() override;
 public:
 	static Caco* Create(Scene* scene, Sprite* sprite, Transform* player, LiveEntity* enimy);
 	void Delete() override;
@@ -26,6 +26,19 @@ public:
 	void OnDeath();
 
 	void OnDestroy() override;
+
+public:
+	shared_ptr<CacoIdleState> idleState;
+	shared_ptr<CacoMoveState> moveState;
+	shared_ptr<CacoAttackState> attackState;
+	shared_ptr<CacoDieState> dieState;
+	shared_ptr<CacoPainState> painState;
+
+	/*CacoIdleState* idleState = nullptr;
+	CacoMoveState* moveState = nullptr;
+	CacoAttackState* attackState = nullptr;
+	CacoDieState* dieState = nullptr;
+	CacoPainState* painState = nullptr;*/
 
 };
 

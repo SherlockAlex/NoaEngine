@@ -31,6 +31,17 @@ void Player::Delete()
 
 Player::~Player() {
 	Actor::~Actor();
+	if (!guns.empty()) 
+	{
+		for (int i = 0; i < guns.size(); i++)
+		{
+			if (guns[i] != nullptr)
+			{
+				guns[i]->Delete();
+			}
+		}
+	}
+	
 	Debug("É¾³ýÍæ¼Ò");
 	//Rigidbody::~Rigidbody();
 }
@@ -205,17 +216,17 @@ void Player::TakeDamage(int damage)
 
 void Player::MakeGun()
 {
-	shotgun = new Shotgun(&bulletCount, this->camera);
+	shotgun = Shotgun::Create(&bulletCount, this->camera);
 	shotgun->animation->SetActiveScene(this->activeScene);
 	shotgun->damage = 110;
 	shotgun->takeBullet = 7;
 
-	pistol = new Pistol(&bulletCount, this->camera);
+	pistol = Pistol::Create(&bulletCount, this->camera);
 	pistol->animation->SetActiveScene(this->activeScene);
 	pistol->damage = 18;
 	pistol->takeBullet = 0;
 
-	m4a1 = new M4A1(&bulletCount, this->camera);
+	m4a1 = M4A1::Create(&bulletCount, this->camera);
 	m4a1->animation->SetActiveScene(this->activeScene);
 	m4a1->damage = 32;
 	m4a1->takeBullet = 1;

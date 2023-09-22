@@ -24,11 +24,23 @@ Caco::Caco(Scene* scene, Sprite* sprite, Transform* player, LiveEntity* enimy) :
 
 	this->rigid->collision.radius = 1;
 
-	CacoIdleState* idleState = new CacoIdleState(fsm, this, player, &wolfResource->cacoIdleFrame);
-	CacoMoveState* moveState = new CacoMoveState(fsm, this, player, &wolfResource->cacoMoveFrame);
-	CacoAttackState* attackState = new CacoAttackState(fsm, this, player, &wolfResource->cacoAttckFrame);
-	CacoDieState* dieState = new CacoDieState(fsm, this, player, &wolfResource->cacoDieFrame);
-	CacoPainState* painState = new CacoPainState(fsm, this, player, &wolfResource->cacoPainFrame);
+	/*CacoIdleState* idleState = CacoIdleState::Create(fsm.get(), this, player, &wolfResource->cacoIdleFrame);
+	CacoMoveState* moveState = CacoMoveState::Create(fsm.get(), this, player, &wolfResource->cacoMoveFrame);
+	CacoAttackState* attackState = CacoAttackState::Create(fsm.get(), this, player, &wolfResource->cacoAttckFrame);
+	CacoDieState* dieState = CacoDieState::Create(fsm.get(), this, player, &wolfResource->cacoDieFrame);
+	CacoPainState* painState = CacoPainState::Create(fsm.get(), this, player, &wolfResource->cacoPainFrame);*/
+
+	idleState = make_shared<CacoIdleState>(fsm.get(), this, player, &wolfResource->cacoIdleFrame);
+	moveState = make_shared<CacoMoveState>(fsm.get(), this, player, &wolfResource->cacoMoveFrame);
+	attackState = make_shared<CacoAttackState>(fsm.get(), this, player, &wolfResource->cacoAttckFrame);
+	dieState = make_shared<CacoDieState>(fsm.get(), this, player, &wolfResource->cacoDieFrame);
+	painState = make_shared<CacoPainState>(fsm.get(), this, player, &wolfResource->cacoPainFrame);
+
+	/*idleState = CacoIdleState::Create(fsm.get(), this, player, &wolfResource->cacoIdleFrame);
+	moveState = CacoMoveState::Create(fsm.get(), this, player, &wolfResource->cacoMoveFrame);
+	attackState = CacoAttackState::Create(fsm.get(), this, player, &wolfResource->cacoAttckFrame);
+	dieState = CacoDieState::Create(fsm.get(), this, player, &wolfResource->cacoDieFrame);
+	painState = CacoPainState::Create(fsm.get(), this, player, &wolfResource->cacoPainFrame);*/
 
 	/*if (idleState == nullptr)
 	{
@@ -56,34 +68,38 @@ Caco::Caco(Scene* scene, Sprite* sprite, Transform* player, LiveEntity* enimy) :
 	}*/
 
 
-	idleState->AddTransition(Move,moveState);
-	idleState->AddTransition(Die,dieState);
-	idleState->AddTransition(Pain,painState);
+	idleState->AddTransition(Move,moveState.get());
+	idleState->AddTransition(Die,dieState.get());
+	idleState->AddTransition(Pain,painState.get());
 
-	moveState->AddTransition(Idle,idleState);
-	moveState->AddTransition(Attack,attackState);
-	moveState->AddTransition(Die,dieState);
-	moveState->AddTransition(Pain,painState);
+	moveState->AddTransition(Idle,idleState.get());
+	moveState->AddTransition(Attack,attackState.get());
+	moveState->AddTransition(Die,dieState.get());
+	moveState->AddTransition(Pain,painState.get());
 
-	attackState->AddTransition(Move,idleState);
-	attackState->AddTransition(Die,dieState);
-	attackState->AddTransition(Pain,painState);
+	attackState->AddTransition(Move,idleState.get());
+	attackState->AddTransition(Die,dieState.get());
+	attackState->AddTransition(Pain,painState.get());
 
-	painState->AddTransition(Pain,painState);
-	painState->AddTransition(Die,dieState);
-	painState->AddTransition(Idle,idleState);
+	painState->AddTransition(Pain,painState.get());
+	painState->AddTransition(Die,dieState.get());
+	painState->AddTransition(Idle,idleState.get());
 
-	fsm->AddState(idleState);
-	fsm->AddState(painState);
-	fsm->AddState(dieState);
-	fsm->AddState(moveState);
-	fsm->AddState(attackState);
+	fsm->AddState(idleState.get());
+	fsm->AddState(painState.get());
+	fsm->AddState(dieState.get());
+	fsm->AddState(moveState.get());
+	fsm->AddState(attackState.get());
 
 }
 
 Caco::~Caco()
 {
 	Enimy::~Enimy();
+	if (sprite != nullptr)
+	{
+		delete sprite;
+	}
 	Debug("Remove Caco");
 }
 

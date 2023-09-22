@@ -17,7 +17,10 @@ public:
 
 public:
 	Gun(int * bulletCount,FreeCamera * camera);
-	~Gun();
+protected:
+	virtual ~Gun();
+public:
+	virtual void Delete();
 
 	virtual void Update();
 	virtual void Shoot();

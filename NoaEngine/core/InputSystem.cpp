@@ -5,7 +5,7 @@
 #include "NoaEngine.h"
 
 
-
+using namespace std;
 
 namespace noa {
 	InputSystem inputSystem;

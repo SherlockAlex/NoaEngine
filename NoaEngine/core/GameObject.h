@@ -24,7 +24,7 @@ namespace noa {
 		static GameObject* Create(Scene* activeScene, Sprite* sprite, Vector<float> startPosition);
 		void Delete() override;
 
-		~GameObject();
+		virtual ~GameObject();
 
 		void Destroy() override;
 

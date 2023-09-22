@@ -10,14 +10,16 @@ Enimy::Enimy(Scene* scene, Sprite* sprite, Transform* player, LiveEntity* enimy)
 	rigid->useGravity = false;
 	this->enimy = enimy;
 
-	fsm = StateMachine::Create();
+	fsm = make_shared<StateMachine>();
 
 }
 
 Enimy::~Enimy()
 {
+
 	//Rigidbody::~Rigidbody();
 	GameObject::~GameObject();
+	
 	Debug("Remove enimy");
 }
 
@@ -35,5 +37,5 @@ void Enimy::Update()
 
 void Enimy::OnDestroy()
 {
-	fsm->Delete();
+	//fsm->Delete();
 }

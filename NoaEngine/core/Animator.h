@@ -18,19 +18,17 @@
 #include "StateMachine.h"
 #include "Resource.h"
 
-using namespace std;
-
 namespace noa {
 	typedef unsigned int Uint32;
 
 	//出现了问题，必须重构
 
 	typedef struct AnimationFrame {
-		vector<SpriteFile> framesImage;
+		std::vector<SpriteFile> framesImage;
 
 		AnimationFrame(const char * filePath)
 		{
-			const AnimationFile animatorFile = move(resource.LoadAnimationFile(filePath));
+			const AnimationFile animatorFile = std::move(resource.LoadAnimationFile(filePath));
 			for (const SpriteFile& frame : animatorFile.data)
 			{
 				framesImage.push_back(frame);
@@ -47,7 +45,7 @@ namespace noa {
 		//framesImage可以通过复用降低内存消耗
 		//vector<SpriteFile> framesImage;
 		AnimationFrame* frameData = nullptr;
-		unordered_map<Uint32,NoaEvent<void()>> framesEvent;
+		std::unordered_map<Uint32,NoaEvent<void()>> framesEvent;
 		//unordered_map<Uint32, function<void()>> framesEvent;
 		SpriteFile currentFrame;
 		bool isPlaying = false;
@@ -71,7 +69,7 @@ namespace noa {
 		//void LoadFromAnimationFile(const char* filePath);
 		SpriteFile& GetCurrentFrameImage();
 		SpriteFile& GetFrameImage(int frame);
-		void SetFrameEvent(int frame, function<void()> e);
+		void SetFrameEvent(int frame, std::function<void()> e);
 		void Play(int frame);
 		void Play();
 		//void InsertFrameImage(const SpriteFile & frameImage);
@@ -104,7 +102,7 @@ namespace noa {
 		Sprite* sprite = nullptr;
 	public:
 		Animator(Sprite * sprite);
-		Animator(Sprite,vector<State*> stateList);
+		Animator(Sprite, std::vector<State*> stateList);
 
 	};
 

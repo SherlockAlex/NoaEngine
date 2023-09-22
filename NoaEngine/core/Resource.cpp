@@ -2,6 +2,8 @@
 #include "NoaEngine.h"
 #include "Sprite.h"
 
+using namespace std;
+
 namespace noa {
 
 	Resource resource;
@@ -165,11 +167,11 @@ namespace noa {
 		return map;
 	}
 
-	unordered_map<int, Tile*> Resource::LoadTileFromTsd(const std::string& fileName) const
+	unordered_map<int, Tile> Resource::LoadTileFromTsd(const std::string& fileName) const
 	{
 		//º”‘ÿ”Œœ∑µƒtileSet
 
-		unordered_map<int, Tile*> result;
+		unordered_map<int, Tile> result;
 		std::vector<TileData> resultData;
 
 		std::ifstream inputFile(fileName, std::ios::binary);
@@ -208,7 +210,7 @@ namespace noa {
 
 		for (TileData data : resultData)
 		{
-			Tile* tile = new Tile(data.sprites);
+			Tile tile = Tile(data.sprites);
 			result[data.id] = tile;
 		}
 
@@ -222,7 +224,7 @@ namespace noa {
 
 	}
 
-	Tile::Tile(Sprite* sprite, bool isCollision)
+	Tile::Tile(shared_ptr<Sprite> sprite, bool isCollision)
 	{
 		this->sprite = sprite;
 		this->isCollision = isCollision;
@@ -230,8 +232,13 @@ namespace noa {
 
 	Tile::Tile(SpriteFile spriteFile, bool isCollision)
 	{
-		this->sprite = new Sprite(spriteFile, Vector<int>(1.0, 1.0));
+		this->sprite = make_shared<Sprite>(spriteFile, Vector<int>(1.0, 1.0));
 		this->isCollision = isCollision;
+	}
+
+	Tile::~Tile()
+	{
+		Debug("Free tile successfully");
 	}
 
 	BinaryFile::BinaryFile(const char* fileName,Mode mode)

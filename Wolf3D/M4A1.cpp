@@ -47,6 +47,11 @@ M4A1::M4A1(int* bulletCount, FreeCamera* camera) :Gun(bulletCount, camera)
 		});
 }
 
+M4A1* M4A1::Create(int* bulletCount, FreeCamera* camera)
+{
+	return new M4A1(bulletCount,camera);
+}
+
 void M4A1::Update()
 {
 	Gun::Update();
@@ -55,4 +60,11 @@ void M4A1::Update()
 	const float offsetY = 0;
 
 	this->sprite->DrawSprite(0.5 * pixelWidth - 0.5 * 0.5 * pixelWidth + offsetX, pixelHeight - 0.5 * pixelWidth + offsetY, true);
+}
+
+void M4A1::Delete()
+{
+	delete this->sprite;
+	delete this->audio;
+	delete this;
 }

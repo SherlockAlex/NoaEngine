@@ -6,6 +6,8 @@
 #include <sstream>
 #include <vector>
 
+using namespace std;
+
 namespace noa 
 {
 	SceneManager sceneManager;
@@ -35,7 +37,7 @@ namespace noa
 		Debug("load map from file successfully");
 	}
 
-	void LevelMap::ConstructLayer(vector<vector<int>> layer)
+	void LevelMap::ConstructLayer(std::vector<std::vector<int>> layer)
 	{
 		levelLayer = layer;
 		Debug("Update the layer map");
@@ -45,12 +47,12 @@ namespace noa
 	{
 	}
 
-	TileMap::TileMap(unordered_map<int, Tile*> tileSet, MapFile map) :LevelMap(map)
+	TileMap::TileMap(unordered_map<int, Tile> tileSet, MapFile map) :LevelMap(map)
 	{
 		this->tileSet = tileSet;
 	}
 
-	TileMap::TileMap(unordered_map<int, Tile*> tileSet, vector<MapFile> mapLayer)
+	TileMap::TileMap(unordered_map<int, Tile> tileSet, std::vector<MapFile> mapLayer)
 	{
 		this->tileSet = tileSet;
 		MapFile map;
@@ -58,7 +60,7 @@ namespace noa
 		map.w = mapLayer[0].w;
 		map.h = mapLayer[0].h;
 
-		vector<vector<int>> layer;
+		std::vector<vector<int>> layer;
 
 		for (int i = 0;i<mapLayer.size();i++) 
 		{
@@ -80,6 +82,11 @@ namespace noa
 
 		this->Construct(map);
 		this->ConstructLayer(layer);
+	}
+
+	TileMap::~TileMap()
+	{
+
 	}
 
 	int TileMap::GetTileID(const int x,const int y) const
@@ -136,7 +143,7 @@ namespace noa
 		{
 			return nullptr;
 		}
-		return tileSet[id];
+		return &tileSet[id];
 	}
 
 	Scene::Scene(string name)
@@ -149,22 +156,10 @@ namespace noa
 
 	Scene::~Scene()
 	{
+		//清楚所有的资源
+		DestoyScene();
 		
 	}
-
-	/*MapInfo Scene::GetTileMap()
-	{
-		
-		TileMap tileMap = TileMap(
-		resource.LoadTileFromTsd(info.mapTileSetPath),
-		resource.LoadMapFromCSV(info.mapPath)
-		);
-		MapFile objectMap = resource.LoadMapFromCSV(info.mapObjectPath);
-
-		MapInfo info = { tileMap,objectMap };
-
-		return info;
-	}*/
 
 	void Scene::AddActor(Actor* actor)
 	{
@@ -184,12 +179,12 @@ namespace noa
 		}
 
 		actors[actor->GetHash()] = nullptr;
-		//destroyActors.push_back(actor);
-		auto it = find(destroyActors.begin(),destroyActors.end(),actor);
+		destroyActors.push_back(actor);
+		/*auto it = find(destroyActors.begin(),destroyActors.end(),actor);
 		if (it == destroyActors.end()) 
 		{
 			destroyActors.push_back(actor);
-		}
+		}*/
 
 	}
 
@@ -233,12 +228,12 @@ namespace noa
 			return;
 		}
 		rigidbodys[rigid->GetHashCode()] = nullptr;
-		//destroyRigids.push_back(rigid);
-		auto it = find(destroyRigids.begin(),destroyRigids.end(),rigid);
+		destroyRigids.push_back(rigid);
+		/*auto it = find(destroyRigids.begin(),destroyRigids.end(),rigid);
 		if (it == destroyRigids.end())
 		{
 			destroyRigids.push_back(rigid);
-		}
+		}*/
 	}
 
 	void Scene::ActorAwake()
@@ -386,6 +381,12 @@ namespace noa
 					destroyRigids.push_back(e.second);
 				}
 			}
+
+			auto rigidLast = std::unique(destroyRigids.begin(), destroyRigids.end());
+			destroyRigids.erase(rigidLast, destroyRigids.end());
+
+			auto actorLast = std::unique(destroyActors.begin(), destroyActors.end());
+			destroyActors.erase(actorLast, destroyActors.end());
 
 			for (int i = 0;i<destroyRigids.size();i++)
 			{

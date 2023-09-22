@@ -22,8 +22,6 @@
 #include "NoaMath.h"
 #include "NoaAction.h"
 
-using namespace std;
-
 namespace noa {
 	extern SDL_Event ioEvent;
 

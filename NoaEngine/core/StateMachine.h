@@ -3,8 +3,7 @@
 
 #include <vector>
 #include <unordered_map>
-
-using namespace std;
+#include <memory>
 
 namespace noa 
 {
@@ -20,11 +19,13 @@ namespace noa
 	protected:
 		StateMachine* stateMachine;
 	public:
-		//ÏÂÒ»¸ö×´Ì¬<transition,state>
-		unordered_map<int, State*> nextStates;
+		std::unordered_map<int, State*> nextStates;
+	protected:
+		State(StateMachine* stateMachine);
+		virtual ~State();
 	public:
-		State(StateMachine * stateMachine);
-		~State();
+		static State* Create(StateMachine* stateMachine);
+		virtual void Delete();
 
 		void AddTransition(int transition,State* nextState);
 		void SetTransition(int transition);
@@ -42,17 +43,15 @@ namespace noa
 	class StateMachine
 	{
 	private:
-		vector<State*> stateList;
+		std::vector<State*> stateList;
 	public:
-		State* currentState;
-	protected:
+		State* currentState = nullptr;
+	public:
 		StateMachine();
-		StateMachine(vector<State*> stateList);
-		~StateMachine();
+		virtual ~StateMachine();
 
 	public:
 		static StateMachine* Create();
-		static StateMachine* Create(vector<State*> stateList);
 		virtual void Delete();
 
 		virtual void PerformTransition(int transition);
