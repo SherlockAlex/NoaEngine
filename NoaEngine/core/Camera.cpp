@@ -361,7 +361,7 @@ namespace noa {
 
 
 	// 快速排序的分区函数
-	int Partition(std::vector<GameObjectBuffer>& arr, int low, int high) {
+	inline int Partition(std::vector<GameObjectBuffer>& arr, int low, int high) {
 		const float pivot = arr[high].distanceToPlayer;
 		int i = (low - 1);
 
@@ -376,7 +376,7 @@ namespace noa {
 	}
 
 	// 快速排序函数
-	void QuickSort(std::vector<GameObjectBuffer>& arr, int low, int high) 
+	inline void QuickSort(std::vector<GameObjectBuffer>& arr, int low, int high) 
 	{
 		if (low >= high) 
 		{

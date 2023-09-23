@@ -219,7 +219,10 @@ CacoDieState::CacoDieState(
 		wolfResource->npcDeath->volume = 1.0 / (distance);
 		wolfResource->npcDeath->Play(false);
 		this->enimy->rigid->isFrozen = true;
-		((Caco*)this->enimy)->OnDeath();
+		Caco* e = this->enimy->GetActorAs<Caco*>();
+		if (e != nullptr) {
+			e->OnDeath();
+		}
 	});
 
 	animation->SetFrameEvent(10, [this]()

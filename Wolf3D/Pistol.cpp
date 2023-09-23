@@ -9,9 +9,9 @@ Pistol::Pistol(Player* player, int* bulletCount, FreeCamera* camera):Gun(bulletC
 		resource.LoadSprFile("./Assets/Wolf/gun.spr")
 		, Vector<int>(0.5 * pixelWidth, 0.5 * pixelWidth));
 
-	this->audio = new Audio("./Assets/Wolf/Music/p90.wav", Chunk);
+	this->audio = new Audio("./Assets/Wolf/Music/usp_unsil-1.wav", Chunk);
 
-	this->animation = Animation::Create(player,15, false);
+	this->animation = Animation::Create(player,20, false);
 	//animation->LoadFromAnimationFile("./Assets/Wolf/lgun-shot.amt");
 	animation->SetFrame(&wolfResource->pistolFrame);
 	animation->SetFrameEvent(2, [this]()
@@ -60,7 +60,7 @@ void Pistol::Update()
 	const float offsetX = 0;
 	const float offsetY = 0;
 
-	this->sprite->DrawSprite(0.5 * pixelWidth - 0.5 * 0.5 * pixelWidth + offsetX, pixelHeight - 0.5 * pixelWidth + offsetY, true);
+	this->sprite->DrawSprite(0.5 * pixelWidth, pixelHeight - 0.5 * pixelWidth + offsetY, true,true);
 }
 
 void Pistol::Delete()

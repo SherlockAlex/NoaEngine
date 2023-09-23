@@ -3,15 +3,16 @@
 #include "WolfResource.h"
 #include "Player.h"
 
+///0,0,1.2
 Shotgun::Shotgun(Player* player, int* bulletCount,FreeCamera * camera):Gun(bulletCount,camera)
 {
 	this->sprite =new Sprite(
 		resource.LoadSprFile("./Assets/Wolf/gun.spr")
-		, Vector<int>(0.25 * pixelWidth, 0.25 * pixelWidth));
+		, Vector<int>(0.5 * pixelWidth, 0.5 * pixelWidth));
 
 	this->audio =new Audio("./Assets/Wolf/Music/sg552-2.wav", Chunk);
 
-	this->animation = Animation::Create(player,7.5, false);
+	this->animation = Animation::Create(player,12, false);
 	//animation->LoadFromAnimationFile("./Assets/Wolf/gun-shot.amt");
 	animation->SetFrame(&wolfResource->shotgunFrame);
 	animation->SetFrameEvent(1, [this]()
@@ -60,7 +61,7 @@ void Shotgun::Update()
 	const float offsetX = 0;
 	const float offsetY = 0;
 
-	this->sprite->DrawSprite(0.5 * pixelWidth - 0.5 * 0.25 * pixelWidth + offsetX, pixelHeight - 0.25 * pixelWidth + offsetY, true);
+	this->sprite->DrawSprite(0.5 * pixelWidth, pixelHeight - 0.5 * pixelWidth + offsetY, true,true);
 }
 
 void Shotgun::Delete()
