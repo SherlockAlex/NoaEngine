@@ -164,8 +164,9 @@ namespace noa {
 			renderer.DrawRect(transform.position, transform.position + scale, sprite,currentColor,true);
 		}
 		
+		
 		//ÏÔÊ¾ÎÄ×Ö
-		renderer.DrawString(text, transform.position.x + 10, transform.position.y + 10, textColor, 20);
+		renderer.DrawString(text, transform.position.x + 0.5*scale.x - text.length() * 0.5*fontSize* fontNarrowX, transform.position.y + 0.5*scale.y - 0.5*fontSize* fontNarrowX, fontNarrowX, textColor, fontSize);
 	}
 
 	void NoaButton::AddClickEvent(std::function<void()> func)
@@ -243,6 +244,7 @@ namespace noa {
 					continue;
 				}
 				uiComponent[i]->Delete();
+				Debug("Remove UI component");
 			}
 		}
 	}
@@ -294,6 +296,7 @@ namespace noa {
 				continue;
 			}
 			uiComponent[i]->Update();
+			
 		}
 	}
 

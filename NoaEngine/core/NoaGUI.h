@@ -76,7 +76,7 @@ namespace noa {
 
 	private:
 		NoaCanvase(Scene * scene);
-		~NoaCanvase();
+		~NoaCanvase() override;
 	public:
 		static NoaCanvase* Create(Scene* scene);
 		void Delete() override;
@@ -148,6 +148,9 @@ namespace noa {
 		//字体颜色
 		uint32_t textColor = BLACK;
 		
+		uint32_t fontSize = 20;
+		float fontNarrowX = 0.6;
+
 		//按键常亮颜色
 		Sprite* sprite = nullptr;
 		uint32_t normalColor = WHITE;

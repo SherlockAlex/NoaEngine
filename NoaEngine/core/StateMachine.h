@@ -15,33 +15,31 @@
 namespace noa 
 {
 
-	/// <summary>
-	/// 状态类，将每一个状态都抽象乘一个类
-	/// </summary>
+	
 	class State;
 	class Actor;
 	class StateMachine;
 
+	/// <summary>
+	/// 状态类，将每一个状态都必须继承这个类，并且只能分配到堆空间
+	/// 请覆写方法 T Create() 和 void Delete()
+	/// </summary>
 	class State 
 	{
 	protected:
-		
 		StateMachine* stateMachine;
 	public:
 		std::unordered_map<int, State*> nextStates;
 	protected:
 		State(StateMachine* stateMachine);
-		virtual ~State();
+		virtual ~State() {};
 	public:
-		static State* Create(StateMachine* stateMachine);
-		virtual void Delete();
+		virtual void Delete() = 0;
 
 		void AddTransition(int transition,State* nextState);
 		void SetTransition(int transition);
 
 	public:
-
-		bool isDelete = false;
 
 		virtual void OnEnter() {};
 		virtual void OnUpdate() {};
@@ -50,11 +48,11 @@ namespace noa
 	};
 
 	/// <summary>
-	/// 状态机，用来管理所有的状态
+	/// 状态机，用来管理所有的状态,注意所有的状态类都必须继承自State抽象类
 	/// </summary>
 	class StateMachine:ActorComponent
 	{
-	private:
+	protected:
 		std::vector<State*> stateList;
 	public:
 		State* currentState = nullptr;

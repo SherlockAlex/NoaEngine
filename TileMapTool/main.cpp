@@ -4,21 +4,37 @@
 
 using namespace std;
 
-int main1(int argc,char * argv)
-{
-	ofstream file("./text");
-	if (file.is_open())
-	{
-		char m = 0;
-		while (m<128)
-		{
-			file << m;
-			cout << m << endl;
-			m = m + 1;
-		}
+class B;
+class A;
+class A {
+public:
+	B* b = nullptr;
+};
 
-	}
-	file.close();
-	cout << "写入文件成功" << endl;
+class B {
+public:
+	A* a = nullptr;
+};
+
+class C {
+public:
+	A* a = nullptr;
+};
+
+int main(int argc,char * argv)
+{
+	A* a = new A();
+	B* b = new B();
+	C* c = new C();
+
+	a->b = b;
+	b->a = a;
+	c->a = a;
+
+	delete a;
+
+	cout << "6" << endl;
+
 	return 0;
+
 }

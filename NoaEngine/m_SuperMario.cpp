@@ -11,9 +11,37 @@ AnimationFrame idleFrame = AnimationFrame("./Assets/JumpMan/Animator/mario_idle.
 AnimationFrame runFrame = AnimationFrame("./Assets/JumpMan/Animator/mario_run.amt");
 AnimationFrame jumpFrame = AnimationFrame("./Assets/JumpMan/Animator/mario_jump.amt");
 
+class PlayerIdleState :public State 
+{
+private:
+	PlayerIdleState(StateMachine* stateMachine) :State(stateMachine)
+	{
+
+	}
+
+	~PlayerIdleState() override 
+	{
+
+	}
+
+public:
+	static PlayerIdleState* Create(StateMachine* stateMachine) {
+		return new PlayerIdleState(stateMachine);
+	}
+
+	void Delete() override 
+	{
+		delete this;
+	}
+
+};
+
+
+
 class Player:public GameObject
 {
-public:
+private:
+	
 	Player(Scene * scene) :GameObject(scene,new Sprite(resource.LoadSprFile("./Assets/JumpMan/JumpMan.spr"), tileScale))
 	{
 		transform.position = Vector<float>(0.0, 0.0);
@@ -27,10 +55,23 @@ public:
 
 		currentAnimatorState = idle;
 
+		fsm->AddState(idleState);
+
 	}
 	~Player()
 	{
 		GameObject::~GameObject();
+	}
+
+public:
+
+	static Player* Create(Scene* scene) 
+	{
+		return new Player(scene);
+	}
+
+	void Delete() override {
+		delete this;
 	}
 
 	void InitPosition(TileMap& tileMap,const int targetTileID) {
@@ -145,6 +186,10 @@ public:
 	Animation* run = Animation::Create(this,10,false);
 	Animation* jump = Animation::Create(this,10,false);
 
+	StateMachine* fsm = StateMachine::Create(this);
+
+	PlayerIdleState* idleState = PlayerIdleState::Create(fsm);
+
 };
 
 class TestScene1 :public Scene {
@@ -168,9 +213,12 @@ public:
 	}
 
 	void Awake() override {
-		player.rigid->SetTileMap(&tileMap);
+		player = Player::Create(this);
+		camera = new TileMapCamera(tileScale, &player->transform);
+
+		player->rigid->SetTileMap(&tileMap);
 		tileMap.SetCollisionTileID({ 1,2 });
-		player.InitPosition(tileMap, 87);
+		player->InitPosition(tileMap, 87);
 
 		BGM.Play(true);
 
@@ -178,10 +226,14 @@ public:
 	}
 
 	void Update() override {
-		Vector<int> playerDrawPos = camera.Render(tileMap, frontDelta, endDelta);
+		Vector<int> playerDrawPos = camera->Render(tileMap, frontDelta, endDelta);
 
 		//Draw player
-		player.sprite->DrawSprite(playerDrawPos.x, playerDrawPos.y, true, !player.isLeft);
+		player->sprite->DrawSprite(playerDrawPos.x, playerDrawPos.y, true, !player->isLeft);
+	}
+
+	void Unload() override{
+		delete camera;
 	}
 
 private:
@@ -191,11 +243,10 @@ private:
 		resource.LoadMapFromCSV("./Assets/JumpMan/Map/level1.csv")
 	);
 
+	Player* player = nullptr;
 
-	Player player = Player(this);
+	TileMapCamera* camera = nullptr;
 
-
-	TileMapCamera camera = TileMapCamera(tileScale, &player.transform);
 	Vector<float> frontDelta = Vector<float>(0.0, 0.0);
 	Vector<float> endDelta = Vector<float>(-1, -1);
 
@@ -210,7 +261,8 @@ private:
 
 	}
 
-	~MainMenu() {
+	~MainMenu() 
+	{
 		Scene::~Scene();
 	}
 
@@ -224,7 +276,15 @@ public:
 	}
 
 	void Awake() override {
-		backGround->color = BLACK;
+
+		backgroundSprite = new Sprite(resource.LoadSprFile("./Assets/JumpMan/Texture/mainMenu.spr"), {pixelWidth,pixelHeight});
+
+		canvas = NoaCanvase::Create(this);
+		backGround = NoaImage::Create();
+		startButton = NoaButton::Create();
+
+		backGround->color = WHITE;
+		backGround->sprite = backgroundSprite;
 		backGround->scale = { pixelWidth,pixelHeight };
 		
 		startButton->text = "START";
@@ -246,15 +306,17 @@ public:
 	}
 
 	void Unload() override {
-
+		delete backgroundSprite;
 	}
 
 private:
-	NoaCanvase* canvas = NoaCanvase::Create(this);
+	NoaCanvase* canvas = nullptr;
 
-	NoaImage* backGround = NoaImage::Create();
+	NoaImage* backGround = nullptr;
 
-	NoaButton* startButton = NoaButton::Create();
+	NoaButton* startButton = nullptr;
+
+	Sprite* backgroundSprite = nullptr;
 
 };
 
@@ -272,7 +334,10 @@ public:
 
 	void Update() override 
 	{
-
+		if (inputSystem.GetKeyDown(KeyESC)) 
+		{
+			sceneManager.LoadScene("MainMenu");
+		}
 	}
 
 private:
@@ -283,7 +348,7 @@ private:
 
 int main(int argc,char * argv[])
 {
-	Platformer game(1920 / 2, 1080 / 2, NoaGameEngine::WindowMode, "SuperMario");
+	Platformer game(1920/1.5, 1080/1.5, NoaGameEngine::WindowMode, "SuperMario");
 	game.Run();
 	return 0;
 }

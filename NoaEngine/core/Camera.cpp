@@ -422,7 +422,7 @@ namespace noa {
 		for (int i = 0;i< sceneManager.GetActiveScene()->gameObjects.size();i++)
 		{
 
-			auto& object = sceneManager.GetActiveScene()->gameObjects[i].object;
+			auto object = sceneManager.GetActiveScene()->gameObjects[i].object;
 			if (object == nullptr)
 			{
 				continue;

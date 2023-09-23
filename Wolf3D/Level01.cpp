@@ -13,7 +13,7 @@ Level01::Level01() :Scene(
 
 Level01::~Level01()
 {
-	Scene::~Scene();
+	DestoyScene();
 }
 
 Level01* Level01::Create()

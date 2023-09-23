@@ -3,6 +3,7 @@
 #include "NoaEngine.h"
 
 namespace noa {
+
 	StateMachine::StateMachine(Actor * actor):ActorComponent(actor)
 	{
 		currentState = nullptr;
@@ -10,9 +11,7 @@ namespace noa {
 
 	StateMachine::~StateMachine()
 	{
-
 		currentState = nullptr;
-
 		if (!stateList.empty())
 		{
 
@@ -25,12 +24,12 @@ namespace noa {
 				{
 					continue;
 				}
-				//stateList[i]->Delete();
+				stateList[i]->Delete();
 			}
 			stateList.clear();
 		}
 		
-		
+		stateList.clear();
 		Debug("Remove finite state machine");
 	}
 
@@ -53,12 +52,17 @@ namespace noa {
 	{
 		//切换到下一个状态
 		if (currentState == nullptr
-			|| ContainKey<int, State*>(currentState->nextStates, transition)
+			|| !ContainKey<int, State*>(currentState->nextStates, transition)
+			|| currentState->nextStates[transition] == nullptr
 			)
 		{
 			return;
 		}
+
+		currentState->OnExit();
 		currentState = currentState->nextStates[transition];
+		currentState->OnEnter();
+
 	}
 
 	void StateMachine::AddState(State* state)
@@ -91,8 +95,12 @@ namespace noa {
 
 	void StateMachine::Update()
 	{
-		Reason();
-		Act();
+		if (currentState == nullptr)
+		{
+			return;
+		}
+		currentState->Reason();
+		currentState->OnUpdate();
 	}
 
 	State::State(StateMachine* stateMachine)
@@ -100,23 +108,10 @@ namespace noa {
 		this->stateMachine = stateMachine;
 	}
 
-	State::~State()
+	/*void State::Delete()
 	{
-		//stateMachine = nullptr;
-		this->nextStates.clear();
-		Debug("Remove state successfully");
-	}
-
-	State* State::Create(StateMachine* stateMachine)
-	{
-		return new State(stateMachine);
-	}
-
-	void State::Delete()
-	{
-		
 		delete this;
-	}
+	}*/
 
 	void State::AddTransition(int transition, State* nextState)
 	{
@@ -125,24 +120,11 @@ namespace noa {
 
 	void State::SetTransition(int transition)
 	{
-		if (stateMachine == nullptr) 
+		if (stateMachine == nullptr)
 		{
 			return;
 		}
-		if (!ContainKey<int, State*>(nextStates, transition))
-		{
-			Debug("havn't state");
-		}
-		if (stateMachine->currentState != nullptr)
-		{
-			stateMachine->currentState->OnExit();
-		}
-		stateMachine->currentState = nextStates[transition];
-		if (stateMachine->currentState != nullptr)
-		{
-			stateMachine->currentState->OnEnter();
-		}
-
+		stateMachine->PerformTransition(transition);
 	}
 
 }

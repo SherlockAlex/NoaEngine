@@ -43,7 +43,8 @@ void CacoIdleState::Reason()
 	{
 		enimy->rigid->useMotion = true;
 		animation->Reset();
-		SetTransition(Move);
+		enimy->fsm->PerformTransition(Move);
+		//SetTransition(Move);
 	}
 	if (enimy->hp<=0) 
 	{
@@ -51,7 +52,8 @@ void CacoIdleState::Reason()
 		enimy->rigid->useMotion = false;
 		enimy->rigid->velocity = { 0,0 };
 		animation->Reset();
-		SetTransition(Die);
+		enimy->fsm->PerformTransition(Die);
+		//SetTransition(Die);
 	}
 
 }
@@ -91,6 +93,16 @@ void CacoMoveState::OnUpdate()
 
 void CacoMoveState::Reason()
 {
+	if (enimy->hp <= 0)
+	{
+		Debug("Enimy die");
+		enimy->rigid->useMotion = false;
+		enimy->rigid->velocity = { 0,0 };
+		animation->Reset();
+		enimy->fsm->PerformTransition(Die);
+		//SetTransition(Die);
+	}
+
 	Vector<float> distanceVector = target->position - enimy->transform.position;
 	const float distance = distanceVector.SqrMagnitude();
 
@@ -100,21 +112,15 @@ void CacoMoveState::Reason()
 		enimy->rigid->velocity = { 0,0 };
 		if (attackingEnimy == nullptr) {
 			animation->Reset();
-			SetTransition(Attack);
+			enimy->fsm->PerformTransition(Attack);
+			//SetTransition(Attack);
 		}
 		else {
 			return;
 		}
 		
 	}
-	if (enimy->hp <= 0)
-	{
-		Debug("Enimy die");
-		enimy->rigid->useMotion = false;
-		enimy->rigid->velocity = { 0,0 };
-		animation->Reset();
-		SetTransition(Die);
-	}
+	
 
 }
 
@@ -171,19 +177,23 @@ void CacoAttackState::Reason()
 	Vector<float> distanceVector = target->position - enimy->transform.position;
 	const float distance = distanceVector.SqrMagnitude();
 
-	if (distance > 3 * 3)
-	{
-		animation->Reset();
-		SetTransition(Move);
-	}
 	if (enimy->hp <= 0)
 	{
 		Debug("Enimy die");
 		enimy->rigid->useMotion = false;
 		enimy->rigid->velocity = { 0,0 };
 		animation->Reset();
-		SetTransition(Die);
+		enimy->fsm->PerformTransition(Die);
+		//SetTransition(Die);
 	}
+
+	if (distance > 3 * 3)
+	{
+		animation->Reset();
+		enimy->fsm->PerformTransition(Move);
+		//SetTransition(Move);
+	}
+	
 
 }
 
@@ -271,9 +281,11 @@ CacoPainState::CacoPainState(
 		{
 			if (this->enimy->hp<=0)
 			{
-				SetTransition(Die);
+				this->enimy->fsm->PerformTransition(Die);
+				//SetTransition(Die);
 			}
-			SetTransition(Idle);
+			this->enimy->fsm->PerformTransition(Idle);
+			//SetTransition(Idle);
 		});
 }
 
@@ -296,7 +308,8 @@ void CacoPainState::Reason()
 	if (this->enimy->hp <= 0)
 	{
 		animation->Reset();
-		SetTransition(Die);
+		enimy->fsm->PerformTransition(Die);
+		//SetTransition(Die);
 	}
 }
 

@@ -150,25 +150,18 @@ namespace noa
 	{
 		this->name = name;
 		sceneManager.AddScene(this);
-		//this->info = info;
 
 	}
 
-	Scene::~Scene()
-	{
-		//清除所有的资源
-		DestoyScene();
-	}
-
-	Scene* Scene::Create(std::string name)
-	{
-		return new Scene(name);
-	}
-
-	void Scene::Delete()
+	/*void Scene::Delete()
 	{
 		delete this;
-	}
+	}*/
+
+	//Scene* Scene::Create(std::string name)
+	//{
+	//	return new Scene(name);
+	//}
 
 	void Scene::AddActor(Actor* actor)
 	{
@@ -344,70 +337,65 @@ namespace noa
 	void Scene::DestoyScene()
 	{
 
-		while (!destroyRigids.empty()||!destroyActors.empty())
+		for (auto& e : actors)
 		{
-
-			for (auto & e:actors) 
+			if (e.second == nullptr)
 			{
-				if (e.second == nullptr)
-				{
-					continue;
-				}
-				auto it = find(destroyActors.begin(), destroyActors.end(), e.second);
-				if (it == destroyActors.end())
-				{
-					destroyActors.push_back(e.second);
-				}
-				
+				continue;
 			}
-
-			for (auto & e : rigidbodys)
+			auto it = find(destroyActors.begin(), destroyActors.end(), e.second);
+			if (it == destroyActors.end())
 			{
-				if (e.second == nullptr)
-				{
-					continue;
-				}
-				
-				auto it = find(destroyRigids.begin(), destroyRigids.end(), e.second);
-				if (it == destroyRigids.end())
-				{
-					destroyRigids.push_back(e.second);
-				}
+				destroyActors.push_back(e.second);
 			}
-
-			auto rigidLast = std::unique(destroyRigids.begin(), destroyRigids.end());
-			destroyRigids.erase(rigidLast, destroyRigids.end());
-
-			auto actorLast = std::unique(destroyActors.begin(), destroyActors.end());
-			destroyActors.erase(actorLast, destroyActors.end());
-
-			for (int i = 0;i<destroyRigids.size();i++)
-			{
-				//会出现野指针的情况，就是一个值会出现两次
-				if (destroyRigids[i] == nullptr)
-				{
-					continue;
-				}
-				delete destroyRigids[i];
-			}
-
-			for (int i = 0; i < destroyActors.size(); i++)
-			{
-				if (destroyActors[i] == nullptr)
-				{
-					continue;
-				}
-				destroyActors[i]->OnDestroy();
-				destroyActors[i]->Delete();
-			}
-
-			actors.clear();
-			gameObjects.clear();
-			rigidbodys.clear();
-			destroyActors.clear();
-			destroyRigids.clear();
 
 		}
+
+		for (auto& e : rigidbodys)
+		{
+			if (e.second == nullptr)
+			{
+				continue;
+			}
+
+			auto it = find(destroyRigids.begin(), destroyRigids.end(), e.second);
+			if (it == destroyRigids.end())
+			{
+				destroyRigids.push_back(e.second);
+			}
+		}
+
+		auto rigidLast = std::unique(destroyRigids.begin(), destroyRigids.end());
+		destroyRigids.erase(rigidLast, destroyRigids.end());
+
+		auto actorLast = std::unique(destroyActors.begin(), destroyActors.end());
+		destroyActors.erase(actorLast, destroyActors.end());
+
+		for (int i = 0; i < destroyRigids.size(); i++)
+		{
+			//会出现野指针的情况，就是一个值会出现两次
+			if (destroyRigids[i] == nullptr)
+			{
+				continue;
+			}
+			delete destroyRigids[i];
+		}
+
+		for (int i = 0; i < destroyActors.size(); i++)
+		{
+			if (destroyActors[i] == nullptr)
+			{
+				continue;
+			}
+			destroyActors[i]->OnDestroy();
+			destroyActors[i]->Delete();
+		}
+
+		actors.clear();
+		gameObjects.clear();
+		rigidbodys.clear();
+		destroyActors.clear();
+		destroyRigids.clear();
 
 	}
 
@@ -450,6 +438,10 @@ namespace noa
 
 	void SceneManager::LoadScene(string sceneName)
 	{
+		if (isLoading) 
+		{
+			return;
+		}
 		if (!ContainKey<string,Scene*>(this->sceneList,sceneName)) 
 		{
 			Debug("Load scene:"+ sceneName+"failed");
@@ -457,28 +449,14 @@ namespace noa
 		}
 		nextScene = sceneList[sceneName];
 		done = false;
+		isLoading = true;
 
-
-		//执行老场景的逐渐卸载
-		//Destroy();
-		//加载新场景
-		//等带所有的update执行完后
 		oldScene = activeScene;
 		activeScene = nextScene;
 		nextScene = nullptr;
-
 		
-
 		Awake();
-		/*if (activeScene != nullptr)
-		{
-			activeMapInfo = activeScene->GetTileMap();
-		}*/
-		//初始化场景物品
 		Start();
-
-		
-
 		//done = true;
 
 	}
@@ -541,33 +519,36 @@ namespace noa
 		activeScene->Update();
 		activeScene->ActorUpdate();
 
-		if (!done)
+		//处理老场景资源
+		if (!done&&oldScene != nullptr && oldScene != activeScene)
 		{
-			//处理老场景资源
-			if (oldScene != nullptr&&oldScene!=activeScene)
-			{
-				
-				oldScene->ActorOnDisable();
-				oldScene->Unload();
-				oldScene->DestoyScene();
-				oldScene->ClearSA();
-
-				oldScene = nullptr;
-				done = true;
-			}
+			oldScene->ActorOnDisable();
+			oldScene->DestoyScene();
+			oldScene->Unload();
+			oldScene = nullptr;
 		}
 
-		
+		if (!done)
+		{
+			done = true;
+			isLoading = false;	
+		}
 
 	}
 
 	SceneManager::~SceneManager()
 	{
-		/*for (auto i = sceneList.begin();i!=sceneList.end();i++) 
+		if (!sceneList.empty()) 
 		{
-			i->second->Delete();
+			for (auto i = sceneList.begin();i!=sceneList.end();i++)
+			{
+				if (i->second == nullptr) 
+				{
+					continue;
+				}
+				i->second->Delete();
+			}
 		}
-		sceneList.clear();*/
 		sceneList.clear();
 	}
 

@@ -56,7 +56,8 @@ namespace noa {
 		/// <param name="color">字体颜色</param>
 		/// <param name="size">字体大小</param>
 		void DrawString(const std::string& str, int x, int y, Uint32 color, int size);
-		
+		void DrawString(const std::string& str, int x, int y,float narrow, Uint32 color, int size);
+
 		void FullScreen(Uint32 color) const;
 		
 		void UpdateScreen();

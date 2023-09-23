@@ -15,7 +15,7 @@ namespace noa {
 	class ActorComponent;
 
 	/// <summary>
-	/// 活动类，可以在Scene中游戏物品
+	/// 活动类，可以在Scene中游戏物品，其类及其子类只能分配在堆上
 	/// </summary>
 	class Actor {
 	protected:
@@ -63,14 +63,15 @@ namespace noa {
 		}
 
 		template<class T>
-		bool TryGetActorAs(T out)
+		bool TryGetActorAs(T outBuffer)
 		{
-			T buffer = dynamic_cast<T>(this->actor)
+			T buffer = dynamic_cast<T>(this);
 			if (buffer == nullptr)
 			{
+				outBuffer = nullptr;
 				return false;
 			}
-			out = buffer;
+			outBuffer = buffer;
 			return true;
 		}
 

@@ -261,6 +261,35 @@ namespace noa {
 		}
 	}
 
+	void Renderer::DrawString(const std::string& str, int x, int y, float narrowx, Uint32 color, int size)
+	{
+		int row = 0;
+		int offset = 0;
+
+		const int length = str.length();
+		const char* c_str = str.c_str();
+		for (int i = 0; i < length; i++)
+		{
+			const char c = c_str[i];
+			if (!(c ^ '\n'))
+			{
+				row++;
+				offset = 0;
+			}
+			const Font* font = fontAsset[c];
+			if (font == nullptr)
+			{
+				continue;
+			}
+
+
+			const Vector<int> point1 = move(Vector<int>(x + (offset * size) * narrowx, y + row * size));
+			const Vector<int> point2 = move(Vector<int>(x + size + (offset * size) * narrowx, y + size + row * size));
+			DrawRect(point1, point2, *font->sprite, color, true);
+			offset++;
+		}
+	}
+
 	void Renderer::FullScreen(Uint32 color) const
 	{
 		for (int x = 0;x<pixelWidth*pixelHeight;x++) 

@@ -26,7 +26,7 @@ namespace noa {
 	public:
 		static GameObject* Create(Scene* activeScene, Sprite* sprite);
 		static GameObject* Create(Scene* activeScene, Sprite* sprite, Vector<float> startPosition);
-		void Delete() override;
+		virtual void Delete() override;
 
 		virtual ~GameObject();
 
@@ -37,9 +37,9 @@ namespace noa {
 	//extern void Destroy(GameObject* gameObject);
 
 	typedef struct GameObjectBuffer {
-		GameObject* object;
-		float distanceToPlayer;
-		Vector<float> vecToPlayer;
+		GameObject* object = nullptr;
+		float distanceToPlayer = 0;
+		Vector<float> vecToPlayer = {0,0};
 	}GameObjectBuffer;
 
 }

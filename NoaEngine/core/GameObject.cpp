@@ -47,7 +47,6 @@ namespace noa {
 
 	void GameObject::Delete()
 	{
-		
 		delete this;
 	}
 

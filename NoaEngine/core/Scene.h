@@ -118,11 +118,10 @@ namespace noa {
 
 	protected:
 		Scene(std::string name);
-		virtual ~Scene();
+		virtual ~Scene() {};
 
 	public:
-		static Scene* Create(std::string name);
-		virtual void Delete();
+		virtual void Delete() = 0;
 
 		//MapInfo GetTileMap();
 
@@ -185,7 +184,7 @@ namespace noa {
 		std::map<std::string, Scene*> sceneList;
 
 		bool done = true;
-
+		bool isLoading = false;
 		
 	public:
 		bool isQuit = false;
