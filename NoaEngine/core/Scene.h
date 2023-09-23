@@ -19,8 +19,12 @@
 #include "Sprite.h"
 #include "Resource.h"
 
+#include "GameObject.h"
 
 namespace noa {
+	/*struct GameObjectBuffer;
+	typedef struct GameObjectBuffer GameObjectBuffer;*/
+
 	typedef unsigned char Uint8;
 
 	class GameObject;
@@ -69,8 +73,7 @@ namespace noa {
 		void SetCollisionTileID(std::vector<int> collisionTileIDs);
 	};
 
-	struct GameObjectBuffer;
-	typedef struct GameObjectBuffer GameObjectBuffer;
+	
 
 	/// <summary>
 	/// map,object,tile set

@@ -571,11 +571,6 @@ D:\Work\NoaEngine\NoaEngine\core\NoaAction.h(20,8): message : 在编译 类 模�
 D:\Work\NoaEngine\NoaEngine\core\NoaGUI.cpp(132,28): message : 请参阅 "noa::NoaButton::SwapState" 中对 "noa::NoaEvent<void (void)>::Invoke" 的第一个引用
 D:\Work\NoaEngine\NoaEngine\core\NoaGUI.h(159,20): message : 查看对正在编译的 类 模板 实例化“noa::NoaEvent<void (void)>”的引用
 D:\Work\NoaEngine\NoaEngine\core\NoaAction.h(21,28): warning C4267: “初始化”: 从“size_t”转换到“const int”，可能丢失数据
-D:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.37.32822\include\vector(2047,1): error C2036: “noa::GameObjectBuffer *”: 未知的大小
-D:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.37.32822\include\vector(2035,23): message : 在编译 类 模板 成员函数“void std::vector<noa::GameObjectBuffer,std::allocator<noa::GameObjectBuffer>>::_Tidy(void) noexcept”时
-D:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.37.32822\include\vector(767,14): message : 请参阅 "std::vector<noa::GameObjectBuffer,std::allocator<noa::GameObjectBuffer>>::~vector" 中对 "std::vector<noa::GameObjectBuffer,std::allocator<noa::GameObjectBuffer>>::_Tidy" 的第一个引用
-D:\Work\NoaEngine\NoaEngine\core\Scene.h(121,20): message : 请参阅 "noa::Scene::~Scene" 中对 "std::vector<noa::GameObjectBuffer,std::allocator<noa::GameObjectBuffer>>::~vector" 的第一个引用
-D:\Work\NoaEngine\NoaEngine\core\Scene.h(112,33): message : 查看对正在编译的 类 模板 实例化“std::vector<noa::GameObjectBuffer,std::allocator<noa::GameObjectBuffer>>”的引用
   Physics.cpp
 D:\Work\NoaEngine\NoaEngine\core\Physics.h(63,19): warning C4305: “初始化”: 从“double”到“float”截断
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
@@ -1674,3 +1669,9 @@ D:\Work\NoaEngine\Wolf3D\WolfResource.h(28,90): warning C4244: “参数”: 从
           [
               T=int
           ]
+  正在生成代码
+  25 of 3079 functions ( 0.8%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    23 functions had inline decision re-evaluated but remain unchanged
+  已完成代码的生成
+  Wolf3D.vcxproj -> D:\Work\NoaEngine\x64\Release\Wolf3D.exe
