@@ -141,6 +141,18 @@ namespace noa {
 			return dynamic_cast<T>(this->actor);
 		}
 
+		template<class T>
+		bool TryGetActorAs(T out)
+		{
+			T buffer = dynamic_cast<T>(this->actor);
+			if (buffer == nullptr)
+			{
+				return false;
+			}
+			out = buffer;
+			return true;
+		}
+
 		//void SetCollisionRigidbody(Rigidbody* rigid);
 
 		int GetIndexInMap() const;

@@ -9,6 +9,7 @@ namespace noa {
 	ActorComponent::ActorComponent(Actor* actor)
 	{
 		actor->AddComponent(this);
+		this->actor = actor;
 	}
 	ActorComponent::~ActorComponent()
 	{
@@ -21,6 +22,20 @@ namespace noa {
 	void ActorComponent::Delete()
 	{
 		delete this;
+	}
+	void ActorComponent::SetActive(bool value)
+	{
+		active = value;
+		if (value) 
+		{
+			OnEnable();
+			return;
+		}
+		OnDisable();
+	}
+	bool ActorComponent::GetActive()
+	{
+		return active;
 	}
 }
 

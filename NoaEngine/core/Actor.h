@@ -57,10 +57,21 @@ namespace noa {
 			return id;
 		}
 
-		// 将Behaviour作为其他组件返回
 		template<class T>
 		T GetActorAs() {
 			return dynamic_cast<T>(this);
+		}
+
+		template<class T>
+		bool TryGetActorAs(T out)
+		{
+			T buffer = dynamic_cast<T>(this->actor)
+			if (buffer == nullptr)
+			{
+				return false;
+			}
+			out = buffer;
+			return true;
 		}
 
 		Actor* GetActor() {

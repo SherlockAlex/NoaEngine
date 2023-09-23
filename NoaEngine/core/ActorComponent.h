@@ -9,6 +9,10 @@ namespace noa {
 	/// </summary>
 	class ActorComponent
 	{
+	private:
+		Actor* actor = nullptr;
+		bool active = true;
+
 	protected:
 		ActorComponent(Actor* actor);
 		virtual ~ActorComponent();
@@ -23,6 +27,46 @@ namespace noa {
 		virtual void Update() {}
 		virtual void OnDisable() {}
 		virtual void OnDestroy() {}
+
+		virtual void SetActive(bool value);
+		virtual bool GetActive();
+
+		template<class T>
+		T GetActorAs() {
+			return dynamic_cast<T>(actor);
+		}
+
+		template<class T>
+		bool TryGetActorAs(T out) 
+		{
+			T buffer = dynamic_cast<T>(actor);
+			if (buffer == nullptr)
+			{
+				out = nullptr;
+				return false;
+			}
+			out = buffer;
+			return true;
+		}
+
+		template<class T>
+		T GetComponentAs() {
+			return dynamic_cast<T>(this);
+		}
+
+		template<class T>
+		bool TryGetComponentAs(T out) 
+		{
+			T buffer = dynamic_cast<T>(this);
+			if (buffer==nullptr)
+			{
+				out = nullptr;
+				return false;
+			}
+			out = buffer;
+			return true;
+		}
+
 
 	};
 }

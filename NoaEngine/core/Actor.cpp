@@ -95,7 +95,7 @@ namespace noa
 	{
 		for (int i = 0; i < components.size(); i++)
 		{
-			if (components[i] == nullptr)
+			if (components[i] == nullptr||!components[i]->GetActive())
 			{
 				continue;
 			}

@@ -1,4 +1,25 @@
-﻿  StateMachine.cpp
+﻿  Actor.cpp
+D:\Work\NoaEngine\NoaEngine\core\Actor.h(109,2): fatal  error C1001: 内部编译器错误。
+  (编译器文件“D:\a\_work\1\s\src\vctools\Compiler\CxxFE\sl\p1\c\error.h”，第 1296 行)
+   要解决此问题，请尝试简化或更改上面所列位置附近的程序。
+  如果可以，请在此处提供重现步骤: https://developercommunity.visualstudio.com
+  请选择 Visual C++
+  “帮助”菜单上的“技术支持”命令，或打开技术支持帮助文件来获得详细信息。
+  ActorComponent.cpp
+D:\Work\NoaEngine\NoaEngine\core\Actor.h(109,2): fatal  error C1001: 内部编译器错误。
+  (编译器文件“D:\a\_work\1\s\src\vctools\Compiler\CxxFE\sl\p1\c\error.h”，第 1296 行)
+   要解决此问题，请尝试简化或更改上面所列位置附近的程序。
+  如果可以，请在此处提供重现步骤: https://developercommunity.visualstudio.com
+  请选择 Visual C++
+  “帮助”菜单上的“技术支持”命令，或打开技术支持帮助文件来获得详细信息。
+  Animator.cpp
+D:\Work\NoaEngine\NoaEngine\core\Actor.h(109,2): fatal  error C1001: 内部编译器错误。
+  (编译器文件“D:\a\_work\1\s\src\vctools\Compiler\CxxFE\sl\p1\c\error.h”，第 1296 行)
+   要解决此问题，请尝试简化或更改上面所列位置附近的程序。
+  如果可以，请在此处提供重现步骤: https://developercommunity.visualstudio.com
+  请选择 Visual C++
+  “帮助”菜单上的“技术支持”命令，或打开技术支持帮助文件来获得详细信息。
+  Audio.cpp
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
 D:\Work\NoaEngine\NoaEngine\core\include\glad\glad.h(32,1): message : 参见“APIENTRY”的前一个定义
 D:\Work\NoaEngine\NoaEngine\core\Graphic.h(28,1): warning C4005: “LOBYTE”: 宏重定义
@@ -7,33 +28,373 @@ D:\Work\NoaEngine\NoaEngine\core\Graphic.h(33,1): warning C4005: “RGB”: 宏�
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1859,1): message : 参见“RGB”的前一个定义
 D:\Work\NoaEngine\NoaEngine\core\Graphic.h(36,1): warning C4005: “GetGValue”: 宏重定义
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1870,1): message : 参见“GetGValue”的前一个定义
-D:\Work\NoaEngine\NoaEngine\core\Physics.h(63,19): warning C4305: “初始化”: 从“double”到“float”截断
-D:\Work\NoaEngine\NoaEngine\core\Camera.h(42,57): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
-          with
-          [
-              T=int
-          ]
-D:\Work\NoaEngine\NoaEngine\core\Camera.h(42,52): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
-          with
-          [
-              T=int
-          ]
-D:\Work\NoaEngine\NoaEngine\core\Camera.h(85,20): warning C4305: “初始化”: 从“double”到“float”截断
-D:\Work\NoaEngine\NoaEngine\core\Camera.h(86,29): warning C4244: “初始化”: 从“double”转换到“const float”，可能丢失数据
-D:\Work\NoaEngine\NoaEngine\core\Camera.h(88,35): warning C4244: “初始化”: 从“double”转换到“const float”，可能丢失数据
-D:\Work\NoaEngine\NoaEngine\core\NoaGUI.h(30,59): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
-          with
-          [
-              T=int
-          ]
-D:\Work\NoaEngine\NoaEngine\core\NoaGUI.h(30,54): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
-          with
-          [
-              T=int
-          ]
-  正在生成代码
-  4 of 3094 functions ( 0.1%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    2 functions had inline decision re-evaluated but remain unchanged
-  已完成代码的生成
-  Wolf3D.vcxproj -> D:\Work\NoaEngine\x64\Release\Wolf3D.exe
+D:\Work\NoaEngine\NoaEngine\core\Actor.h(109,2): fatal  error C1001: 内部编译器错误。
+  (编译器文件“D:\a\_work\1\s\src\vctools\Compiler\CxxFE\sl\p1\c\error.h”，第 1296 行)
+   要解决此问题，请尝试简化或更改上面所列位置附近的程序。
+  如果可以，请在此处提供重现步骤: https://developercommunity.visualstudio.com
+  请选择 Visual C++
+  “帮助”菜单上的“技术支持”命令，或打开技术支持帮助文件来获得详细信息。
+  Camera.cpp
+D:\Work\NoaEngine\NoaEngine\core\Actor.h(109,2): fatal  error C1001: 内部编译器错误。
+  (编译器文件“D:\a\_work\1\s\src\vctools\Compiler\CxxFE\sl\p1\c\error.h”，第 1296 行)
+   要解决此问题，请尝试简化或更改上面所列位置附近的程序。
+  如果可以，请在此处提供重现步骤: https://developercommunity.visualstudio.com
+  请选择 Visual C++
+  “帮助”菜单上的“技术支持”命令，或打开技术支持帮助文件来获得详细信息。
+  GameObject.cpp
+D:\Work\NoaEngine\NoaEngine\core\Actor.h(109,2): fatal  error C1001: 内部编译器错误。
+  (编译器文件“D:\a\_work\1\s\src\vctools\Compiler\CxxFE\sl\p1\c\error.h”，第 1296 行)
+   要解决此问题，请尝试简化或更改上面所列位置附近的程序。
+  如果可以，请在此处提供重现步骤: https://developercommunity.visualstudio.com
+  请选择 Visual C++
+  “帮助”菜单上的“技术支持”命令，或打开技术支持帮助文件来获得详细信息。
+  InputSystem.cpp
+D:\Work\NoaEngine\NoaEngine\core\Graphic.h(28,1): warning C4005: “LOBYTE”: 宏重定义
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(206,1): message : 参见“LOBYTE”的前一个定义
+D:\Work\NoaEngine\NoaEngine\core\Graphic.h(33,1): warning C4005: “RGB”: 宏重定义
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1859,1): message : 参见“RGB”的前一个定义
+D:\Work\NoaEngine\NoaEngine\core\Graphic.h(36,1): warning C4005: “GetGValue”: 宏重定义
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1870,1): message : 参见“GetGValue”的前一个定义
+D:\Work\NoaEngine\NoaEngine\core\Actor.h(109,2): fatal  error C1001: 内部编译器错误。
+  (编译器文件“D:\a\_work\1\s\src\vctools\Compiler\CxxFE\sl\p1\c\error.h”，第 1296 行)
+   要解决此问题，请尝试简化或更改上面所列位置附近的程序。
+  如果可以，请在此处提供重现步骤: https://developercommunity.visualstudio.com
+  请选择 Visual C++
+  “帮助”菜单上的“技术支持”命令，或打开技术支持帮助文件来获得详细信息。
+  NoaAction.cpp
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
+D:\Work\NoaEngine\NoaEngine\core\include\glad\glad.h(32,1): message : 参见“APIENTRY”的前一个定义
+D:\Work\NoaEngine\NoaEngine\core\Graphic.h(28,1): warning C4005: “LOBYTE”: 宏重定义
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(206,1): message : 参见“LOBYTE”的前一个定义
+D:\Work\NoaEngine\NoaEngine\core\Graphic.h(33,1): warning C4005: “RGB”: 宏重定义
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1859,1): message : 参见“RGB”的前一个定义
+D:\Work\NoaEngine\NoaEngine\core\Graphic.h(36,1): warning C4005: “GetGValue”: 宏重定义
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1870,1): message : 参见“GetGValue”的前一个定义
+D:\Work\NoaEngine\NoaEngine\core\Actor.h(109,2): fatal  error C1001: 内部编译器错误。
+  (编译器文件“D:\a\_work\1\s\src\vctools\Compiler\CxxFE\sl\p1\c\error.h”，第 1296 行)
+   要解决此问题，请尝试简化或更改上面所列位置附近的程序。
+  如果可以，请在此处提供重现步骤: https://developercommunity.visualstudio.com
+  请选择 Visual C++
+  “帮助”菜单上的“技术支持”命令，或打开技术支持帮助文件来获得详细信息。
+  NoaEngine.cpp
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
+D:\Work\NoaEngine\NoaEngine\core\include\glad\glad.h(32,1): message : 参见“APIENTRY”的前一个定义
+D:\Work\NoaEngine\NoaEngine\core\Graphic.h(28,1): warning C4005: “LOBYTE”: 宏重定义
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(206,1): message : 参见“LOBYTE”的前一个定义
+D:\Work\NoaEngine\NoaEngine\core\Graphic.h(33,1): warning C4005: “RGB”: 宏重定义
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1859,1): message : 参见“RGB”的前一个定义
+D:\Work\NoaEngine\NoaEngine\core\Graphic.h(36,1): warning C4005: “GetGValue”: 宏重定义
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1870,1): message : 参见“GetGValue”的前一个定义
+D:\Work\NoaEngine\NoaEngine\core\Actor.h(109,2): fatal  error C1001: 内部编译器错误。
+  (编译器文件“D:\a\_work\1\s\src\vctools\Compiler\CxxFE\sl\p1\c\error.h”，第 1296 行)
+   要解决此问题，请尝试简化或更改上面所列位置附近的程序。
+  如果可以，请在此处提供重现步骤: https://developercommunity.visualstudio.com
+  请选择 Visual C++
+  “帮助”菜单上的“技术支持”命令，或打开技术支持帮助文件来获得详细信息。
+  NoaGUI.cpp
+D:\Work\NoaEngine\NoaEngine\core\Actor.h(109,2): fatal  error C1001: 内部编译器错误。
+  (编译器文件“D:\a\_work\1\s\src\vctools\Compiler\CxxFE\sl\p1\c\error.h”，第 1296 行)
+   要解决此问题，请尝试简化或更改上面所列位置附近的程序。
+  如果可以，请在此处提供重现步骤: https://developercommunity.visualstudio.com
+  请选择 Visual C++
+  “帮助”菜单上的“技术支持”命令，或打开技术支持帮助文件来获得详细信息。
+  Physics.cpp
+D:\Work\NoaEngine\NoaEngine\core\Actor.h(109,2): fatal  error C1001: 内部编译器错误。
+  (编译器文件“D:\a\_work\1\s\src\vctools\Compiler\CxxFE\sl\p1\c\error.h”，第 1296 行)
+   要解决此问题，请尝试简化或更改上面所列位置附近的程序。
+  如果可以，请在此处提供重现步骤: https://developercommunity.visualstudio.com
+  请选择 Visual C++
+  “帮助”菜单上的“技术支持”命令，或打开技术支持帮助文件来获得详细信息。
+  Renderer.cpp
+D:\Work\NoaEngine\NoaEngine\core\Actor.h(109,2): fatal  error C1001: 内部编译器错误。
+  (编译器文件“D:\a\_work\1\s\src\vctools\Compiler\CxxFE\sl\p1\c\error.h”，第 1296 行)
+   要解决此问题，请尝试简化或更改上面所列位置附近的程序。
+  如果可以，请在此处提供重现步骤: https://developercommunity.visualstudio.com
+  请选择 Visual C++
+  “帮助”菜单上的“技术支持”命令，或打开技术支持帮助文件来获得详细信息。
+  Resource.cpp
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
+D:\Work\NoaEngine\NoaEngine\core\include\glad\glad.h(32,1): message : 参见“APIENTRY”的前一个定义
+D:\Work\NoaEngine\NoaEngine\core\Graphic.h(28,1): warning C4005: “LOBYTE”: 宏重定义
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(206,1): message : 参见“LOBYTE”的前一个定义
+D:\Work\NoaEngine\NoaEngine\core\Graphic.h(33,1): warning C4005: “RGB”: 宏重定义
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1859,1): message : 参见“RGB”的前一个定义
+D:\Work\NoaEngine\NoaEngine\core\Graphic.h(36,1): warning C4005: “GetGValue”: 宏重定义
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1870,1): message : 参见“GetGValue”的前一个定义
+D:\Work\NoaEngine\NoaEngine\core\Actor.h(109,2): fatal  error C1001: 内部编译器错误。
+  (编译器文件“D:\a\_work\1\s\src\vctools\Compiler\CxxFE\sl\p1\c\error.h”，第 1296 行)
+   要解决此问题，请尝试简化或更改上面所列位置附近的程序。
+  如果可以，请在此处提供重现步骤: https://developercommunity.visualstudio.com
+  请选择 Visual C++
+  “帮助”菜单上的“技术支持”命令，或打开技术支持帮助文件来获得详细信息。
+  Scene.cpp
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
+D:\Work\NoaEngine\NoaEngine\core\include\glad\glad.h(32,1): message : 参见“APIENTRY”的前一个定义
+D:\Work\NoaEngine\NoaEngine\core\Graphic.h(28,1): warning C4005: “LOBYTE”: 宏重定义
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(206,1): message : 参见“LOBYTE”的前一个定义
+D:\Work\NoaEngine\NoaEngine\core\Graphic.h(33,1): warning C4005: “RGB”: 宏重定义
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1859,1): message : 参见“RGB”的前一个定义
+D:\Work\NoaEngine\NoaEngine\core\Graphic.h(36,1): warning C4005: “GetGValue”: 宏重定义
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1870,1): message : 参见“GetGValue”的前一个定义
+D:\Work\NoaEngine\NoaEngine\core\Actor.h(109,2): fatal  error C1001: 内部编译器错误。
+  (编译器文件“D:\a\_work\1\s\src\vctools\Compiler\CxxFE\sl\p1\c\error.h”，第 1296 行)
+   要解决此问题，请尝试简化或更改上面所列位置附近的程序。
+  如果可以，请在此处提供重现步骤: https://developercommunity.visualstudio.com
+  请选择 Visual C++
+  “帮助”菜单上的“技术支持”命令，或打开技术支持帮助文件来获得详细信息。
+  Sprite.cpp
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
+D:\Work\NoaEngine\NoaEngine\core\include\glad\glad.h(32,1): message : 参见“APIENTRY”的前一个定义
+D:\Work\NoaEngine\NoaEngine\core\Graphic.h(28,1): warning C4005: “LOBYTE”: 宏重定义
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(206,1): message : 参见“LOBYTE”的前一个定义
+D:\Work\NoaEngine\NoaEngine\core\Graphic.h(33,1): warning C4005: “RGB”: 宏重定义
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1859,1): message : 参见“RGB”的前一个定义
+D:\Work\NoaEngine\NoaEngine\core\Graphic.h(36,1): warning C4005: “GetGValue”: 宏重定义
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1870,1): message : 参见“GetGValue”的前一个定义
+D:\Work\NoaEngine\NoaEngine\core\Actor.h(109,2): fatal  error C1001: 内部编译器错误。
+  (编译器文件“D:\a\_work\1\s\src\vctools\Compiler\CxxFE\sl\p1\c\error.h”，第 1296 行)
+   要解决此问题，请尝试简化或更改上面所列位置附近的程序。
+  如果可以，请在此处提供重现步骤: https://developercommunity.visualstudio.com
+  请选择 Visual C++
+  “帮助”菜单上的“技术支持”命令，或打开技术支持帮助文件来获得详细信息。
+  StateMachine.cpp
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
+D:\Work\NoaEngine\NoaEngine\core\include\glad\glad.h(32,1): message : 参见“APIENTRY”的前一个定义
+D:\Work\NoaEngine\NoaEngine\core\Graphic.h(28,1): warning C4005: “LOBYTE”: 宏重定义
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(206,1): message : 参见“LOBYTE”的前一个定义
+D:\Work\NoaEngine\NoaEngine\core\Graphic.h(33,1): warning C4005: “RGB”: 宏重定义
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1859,1): message : 参见“RGB”的前一个定义
+D:\Work\NoaEngine\NoaEngine\core\Graphic.h(36,1): warning C4005: “GetGValue”: 宏重定义
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1870,1): message : 参见“GetGValue”的前一个定义
+D:\Work\NoaEngine\NoaEngine\core\Actor.h(109,2): fatal  error C1001: 内部编译器错误。
+  (编译器文件“D:\a\_work\1\s\src\vctools\Compiler\CxxFE\sl\p1\c\error.h”，第 1296 行)
+   要解决此问题，请尝试简化或更改上面所列位置附近的程序。
+  如果可以，请在此处提供重现步骤: https://developercommunity.visualstudio.com
+  请选择 Visual C++
+  “帮助”菜单上的“技术支持”命令，或打开技术支持帮助文件来获得详细信息。
+  Bullet.cpp
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
+D:\Work\NoaEngine\NoaEngine\core\include\glad\glad.h(32,1): message : 参见“APIENTRY”的前一个定义
+D:\Work\NoaEngine\NoaEngine\core\Graphic.h(28,1): warning C4005: “LOBYTE”: 宏重定义
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(206,1): message : 参见“LOBYTE”的前一个定义
+D:\Work\NoaEngine\NoaEngine\core\Graphic.h(33,1): warning C4005: “RGB”: 宏重定义
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1859,1): message : 参见“RGB”的前一个定义
+D:\Work\NoaEngine\NoaEngine\core\Graphic.h(36,1): warning C4005: “GetGValue”: 宏重定义
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1870,1): message : 参见“GetGValue”的前一个定义
+D:\Work\NoaEngine\NoaEngine\core\Actor.h(109,2): fatal  error C1001: 内部编译器错误。
+  (编译器文件“D:\a\_work\1\s\src\vctools\Compiler\CxxFE\sl\p1\c\error.h”，第 1296 行)
+   要解决此问题，请尝试简化或更改上面所列位置附近的程序。
+  如果可以，请在此处提供重现步骤: https://developercommunity.visualstudio.com
+  请选择 Visual C++
+  “帮助”菜单上的“技术支持”命令，或打开技术支持帮助文件来获得详细信息。
+  Caco.cpp
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
+D:\Work\NoaEngine\NoaEngine\core\include\glad\glad.h(32,1): message : 参见“APIENTRY”的前一个定义
+D:\Work\NoaEngine\NoaEngine\core\Graphic.h(28,1): warning C4005: “LOBYTE”: 宏重定义
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(206,1): message : 参见“LOBYTE”的前一个定义
+D:\Work\NoaEngine\NoaEngine\core\Graphic.h(33,1): warning C4005: “RGB”: 宏重定义
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1859,1): message : 参见“RGB”的前一个定义
+D:\Work\NoaEngine\NoaEngine\core\Graphic.h(36,1): warning C4005: “GetGValue”: 宏重定义
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1870,1): message : 参见“GetGValue”的前一个定义
+D:\Work\NoaEngine\NoaEngine\core\Actor.h(109,2): fatal  error C1001: 内部编译器错误。
+  (编译器文件“D:\a\_work\1\s\src\vctools\Compiler\CxxFE\sl\p1\c\error.h”，第 1296 行)
+   要解决此问题，请尝试简化或更改上面所列位置附近的程序。
+  如果可以，请在此处提供重现步骤: https://developercommunity.visualstudio.com
+  请选择 Visual C++
+  “帮助”菜单上的“技术支持”命令，或打开技术支持帮助文件来获得详细信息。
+  CacoState.cpp
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
+D:\Work\NoaEngine\NoaEngine\core\include\glad\glad.h(32,1): message : 参见“APIENTRY”的前一个定义
+D:\Work\NoaEngine\NoaEngine\core\Graphic.h(28,1): warning C4005: “LOBYTE”: 宏重定义
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(206,1): message : 参见“LOBYTE”的前一个定义
+D:\Work\NoaEngine\NoaEngine\core\Graphic.h(33,1): warning C4005: “RGB”: 宏重定义
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1859,1): message : 参见“RGB”的前一个定义
+D:\Work\NoaEngine\NoaEngine\core\Graphic.h(36,1): warning C4005: “GetGValue”: 宏重定义
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1870,1): message : 参见“GetGValue”的前一个定义
+D:\Work\NoaEngine\NoaEngine\core\Actor.h(109,2): fatal  error C1001: 内部编译器错误。
+  (编译器文件“D:\a\_work\1\s\src\vctools\Compiler\CxxFE\sl\p1\c\error.h”，第 1296 行)
+   要解决此问题，请尝试简化或更改上面所列位置附近的程序。
+  如果可以，请在此处提供重现步骤: https://developercommunity.visualstudio.com
+  请选择 Visual C++
+  “帮助”菜单上的“技术支持”命令，或打开技术支持帮助文件来获得详细信息。
+  Enimy.cpp
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
+D:\Work\NoaEngine\NoaEngine\core\include\glad\glad.h(32,1): message : 参见“APIENTRY”的前一个定义
+D:\Work\NoaEngine\NoaEngine\core\Graphic.h(28,1): warning C4005: “LOBYTE”: 宏重定义
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(206,1): message : 参见“LOBYTE”的前一个定义
+D:\Work\NoaEngine\NoaEngine\core\Graphic.h(33,1): warning C4005: “RGB”: 宏重定义
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1859,1): message : 参见“RGB”的前一个定义
+D:\Work\NoaEngine\NoaEngine\core\Graphic.h(36,1): warning C4005: “GetGValue”: 宏重定义
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1870,1): message : 参见“GetGValue”的前一个定义
+D:\Work\NoaEngine\NoaEngine\core\Actor.h(109,2): fatal  error C1001: 内部编译器错误。
+  (编译器文件“D:\a\_work\1\s\src\vctools\Compiler\CxxFE\sl\p1\c\error.h”，第 1296 行)
+   要解决此问题，请尝试简化或更改上面所列位置附近的程序。
+  如果可以，请在此处提供重现步骤: https://developercommunity.visualstudio.com
+  请选择 Visual C++
+  “帮助”菜单上的“技术支持”命令，或打开技术支持帮助文件来获得详细信息。
+  正在编译...
+  Gun.cpp
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
+D:\Work\NoaEngine\NoaEngine\core\include\glad\glad.h(32,1): message : 参见“APIENTRY”的前一个定义
+D:\Work\NoaEngine\NoaEngine\core\Graphic.h(28,1): warning C4005: “LOBYTE”: 宏重定义
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(206,1): message : 参见“LOBYTE”的前一个定义
+D:\Work\NoaEngine\NoaEngine\core\Graphic.h(33,1): warning C4005: “RGB”: 宏重定义
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1859,1): message : 参见“RGB”的前一个定义
+D:\Work\NoaEngine\NoaEngine\core\Graphic.h(36,1): warning C4005: “GetGValue”: 宏重定义
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1870,1): message : 参见“GetGValue”的前一个定义
+D:\Work\NoaEngine\NoaEngine\core\Actor.h(109,2): fatal  error C1001: 内部编译器错误。
+  (编译器文件“D:\a\_work\1\s\src\vctools\Compiler\CxxFE\sl\p1\c\error.h”，第 1296 行)
+   要解决此问题，请尝试简化或更改上面所列位置附近的程序。
+  如果可以，请在此处提供重现步骤: https://developercommunity.visualstudio.com
+  请选择 Visual C++
+  “帮助”菜单上的“技术支持”命令，或打开技术支持帮助文件来获得详细信息。
+  Item.cpp
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
+D:\Work\NoaEngine\NoaEngine\core\include\glad\glad.h(32,1): message : 参见“APIENTRY”的前一个定义
+D:\Work\NoaEngine\NoaEngine\core\Graphic.h(28,1): warning C4005: “LOBYTE”: 宏重定义
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(206,1): message : 参见“LOBYTE”的前一个定义
+D:\Work\NoaEngine\NoaEngine\core\Graphic.h(33,1): warning C4005: “RGB”: 宏重定义
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1859,1): message : 参见“RGB”的前一个定义
+D:\Work\NoaEngine\NoaEngine\core\Graphic.h(36,1): warning C4005: “GetGValue”: 宏重定义
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1870,1): message : 参见“GetGValue”的前一个定义
+D:\Work\NoaEngine\NoaEngine\core\Actor.h(109,2): fatal  error C1001: 内部编译器错误。
+  (编译器文件“D:\a\_work\1\s\src\vctools\Compiler\CxxFE\sl\p1\c\error.h”，第 1296 行)
+   要解决此问题，请尝试简化或更改上面所列位置附近的程序。
+  如果可以，请在此处提供重现步骤: https://developercommunity.visualstudio.com
+  请选择 Visual C++
+  “帮助”菜单上的“技术支持”命令，或打开技术支持帮助文件来获得详细信息。
+  Level00.cpp
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
+D:\Work\NoaEngine\NoaEngine\core\include\glad\glad.h(32,1): message : 参见“APIENTRY”的前一个定义
+D:\Work\NoaEngine\NoaEngine\core\Graphic.h(28,1): warning C4005: “LOBYTE”: 宏重定义
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(206,1): message : 参见“LOBYTE”的前一个定义
+D:\Work\NoaEngine\NoaEngine\core\Graphic.h(33,1): warning C4005: “RGB”: 宏重定义
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1859,1): message : 参见“RGB”的前一个定义
+D:\Work\NoaEngine\NoaEngine\core\Graphic.h(36,1): warning C4005: “GetGValue”: 宏重定义
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1870,1): message : 参见“GetGValue”的前一个定义
+D:\Work\NoaEngine\NoaEngine\core\Actor.h(109,2): fatal  error C1001: 内部编译器错误。
+  (编译器文件“D:\a\_work\1\s\src\vctools\Compiler\CxxFE\sl\p1\c\error.h”，第 1296 行)
+   要解决此问题，请尝试简化或更改上面所列位置附近的程序。
+  如果可以，请在此处提供重现步骤: https://developercommunity.visualstudio.com
+  请选择 Visual C++
+  “帮助”菜单上的“技术支持”命令，或打开技术支持帮助文件来获得详细信息。
+  Level01.cpp
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
+D:\Work\NoaEngine\NoaEngine\core\include\glad\glad.h(32,1): message : 参见“APIENTRY”的前一个定义
+D:\Work\NoaEngine\NoaEngine\core\Graphic.h(28,1): warning C4005: “LOBYTE”: 宏重定义
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(206,1): message : 参见“LOBYTE”的前一个定义
+D:\Work\NoaEngine\NoaEngine\core\Graphic.h(33,1): warning C4005: “RGB”: 宏重定义
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1859,1): message : 参见“RGB”的前一个定义
+D:\Work\NoaEngine\NoaEngine\core\Graphic.h(36,1): warning C4005: “GetGValue”: 宏重定义
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1870,1): message : 参见“GetGValue”的前一个定义
+D:\Work\NoaEngine\NoaEngine\core\Actor.h(109,2): fatal  error C1001: 内部编译器错误。
+  (编译器文件“D:\a\_work\1\s\src\vctools\Compiler\CxxFE\sl\p1\c\error.h”，第 1296 行)
+   要解决此问题，请尝试简化或更改上面所列位置附近的程序。
+  如果可以，请在此处提供重现步骤: https://developercommunity.visualstudio.com
+  请选择 Visual C++
+  “帮助”菜单上的“技术支持”命令，或打开技术支持帮助文件来获得详细信息。
+  LiveEntity.cpp
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
+D:\Work\NoaEngine\NoaEngine\core\include\glad\glad.h(32,1): message : 参见“APIENTRY”的前一个定义
+D:\Work\NoaEngine\NoaEngine\core\Graphic.h(28,1): warning C4005: “LOBYTE”: 宏重定义
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(206,1): message : 参见“LOBYTE”的前一个定义
+D:\Work\NoaEngine\NoaEngine\core\Graphic.h(33,1): warning C4005: “RGB”: 宏重定义
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1859,1): message : 参见“RGB”的前一个定义
+D:\Work\NoaEngine\NoaEngine\core\Graphic.h(36,1): warning C4005: “GetGValue”: 宏重定义
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1870,1): message : 参见“GetGValue”的前一个定义
+D:\Work\NoaEngine\NoaEngine\core\Actor.h(109,2): fatal  error C1001: 内部编译器错误。
+  (编译器文件“D:\a\_work\1\s\src\vctools\Compiler\CxxFE\sl\p1\c\error.h”，第 1296 行)
+   要解决此问题，请尝试简化或更改上面所列位置附近的程序。
+  如果可以，请在此处提供重现步骤: https://developercommunity.visualstudio.com
+  请选择 Visual C++
+  “帮助”菜单上的“技术支持”命令，或打开技术支持帮助文件来获得详细信息。
+  M4A1.cpp
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
+D:\Work\NoaEngine\NoaEngine\core\include\glad\glad.h(32,1): message : 参见“APIENTRY”的前一个定义
+D:\Work\NoaEngine\NoaEngine\core\Graphic.h(28,1): warning C4005: “LOBYTE”: 宏重定义
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(206,1): message : 参见“LOBYTE”的前一个定义
+D:\Work\NoaEngine\NoaEngine\core\Graphic.h(33,1): warning C4005: “RGB”: 宏重定义
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1859,1): message : 参见“RGB”的前一个定义
+D:\Work\NoaEngine\NoaEngine\core\Graphic.h(36,1): warning C4005: “GetGValue”: 宏重定义
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1870,1): message : 参见“GetGValue”的前一个定义
+D:\Work\NoaEngine\NoaEngine\core\Actor.h(109,2): fatal  error C1001: 内部编译器错误。
+  (编译器文件“D:\a\_work\1\s\src\vctools\Compiler\CxxFE\sl\p1\c\error.h”，第 1296 行)
+   要解决此问题，请尝试简化或更改上面所列位置附近的程序。
+  如果可以，请在此处提供重现步骤: https://developercommunity.visualstudio.com
+  请选择 Visual C++
+  “帮助”菜单上的“技术支持”命令，或打开技术支持帮助文件来获得详细信息。
+  Pistol.cpp
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
+D:\Work\NoaEngine\NoaEngine\core\include\glad\glad.h(32,1): message : 参见“APIENTRY”的前一个定义
+D:\Work\NoaEngine\NoaEngine\core\Graphic.h(28,1): warning C4005: “LOBYTE”: 宏重定义
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(206,1): message : 参见“LOBYTE”的前一个定义
+D:\Work\NoaEngine\NoaEngine\core\Graphic.h(33,1): warning C4005: “RGB”: 宏重定义
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1859,1): message : 参见“RGB”的前一个定义
+D:\Work\NoaEngine\NoaEngine\core\Graphic.h(36,1): warning C4005: “GetGValue”: 宏重定义
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1870,1): message : 参见“GetGValue”的前一个定义
+D:\Work\NoaEngine\NoaEngine\core\Actor.h(109,2): fatal  error C1001: 内部编译器错误。
+  (编译器文件“D:\a\_work\1\s\src\vctools\Compiler\CxxFE\sl\p1\c\error.h”，第 1296 行)
+   要解决此问题，请尝试简化或更改上面所列位置附近的程序。
+  如果可以，请在此处提供重现步骤: https://developercommunity.visualstudio.com
+  请选择 Visual C++
+  “帮助”菜单上的“技术支持”命令，或打开技术支持帮助文件来获得详细信息。
+  Player.cpp
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
+D:\Work\NoaEngine\NoaEngine\core\include\glad\glad.h(32,1): message : 参见“APIENTRY”的前一个定义
+D:\Work\NoaEngine\NoaEngine\core\Graphic.h(28,1): warning C4005: “LOBYTE”: 宏重定义
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(206,1): message : 参见“LOBYTE”的前一个定义
+D:\Work\NoaEngine\NoaEngine\core\Graphic.h(33,1): warning C4005: “RGB”: 宏重定义
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1859,1): message : 参见“RGB”的前一个定义
+D:\Work\NoaEngine\NoaEngine\core\Graphic.h(36,1): warning C4005: “GetGValue”: 宏重定义
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1870,1): message : 参见“GetGValue”的前一个定义
+D:\Work\NoaEngine\NoaEngine\core\Actor.h(109,2): fatal  error C1001: 内部编译器错误。
+  (编译器文件“D:\a\_work\1\s\src\vctools\Compiler\CxxFE\sl\p1\c\error.h”，第 1296 行)
+   要解决此问题，请尝试简化或更改上面所列位置附近的程序。
+  如果可以，请在此处提供重现步骤: https://developercommunity.visualstudio.com
+  请选择 Visual C++
+  “帮助”菜单上的“技术支持”命令，或打开技术支持帮助文件来获得详细信息。
+  Shotgun.cpp
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
+D:\Work\NoaEngine\NoaEngine\core\include\glad\glad.h(32,1): message : 参见“APIENTRY”的前一个定义
+D:\Work\NoaEngine\NoaEngine\core\Graphic.h(28,1): warning C4005: “LOBYTE”: 宏重定义
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(206,1): message : 参见“LOBYTE”的前一个定义
+D:\Work\NoaEngine\NoaEngine\core\Graphic.h(33,1): warning C4005: “RGB”: 宏重定义
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1859,1): message : 参见“RGB”的前一个定义
+D:\Work\NoaEngine\NoaEngine\core\Graphic.h(36,1): warning C4005: “GetGValue”: 宏重定义
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1870,1): message : 参见“GetGValue”的前一个定义
+D:\Work\NoaEngine\NoaEngine\core\Actor.h(109,2): fatal  error C1001: 内部编译器错误。
+  (编译器文件“D:\a\_work\1\s\src\vctools\Compiler\CxxFE\sl\p1\c\error.h”，第 1296 行)
+   要解决此问题，请尝试简化或更改上面所列位置附近的程序。
+  如果可以，请在此处提供重现步骤: https://developercommunity.visualstudio.com
+  请选择 Visual C++
+  “帮助”菜单上的“技术支持”命令，或打开技术支持帮助文件来获得详细信息。
+  WolfResource.cpp
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
+D:\Work\NoaEngine\NoaEngine\core\include\glad\glad.h(32,1): message : 参见“APIENTRY”的前一个定义
+D:\Work\NoaEngine\NoaEngine\core\Graphic.h(28,1): warning C4005: “LOBYTE”: 宏重定义
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(206,1): message : 参见“LOBYTE”的前一个定义
+D:\Work\NoaEngine\NoaEngine\core\Graphic.h(33,1): warning C4005: “RGB”: 宏重定义
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1859,1): message : 参见“RGB”的前一个定义
+D:\Work\NoaEngine\NoaEngine\core\Graphic.h(36,1): warning C4005: “GetGValue”: 宏重定义
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1870,1): message : 参见“GetGValue”的前一个定义
+D:\Work\NoaEngine\NoaEngine\core\Actor.h(109,2): fatal  error C1001: 内部编译器错误。
+  (编译器文件“D:\a\_work\1\s\src\vctools\Compiler\CxxFE\sl\p1\c\error.h”，第 1296 行)
+   要解决此问题，请尝试简化或更改上面所列位置附近的程序。
+  如果可以，请在此处提供重现步骤: https://developercommunity.visualstudio.com
+  请选择 Visual C++
+  “帮助”菜单上的“技术支持”命令，或打开技术支持帮助文件来获得详细信息。
+  main.cpp
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
+D:\Work\NoaEngine\NoaEngine\core\include\glad\glad.h(32,1): message : 参见“APIENTRY”的前一个定义
+D:\Work\NoaEngine\NoaEngine\core\Graphic.h(28,1): warning C4005: “LOBYTE”: 宏重定义
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(206,1): message : 参见“LOBYTE”的前一个定义
+D:\Work\NoaEngine\NoaEngine\core\Graphic.h(33,1): warning C4005: “RGB”: 宏重定义
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1859,1): message : 参见“RGB”的前一个定义
+D:\Work\NoaEngine\NoaEngine\core\Graphic.h(36,1): warning C4005: “GetGValue”: 宏重定义
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1870,1): message : 参见“GetGValue”的前一个定义
+D:\Work\NoaEngine\NoaEngine\core\Actor.h(109,2): fatal  error C1001: 内部编译器错误。
+  (编译器文件“D:\a\_work\1\s\src\vctools\Compiler\CxxFE\sl\p1\c\error.h”，第 1296 行)
+   要解决此问题，请尝试简化或更改上面所列位置附近的程序。
+  如果可以，请在此处提供重现步骤: https://developercommunity.visualstudio.com
+  请选择 Visual C++
+  “帮助”菜单上的“技术支持”命令，或打开技术支持帮助文件来获得详细信息。

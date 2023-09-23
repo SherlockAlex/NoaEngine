@@ -264,7 +264,7 @@ namespace noa
 		for (auto e : this->actors)
 		{
 			
-			if (e.second == nullptr||(!e.second->GetActive()))
+			if (e.second == nullptr)
 			{
 				continue;
 			}
@@ -279,7 +279,7 @@ namespace noa
 		for (auto e : this->rigidbodys)
 		{
 			
-			if (e.second == nullptr||(!e.second->GetActive()))
+			if (e.second == nullptr)
 			{
 				continue;
 			}
@@ -290,7 +290,7 @@ namespace noa
 		for (auto e : this->actors)
 		{
 			
-			if (e.second == nullptr||(!e.second->GetActive()))
+			if (e.second == nullptr)
 			{
 				continue;
 			}
