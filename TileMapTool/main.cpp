@@ -1,40 +1,24 @@
 #include <iostream>
-#include <fstream>
-#include <string>
+#include <vector>
+#include <algorithm>
 
-using namespace std;
+int main() {
+    std::vector<int> vec = { 1, 2, 2, 3, 4, 4, 4, 5, 6, 6 ,1,1,3,2,5,5,6,1,1,0};
 
-class B;
-class A;
-class A {
-public:
-	B* b = nullptr;
-};
+    // 对向量进行排序
+    std::sort(vec.begin(), vec.end());
 
-class B {
-public:
-	A* a = nullptr;
-};
+    // 使用 std::unique() 函数删除重复元素
+    auto new_end = std::unique(vec.begin(), vec.end());
 
-class C {
-public:
-	A* a = nullptr;
-};
+    // 删除多余的元素
+    vec.erase(new_end, vec.end());
 
-int main(int argc,char * argv)
-{
-	A* a = new A();
-	B* b = new B();
-	C* c = new C();
+    // 输出结果
+    for (int num : vec) {
+        std::cout << num << " ";
+    }
+    std::cout << std::endl;
 
-	a->b = b;
-	b->a = a;
-	c->a = a;
-
-	delete a;
-
-	cout << "6" << endl;
-
-	return 0;
-
+    return 0;
 }

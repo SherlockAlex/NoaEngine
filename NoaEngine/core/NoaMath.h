@@ -164,5 +164,6 @@ inline bool ContainKey(const std::map<KeyType, ValueType>& myMap, const KeyType&
 	return myMap.count(keyToCheck) > 0;
 }
 
+
 #endif
 

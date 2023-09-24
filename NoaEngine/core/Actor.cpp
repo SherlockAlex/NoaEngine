@@ -1,6 +1,7 @@
 #include "Actor.h"
 #include "NoaEngine.h"
 #include "ActorComponent.h"
+#include "Physics.h"
 
 #include <queue>
 #include <list>
@@ -39,6 +40,7 @@ namespace noa
 	Actor::~Actor()
 	{
 		DestroyComponent();
+		DestroyRigidbody();
 		Debug("Remove actor");
 	}
 
@@ -50,6 +52,7 @@ namespace noa
 		}
 		components.push_back(component);
 
+		std::sort(components.begin(), components.end());
 		auto last = std::unique(components.begin(), components.end());
 		components.erase(last,components.end());
 
@@ -134,6 +137,10 @@ namespace noa
 			return;
 		}
 
+		std::sort(components.begin(),components.end());
+		auto last = std::unique(components.begin(),components.end());
+		components.erase(last,components.end());
+
 		for (int i = 0; i < components.size(); i++)
 		{
 			if (components[i] == nullptr)
@@ -144,6 +151,56 @@ namespace noa
 			components[i]->Delete();
 		}
 		components.clear();
+	}
+
+	void Actor::AddRigidbody(Rigidbody* rigid)
+	{
+		if (rigid==nullptr)
+		{
+			return;
+		}
+		rigidbodys.push_back(rigid);
+
+		std::sort(rigidbodys.begin(), rigidbodys.end());
+		auto last = std::unique(rigidbodys.begin(), rigidbodys.end());
+		rigidbodys.erase(last, rigidbodys.end());
+
+	}
+
+	void Actor::RemoveRigidbody(Rigidbody* rigid)
+	{
+		if (rigid == nullptr)
+		{
+			return;
+		}
+
+		std::sort(rigidbodys.begin(), rigidbodys.end());
+		auto last = std::unique(rigidbodys.begin(), rigidbodys.end());
+		rigidbodys.erase(last, rigidbodys.end());
+
+		auto item = std::remove(rigidbodys.begin(),rigidbodys.end(),rigid);
+		rigidbodys.erase(item,rigidbodys.end());
+
+	}
+
+	void Actor::DestroyRigidbody()
+	{
+		if (rigidbodys.empty()) 
+		{
+			return;
+		}
+
+		for (int i=0;i<rigidbodys.size();i++) 
+		{
+			if (rigidbodys[i]==nullptr)
+			{
+				continue;
+			}
+			rigidbodys[i]->Destroy();
+			rigidbodys[i] = nullptr;
+		}
+		rigidbodys.clear();
+
 	}
 
 	Actor* Actor::Create(Scene* activeScene)
@@ -159,12 +216,18 @@ namespace noa
 	//销毁游戏物品
 	void Actor::Destroy()
 	{
-		OnDisable();
+		SetActive(false);
+		//OnDisable();
+		DestroyRigidbody();
 		activeScene->RemoveActor(this);
 	}
 
 	void Actor::SetActive(bool value)
 	{
+		if (isActive == value) 
+		{
+			return;
+		}
 		isActive = value;
 		if (isActive)
 		{

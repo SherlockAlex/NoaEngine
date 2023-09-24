@@ -21,6 +21,7 @@ public:
 	AnimationFrame cacoPainFrame = AnimationFrame("./Assets/Wolf/soldier-pain.amt");
 	AnimationFrame cacoDieFrame = AnimationFrame("./Assets/Wolf/soldier-die.amt");
 
+	AnimationFrame bulletDestroyFrame = AnimationFrame("./Assets/Wolf/firebomb-destroy.amt");
 
 	Sprite sky = Sprite(resource.LoadSprFile("./Assets/Wolf/sky-sun.spr"), Vector<int>(1.0, 1.0));
 

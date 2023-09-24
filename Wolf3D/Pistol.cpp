@@ -11,7 +11,7 @@ Pistol::Pistol(Player* player, int* bulletCount, FreeCamera* camera):Gun(bulletC
 
 	this->audio = new Audio("./Assets/Wolf/Music/p228-1.wav", Chunk);
 
-	this->animation = Animation::Create(player,20, false);
+	this->animation = Animation::Create(player,30, false);
 	//animation->LoadFromAnimationFile("./Assets/Wolf/lgun-shot.amt");
 	animation->SetFrame(&wolfResource->pistolFrame);
 	animation->SetFrameEvent(1, [this]()

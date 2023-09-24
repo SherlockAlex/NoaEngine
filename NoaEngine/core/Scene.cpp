@@ -179,7 +179,8 @@ namespace noa
 		{
 			return;
 		}
-
+		actor->SetActive(false);
+		actor->OnDestroy();
 		actors[actor->GetHash()] = nullptr;
 		destroyActors.push_back(actor);
 		/*auto it = find(destroyActors.begin(),destroyActors.end(),actor);
@@ -229,13 +230,13 @@ namespace noa
 		{
 			return;
 		}
+		if (rigidbodys.count(rigid->GetHashCode())<0)
+		{
+			//如果这个rigidbody以及被移除了
+			return;
+		}
 		rigidbodys[rigid->GetHashCode()] = nullptr;
 		destroyRigids.push_back(rigid);
-		/*auto it = find(destroyRigids.begin(),destroyRigids.end(),rigid);
-		if (it == destroyRigids.end())
-		{
-			destroyRigids.push_back(rigid);
-		}*/
 	}
 
 	void Scene::ActorAwake()
@@ -298,7 +299,7 @@ namespace noa
 		
 		for (auto i = rigidbodys.begin();i!=rigidbodys.end();i++) 
 		{
-			if (i->second == nullptr||(!i->second->GetActive()))
+			if (i->second == nullptr)
 			{
 				continue;
 			}
@@ -365,9 +366,11 @@ namespace noa
 			}
 		}
 
+		std::sort(destroyRigids.begin(),destroyRigids.end());
 		auto rigidLast = std::unique(destroyRigids.begin(), destroyRigids.end());
 		destroyRigids.erase(rigidLast, destroyRigids.end());
 
+		std::sort(destroyActors.begin(), destroyActors.end());
 		auto actorLast = std::unique(destroyActors.begin(), destroyActors.end());
 		destroyActors.erase(actorLast, destroyActors.end());
 
@@ -387,7 +390,6 @@ namespace noa
 			{
 				continue;
 			}
-			destroyActors[i]->OnDestroy();
 			destroyActors[i]->Delete();
 		}
 
@@ -415,6 +417,7 @@ namespace noa
 			return;
 		}
 
+		std::sort(destroyScriptableActors.begin(), destroyScriptableActors.end());
 		auto last = std::unique(destroyScriptableActors.begin(), destroyScriptableActors.end());
 		destroyScriptableActors.erase(last, destroyScriptableActors.end());
 

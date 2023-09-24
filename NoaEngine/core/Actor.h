@@ -13,6 +13,7 @@ namespace noa {
 	class Transform;
 	class Scene;
 	class ActorComponent;
+	class Rigidbody;
 
 	/// <summary>
 	/// 活动类，可以在Scene中游戏物品，其类及其子类只能分配在堆上
@@ -24,6 +25,7 @@ namespace noa {
 		bool isActive = true;
 
 		std::vector<ActorComponent*> components;
+		std::vector<Rigidbody*> rigidbodys;
 
 	public:
 		Transform transform;
@@ -97,6 +99,10 @@ namespace noa {
 		void ComponentOnDestroy();
 
 		void DestroyComponent();
+
+		void AddRigidbody(Rigidbody* rigid);
+		void RemoveRigidbody(Rigidbody* rigid);
+		void DestroyRigidbody();
 
 	private:
 		size_t id;

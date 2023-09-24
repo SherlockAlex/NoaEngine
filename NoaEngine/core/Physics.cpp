@@ -27,6 +27,7 @@ namespace noa
 		this->velocity = { 0,0 };
 		invMass = 1.0 / mass;
 		actor->GetActiveScene()->AddRigidbody(this);
+		actor->AddRigidbody(this);
 		//sceneManager.AddRigidbody(this);
 	}
 
@@ -36,6 +37,10 @@ namespace noa
 	Rigidbody::~Rigidbody()
 	{
 		Debug("Destory rigidBody");
+		if (actor!=nullptr) 
+		{
+			actor->RemoveRigidbody(this);
+		}
 	}
 
 	void Rigidbody::Start()
@@ -46,6 +51,10 @@ namespace noa
 	//实现物理效果
 	void Rigidbody::Update()
 	{
+		if (!active) 
+		{
+			return;
+		}
 		
 		const int x = this->actor->transform.position.x;
 		const int y = this->actor->transform.position.y;
@@ -215,6 +224,8 @@ namespace noa
 
 	void Rigidbody::Destroy()
 	{
+		Debug("Remove rigidbody");
+		//会出现这个已经被销毁，但还是被访问
 		this->actor->GetActiveScene()->RemoveRigidbody(this);
 	}
 

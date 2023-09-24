@@ -5,8 +5,10 @@ class Bullet:public GameObject
 {
 public:
 	Rigidbody* rigid = Rigidbody::Create(this);
+	Animation* animation = Animation::Create(this, 20, false);
 	Vector<float> dir = {0,0};
 	float speed = 9;
+	
 
 protected:
 	Bullet(Scene* scene, Sprite* sprite);

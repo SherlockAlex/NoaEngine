@@ -29,7 +29,6 @@ void Item::OnTrigger(Collision other)
 	{
 		//这个地方有问题
 		pickEvent.Invoke();
-		this->rigid->Destroy();
 		Destroy();
 		Debug("Pick up the bullet");
 	}
