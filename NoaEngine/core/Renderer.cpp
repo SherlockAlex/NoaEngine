@@ -5,6 +5,9 @@
 
 namespace noa {
 	extern void Debug(string msg);
+	
+
+
 
 	FontAsset fontAsset("./Assets/font/font.tsd");
 
@@ -29,7 +32,7 @@ namespace noa {
 	void Renderer::DrawPixel(const uint32_t x, const uint32_t y, const uint32_t color) const
 	{
 		//µ×²ãµÄ»æÍ¼´úÂë£¬µ÷ÓÃÆµ·±
-		if (x>=pixelWidth||y>=pixelHeight||pixelBuffer == nullptr)
+		if (x>=pixelWidth||y>=pixelHeight)
 		{
 			return;
 		}
@@ -49,7 +52,9 @@ namespace noa {
 
 		while (true)
 		{
-			DrawPixel(x1, y1, color);
+			//DrawPixel(x1, y1, color);
+
+			DRAWPIXEL(x1, y1, color);
 
 			if (x1 == x2 && y1 == y2)
 			{
@@ -92,8 +97,8 @@ namespace noa {
 
 		while (true)
 		{
-			DrawPixel(x1, y1, color);
-
+			//DrawPixel(x1, y1, color);
+			DRAWPIXEL(x1, y1, color);
 			if (x1 == x2 && y1 == y2)
 			{
 				break;
@@ -132,7 +137,8 @@ namespace noa {
 
 		for (int x = minX; x <= maxX; x++) {
 			for (int y = minY; y <= maxY; y++) {
-				DrawPixel(x, y, color);
+				DRAWPIXEL(x, y, color);
+				//DrawPixel(x, y, color);
 			}
 		}
 	}
@@ -160,7 +166,8 @@ namespace noa {
 				);
 				//const uint32_t color = RED;
 				const uint32_t color = sprite.GetTransposeColor(simple.y,simple.x);
-				DrawPixel(x, y, color);
+				DRAWPIXEL(x, y, color);
+				//DrawPixel(x, y, color);
 			}
 		}
 	}
@@ -192,7 +199,8 @@ namespace noa {
 					continue;
 				}
 
-				DrawPixel(x, y, mutiColor);
+				DRAWPIXEL(x, y, mutiColor);
+				//DrawPixel(x, y, mutiColor);
 			}
 		}
 	}
@@ -226,7 +234,7 @@ namespace noa {
 
 				color = RGB(GetRValue(color) * (GetRValue(mutiColor) / 255.0), GetGValue(color) * (GetGValue(mutiColor) / 255.0), GetBValue(color) * (GetBValue(mutiColor) / 255.0));
 
-				DrawPixel(x, y, color);
+				DRAWPIXEL(x, y, color);
 			}
 		}
 	}

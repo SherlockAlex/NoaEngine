@@ -225,12 +225,12 @@ namespace noa {
 		renderer.DrawString(text, transform.position.x, transform.position.y, textColor, size);
 	}
 
-	NoaCanvase::NoaCanvase(Scene* scene):Actor(scene)
+	UICanvas::UICanvas(Scene* scene):Actor(scene)
 	{
 
 	}
 
-	NoaCanvase::~NoaCanvase()
+	UICanvas::~UICanvas()
 	{
 		if (!this->uiComponent.empty())
 		{
@@ -248,17 +248,17 @@ namespace noa {
 		}
 	}
 
-	NoaCanvase* NoaCanvase::Create(Scene* scene)
+	UICanvas* UICanvas::Create(Scene* scene)
 	{
-		return new NoaCanvase(scene);
+		return new UICanvas(scene);
 	}
 
-	void NoaCanvase::Delete()
+	void UICanvas::Delete()
 	{
 		delete this;
 	}
 
-	void NoaCanvase::AddComponent(UIComponent* component)
+	void UICanvas::AddComponent(UIComponent* component)
 	{
 		if (component==nullptr)
 		{
@@ -268,7 +268,7 @@ namespace noa {
 		uiComponent.push_back(component);
 	}
 
-	void NoaCanvase::SetActive(bool active)
+	void UICanvas::SetActive(bool active)
 	{
 		Actor::SetActive(active);
 		for (int i=0;i<uiComponent.size();i++) 
@@ -277,7 +277,7 @@ namespace noa {
 		}
 	}
 
-	void NoaCanvase::Start()
+	void UICanvas::Start()
 	{
 		for (int i = 0; i < uiComponent.size(); i++)
 		{
@@ -285,7 +285,7 @@ namespace noa {
 		}
 	}
 
-	void NoaCanvase::Update()
+	void UICanvas::Update()
 	{
 		const int uiComponentCount = uiComponent.size();
 		for (int i=0;i< uiComponentCount;i++)

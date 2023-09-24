@@ -26,13 +26,15 @@ public:
 	Sprite sky = Sprite(resource.LoadSprFile("./Assets/Wolf/sky-sun.spr"), Vector<int>(1.0, 1.0));
 
 	//资源相关
-	Sprite mouse = Sprite(resource.LoadSprFile("./Assets/Wolf/mouse.spr"), Vector<int>(0.03 * pixelWidth, 0.03 * pixelWidth));
+	Sprite mouse = Sprite(resource.LoadSprFile("./Assets/Wolf/mouse.spr"), Vector<int>(0.02 * pixelWidth, 0.02 * pixelWidth));
 
 	//Sprite cacoSprite = Sprite(resource.LoadSprFile("./Assets/Wolf/caco.spr"), Vector<int>(32, 32));
 	Sprite cacoSprite = Sprite(Vector<int>(32, 32));
 
 	Sprite bulletSprite = Sprite(resource.LoadSprFile("./Assets/Wolf/bullet.spr"), Vector<int>(64, 64));
 	Sprite healthBoxSprite = Sprite(resource.LoadSprFile("./Assets/Wolf/health-box.spr"), Vector<int>(64, 64));
+
+	Sprite backgroundSprite = Sprite(resource.LoadSprFile("./Assets/Wolf/background.spr"), {pixelWidth,pixelHeight});
 
 	Audio * bulletPickUpSFX = new Audio("./Assets/Wolf/Music/pickUpBullet.mp3", Chunk);
 

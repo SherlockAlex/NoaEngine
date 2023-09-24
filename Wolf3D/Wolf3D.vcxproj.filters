@@ -24,9 +24,6 @@
     <ClCompile Include="main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="..\NoaEngine\core\src\glad.c">
-      <Filter>源文件\core</Filter>
-    </ClCompile>
     <ClCompile Include="..\NoaEngine\core\Animator.cpp">
       <Filter>源文件\core</Filter>
     </ClCompile>
@@ -123,6 +120,9 @@
     <ClCompile Include="..\NoaEngine\core\ActorComponent.cpp">
       <Filter>源文件\core</Filter>
     </ClCompile>
+    <ClCompile Include="MainMenuLevel.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\NoaEngine\core\Animator.h">
@@ -171,12 +171,6 @@
       <Filter>头文件\core</Filter>
     </ClInclude>
     <ClInclude Include="..\NoaEngine\core\Transform.h">
-      <Filter>头文件\core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\NoaEngine\core\include\glad\glad.h">
-      <Filter>头文件\core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\NoaEngine\core\include\KHR\khrplatform.h">
       <Filter>头文件\core</Filter>
     </ClInclude>
     <ClInclude Include="GameEngine.h">
@@ -233,5 +227,11 @@
     <ClInclude Include="..\NoaEngine\core\ActorComponent.h">
       <Filter>头文件\core</Filter>
     </ClInclude>
+    <ClInclude Include="MainMenuLevel.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>

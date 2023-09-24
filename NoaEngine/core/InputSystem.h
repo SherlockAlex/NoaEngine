@@ -1,6 +1,10 @@
 #ifndef NOAGAMEENGINE_INPUTSYSTEM_H
 #define NOAGAMEENGINE_INPUTSYSTEM_H
 
+#include <GL/glew.h>
+#include <GLFW/glfw3.h>
+#include <GL/glut.h>
+
 #include <SDL2/SDL.h>
 #include <functional>
 //Windows System
@@ -26,10 +30,17 @@ namespace noa {
 	extern SDL_Event ioEvent;
 
 	enum MOUSEKEY {
+		LeftButton = GLFW_MOUSE_BUTTON_LEFT,
+		MiddleButton = GLFW_MOUSE_BUTTON_RIGHT,
+		RightButton = GLFW_MOUSE_BUTTON_MIDDLE,
+		// 添加其他鼠标按钮
+	};
+
+	/*enum MOUSEKEY {
 		LeftButton = SDL_BUTTON_LEFT,
 		MiddleButton = SDL_BUTTON_MIDDLE,
 		RightButton = SDL_BUTTON_RIGHT
-	};
+	};*/
 
 	//按键映射
 	enum KEYCODE
@@ -100,10 +111,16 @@ namespace noa {
 	{
 	private:
 		//鼠标的位置信息
-		int mouseX = 0;
-		int mouseY = 0;
+		float mouseX = 0;
+		float mouseY = 0;
+
+
+
+		GLFWwindow* window = nullptr;
 
 	public:
+		void SetGLWindow(GLFWwindow* window);
+
 		InputSystem();
 		~InputSystem();
 		NoaEvent inputEvent;
@@ -130,6 +147,12 @@ namespace noa {
 		Vector<int> GetMouseWheel();
 
 		bool GetMouseButton(MOUSEKEY mouseButton);
+
+	public:
+		static Vector<double> scroll;
+		static bool mouseWheelEventReceived;
+
+		static void MouseScrollCallback(GLFWwindow* window, double xoffset, double yoffset);
 
 	};
 

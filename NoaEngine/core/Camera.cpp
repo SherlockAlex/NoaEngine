@@ -199,7 +199,8 @@ namespace noa {
 				const Tile* floorTile = map.GetTile(floorTileID);
 				if (floorTileID == -1 || floorTile == nullptr)
 				{
-					renderer.DrawPixel(x, y, LIGHTRED);
+					DRAWPIXEL(x, y, LIGHTRED);
+					//renderer.DrawPixel(x, y, LIGHTRED);
 					continue;
 				}
 
@@ -208,7 +209,8 @@ namespace noa {
 
 				color = MULTICOLOR(color, multiColor);
 
-				renderer.DrawPixel(x, y, color);
+				DRAWPIXEL(x, y, color);
+				//renderer.DrawPixel(x, y, color);
 
 				//ceiling (symmetrical, at screenHeight - y - 1 instead of y)
 				//color = texture[ceilingTexture][texWidth * ty + tx];
@@ -260,7 +262,7 @@ namespace noa {
 					{
 						color = RGB(63, 63, 63);
 						color = MULTICOLOR(color, multiColor);
-						renderer.DrawPixel(x, y, color);
+						DRAWPIXEL(x, y, color);
 						continue;
 					}
 					const float dx = (x + 200 * follow->eulerAngle) / pixelWidth;
@@ -268,7 +270,7 @@ namespace noa {
 
 					color = skybox->GetColor(dy, dx);
 
-					renderer.DrawPixel(x, y, color);
+					DRAWPIXEL(x, y, color);
 					
 				}
 				else if (y > ceiling && y <= floor )
@@ -290,7 +292,7 @@ namespace noa {
 
 				color = MULTICOLOR(color, multiColor);
 
-				renderer.DrawPixel(x, y, color);
+				DRAWPIXEL(x, y, color);
 
 			}
 
@@ -492,7 +494,8 @@ namespace noa {
 							continue;
 						}
 						objColor = MULTICOLOR(objColor, multiColor);
-						renderer.DrawPixel(objectColumn, (int)(objectCeiling + ly + objectPosZ), objColor);
+						DRAWPIXEL(objectColumn, (int)(objectCeiling + ly + objectPosZ), objColor);
+						//renderer.DrawPixel(objectColumn, (int)(objectCeiling + ly + objectPosZ), objColor);
 						if (object->isRaycasted)
 						{
 							objectBufferWithRay[objectColumn] = (void*)object;

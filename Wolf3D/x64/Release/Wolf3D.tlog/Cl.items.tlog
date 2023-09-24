@@ -14,7 +14,6 @@ D:\Work\NoaEngine\NoaEngine\core\Renderer.cpp;D:\Work\NoaEngine\Wolf3D\x64\Relea
 D:\Work\NoaEngine\NoaEngine\core\Resource.cpp;D:\Work\NoaEngine\Wolf3D\x64\Release\Resource.obj
 D:\Work\NoaEngine\NoaEngine\core\Scene.cpp;D:\Work\NoaEngine\Wolf3D\x64\Release\Scene.obj
 D:\Work\NoaEngine\NoaEngine\core\Sprite.cpp;D:\Work\NoaEngine\Wolf3D\x64\Release\Sprite.obj
-D:\Work\NoaEngine\NoaEngine\core\src\glad.c;D:\Work\NoaEngine\Wolf3D\x64\Release\glad.obj
 D:\Work\NoaEngine\NoaEngine\core\StateMachine.cpp;D:\Work\NoaEngine\Wolf3D\x64\Release\StateMachine.obj
 D:\Work\NoaEngine\NoaEngine\core\Transform.cpp;D:\Work\NoaEngine\Wolf3D\x64\Release\Transform.obj
 D:\Work\NoaEngine\Wolf3D\Bullet.cpp;D:\Work\NoaEngine\Wolf3D\x64\Release\Bullet.obj
@@ -28,6 +27,7 @@ D:\Work\NoaEngine\Wolf3D\Level01.cpp;D:\Work\NoaEngine\Wolf3D\x64\Release\Level0
 D:\Work\NoaEngine\Wolf3D\LiveEntity.cpp;D:\Work\NoaEngine\Wolf3D\x64\Release\LiveEntity.obj
 D:\Work\NoaEngine\Wolf3D\M4A1.cpp;D:\Work\NoaEngine\Wolf3D\x64\Release\M4A1.obj
 D:\Work\NoaEngine\Wolf3D\main.cpp;D:\Work\NoaEngine\Wolf3D\x64\Release\main.obj
+D:\Work\NoaEngine\Wolf3D\MainMenuLevel.cpp;D:\Work\NoaEngine\Wolf3D\x64\Release\MainMenuLevel.obj
 D:\Work\NoaEngine\Wolf3D\Pistol.cpp;D:\Work\NoaEngine\Wolf3D\x64\Release\Pistol.obj
 D:\Work\NoaEngine\Wolf3D\Player.cpp;D:\Work\NoaEngine\Wolf3D\x64\Release\Player.obj
 D:\Work\NoaEngine\Wolf3D\Shotgun.cpp;D:\Work\NoaEngine\Wolf3D\x64\Release\Shotgun.obj

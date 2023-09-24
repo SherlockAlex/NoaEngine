@@ -69,16 +69,16 @@ namespace noa {
 		bool GetActive();
 	};
 
-	class NoaCanvase : Actor
+	class UICanvas : Actor
 	{
 	private:
 		std::vector<UIComponent*> uiComponent;
 
 	private:
-		NoaCanvase(Scene * scene);
-		~NoaCanvase() override;
+		UICanvas(Scene * scene);
+		~UICanvas() override;
 	public:
-		static NoaCanvase* Create(Scene* scene);
+		static UICanvas* Create(Scene* scene);
 		void Delete() override;
 
 		void AddComponent(UIComponent* component);

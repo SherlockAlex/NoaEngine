@@ -16,6 +16,8 @@ namespace noa {
 		this->image = sprFile.images;
 		this->scale = scale;
 
+		this->isEmpty = this->image.empty();
+
 		this->sw = (w / 2) * 2;
 		this->sh = (h / 2) * 2;
 	}
@@ -23,6 +25,7 @@ namespace noa {
 	Sprite::Sprite(Vector<int> scale)
 	{
 		this->scale = scale;
+		this->isEmpty = this->image.empty();
 	}
 
 	Sprite::Sprite(const char* file, Vector<int> scale) {
@@ -33,6 +36,7 @@ namespace noa {
 		this->h = sprFile.height;
 		this->image = sprFile.images;
 		this->scale = scale;
+		this->isEmpty = this->image.empty();
 
 		this->sw = (w / 2) * 2;
 		this->sh = (h / 2) * 2;
@@ -42,6 +46,7 @@ namespace noa {
 	Sprite::Sprite() {
 		this->sw = (w / 2) * 2;
 		this->sh = (h / 2) * 2;
+		this->isEmpty = this->image.empty();
 	}
 
 	Sprite::Sprite(int w, int h, Vector<int> scale, vector<Uint32> image)
@@ -50,6 +55,7 @@ namespace noa {
 		this->h = h;
 		this->image = image;
 		this->scale = scale;
+		this->isEmpty = this->image.empty();
 
 		this->sw = (w / 2) * 2;
 		this->sh = (h / 2) * 2;
@@ -67,6 +73,7 @@ namespace noa {
 		this->w = image.width;
 		this->h = image.height;
 		this->image = image.images;
+		this->isEmpty = this->image.empty();
 
 		this->sw = (w / 2) * 2;
 		this->sh = (h / 2) * 2;
@@ -223,7 +230,7 @@ namespace noa {
 
 	Uint32 Sprite::GetColor(const float normalizedX,const float normalizedY) const
 	{
-		if (image.empty())
+		if (isEmpty)
 		{
 			return BLACK;
 		}
@@ -239,7 +246,7 @@ namespace noa {
 	Uint32 Sprite::GetTransposeColor(const float normalizedX,const float normalizedY) const
 	{
 		//从图片中获取像素
-		if (image.empty())
+		if (isEmpty)
 		{
 			return BLACK;
 		}
@@ -253,7 +260,7 @@ namespace noa {
 	Uint32 Sprite::GetTransposeColor(const Vector<float> & simple) const
 	{
 		//从图片中获取像素
-		if (image.empty())
+		if (isEmpty)
 		{
 			return BLACK;
 		}

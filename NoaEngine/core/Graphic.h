@@ -43,6 +43,12 @@ namespace noa {
 
 	#define BRIGHTER(color,brightnessIncrease)(RGB(min(255, GetRValue(color) + brightnessIncrease), min(255, GetGValue(color) + brightnessIncrease), min(255, GetBValue(color) + brightnessIncrease)))
 	#define DARKER(color,darknessIncrease)(RGB(max(0, GetRValue(color) - darknessIncrease), max(0, GetGValue(color) - darknessIncrease), max(0, GetBValue(color) - darknessIncrease)))
+
+	extern uint32_t* pixelBuffer;
+	extern int pixelWidth;
+	extern int pixelHeight;
+	#define DRAWPIXEL(x,y,color) ((x < 0 || y < 0 || x >= pixelWidth || y >= pixelHeight)?( - 1):(((Uint32*)pixelBuffer)[y * pixelWidth + x] = color))
+
 }
 
 #endif // !NOAENGINE_GRAPHIC

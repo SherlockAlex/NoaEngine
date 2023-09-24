@@ -153,6 +153,11 @@ namespace noa
 
 	}
 
+	Scene::~Scene()
+	{
+		DestoyScene();
+	}
+
 	/*void Scene::Delete()
 	{
 		delete this;

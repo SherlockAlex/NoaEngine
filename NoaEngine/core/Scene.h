@@ -121,7 +121,7 @@ namespace noa {
 
 	protected:
 		Scene(std::string name);
-		virtual ~Scene() {};
+		virtual ~Scene();
 
 	public:
 		virtual void Delete() = 0;

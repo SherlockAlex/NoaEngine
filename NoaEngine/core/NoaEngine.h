@@ -94,6 +94,10 @@
 #include <mutex>
 #include <condition_variable>
 
+#include <GL/glew.h>
+#include <GLFW/glfw3.h>
+#include <GL/glut.h>
+
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_render.h>
 #include <SDL2/SDL_audio.h>
@@ -102,8 +106,6 @@
 #include <SDL2/SDL_mouse.h>
 #include <SDL2/SDL_mixer.h>
 #include <SDL2/SDL_thread.h>
-
-#include "include/glad/glad.h"
 
 #include "Transform.h"
 #include "NoaMath.h"
@@ -142,6 +144,8 @@ namespace noa {
 	* |    游戏基类，一个抽象类     |
 	* o------------------------——o
 	*/
+
+#pragma region SDL
 	class NoaGameEngine {
 	public:
 		enum GameWindowMode
@@ -164,7 +168,7 @@ namespace noa {
 
 		//GLuint texture;
 
-		void* pixelBuffer = nullptr;
+
 
 		//窗口
 		int width;
@@ -248,6 +252,108 @@ namespace noa {
 		// 用于标志线程池是否关闭
 		bool stop;
 	};
+#pragma endregion
+
+
+	
+#pragma region OPENGL
+
+	class NoaEngineGL
+	{
+	public:
+		enum GameWindowMode
+		{
+			FullScreen = 0,
+			WindowMode = 1
+		};
+
+	private:
+
+		bool isRun = true;
+
+		int glPixelWidth = 0;
+		int glPixelHeight = 0;
+
+		std::chrono::system_clock::time_point tp1 = std::chrono::system_clock::now();
+		std::chrono::duration<float> elapsedTime;
+		std::chrono::system_clock::time_point tp2 = std::chrono::system_clock::now();
+
+		GLFWwindow* window = nullptr;
+
+		//// 修正纹理坐标
+		//float vertices[16] = {
+		//	// 顶点坐标        纹理坐标
+		//	 1.0f,  1.0f,  1.0f, 1.0f, // 右上角
+		//	 1.0f, -1.0f,  1.0f, 0.0f, // 右下角
+		//	-1.0f, -1.0f,  0.0f, 0.0f, // 左下角
+		//	-1.0f,  1.0f,  0.0f, 1.0f  // 左上角
+		//};
+
+		float vertices[16] = {
+			// 顶点坐标        纹理坐标
+			 1.0f,  1.0f,  1.0f, 0.0f, // 右上角
+			 1.0f, -1.0f,  1.0f, 1.0f, // 右下角
+			-1.0f, -1.0f,  0.0f, 1.0f, // 左下角
+			-1.0f,  1.0f,  0.0f, 0.0f  // 左上角
+		};
+
+		unsigned int indices[6] = {
+		   0, 1, 3, // 第一个三角形
+		   1, 2, 3  // 第二个三角形
+		};;
+
+#pragma region SHADER
+
+		const char* vertexShaderSource = R"glsl(
+#version 330 core
+layout (location = 0) in vec2 aPos;
+layout (location = 1) in vec2 aTexCoord;
+
+out vec2 TexCoord;
+
+void main()
+{
+    gl_Position = vec4(aPos, 0.0f, 1.0f);
+    TexCoord = aTexCoord;
+}
+)glsl";
+
+		const char* fragmentShaderSource = R"glsl(
+#version 330 core
+out vec4 FragColor;
+in vec2 TexCoord;
+
+uniform sampler2D ourTexture;
+
+void main()
+{
+    FragColor = texture(ourTexture, TexCoord);
+}
+)glsl";
+
+#pragma endregion
+
+	public:
+		NoaEngineGL(
+			int width, int height,
+			GameWindowMode windowMode,
+			std::string gameName
+		);
+
+		virtual ~NoaEngineGL();
+
+		virtual void Start() = 0;
+		virtual void Update() = 0;
+		virtual void OnDisable() {};
+
+		int Run();
+		int Quit();
+
+	};
+
+#pragma endregion
+
+
 
 	extern void Debug(string msg);
 }

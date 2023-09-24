@@ -11,12 +11,21 @@ namespace noa {
 	InputSystem inputSystem;
 	SDL_Event ioEvent;
 
+	bool InputSystem::mouseWheelEventReceived = false;
+	Vector<double> InputSystem::scroll = { 0.0,0.0 };
+
+
 #ifdef __linux
 
 	Display* display = nullptr;
 
 #endif // __linux
 
+
+	void InputSystem::SetGLWindow(GLFWwindow* window)
+	{
+		this->window = window;
+	}
 
 	InputSystem::InputSystem()
 	{
@@ -97,7 +106,8 @@ namespace noa {
 
 	bool InputSystem::GetMouseMoveState()
 	{
-		return ioEvent.type == SDL_MOUSEMOTION;
+		return glfwGetInputMode(window, GLFW_CURSOR) == GLFW_CURSOR_DISABLED;
+		//return ioEvent.type == SDL_MOUSEMOTION;
 	}
 
 	void InputSystem::Update()
@@ -108,46 +118,100 @@ namespace noa {
 
 	void InputSystem::SetRelativeMouseMode(bool mode)
 	{
-		SDL_SetRelativeMouseMode((SDL_bool)mode);
+		glfwSetInputMode(
+			window, GLFW_CURSOR, mode ? GLFW_CURSOR_DISABLED : GLFW_CURSOR_NORMAL);
 	}
 
 	Vector<float> InputSystem::GetMouseMoveDelta()
 	{
+
 		Vector<float> delta;
+
+		// 获取鼠标相对位移
+		double xpos, ypos;
+		glfwGetCursorPos(window, &xpos, &ypos);
+
+		delta.x = static_cast<float>(xpos) - mouseX;
+		delta.y = static_cast<float>(ypos) - mouseY;
+
+		mouseX = static_cast<float>(xpos);
+		mouseY = static_cast<float>(ypos);
+
+		return delta;
+
+		/*Vector<float> delta;
 
 		delta.x = ioEvent.motion.xrel;
 		delta.y = ioEvent.motion.yrel;
 
-		return delta;
+		return delta;*/
 	}
 
 	Vector<float> InputSystem::GetMousePosition()
 	{
 		Vector<float> delta;
 
+		// 获取鼠标位置
+		double xpos, ypos;
+		glfwGetCursorPos(window, &xpos, &ypos);
+
+		delta.x = static_cast<float>(xpos);
+		delta.y = static_cast<float>(ypos);
+
+		return delta;
+
+		/*Vector<float> delta;
+
 		delta.x = ioEvent.motion.x;
 		delta.y = ioEvent.motion.y;
 
-		return delta;
+		return delta;*/
 	}
+
+
 
 	Vector<int> InputSystem::GetMouseWheel()
 	{
-		if (ioEvent.type != SDL_MOUSEWHEEL)
+
+		if (!InputSystem::mouseWheelEventReceived) 
+		{
+			return { 0,0 };
+		}
+
+		Vector<int> result = { 0, 0 };
+
+		//glfwGetScrollValues(window, &scrollX, &scrollY);
+
+		result.x = static_cast<int>(scroll.x);
+		result.y = static_cast<int>(scroll.y);
+
+		return result;
+
+		/*if (ioEvent.type != SDL_MOUSEWHEEL)
 		{
 			return { 0,0 };
 		}
 		Vector<int> result;
 		result.x = ioEvent.wheel.x;
 		result.y = ioEvent.wheel.y;
-		return result;
+		return result;*/
 	}
 
 	bool InputSystem::GetMouseButton(MOUSEKEY mouseButton)
 	{
-		int mouseX, mouseY;
+		int state = glfwGetMouseButton(window, static_cast<int>(mouseButton));
+		return state == GLFW_PRESS;
+
+		/*int mouseX, mouseY;
 		const Uint32 mouseState = SDL_GetMouseState(&mouseX, &mouseY);
-		return mouseState & SDL_BUTTON(mouseButton);
+		return mouseState & SDL_BUTTON(mouseButton);*/
+	}
+
+	void InputSystem::MouseScrollCallback(GLFWwindow* window, double xoffset, double yoffset)
+	{
+		scroll.x = xoffset;
+		scroll.y = yoffset;
+		mouseWheelEventReceived = true;
 	}
 
 

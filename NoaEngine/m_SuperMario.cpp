@@ -204,6 +204,9 @@ private:
 	}
 
 public:
+
+	std::vector<Player* >players;
+
 	static TestScene1* Create() {
 		return new TestScene1();
 	}
@@ -214,6 +217,7 @@ public:
 
 	void Awake() override {
 		player = Player::Create(this);
+		players.push_back(player);
 		camera = new TileMapCamera();
 		camera->SetFollow(&player->transform);
 		camera->SetTileScale(tileScale);
@@ -233,6 +237,18 @@ public:
 
 		//Draw player
 		player->sprite->DrawSprite(playerDrawPos.x, playerDrawPos.y, true, !player->isLeft);
+	
+		
+	
+		if (inputSystem.GetKeyDown(KeyB))
+		{
+			Player* newPlayer = Player::Create(this);
+			newPlayer->transform.position = player->transform.position + Vector<float>(-1,-5.0);
+			players.push_back(newPlayer);
+		}
+
+		renderer.DrawString(to_string(players.size()),10,10,RED,50);
+
 	}
 
 	void Unload() override{
@@ -282,7 +298,7 @@ public:
 
 		backgroundSprite = new Sprite(resource.LoadSprFile("./Assets/JumpMan/Texture/mainMenu.spr"), {pixelWidth,pixelHeight});
 
-		canvas = NoaCanvase::Create(this);
+		canvas = UICanvas::Create(this);
 		backGround = NoaImage::Create();
 		startButton = NoaButton::Create();
 
@@ -313,7 +329,7 @@ public:
 	}
 
 private:
-	NoaCanvase* canvas = nullptr;
+	UICanvas* canvas = nullptr;
 
 	NoaImage* backGround = nullptr;
 
@@ -323,9 +339,10 @@ private:
 
 };
 
-class Platformer :public NoaGameEngine {
+class Platformer :public NoaEngineGL {
 public:
-	Platformer(int width, int height, GameWindowMode windowMode, string gameName) :NoaGameEngine(width, height, windowMode, gameName) 
+	Platformer(int width, int height, GameWindowMode windowMode, string gameName) 
+		:NoaEngineGL(width, height, windowMode, gameName)
 	{
 		sceneManager.LoadScene("MainMenu");
 	}
@@ -337,6 +354,11 @@ public:
 
 	void Update() override 
 	{
+
+		Vector<float> mousePos = inputSystem.GetMousePosition();
+
+		Debug(to_string(1.0/deltaTime));
+
 		if (inputSystem.GetKeyDown(KeyESC)) 
 		{
 			sceneManager.LoadScene("MainMenu");
@@ -351,7 +373,7 @@ private:
 
 int main(int argc,char * argv[])
 {
-	Platformer game(1920/1.5, 1080/1.5, NoaGameEngine::WindowMode, "SuperMario");
+	Platformer game(1920/1.5, 1080/1.5, NoaEngineGL::WindowMode, "SuperMario");
 	game.Run();
 	return 0;
 }

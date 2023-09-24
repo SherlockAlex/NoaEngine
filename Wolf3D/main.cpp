@@ -1,6 +1,7 @@
 #include "GameEngine.h"
 #include "Level00.h"
 #include "Level01.h"
+#include "MainMenuLevel.h"
 
 using namespace noa;
 
@@ -18,14 +19,14 @@ using namespace noa;
 
 
 
-class Wolf3D :public NoaGameEngine
+class Wolf3D :public NoaEngineGL
 {
 public:
-	Wolf3D(int width, int height, NoaGameEngine::GameWindowMode windowMode, string gameName) :
-		NoaGameEngine(width, height, windowMode, gameName)
+	Wolf3D(int width, int height, NoaEngineGL::GameWindowMode windowMode, string gameName) :
+		NoaEngineGL(width, height, windowMode, gameName)
 	{
 		//加载第一个场景
-		sceneManager.LoadScene("NewGame");
+		sceneManager.LoadScene("MainMenu");
 
 	}
 
@@ -41,10 +42,14 @@ public:
 		{
 			Quit();
 		}
+
+		Debug("FPS:" + to_string(1.0/deltaTime));
+
 	}
 
 private:
 
+	MainMenuLevel* mainMenu = MainMenuLevel::Create();
 	Level00 * level00 = Level00::Create();
 	Level01 * level01 = Level01::Create();
 
@@ -52,7 +57,7 @@ private:
 
 int main(int argc,char * argv[])
 {
-	Wolf3D wolf3D(1920 / 2, 1080 / 2, NoaGameEngine::WindowMode, "3D");
+	Wolf3D wolf3D(1920 / 2, 1080 / 2, NoaEngineGL::WindowMode, "Wolf-3D");
 	wolf3D.Run();
 	return 0;
 }

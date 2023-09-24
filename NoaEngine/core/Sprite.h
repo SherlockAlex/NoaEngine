@@ -30,6 +30,7 @@ namespace noa {
 		int w = 1024;
 		int h = 1024;
 		Vector<int> scale = Vector<int>(32, 32);
+		bool isEmpty = false;
 		//int sizeForSurface = 3;
 
 	private:

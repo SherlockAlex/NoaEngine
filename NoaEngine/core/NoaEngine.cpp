@@ -18,8 +18,12 @@ namespace noa {
 	float deltaTime = 0;
 	float gameTime = 0;
 
+	uint32_t* pixelBuffer = nullptr;
+
 	Renderer renderer;
 	int pitch;
+
+#pragma region SDL
 
 	NoaGameEngine::NoaGameEngine(
 		int width, int height,
@@ -86,15 +90,17 @@ namespace noa {
 		}
 
 		format = SDL_AllocFormat(SDL_PIXELFORMAT_BGR888);
-		SDL_LockTexture(texture, nullptr, &pixelBuffer, &pitch);
+		SDL_LockTexture(texture, nullptr, (void**)&pixelBuffer, &pitch);
+		//pixelBuffer = new Uint32[width * height];
+		//pitch = 3 * 32 * sizeof(Uint32);
 
 		surface = SDL_GetWindowSurface(window);
-		if (surface == nullptr) 
+		if (surface == nullptr)
 		{
 			exit(-1);
 		}
 
-		renderer = Renderer(surfaceWidth, surfaceHeight, pixelBuffer,mainRenderer,texture);
+		renderer = Renderer(surfaceWidth, surfaceHeight, pixelBuffer, mainRenderer, nullptr);
 
 		//处理音频设备初始化
 		if (Mix_OpenAudio(
@@ -113,22 +119,16 @@ namespace noa {
 
 
 	NoaGameEngine::~NoaGameEngine() {
-		
+
 		Mix_CloseAudio();
-		SDL_GL_DeleteContext(glContext);
 		SDL_DestroyRenderer(mainRenderer);
 		SDL_DestroyTexture(texture);
 		SDL_DestroyWindow(window);
 		SDL_Quit();
 	}
 
-	void NoaGameEngine::GLRenderTexture()
-	{
-
-	}
-
 	void* NoaGameEngine::PixelBuffer() {
-		return this->pixelBuffer;
+		return pixelBuffer;
 	}
 
 	float NoaGameEngine::DeltaTime() {
@@ -156,7 +156,7 @@ namespace noa {
 			tp2 = chrono::system_clock::now();
 			elapsedTime = tp2 - tp1;
 			deltaTime = elapsedTime.count();
-			
+
 			gameTime += deltaTime;
 			if (gameTime > 65535)
 			{
@@ -189,41 +189,9 @@ namespace noa {
 			tp1 = tp2;
 
 		}
-		
+
 		Quit();
 		return 0;
-	}
-	
-	GLuint openGLTexture;
-	void NoaGameEngine::UpdateOpenGLTexture()
-	{
-		
-		glGenTextures(1, &openGLTexture);
-		glBindTexture(GL_TEXTURE_2D, openGLTexture);
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, surface->w, surface->h, 0, GL_BGR, GL_UNSIGNED_BYTE, surface->pixels);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-		glBindTexture(GL_TEXTURE_2D, 0);
-
-	}
-
-	void NoaGameEngine::RenderOpenGLTexture()
-	{
-		// 清空屏幕
-		glClear(GL_COLOR_BUFFER_BIT);
-
-		// 使用纹理绘制一个矩形
-		glBindTexture(GL_TEXTURE_2D, openGLTexture);
-		glBegin(GL_QUADS);
-		glTexCoord2f(0.0f, 0.0f); glVertex2f(-1.0f, -1.0f);
-		glTexCoord2f(1.0f, 0.0f); glVertex2f(1.0f, -1.0f);
-		glTexCoord2f(1.0f, 1.0f); glVertex2f(1.0f, 1.0f);
-		glTexCoord2f(0.0f, 1.0f); glVertex2f(-1.0f, 1.0f);
-		glEnd();
-		glBindTexture(GL_TEXTURE_2D, 0);
-
-		// 刷新缓冲区，显示渲染结果
-		SDL_GL_SwapWindow(window);
 	}
 
 	int NoaGameEngine::Quit()
@@ -281,6 +249,179 @@ namespace noa {
 		}
 	}
 
+#pragma endregion
+
+
+#pragma region OPENGL
+
+	NoaEngineGL::NoaEngineGL(int width, int height, GameWindowMode windowMode, string gameName)
+	{
+
+		//初始化OpenGL
+		if (!glfwInit()) {
+			Debug("Failed to initialize GLFW");
+			exit(-1);
+		}
+
+		this->glPixelHeight = height;
+		this->glPixelWidth = width;
+
+		pixelWidth = width;
+		pixelHeight = height;
+
+		pixelBuffer = new uint32_t[width * height];
+
+		window = glfwCreateWindow(width, height, gameName.c_str(), NULL, NULL);
+		if (!window) {
+			Debug("Failed to create GLFW window");
+			glfwTerminate();
+			exit(-1);
+		}
+
+		glfwMakeContextCurrent(window);
+
+		if (glewInit() != GLEW_OK) {
+			Debug("Failed to initialize GLEW");
+			exit(-1);
+		}
+
+		renderer = Renderer(width, height, pixelBuffer, nullptr, nullptr);
+
+		//处理音频设备初始化
+		if (Mix_OpenAudio(
+			MIX_DEFAULT_FREQUENCY,
+			MIX_DEFAULT_FORMAT,
+			MIX_CHANNELS,
+			4096
+		) == -1)
+		{
+			Debug("Init audio device failed");
+			exit(-1);
+		}
+
+
+	}
+
+	NoaEngineGL::~NoaEngineGL()
+	{
+		Mix_CloseAudio();
+		glfwDestroyWindow(window);
+		glfwTerminate();
+	}
+
+	int NoaEngineGL::Run()
+	{
+
+
+		inputSystem.SetGLWindow(this->window);
+		glfwSetScrollCallback(window, InputSystem::MouseScrollCallback);
+		
+
+		GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
+		glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
+		glCompileShader(vertexShader);
+
+		GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+		glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
+		glCompileShader(fragmentShader);
+
+		GLuint shaderProgram = glCreateProgram();
+		glAttachShader(shaderProgram, vertexShader);
+		glAttachShader(shaderProgram, fragmentShader);
+		glLinkProgram(shaderProgram);
+
+		glDeleteShader(vertexShader);
+		glDeleteShader(fragmentShader);
+
+		GLuint VBO, VAO, EBO;
+		glGenVertexArrays(1, &VAO);
+		glGenBuffers(1, &VBO);
+		glGenBuffers(1, &EBO);
+
+		glBindVertexArray(VAO);
+
+		glBindBuffer(GL_ARRAY_BUFFER, VBO);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+
+		glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
+		glEnableVertexAttribArray(0);
+		glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float)));
+		glEnableVertexAttribArray(1);
+
+		GLuint textureID;
+		glGenTextures(1, &textureID);
+		glBindTexture(GL_TEXTURE_2D, textureID);
+
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, glPixelWidth, glPixelHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, pixelBuffer);
+
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+		
+
+		Start();
+
+		while ((!glfwWindowShouldClose(window))&&isRun) {
+			tp2 = std::chrono::system_clock::now();
+			elapsedTime = tp2 - tp1;
+			deltaTime = elapsedTime.count();
+
+			glClear(GL_COLOR_BUFFER_BIT);
+
+			///修改像素值
+			
+			//执行游戏主类的update
+			inputSystem.Update();
+
+			sceneManager.Update();
+			Update();
+
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, this->glPixelWidth, this->glPixelHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, pixelBuffer);
+
+			///
+
+			glUseProgram(shaderProgram);
+			glBindTexture(GL_TEXTURE_2D, textureID);
+			glBindVertexArray(VAO);
+			glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+
+			glfwSwapBuffers(window);
+			glfwPollEvents();
+
+			inputSystem.mouseWheelEventReceived = false;
+
+			tp1 = tp2;
+		}
+
+		Quit();
+
+		//释放资源
+		glDeleteProgram(shaderProgram);
+		glDeleteTextures(1, &textureID);
+		glDeleteVertexArrays(1, &VAO);
+		glDeleteBuffers(1, &VBO);
+		glDeleteBuffers(1, &EBO);
+
+		return 0;
+
+	}
+
+	int NoaEngineGL::Quit()
+	{
+		OnDisable();
+		sceneManager.Quit();
+		isRun = false;
+		return 0;
+	}
+
+#pragma endregion
+
+	
+
 
 	void Debug(string msg)
 	{
@@ -290,6 +431,14 @@ namespace noa {
 		std::strftime(time_string, sizeof(time_string), "%Y-%m-%d %H:%M:%S", std::localtime(&current_time));
 		cout << "[INFO " << time_string << "]:" << msg << endl;
 	}
+
+
+
+
+
+
+
+
 }
 
 

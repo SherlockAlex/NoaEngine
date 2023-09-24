@@ -158,13 +158,12 @@ void Player::ActorControl()
 
 void Player::RotateControl()
 {
-	if (inputSystem.GetMouseMoveState())
-	{
-		Vector<float> mouseDelta = inputSystem.GetMouseMoveDelta();
-		transform.eulerAngle += mouseSpeed * mouseDelta.x * deltaTime;
-	}
+	Vector<float> mouseDelta = inputSystem.GetMouseMoveDelta();
+	transform.eulerAngle += mouseSpeed * mouseDelta.x * deltaTime;
 
-	int deltaIndex = inputSystem.GetMouseWheel().y;
+	float deltaIndex = inputSystem.GetMouseWheel().y;
+
+	
 
 	if (deltaIndex<0)
 	{
