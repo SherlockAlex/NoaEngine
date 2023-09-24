@@ -52,7 +52,6 @@ namespace noa {
 
 	GameObject::~GameObject()
 	{
-		Actor::~Actor();
 		Debug("Remove gameObject");
 	}
 

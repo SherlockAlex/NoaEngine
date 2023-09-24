@@ -121,7 +121,7 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="..\NoaEngine\core\ActorComponent.cpp">
-      <Filter>头文件\core</Filter>
+      <Filter>源文件\core</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

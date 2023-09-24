@@ -200,7 +200,7 @@ private:
 	}
 
 	~TestScene1() {
-		Scene::~Scene();
+		
 	}
 
 public:
@@ -214,7 +214,10 @@ public:
 
 	void Awake() override {
 		player = Player::Create(this);
-		camera = new TileMapCamera(tileScale, &player->transform);
+		camera = new TileMapCamera();
+		camera->SetFollow(&player->transform);
+		camera->SetTileScale(tileScale);
+
 
 		player->rigid->SetTileMap(&tileMap);
 		tileMap.SetCollisionTileID({ 1,2 });
@@ -263,7 +266,7 @@ private:
 
 	~MainMenu() 
 	{
-		Scene::~Scene();
+		
 	}
 
 public:

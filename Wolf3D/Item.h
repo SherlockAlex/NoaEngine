@@ -4,7 +4,7 @@ using namespace noa;
 class Item :public GameObject
 {
 public:
-	NoaEvent<void()> pickEvent;
+	NoaEvent pickEvent;
 
 	Rigidbody* rigid = Rigidbody::Create(this);
 private:

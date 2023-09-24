@@ -44,10 +44,11 @@ void Level01::Awake()
 
 
 	player = Player::Create(this);
-	camera = new FreeCamera(&player->transform);
-	mapCamera = new TileMapCamera(Vector<int>(32, 32), &player->transform);
+	camera.SetFollow(&player->transform);
+	mapCamera.SetFollow(&player->transform);
+	mapCamera.SetTileScale(Vector<int>(32, 32));
 
-	player->SetCamera(camera);
+	player->SetCamera(&camera);
 
 	for (int i = 0; i < map->objectLayer->w; i++)
 	{
@@ -126,11 +127,11 @@ void Level01::Start()
 
 void Level01::Update()
 {
-	camera->Render(*map->mapLayer, false, nullptr, WHITE);
+	camera.Render(*map->mapLayer, false, nullptr, WHITE);
 	wolfResource->mouse.DrawSprite(pixelWidth * 0.5 - 0.5 * wolfResource->mouse.scale.x, pixelHeight * 0.5 - 0.5 * wolfResource->mouse.scale.y, true);
 	if (inputSystem.GetKeyHold(KeyM))
 	{
-		Vector<int> drawPos = mapCamera->Render(*map->mapLayer, { 0,0 }, { 0,0 });
+		Vector<int> drawPos = mapCamera.Render(*map->mapLayer, { 0,0 }, { 0,0 });
 		renderer.DrawRect(drawPos, drawPos + Vector<int>(32, 32), WHITE);
 	}
 
@@ -143,8 +144,6 @@ void Level01::Unload()
 		delete map;
 		Debug("–∂‘ÿ≥°æ∞≥…π¶");
 	}
-	delete camera;
-	delete mapCamera;
 
 	if (!allStates.empty()) 
 	{

@@ -58,7 +58,7 @@ Caco::Caco(Scene* scene, Sprite* sprite, Transform* player, LiveEntity* enimy) :
 
 Caco::~Caco()
 {
-	Enimy::~Enimy();
+	//Enimy::~Enimy();
 	if (sprite != nullptr)
 	{
 		delete sprite;

@@ -11,7 +11,7 @@ public:
 	Rigidbody* rigid = Rigidbody::Create(this);
 	Transform* player = nullptr;
 	StateMachine* fsm = StateMachine::Create(this);
-	NoaEvent<void()> deathEvent;
+	NoaEvent deathEvent;
 	Animation* currentAnimation = nullptr;
 	LiveEntity* enimy = nullptr;
 	//int hp = 100;

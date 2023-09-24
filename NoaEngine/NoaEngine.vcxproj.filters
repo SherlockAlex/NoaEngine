@@ -84,6 +84,9 @@
     <ClInclude Include="core\ActorComponent.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="core\NObject.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="core\Animator.cpp">
@@ -144,6 +147,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="core\ActorComponent.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="core\NObject.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

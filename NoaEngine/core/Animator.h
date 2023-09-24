@@ -46,7 +46,7 @@ namespace noa {
 		//framesImage可以通过复用降低内存消耗
 		//vector<SpriteFile> framesImage;
 		AnimationFrame* frameData = nullptr;
-		std::unordered_map<Uint32,NoaEvent<void()>> framesEvent;
+		std::unordered_map<Uint32,NoaEvent> framesEvent;
 		//unordered_map<Uint32, function<void()>> framesEvent;
 		SpriteFile currentFrame;
 		bool isPlaying = false;

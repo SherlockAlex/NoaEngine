@@ -21,7 +21,7 @@ namespace noa {
 	typedef unsigned int Uint32;
 
 	//精灵贴图
-	class Sprite {
+	class Sprite final {
 
 	public:
 		//显示再屏幕中的位置

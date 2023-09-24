@@ -24,11 +24,11 @@ namespace noa {
 		Transform* follow;
 		Vector<float> position;
 
-	public:
+	protected:
 		Camera();
-		Camera(Transform* follow);
 		virtual ~Camera();
-		
+	public:
+		void SetFollow(Transform* follow);
 		
 	};
 
@@ -44,7 +44,8 @@ namespace noa {
 		std::vector<void*> objectBufferWithRay = std::vector<void*>(pixelWidth*pixelHeight, nullptr);
 	public:
 		TileMapCamera();
-		TileMapCamera(Vector<int> tileScale, Transform* follow);
+
+		void SetTileScale(Vector<int> tileScale);
 
 		/// <summary>
 		/// ‰÷»æÕﬂ∆¨µÿÕºµΩ∆¡ƒª…œ
@@ -90,8 +91,7 @@ namespace noa {
 
 	public:
 		FreeCamera();
-		FreeCamera(Transform* follow);
-
+	public:
 		void RenderFloor(TileMap& map,uint32_t multiColor);
 		void Render(TileMap& map, bool renderFloor, Sprite * skybox,uint32_t mutiColor);
 		void RenderGameObjectEnter();

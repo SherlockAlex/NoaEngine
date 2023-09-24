@@ -154,7 +154,7 @@ CacoAttackState::CacoAttackState(
 				bullet->transform.position = this->enimy->transform.position;
 				bullet->dir = distanceVector.Normalize();
 
-				wolfResource->npcAttack->volume = 1.0 / sqrt(distance);
+				wolfResource->npcAttack->volume = 10.0/(distance*distance);
 				wolfResource->npcAttack->Play(false);
 			}
 			
@@ -216,7 +216,7 @@ CacoDieState::CacoDieState(
 
 	animation->SetFrameEvent(1, [this]() {
 		float distance = (this->enimy->transform.position - this->target->position).Magnitude();
-		wolfResource->npcDeath->volume = 1.0 / (distance);
+		wolfResource->npcDeath->volume = 10.0/(distance* distance);
 		wolfResource->npcDeath->Play(false);
 		this->enimy->rigid->isFrozen = true;
 		Caco* e = this->enimy->GetActorAs<Caco*>();
@@ -276,7 +276,7 @@ CacoPainState::CacoPainState(
 
 	animation->SetFrameEvent(1, [this]() {
 		float distance = (this->enimy->transform.position - this->target->position).Magnitude();
-		wolfResource->npcPain->volume = 1.0 / (distance);
+		wolfResource->npcPain->volume = 10.0/(distance* distance);
 		wolfResource->npcPain->Play(false);
 	});
 

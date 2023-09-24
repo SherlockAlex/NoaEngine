@@ -98,7 +98,7 @@ namespace noa {
 
 	NoaButton::~NoaButton()
 	{
-		UIComponent::~UIComponent();
+
 	}
 
 	NoaButton* NoaButton::Create()
@@ -201,7 +201,7 @@ namespace noa {
 
 	NoaText::~NoaText()
 	{
-		UIComponent::~UIComponent();
+
 	}
 
 	NoaText* NoaText::Create()
@@ -232,7 +232,6 @@ namespace noa {
 
 	NoaCanvase::~NoaCanvase()
 	{
-		Actor::~Actor();
 		if (!this->uiComponent.empty())
 		{
 			auto last = std::unique(uiComponent.begin(), uiComponent.end());
@@ -307,7 +306,7 @@ namespace noa {
 
 	NoaImage::~NoaImage()
 	{
-		UIComponent::~UIComponent();
+
 	}
 
 	NoaImage* NoaImage::Create()

@@ -108,10 +108,6 @@ namespace noa {
 		this->stateMachine = stateMachine;
 	}
 
-	/*void State::Delete()
-	{
-		delete this;
-	}*/
 
 	void State::AddTransition(int transition, State* nextState)
 	{

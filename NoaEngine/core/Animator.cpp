@@ -65,7 +65,7 @@ namespace noa {
 
 	Animation::~Animation()
 	{
-		ActorComponent::~ActorComponent();
+		//ActorComponent::~ActorComponent();
 		Debug("Remove animation");
 	}
 

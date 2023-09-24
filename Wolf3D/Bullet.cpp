@@ -23,7 +23,6 @@ void Bullet::Delete()
 
 Bullet::~Bullet()
 {
-	GameObject::~GameObject();
 	Debug("Remove bullet");
 }
 

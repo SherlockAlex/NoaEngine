@@ -3,7 +3,7 @@
 #include "NoaMath.h"
 
 namespace noa {
-	class Transform
+	class Transform final
 	{
 	public:
 		Vector<float> position = {0,0};
@@ -13,7 +13,7 @@ namespace noa {
 		float posZ = 0.0;
 	};
 
-	class UITransform {
+	class UITransform final {
 	public:
 		Vector<int> position = { 0,0 };
 	};

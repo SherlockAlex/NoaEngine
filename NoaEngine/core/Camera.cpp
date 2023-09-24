@@ -13,14 +13,14 @@ namespace noa {
 
 	}
 
-	Camera::Camera(Transform* follow)
-	{
-		this->follow = follow;
-	}
-
 	Camera::~Camera()
 	{
 
+	}
+
+	void Camera::SetFollow(Transform* follow)
+	{
+		this->follow = follow;
 	}
 
 
@@ -28,8 +28,7 @@ namespace noa {
 	{
 	}
 
-	TileMapCamera::TileMapCamera(Vector<int> tileScale, Transform* follow):
-		Camera(follow)
+	void TileMapCamera::SetTileScale(Vector<int> tileScale)
 	{
 		this->tileScale = tileScale;
 		visibleTiles = Vector<float>(int(pixelWidth / tileScale.x), int(pixelHeight / tileScale.y));
@@ -39,7 +38,10 @@ namespace noa {
 	Vector<int> TileMapCamera::Render(TileMap& tileMap,const Vector<float>& frontDelta,const Vector<float>& endDelta)
 	{
 		//完整的渲染瓦片地图
-		
+		if (follow == nullptr)
+		{
+			return {0,0};
+		}
 		for (auto& object:objectBufferWithRay) 
 		{
 			object = nullptr;
@@ -141,12 +143,6 @@ namespace noa {
 		objectBufferWithRay = vector<void*>(pixelWidth, nullptr);
 	}
 
-	FreeCamera::FreeCamera(Transform* follow):Camera(follow)
-	{
-		wallDistanceBuffer = vector<float>(pixelWidth, 0.0);
-		objectBufferWithRay = vector<void*>(pixelWidth, nullptr);
-	}
-
 	
 	void FreeCamera::RenderFloor(TileMap& map, uint32_t multiColor)
 	{
@@ -224,6 +220,11 @@ namespace noa {
 
 	void FreeCamera::Render(TileMap& map, bool renderFloor, Sprite* skybox, uint32_t multiColor)
 	{
+
+		if (follow == nullptr) 
+		{
+			return;
+		}
 
 		////采用画家画图法和射线投射算法绘制
 

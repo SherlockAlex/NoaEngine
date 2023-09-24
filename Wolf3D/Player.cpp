@@ -30,7 +30,6 @@ void Player::Delete()
 }
 
 Player::~Player() {
-	Actor::~Actor();
 	if (!guns.empty()) 
 	{
 		for (int i = 0; i < guns.size(); i++)
@@ -221,11 +220,11 @@ void Player::MakeGun()
 	shotgun->takeBullet = 7;
 
 	pistol = Pistol::Create(this,&bulletCount, this->camera);
-	pistol->damage = 10;
+	pistol->damage = 18;
 	pistol->takeBullet = 0;
 
 	m4a1 = M4A1::Create(this,&bulletCount, this->camera);
-	m4a1->damage = 18;
+	m4a1->damage = 25;
 	m4a1->takeBullet = 1;
 
 	guns.push_back(pistol);

@@ -123,6 +123,7 @@
 #include "Resource.h"
 #include "ScriptableActor.h"
 #include "ActorComponent.h"
+#include "NObject.h"
 
 //¥∞ø⁄ Ù–‘
 

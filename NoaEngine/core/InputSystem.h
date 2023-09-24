@@ -106,7 +106,7 @@ namespace noa {
 	public:
 		InputSystem();
 		~InputSystem();
-		NoaEvent<void()> inputEvent;
+		NoaEvent inputEvent;
 	public:
 
 		//无需更新ioEvent

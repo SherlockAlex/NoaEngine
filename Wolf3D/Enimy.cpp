@@ -16,7 +16,7 @@ Enimy::~Enimy()
 {
 	
 	//Rigidbody::~Rigidbody();
-	GameObject::~GameObject();
+	//GameObject::~GameObject();
 	//fsm->Delete();
 	Debug("Remove enimy");
 }
