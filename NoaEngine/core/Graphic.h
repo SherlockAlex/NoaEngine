@@ -95,7 +95,7 @@ namespace noa {
 
 		void Clear();
 		void Present(GLFWwindow * window);
-		void DrawTexture(NoaTexture* texture, int x, int y, int w, int h);
+		void DrawTexture(NoaTexture* texture, int x, int y, int w, int h,bool isFlipX = false);
 
 	private:
 

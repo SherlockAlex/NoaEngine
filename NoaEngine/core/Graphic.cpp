@@ -145,7 +145,9 @@ void main()
         glfwSwapBuffers(window);
     }
 
-    void NoaRenderer::DrawTexture(NoaTexture* texture, int x, int y, int w, int h) {
+    void NoaRenderer::DrawTexture(NoaTexture* texture, int x, int y, int w, int h, bool isFlipX) {
+
+        // 如果isFlipX = true 关于 y = 0.5*w 进行反转
 
         // 使用OpenGL绘制纹理
         glUseProgram(shaderProgram);
@@ -164,6 +166,16 @@ void main()
              float(x - w)/pixelWidth,  -float(y + h)/pixelHeight,    0.0f, 1.0f, // 左上角
              float(x - w)/pixelWidth,  -float(y - h)/pixelHeight,    0.0f, 0.0f  // 左下角
         };
+
+        if (isFlipX)
+        {
+            vertices[2] = 0.0;
+            vertices[6] = 0.0;
+            vertices[10] = 1.0;
+            vertices[14] = 1.0;
+
+        }
+        
 
         // 设置矩形的索引
         unsigned int indices[] = {

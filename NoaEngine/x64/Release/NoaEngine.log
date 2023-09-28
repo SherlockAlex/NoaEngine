@@ -1,4 +1,4 @@
-﻿  Sprite.cpp
+﻿  NoaEngine.cpp
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
 D:\Work\NoaEngine\packages\nupengl.core.0.1.0.1\build\native\include\GLFW\glfw3.h(92,1): message : 参见“APIENTRY”的前一个定义
 D:\Work\NoaEngine\NoaEngine\core\Graphic.h(37,1): warning C4005: “LOBYTE”: 宏重定义
@@ -32,22 +32,8 @@ D:\Work\NoaEngine\NoaEngine\core\NoaGUI.h(30,54): warning C4244: “参数”: �
               T=int
           ]
 D:\Work\NoaEngine\NoaEngine\core\NoaGUI.h(153,23): warning C4305: “初始化”: 从“double”到“float”截断
-D:\Work\NoaEngine\NoaEngine\core\Sprite.cpp(219,24): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
-D:\Work\NoaEngine\NoaEngine\core\Sprite.cpp(219,18): warning C4244: “初始化”: 从“double”转换到“const float”，可能丢失数据
-D:\Work\NoaEngine\NoaEngine\core\Sprite.cpp(220,24): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
-D:\Work\NoaEngine\NoaEngine\core\Sprite.cpp(220,18): warning C4244: “初始化”: 从“double”转换到“const float”，可能丢失数据
-D:\Work\NoaEngine\NoaEngine\core\Sprite.cpp(404,16): warning C4244: “=”: 从“float”转换到“int”，可能丢失数据
-D:\Work\NoaEngine\NoaEngine\core\Sprite.cpp(405,16): warning C4244: “=”: 从“float”转换到“int”，可能丢失数据
-D:\Work\NoaEngine\NoaEngine\core\Sprite.cpp(428,26): warning C4244: “=”: 从“float”转换到“T”，可能丢失数据
-          with
-          [
-              T=int
-          ]
-D:\Work\NoaEngine\NoaEngine\core\Sprite.cpp(429,26): warning C4244: “=”: 从“float”转换到“T”，可能丢失数据
-          with
-          [
-              T=int
-          ]
+D:\Work\NoaEngine\NoaEngine\core\NoaEngine.cpp(40,7): warning C4553: “==”: 未使用表达式结果；是否打算使用“=”?
+D:\Work\NoaEngine\NoaEngine\core\NoaEngine.cpp(263,7): warning C4553: “==”: 未使用表达式结果；是否打算使用“=”?
   正在生成代码
   0 of 2040 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation

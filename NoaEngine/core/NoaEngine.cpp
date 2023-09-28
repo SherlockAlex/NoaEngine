@@ -358,7 +358,7 @@ namespace noa {
 
 			glActiveTexture(GL_TEXTURE + i);
 			texture->UpdateTexture(pixelBuffer);
-			mainRenderer->DrawTexture(this->texture,0,0,pixelWidth,pixelHeight);
+			mainRenderer->DrawTexture(this->texture,0,0,pixelWidth,pixelHeight,false);
 
 			i++;
 			for (const auto & instance:spriteInstancesGL) 
@@ -370,6 +370,7 @@ namespace noa {
 					,instance.position.y
 					,instance.scale.x
 					,instance.scale.y
+					,instance.flip
 				);
 				i++;
 			}
