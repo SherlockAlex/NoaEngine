@@ -155,16 +155,21 @@ void main()
         // 渲染矩形
         glBindVertexArray(VAO);
         texture->Bind();
+        
+        const float invPixelWidth = 1.0 / pixelWidth;
+        const float invPixelHeight = 1.0 / pixelHeight;
 
-        // 设置矩形的顶点坐标和纹理坐标
+        const float left = 2.0f * x * invPixelWidth - 1.0f;
+        const float right = 2.0f * (x + w) * invPixelWidth - 1.0f;
+        const float bottom = -(2.0f * y * invPixelHeight - 1.0f);
+        const float top = -(2.0f * (y + h) * invPixelHeight - 1.0f);
 
-         
         float vertices[] = {
             // 顶点坐标        纹理坐标
-             float(x + w)/pixelWidth,  -float(y - h)/pixelHeight,    1.0f, 0.0f, // 右下角
-             float(x + w)/pixelWidth,  -float(y + h)/pixelHeight,    1.0f, 1.0f, // 右上角
-             float(x - w)/pixelWidth,  -float(y + h)/pixelHeight,    0.0f, 1.0f, // 左上角
-             float(x - w)/pixelWidth,  -float(y - h)/pixelHeight,    0.0f, 0.0f  // 左下角
+             right,  bottom,    1.0f, 0.0f, // 右下角
+             right,  top,       1.0f, 1.0f, // 右上角
+             left,   top,       0.0f, 1.0f, // 左上角
+             left,   bottom,    0.0f, 0.0f  // 左下角
         };
 
         if (isFlipX)
