@@ -131,9 +131,6 @@
     <ClCompile Include="core\Transform.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="m_SuperMario.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="core\Resource.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -141,6 +138,12 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="core\NObject.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="core\Graphic.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="TestGPU.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

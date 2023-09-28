@@ -5,11 +5,8 @@
 
 namespace noa {
 	extern void Debug(string msg);
-	
 
-
-
-	FontAsset fontAsset("./Assets/font/font.tsd");
+	FontAsset fontAsset("./Assets/font/font.ttf",48);
 
 	Renderer::Renderer()
 	{
@@ -143,6 +140,41 @@ namespace noa {
 		}
 	}
 
+	void Renderer::DrawFont(const Vector<int>& point1, const Vector<int>& point2, Sprite& sprite, uint32_t color) const
+	{
+		//将sprite图片填充到矩形上
+		const int x1 = point1.x;
+		const int y1 = point1.y;
+		const int x2 = point2.x;
+		const int y2 = point2.y;
+
+		const int minX = Min(x1, x2);
+		const int maxX = Max(x1, x2);
+		const int minY = Min(y1, y2);
+		const int maxY = Max(y1, y2);
+
+		for (int x = minX; x <= maxX; x++)
+		{
+			for (int y = minY; y <= maxY; y++)
+			{
+				const Vector<float> simple(
+					(x - x1 + 0.0) / (x2 - x1),
+					(y - y1 +0.0) / (y2 - y1)
+				);
+				const uint32_t fontColor = sprite.GetColor(simple.x, simple.y);
+
+				if (fontColor == ERRORCOLOR|| GetAValue(fontColor) == 0)
+				{
+					continue;
+				}
+
+				DRAWPIXEL(x, y, color);
+				
+				//DrawPixel(x, y, color);
+			}
+		}
+	}
+
 	void Renderer::DrawRect(const Vector<int>& point1, const Vector<int>& point2, Sprite& sprite) const
 	{
 		//将sprite图片填充到矩形上
@@ -165,7 +197,9 @@ namespace noa {
 					(float)(y - y1) / (y2 - y1)
 				);
 				//const uint32_t color = RED;
-				const uint32_t color = sprite.GetTransposeColor(simple.y,simple.x);
+				const uint32_t color = sprite.GetColor(simple.x, simple.y);
+				//const uint32_t color = sprite.GetTransposeColor(simple.y,simple.x);
+				//const uint32_t color = sprite.GetColor(simple.x, simple.y);
 				DRAWPIXEL(x, y, color);
 				//DrawPixel(x, y, color);
 			}
@@ -193,8 +227,9 @@ namespace noa {
 					(float)(x - x1) / (x2 - x1),
 					(float)(y - y1) / (y2 - y1)
 				);
-				const uint32_t color = sprite.GetTransposeColor(simple.y, simple.x);
-				if (isAlpha&& color == ERRORCOLOR)
+				const uint32_t color = sprite.GetColor(simple.x, simple.y);
+				//const uint32_t color = sprite.GetTransposeColor(simple.y, simple.x);
+				if (isAlpha&& GetAValue(color) == 0)
 				{
 					continue;
 				}
@@ -226,8 +261,9 @@ namespace noa {
 					(float)(x - x1) / (x2 - x1),
 					(float)(y - y1) / (y2 - y1)
 				);
-				uint32_t color = sprite->GetTransposeColor(simple.y, simple.x);
-				if (isAlpha&& color == ERRORCOLOR)
+				uint32_t color = sprite->GetColor(simple.x, simple.y);
+				//uint32_t color = sprite->GetTransposeColor(simple.y, simple.x);
+				if (isAlpha && GetAValue(color) == 0)
 				{
 					continue;
 				}
@@ -244,7 +280,7 @@ namespace noa {
 		int row = 0;
 		int offset = 0;
 
-		const float narrowx = 0.6;
+		const float narrowx = 0.8;
 		const int length = str.length();
 		const char* c_str = str.c_str();
 		for (int i=0;i<length;i++) 
@@ -264,7 +300,7 @@ namespace noa {
 			
 			const Vector<int> point1 = move(Vector<int>(x+(offset *size)* narrowx, y + row * size));
 			const Vector<int> point2 = move(Vector<int>(x+size+(offset *size)* narrowx, y+size + row * size));
-			DrawRect(point1,point2,*font->sprite,color,true);
+			DrawFont(point1,point2,*font->sprite,color);
 			offset++;
 		}
 	}
@@ -293,7 +329,8 @@ namespace noa {
 
 			const Vector<int> point1 = move(Vector<int>(x + (offset * size) * narrowx, y + row * size));
 			const Vector<int> point2 = move(Vector<int>(x + size + (offset * size) * narrowx, y + size + row * size));
-			DrawRect(point1, point2, *font->sprite, color, true);
+			//DrawRect(point1, point2, *font->sprite, color, true);
+			DrawFont(point1, point2, *font->sprite, color);
 			offset++;
 		}
 	}
@@ -311,6 +348,11 @@ namespace noa {
 		SDL_UnlockTexture(sdlTexture);
 		SDL_RenderCopy(sdlRenderer, sdlTexture, nullptr, nullptr);
 		SDL_RenderPresent(sdlRenderer);
+	}
+
+	SDL_Renderer* Renderer::GetSDLRenderer()
+	{
+		return this->sdlRenderer;
 	}
 
 }

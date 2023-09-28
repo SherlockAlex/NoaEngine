@@ -124,6 +124,9 @@ namespace noa {
 		virtual ~Scene();
 
 	public:
+
+		void SetTileMap(TileMap * map);
+
 		virtual void Delete() = 0;
 
 		//MapInfo GetTileMap();

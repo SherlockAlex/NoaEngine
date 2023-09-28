@@ -5,15 +5,17 @@
 
 Pistol::Pistol(Player* player, int* bulletCount, FreeCamera* camera):Gun(bulletCount,camera)
 {
-	this->sprite = new Sprite(
-		resource.LoadSprFile("./Assets/Wolf/gun.spr")
-		, Vector<int>(0.5 * pixelWidth, 0.5 * pixelWidth));
+	
 
 	this->audio = new Audio("./Assets/Wolf/Music/p228-1.wav", Chunk);
 
 	this->animation = Animation::Create(player,30, false);
+
+	
+
 	//animation->LoadFromAnimationFile("./Assets/Wolf/lgun-shot.amt");
 	animation->SetFrame(&wolfResource->pistolFrame);
+
 	animation->SetFrameEvent(1, [this]()
 		{
 
@@ -46,6 +48,13 @@ Pistol::Pistol(Player* player, int* bulletCount, FreeCamera* camera):Gun(bulletC
 				enimy->TakeDamage(damage);
 			}
 		});
+
+	this->sprite = new Sprite(
+		animation->GetCurrentFrameImage()
+		, Vector<int>(0.5 * pixelWidth, 0.5 * pixelWidth));
+
+	this->spriteGPU = new SpriteGPU(sprite);
+
 }
 
 Pistol* Pistol::Create(Player* player, int* bulletCount, FreeCamera* camera)
@@ -60,11 +69,13 @@ void Pistol::Update()
 	const float offsetX = 0;
 	const float offsetY = 0;
 
-	this->sprite->DrawSprite(0.5 * pixelWidth, pixelHeight - 0.5 * pixelWidth + offsetY, true,true);
+	this->spriteGPU->DrawSprite(0.5 * pixelWidth, pixelHeight - sprite->scale.y, true);
+	//this->sprite->DrawSprite(0.5 * pixelWidth, pixelHeight - 0.5 * pixelWidth + offsetY, true,true);
 }
 
 void Pistol::Delete()
 {
+	delete this->spriteGPU;
 	delete this->sprite;
 	delete this->audio;
 	delete this;

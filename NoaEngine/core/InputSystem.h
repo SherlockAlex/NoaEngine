@@ -24,26 +24,25 @@
 #endif // __linux
 
 #include "NoaMath.h"
-#include "NoaAction.h"
 
 namespace noa {
 	extern SDL_Event ioEvent;
 
-	enum MOUSEKEY {
+	enum class MOUSEKEY {
 		LeftButton = GLFW_MOUSE_BUTTON_LEFT,
 		MiddleButton = GLFW_MOUSE_BUTTON_RIGHT,
 		RightButton = GLFW_MOUSE_BUTTON_MIDDLE,
 		// 添加其他鼠标按钮
 	};
 
-	/*enum MOUSEKEY {
-		LeftButton = SDL_BUTTON_LEFT,
-		MiddleButton = SDL_BUTTON_MIDDLE,
-		RightButton = SDL_BUTTON_RIGHT
-	};*/
+	enum class GRAPHIC
+	{
+		SDL = 0,
+		OpenGL = 1
+	};
 
 	//按键映射
-	enum KEYCODE
+	enum class KEYCODE
 	{
 #ifdef __linux
 		KeyA = 'a',
@@ -107,33 +106,42 @@ namespace noa {
 #endif // _WIN64
 	};
 
-	class InputSystem
+	typedef struct MouseInput {
+		Vector<double> position;
+		Vector<double> delta;
+		Vector<double> wheel;
+
+		bool motion = false;
+
+	}MouseInput;
+
+	class InputSystem final
 	{
+
 	private:
+
+		MouseInput mouseInput;
+
 		//鼠标的位置信息
-		float mouseX = 0;
-		float mouseY = 0;
+		double mouseX = 0;
+		double mouseY = 0;
 
-
+		GRAPHIC graphicAPI;
 
 		GLFWwindow* window = nullptr;
 
 	public:
-		void SetGLWindow(GLFWwindow* window);
+		void Update();
 
+		void SetGraphicAPI(GRAPHIC api);
+		void SetGLWindow(GLFWwindow* window);
 		InputSystem();
 		~InputSystem();
-		NoaEvent inputEvent;
 	public:
 
-		//无需更新ioEvent
-		bool GetKeyHold(char key);
-		bool GetKeyDown(char key);
-
-		//更新ioEvent
+		bool GetKeyHold(KEYCODE key);
+		bool GetKeyDown(KEYCODE key);
 		bool GetMouseMoveState();
-
-		void Update();
 
 		/*
 		x > 0 鼠标向右移动 : x
@@ -142,9 +150,9 @@ namespace noa {
 		y < 0 鼠标向上移动 : -y
 		*/
 		void SetRelativeMouseMode(bool mode);
-		Vector<float> GetMouseMoveDelta();
-		Vector<float> GetMousePosition();
-		Vector<int> GetMouseWheel();
+		Vector<double> & GetMouseMoveDelta();
+		Vector<double> & GetMousePosition();
+		Vector<double> & GetMouseWheel();
 
 		bool GetMouseButton(MOUSEKEY mouseButton);
 

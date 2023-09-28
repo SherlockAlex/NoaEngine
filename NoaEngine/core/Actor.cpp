@@ -31,10 +31,6 @@ namespace noa
 		{
 			activeScene->AddActor(this);
 		}
-		
-		//执行将本actor添加到activeScene的列表中
-
-		//sceneManager.AddActor(this);
 	}
 
 	Actor::~Actor()
@@ -52,9 +48,8 @@ namespace noa
 		}
 		components.push_back(component);
 
-		std::sort(components.begin(), components.end());
-		auto last = std::unique(components.begin(), components.end());
-		components.erase(last,components.end());
+		//添加完组件后开始排查重复项
+		
 
 	}
 
@@ -159,47 +154,24 @@ namespace noa
 		{
 			return;
 		}
-		rigidbodys.push_back(rigid);
-
-		std::sort(rigidbodys.begin(), rigidbodys.end());
-		auto last = std::unique(rigidbodys.begin(), rigidbodys.end());
-		rigidbodys.erase(last, rigidbodys.end());
+		this->rigidbody = rigid;
 
 	}
 
-	void Actor::RemoveRigidbody(Rigidbody* rigid)
+	void Actor::RemoveRigidbody()
 	{
-		if (rigid == nullptr)
-		{
-			return;
-		}
-
-		std::sort(rigidbodys.begin(), rigidbodys.end());
-		auto last = std::unique(rigidbodys.begin(), rigidbodys.end());
-		rigidbodys.erase(last, rigidbodys.end());
-
-		auto item = std::remove(rigidbodys.begin(),rigidbodys.end(),rigid);
-		rigidbodys.erase(item,rigidbodys.end());
-
+		rigidbody = nullptr;
 	}
 
 	void Actor::DestroyRigidbody()
 	{
-		if (rigidbodys.empty()) 
+		if (rigidbody == nullptr) 
 		{
 			return;
 		}
 
-		for (int i=0;i<rigidbodys.size();i++) 
-		{
-			if (rigidbodys[i]==nullptr)
-			{
-				continue;
-			}
-			rigidbodys[i]->Destroy();
-			rigidbodys[i] = nullptr;
-		}
-		rigidbodys.clear();
+		rigidbody->Destroy();
+		rigidbody = nullptr;
 
 	}
 
@@ -217,7 +189,6 @@ namespace noa
 	void Actor::Destroy()
 	{
 		SetActive(false);
-		//OnDisable();
 		DestroyRigidbody();
 		activeScene->RemoveActor(this);
 	}

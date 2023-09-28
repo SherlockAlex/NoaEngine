@@ -35,17 +35,6 @@ namespace noa {
 
 		this->SetFrame(frame);
 
-		/*const AnimationFile animatorFile = move(resource.LoadAnimationFile(filePath));
-		for (SpriteFile frame : animatorFile.data)
-		{
-			InsertFrameImage(frame);
-		}*/
-
-		/*if (framesImage.size() > 0)
-		{
-			currentFrame = move(framesImage[0]);
-		}*/
-
 	}
 
 	Animation* Animation::Create(Actor* actor, float speed, bool loop)

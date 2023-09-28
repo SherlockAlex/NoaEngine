@@ -86,7 +86,7 @@ namespace NoaTool
 
             //保存贴图
             Bitmap bmp = new Bitmap(currentImagePath);
-            List<uint> image = Sprite.ReadImageRGB(currentImagePath);
+            List<uint> image = Sprite.ReadImageRGBA(currentImagePath);
             SpriteFile spriteFile;
             spriteFile.images = image;
             spriteFile.width = bmp.Width;
@@ -138,7 +138,7 @@ namespace NoaTool
                 string imagePath = animatorFrameGridView.Rows[i].Cells[0].Value as string;
                 
                 Bitmap bmp = new Bitmap(imagePath);
-                List<uint> image = Sprite.ReadImageRGB(imagePath);
+                List<uint> image = Sprite.ReadImageRGBA(imagePath);
                 SpriteFile spriteFile;
                 spriteFile.images = image;
                 spriteFile.width = bmp.Width;

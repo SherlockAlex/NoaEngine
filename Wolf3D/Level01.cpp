@@ -42,6 +42,7 @@ void Level01::Awake()
 	);
 	map->objectLayer = new MapFile(resource.LoadMapFromCSV("./Assets/Wolf/Map/第二关_对象层.csv"));
 
+	SetTileMap(map->mapLayer);
 
 	player = Player::Create(this);
 	camera.SetFollow(&player->transform);
@@ -129,7 +130,7 @@ void Level01::Update()
 {
 	camera.Render(*map->mapLayer, false, nullptr, WHITE);
 	wolfResource->mouse.DrawSprite(pixelWidth * 0.5 - 0.5 * wolfResource->mouse.scale.x, pixelHeight * 0.5 - 0.5 * wolfResource->mouse.scale.y, true);
-	if (inputSystem.GetKeyHold(KeyM))
+	if (inputSystem.GetKeyHold(KEYCODE::KeyM))
 	{
 		Vector<int> drawPos = mapCamera.Render(*map->mapLayer, { 0,0 }, { 0,0 });
 		renderer.DrawRect(drawPos, drawPos + Vector<int>(32, 32), WHITE);

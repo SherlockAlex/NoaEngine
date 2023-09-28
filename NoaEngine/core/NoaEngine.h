@@ -130,23 +130,40 @@
 //窗口属性
 
 namespace noa {
+	extern GRAPHIC API;
+
 	extern int pixelHeight;
 	extern int pixelWidth;
 
 	extern Renderer renderer;
 
 	extern float deltaTime;
+	extern float timeScale;
 
 	extern float gameTime;
+
+#pragma region SDL
+	typedef struct SpriteGPUInstanceSDL {
+		SDL_Texture* texture;
+		SDL_Rect* srcRect;
+		SDL_Rect * dstRect;
+
+		float eulerAngle = 0.0;
+
+		bool flip = false;
+
+	}SpriteGPUInstanceSDL;
+
+	extern std::vector<SpriteGPUInstanceSDL> spriteSDLInstances;
+
+	
 
 	/*
 	* o-----------------------——-o
 	* |    游戏基类，一个抽象类     |
 	* o------------------------——o
 	*/
-
-#pragma region SDL
-	class NoaGameEngine {
+	class NoaEngineSDL {
 	public:
 		enum GameWindowMode
 		{
@@ -200,24 +217,18 @@ namespace noa {
 		/// <param name="height">窗口高度</param>
 		/// <param name="windowMode">窗口模式</param>
 		/// <param name="gameName">游戏名称</param>
-		NoaGameEngine(
+		NoaEngineSDL(
 			int width, int height,
 			GameWindowMode windowMode,
 			string gameName
 		);
 
 
-		~NoaGameEngine();
-
-		void GLRenderTexture();
+		~NoaEngineSDL();
 
 		void* PixelBuffer();
 		float DeltaTime();
 		int Run();
-
-		// 更新OpenGL纹理像素数据并渲染
-		void UpdateOpenGLTexture();
-		void RenderOpenGLTexture();
 
 		int Quit();
 
@@ -258,6 +269,19 @@ namespace noa {
 	
 #pragma region OPENGL
 
+
+	typedef struct SpriteGPUInstanceGL 
+	{
+		NoaTexture* texture;
+		Vector<int> position;
+		Vector<int> scale;
+		float eulerAngle = 0.0;
+		bool flip = false;
+
+	}SpriteGPUInstanceGL;
+
+	extern std::vector<SpriteGPUInstanceGL> spriteInstancesGL;
+
 	class NoaEngineGL
 	{
 	public:
@@ -268,6 +292,10 @@ namespace noa {
 		};
 
 	private:
+
+		NoaTexture * texture;
+
+		NoaRenderer * mainRenderer;
 
 		bool isRun = true;
 
@@ -280,56 +308,9 @@ namespace noa {
 
 		GLFWwindow* window = nullptr;
 
-		//// 修正纹理坐标
-		//float vertices[16] = {
-		//	// 顶点坐标        纹理坐标
-		//	 1.0f,  1.0f,  1.0f, 1.0f, // 右上角
-		//	 1.0f, -1.0f,  1.0f, 0.0f, // 右下角
-		//	-1.0f, -1.0f,  0.0f, 0.0f, // 左下角
-		//	-1.0f,  1.0f,  0.0f, 1.0f  // 左上角
-		//};
-
-		float vertices[16] = {
-			// 顶点坐标        纹理坐标
-			 1.0f,  1.0f,  1.0f, 0.0f, // 右上角
-			 1.0f, -1.0f,  1.0f, 1.0f, // 右下角
-			-1.0f, -1.0f,  0.0f, 1.0f, // 左下角
-			-1.0f,  1.0f,  0.0f, 0.0f  // 左上角
-		};
-
-		unsigned int indices[6] = {
-		   0, 1, 3, // 第一个三角形
-		   1, 2, 3  // 第二个三角形
-		};;
-
 #pragma region SHADER
 
-		const char* vertexShaderSource = R"glsl(
-#version 330 core
-layout (location = 0) in vec2 aPos;
-layout (location = 1) in vec2 aTexCoord;
-
-out vec2 TexCoord;
-
-void main()
-{
-    gl_Position = vec4(aPos, 0.0f, 1.0f);
-    TexCoord = aTexCoord;
-}
-)glsl";
-
-		const char* fragmentShaderSource = R"glsl(
-#version 330 core
-out vec4 FragColor;
-in vec2 TexCoord;
-
-uniform sampler2D ourTexture;
-
-void main()
-{
-    FragColor = texture(ourTexture, TexCoord);
-}
-)glsl";
+		//Shader源码
 
 #pragma endregion
 

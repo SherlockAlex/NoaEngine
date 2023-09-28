@@ -14,20 +14,27 @@ namespace noa {
 	//Rigidbody只能实例化，没办法继承
 	class Rigidbody;
 
+	// 定义四叉树节点结构体
+	typedef struct QuadTreeNode {
+		float minX;
+		float minY;
+		float maxX;
+		float maxY;
+		std::vector<Rigidbody*> rigidbodies;
+		QuadTreeNode* children[4]; // 子节点数组，代表四个象限
+	}QuadTreeNode;
+
+
 	//存储人物的碰撞信息
 	typedef struct Collision 
 	{
 		Vector<float> sacle = Vector<float>(0, 0);
 		float radius = 0.5;
-
 		bool isHitCollisionTile = false;
-
 		bool isGrounded = false;
 		bool isTrigger = false;
 		Rigidbody * other = nullptr;
-		
 		int hitTileID = -1;
-
 		bool collisionInfo[2][2] = { false,false,false,false };
 		void Update(bool isHitCollisionTile,bool isGrounded) 
 		{
@@ -44,22 +51,18 @@ namespace noa {
 	class TileMap;
 	class Transform;
 	/// <summary>
-	/// 刚体类，当不在使用刚体时，或者物品被摧毁是，请使用RemoveRigidbody
+	/// 刚体类，当不在使用刚体时，或者物品被摧毁是，请使用
 	/// </summary>
 	class Rigidbody final
 	{
 	public:
 		std::string tag = "default";
-
-		//力的种类
 		enum ForceType
 		{
 			ContinuousForce = 1 << 0,
 			Impulse = 1 << 1,
 		};
-		//质量
 		float mass = 1;
-		//阻尼系数
 		float damping = 0.02;
 		Actor* actor;
 		Vector<float> newPosition;
@@ -69,31 +72,21 @@ namespace noa {
 		//用于物体之间的碰撞检测
 		int indexInMap = -1;
 		TileMap* tileMap = nullptr;
-		
 		Vector<float> sumForce = Vector<float>(0.0, 0.0);
-
 		float invMass = 1;
-		
 		bool active = true;
 
 	public:
 		
+		bool isRemoved = false;
 		bool useMotion = true;
 		bool isFrozen = false;
 
-		
-
-		//刚体的速度
 		Vector<float> velocity = Vector<float>(0.0,0.0);
-		//刚体之间碰撞体半径
-		
-
+		QuadTreeNode* node;
 		Collision collision;
-
 		bool useGravity = true;
-		//bool isGrounded = false;
 		bool useCollision = true;
-		//void* gameObject = nullptr;
 
 	private:
 		Rigidbody(Actor* actor);
@@ -107,13 +100,11 @@ namespace noa {
 
 		void Start();
 		void Update();
+
+		void UpdatePosition();
+
 		void Destroy();
 
-		/// <summary>
-		/// 给物体施加力
-		/// </summary>
-		/// <param name="force">力的数值，如果力的种类为恒力，其数值表示力，如果是冲量，则表示冲量的大小</param>
-		/// <param name="forceType">力的类型</param>
 		void AddForce(const Vector<float> force, ForceType forceType);
 		
 		void SetTileMap(TileMap * map);
@@ -122,19 +113,6 @@ namespace noa {
 
 		//碰撞检测线程
 		void ApplyCollision();
-
-		
-
-		/// <summary>
-		/// 返回与之相撞的物品
-		/// </summary>
-		/// <returns></returns>
-		//Rigidbody* GetCollisionRigidbody();
-
-		/*template<class T>
-		T GetGameObjectAs() {
-			return (T)this->gameObject;
-		}*/
 
 		template<class T>
 		T GetActorAs() {
@@ -153,11 +131,7 @@ namespace noa {
 			return true;
 		}
 
-		//void SetCollisionRigidbody(Rigidbody* rigid);
-
 		int GetIndexInMap() const;
-
-		//void RemoveRigidbody() const;
 
 		// 获取哈希值
 		size_t GetHashCode() const {
@@ -183,7 +157,15 @@ namespace noa {
 
 	};
 
+
 	
+	//空间四叉树
+	extern QuadTreeNode* CreateQuadTreeNode(float minX, float minY, float maxX, float maxY);
+	
+	extern void PerformCollisionDetection(QuadTreeNode* node);
+
+	extern void InsertRigidbody(QuadTreeNode* node, Rigidbody* rigidbody);
+
 }
 
 

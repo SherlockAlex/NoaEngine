@@ -12,6 +12,9 @@ public:
 	int takeBullet = 1;
 	FreeCamera* camera = nullptr;
 	Sprite * sprite = nullptr;
+
+	SpriteGPU* spriteGPU = nullptr;
+
 	Animation * animation = nullptr;
 	Audio* audio = nullptr;
 

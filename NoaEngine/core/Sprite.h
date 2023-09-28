@@ -16,11 +16,14 @@
 
 #include "NoaMath.h"
 #include "Resource.h"
+#include "Graphic.h"
+#include "Transform.h"
 
 namespace noa {
+
 	typedef unsigned int Uint32;
 
-	//精灵贴图
+	//精灵贴图，由CPU进行绘图显示
 	class Sprite final {
 
 	public:
@@ -49,6 +52,7 @@ namespace noa {
 		~Sprite();
 
 	public:
+		std::vector<uint32_t> GetImage();
 		void UpdateImage(const SpriteFile & image);
 		void DrawSprite(int posX, int posY, bool isRenderAlpha) const;
 		void DrawSprite(int posX, int posY, bool isRenderAlpha, bool isMirror) const;
@@ -63,6 +67,31 @@ namespace noa {
 		Uint32 GetTransposeColor(const Vector<float>& simple) const;
 
 	};
+
+	// 使用SDL纹理进行渲染
+	class SpriteGPU {
+	private:
+		Sprite* sprite = nullptr;
+
+#pragma region SDL
+		SDL_Texture* sdlTexture = nullptr;
+		SDL_Rect srcRect = { 0,0,0,0 };
+		SDL_Rect dstRect = { 0,0,0,0 };
+#pragma endregion
+
+		NoaTexture* glTexture = nullptr;
+
+	public:
+		SpriteGPU(Sprite * sprite);
+
+		~SpriteGPU();
+
+		void Update(Sprite* sprite);
+
+		void DrawSprite(float x, float y,bool mirror = false);
+
+	};
+
 }
 
 

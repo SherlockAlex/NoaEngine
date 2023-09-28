@@ -7,8 +7,12 @@
 using namespace std;
 
 namespace noa {
+	GRAPHIC API = GRAPHIC::OpenGL;
+
 	extern unordered_map <size_t, Actor*> behaviours;
 	extern unordered_map<size_t, Rigidbody*> rigidbodys;
+
+	vector<SpriteGPUInstanceSDL> spriteSDLInstances;
 
 	//mutex mtx; // 定义互斥锁对象
 
@@ -16,6 +20,7 @@ namespace noa {
 	int pixelWidth = 0;
 
 	float deltaTime = 0;
+	float timeScale = 1;
 	float gameTime = 0;
 
 	uint32_t* pixelBuffer = nullptr;
@@ -25,12 +30,14 @@ namespace noa {
 
 #pragma region SDL
 
-	NoaGameEngine::NoaGameEngine(
+	NoaEngineSDL::NoaEngineSDL(
 		int width, int height,
 		GameWindowMode windowMode,
 		string gameName
 	)
 	{
+
+		API == GRAPHIC::SDL;
 
 		//初始化游戏
 		this->width = width;
@@ -45,27 +52,19 @@ namespace noa {
 			exit(-1);
 		}
 
-		//设置opengl
-		//SDL_GL_SetAttribute();
-		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
-		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 2);
-		SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
-
 		window = SDL_CreateWindow(
 			gameName.c_str(),
 			SDL_WINDOWPOS_CENTERED,
 			SDL_WINDOWPOS_CENTERED,
 			width,
 			height,
-			gameWindowMode | SDL_WINDOW_OPENGL
+			gameWindowMode
 		);
 		if (window == nullptr)
 		{
 			Debug("Create window faild");
 			exit(-1);
 		}
-
-		glContext = SDL_GL_CreateContext(window);
 
 		surfaceWidth = width;
 		surfaceHeight = height;
@@ -80,7 +79,7 @@ namespace noa {
 		}
 
 		texture = SDL_CreateTexture(mainRenderer,
-			SDL_PIXELFORMAT_BGR888,
+			SDL_PIXELFORMAT_ABGR8888,
 			SDL_TEXTUREACCESS_STREAMING,
 			width,
 			height
@@ -89,10 +88,8 @@ namespace noa {
 			exit(-1);
 		}
 
-		format = SDL_AllocFormat(SDL_PIXELFORMAT_BGR888);
+		format = SDL_AllocFormat(SDL_PIXELFORMAT_ABGR8888);
 		SDL_LockTexture(texture, nullptr, (void**)&pixelBuffer, &pitch);
-		//pixelBuffer = new Uint32[width * height];
-		//pitch = 3 * 32 * sizeof(Uint32);
 
 		surface = SDL_GetWindowSurface(window);
 		if (surface == nullptr)
@@ -118,7 +115,7 @@ namespace noa {
 
 
 
-	NoaGameEngine::~NoaGameEngine() {
+	NoaEngineSDL::~NoaEngineSDL() {
 
 		Mix_CloseAudio();
 		SDL_DestroyRenderer(mainRenderer);
@@ -127,27 +124,22 @@ namespace noa {
 		SDL_Quit();
 	}
 
-	void* NoaGameEngine::PixelBuffer() {
+	void* NoaEngineSDL::PixelBuffer() {
 		return pixelBuffer;
 	}
 
-	float NoaGameEngine::DeltaTime() {
+	float NoaEngineSDL::DeltaTime() {
 		return deltaTime;
 	}
 
-	int SDL_ThreadFunction(void* data) {
-		// 从传递的data中获取std::function对象，并调用它
-		std::function<void()>* funcPtr = static_cast<std::function<void()>*>(data);
-		(*funcPtr)(); // 调用成员方法
-		return 0;
-	}
-
-	int NoaGameEngine::Run()
+	int NoaEngineSDL::Run()
 	{
 		//运行游戏
 		tp1 = chrono::system_clock::now();
 		chrono::duration<float> elapsedTime;
 		tp2 = chrono::system_clock::now();
+
+		inputSystem.SetGraphicAPI(GRAPHIC::SDL);
 
 		Start();
 
@@ -155,9 +147,9 @@ namespace noa {
 		{
 			tp2 = chrono::system_clock::now();
 			elapsedTime = tp2 - tp1;
-			deltaTime = elapsedTime.count();
+			deltaTime = timeScale*elapsedTime.count();
 
-			gameTime += deltaTime;
+			gameTime = (gameTime+deltaTime);
 			if (gameTime > 65535)
 			{
 				gameTime = 0;
@@ -179,12 +171,22 @@ namespace noa {
 
 			SDL_UnlockTexture(texture);
 			SDL_RenderCopy(mainRenderer, texture, nullptr, nullptr);
+
+			for (const auto & instance: spriteSDLInstances)
+			{
+				SDL_RenderCopyEx(mainRenderer
+					, instance.texture
+					, instance.srcRect
+					, instance.dstRect
+					, instance.eulerAngle
+					, nullptr
+					, (instance.flip ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE)
+				);
+			}
+
 			SDL_RenderPresent(mainRenderer);
 
-			// 减少内存访问
-			const double fps = 1.0 / deltaTime;
-			const string windowTitle = move(gameName + " FPS: " + to_string(fps));
-			SDL_SetWindowTitle(window, windowTitle.c_str());
+			spriteSDLInstances.clear();
 
 			tp1 = tp2;
 
@@ -194,7 +196,7 @@ namespace noa {
 		return 0;
 	}
 
-	int NoaGameEngine::Quit()
+	int NoaEngineSDL::Quit()
 	{
 		OnDisable();
 		sceneManager.Quit();
@@ -254,9 +256,11 @@ namespace noa {
 
 #pragma region OPENGL
 
+	std::vector<SpriteGPUInstanceGL> spriteInstancesGL;
+
 	NoaEngineGL::NoaEngineGL(int width, int height, GameWindowMode windowMode, string gameName)
 	{
-
+		API == GRAPHIC::OpenGL;
 		//初始化OpenGL
 		if (!glfwInit()) {
 			Debug("Failed to initialize GLFW");
@@ -271,7 +275,13 @@ namespace noa {
 
 		pixelBuffer = new uint32_t[width * height];
 
-		window = glfwCreateWindow(width, height, gameName.c_str(), NULL, NULL);
+		// 在创建窗口之前设置垂直同步为禁用
+
+		glfwWindowHint(GLFW_RESIZABLE,0);
+
+		GLFWmonitor* pMonitor = windowMode == FullScreen ? glfwGetPrimaryMonitor() : NULL;
+
+		window = glfwCreateWindow(width, height, gameName.c_str(), pMonitor, NULL);
 		if (!window) {
 			Debug("Failed to create GLFW window");
 			glfwTerminate();
@@ -279,6 +289,7 @@ namespace noa {
 		}
 
 		glfwMakeContextCurrent(window);
+		glfwSwapInterval(0);
 
 		if (glewInit() != GLEW_OK) {
 			Debug("Failed to initialize GLEW");
@@ -299,6 +310,8 @@ namespace noa {
 			exit(-1);
 		}
 
+		texture = new NoaTexture(width, height, pixelBuffer);
+		mainRenderer = new NoaRenderer();
 
 	}
 
@@ -309,102 +322,71 @@ namespace noa {
 		glfwTerminate();
 	}
 
+
+	GLuint fragmentShader;
+
+	GLuint shaderProgram;
+
+	GLuint vertexShader;
 	int NoaEngineGL::Run()
 	{
 
+		
 
+		inputSystem.SetGraphicAPI(GRAPHIC::OpenGL);
 		inputSystem.SetGLWindow(this->window);
+
 		glfwSetScrollCallback(window, InputSystem::MouseScrollCallback);
-		
-
-		GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
-		glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
-		glCompileShader(vertexShader);
-
-		GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-		glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
-		glCompileShader(fragmentShader);
-
-		GLuint shaderProgram = glCreateProgram();
-		glAttachShader(shaderProgram, vertexShader);
-		glAttachShader(shaderProgram, fragmentShader);
-		glLinkProgram(shaderProgram);
-
-		glDeleteShader(vertexShader);
-		glDeleteShader(fragmentShader);
-
-		GLuint VBO, VAO, EBO;
-		glGenVertexArrays(1, &VAO);
-		glGenBuffers(1, &VBO);
-		glGenBuffers(1, &EBO);
-
-		glBindVertexArray(VAO);
-
-		glBindBuffer(GL_ARRAY_BUFFER, VBO);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
-
-		glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
-		glEnableVertexAttribArray(0);
-		glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float)));
-		glEnableVertexAttribArray(1);
-
-		GLuint textureID;
-		glGenTextures(1, &textureID);
-		glBindTexture(GL_TEXTURE_2D, textureID);
-
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, glPixelWidth, glPixelHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, pixelBuffer);
-
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-		glBindTexture(GL_TEXTURE_2D, 0);
-
-		
 
 		Start();
 
-		while ((!glfwWindowShouldClose(window))&&isRun) {
+		while ((!glfwWindowShouldClose(window)) && isRun) {
 			tp2 = std::chrono::system_clock::now();
 			elapsedTime = tp2 - tp1;
 			deltaTime = elapsedTime.count();
 
-			glClear(GL_COLOR_BUFFER_BIT);
+			// 检查输入状态
 
-			///修改像素值
-			
-			//执行游戏主类的update
 			inputSystem.Update();
 
+			// 执行游戏主类的update
 			sceneManager.Update();
+			
 			Update();
 
-			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, this->glPixelWidth, this->glPixelHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, pixelBuffer);
+			int i = 0;
 
-			///
+			glActiveTexture(GL_TEXTURE + i);
+			texture->UpdateTexture(pixelBuffer);
+			mainRenderer->DrawTexture(this->texture,0,0,pixelWidth,pixelHeight);
 
-			glUseProgram(shaderProgram);
-			glBindTexture(GL_TEXTURE_2D, textureID);
-			glBindVertexArray(VAO);
-			glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+			i++;
+			for (const auto & instance:spriteInstancesGL) 
+			{
+				glActiveTexture(GL_TEXTURE + i);
+				mainRenderer->DrawTexture(
+					instance.texture
+					,instance.position.x
+					,instance.position.y
+					,instance.scale.x
+					,instance.scale.y
+				);
+				i++;
+			}
 
-			glfwSwapBuffers(window);
+			mainRenderer->Present(window);
+
+			spriteInstancesGL.clear();
+
 			glfwPollEvents();
-
-			inputSystem.mouseWheelEventReceived = false;
 
 			tp1 = tp2;
 		}
 
 		Quit();
 
-		//释放资源
+		// 释放资源
 		glDeleteProgram(shaderProgram);
-		glDeleteTextures(1, &textureID);
-		glDeleteVertexArrays(1, &VAO);
-		glDeleteBuffers(1, &VBO);
-		glDeleteBuffers(1, &EBO);
 
 		return 0;
 

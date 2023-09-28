@@ -123,6 +123,9 @@
     <ClCompile Include="MainMenuLevel.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="..\NoaEngine\core\Graphic.cpp">
+      <Filter>源文件\core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\NoaEngine\core\Animator.h">

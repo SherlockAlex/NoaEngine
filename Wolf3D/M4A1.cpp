@@ -5,13 +5,11 @@
 
 M4A1::M4A1(Player* player, int* bulletCount, FreeCamera* camera) :Gun(bulletCount, camera)
 {
-	this->sprite = new Sprite(
-		resource.LoadSprFile("./Assets/Wolf/gun.spr")
-		, Vector<int>(0.5 * pixelWidth, 0.5 * pixelWidth));
 
 	this->audio = new Audio("./Assets/Wolf/Music/m4a1.wav", Chunk);
 
 	this->animation = Animation::Create(player,45, false);
+
 	//animation->LoadFromAnimationFile("./Assets/Wolf/lgun-shot.amt");
 	animation->SetFrame(&wolfResource->m4a1Frame);
 	animation->SetFrameEvent(2, [this]()
@@ -46,6 +44,13 @@ M4A1::M4A1(Player* player, int* bulletCount, FreeCamera* camera) :Gun(bulletCoun
 				enimy->TakeDamage(damage);
 			}
 		});
+
+	this->sprite = new Sprite(
+		animation->GetCurrentFrameImage()
+		, Vector<int>(0.5 * pixelWidth, 0.5 * pixelWidth));
+
+	this->spriteGPU = new SpriteGPU(sprite);
+
 }
 
 M4A1* M4A1::Create(Player* player, int* bulletCount, FreeCamera* camera)
@@ -60,11 +65,13 @@ void M4A1::Update()
 	const float offsetX = 0;
 	const float offsetY = 0;
 
-	this->sprite->DrawSprite(0.5 * pixelWidth + offsetX, pixelHeight - 0.5 * pixelWidth + offsetY, true,true);
+	this->spriteGPU->DrawSprite(0.5 * pixelWidth, pixelHeight - sprite->scale.y, true);
+	//this->sprite->DrawSprite(0.5 * pixelWidth + offsetX, pixelHeight - 0.5 * pixelWidth + offsetY, true,true);
 }
 
 void M4A1::Delete()
 {
+	delete this->spriteGPU;
 	delete this->sprite;
 	delete this->audio;
 	delete this;

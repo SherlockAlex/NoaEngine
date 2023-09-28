@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -176,13 +177,13 @@ namespace NoaTool
                 Bitmap image = new Bitmap(imagePath);
 
                 // 遍历每个像素点
-                for (int x = 0; x < image.Width; x++)
+                for (int y = 0; y < image.Height; y++)
                 {
-                    for (int y = 0; y < image.Height; y++)
+                    for (int x = 0; x < image.Width; x++)
                     {
                         // 获取当前像素的RGB值
                         Color pixelColor = image.GetPixel(x, y);
-                        uint rgb = (uint)(pixelColor.R | pixelColor.G << 8 | pixelColor.B<<16);
+                        uint rgb = (uint)(pixelColor.R | pixelColor.G << 8 | pixelColor.B<<16|pixelColor.A<<24);
                         // 添加到列表中
                         rgbValues.Add(rgb);
                     }
@@ -192,6 +193,54 @@ namespace NoaTool
                 image.Dispose();
 
                 return rgbValues;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("读取图片出错：" + e.Message);
+                return null;
+            }
+        }
+
+        public static List<uint> ReadImageRGBA(string imagePath)
+        {
+            List<uint> rgbaValues = new List<uint>();
+
+            try
+            {
+                // 读取图片
+                Bitmap image = new Bitmap(imagePath);
+
+                // 锁定位图的像素数据
+                BitmapData bitmapData = image.LockBits(new Rectangle(0, 0, image.Width, image.Height), ImageLockMode.ReadOnly, PixelFormat.Format32bppArgb);
+
+                // 获取像素数据的指针
+                IntPtr ptr = bitmapData.Scan0;
+
+                // 计算像素数据的总字节数
+                int bytes = Math.Abs(bitmapData.Stride) * image.Height;
+
+                // 创建一个字节数组来存储像素数据
+                byte[] rgbValues = new byte[bytes];
+
+                // 将像素数据复制到字节数组中
+                System.Runtime.InteropServices.Marshal.Copy(ptr, rgbValues, 0, bytes);
+
+                // 解锁位图
+                image.UnlockBits(bitmapData);
+
+                // 遍历每个像素
+                for (int i = 0; i < rgbValues.Length; i += 4) // 4 bytes per pixel (RGBA)
+                {
+                    byte r = rgbValues[i + 2]; // Red
+                    byte g = rgbValues[i + 1]; // Green
+                    byte b = rgbValues[i];     // Blue
+                    byte a = rgbValues[i + 3]; // Alpha
+
+                    uint rgba = (uint)(r| g << 8 | b << 16 | a << 24);
+                    rgbaValues.Add(rgba);
+                }
+
+                return rgbaValues;
             }
             catch (Exception e)
             {
@@ -368,7 +417,7 @@ namespace NoaTool
                         for (int j = 0; j < height; j++)
                         {
                             Color pixelColor = image.GetPixel(x + i, y + j);
-                            uint pixelValue = (uint)((pixelColor.R) | (pixelColor.G << 8) | pixelColor.B<<16);
+                            uint pixelValue = (uint)((pixelColor.R) | (pixelColor.G << 8) | pixelColor.B<<16|pixelColor.A<<24);
                             spriteFile.images.Add(pixelValue);
                         }
                     }

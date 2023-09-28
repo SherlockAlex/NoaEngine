@@ -25,7 +25,8 @@ namespace noa {
 		bool isActive = true;
 
 		std::vector<ActorComponent*> components;
-		std::vector<Rigidbody*> rigidbodys;
+		Rigidbody* rigidbody = nullptr;
+		//std::vector<Rigidbody*> rigidbodys;
 
 	public:
 		Transform transform;
@@ -101,7 +102,7 @@ namespace noa {
 		void DestroyComponent();
 
 		void AddRigidbody(Rigidbody* rigid);
-		void RemoveRigidbody(Rigidbody* rigid);
+		void RemoveRigidbody();
 		void DestroyRigidbody();
 
 	private:

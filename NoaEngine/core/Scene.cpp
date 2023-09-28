@@ -10,6 +10,9 @@ using namespace std;
 
 namespace noa 
 {
+
+	QuadTreeNode* rootNode = nullptr;
+
 	SceneManager sceneManager;
 
 	LevelMap::LevelMap() {
@@ -151,6 +154,8 @@ namespace noa
 		this->name = name;
 		sceneManager.AddScene(this);
 
+		destroyActors.reserve(1024);
+		destroyRigids.reserve(1024);
 	}
 
 	Scene::~Scene()
@@ -158,15 +163,10 @@ namespace noa
 		DestoyScene();
 	}
 
-	/*void Scene::Delete()
+	void Scene::SetTileMap(TileMap* map)
 	{
-		delete this;
-	}*/
-
-	//Scene* Scene::Create(std::string name)
-	//{
-	//	return new Scene(name);
-	//}
+		rootNode = CreateQuadTreeNode(0.0f, 0.0f, map->w, map->h);
+	}
 
 	void Scene::AddActor(Actor* actor)
 	{
@@ -188,11 +188,6 @@ namespace noa
 		actor->OnDestroy();
 		actors[actor->GetHash()] = nullptr;
 		destroyActors.push_back(actor);
-		/*auto it = find(destroyActors.begin(),destroyActors.end(),actor);
-		if (it == destroyActors.end()) 
-		{
-			destroyActors.push_back(actor);
-		}*/
 
 	}
 
@@ -227,6 +222,7 @@ namespace noa
 			return;
 		}
 		this->rigidbodys[rigid->GetHashCode()] = rigid;
+
 	}
 
 	void Scene::RemoveRigidbody(Rigidbody* rigid)
@@ -235,13 +231,18 @@ namespace noa
 		{
 			return;
 		}
-		if (rigidbodys.count(rigid->GetHashCode())<0)
+
+		const size_t hashCode = rigid->GetHashCode();
+
+		if (rigidbodys.count(hashCode)<0)
 		{
-			//如果这个rigidbody以及被移除了
 			return;
 		}
-		rigidbodys[rigid->GetHashCode()] = nullptr;
+		rigidbodys[hashCode] = nullptr;
 		destroyRigids.push_back(rigid);
+
+
+
 	}
 
 	void Scene::ActorAwake()
@@ -301,8 +302,12 @@ namespace noa
 
 	void Scene::ActorUpdate()
 	{
-		
-		for (auto i = rigidbodys.begin();i!=rigidbodys.end();i++) 
+
+		// 执行碰撞检测
+		//PerformCollisionDetection(rootNode);
+
+		const auto rigidLast = rigidbodys.end();
+		for (auto i = rigidbodys.begin();i!= rigidLast;i++)
 		{
 			if (i->second == nullptr)
 			{
@@ -312,7 +317,8 @@ namespace noa
 			rigid->Update();
 		}
 
-		for (auto i = actors.begin();i!=actors.end();i++) 
+		const auto actorLast = actors.end();
+		for (auto i = actors.begin();i!= actorLast;i++)
 		{
 			if (i->second == nullptr||(!i->second->GetActive())) 
 			{

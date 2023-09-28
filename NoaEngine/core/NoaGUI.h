@@ -37,6 +37,7 @@ namespace noa {
 		std::unordered_map<char, Font*> fonts;
 	public:
 		FontAsset(const char * fontPath);
+		FontAsset(const char* ttfPath,int size);
 		Font* GetFont(char c);
 
 		Font* operator [](char c)
@@ -149,7 +150,7 @@ namespace noa {
 		uint32_t textColor = BLACK;
 		
 		uint32_t fontSize = 20;
-		float fontNarrowX = 0.6;
+		float fontNarrowX = 0.8;
 
 		//°´¼ü³£ÁÁÑÕÉ«
 		Sprite* sprite = nullptr;

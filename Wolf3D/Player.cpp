@@ -11,10 +11,6 @@ Player::Player(Scene* scene) :Actor(scene)
 
 	rigid->damping = 0;
 
-	inputSystem.inputEvent += [this]() {
-		this->RotateControl();
-		};
-
 	MakeGun();
 
 }
@@ -70,27 +66,29 @@ void Player::ActorControl()
 	rigid->velocity.x = 0;
 	rigid->velocity.y = 0;
 
-	if (!inputSystem.GetKeyHold(KeyM)) 
+	this->RotateControl();
+
+	if (!inputSystem.GetKeyHold(KEYCODE::KeyM)) 
 	{
-		if (inputSystem.GetKeyHold(KeyW))
+		if (inputSystem.GetKeyHold(KEYCODE::KeyW))
 		{
 			rigid->velocity.x += sinf(transform.eulerAngle);
 			rigid->velocity.y += cosf(transform.eulerAngle);
 		}
 
-		if (inputSystem.GetKeyHold(KeyS))
+		if (inputSystem.GetKeyHold(KEYCODE::KeyS))
 		{
 			rigid->velocity.x += -sinf(transform.eulerAngle);
 			rigid->velocity.y += -cosf(transform.eulerAngle);
 		}
 
-		if (inputSystem.GetKeyHold(KeyA))
+		if (inputSystem.GetKeyHold(KEYCODE::KeyA))
 		{
 			rigid->velocity.x += -cosf(transform.eulerAngle);
 			rigid->velocity.y += sinf(transform.eulerAngle);
 		}
 
-		if (inputSystem.GetKeyHold(KeyD))
+		if (inputSystem.GetKeyHold(KEYCODE::KeyD))
 		{
 			rigid->velocity.x += cosf(transform.eulerAngle);
 			rigid->velocity.y += -sinf(transform.eulerAngle);
@@ -98,37 +96,37 @@ void Player::ActorControl()
 	}
 	else 
 	{
-		if (inputSystem.GetKeyHold(KeyW))
+		if (inputSystem.GetKeyHold(KEYCODE::KeyW))
 		{
 			rigid->velocity.x += 0;
 			rigid->velocity.y += -1;
 		}
 
-		if (inputSystem.GetKeyHold(KeyS))
+		if (inputSystem.GetKeyHold(KEYCODE::KeyS))
 		{
 			rigid->velocity.x += 0;
 			rigid->velocity.y += 1;
 		}
 
-		if (inputSystem.GetKeyHold(KeyA))
+		if (inputSystem.GetKeyHold(KEYCODE::KeyA))
 		{
 			rigid->velocity.x += -1;
 			rigid->velocity.y += 0;
 		}
 
-		if (inputSystem.GetKeyHold(KeyD))
+		if (inputSystem.GetKeyHold(KEYCODE::KeyD))
 		{
 			rigid->velocity.x += 1;
 			rigid->velocity.y += 0;
 		}
 	}
 
-	if (inputSystem.GetMouseButton(LeftButton)&&bulletCount>0)
+	if (inputSystem.GetMouseButton(MOUSEKEY::LeftButton)&&bulletCount>0)
 	{
 		guns[currentGunIndex]->Shoot();
 	}
 
-	if (inputSystem.GetKeyDown(KeyE))
+	if (inputSystem.GetKeyDown(KEYCODE::KeyE))
 	{
 		const Ray ray = camera->GetRayInfo(pixelWidth * 0.5);
 		const float distanceToWall = ray.distance;
@@ -158,10 +156,10 @@ void Player::ActorControl()
 
 void Player::RotateControl()
 {
-	Vector<float> mouseDelta = inputSystem.GetMouseMoveDelta();
+	const Vector<double> mouseDelta = move(inputSystem.GetMouseMoveDelta());
 	transform.eulerAngle += mouseSpeed * mouseDelta.x * deltaTime;
 
-	float deltaIndex = inputSystem.GetMouseWheel().y;
+	const double deltaIndex = inputSystem.GetMouseWheel().y;
 
 	
 
@@ -196,13 +194,14 @@ void Player::Update()
 
 	float vel = rigid->velocity.SqrMagnitude();
 
-	if (!inputSystem.GetKeyHold(KeyM)) 
+	if (!inputSystem.GetKeyHold(KEYCODE::KeyM))
 	{
 		guns[currentGunIndex]->Update();
 		//shotgun->Update();
 	}
 
-	renderer.DrawString("hp:"+to_string(this->hp)+"\nbullet:" + to_string(bulletCount), 0, 0, RED, pixelHeight / 20);
+	renderer.DrawString("FPS:"+to_string(1.0/deltaTime), 10, 10, RED, pixelHeight / 20);
+	//renderer.DrawString("hp:"+to_string(this->hp)+"\nbullet:" + to_string(bulletCount), 0, 0, RED, pixelHeight / 20);
 
 }
 

@@ -109,7 +109,7 @@ namespace noa {
 		followPositionOnScreen = move(Vector<int>((follow->position.x - offset.x) * tileScale.x, (follow->position.y - offset.y) * tileScale.y));
 		
 		//绘制游戏物品
-		for (auto& gameObject:sceneManager.GetActiveScene()->gameObjects) 
+		for (const auto& gameObject:sceneManager.GetActiveScene()->gameObjects) 
 		{
 
 			if (gameObject.object==nullptr)
@@ -421,20 +421,23 @@ namespace noa {
 	void FreeCamera::RenderGameObject(uint32_t multiColor)
 	{
 		RenderGameObjectEnter();
+
+		Scene* activeScene = sceneManager.GetActiveScene();
+
 		//绘制物品
-		for (int i = 0;i< sceneManager.GetActiveScene()->gameObjects.size();i++)
+		for (int i = 0;i< activeScene->gameObjects.size();i++)
 		{
 
-			auto object = sceneManager.GetActiveScene()->gameObjects[i].object;
+			auto object = activeScene->gameObjects[i].object;
 			if (object == nullptr)
 			{
 				continue;
 			}
 
 
-			const Vector<float> & vecToFollow = sceneManager.GetActiveScene()->gameObjects[i].vecToPlayer;
+			const Vector<float> & vecToFollow = activeScene->gameObjects[i].vecToPlayer;
 
-			const float distanceFromPlayer = sceneManager.GetActiveScene()->gameObjects[i].distanceToPlayer;
+			const float distanceFromPlayer = activeScene->gameObjects[i].distanceToPlayer;
 
 			const Vector<float> eye = move(Vector<float>(sinf(follow->eulerAngle),cosf(follow->eulerAngle)));
 

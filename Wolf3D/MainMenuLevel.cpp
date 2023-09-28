@@ -39,6 +39,7 @@ void MainMenuLevel::Awake()
 	startButton->scale = { (int)(0.2 * pixelWidth),(int)(0.2 * pixelHeight) };
 	startButton->transform.position.x = 0.5 * pixelWidth - 0.5 * startButton->scale.x;
 	startButton->transform.position.y = 0.5 * pixelHeight;
+	startButton->textColor = BLACK;
 	startButton->text = "START";
 	startButton->AddClickEvent([this]() 
 		{

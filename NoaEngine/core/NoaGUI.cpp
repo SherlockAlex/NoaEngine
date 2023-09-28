@@ -5,12 +5,68 @@
 #include "InputSystem.h"
 #include "Resource.h"
 
+#include <ft2build.h>
+#include FT_FREETYPE_H
+
+
 namespace noa {
 	extern void Debug(string msg);
 	extern Renderer renderer;
 
 	extern int pixelWidth;
 	extern int pixelHeight;
+
+	SpriteFile CreateSpriteFromBitmap(FT_Bitmap * bitmap) 
+	{
+		SpriteFile sprite;
+
+		// 固定大小为 48x48
+		sprite.width = 48;
+		sprite.height = 48;
+
+		// 初始化 images 字段，将所有像素置为黑色
+		sprite.images.resize(48 * 48, ERRORCOLOR);
+
+		// 如果位图为空，则返回一个空的SpriteFile
+		if (bitmap->width == 0 || bitmap->rows == 0) {
+			sprite.x = 0;
+			sprite.y = 0;
+			return sprite;
+		}
+
+		// 将位图数据拷贝到SpriteFile的images字段中
+		for (int y = 0; y < bitmap->rows; y++) {
+			for (int x = 0; x < bitmap->width; x++) {
+				// 在这里根据位图的格式将数据复制到images字段中
+				// 由于不清楚位图的格式，这里假设位图的每个像素都是单通道的灰度值（8位或更多）
+				// 你可能需要根据实际的位图格式进行适当的处理
+				
+				//uint8_t pixelValue = bitmap_mono_get_pixel(bitmap->buffer,bitmap->width,bitmap->rows,x,y);
+				uint8_t pixelValue = bitmap->buffer[y * (bitmap->pitch) + x];
+				uint32_t pixelColor = (pixelValue>=(256/2))?WHITE:ERRORCOLOR;
+
+
+				// 将像素放置到画布的左下方
+				int destX = x;
+				int destY = 48 - bitmap->rows + y;
+
+				if (destX<0||destY<0||destX>=48||destY>=48)
+				{
+					continue;
+				}
+
+				// 将像素颜色合并
+				sprite.images[destY * 48 + destX] = pixelColor;
+
+			}
+		}
+
+		// 设置位图的位置（这部分根据实际需求设置）
+		sprite.x = 0;
+		sprite.y = 0;
+
+		return sprite;
+	}
 
 	FontAsset::FontAsset(const char * fontPath)
 	{
@@ -65,6 +121,7 @@ namespace noa {
 		for (TileData data : resultData)
 		{
 			Font* font = new Font(data.sprites);
+			
 			result[data.id] = font;
 		}
 
@@ -81,6 +138,43 @@ namespace noa {
 		//return result;
 	}
 
+	FontAsset::FontAsset(const char* ttfPath, int size)
+	{
+		//创建字体
+		// 初始化FreeType库
+		FT_Library ft;
+		if (FT_Init_FreeType(&ft)) {
+			// 处理初始化错误
+			Debug("Init FreeType failed");
+			exit(-1);
+		}
+
+		// 加载字体文件
+		FT_Face face;
+		if (FT_New_Face(ft, ttfPath, 0, &face)) {
+			// 处理加载字体错误
+			Debug("Init FT_Face failed");
+			exit(-1);
+		}
+
+		// 设置字体大小（以像素为单位）
+		FT_Set_Pixel_Sizes(face, 0, size); // size像素大小
+
+		// 渲染文字
+		for (unsigned char c = 0; c < 128; c++) {
+			if (FT_Load_Char(face, c, FT_LOAD_RENDER)) {
+				// 处理字符加载错误
+				continue;
+			}
+
+			Font* font = new Font(CreateSpriteFromBitmap(&face->glyph->bitmap));
+			this->fonts[c] = font;
+		}
+
+		Debug("Init font asset successfully");
+
+	}
+
 	Font* FontAsset::GetFont(char c)
 	{
 		if (!ContainKey<char,Font*>(this->fonts,c)) 
@@ -92,8 +186,7 @@ namespace noa {
 
 	NoaButton::NoaButton():UIComponent()
 	{
-		
-		inputSystem.inputEvent += [this](void) {SwapState(); };
+
 	}
 
 	NoaButton::~NoaButton()
@@ -119,7 +212,7 @@ namespace noa {
 			return;
 		}
 
-		Vector<float> mousePos = inputSystem.GetMousePosition();
+		Vector<double> mousePos = inputSystem.GetMousePosition();
 
 		if (mousePos.x>transform.position.x&&mousePos.x<transform.position.x+scale.x
 			&& mousePos.y>transform.position.y && mousePos.y < transform.position.y + scale.y
@@ -127,7 +220,7 @@ namespace noa {
 		{
 			isSelect = true;
 
-			if (inputSystem.GetMouseButton(LeftButton))
+			if (inputSystem.GetMouseButton(MOUSEKEY::LeftButton))
 			{
 				this->clickEvent.Invoke();
 			}
@@ -156,6 +249,9 @@ namespace noa {
 
 	void NoaButton::Update()
 	{
+
+		this->SwapState();
+
 		if (sprite == nullptr)
 		{
 			renderer.DrawRect(transform.position, transform.position + scale, currentColor);
@@ -163,7 +259,6 @@ namespace noa {
 		else {
 			renderer.DrawRect(transform.position, transform.position + scale, sprite,currentColor,true);
 		}
-		
 		
 		//显示文字
 		renderer.DrawString(text, transform.position.x + 0.5*scale.x - text.length() * 0.5*fontSize* fontNarrowX, transform.position.y + 0.5*scale.y - 0.5*fontSize* fontNarrowX, fontNarrowX, textColor, fontSize);

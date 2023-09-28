@@ -27,10 +27,79 @@ namespace noa {
 		this->window = window;
 	}
 
-	InputSystem::InputSystem()
+	void InputSystem::SetGraphicAPI(GRAPHIC api)
+	{
+		this->graphicAPI = api;
+	}
+
+	void InputSystem::Update()
 	{
 
+		if (graphicAPI == GRAPHIC::SDL)
+		{
+			if (ioEvent.type == SDL_MOUSEMOTION)
+			{
+				mouseInput.delta.x += static_cast<double>(ioEvent.motion.xrel);
+				mouseInput.delta.y += static_cast<double>(ioEvent.motion.yrel);
+			}
+			else {
+				mouseInput.delta = { 0,0 };
+			}
+
+
+			mouseInput.motion = (ioEvent.type == SDL_MOUSEMOTION);
+
+			if (ioEvent.type != SDL_MOUSEWHEEL)
+			{
+				mouseInput.wheel = { 0,0 };
+			}
+			else {
+				mouseInput.wheel.x = ioEvent.wheel.x;
+				mouseInput.wheel.y = ioEvent.wheel.y;
+			}
+
+
+			mouseInput.position.x = ioEvent.motion.x;
+			mouseInput.position.y = ioEvent.motion.y;
+
+		}
+		else if(graphicAPI == GRAPHIC::OpenGL)
+		{
+
+			// 获取鼠标相对位移
+			double xpos, ypos;
+			glfwGetCursorPos(window, &xpos, &ypos);
+			mouseInput.delta.x += (xpos - mouseX);
+			mouseInput.delta.y += (ypos - mouseY);
+			
+			mouseX = xpos;
+			mouseY = ypos;
+
+			// 获取鼠标位置
+			mouseInput.position.x = xpos;
+			mouseInput.position.y = ypos;
+
+			// 鼠标滚轮
+			if (!inputSystem.mouseWheelEventReceived)
+			{
+				mouseInput.wheel = { 0,0 };
+			}
+			else {
+				mouseInput.wheel.x += scroll.x;
+				mouseInput.wheel.y += scroll.y;
+				inputSystem.mouseWheelEventReceived = false;
+			}
+
+			
+
+		}
+
 		
+
+	}
+
+	InputSystem::InputSystem()
+	{
 
 		// 开启相对鼠标模式
 #ifdef __linux
@@ -48,7 +117,7 @@ namespace noa {
 #endif // __linux
 	}
 
-	bool InputSystem::GetKeyHold(char key) {
+	bool InputSystem::GetKeyHold(KEYCODE key) {
 		//监听按键是否按住
 
 #ifdef _WIN64
@@ -76,7 +145,7 @@ namespace noa {
 		return false;
 	}
 
-	bool InputSystem::GetKeyDown(char key)
+	bool InputSystem::GetKeyDown(KEYCODE key)
 	{
 		//检测按键按下瞬间
 #ifdef _WIN64
@@ -106,105 +175,68 @@ namespace noa {
 
 	bool InputSystem::GetMouseMoveState()
 	{
-		return glfwGetInputMode(window, GLFW_CURSOR) == GLFW_CURSOR_DISABLED;
-		//return ioEvent.type == SDL_MOUSEMOTION;
-	}
-
-	void InputSystem::Update()
-	{
-		//实现更新
-		inputEvent.Invoke();
+		if (graphicAPI == GRAPHIC::OpenGL)
+		{
+			return glfwGetInputMode(window, GLFW_CURSOR) == GLFW_CURSOR_DISABLED;
+		}
+		
+		return ioEvent.type == SDL_MOUSEMOTION;
 	}
 
 	void InputSystem::SetRelativeMouseMode(bool mode)
 	{
-		glfwSetInputMode(
+		if (graphicAPI == GRAPHIC::OpenGL)
+		{
+			glfwSetInputMode(
 			window, GLFW_CURSOR, mode ? GLFW_CURSOR_DISABLED : GLFW_CURSOR_NORMAL);
-	}
+			glfwGetCursorPos(window, &mouseX, &mouseY); // 初始化鼠标位置
 
-	Vector<float> InputSystem::GetMouseMoveDelta()
-	{
-
-		Vector<float> delta;
-
-		// 获取鼠标相对位移
-		double xpos, ypos;
-		glfwGetCursorPos(window, &xpos, &ypos);
-
-		delta.x = static_cast<float>(xpos) - mouseX;
-		delta.y = static_cast<float>(ypos) - mouseY;
-
-		mouseX = static_cast<float>(xpos);
-		mouseY = static_cast<float>(ypos);
-
-		return delta;
-
-		/*Vector<float> delta;
-
-		delta.x = ioEvent.motion.xrel;
-		delta.y = ioEvent.motion.yrel;
-
-		return delta;*/
-	}
-
-	Vector<float> InputSystem::GetMousePosition()
-	{
-		Vector<float> delta;
-
-		// 获取鼠标位置
-		double xpos, ypos;
-		glfwGetCursorPos(window, &xpos, &ypos);
-
-		delta.x = static_cast<float>(xpos);
-		delta.y = static_cast<float>(ypos);
-
-		return delta;
-
-		/*Vector<float> delta;
-
-		delta.x = ioEvent.motion.x;
-		delta.y = ioEvent.motion.y;
-
-		return delta;*/
-	}
-
-
-
-	Vector<int> InputSystem::GetMouseWheel()
-	{
-
-		if (!InputSystem::mouseWheelEventReceived) 
-		{
-			return { 0,0 };
+		}
+		
+		if (mode) {
+			SDL_SetRelativeMouseMode(SDL_TRUE);
+		}
+		else {
+			SDL_SetRelativeMouseMode(SDL_FALSE);
 		}
 
-		Vector<int> result = { 0, 0 };
+	}
 
-		//glfwGetScrollValues(window, &scrollX, &scrollY);
+	Vector<double> delta;
+	Vector<double> & InputSystem::GetMouseMoveDelta()
+	{
 
-		result.x = static_cast<int>(scroll.x);
-		result.y = static_cast<int>(scroll.y);
+		delta = mouseInput.delta;
+		mouseInput.delta = { 0,0 };
+		return delta;
+		
+	}
 
-		return result;
+	Vector<double> & InputSystem::GetMousePosition()
+	{
+		return mouseInput.position;
+	}
 
-		/*if (ioEvent.type != SDL_MOUSEWHEEL)
-		{
-			return { 0,0 };
-		}
-		Vector<int> result;
-		result.x = ioEvent.wheel.x;
-		result.y = ioEvent.wheel.y;
-		return result;*/
+
+	Vector<double> wheel;
+	Vector<double> & InputSystem::GetMouseWheel()
+	{
+
+		wheel = mouseInput.wheel;
+		mouseInput.wheel = { 0,0 };
+		return wheel;
 	}
 
 	bool InputSystem::GetMouseButton(MOUSEKEY mouseButton)
 	{
-		int state = glfwGetMouseButton(window, static_cast<int>(mouseButton));
-		return state == GLFW_PRESS;
-
-		/*int mouseX, mouseY;
+		if (graphicAPI == GRAPHIC::OpenGL)
+		{
+			int state = glfwGetMouseButton(window, static_cast<int>(mouseButton));
+			return state == GLFW_PRESS;
+		}
+		int mouseX, mouseY;
 		const Uint32 mouseState = SDL_GetMouseState(&mouseX, &mouseY);
-		return mouseState & SDL_BUTTON(mouseButton);*/
+		return mouseState & SDL_BUTTON((static_cast<int>(mouseButton)+1));
 	}
 
 	void InputSystem::MouseScrollCallback(GLFWwindow* window, double xoffset, double yoffset)

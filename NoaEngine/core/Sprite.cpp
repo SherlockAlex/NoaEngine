@@ -1,9 +1,12 @@
 #include "Sprite.h"
 #include "NoaEngine.h"
 
+
+
 using namespace std;
 
 namespace noa {
+
 	extern Renderer renderer;
 
 	///Sprite类的实现
@@ -66,6 +69,11 @@ namespace noa {
 		Debug("Remove sprite successfully");
 	}
 
+	std::vector<uint32_t> Sprite::GetImage()
+	{
+		return this->image;
+	}
+
 	void Sprite::UpdateImage(const SpriteFile & image)
 	{
 		this->posx = image.x;
@@ -95,12 +103,13 @@ namespace noa {
 					(float)(x - x1) / (x2 - x1),
 					(float)(y - y1) / (y2 - y1)
 				);
-				const uint32_t color = GetTransposeColor(simple.y, simple.x);
+				const uint32_t color = GetColor(simple.x, simple.y);
 				if (isRenderAlpha&& color == ERRORCOLOR)
 				{
 					continue;
 				}
-				renderer.DrawPixel(x, y, color);
+				DRAWPIXEL(x,y,color);
+				//renderer.DrawPixel(x, y, color);
 			}
 		}
 
@@ -122,16 +131,17 @@ namespace noa {
 					(float)(x - x1) / (x2 - x1),
 					(float)(y - y1) / (y2 - y1)
 				);
-				Uint32 pixelColor = GetTransposeColor(simple.y, simple.x);
+				Uint32 pixelColor = GetColor(simple.x, simple.y);
 
 				if (isMirror)
 				{
 					//翻转
-					pixelColor = GetTransposeColor(simple.y, 1 - simple.x);
+					pixelColor = GetColor(1-simple.x,simple.y);
+					//pixelColor = GetTransposeColor(simple.y, 1 - simple.x);
 
 				}
 
-				if (isRenderAlpha&& pixelColor == ERRORCOLOR)
+				if (isRenderAlpha&& GetAValue(pixelColor) == 0)
 				{
 					continue;
 				}
@@ -157,8 +167,8 @@ namespace noa {
 					(float)(x - x1) / (x2 - x1),
 					(float)(y - y1) / (y2 - y1)
 				);
-				const uint32_t color = GetTransposeColor(simple.y, simple.x);
-				if (isRenderAlpha&& color == ERRORCOLOR)
+				const uint32_t color = GetColor(simple.x,simple.y);
+				if (isRenderAlpha && GetAValue(color) == 0)
 				{
 					continue;
 				}
@@ -184,16 +194,16 @@ namespace noa {
 					(float)(x - x1) / (x2 - x1),
 					(float)(y - y1) / (y2 - y1)
 				);
-				Uint32 pixelColor = GetTransposeColor(simple.y, simple.x);
+				Uint32 pixelColor = GetColor(simple.x, simple.y);
 
 				if (isMirror)
 				{
 					//翻转
-					pixelColor = GetTransposeColor(simple.y, 1 - simple.x);
+					pixelColor = GetColor(1-simple.x, simple.y);
 
 				}
 
-				if (isRenderAlpha&& pixelColor == ERRORCOLOR)
+				if (isRenderAlpha && GetAValue(pixelColor) == 0)
 				{
 					continue;
 				}
@@ -213,7 +223,7 @@ namespace noa {
 		{
 			for (int y = 0;y < pixelHeight;y++) 
 			{
-				const Uint32 color = GetTransposeColor(y*dy, x*dx);
+				const Uint32 color = GetColor(x*dx, y*dy);
 				renderer.DrawPixel(x,y,color);
 			}
 		}
@@ -232,13 +242,13 @@ namespace noa {
 	{
 		if (isEmpty)
 		{
-			return BLACK;
+			return ERRORCOLOR;
 		}
 
 		
 
-		const int sx = NOAABS((int)(normalizedX * w)) % w;
-		const int sy = NOAABS((int)(normalizedY * h)) % h;
+		const int sx = NOAABS((int)(normalizedX * (w-1))) % w;
+		const int sy = NOAABS((int)(normalizedY * (h-1))) % h;
 
 		return image[sy * w + sx];
 	}
@@ -251,8 +261,8 @@ namespace noa {
 			return BLACK;
 		}
 
-		const int sx = NOAABS((int)(normalizedX * h))%h;
-		const int sy = NOAABS((int)(normalizedY * w))%w;
+		const int sx = NOAABS((int)(normalizedX * (h-1))) % h;
+		const int sy = NOAABS((int)(normalizedY * (w-1))) % w;
 
 		return image[sy * h + sx];
 	}
@@ -265,10 +275,168 @@ namespace noa {
 			return BLACK;
 		}
 
-		const int sx = NOAABS((int)(simple.x * h)) % h;
-		const int sy = NOAABS((int)(simple.y * w)) % w;
+		const int sx = NOAABS((int)(simple.x * (h-1))) % h;
+		const int sy = NOAABS((int)(simple.y * (w-1))) % w;
 
 		return image[sy * h + sx];
+	}
+
+	SpriteGPU::SpriteGPU(Sprite* sprite)
+	{
+		if (API == GRAPHIC::SDL)
+		{
+			if (sprite != nullptr)
+			{
+				this->sprite = sprite;
+
+				srcRect.w = sprite->w;
+				srcRect.h = sprite->h;
+
+				sdlTexture = SDL_CreateTexture(renderer.GetSDLRenderer()
+					, SDL_PIXELFORMAT_ABGR8888
+					, SDL_TEXTUREACCESS_STREAMING
+					, sprite->w
+					, sprite->h
+				);
+
+				SDL_UpdateTexture(sdlTexture, &srcRect, sprite->GetImage().data(), sprite->w * sizeof(uint32_t));
+				SDL_SetTextureBlendMode(sdlTexture, SDL_BLENDMODE_BLEND);
+
+				dstRect.x = sprite->posx;
+				dstRect.y = sprite->posy;
+				dstRect.w = static_cast<int>(sprite->scale.x);
+				dstRect.h = static_cast<int>(sprite->scale.y);
+
+			}
+		}
+		else if(API == GRAPHIC::OpenGL)
+		{
+			if (sprite != nullptr) 
+			{
+				this->sprite = sprite;
+				this->glTexture = new NoaTexture(sprite->w, sprite->h, pixelBuffer);
+				glEnable(GL_BLEND);
+				glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+			}
+			
+		}
+
+		
+	}
+
+	SpriteGPU::~SpriteGPU()
+	{
+		SDL_DestroyTexture(sdlTexture);
+		delete glTexture;
+	}
+
+	void SpriteGPU::Update(Sprite* sprite)
+	{
+		if (API == GRAPHIC::SDL)
+		{
+			if (this->sprite != nullptr)
+			{
+				SDL_DestroyTexture(sdlTexture);
+			}
+
+			if (sprite != nullptr)
+			{
+
+				this->sprite = sprite;
+
+				srcRect.w = sprite->w;
+				srcRect.h = sprite->h;
+
+				sdlTexture = SDL_CreateTexture(renderer.GetSDLRenderer()
+					, SDL_PIXELFORMAT_ABGR8888
+					, SDL_TEXTUREACCESS_STREAMING
+					, sprite->w
+					, sprite->h
+				);
+
+				SDL_UpdateTexture(sdlTexture, &srcRect, sprite->GetImage().data(), sprite->w * sizeof(uint32_t));
+				SDL_SetTextureBlendMode(sdlTexture, SDL_BLENDMODE_BLEND);
+
+				dstRect.x = sprite->posx;
+				dstRect.y = sprite->posy;
+				dstRect.w = static_cast<int>(sprite->scale.x);
+				dstRect.h = static_cast<int>(sprite->scale.y);
+
+			}
+		}
+		else if (API == GRAPHIC::OpenGL) 
+		{
+
+			if (this->sprite != nullptr)
+			{
+				delete this->glTexture;
+			}
+
+			if (sprite != nullptr)
+			{
+				glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+				glTexture->UpdateTexture(sprite->GetImage().data());
+			}
+
+		}
+
+		
+	}
+
+	void SpriteGPU::DrawSprite(float x, float y, bool mirror)
+	{
+
+		
+
+		if (API == GRAPHIC::SDL) 
+		{
+			
+			if (sdlTexture == nullptr || sprite == nullptr)
+			{
+				return;
+			}
+
+			srcRect.w = sprite->w;
+			srcRect.h = sprite->h;
+
+			SDL_UpdateTexture(sdlTexture, &srcRect, sprite->GetImage().data(), sprite->w * sizeof(uint32_t));
+
+			dstRect.x = x;
+			dstRect.y = y;
+			dstRect.w = static_cast<int>(sprite->scale.x);
+			dstRect.h = static_cast<int>(sprite->scale.y);
+
+
+			SpriteGPUInstanceSDL instance;
+			instance.texture = this->sdlTexture;
+			instance.dstRect = &this->dstRect;
+			instance.srcRect = &this->srcRect;
+			instance.flip = mirror;
+			spriteSDLInstances.push_back(instance);
+		}
+		else if (API == GRAPHIC::OpenGL) 
+		{
+			if (glTexture == nullptr || sprite == nullptr)
+			{
+				return;
+			}
+			
+			glTexture->UpdateTexture(sprite->GetImage().data());
+
+			SpriteGPUInstanceGL instance;
+			instance.texture = glTexture;
+			instance.position.x = x;
+			instance.position.y = y;
+			instance.scale.x = sprite->scale.x;
+			instance.scale.y = sprite->scale.y;
+
+			instance.flip = mirror;
+			spriteInstancesGL.push_back(instance);
+
+		}
+
+		
+
 	}
 
 }

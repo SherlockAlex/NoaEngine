@@ -16,9 +16,12 @@ public:
 		{
 			for (int y = 0;y<ScreenHeight();y++) 
 			{
-				Draw(x, y, BLUE);
+				
 			}
 		}
+
+		DrawString(10, 10, "ÄãºÃ£¬ÊÀ½ç", WHITE, 10);
+
 		return true;
 	}
 };
@@ -26,7 +29,7 @@ public:
 int main(int argc,char * argv[])
 {
 	ExampleGame game;
-	game.Construct(1920,1080,1920,1080,true,false,true);
+	game.Construct(1920/2,1080/2,1920/2,1080/2,false,false,true);
 	game.Start();
 	return 0;
 }

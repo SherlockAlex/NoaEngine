@@ -43,6 +43,7 @@ namespace noa {
 		/// <param name="point1"></param>
 		/// <param name="point2"></param>
 		/// <param name="sprite"></param>
+		void DrawFont(const Vector<int>& point1, const Vector<int>& point2, Sprite & sprite,uint32_t color) const;
 		void DrawRect(const Vector<int>& point1, const Vector<int>& point2, Sprite & sprite) const;
 		void DrawRect(const Vector<int>& point1, const Vector<int>& point2, Sprite& sprite, Uint32 mutiColor, bool isAlpha) const;
 		void DrawRect(const Vector<int>& point1, const Vector<int>& point2, Sprite* sprite, Uint32 mutiColor, bool isAlpha) const;
@@ -61,6 +62,8 @@ namespace noa {
 		void FullScreen(Uint32 color) const;
 		
 		void UpdateScreen();
+
+		SDL_Renderer* GetSDLRenderer();
 
 	};
 }

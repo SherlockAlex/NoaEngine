@@ -339,10 +339,10 @@ private:
 
 };
 
-class Platformer :public NoaEngineGL {
+class Platformer :public NoaEngine {
 public:
 	Platformer(int width, int height, GameWindowMode windowMode, string gameName) 
-		:NoaEngineGL(width, height, windowMode, gameName)
+		:NoaEngine(width, height, windowMode, gameName)
 	{
 		sceneManager.LoadScene("MainMenu");
 	}
@@ -355,7 +355,7 @@ public:
 	void Update() override 
 	{
 
-		Vector<float> mousePos = inputSystem.GetMousePosition();
+		Vector<double> mousePos = inputSystem.GetMousePosition();
 
 		Debug(to_string(1.0/deltaTime));
 
@@ -373,7 +373,7 @@ private:
 
 int main(int argc,char * argv[])
 {
-	Platformer game(1920/1.5, 1080/1.5, NoaEngineGL::WindowMode, "SuperMario");
+	Platformer game(1920/1.5, 1080/1.5, NoaEngine::WindowMode, "SuperMario");
 	game.Run();
 	return 0;
 }
