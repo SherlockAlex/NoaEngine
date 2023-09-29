@@ -34,7 +34,7 @@ void main()
 }
 )glsl";
 
-    NoaTexture::NoaTexture(int w, int h, uint32_t* pixelBuffer)
+    GLTexture::GLTexture(int w, int h, uint32_t* pixelBuffer)
         : width(w), height(h) 
     {
         glGenTextures(1, &textureID);
@@ -52,30 +52,37 @@ void main()
 
     }
 
-    NoaTexture::~NoaTexture() {
+    GLTexture::~GLTexture() {
         glDeleteTextures(1, &textureID);
     }
 
-    void NoaTexture::UpdateTexture(uint32_t* pixelBuffer, int width, int height)
+    void GLTexture::UpdateTexture(uint32_t* pixelBuffer, int width, int height)
     {
         glBindTexture(GL_TEXTURE_2D, textureID);
         // 更新纹理数据
         glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, width, height, GL_RGBA, GL_UNSIGNED_BYTE, pixelBuffer);
     }
 
-    void NoaTexture::Bind() {
+    void GLTexture::Bind() {
         glBindTexture(GL_TEXTURE_2D, textureID);
     }
 
-    int NoaTexture::GetWidth() {
+    void GLTexture::EnableAlpha()
+    {
+        glBindTexture(GL_TEXTURE_2D, textureID);
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    }
+
+    int GLTexture::GetWidth() {
         return width;
     }
 
-    int NoaTexture::GetHeight() {
+    int GLTexture::GetHeight() {
         return height;
     }
 
-    NoaRenderer::NoaRenderer() {
+    GLRenderer::GLRenderer() {
 
         // 创建和编译着色器程序
         GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
@@ -128,24 +135,24 @@ void main()
 
     }
 
-    NoaRenderer::~NoaRenderer() {
+    GLRenderer::~GLRenderer() {
         glDeleteProgram(shaderProgram); // 删除着色器程序
         glDeleteVertexArrays(1, &VAO);
         glDeleteBuffers(1, &VBO);
         glDeleteBuffers(1, &EBO);
     }
 
-    void NoaRenderer::Clear() {
+    void GLRenderer::Clear() {
         glClear(GL_COLOR_BUFFER_BIT);
     }
 
     
 
-    void NoaRenderer::Present(GLFWwindow* window) {
+    void GLRenderer::Present(GLFWwindow* window) {
         glfwSwapBuffers(window);
     }
 
-    void NoaRenderer::DrawTexture(NoaTexture* texture, int x, int y, int w, int h, bool isFlipX) {
+    void GLRenderer::DrawTexture(GLTexture* texture, int x, int y, int w, int h, bool isFlipX) {
 
         // 如果isFlipX = true 关于 y = 0.5*w 进行反转
 

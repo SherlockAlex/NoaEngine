@@ -310,13 +310,16 @@ namespace noa {
 			exit(-1);
 		}
 
-		texture = new NoaTexture(width, height, pixelBuffer);
-		mainRenderer = new NoaRenderer();
+		mainTexture = new GLTexture(width, height, pixelBuffer);
+		mainRenderer = new GLRenderer();
 
 	}
 
 	NoaEngineGL::~NoaEngineGL()
 	{
+		delete mainTexture;
+		delete mainRenderer;
+		delete pixelBuffer;
 		Mix_CloseAudio();
 		glfwDestroyWindow(window);
 		glfwTerminate();
@@ -356,8 +359,8 @@ namespace noa {
 
 			int i = 0;
 			glActiveTexture(GL_TEXTURE + i);
-			texture->UpdateTexture(pixelBuffer,pixelWidth,pixelHeight);
-			mainRenderer->DrawTexture(this->texture,0,0,pixelWidth,pixelHeight);
+			mainTexture->UpdateTexture(pixelBuffer,pixelWidth,pixelHeight);
+			mainRenderer->DrawTexture(this->mainTexture,0,0,pixelWidth,pixelHeight);
 			i++;
 			for (const auto & instance:spriteInstancesGL) 
 			{
@@ -374,10 +377,8 @@ namespace noa {
 			}
 
 			
-			mainRenderer->Present(window);
-
+			glfwSwapBuffers(window);
 			spriteInstancesGL.clear();
-
 			glfwPollEvents();
 
 			tp1 = tp2;

@@ -40,7 +40,7 @@ namespace noa {
 	#define BGR(color)	((((color) & 0xFF) << 16) | ((color) & 0xFF00FF00) | (((color) & 0xFF0000) >> 16))
 	
 	#define RGB(r,g,b)  ((Uint32)(((Uint8)(r)|((Uint8)((Uint8)(g))<<8))|(((unsigned long)(Uint8)(b))<<16)))
-#define RGBA(r, g, b, a)  ((Uint32)(((Uint8)(r)|((Uint8)((Uint8)(g))<<8))|(((unsigned long)(Uint8)(b))<<16)|(((unsigned long)(Uint8)(a))<<24)))
+	#define RGBA(r, g, b, a)  ((Uint32)(((Uint8)(r)|((Uint8)((Uint8)(g))<<8))|(((unsigned long)(Uint8)(b))<<16)|(((unsigned long)(Uint8)(a))<<24)))
 
 	#define GetRValue(rgb)      (LOBYTE(rgb))
 	#define GetGValue(rgb)      (LOBYTE(((unsigned short)(rgb)) >> 8))
@@ -49,7 +49,7 @@ namespace noa {
 
 	#define MULTICOLOR(color,mutiColor) (RGBA(GetRValue(color)* (float(GetRValue(mutiColor)) / 255.0), GetGValue(color)* (float(GetGValue(mutiColor)) / 255.0), GetBValue(color)* (float(GetBValue(mutiColor)) / 255.0),GetAValue(color)))
 	
-	#define ERRORCOLOR RGB(152,0,136)
+	#define ERRORCOLOR RGBA(152,0,136,255)
 
 	typedef Uint32 ColorRef;
 
@@ -79,13 +79,14 @@ namespace noa {
 
 	extern GLuint vertexShader;
 	
-	class NoaTexture {
+	class GLTexture {
 	public:
-		NoaTexture(int w,int h,uint32_t * pixelBuffer);
-		~NoaTexture();
+		GLTexture(int w,int h,uint32_t * pixelBuffer);
+		~GLTexture();
 
 		void UpdateTexture(uint32_t* pixelBuffer,int width,int height);
 		void Bind();
+		void EnableAlpha();
 		int GetWidth();
 		int GetHeight();
 
@@ -95,14 +96,14 @@ namespace noa {
 		int height;
 	};
 
-	class NoaRenderer {
+	class GLRenderer {
 	public:
-		NoaRenderer();
-		~NoaRenderer();
+		GLRenderer();
+		~GLRenderer();
 
 		void Clear();
 		void Present(GLFWwindow * window);
-		void DrawTexture(NoaTexture* texture, int x, int y, int w, int h,bool isFlipX = false);
+		void DrawTexture(GLTexture* texture, int x, int y, int w, int h,bool isFlipX = false);
 
 	private:
 

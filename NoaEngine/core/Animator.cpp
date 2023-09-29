@@ -142,17 +142,6 @@ namespace noa {
 		isPlaying = true;
 	}
 
-	/// <summary>
-	/// ≤Â»Î÷°ÕºœÒ
-	/// </summary>
-	/// <param name="frameImage"></param>
-	/*void Animation::InsertFrameImage(const SpriteFile & frameImage)
-	{
-		Debug("Insert Animator Frame");
-		framesImage.push_back(frameImage);
-		currentFrame = framesImage[0];
-	}*/
-
 	void Animation::Reset()
 	{
 		this->i = 0;

@@ -68,7 +68,7 @@ namespace noa {
 
 	};
 
-	// 使用SDL纹理进行渲染
+	// 使用GPU渲染图片，强制要求必须创建在NoaEngine之后
 	class SpriteGPU final {
 	private:
 		Sprite* sprite = nullptr;
@@ -79,7 +79,7 @@ namespace noa {
 		SDL_Rect dstRect = { 0,0,0,0 };
 #pragma endregion
 
-		NoaTexture* glTexture = nullptr;
+		GLTexture* glTexture = nullptr;
 
 	public:
 		SpriteGPU(Sprite * sprite);

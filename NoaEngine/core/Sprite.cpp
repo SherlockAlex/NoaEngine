@@ -104,7 +104,7 @@ namespace noa {
 					(float)(y - y1) / (y2 - y1)
 				);
 				const uint32_t color = GetColor(simple.x, simple.y);
-				if (isRenderAlpha&& color == ERRORCOLOR)
+				if (isRenderAlpha&& (color == ERRORCOLOR||GetAValue(color) == 0))
 				{
 					continue;
 				}
@@ -283,6 +283,9 @@ namespace noa {
 
 	SpriteGPU::SpriteGPU(Sprite* sprite)
 	{
+
+		// 不太好用，这意味着SpriteGPU不能独立于游戏引擎独立创造
+
 		if (renderer.API == GRAPHIC::SDL)
 		{
 			if (sprite != nullptr)
@@ -314,9 +317,8 @@ namespace noa {
 			if (sprite != nullptr) 
 			{
 				this->sprite = sprite;
-				this->glTexture = new NoaTexture(sprite->w, sprite->h, pixelBuffer);
-				glEnable(GL_BLEND);
-				glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+				this->glTexture = new GLTexture(sprite->w, sprite->h, pixelBuffer);
+				glTexture->EnableAlpha();
 			}
 			
 		}
@@ -374,7 +376,7 @@ namespace noa {
 
 			if (sprite != nullptr)
 			{
-				glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+				//glTexture->EnableAlpha();
 				glTexture->UpdateTexture(sprite->GetImage().data(),sprite->w,sprite->h);
 			}
 

@@ -271,7 +271,7 @@ namespace noa {
 
 	typedef struct SpriteGPUInstanceGL 
 	{
-		NoaTexture* texture;
+		GLTexture* texture;
 		Vector<int> position;
 		Vector<int> scale;
 		float eulerAngle = 0.0;
@@ -292,9 +292,9 @@ namespace noa {
 
 	private:
 
-		NoaTexture * texture;
+		GLTexture * mainTexture;
 
-		NoaRenderer * mainRenderer;
+		GLRenderer * mainRenderer;
 
 		bool isRun = true;
 

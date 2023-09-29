@@ -145,7 +145,6 @@ void Player::ActorControl()
 			{
 				sceneManager.LoadScene("NewGame");
 			}
-			//Debug(to_string(camera->GetRayInfo(pixelWidth * 0.5).hitTile));
 		}
 		
 	}
@@ -197,7 +196,6 @@ void Player::Update()
 	if (!inputSystem.GetKeyHold(KEYCODE::KeyM))
 	{
 		guns[currentGunIndex]->Update();
-		//shotgun->Update();
 	}
 
 	renderer.DrawString("FPS:"+to_string(1.0/deltaTime), 10, 10, RED, pixelHeight / 20);

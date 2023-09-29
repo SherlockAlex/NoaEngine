@@ -57,7 +57,7 @@ private:
 
 int main(int argc,char * argv[])
 {
-	Wolf3D wolf3D(1920, 1080, NoaEngineGL::FullScreen, "Wolf-3D");
+	Wolf3D wolf3D(1920/2, 1080/2, NoaEngineGL::WindowMode, "Wolf-3D");
 	wolf3D.Run();
 	return 0;
 }
