@@ -31,7 +31,7 @@ namespace noa {
 
 	NoaEngineSDL::NoaEngineSDL(
 		int width, int height,
-		GameWindowMode windowMode,
+		WINDOWMODE windowMode,
 		string gameName
 	)
 	{
@@ -55,7 +55,7 @@ namespace noa {
 			SDL_WINDOWPOS_CENTERED,
 			width,
 			height,
-			gameWindowMode
+			(uint32_t)gameWindowMode
 		);
 		if (window == nullptr)
 		{
@@ -94,7 +94,7 @@ namespace noa {
 			exit(-1);
 		}
 
-		renderer = Renderer(surfaceWidth, surfaceHeight, pixelBuffer, mainRenderer, nullptr);
+		renderer = Renderer(surfaceWidth, surfaceHeight, pixelBuffer, mainRenderer, this->texture);
 		renderer.API = GRAPHIC::SDL;
 
 
@@ -144,6 +144,7 @@ namespace noa {
 
 		while (isRun)
 		{
+
 			tp2 = chrono::system_clock::now();
 			elapsedTime = tp2 - tp1;
 			deltaTime = timeScale*elapsedTime.count();
@@ -153,6 +154,8 @@ namespace noa {
 			{
 				gameTime = 0;
 			}
+
+			renderer.FullScreen(BLACK);
 
 			//执行游戏主类的update
 			while (SDL_PollEvent(&ioEvent))
@@ -257,7 +260,7 @@ namespace noa {
 
 	std::vector<SpriteGPUInstanceGL> spriteInstancesGL;
 
-	NoaEngineGL::NoaEngineGL(int width, int height, GameWindowMode windowMode, string gameName)
+	NoaEngineGL::NoaEngineGL(int width, int height, WINDOWMODE windowMode, string gameName)
 	{
 		
 		//初始化OpenGL
@@ -278,7 +281,7 @@ namespace noa {
 
 		glfwWindowHint(GLFW_RESIZABLE,0);
 
-		GLFWmonitor* pMonitor = windowMode == FullScreen ? glfwGetPrimaryMonitor() : NULL;
+		GLFWmonitor* pMonitor = (windowMode == WINDOWMODE::FULLSCREEN) ? glfwGetPrimaryMonitor() : NULL;
 
 		window = glfwCreateWindow(width, height, gameName.c_str(), pMonitor, NULL);
 		if (!window) {
@@ -296,7 +299,7 @@ namespace noa {
 		}
 
 		renderer = Renderer(width, height, pixelBuffer, nullptr, nullptr);
-		renderer.API = GRAPHIC::OpenGL;
+		renderer.API = GRAPHIC::OPENGL;
 
 		//处理音频设备初始化
 		if (Mix_OpenAudio(
@@ -334,7 +337,7 @@ namespace noa {
 	int NoaEngineGL::Run()
 	{
 
-		inputSystem.SetGraphicAPI(GRAPHIC::OpenGL);
+		inputSystem.SetGraphicAPI(GRAPHIC::OPENGL);
 		inputSystem.SetGLWindow(this->window);
 
 		glfwSetScrollCallback(window, InputSystem::MouseScrollCallback);

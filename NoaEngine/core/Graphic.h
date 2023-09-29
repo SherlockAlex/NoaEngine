@@ -64,7 +64,7 @@ namespace noa {
 	enum class GRAPHIC
 	{
 		SDL = 0,
-		OpenGL = 1
+		OPENGL = 1
 	};
 
 #pragma region OPENGL

@@ -8,21 +8,13 @@ namespace noa {
 
 	void DestroyGameObject(GameObject* gameObject) {
 
-		/*for (auto& object:gameObjects)
-		{
-			if (object.object == gameObject)
-			{
-				object.distanceToPlayer = -1;
-				object.object = nullptr;
-			}
-		}*/
-
 	}
 
 	GameObject::GameObject(Scene* activeScene, Sprite * sprite) :Actor(activeScene)
 	{
 		this->sprite = sprite;
 		this->activeScene->AddGameObject({this,0});
+		//spriteGPU = new SpriteGPU(sprite);
 		//this.activeScene.AddGameObject()
 		//gameObjects.push_back({this,0});
 	}
@@ -52,6 +44,7 @@ namespace noa {
 
 	GameObject::~GameObject()
 	{
+		//delete spriteGPU;
 		Debug("Remove gameObject");
 	}
 

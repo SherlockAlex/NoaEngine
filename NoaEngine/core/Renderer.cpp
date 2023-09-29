@@ -264,13 +264,13 @@ namespace noa {
 					(float)(y - y1) / (y2 - y1)
 				);
 				uint32_t color = sprite->GetColor(simple.x, simple.y);
-				//uint32_t color = sprite->GetTransposeColor(simple.y, simple.x);
+				
 				if (isAlpha && GetAValue(color) == 0)
 				{
 					continue;
 				}
 
-				color = RGB(GetRValue(color) * (GetRValue(mutiColor) / 255.0), GetGValue(color) * (GetGValue(mutiColor) / 255.0), GetBValue(color) * (GetBValue(mutiColor) / 255.0));
+				color = RGBA(GetRValue(color) * (GetRValue(mutiColor) / 255.0), GetGValue(color) * (GetGValue(mutiColor) / 255.0), GetBValue(color) * (GetBValue(mutiColor) / 255.0),GetAValue(color));
 
 				DRAWPIXEL(x, y, color);
 			}

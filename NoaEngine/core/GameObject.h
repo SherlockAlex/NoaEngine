@@ -18,6 +18,7 @@ namespace noa {
 		//判断能否被射线击中
 		bool isRaycasted = false;
 		Sprite * sprite = nullptr;
+		SpriteGPU* spriteGPU = nullptr;
 	protected:
 		GameObject(Scene * activeScene,Sprite * sprite);
 

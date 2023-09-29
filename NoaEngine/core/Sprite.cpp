@@ -286,50 +286,45 @@ namespace noa {
 
 		// 不太好用，这意味着SpriteGPU不能独立于游戏引擎独立创造
 
-		if (renderer.API == GRAPHIC::SDL)
+		if (sprite != nullptr&& renderer.API == GRAPHIC::SDL)
 		{
-			if (sprite != nullptr)
-			{
-				this->sprite = sprite;
+			this->sprite = sprite;
 
-				srcRect.w = sprite->w;
-				srcRect.h = sprite->h;
+			srcRect.w = sprite->w;
+			srcRect.h = sprite->h;
 
-				sdlTexture = SDL_CreateTexture(renderer.GetSDLRenderer()
-					, SDL_PIXELFORMAT_ABGR8888
-					, SDL_TEXTUREACCESS_STREAMING
-					, sprite->w
-					, sprite->h
-				);
+			sdlTexture = SDL_CreateTexture(renderer.GetSDLRenderer()
+				, SDL_PIXELFORMAT_ABGR8888
+				, SDL_TEXTUREACCESS_STREAMING
+				, sprite->w
+				, sprite->h
+			);
 
-				SDL_UpdateTexture(sdlTexture, &srcRect, sprite->GetImage().data(), sprite->w * sizeof(uint32_t));
-				SDL_SetTextureBlendMode(sdlTexture, SDL_BLENDMODE_BLEND);
+			SDL_UpdateTexture(sdlTexture, &srcRect, sprite->GetImage().data(), sprite->w * sizeof(uint32_t));
+			SDL_SetTextureBlendMode(sdlTexture, SDL_BLENDMODE_BLEND);
 
-				dstRect.x = sprite->posx;
-				dstRect.y = sprite->posy;
-				dstRect.w = static_cast<int>(sprite->scale.x);
-				dstRect.h = static_cast<int>(sprite->scale.y);
+			dstRect.x = sprite->posx;
+			dstRect.y = sprite->posy;
+			dstRect.w = static_cast<int>(sprite->scale.x);
+			dstRect.h = static_cast<int>(sprite->scale.y);
 
-			}
 		}
-		else if(renderer.API == GRAPHIC::OpenGL)
+		else if (sprite != nullptr && renderer.API == GRAPHIC::OPENGL)
 		{
-			if (sprite != nullptr) 
-			{
-				this->sprite = sprite;
-				this->glTexture = new GLTexture(sprite->w, sprite->h, pixelBuffer);
-				glTexture->EnableAlpha();
-			}
-			
+			this->sprite = sprite;
+			this->glTexture = new GLTexture(sprite->w, sprite->h, pixelBuffer);
+			glTexture->EnableAlpha();
 		}
 
-		
 	}
 
 	SpriteGPU::~SpriteGPU()
 	{
 		SDL_DestroyTexture(sdlTexture);
-		delete glTexture;
+		if (glTexture!=nullptr&&renderer.API == GRAPHIC::OPENGL) 
+		{
+			delete glTexture;
+		}
 	}
 
 	void SpriteGPU::Update(Sprite* sprite)
@@ -366,7 +361,7 @@ namespace noa {
 
 			}
 		}
-		else if (renderer.API == GRAPHIC::OpenGL)
+		else if (renderer.API == GRAPHIC::OPENGL)
 		{
 
 			if (this->sprite != nullptr)
@@ -416,7 +411,7 @@ namespace noa {
 			instance.flip = mirror;
 			spriteSDLInstances.push_back(instance);
 		}
-		else if (renderer.API == GRAPHIC::OpenGL)
+		else if (renderer.API == GRAPHIC::OPENGL)
 		{
 			if (glTexture == nullptr || sprite == nullptr)
 			{

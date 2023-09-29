@@ -155,7 +155,11 @@ namespace noa {
 
 	extern std::vector<SpriteGPUInstanceSDL> spriteSDLInstances;
 
-	
+	enum class WINDOWMODE
+	{
+		FULLSCREEN = SDL_WINDOW_FULLSCREEN,
+		WINDOW = SDL_WINDOW_FOREIGN
+	};
 
 	/*
 	* o-----------------------——-o
@@ -164,11 +168,7 @@ namespace noa {
 	*/
 	class NoaEngineSDL {
 	public:
-		enum GameWindowMode
-		{
-			FullScreen = SDL_WINDOW_FULLSCREEN,
-			WindowMode = SDL_WINDOW_FOREIGN
-		};
+		
 
 	private:
 		std::chrono::system_clock::time_point tp1 = chrono::system_clock::now();
@@ -190,7 +190,7 @@ namespace noa {
 		int width;
 		int height;
 		string gameName;
-		GameWindowMode gameWindowMode;
+		WINDOWMODE gameWindowMode;
 
 		//像素宽度和高度
 		int surfaceWidth;
@@ -218,7 +218,7 @@ namespace noa {
 		/// <param name="gameName">游戏名称</param>
 		NoaEngineSDL(
 			int width, int height,
-			GameWindowMode windowMode,
+			WINDOWMODE windowMode,
 			string gameName
 		);
 
@@ -284,11 +284,7 @@ namespace noa {
 	class NoaEngineGL
 	{
 	public:
-		enum GameWindowMode
-		{
-			FullScreen = 0,
-			WindowMode = 1
-		};
+		
 
 	private:
 
@@ -316,7 +312,7 @@ namespace noa {
 	public:
 		NoaEngineGL(
 			int width, int height,
-			GameWindowMode windowMode,
+			WINDOWMODE windowMode,
 			std::string gameName
 		);
 

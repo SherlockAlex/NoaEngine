@@ -143,7 +143,7 @@
     <ClCompile Include="core\Graphic.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="TestGPU.cpp">
+    <ClCompile Include="m_SuperMario.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

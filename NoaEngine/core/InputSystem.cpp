@@ -63,7 +63,7 @@ namespace noa {
 			mouseInput.position.y = ioEvent.motion.y;
 
 		}
-		else if(graphicAPI == GRAPHIC::OpenGL)
+		else if(graphicAPI == GRAPHIC::OPENGL)
 		{
 
 			// 获取鼠标相对位移
@@ -175,7 +175,7 @@ namespace noa {
 
 	bool InputSystem::GetMouseMoveState()
 	{
-		if (graphicAPI == GRAPHIC::OpenGL)
+		if (graphicAPI == GRAPHIC::OPENGL)
 		{
 			return glfwGetInputMode(window, GLFW_CURSOR) == GLFW_CURSOR_DISABLED;
 		}
@@ -185,7 +185,7 @@ namespace noa {
 
 	void InputSystem::SetRelativeMouseMode(bool mode)
 	{
-		if (graphicAPI == GRAPHIC::OpenGL)
+		if (graphicAPI == GRAPHIC::OPENGL)
 		{
 			glfwSetInputMode(
 			window, GLFW_CURSOR, mode ? GLFW_CURSOR_DISABLED : GLFW_CURSOR_NORMAL);
@@ -229,7 +229,7 @@ namespace noa {
 
 	bool InputSystem::GetMouseButton(MOUSEKEY mouseButton)
 	{
-		if (graphicAPI == GRAPHIC::OpenGL)
+		if (graphicAPI == GRAPHIC::OPENGL)
 		{
 			int state = glfwGetMouseButton(window, static_cast<int>(mouseButton));
 			return state == GLFW_PRESS;

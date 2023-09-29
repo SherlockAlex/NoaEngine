@@ -28,6 +28,8 @@ public:
 	//资源相关
 	Sprite mouse = Sprite(resource.LoadSprFile("./Assets/Wolf/mouse.spr"), Vector<int>(0.02 * pixelWidth, 0.02 * pixelWidth));
 
+	SpriteGPU mouseGPU = SpriteGPU(&mouse);
+
 	//Sprite cacoSprite = Sprite(resource.LoadSprFile("./Assets/Wolf/caco.spr"), Vector<int>(32, 32));
 	Sprite cacoSprite = Sprite(Vector<int>(32, 32));
 

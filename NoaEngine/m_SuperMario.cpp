@@ -60,7 +60,7 @@ private:
 	}
 	~Player()
 	{
-		GameObject::~GameObject();
+		
 	}
 
 public:
@@ -95,28 +95,28 @@ public:
 		rigid->velocity.x = 0;
 		//velocity.y = 0;
 
-		if (inputSystem.GetKeyHold(KeyA))
+		if (inputSystem.GetKeyHold(KEYCODE::KeyA))
 		{
 			isLeft = true;
 			rigid->velocity.x = -speed;
 		}
-		if (inputSystem.GetKeyHold(KeyD))
+		if (inputSystem.GetKeyHold(KEYCODE::KeyD))
 		{
 			isLeft = false;
 			rigid->velocity.x = speed;
 		}
-		if (inputSystem.GetKeyHold(KeyW))
+		if (inputSystem.GetKeyHold(KEYCODE::KeyW))
 		{
 			rigid->velocity.y = -speed;
 
 		}
-		if (inputSystem.GetKeyHold(KeyS))
+		if (inputSystem.GetKeyHold(KEYCODE::KeyS))
 		{
 			rigid->velocity.y = speed;
 		}
 
 		//Debug(to_string(collision.isGrounded));
-		if ((inputSystem.GetKeyHold(KeySpace)||inputSystem.GetKeyHold(KeyK)) && rigid->collision.isGrounded)
+		if ((inputSystem.GetKeyHold(KEYCODE::KeySpace)||inputSystem.GetKeyHold(KEYCODE::KeyK)) && rigid->collision.isGrounded)
 		{
 			rigid->AddForce(jumpForce, rigid->Impulse);
 			jumpSFX.Play(false);
@@ -131,7 +131,7 @@ public:
 			currentAnimatorState = jump;
 		}
 
-		if (inputSystem.GetKeyHold(KeyA)|| inputSystem.GetKeyHold(KeyD))
+		if (inputSystem.GetKeyHold(KEYCODE::KeyA)|| inputSystem.GetKeyHold(KEYCODE::KeyD))
 		{
 			//isLeft = true;
 
@@ -240,7 +240,7 @@ public:
 	
 		
 	
-		if (inputSystem.GetKeyDown(KeyB))
+		if (inputSystem.GetKeyDown(KEYCODE::KeyB))
 		{
 			Player* newPlayer = Player::Create(this);
 			newPlayer->transform.position = player->transform.position + Vector<float>(-1,-5.0);
@@ -339,10 +339,10 @@ private:
 
 };
 
-class Platformer :public NoaEngine {
+class Platformer :public NoaEngineSDL {
 public:
-	Platformer(int width, int height, GameWindowMode windowMode, string gameName) 
-		:NoaEngine(width, height, windowMode, gameName)
+	Platformer(int width, int height, WINDOWMODE windowMode, string gameName) 
+		:NoaEngineSDL(width, height, windowMode, gameName)
 	{
 		sceneManager.LoadScene("MainMenu");
 	}
@@ -357,9 +357,9 @@ public:
 
 		Vector<double> mousePos = inputSystem.GetMousePosition();
 
-		Debug(to_string(1.0/deltaTime));
+		//Debug(to_string(1.0/deltaTime));
 
-		if (inputSystem.GetKeyDown(KeyESC)) 
+		if (inputSystem.GetKeyDown(KEYCODE::KeyESC)) 
 		{
 			sceneManager.LoadScene("MainMenu");
 		}
@@ -373,7 +373,7 @@ private:
 
 int main(int argc,char * argv[])
 {
-	Platformer game(1920/1.5, 1080/1.5, NoaEngine::WindowMode, "SuperMario");
+	Platformer game(1920/2, 1080/2, WINDOWMODE::WINDOW, "SuperMario");
 	game.Run();
 	return 0;
 }
