@@ -6,8 +6,13 @@
 你需要注意的是，这个游戏引擎使用SDL2图形库作为底层的图形接口，所以你需要在你的电脑上先安装SDL2相关的开发库。
 我们推荐Windows平台的用户使用Visual Studio 2022作为开发平台，导入游戏引擎相关的文件到头文件中便可。
 而Linux平台下的用户，你可以详细阅读并修改Makefile中的内容，使用其中我们已经编写好的make命令来配置开发环境和编译你的游戏。
+游戏引擎目前只在Windows平台测试过，对于跨平台特性，由于本人技术有限，并未完成。
 
 ## 引擎内容
+
+* NoaEngineSDL:使用SDL2作为底层API。
+
+* NoaEngineGL:使用OpenGL作为底层API。
 
 * Scene:游戏场景，此为非必须类，但是如果你想使用游戏引擎提供的Animation，Actor，GameObject等游戏组件，你必须编写你自己的场景子类，并编写相应场景的活动规则，只要实例化场景对象，便会自动在sceneManager中的场景列表自动注册场景，同时游戏引擎会自动执行sceneManager.activeScene的内容。
 
@@ -18,3 +23,17 @@
 * Animation:动画组件，是Actor的子类，初始化后必须执行SetActiveScene(Scene * activeScene)才能够运行动画，注意Animation实例化后，必须先持有一个AnimationFrame对象，AnimationFrame对象可以读取并加载本地动画文件(*.amt)。
 
 * Camera:相机，不同种类的相机可以让你快速渲染游戏画面，详细请见void Camera::Render(/*args*/)方法说明。
+
+* Sprite:精灵，使用CPU渲染图片到屏幕上。
+
+* Renderer:CPU渲染器，使用CPU将图片渲染到屏幕上。
+
+* GLTexture:OpenGL纹理，创建OpenGL纹理使用GPU加速渲染图片。
+
+* GLRenderer:用于渲染GLTexture对象。
+
+* SpriteGL:使用GPU加速Sprite的绘制。
+
+* Rigidbody:刚体组件，用于实现物理模拟。
+
+* InputSystem:输入系统，实现游戏的输入控制。
