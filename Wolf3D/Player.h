@@ -46,7 +46,7 @@ public:
 	Pistol* pistol = nullptr;
 	M4A1* m4a1 = nullptr;
 
-	vector<Gun*> guns;
+	std::vector<Gun*> guns;
 
 };
 

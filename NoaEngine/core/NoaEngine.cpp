@@ -408,7 +408,7 @@ namespace noa {
 	
 
 
-	void Debug(string msg)
+	void Debug(std::string msg)
 	{
 		std::time_t current_time = std::time(nullptr);
 

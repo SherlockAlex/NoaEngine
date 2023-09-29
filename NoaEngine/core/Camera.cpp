@@ -50,7 +50,7 @@ namespace noa {
 		position = follow->position;
 
 		//检测相机的边界
-		offset = move(position - visibleTiles * 0.5);
+		offset = std::move(position - visibleTiles * 0.5);
 		if (offset.x < frontDelta.x) {
 			offset.x = frontDelta.x;
 		}
@@ -106,7 +106,7 @@ namespace noa {
 		}
 
 
-		followPositionOnScreen = move(Vector<int>((follow->position.x - offset.x) * tileScale.x, (follow->position.y - offset.y) * tileScale.y));
+		followPositionOnScreen = std::move(Vector<int>((follow->position.x - offset.x) * tileScale.x, (follow->position.y - offset.y) * tileScale.y));
 		
 		//绘制游戏物品
 		for (const auto& gameObject:sceneManager.GetActiveScene()->gameObjects) 
@@ -139,8 +139,8 @@ namespace noa {
 
 	FreeCamera::FreeCamera()
 	{
-		wallDistanceBuffer = vector<float>(pixelWidth, 0.0);
-		objectBufferWithRay = vector<void*>(pixelWidth, nullptr);
+		wallDistanceBuffer = std::vector<float>(pixelWidth, 0.0);
+		objectBufferWithRay = std::vector<void*>(pixelWidth, nullptr);
 	}
 
 	
@@ -243,7 +243,7 @@ namespace noa {
 		for (int x = 0; x < pixelWidth; x++)
 		{
 			//Ray ray = move(RaycastHit(x, map));
-			Ray ray = move(RaycastHit(x, map));
+			Ray ray = std::move(RaycastHit(x, map));
 
 			wallDistanceBuffer[x] = ray.distance;
 			rayResult[x] = ray;
@@ -312,15 +312,15 @@ namespace noa {
 		ray.distance = 0.0;
 		ray.angle = follow->eulerAngle - FOV * (0.5 - (float)pixelX / pixelWidth);
 		const float rayForwordStep = 0.02;
-		const Vector<float> eye = move(Vector<float>(sinf(ray.angle), cosf(ray.angle)));
+		const Vector<float> eye = std::move(Vector<float>(sinf(ray.angle), cosf(ray.angle)));
 
 		while (!map.IsCollisionTile(ray.hitTile)&&ray.distance<viewDepth) 
 		{
 			//直到射线集中障碍物
 			ray.distance += rayForwordStep;
 
-			const Vector<float> floatHitPoint = move(follow->position + eye * ray.distance+Vector<float>(0.5,0.5));
-			const Vector<int> intHitPoint = move(Vector<int>(floatHitPoint.x, floatHitPoint.y));
+			const Vector<float> floatHitPoint = std::move(follow->position + eye * ray.distance+Vector<float>(0.5,0.5));
+			const Vector<int> intHitPoint = std::move(Vector<int>(floatHitPoint.x, floatHitPoint.y));
 
 			if (intHitPoint.x < 0||intHitPoint.x >= map.w || intHitPoint.y < 0|| intHitPoint.y >= map.h)
 			{
@@ -412,7 +412,7 @@ namespace noa {
 			{
 				continue;
 			}
-			object.vecToPlayer = move(object.object->transform.position - follow->position);
+			object.vecToPlayer = std::move(object.object->transform.position - follow->position);
 			object.distanceToPlayer = object.vecToPlayer.Magnitude();
 
 			//const float distanceFromPlayer = vecToFollow.Magnitude();
@@ -442,7 +442,7 @@ namespace noa {
 
 			const float distanceFromPlayer = activeScene->gameObjects[i].distanceToPlayer;
 
-			const Vector<float> eye = move(Vector<float>(sinf(follow->eulerAngle),cosf(follow->eulerAngle)));
+			const Vector<float> eye = std::move(Vector<float>(sinf(follow->eulerAngle),cosf(follow->eulerAngle)));
 
 			float objectAngle = atan2(eye.y,eye.x) - atan2(vecToFollow.y, vecToFollow.x);
 			if (objectAngle <= -PI)

@@ -2,6 +2,7 @@
 #ifdef M_SUPERMARIO
 #include "./core/NoaEngine.h"
 
+using namespace std;
 using namespace noa;
 
 TileMap* currentMap = nullptr;
@@ -321,7 +322,7 @@ public:
 	}
 
 	void Update() override {
-
+		cout << "66";
 	}
 
 	void Unload() override {
@@ -341,7 +342,7 @@ private:
 
 class Platformer :public NoaEngineSDL {
 public:
-	Platformer(int width, int height, WINDOWMODE windowMode, string gameName) 
+	Platformer(int width, int height, WINDOWMODE windowMode, std::string gameName) 
 		:NoaEngineSDL(width, height, windowMode, gameName)
 	{
 		sceneManager.LoadScene("MainMenu");

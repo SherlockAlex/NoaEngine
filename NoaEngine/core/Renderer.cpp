@@ -5,6 +5,8 @@
 
 #include <algorithm>
 
+using namespace std;
+
 namespace noa {
 	extern void Debug(string msg);
 

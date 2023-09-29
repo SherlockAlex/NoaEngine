@@ -154,6 +154,8 @@ void main()
 
     void GLRenderer::DrawTexture(GLTexture* texture, int x, int y, int w, int h, bool isFlipX) {
 
+        //每个x，y都对应一个顶点
+
         // 如果isFlipX = true 关于 y = 0.5*w 进行反转
 
         // 使用OpenGL绘制纹理
@@ -185,7 +187,6 @@ void main()
             vertices[6] = 0.0;
             vertices[10] = 1.0;
             vertices[14] = 1.0;
-
         }
         
 

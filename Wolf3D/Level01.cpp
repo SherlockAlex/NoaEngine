@@ -98,7 +98,7 @@ void Level01::Awake()
 	}
 
 	//设置场景的碰撞区域
-	vector<int> collisionTileID;
+	std::vector<int> collisionTileID;
 	collisionTileID.push_back(36);
 	for (int i = 0; i < 108; i++)
 	{

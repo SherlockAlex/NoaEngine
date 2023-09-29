@@ -40,7 +40,7 @@
 	class ExampleGame :public NoaGameEngine {
 	public:
 		ExampleGame(int width, int height,
-			GameWindowMode windowMode,
+			WINDOWMODE windowMode,
 			string gameName) :NoaGameEngine(width,height,windowMode,gameName) 
 		{
 			//game inintialize
@@ -63,7 +63,7 @@
 
 	int main(int argc, char* argv[])
 	{
-		ExampleGame game(1920,1080,NoaGameEngine::FullScreen,"ExampleGame");
+		ExampleGame game(1920,1080,WINDOWMODE::WINDOW,"ExampleGame");
 		return game.Run();
 	}
 
@@ -171,9 +171,9 @@ namespace noa {
 		
 
 	private:
-		std::chrono::system_clock::time_point tp1 = chrono::system_clock::now();
-		chrono::duration<float> elapsedTime;
-		std::chrono::system_clock::time_point tp2 = chrono::system_clock::now();
+		std::chrono::system_clock::time_point tp1 = std::chrono::system_clock::now();
+		std::chrono::duration<float> elapsedTime;
+		std::chrono::system_clock::time_point tp2 = std::chrono::system_clock::now();
 
 		SDL_GLContext glContext = nullptr;
 		SDL_Window* window = nullptr;
@@ -189,7 +189,7 @@ namespace noa {
 		//窗口
 		int width;
 		int height;
-		string gameName;
+		std::string gameName;
 		WINDOWMODE gameWindowMode;
 
 		//像素宽度和高度
@@ -219,7 +219,7 @@ namespace noa {
 		NoaEngineSDL(
 			int width, int height,
 			WINDOWMODE windowMode,
-			string gameName
+			std::string gameName
 		);
 
 
@@ -281,6 +281,9 @@ namespace noa {
 
 	extern std::vector<SpriteGPUInstanceGL> spriteInstancesGL;
 
+	/// <summary>
+	/// 使用OpenGL作为底层图像API
+	/// </summary>
 	class NoaEngineGL
 	{
 	public:
@@ -333,7 +336,7 @@ namespace noa {
 
 
 
-	extern void Debug(string msg);
+	extern void Debug(std::string msg);
 }
 
 

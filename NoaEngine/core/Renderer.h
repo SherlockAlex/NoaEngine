@@ -8,7 +8,6 @@
 
 #include "Graphic.h"
 #include "NoaMath.h"
-using namespace std;
 
 namespace noa {
 

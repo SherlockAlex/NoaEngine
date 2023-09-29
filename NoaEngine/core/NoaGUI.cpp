@@ -10,7 +10,7 @@
 
 
 namespace noa {
-	extern void Debug(string msg);
+	extern void Debug(std::string msg);
 	extern Renderer renderer;
 
 	extern int pixelWidth;
@@ -81,7 +81,7 @@ namespace noa {
 			int tileCount;
 			inputFile.read(reinterpret_cast<char*>(&tileCount), sizeof(int));
 
-			Debug("Font asset size:" + to_string(tileCount));
+			Debug("Font asset size:" + std::to_string(tileCount));
 
 			for (int i = 0; i < tileCount; i++)
 			{

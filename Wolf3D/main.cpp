@@ -22,7 +22,7 @@ using namespace noa;
 class Wolf3D :public NoaEngineGL
 {
 public:
-	Wolf3D(int width, int height, WINDOWMODE windowMode, string gameName) :
+	Wolf3D(int width, int height, WINDOWMODE windowMode, std::string gameName) :
 		NoaEngineGL(width, height, windowMode, gameName)
 	{
 		//加载第一个场景
@@ -32,7 +32,7 @@ public:
 
 	void Start() override
 	{
-		
+
 	}
 
 	
