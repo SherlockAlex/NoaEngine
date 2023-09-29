@@ -68,23 +68,13 @@ namespace noa {
 	};
 
 #pragma region OPENGL
-
-	extern const char* vertexShaderSource;
-
-	extern const char* fragmentShaderSource;
-
-	extern GLuint fragmentShader;
-
-	extern GLuint shaderProgram;
-
-	extern GLuint vertexShader;
 	
 	class GLTexture {
 	public:
 		GLTexture(int w,int h,uint32_t * pixelBuffer);
 		~GLTexture();
 
-		void UpdateTexture(uint32_t* pixelBuffer,int width,int height);
+		void UpdateTexture(const uint32_t* pixelBuffer, const int width, const int height);
 		void Bind();
 		void EnableAlpha();
 		int GetWidth();
@@ -107,9 +97,43 @@ namespace noa {
 
 	private:
 
-		GLuint shaderProgram;
 		GLuint VAO, VBO,EBO;
 		GLint modelLoc, projectionLoc;
+
+		GLuint fragmentShader;
+
+		GLuint shaderProgram;
+
+		GLuint vertexShader;
+
+		const char* vertexShaderSource = R"glsl(
+#version 330 core
+layout (location = 0) in vec2 aPos;
+layout (location = 1) in vec2 aTexCoord;
+
+out vec2 TexCoord;
+
+void main()
+{
+    gl_Position = vec4(aPos, 0.0, 1.0);
+    TexCoord = aTexCoord;
+}
+)glsl";
+
+		const char* fragmentShaderSource = R"glsl(
+// 片段着色器
+#version 330 core
+out lowp vec4 FragColor;
+in vec2 TexCoord;
+
+uniform sampler2D ourTexture;
+
+void main()
+{
+    lowp vec4 texColor = texture(ourTexture, TexCoord);
+    FragColor = texColor;
+}
+)glsl";
 
 		/*// 添加着色器代码
 		const char* vertexShaderCode = R"(

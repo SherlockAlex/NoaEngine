@@ -322,7 +322,7 @@ public:
 	}
 
 	void Update() override {
-		cout << "66";
+
 	}
 
 	void Unload() override {

@@ -229,6 +229,9 @@ namespace noa {
 		float DeltaTime();
 		int Run();
 
+		void EngineThread();
+		void EventLoop();
+
 		int Quit();
 
 	};
@@ -326,9 +329,11 @@ namespace noa {
 		virtual void OnDisable() {};
 
 		int Run();
-		int Quit();
 
-		
+		void EngineThread();
+		void EventLoop();
+
+		int Quit();
 
 	};
 

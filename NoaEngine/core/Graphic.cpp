@@ -5,35 +5,7 @@
 #include <iostream>
 
 namespace noa {
-    const char* vertexShaderSource = R"glsl(
-#version 330 core
-layout (location = 0) in vec2 aPos;
-layout (location = 1) in vec2 aTexCoord;
-
-out vec2 TexCoord;
-
-void main()
-{
-    gl_Position = vec4(aPos, 0.0, 1.0);
-    TexCoord = aTexCoord;
-}
-)glsl";
-
-    const char* fragmentShaderSource = R"glsl(
-// 片段着色器
-#version 330 core
-out lowp vec4 FragColor;
-in vec2 TexCoord;
-
-uniform sampler2D ourTexture;
-
-void main()
-{
-    lowp vec4 texColor = texture(ourTexture, TexCoord);
-    FragColor = texColor;
-}
-)glsl";
-
+    
     GLTexture::GLTexture(int w, int h, uint32_t* pixelBuffer)
         : width(w), height(h) 
     {
@@ -56,11 +28,12 @@ void main()
         glDeleteTextures(1, &textureID);
     }
 
-    void GLTexture::UpdateTexture(uint32_t* pixelBuffer, int width, int height)
+    void GLTexture::UpdateTexture(const uint32_t* pixelBuffer,const int width,const int height)
     {
         glBindTexture(GL_TEXTURE_2D, textureID);
         // 更新纹理数据
         glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, width, height, GL_RGBA, GL_UNSIGNED_BYTE, pixelBuffer);
+
     }
 
     void GLTexture::Bind() {
@@ -136,6 +109,7 @@ void main()
     }
 
     GLRenderer::~GLRenderer() {
+
         glDeleteProgram(shaderProgram); // 删除着色器程序
         glDeleteVertexArrays(1, &VAO);
         glDeleteBuffers(1, &VBO);
@@ -152,7 +126,8 @@ void main()
         glfwSwapBuffers(window);
     }
 
-    void GLRenderer::DrawTexture(GLTexture* texture, int x, int y, int w, int h, bool isFlipX) {
+    void GLRenderer::DrawTexture(GLTexture* texture, int x, int y, int w, int h, bool isFlipX) 
+    {
 
         //每个x，y都对应一个顶点
 

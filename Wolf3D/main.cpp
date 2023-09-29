@@ -56,6 +56,5 @@ private:
 int main(int argc,char * argv[])
 {
 	Wolf3D wolf3D(1920/2, 1080/2, WINDOWMODE::WINDOW, "Wolf-3D");
-	wolf3D.Run();
-	return 0;
+	return wolf3D.Run();
 }

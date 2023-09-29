@@ -142,14 +142,34 @@ namespace noa {
 
 		Start();
 
+		thread t = thread([this]() {this->EngineThread(); });
+
+		EventLoop();
+
+		t.join();
+
+		Quit();
+		return 0;
+	}
+
+	int NoaEngineSDL::Quit()
+	{
+		OnDisable();
+		sceneManager.Quit();
+		isRun = false;
+		return 0;
+	}
+
+	void NoaEngineSDL::EngineThread()
+	{
 		while (isRun)
 		{
 
 			tp2 = chrono::system_clock::now();
 			elapsedTime = tp2 - tp1;
-			deltaTime = timeScale*elapsedTime.count();
+			deltaTime = timeScale * elapsedTime.count();
 
-			gameTime = (gameTime+deltaTime);
+			gameTime = (gameTime + deltaTime);
 			if (gameTime > 65535)
 			{
 				gameTime = 0;
@@ -157,24 +177,13 @@ namespace noa {
 
 			renderer.FullScreen(BLACK);
 
-			//执行游戏主类的update
-			while (SDL_PollEvent(&ioEvent))
-			{
-				inputSystem.Update();
-
-				if (ioEvent.type == SDL_QUIT)
-				{
-					Quit();
-				}
-			}
-
 			sceneManager.Update();
 			Update();
 
 			SDL_UnlockTexture(texture);
 			SDL_RenderCopy(mainRenderer, texture, nullptr, nullptr);
 
-			for (const auto & instance: spriteSDLInstances)
+			for (const auto& instance : spriteSDLInstances)
 			{
 				SDL_RenderCopyEx(mainRenderer
 					, instance.texture
@@ -193,17 +202,20 @@ namespace noa {
 			tp1 = tp2;
 
 		}
-
-		Quit();
-		return 0;
 	}
 
-	int NoaEngineSDL::Quit()
+	void NoaEngineSDL::EventLoop()
 	{
-		OnDisable();
-		sceneManager.Quit();
-		isRun = false;
-		return 0;
+		//执行游戏主类的update
+		while (SDL_WaitEvent(&ioEvent)&&isRun)
+		{
+			inputSystem.Update();
+
+			if (ioEvent.type == SDL_QUIT)
+			{
+				Quit();
+			}
+		}
 	}
 
 	ThreadPool::ThreadPool(size_t numThreads) : numThreads(numThreads), stop(false) {
@@ -329,11 +341,6 @@ namespace noa {
 	}
 
 
-	GLuint fragmentShader;
-
-	GLuint shaderProgram;
-
-	GLuint vertexShader;
 	int NoaEngineGL::Run()
 	{
 
@@ -343,53 +350,10 @@ namespace noa {
 		glfwSetScrollCallback(window, InputSystem::MouseScrollCallback);
 
 		Start();
-
-		while ((!glfwWindowShouldClose(window)) && isRun) {
-			tp2 = std::chrono::system_clock::now();
-			elapsedTime = tp2 - tp1;
-			deltaTime = elapsedTime.count();
-
-			// 检查输入状态
-
-			inputSystem.Update();
-
-			// 执行游戏主类的update
-			sceneManager.Update();
-			
-			Update();
-
-			glClear(GL_COLOR_BUFFER_BIT);  // 清空颜色缓冲区和深度缓冲区
-
-			int i = 0;
-			glActiveTexture(GL_TEXTURE + i);
-			mainTexture->UpdateTexture(pixelBuffer,pixelWidth,pixelHeight);
-			mainRenderer->DrawTexture(this->mainTexture,0,0,pixelWidth,pixelHeight);
-			i++;
-			for (const auto & instance:spriteInstancesGL) 
-			{
-				glActiveTexture(GL_TEXTURE + i);
-				mainRenderer->DrawTexture(
-					instance.texture
-					,instance.position.x
-					,instance.position.y
-					,instance.scale.x
-					,instance.scale.y
-					,instance.flip
-				);
-				i++;
-			}
-
-			
-			glfwSwapBuffers(window);
-			spriteInstancesGL.clear();
-			glfwPollEvents();
-
-			tp1 = tp2;
-		}
+		
+		EngineThread();
 
 		Quit();
-		// 释放资源
-		glDeleteProgram(shaderProgram);
 
 		return 0;
 
@@ -401,6 +365,59 @@ namespace noa {
 		sceneManager.Quit();
 		isRun = false;
 		return 0;
+	}
+
+	void NoaEngineGL::EventLoop()
+	{
+		//处理事件
+	}
+
+	void NoaEngineGL::EngineThread()
+	{
+		while ((!glfwWindowShouldClose(window)) && isRun) {
+			tp2 = std::chrono::system_clock::now();
+			elapsedTime = tp2 - tp1;
+			deltaTime = elapsedTime.count();
+
+			glfwPollEvents();
+			inputSystem.Update();
+			
+
+			// 执行游戏主类的update
+			sceneManager.Update();
+
+			Update();
+
+			glClear(GL_COLOR_BUFFER_BIT);  // 清空颜色缓冲区和深度缓冲区
+
+			int i = 0;
+			glActiveTexture(GL_TEXTURE + i);
+			mainTexture->UpdateTexture(pixelBuffer, pixelWidth, pixelHeight);
+			mainRenderer->DrawTexture(this->mainTexture, 0, 0, pixelWidth, pixelHeight);
+			i++;
+			for (const auto& instance : spriteInstancesGL)
+			{
+				glActiveTexture(GL_TEXTURE + i);
+				mainRenderer->DrawTexture(
+					instance.texture
+					, instance.position.x
+					, instance.position.y
+					, instance.scale.x
+					, instance.scale.y
+					, instance.flip
+				);
+				i++;
+			}
+
+
+
+			glfwSwapBuffers(window);
+			spriteInstancesGL.clear();
+
+			
+
+			tp1 = tp2;
+		}
 	}
 
 #pragma endregion

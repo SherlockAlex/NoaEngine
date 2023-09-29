@@ -491,9 +491,9 @@ namespace noa {
 					for (float ly = 0; ly < objectHeight; ly++)
 					{
 						const float objSimpleY = ly / objectHeight;
-						Uint32 objColor = object->sprite->GetTransposeColor(objSimpleY, objSimpleX);
+						Uint32 objColor = object->sprite->GetColor(objSimpleX, objSimpleY);
 						if (
-							   objColor == ERRORCOLOR
+							GetAValue(objColor) == 0
 							|| (int)(objectCeiling + ly) < 0 || (int)(objectCeiling + ly) >= pixelHeight
 							)
 						{

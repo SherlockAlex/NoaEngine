@@ -31,10 +31,12 @@ public:
 		pos.x = inputSystem.GetMousePosition().x;
 		pos.y = inputSystem.GetMousePosition().y;
 
-		//animation->Play();
-		//sprite.UpdateImage(animation->GetCurrentFrameImage());
+		//Debug(to_string(pos.x) + ":" + to_string(pos.y));
+
+		animation->Play();
+		sprite.UpdateImage(animation->GetCurrentFrameImage());
 		//sprite.DrawSprite(pos.x, pos.y, true,true);
-		//spriteGPU->DrawSprite(pos.x, pos.y, true);
+		spriteGPU->DrawSprite(pos.x, pos.y, true);
 		//spriteGPU.DrawSprite(0.5 * pixelWidth, pixelHeight - sprite.scale.y, true);
 		renderer.DrawString("FPS:" + to_string(1.0 / deltaTime), 10, 10, WHITE, 0.05 * pixelWidth);
 	}
@@ -82,7 +84,7 @@ private:
 
 class TestGPU :public NoaEngineGL {
 public:
-	TestGPU(int w,int h,GameWindowMode windowMode,string name) 
+	TestGPU(int w,int h,WINDOWMODE windowMode,string name) 
 	:NoaEngineGL(w,h,windowMode,name)
 	{
 
@@ -97,7 +99,7 @@ public:
 	}
 
 	void Update() override {
-		
+
 	}
 
 
@@ -107,7 +109,7 @@ public:
 };
 
 int main() {
-	TestGPU test(1920, 1080, NoaEngineGL::FullScreen, "TestGPU");
+	TestGPU test(1920/2, 1080/2, WINDOWMODE::WINDOW, "TestGPU");
 	test.Run();
 	return 0;
 }
