@@ -283,7 +283,7 @@ namespace noa {
 
 	SpriteGPU::SpriteGPU(Sprite* sprite)
 	{
-		if (API == GRAPHIC::SDL)
+		if (renderer.API == GRAPHIC::SDL)
 		{
 			if (sprite != nullptr)
 			{
@@ -309,7 +309,7 @@ namespace noa {
 
 			}
 		}
-		else if(API == GRAPHIC::OpenGL)
+		else if(renderer.API == GRAPHIC::OpenGL)
 		{
 			if (sprite != nullptr) 
 			{
@@ -332,7 +332,7 @@ namespace noa {
 
 	void SpriteGPU::Update(Sprite* sprite)
 	{
-		if (API == GRAPHIC::SDL)
+		if (renderer.API == GRAPHIC::SDL)
 		{
 			if (this->sprite != nullptr)
 			{
@@ -364,7 +364,7 @@ namespace noa {
 
 			}
 		}
-		else if (API == GRAPHIC::OpenGL) 
+		else if (renderer.API == GRAPHIC::OpenGL)
 		{
 
 			if (this->sprite != nullptr)
@@ -375,7 +375,7 @@ namespace noa {
 			if (sprite != nullptr)
 			{
 				glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-				glTexture->UpdateTexture(sprite->GetImage().data());
+				glTexture->UpdateTexture(sprite->GetImage().data(),sprite->w,sprite->h);
 			}
 
 		}
@@ -388,7 +388,7 @@ namespace noa {
 
 		
 
-		if (API == GRAPHIC::SDL) 
+		if (renderer.API == GRAPHIC::SDL)
 		{
 			
 			if (sdlTexture == nullptr || sprite == nullptr)
@@ -414,14 +414,14 @@ namespace noa {
 			instance.flip = mirror;
 			spriteSDLInstances.push_back(instance);
 		}
-		else if (API == GRAPHIC::OpenGL) 
+		else if (renderer.API == GRAPHIC::OpenGL)
 		{
 			if (glTexture == nullptr || sprite == nullptr)
 			{
 				return;
 			}
 			
-			glTexture->UpdateTexture(sprite->GetImage().data());
+			glTexture->UpdateTexture(sprite->GetImage().data(),sprite->w,sprite->h);
 
 			SpriteGPUInstanceGL instance;
 			instance.texture = glTexture;

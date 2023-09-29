@@ -130,7 +130,6 @@
 //¥∞ø⁄ Ù–‘
 
 namespace noa {
-	extern GRAPHIC API;
 
 	extern int pixelHeight;
 	extern int pixelWidth;
@@ -329,6 +328,8 @@ namespace noa {
 
 		int Run();
 		int Quit();
+
+		
 
 	};
 

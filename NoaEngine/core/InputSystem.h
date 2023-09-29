@@ -6,7 +6,6 @@
 #include <GL/glut.h>
 
 #include <SDL2/SDL.h>
-#include <functional>
 //Windows System
 #ifdef _WIN64
 #include <Windows.h>
@@ -24,6 +23,7 @@
 #endif // __linux
 
 #include "NoaMath.h"
+#include "Graphic.h"
 
 namespace noa {
 	extern SDL_Event ioEvent;
@@ -33,12 +33,6 @@ namespace noa {
 		MiddleButton = GLFW_MOUSE_BUTTON_RIGHT,
 		RightButton = GLFW_MOUSE_BUTTON_MIDDLE,
 		// 添加其他鼠标按钮
-	};
-
-	enum class GRAPHIC
-	{
-		SDL = 0,
-		OpenGL = 1
 	};
 
 	//按键映射

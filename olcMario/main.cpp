@@ -16,11 +16,10 @@ public:
 		{
 			for (int y = 0;y<ScreenHeight();y++) 
 			{
-				
+				Draw(x,y,BLACK);
 			}
 		}
-
-		DrawString(10, 10, "ÄãºÃ£¬ÊÀ½ç", WHITE, 10);
+		DrawString(10, 10, std::to_string(GetFPS()), WHITE, 10);
 
 		return true;
 	}
@@ -29,7 +28,7 @@ public:
 int main(int argc,char * argv[])
 {
 	ExampleGame game;
-	game.Construct(1920/2,1080/2,1920/2,1080/2,false,false,true);
+	game.Construct(1920/2,1080/2,1920/2,1080/2,true,false,true);
 	game.Start();
 	return 0;
 }

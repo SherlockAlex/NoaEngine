@@ -16,6 +16,9 @@ namespace noa {
 
 	class Renderer
 	{
+	public:
+		GRAPHIC API;
+
 	private:
 		int pixelWidth;
 		int pixelHeight;

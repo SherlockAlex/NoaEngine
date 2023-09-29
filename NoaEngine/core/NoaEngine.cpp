@@ -7,7 +7,6 @@
 using namespace std;
 
 namespace noa {
-	GRAPHIC API = GRAPHIC::OpenGL;
 
 	extern unordered_map <size_t, Actor*> behaviours;
 	extern unordered_map<size_t, Rigidbody*> rigidbodys;
@@ -36,8 +35,6 @@ namespace noa {
 		string gameName
 	)
 	{
-
-		API == GRAPHIC::SDL;
 
 		//初始化游戏
 		this->width = width;
@@ -98,6 +95,8 @@ namespace noa {
 		}
 
 		renderer = Renderer(surfaceWidth, surfaceHeight, pixelBuffer, mainRenderer, nullptr);
+		renderer.API = GRAPHIC::SDL;
+
 
 		//处理音频设备初始化
 		if (Mix_OpenAudio(
@@ -260,7 +259,7 @@ namespace noa {
 
 	NoaEngineGL::NoaEngineGL(int width, int height, GameWindowMode windowMode, string gameName)
 	{
-		API == GRAPHIC::OpenGL;
+		
 		//初始化OpenGL
 		if (!glfwInit()) {
 			Debug("Failed to initialize GLFW");
@@ -297,6 +296,7 @@ namespace noa {
 		}
 
 		renderer = Renderer(width, height, pixelBuffer, nullptr, nullptr);
+		renderer.API = GRAPHIC::OpenGL;
 
 		//处理音频设备初始化
 		if (Mix_OpenAudio(
@@ -331,8 +331,6 @@ namespace noa {
 	int NoaEngineGL::Run()
 	{
 
-		
-
 		inputSystem.SetGraphicAPI(GRAPHIC::OpenGL);
 		inputSystem.SetGLWindow(this->window);
 
@@ -354,12 +352,12 @@ namespace noa {
 			
 			Update();
 
+			glClear(GL_COLOR_BUFFER_BIT);  // 清空颜色缓冲区和深度缓冲区
+
 			int i = 0;
-
 			glActiveTexture(GL_TEXTURE + i);
-			texture->UpdateTexture(pixelBuffer);
-			mainRenderer->DrawTexture(this->texture,0,0,pixelWidth,pixelHeight,false);
-
+			texture->UpdateTexture(pixelBuffer,pixelWidth,pixelHeight);
+			mainRenderer->DrawTexture(this->texture,0,0,pixelWidth,pixelHeight);
 			i++;
 			for (const auto & instance:spriteInstancesGL) 
 			{
@@ -375,6 +373,7 @@ namespace noa {
 				i++;
 			}
 
+			
 			mainRenderer->Present(window);
 
 			spriteInstancesGL.clear();
@@ -385,7 +384,6 @@ namespace noa {
 		}
 
 		Quit();
-
 		// 释放资源
 		glDeleteProgram(shaderProgram);
 

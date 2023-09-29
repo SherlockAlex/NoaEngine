@@ -56,7 +56,7 @@ void main()
         glDeleteTextures(1, &textureID);
     }
 
-    void NoaTexture::UpdateTexture(uint32_t* pixelBuffer)
+    void NoaTexture::UpdateTexture(uint32_t* pixelBuffer, int width, int height)
     {
         glBindTexture(GL_TEXTURE_2D, textureID);
         // 更新纹理数据

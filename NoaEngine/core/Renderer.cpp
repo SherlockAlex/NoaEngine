@@ -3,6 +3,8 @@
 #include "NoaGUI.h"
 #include "NoaMath.h"
 
+#include <algorithm>
+
 namespace noa {
 	extern void Debug(string msg);
 
@@ -286,7 +288,7 @@ namespace noa {
 		for (int i=0;i<length;i++) 
 		{
 			const char c = c_str[i];
-			if (!(c^'\n'))
+			if (c == '\n')
 			{
 				row++;
 				offset = 0;
@@ -337,10 +339,11 @@ namespace noa {
 
 	void Renderer::FullScreen(Uint32 color) const
 	{
-		for (int x = 0;x<pixelWidth*pixelHeight;x++) 
+		for (int i=0;i<pixelHeight * pixelWidth;i++)
 		{
-			pixelBuffer[x] = color;
+			pixelBuffer[i] = color;
 		}
+		//std::memset(pixelBuffer, color, pixelWidth * pixelHeight * sizeof(Uint32));
 	}
 
 	void Renderer::UpdateScreen()

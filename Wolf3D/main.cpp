@@ -19,11 +19,11 @@ using namespace noa;
 
 
 
-class Wolf3D :public NoaEngineSDL
+class Wolf3D :public NoaEngineGL
 {
 public:
-	Wolf3D(int width, int height, NoaEngineSDL::GameWindowMode windowMode, string gameName) :
-		NoaEngineSDL(width, height, windowMode, gameName)
+	Wolf3D(int width, int height, NoaEngineGL::GameWindowMode windowMode, string gameName) :
+		NoaEngineGL(width, height, windowMode, gameName)
 	{
 		//加载第一个场景
 		sceneManager.LoadScene("MainMenu");
@@ -57,7 +57,7 @@ private:
 
 int main(int argc,char * argv[])
 {
-	Wolf3D wolf3D(1920/2, 1080/2, NoaEngineSDL::WindowMode, "Wolf-3D");
+	Wolf3D wolf3D(1920, 1080, NoaEngineGL::FullScreen, "Wolf-3D");
 	wolf3D.Run();
 	return 0;
 }

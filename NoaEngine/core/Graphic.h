@@ -40,13 +40,15 @@ namespace noa {
 	#define BGR(color)	((((color) & 0xFF) << 16) | ((color) & 0xFF00FF00) | (((color) & 0xFF0000) >> 16))
 	
 	#define RGB(r,g,b)  ((Uint32)(((Uint8)(r)|((Uint8)((Uint8)(g))<<8))|(((unsigned long)(Uint8)(b))<<16)))
-	
+#define RGBA(r, g, b, a)  ((Uint32)(((Uint8)(r)|((Uint8)((Uint8)(g))<<8))|(((unsigned long)(Uint8)(b))<<16)|(((unsigned long)(Uint8)(a))<<24)))
+
 	#define GetRValue(rgb)      (LOBYTE(rgb))
 	#define GetGValue(rgb)      (LOBYTE(((unsigned short)(rgb)) >> 8))
 	#define GetBValue(rgb)      (LOBYTE((rgb)>>16))
 	#define GetAValue(argb)      (LOBYTE((argb) >> 24))
 
-	#define MULTICOLOR(color,mutiColor) (RGB(GetRValue(color)* (GetRValue(mutiColor) / 255.0), GetGValue(color)* (GetGValue(mutiColor) / 255.0), GetBValue(color)* (GetBValue(mutiColor) / 255.0)))
+	#define MULTICOLOR(color,mutiColor) (RGBA(GetRValue(color)* (float(GetRValue(mutiColor)) / 255.0), GetGValue(color)* (float(GetGValue(mutiColor)) / 255.0), GetBValue(color)* (float(GetBValue(mutiColor)) / 255.0),GetAValue(color)))
+	
 	#define ERRORCOLOR RGB(152,0,136)
 
 	typedef Uint32 ColorRef;
@@ -59,6 +61,11 @@ namespace noa {
 	extern int pixelHeight;
 	#define DRAWPIXEL(x,y,color) ((x < 0 || y < 0 || x >= pixelWidth || y >= pixelHeight)?( - 1):(((Uint32*)pixelBuffer)[y * pixelWidth + x] = color))
 
+	enum class GRAPHIC
+	{
+		SDL = 0,
+		OpenGL = 1
+	};
 
 #pragma region OPENGL
 
@@ -77,7 +84,7 @@ namespace noa {
 		NoaTexture(int w,int h,uint32_t * pixelBuffer);
 		~NoaTexture();
 
-		void UpdateTexture(uint32_t* pixelBuffer);
+		void UpdateTexture(uint32_t* pixelBuffer,int width,int height);
 		void Bind();
 		int GetWidth();
 		int GetHeight();

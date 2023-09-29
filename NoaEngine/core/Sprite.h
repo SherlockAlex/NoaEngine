@@ -69,7 +69,7 @@ namespace noa {
 	};
 
 	// 使用SDL纹理进行渲染
-	class SpriteGPU {
+	class SpriteGPU final {
 	private:
 		Sprite* sprite = nullptr;
 

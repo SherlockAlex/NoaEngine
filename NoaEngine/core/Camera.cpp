@@ -223,6 +223,8 @@ namespace noa {
 	void FreeCamera::Render(TileMap& map, bool renderFloor, Sprite* skybox, uint32_t multiColor)
 	{
 
+		
+
 		if (follow == nullptr) 
 		{
 			return;
@@ -260,7 +262,7 @@ namespace noa {
 					
 					if (skybox==nullptr)
 					{
-						color = RGB(63, 63, 63);
+						color = RGBA(63, 63, 63,255);
 						color = MULTICOLOR(color, multiColor);
 						DRAWPIXEL(x, y, color);
 						continue;
@@ -287,7 +289,8 @@ namespace noa {
 				}
 				else if (!renderFloor)
 				{
-					color = RGB(128,128,128);
+					color = RGBA(128,128,128,255);
+					
 				}
 
 				color = MULTICOLOR(color, multiColor);
