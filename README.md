@@ -10,9 +10,9 @@
 
 ## 引擎内容
 
-* NoaEngineSDL:使用SDL2作为底层API。
+* NoaEngineSDL:使用SDL2作为底层API，此为抽象类，你必须创建属于你自己的游戏主类，同时实现抽象方法:virtual void Start()、virtual void Update()。
 
-* NoaEngineGL:使用OpenGL作为底层API。
+* NoaEngineGL:使用OpenGL作为底层API，此为抽象类，你必须创建属于你自己的游戏主类，同时实现抽象方法:virtual void Start()、virtual void Update()。
 
 * Scene:游戏场景，此为非必须类，但是如果你想使用游戏引擎提供的Animation，Actor，GameObject等游戏组件，你必须编写你自己的场景子类，并编写相应场景的活动规则，只要实例化场景对象，便会自动在sceneManager中的场景列表自动注册场景，同时游戏引擎会自动执行sceneManager.activeScene的内容。
 
