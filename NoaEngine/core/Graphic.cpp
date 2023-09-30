@@ -126,20 +126,15 @@ namespace noa {
         glfwSwapBuffers(window);
     }
 
-    void GLRenderer::DrawTexture(GLTexture* texture, int x, int y, int w, int h, bool isFlipX) 
+    void GLRenderer::DrawTexture(GLTexture* texture, int x, int y, int w, int h,float eulerAngle, bool isFlipX) 
     {
-
-        //每个x，y都对应一个顶点
-
-        // 如果isFlipX = true 关于 y = 0.5*w 进行反转
-
         // 使用OpenGL绘制纹理
         glUseProgram(shaderProgram);
 
         // 渲染矩形
         glBindVertexArray(VAO);
         texture->Bind();
-        
+
         const float invPixelWidth = 1.0 / pixelWidth;
         const float invPixelHeight = 1.0 / pixelHeight;
 
@@ -163,7 +158,6 @@ namespace noa {
             vertices[10] = 1.0;
             vertices[14] = 1.0;
         }
-        
 
         // 设置矩形的索引
         unsigned int indices[] = {

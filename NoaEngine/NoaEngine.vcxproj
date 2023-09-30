@@ -178,6 +178,8 @@
     <ClInclude Include="core\StateMachine.h" />
     <ClInclude Include="core\Transform.h" />
     <ClInclude Include="core\NObject.h" />
+    <ClInclude Include="core\Time.h" />
+    <ClInclude Include="Platform.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="core\ActorComponent.cpp" />
@@ -200,7 +202,9 @@
     <ClCompile Include="core\StateMachine.cpp" />
     <ClCompile Include="core\Transform.cpp" />
     <ClCompile Include="core\NObject.cpp" />
+    <ClCompile Include="Platform.cpp" />
     <ClCompile Include="TestGPU.cpp" />
+    <ClCompile Include="core\Time.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

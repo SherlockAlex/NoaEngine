@@ -190,15 +190,19 @@ namespace noa {
 			glfwSetInputMode(
 			window, GLFW_CURSOR, mode ? GLFW_CURSOR_DISABLED : GLFW_CURSOR_NORMAL);
 			glfwGetCursorPos(window, &mouseX, &mouseY); // 初始化鼠标位置
-
+			return;
+		}
+		else if (graphicAPI == GRAPHIC::SDL) 
+		{
+			if (mode) {
+				SDL_SetRelativeMouseMode(SDL_TRUE);
+			}
+			else {
+				SDL_SetRelativeMouseMode(SDL_FALSE);
+			}
 		}
 		
-		if (mode) {
-			SDL_SetRelativeMouseMode(SDL_TRUE);
-		}
-		else {
-			SDL_SetRelativeMouseMode(SDL_FALSE);
-		}
+		
 
 	}
 
@@ -234,9 +238,13 @@ namespace noa {
 			int state = glfwGetMouseButton(window, static_cast<int>(mouseButton));
 			return state == GLFW_PRESS;
 		}
-		int mouseX, mouseY;
-		const Uint32 mouseState = SDL_GetMouseState(&mouseX, &mouseY);
-		return mouseState & SDL_BUTTON((static_cast<int>(mouseButton)+1));
+		else if (graphicAPI == GRAPHIC::SDL)
+		{
+			int mouseX, mouseY;
+			const Uint32 mouseState = SDL_GetMouseState(&mouseX, &mouseY);
+			return mouseState & SDL_BUTTON((static_cast<int>(mouseButton) + 1));
+		}
+		
 	}
 
 	void InputSystem::MouseScrollCallback(GLFWwindow* window, double xoffset, double yoffset)

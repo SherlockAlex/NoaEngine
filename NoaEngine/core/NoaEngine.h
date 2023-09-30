@@ -126,6 +126,7 @@
 #include "ScriptableActor.h"
 #include "ActorComponent.h"
 #include "NObject.h"
+#include "Time.h"
 
 //¥∞ø⁄ Ù–‘
 
@@ -135,11 +136,6 @@ namespace noa {
 	extern int pixelWidth;
 
 	extern Renderer renderer;
-
-	extern float deltaTime;
-	extern float timeScale;
-
-	extern float gameTime;
 
 #pragma region SDL
 	typedef struct SpriteGPUInstanceSDL {
@@ -226,7 +222,6 @@ namespace noa {
 		~NoaEngineSDL();
 
 		void* PixelBuffer();
-		float DeltaTime();
 		int Run();
 
 		void EngineThread();
@@ -304,8 +299,8 @@ namespace noa {
 		int glPixelHeight = 0;
 
 		std::chrono::system_clock::time_point tp1 = std::chrono::system_clock::now();
-		std::chrono::duration<float> elapsedTime;
 		std::chrono::system_clock::time_point tp2 = std::chrono::system_clock::now();
+		std::chrono::duration<float> elapsedTime = tp1 - tp2;
 
 		GLFWwindow* window = nullptr;
 

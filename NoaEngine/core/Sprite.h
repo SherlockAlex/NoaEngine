@@ -88,7 +88,7 @@ namespace noa {
 
 		void Update(Sprite* sprite);
 
-		void DrawSprite(float x, float y,bool mirror = false);
+		void DrawSprite(float x, float y,bool mirror = false,float eulerAngle = 0.0f);
 
 	};
 

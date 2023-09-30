@@ -380,7 +380,7 @@ namespace noa {
 		
 	}
 
-	void SpriteGPU::DrawSprite(float x, float y, bool mirror)
+	void SpriteGPU::DrawSprite(float x, float y, bool mirror, float eulerAngle)
 	{
 
 		
@@ -409,6 +409,7 @@ namespace noa {
 			instance.dstRect = &this->dstRect;
 			instance.srcRect = &this->srcRect;
 			instance.flip = mirror;
+			instance.eulerAngle = eulerAngle;
 			spriteSDLInstances.push_back(instance);
 		}
 		else if (renderer.API == GRAPHIC::OPENGL)
@@ -426,7 +427,7 @@ namespace noa {
 			instance.position.y = y;
 			instance.scale.x = sprite->scale.x;
 			instance.scale.y = sprite->scale.y;
-
+			instance.eulerAngle = eulerAngle;
 			instance.flip = mirror;
 			spriteInstancesGL.push_back(instance);
 

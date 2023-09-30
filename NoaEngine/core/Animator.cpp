@@ -5,8 +5,6 @@ using namespace std;
 
 namespace noa {
 
-	extern float deltaTime;
-
 	//vector<Animator*> animatorList;
 
 	Animation::Animation(Actor* actor):ActorComponent(actor)
@@ -162,7 +160,7 @@ namespace noa {
 			return;
 		}
 
-		i += deltaTime * speed;
+		i += Time::deltaTime * speed;
 		if (i>=this->frameData->framesImage.size())
 		{
 			i = 0;

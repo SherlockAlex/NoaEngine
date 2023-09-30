@@ -9,7 +9,7 @@ M4A1::M4A1(Player* player, int* bulletCount, FreeCamera* camera) :Gun(bulletCoun
 	this->audio = new Audio("./Assets/Wolf/Music/m4a1.wav", Chunk);
 
 	this->animation = Animation::Create(player,45, false);
-
+	this->player = player;
 	//animation->LoadFromAnimationFile("./Assets/Wolf/lgun-shot.amt");
 	animation->SetFrame(&wolfResource->m4a1Frame);
 	animation->SetFrameEvent(2, [this]()
@@ -62,10 +62,10 @@ void M4A1::Update()
 {
 	Gun::Update();
 	//ÏÔÊ¾Í¼Æ¬
-	const float offsetX = 0;
-	const float offsetY = 0;
+	const float offsetX = 30 * (sinf((player->rigid->velocity.SqrMagnitude() != 0) * Time::time * 3) + 1);
+	const float offsetY =15*(sinf((player->rigid->velocity.SqrMagnitude() != 0)* Time::time *6)+1);
 
-	this->spriteGPU->DrawSprite(0.5 * pixelWidth, pixelHeight - sprite->scale.y, true);
+	this->spriteGPU->DrawSprite(0.5 * pixelWidth+offsetX, pixelHeight - sprite->scale.y+ offsetY, true);
 	//this->sprite->DrawSprite(0.5 * pixelWidth + offsetX, pixelHeight - 0.5 * pixelWidth + offsetY, true,true);
 }
 

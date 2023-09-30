@@ -294,6 +294,7 @@ namespace noa {
 			{
 				row++;
 				offset = 0;
+				continue;
 			}
 			const Font* font = fontAsset[c];
 			if (font == nullptr)

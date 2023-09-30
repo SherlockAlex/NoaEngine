@@ -10,7 +10,7 @@ private:
 		animation = Animation::Create(this,7,true);
 		animation->SetFrame(&frame);
 
-		sprite = Sprite(animation->GetCurrentFrameImage(), {pixelWidth/2,pixelWidth/2});
+		sprite = Sprite(animation->GetCurrentFrameImage(), {pixelWidth / 2,pixelWidth / 2});
 
 		spriteGPU = new SpriteGPU(&sprite);
 
@@ -26,6 +26,8 @@ public:
 		delete this;
 	}
 
+	float eulerAngle = 0.0;
+
 	void Update() override {
 		Vector<float> pos;
 		pos.x = inputSystem.GetMousePosition().x;
@@ -33,12 +35,21 @@ public:
 
 		//Debug(to_string(pos.x) + ":" + to_string(pos.y));
 
+		if (inputSystem.GetMouseButton(MOUSEKEY::LeftButton)) 
+		{
+			eulerAngle += (100*Time::deltaTime);
+		}
+		else if (inputSystem.GetMouseButton(MOUSEKEY::RightButton))
+		{
+			eulerAngle -= (100*Time::deltaTime);
+		}
+
 		animation->Play();
 		sprite.UpdateImage(animation->GetCurrentFrameImage());
 		//sprite.DrawSprite(pos.x, pos.y, true,true);
-		spriteGPU->DrawSprite(pos.x, pos.y, true);
+		spriteGPU->DrawSprite(pos.x, pos.y, true,eulerAngle);
 		//spriteGPU.DrawSprite(0.5 * pixelWidth, pixelHeight - sprite.scale.y, true);
-		renderer.DrawString("FPS:" + to_string(1.0 / deltaTime), 10, 10, WHITE, 0.05 * pixelWidth);
+		renderer.DrawString("FPS:" + to_string(1.0 / Time::deltaTime), 10, 10, WHITE, 0.05 * pixelWidth);
 	}
 
 public:

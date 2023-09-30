@@ -1,17 +1,16 @@
 #include "Physics.h"
 #include "NoaEngine.h"
 #include "Scene.h"
+#include "Actor.h"
+
 #include <unordered_map>
 #include <thread>
-#include "Actor.h"
 #include <stack>
 
 using namespace std;
 
 namespace noa 
 {
-
-	extern float deltaTime;
 	//检测rigid是否和其他刚体相撞，如果相撞就返回
 	extern bool CollisionWithRigidbody(Rigidbody* rigid);
 	extern bool BoundingBoxIntersect(Rigidbody* a, Rigidbody* b);
@@ -63,7 +62,7 @@ namespace noa
 
 		if (useMotion&&useGravity&&(!collision.isGrounded)) 
 		{
-			velocity.y += gravityWeight * gravityAcceration * deltaTime;
+			velocity.y += gravityWeight * gravityAcceration * Time::deltaTime;
 		}
 
 		if (useMotion)
@@ -71,8 +70,8 @@ namespace noa
 
 			//处理力和速度的关系
 			//F = ma
-			velocity = (velocity * (1 - damping)) + (sumForce * (deltaTime * invMass));
-			newPosition = (this->actor->transform.position) + (velocity * deltaTime);
+			velocity = (velocity * (1 - damping)) + (sumForce * (Time::deltaTime * invMass));
+			newPosition = (this->actor->transform.position) + (velocity * Time::deltaTime);
 			collision.isGrounded = false;
 			collision.hitTileID = -1;
 			ApplyCollision();

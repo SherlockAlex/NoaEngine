@@ -18,10 +18,6 @@ namespace noa {
 	int pixelHeight = 0;
 	int pixelWidth = 0;
 
-	float deltaTime = 0;
-	float timeScale = 1;
-	float gameTime = 0;
-
 	uint32_t* pixelBuffer = nullptr;
 
 	Renderer renderer;
@@ -127,10 +123,6 @@ namespace noa {
 		return pixelBuffer;
 	}
 
-	float NoaEngineSDL::DeltaTime() {
-		return deltaTime;
-	}
-
 	int NoaEngineSDL::Run()
 	{
 		//运行游戏
@@ -167,12 +159,12 @@ namespace noa {
 
 			tp2 = chrono::system_clock::now();
 			elapsedTime = tp2 - tp1;
-			deltaTime = timeScale * elapsedTime.count();
+			Time::deltaTime = Time::timeScale * elapsedTime.count();
 
-			gameTime = (gameTime + deltaTime);
-			if (gameTime > 65535)
+			Time::time += Time::deltaTime;
+			if (Time::time > 2 * PI)
 			{
-				gameTime = 0;
+				Time::time = 0;
 			}
 
 			renderer.FullScreen(BLACK);
@@ -350,7 +342,7 @@ namespace noa {
 		glfwSetScrollCallback(window, InputSystem::MouseScrollCallback);
 
 		Start();
-		
+
 		EngineThread();
 
 		Quit();
@@ -370,18 +362,28 @@ namespace noa {
 	void NoaEngineGL::EventLoop()
 	{
 		//处理事件
+		while ((!glfwWindowShouldClose(window)) && isRun) {
+			inputSystem.Update();
+			glfwWaitEvents();
+		}
 	}
 
 	void NoaEngineGL::EngineThread()
 	{
+
 		while ((!glfwWindowShouldClose(window)) && isRun) {
 			tp2 = std::chrono::system_clock::now();
 			elapsedTime = tp2 - tp1;
-			deltaTime = elapsedTime.count();
-
-			glfwPollEvents();
-			inputSystem.Update();
+			Time::deltaTime = Time::timeScale*elapsedTime.count();
 			
+			Time::time += Time::deltaTime;
+			if (Time::time>2*PI)
+			{
+				Time::time = 0;
+			}
+
+			inputSystem.Update();
+			glfwPollEvents();
 
 			// 执行游戏主类的update
 			sceneManager.Update();
@@ -404,6 +406,7 @@ namespace noa {
 					, instance.position.y
 					, instance.scale.x
 					, instance.scale.y
+					, instance.eulerAngle
 					, instance.flip
 				);
 				i++;
@@ -413,8 +416,6 @@ namespace noa {
 
 			glfwSwapBuffers(window);
 			spriteInstancesGL.clear();
-
-			
 
 			tp1 = tp2;
 		}

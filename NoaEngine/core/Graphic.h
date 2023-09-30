@@ -93,7 +93,7 @@ namespace noa {
 
 		void Clear();
 		void Present(GLFWwindow * window);
-		void DrawTexture(GLTexture* texture, int x, int y, int w, int h,bool isFlipX = false);
+		void DrawTexture(GLTexture* texture, int x, int y, int w, int h, float eulerAngle = 0, bool isFlipX = false);
 
 	private:
 

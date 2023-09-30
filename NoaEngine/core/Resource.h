@@ -71,13 +71,15 @@ namespace noa {
 	}Tile;
 
 	//瓦片数据
-	typedef struct TileData {
+	typedef struct TileData 
+	{
 		int id = -1;
 		SpriteFile sprites;
 	}TileData;
 
 	class Resource {
 	public:
+
 		//加载本地的spr文件
 		SpriteFile LoadSprFile(const char* file) const;
 

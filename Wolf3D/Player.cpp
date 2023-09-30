@@ -156,7 +156,7 @@ void Player::ActorControl()
 void Player::RotateControl()
 {
 	const Vector<double> mouseDelta = std::move(inputSystem.GetMouseMoveDelta());
-	transform.eulerAngle += mouseSpeed * mouseDelta.x * deltaTime;
+	transform.eulerAngle += mouseSpeed * mouseDelta.x * Time::deltaTime;
 
 	const double deltaIndex = inputSystem.GetMouseWheel().y;
 
@@ -198,8 +198,7 @@ void Player::Update()
 		guns[currentGunIndex]->Update();
 	}
 
-	renderer.DrawString("FPS:"+std::to_string(1.0/deltaTime), 10, 10, RED, pixelHeight / 20);
-	//renderer.DrawString("hp:"+to_string(this->hp)+"\nbullet:" + to_string(bulletCount), 0, 0, RED, pixelHeight / 20);
+	renderer.DrawString("FPS:"+std::to_string(1.0/Time::deltaTime), 10, 10, RED, pixelHeight / 20);
 
 }
 

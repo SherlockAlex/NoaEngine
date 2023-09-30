@@ -3,6 +3,7 @@
 class Pistol :public Gun
 {
 protected:
+	Player* player = nullptr;
 	Pistol(Player* player, int* bulletCount, FreeCamera* camera);
 
 public:

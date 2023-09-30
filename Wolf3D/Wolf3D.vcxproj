@@ -37,6 +37,7 @@
     <ClCompile Include="..\NoaEngine\core\Scene.cpp" />
     <ClCompile Include="..\NoaEngine\core\Sprite.cpp" />
     <ClCompile Include="..\NoaEngine\core\StateMachine.cpp" />
+    <ClCompile Include="..\NoaEngine\core\Time.cpp" />
     <ClCompile Include="..\NoaEngine\core\Transform.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Caco.cpp" />
@@ -74,6 +75,7 @@
     <ClInclude Include="..\NoaEngine\core\Scene.h" />
     <ClInclude Include="..\NoaEngine\core\Sprite.h" />
     <ClInclude Include="..\NoaEngine\core\StateMachine.h" />
+    <ClInclude Include="..\NoaEngine\core\Time.h" />
     <ClInclude Include="..\NoaEngine\core\Transform.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="Caco.h" />
