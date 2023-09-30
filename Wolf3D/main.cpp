@@ -19,11 +19,11 @@ using namespace noa;
 
 
 
-class Wolf3D :public NoaEngineGL
+class Wolf3D :public NoaEngine
 {
 public:
 	Wolf3D(int width, int height, WINDOWMODE windowMode, std::string gameName) :
-		NoaEngineGL(width, height, windowMode, gameName)
+		NoaEngine(width, height, windowMode, gameName)
 	{
 		//加载第一个场景
 		sceneManager.LoadScene("MainMenu");

@@ -1,98 +1,77 @@
-#include <windows.h>
-#include <gl/GL.h>
-#include <gl/GLU.h>
+#include <iostream>
+#include <string>
+#include <Windows.h>
 
-LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
-{
-    switch (message)
-    {
-    case WM_CLOSE:
-        PostQuitMessage(0);
-        break;
-    default:
-        return DefWindowProc(hWnd, message, wParam, lParam);
+// 抽象接口 Platform
+class Platform {
+public:
+    virtual void Create(int w, int h, const char* title, int flag) = 0;
+    virtual ~Platform() {}
+};
+
+// 子类 Platform_windows
+class Platform_windows : public Platform {
+public:
+    void Create(int w, int h, const char* title, int flag) override {
+        WNDCLASSEX wc = { sizeof(WNDCLASSEX), CS_CLASSDC, Platform_windows::WindowProc, 0L, 0L, GetModuleHandle(NULL), NULL, NULL, NULL, NULL, L"MyWindow", NULL };
+        RegisterClassEx(&wc);
+
+        DWORD windowStyle = WS_OVERLAPPEDWINDOW;
+        if (flag == 1) {
+            windowStyle = WS_POPUP;
+        }
+
+        RECT windowRect = { 0, 0, w, h };
+        AdjustWindowRect(&windowRect, windowStyle, FALSE);
+
+        HWND hwnd = CreateWindow(wc.lpszClassName, L"MyWindow", windowStyle, CW_USEDEFAULT, CW_USEDEFAULT,
+            windowRect.right - windowRect.left, windowRect.bottom - windowRect.top, NULL, NULL, wc.hInstance, NULL);
+
+        ShowWindow(hwnd, SW_SHOWDEFAULT);
+        UpdateWindow(hwnd);
+
+        MSG msg;
+        while (true) {
+            if (PeekMessage(&msg, NULL, 0U, 0U, PM_REMOVE)) {
+                TranslateMessage(&msg);
+                DispatchMessage(&msg);
+                if (msg.message == WM_QUIT) {
+                    std::cout <<"quit" << std::endl;
+                    break;
+                }
+            }
+            else {
+                //事件执行
+            }
+        }
+
+        UnregisterClass(wc.lpszClassName, wc.hInstance);
     }
+
+public:
+    static LRESULT WINAPI WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
+        switch (uMsg) {
+        case WM_CLOSE:
+            PostQuitMessage(0);
+            break;
+        default:
+            return DefWindowProc(hwnd, uMsg, wParam, lParam);
+        }
+        return 0;
+    }
+};
+
+int main() {
+    int width = 800;
+    int height = 600;
+    const char* title = "My Window";
+    int flag = 0; // 0表示窗口模式，1表示全屏模式
+
+    // 创建 Platform_windows 实例
+    Platform_windows platform;
+
+    // 调用 CreateWindow 方法创建窗口
+    platform.Create(width, height, title, flag);
+
     return 0;
-}
-
-int main(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
-{
-    // 注册窗口类
-    WNDCLASSEX wcex;
-    wcex.cbSize = sizeof(WNDCLASSEX);
-    wcex.style = CS_HREDRAW | CS_VREDRAW | CS_OWNDC;
-    wcex.lpfnWndProc = WndProc;
-    wcex.cbClsExtra = 0;
-    wcex.cbWndExtra = 0;
-    wcex.hInstance = hInstance;
-    wcex.hIcon = NULL;
-    wcex.hCursor = LoadCursor(NULL, IDC_ARROW);
-    wcex.hbrBackground = NULL;
-    wcex.lpszMenuName = NULL;
-    wcex.lpszClassName = L"OpenGLWindow";
-    wcex.hIconSm = NULL;
-
-    if (!RegisterClassEx(&wcex))
-        return -1;
-
-    // 创建窗口
-    HWND hWnd = CreateWindow(L"OpenGLWindow", L"OpenGL Window", WS_OVERLAPPEDWINDOW,
-        CW_USEDEFAULT, CW_USEDEFAULT, 800, 600, NULL, NULL, hInstance, NULL);
-
-    if (!hWnd)
-        return -1;
-
-    // 显示窗口
-    ShowWindow(hWnd, nCmdShow);
-    UpdateWindow(hWnd);
-
-    // 创建OpenGL上下文并初始化
-    HDC hDC = GetDC(hWnd);
-    HGLRC hRC;
-    PIXELFORMATDESCRIPTOR pfd = { 0 };
-    int format;
-
-    pfd.nSize = sizeof(PIXELFORMATDESCRIPTOR);
-    pfd.nVersion = 1;
-    pfd.dwFlags = PFD_DRAW_TO_WINDOW | PFD_SUPPORT_OPENGL | PFD_DOUBLEBUFFER;
-    pfd.iPixelType = PFD_TYPE_RGBA;
-    pfd.cColorBits = 32;
-    pfd.cDepthBits = 24;
-    pfd.cStencilBits = 8;
-
-    format = ChoosePixelFormat(hDC, &pfd);
-    SetPixelFormat(hDC, format, &pfd);
-
-    hRC = wglCreateContext(hDC);
-    wglMakeCurrent(hDC, hRC);
-
-    glEnable(GL_DEPTH_TEST);
-
-    // 主消息循环
-    MSG msg = { 0 };
-    while (true)
-    {
-        if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
-        {
-            if (msg.message == WM_QUIT)
-                break;
-            TranslateMessage(&msg);
-            DispatchMessage(&msg);
-        }
-        else
-        {
-            // 渲染代码放在这里
-            glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-            glClear(GL_COLOR_BUFFER_BIT);
-            SwapBuffers(hDC);
-        }
-    }
-
-    // 清理OpenGL资源
-    wglMakeCurrent(NULL, NULL);
-    wglDeleteContext(hRC);
-    ReleaseDC(hWnd, hDC);
-    DestroyWindow(hWnd);
-
-    return (int)msg.wParam;
 }

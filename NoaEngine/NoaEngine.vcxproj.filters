@@ -84,7 +84,7 @@
     <ClInclude Include="core\Time.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Platform.h">
+    <ClInclude Include="core\Platform.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
@@ -155,7 +155,7 @@
     <ClCompile Include="core\Time.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Platform.cpp">
+    <ClCompile Include="core\Platform.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

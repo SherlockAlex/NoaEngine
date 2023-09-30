@@ -8,8 +8,10 @@ using namespace std;
 
 namespace noa {
 
-	extern unordered_map <size_t, Actor*> behaviours;
-	extern unordered_map<size_t, Rigidbody*> rigidbodys;
+#ifdef _WIN64
+	static shared_ptr<Platform> platform = make_shared<Platform_OGL>();
+	std::vector<SpriteGPUInstanceGL> spriteInstancesGL;
+#endif // _WIN64
 
 	vector<SpriteGPUInstanceSDL> spriteSDLInstances;
 
@@ -262,48 +264,19 @@ namespace noa {
 
 #pragma region OPENGL
 
-	std::vector<SpriteGPUInstanceGL> spriteInstancesGL;
+	
 
-	NoaEngineGL::NoaEngineGL(int width, int height, WINDOWMODE windowMode, string gameName)
+	NoaEngine::NoaEngine(int width, int height, WINDOWMODE windowMode, string gameName)
 	{
-		
-		//初始化OpenGL
-		if (!glfwInit()) {
-			Debug("Failed to initialize GLFW");
-			exit(-1);
-		}
-
-		this->glPixelHeight = height;
-		this->glPixelWidth = width;
 
 		pixelWidth = width;
 		pixelHeight = height;
-
 		pixelBuffer = new uint32_t[width * height];
 
-		// 在创建窗口之前设置垂直同步为禁用
-
-		glfwWindowHint(GLFW_RESIZABLE,0);
-
-		GLFWmonitor* pMonitor = (windowMode == WINDOWMODE::FULLSCREEN) ? glfwGetPrimaryMonitor() : NULL;
-
-		window = glfwCreateWindow(width, height, gameName.c_str(), pMonitor, NULL);
-		if (!window) {
-			Debug("Failed to create GLFW window");
-			glfwTerminate();
-			exit(-1);
-		}
-
-		glfwMakeContextCurrent(window);
-		glfwSwapInterval(0);
-
-		if (glewInit() != GLEW_OK) {
-			Debug("Failed to initialize GLEW");
-			exit(-1);
-		}
-
 		renderer = Renderer(width, height, pixelBuffer, nullptr, nullptr);
-		renderer.API = GRAPHIC::OPENGL;
+
+		platform->Create(width,height,windowMode,gameName);
+		platform->SetEngineUpdate([this]() {this->Update(); });
 
 		//处理音频设备初始化
 		if (Mix_OpenAudio(
@@ -317,108 +290,32 @@ namespace noa {
 			exit(-1);
 		}
 
-		mainTexture = new GLTexture(width, height, pixelBuffer);
-		mainRenderer = new GLRenderer();
-
 	}
 
-	NoaEngineGL::~NoaEngineGL()
+	NoaEngine::~NoaEngine()
 	{
-		delete mainTexture;
-		delete mainRenderer;
 		delete pixelBuffer;
 		Mix_CloseAudio();
-		glfwDestroyWindow(window);
-		glfwTerminate();
 	}
 
 
-	int NoaEngineGL::Run()
+	int NoaEngine::Run()
 	{
-
-		inputSystem.SetGraphicAPI(GRAPHIC::OPENGL);
-		inputSystem.SetGLWindow(this->window);
-
-		glfwSetScrollCallback(window, InputSystem::MouseScrollCallback);
-
+		
 		Start();
-
-		EngineThread();
-
+		platform->SystemLoop();
 		Quit();
 
 		return 0;
 
 	}
 
-	int NoaEngineGL::Quit()
+	int NoaEngine::Quit()
 	{
 		OnDisable();
 		sceneManager.Quit();
-		isRun = false;
+		platform->Quit();
 		return 0;
-	}
-
-	void NoaEngineGL::EventLoop()
-	{
-		//处理事件
-		while ((!glfwWindowShouldClose(window)) && isRun) {
-			inputSystem.Update();
-			glfwWaitEvents();
-		}
-	}
-
-	void NoaEngineGL::EngineThread()
-	{
-
-		while ((!glfwWindowShouldClose(window)) && isRun) {
-			tp2 = std::chrono::system_clock::now();
-			elapsedTime = tp2 - tp1;
-			Time::deltaTime = Time::timeScale*elapsedTime.count();
-			
-			Time::time += Time::deltaTime;
-			if (Time::time>2*PI)
-			{
-				Time::time = 0;
-			}
-
-			inputSystem.Update();
-			glfwPollEvents();
-
-			// 执行游戏主类的update
-			sceneManager.Update();
-
-			Update();
-
-			glClear(GL_COLOR_BUFFER_BIT);  // 清空颜色缓冲区和深度缓冲区
-
-			int i = 0;
-			glActiveTexture(GL_TEXTURE + i);
-			mainTexture->UpdateTexture(pixelBuffer, pixelWidth, pixelHeight);
-			mainRenderer->DrawTexture(this->mainTexture, 0, 0, pixelWidth, pixelHeight);
-			i++;
-			for (const auto& instance : spriteInstancesGL)
-			{
-				glActiveTexture(GL_TEXTURE + i);
-				mainRenderer->DrawTexture(
-					instance.texture
-					, instance.position.x
-					, instance.position.y
-					, instance.scale.x
-					, instance.scale.y
-					, instance.eulerAngle
-					, instance.flip
-				);
-				i++;
-			}
-
-
-
-			glfwSwapBuffers(window);
-			spriteInstancesGL.clear();
-
-			tp1 = tp2;
-		}
 	}
 
 #pragma endregion

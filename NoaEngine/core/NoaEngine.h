@@ -37,11 +37,11 @@
 
 	using namespace noa;
 
-	class ExampleGame :public NoaGameEngine {
+	class ExampleGame :public NoeEngine {
 	public:
 		ExampleGame(int width, int height,
 			WINDOWMODE windowMode,
-			string gameName) :NoaGameEngine(width,height,windowMode,gameName) 
+			string gameName) :NoeEngine(width,height,windowMode,gameName) 
 		{
 			//game inintialize
 		}
@@ -94,10 +94,6 @@
 #include <mutex>
 #include <condition_variable>
 
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-#include <GL/glut.h>
-
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_render.h>
 #include <SDL2/SDL_audio.h>
@@ -107,6 +103,7 @@
 #include <SDL2/SDL_mixer.h>
 #include <SDL2/SDL_thread.h>
 
+#include "Platform.h"
 #include "Transform.h"
 #include "NoaMath.h"
 #include "Scene.h"
@@ -151,12 +148,6 @@ namespace noa {
 
 	extern std::vector<SpriteGPUInstanceSDL> spriteSDLInstances;
 
-	enum class WINDOWMODE
-	{
-		FULLSCREEN = SDL_WINDOW_FULLSCREEN,
-		WINDOW = SDL_WINDOW_FOREIGN
-	};
-
 	/*
 	* o-----------------------——-o
 	* |    游戏基类，一个抽象类     |
@@ -177,10 +168,6 @@ namespace noa {
 		SDL_Renderer* mainRenderer = nullptr;
 		SDL_Texture* texture = nullptr;
 		SDL_PixelFormat* format;
-
-		//GLuint texture;
-
-
 
 		//窗口
 		int width;
@@ -279,54 +266,28 @@ namespace noa {
 
 	extern std::vector<SpriteGPUInstanceGL> spriteInstancesGL;
 
-	/// <summary>
-	/// 使用OpenGL作为底层图像API
-	/// </summary>
-	class NoaEngineGL
+	/*
+	* o--------------------------o
+	* ||    游戏基类，一个抽象类   ||
+	* o--------------------------o
+	*/
+	class NoaEngine
 	{
-	public:
-		
-
-	private:
-
-		GLTexture * mainTexture;
-
-		GLRenderer * mainRenderer;
-
-		bool isRun = true;
-
-		int glPixelWidth = 0;
-		int glPixelHeight = 0;
-
-		std::chrono::system_clock::time_point tp1 = std::chrono::system_clock::now();
-		std::chrono::system_clock::time_point tp2 = std::chrono::system_clock::now();
-		std::chrono::duration<float> elapsedTime = tp1 - tp2;
-
-		GLFWwindow* window = nullptr;
-
-#pragma region SHADER
-
-		//Shader源码
-
-#pragma endregion
 
 	public:
-		NoaEngineGL(
+		NoaEngine(
 			int width, int height,
 			WINDOWMODE windowMode,
 			std::string gameName
 		);
 
-		virtual ~NoaEngineGL();
+		virtual ~NoaEngine();
 
 		virtual void Start() = 0;
 		virtual void Update() = 0;
 		virtual void OnDisable() {};
 
 		int Run();
-
-		void EngineThread();
-		void EventLoop();
 
 		int Quit();
 

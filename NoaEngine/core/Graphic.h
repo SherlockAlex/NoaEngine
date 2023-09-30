@@ -67,6 +67,8 @@ namespace noa {
 		OPENGL = 1
 	};
 
+#ifdef _WIN64
+
 #pragma region OPENGL
 	
 	class GLTexture {
@@ -135,35 +137,14 @@ void main()
 }
 )glsl";
 
-		/*// 添加着色器代码
-		const char* vertexShaderCode = R"(
-        #version 330 core
-        layout(location = 0) in vec2 inPosition;
-        layout(location = 1) in vec2 inTexCoord;
-        out vec2 fragTexCoord;
-        void main() {
-            gl_Position = vec4(inPosition, 0.0, 1.0);
-            fragTexCoord = inTexCoord;
-        }
-    )";
-
-		const char* fragmentShaderCode = R"(
-        #version 330 core
-        in vec2 fragTexCoord;
-        out vec4 fragColor;
-        uniform sampler2D textureSampler;
-        void main() {
-            fragColor = texture(textureSampler, fragTexCoord);
-        }
-    )";*/
-
-
 	};
 
 
 #pragma endregion
 
+#endif // _WIN64
 
 }
+
 
 #endif // !NOAENGINE_GRAPHIC

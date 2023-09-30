@@ -4,8 +4,10 @@
 #include "SDL2/SDL_image.h"
 #include <iostream>
 
+#ifdef _WIN64
+
 namespace noa {
-    
+
     GLTexture::GLTexture(int w, int h, uint32_t* pixelBuffer)
         : width(w), height(h) 
     {
@@ -182,6 +184,8 @@ namespace noa {
 
 }
 
+
+#endif // _WIN64
 
 
 

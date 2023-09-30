@@ -32,6 +32,7 @@
     <ClCompile Include="..\NoaEngine\core\NoaGUI.cpp" />
     <ClCompile Include="..\NoaEngine\core\NoaMath.cpp" />
     <ClCompile Include="..\NoaEngine\core\Physics.cpp" />
+    <ClCompile Include="..\NoaEngine\core\Platform.cpp" />
     <ClCompile Include="..\NoaEngine\core\Renderer.cpp" />
     <ClCompile Include="..\NoaEngine\core\Resource.cpp" />
     <ClCompile Include="..\NoaEngine\core\Scene.cpp" />
@@ -70,6 +71,7 @@
     <ClInclude Include="..\NoaEngine\core\NoaGUI.h" />
     <ClInclude Include="..\NoaEngine\core\NoaMath.h" />
     <ClInclude Include="..\NoaEngine\core\Physics.h" />
+    <ClInclude Include="..\NoaEngine\core\Platform.h" />
     <ClInclude Include="..\NoaEngine\core\Renderer.h" />
     <ClInclude Include="..\NoaEngine\core\Resource.h" />
     <ClInclude Include="..\NoaEngine\core\Scene.h" />
