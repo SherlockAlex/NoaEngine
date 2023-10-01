@@ -6,7 +6,7 @@
 M4A1::M4A1(Player* player, int* bulletCount, FreeCamera* camera) :Gun(bulletCount, camera)
 {
 
-	this->audio = new Audio("./Assets/Wolf/Music/m4a1.wav", Chunk);
+	this->audio = new Audio("./Assets/Wolf/Music/m4a1.wav", AudioType::CHUNK);
 
 	this->animation = Animation::Create(player,45, false);
 	this->player = player;

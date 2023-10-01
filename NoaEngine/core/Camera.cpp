@@ -2,6 +2,13 @@
 #include "NoaEngine.h"
 #include <thread>
 #include "Graphic.h"
+#include "SpriteRenderer.h"
+
+/*
+* 绘制Sprite的新思路
+* 使用SpriteGPU进行绘制
+* 但是SpriteGPU的数量又不能太多
+*/
 
 namespace noa {
 
@@ -106,28 +113,28 @@ namespace noa {
 		followPositionOnScreen = std::move(Vector<int>((follow->position.x - offset.x) * tileScale.x, (follow->position.y - offset.y) * tileScale.y));
 		
 		//绘制游戏物品
-		for (const auto& gameObject:sceneManager.GetActiveScene()->gameObjects) 
+		for (const auto& instance:spriteRendererInstances) 
 		{
 
-			if (gameObject.object==nullptr)
+			if (instance.actor==nullptr)
 			{
+				
 				continue;
 			}
 
 			Vector<int> objPos = Vector<int>(
-				(gameObject.object->transform.position.x - offset.x) * tileScale.x,
-				(gameObject.object->transform.position.y - offset.y) * tileScale.y
+				(instance.actor->transform.position.x - offset.x) * tileScale.x,
+				(instance.actor->transform.position.y - offset.y) * tileScale.y
 				);
-			gameObject.object->sprite->DrawSprite(objPos.x, objPos.y, true);
+			instance.sprite->DrawSprite(objPos.x, objPos.y, true);
 			if (objPos.y<pixelHeight&&objPos.y>=0
 				&&objPos.x < pixelWidth && objPos.x >= 0
 				) {
-				objectBufferWithRay[objPos.y * pixelWidth + objPos.x] = gameObject.object;
+				objectBufferWithRay[objPos.y * pixelWidth + objPos.x] = instance.actor;
 			}
-			
 
 		}
-		
+
 		return followPositionOnScreen;
 
 	}
@@ -364,7 +371,7 @@ namespace noa {
 
 
 	// 快速排序的分区函数
-	inline int Partition(std::vector<GameObjectBuffer>& arr, int low, int high) {
+	inline int Partition(std::vector<SpriteRendererInstance>& arr, int low, int high) {
 		const float pivot = arr[high].distanceToPlayer;
 		int i = (low - 1);
 
@@ -379,7 +386,7 @@ namespace noa {
 	}
 
 	// 快速排序函数
-	inline void QuickSort(std::vector<GameObjectBuffer>& arr, int low, int high) 
+	inline void QuickSort(std::vector<SpriteRendererInstance>& arr, int low, int high) 
 	{
 		if (low >= high) 
 		{
@@ -401,47 +408,41 @@ namespace noa {
 			objectBufferWithRay[i] = nullptr;
 		}
 
-
-		for (auto& object : sceneManager.GetActiveScene()->gameObjects)
+		//计算gameObject和玩家之间的距离
+		for (auto& instance : spriteRendererInstances)
 		{
-			//auto& object = gameObjects[i].object;
-			if (object.object == nullptr)
+			if (instance.actor == nullptr)
 			{
 				continue;
 			}
-			object.vecToPlayer = std::move(object.object->transform.position - follow->position);
-			object.distanceToPlayer = object.vecToPlayer.Magnitude();
+			instance.vecToPlayer = std::move(instance.actor->transform.position - follow->position);
+			instance.distanceToPlayer = instance.vecToPlayer.Magnitude();
 
-			//const float distanceFromPlayer = vecToFollow.Magnitude();
 		}
 
-		QuickSort(sceneManager.GetActiveScene()->gameObjects, 0, sceneManager.GetActiveScene()->gameObjects.size() - 1);
+		QuickSort(spriteRendererInstances, 0, spriteRendererInstances.size() - 1);
 	}
 
 	void FreeCamera::RenderGameObject(uint32_t multiColor)
 	{
 		RenderGameObjectEnter();
 
-		Scene* activeScene = sceneManager.GetActiveScene();
+		//Scene* activeScene = sceneManager.GetActiveScene();
 
-		//绘制物品
-		for (int i = 0;i< activeScene->gameObjects.size();i++)
+		for (const auto & instance :spriteRendererInstances) 
 		{
-
-			auto object = activeScene->gameObjects[i].object;
-			if (object == nullptr)
+			if (instance.actor == nullptr)
 			{
 				continue;
 			}
 
+			const Vector<float>& vecToFollow = instance.vecToPlayer;
 
-			const Vector<float> & vecToFollow = activeScene->gameObjects[i].vecToPlayer;
+			const float distanceFromPlayer = instance.distanceToPlayer;
 
-			const float distanceFromPlayer = activeScene->gameObjects[i].distanceToPlayer;
+			const Vector<float> eye = std::move(Vector<float>(sinf(follow->eulerAngle), cosf(follow->eulerAngle)));
 
-			const Vector<float> eye = std::move(Vector<float>(sinf(follow->eulerAngle),cosf(follow->eulerAngle)));
-
-			float objectAngle = atan2(eye.y,eye.x) - atan2(vecToFollow.y, vecToFollow.x);
+			float objectAngle = atan2(eye.y, eye.x) - atan2(vecToFollow.y, vecToFollow.x);
 			if (objectAngle <= -PI)
 			{
 				objectAngle += 2.0f * PI;
@@ -471,7 +472,7 @@ namespace noa {
 				const float middleOfObject = ((objectAngle / FOV + 0.5))
 					* pixelWidth;
 
-				const float objectPosZ = 2*object->transform.posZ/ distanceFromPlayer;
+				const float objectPosZ = 2 * instance.actor->transform.posZ / distanceFromPlayer;
 
 				for (float lx = 0; lx < objectWidth; lx++)
 				{
@@ -479,8 +480,8 @@ namespace noa {
 					const float objSimpleX = lx / objectWidth;
 					if (
 						 objectColumn < 0 || objectColumn >= pixelWidth
-						||wallDistanceBuffer[objectColumn] < distanceFromPlayer
-						
+						|| wallDistanceBuffer[objectColumn] < distanceFromPlayer
+
 						)
 					{
 						continue;
@@ -488,7 +489,7 @@ namespace noa {
 					for (float ly = 0; ly < objectHeight; ly++)
 					{
 						const float objSimpleY = ly / objectHeight;
-						Uint32 objColor = object->sprite->GetColor(objSimpleX, objSimpleY);
+						Uint32 objColor = instance.sprite->GetColor(objSimpleX, objSimpleY);
 						if (
 							GetAValue(objColor) == 0
 							|| (int)(objectCeiling + ly) < 0 || (int)(objectCeiling + ly) >= pixelHeight
@@ -499,9 +500,9 @@ namespace noa {
 						objColor = MULTICOLOR(objColor, multiColor);
 						DRAWPIXEL(objectColumn, (int)(objectCeiling + ly + objectPosZ), objColor);
 						//renderer.DrawPixel(objectColumn, (int)(objectCeiling + ly + objectPosZ), objColor);
-						if (object->isRaycasted)
+						if (instance.actor->isRaycasted)
 						{
-							objectBufferWithRay[objectColumn] = (void*)object;
+							objectBufferWithRay[objectColumn] = (void*)instance.actor;
 						}
 						wallDistanceBuffer[objectColumn] = distanceFromPlayer;
 						rayResult[objectColumn].hitTile = -1;
@@ -509,8 +510,17 @@ namespace noa {
 					}
 				}
 			}
-
 		}
+
+		
+
+		////绘制物品
+		//for (int i = 0;i< spriteRendererInstances.size();i++)
+		//{
+
+		//	
+
+		//}
 	}
 
 }

@@ -12,6 +12,8 @@
 namespace noa {
 	class GLRenderer :public Renderer
 	{
+	private:
+		bool isInit = false;
 	public:
 		Texture* CreateTexture(int w, int h, uint32_t* pixelBuffer) override;
 

@@ -7,7 +7,7 @@ Pistol::Pistol(Player* player, int* bulletCount, FreeCamera* camera):Gun(bulletC
 {
 	
 
-	this->audio = new Audio("./Assets/Wolf/Music/p228-1.wav", Chunk);
+	this->audio = new Audio("./Assets/Wolf/Music/p228-1.wav", AudioType::CHUNK);
 
 	this->animation = Animation::Create(player,30, false);
 	this->player = player;

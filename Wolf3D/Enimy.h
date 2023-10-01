@@ -5,9 +5,10 @@
 
 using namespace noa;
 
-class Enimy :public GameObject,public LiveEntity
+class Enimy :public Actor,public LiveEntity
 {
 public:
+	SpriteRenderer* spriteRenderer = SpriteRenderer::Create(this);
 	Rigidbody* rigid = Rigidbody::Create(this);
 	Transform* player = nullptr;
 	StateMachine* fsm = StateMachine::Create(this);

@@ -1,10 +1,12 @@
 #pragma once
 #include "GameEngine.h"
 using namespace noa;
-class Item :public GameObject
+class Item :public Actor
 {
 public:
 	NoaEvent pickEvent;
+
+	SpriteRenderer* spriteRenderer = SpriteRenderer::Create(this);
 
 	Rigidbody* rigid = Rigidbody::Create(this);
 private:

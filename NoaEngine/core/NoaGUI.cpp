@@ -220,7 +220,7 @@ namespace noa {
 		{
 			isSelect = true;
 
-			if (inputSystem.GetMouseButton(MOUSEKEY::LeftButton))
+			if (inputSystem.GetMouseButton(MouseButton::LEFT_BUTTON))
 			{
 				this->clickEvent.Invoke();
 			}

@@ -24,7 +24,6 @@
     <ClCompile Include="..\NoaEngine\core\Animator.cpp" />
     <ClCompile Include="..\NoaEngine\core\Audio.cpp" />
     <ClCompile Include="..\NoaEngine\core\Camera.cpp" />
-    <ClCompile Include="..\NoaEngine\core\GameObject.cpp" />
     <ClCompile Include="..\NoaEngine\core\GLRenderer.cpp" />
     <ClCompile Include="..\NoaEngine\core\GLTexture.cpp" />
     <ClCompile Include="..\NoaEngine\core\Graphic.cpp" />
@@ -40,6 +39,7 @@
     <ClCompile Include="..\NoaEngine\core\Resource.cpp" />
     <ClCompile Include="..\NoaEngine\core\Scene.cpp" />
     <ClCompile Include="..\NoaEngine\core\Sprite.cpp" />
+    <ClCompile Include="..\NoaEngine\core\SpriteRenderer.cpp" />
     <ClCompile Include="..\NoaEngine\core\StateMachine.cpp" />
     <ClCompile Include="..\NoaEngine\core\Texture.cpp" />
     <ClCompile Include="..\NoaEngine\core\Time.cpp" />
@@ -67,7 +67,6 @@
     <ClInclude Include="..\NoaEngine\core\Animator.h" />
     <ClInclude Include="..\NoaEngine\core\Audio.h" />
     <ClInclude Include="..\NoaEngine\core\Camera.h" />
-    <ClInclude Include="..\NoaEngine\core\GameObject.h" />
     <ClInclude Include="..\NoaEngine\core\GLRenderer.h" />
     <ClInclude Include="..\NoaEngine\core\GLTexture.h" />
     <ClInclude Include="..\NoaEngine\core\Graphic.h" />
@@ -83,6 +82,7 @@
     <ClInclude Include="..\NoaEngine\core\Resource.h" />
     <ClInclude Include="..\NoaEngine\core\Scene.h" />
     <ClInclude Include="..\NoaEngine\core\Sprite.h" />
+    <ClInclude Include="..\NoaEngine\core\SpriteRenderer.h" />
     <ClInclude Include="..\NoaEngine\core\StateMachine.h" />
     <ClInclude Include="..\NoaEngine\core\Texture.h" />
     <ClInclude Include="..\NoaEngine\core\Time.h" />

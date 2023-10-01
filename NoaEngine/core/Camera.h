@@ -3,7 +3,6 @@
 
 #include "NoaMath.h"
 #include "Scene.h"
-#include "GameObject.h"
 
 namespace noa {
 	//这个是游戏的相机，用来显示游戏的画面内容

@@ -1,0 +1,47 @@
+﻿  NoaEngine.cpp
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
+D:\Work\NoaEngine\packages\nupengl.core.0.1.0.1\build\native\include\GLFW\glfw3.h(92,1): message : 参见“APIENTRY”的前一个定义
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(206,1): warning C4005: “LOBYTE”: 宏重定义
+D:\Work\NoaEngine\NoaEngine\core\Graphic.h(33,1): message : 参见“LOBYTE”的前一个定义
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1859,1): warning C4005: “RGB”: 宏重定义
+D:\Work\NoaEngine\NoaEngine\core\Graphic.h(38,1): message : 参见“RGB”的前一个定义
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1870,1): warning C4005: “GetGValue”: 宏重定义
+D:\Work\NoaEngine\NoaEngine\core\Graphic.h(42,1): message : 参见“GetGValue”的前一个定义
+D:\Work\NoaEngine\NoaEngine\core\Physics.h(66,19): warning C4305: “初始化”: 从“double”到“float”截断
+D:\Work\NoaEngine\NoaEngine\core\Camera.h(41,57): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\NoaEngine\NoaEngine\core\Camera.h(41,52): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\NoaEngine\NoaEngine\core\Camera.h(85,20): warning C4305: “初始化”: 从“double”到“float”截断
+D:\Work\NoaEngine\NoaEngine\core\Camera.h(86,29): warning C4244: “初始化”: 从“double”转换到“const float”，可能丢失数据
+D:\Work\NoaEngine\NoaEngine\core\Camera.h(88,35): warning C4244: “初始化”: 从“double”转换到“const float”，可能丢失数据
+D:\Work\NoaEngine\NoaEngine\core\NoaGUI.h(30,59): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\NoaEngine\NoaEngine\core\NoaGUI.h(30,54): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\NoaEngine\NoaEngine\core\NoaGUI.h(153,23): warning C4305: “初始化”: 从“double”到“float”截断
+Audio.obj : error LNK2001: 无法解析的外部符号 Mix_FreeMusic
+Audio.obj : error LNK2001: 无法解析的外部符号 Mix_VolumeMusic
+Audio.obj : error LNK2001: 无法解析的外部符号 Mix_VolumeChunk
+Audio.obj : error LNK2001: 无法解析的外部符号 Mix_LoadWAV
+Audio.obj : error LNK2001: 无法解析的外部符号 Mix_PauseMusic
+Audio.obj : error LNK2001: 无法解析的外部符号 Mix_PlayChannel
+Audio.obj : error LNK2001: 无法解析的外部符号 Mix_HaltChannel
+Audio.obj : error LNK2001: 无法解析的外部符号 Mix_FreeChunk
+Audio.obj : error LNK2001: 无法解析的外部符号 Mix_LoadMUS
+Audio.obj : error LNK2001: 无法解析的外部符号 Mix_PlayMusic
+NoaEngine.obj : error LNK2001: 无法解析的外部符号 Mix_OpenAudio
+NoaEngine.obj : error LNK2001: 无法解析的外部符号 Mix_CloseAudio
+D:\Work\NoaEngine\x64\Release\SuperMario.exe : fatal error LNK1120: 12 个无法解析的外部命令

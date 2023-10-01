@@ -1,10 +1,14 @@
 #include "Item.h"
 
-Item::Item(Scene* scene, Sprite* sprite) :GameObject(scene,sprite)
+Item::Item(Scene* scene, Sprite* sprite) :Actor(scene)
 {
 	rigid->useGravity = false;
 	rigid->collision.isTrigger = true;
 	rigid->tag = "item";
+
+	sprite->scale = { 32,32 };
+	spriteRenderer->SetSprite(sprite);
+
 }
 
 Item::~Item()

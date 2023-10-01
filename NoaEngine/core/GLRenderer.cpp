@@ -11,7 +11,7 @@ namespace noa {
         return texture;
     }
     GLRenderer::GLRenderer():Renderer() {
-        this->API = GRAPHIC::OPENGL;
+
     }
 
     GLRenderer::~GLRenderer() {

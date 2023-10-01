@@ -304,17 +304,11 @@ namespace noa {
 	void SpriteGPU::Update(Sprite* sprite)
 	{
 
-		if (this->sprite != nullptr)
-		{
-			delete this->texture;
-		}
-
 		if (sprite != nullptr)
 		{
 			texture->UpdateTexture(sprite->GetImage().data(), sprite->w, sprite->h);
 		}
 
-		
 	}
 
 	void SpriteGPU::DrawSprite(float x, float y, bool mirror, float eulerAngle)

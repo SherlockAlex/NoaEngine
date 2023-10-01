@@ -6,6 +6,7 @@ namespace noa {
     GLTexture::GLTexture(int w, int h, uint32_t* pixelBuffer)
         :Texture(), width(w), height(h)
     {
+
         glGenTextures(1, &textureID);
         glBindTexture(GL_TEXTURE_2D, textureID);
 
@@ -15,9 +16,11 @@ namespace noa {
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
-        // ¥¥Ω®Œ∆¿Ì
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, pixelBuffer);
         glGenerateMipmap(GL_TEXTURE_2D);
+
+        
+        
 
     }
 

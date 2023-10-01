@@ -8,7 +8,7 @@ noa::Platform_Windows::Platform_Windows():Platform()
 {
 }
 
-int noa::Platform_Windows::Create(int width, int height, WINDOWMODE windowMode, std::string gameName)
+int noa::Platform_Windows::Create(int width, int height, WindowMode windowMode, std::string gameName)
 {
 	windows = SDL_CreateWindow(
 			gameName.c_str(),

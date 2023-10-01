@@ -30,6 +30,8 @@ namespace noa {
 
 	public:
 		Transform transform;
+		//判断Actor是否被射线击中
+		bool isRaycasted = false;
 
 	protected:
 		Actor(Scene* activeScene);

@@ -9,8 +9,9 @@ namespace noa {
 	/// </summary>
 	class ActorComponent
 	{
-	private:
+	protected:
 		Actor* actor = nullptr;
+	private:
 		bool active = true;
 
 	protected:

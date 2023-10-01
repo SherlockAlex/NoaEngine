@@ -1,7 +1,7 @@
 #include "Enimy.h"
 
 Enimy::Enimy(Scene* scene, Sprite* sprite, Transform* player, LiveEntity* enimy) :
-	GameObject(scene,sprite)
+	Actor(scene)
 {
 
 	rigid->tag = "Enimy";
@@ -9,6 +9,9 @@ Enimy::Enimy(Scene* scene, Sprite* sprite, Transform* player, LiveEntity* enimy)
 	this->player = player;
 	rigid->useGravity = false;
 	this->enimy = enimy;
+
+	sprite->scale = { 32,32 };
+	this->spriteRenderer->SetSprite(sprite);
 
 }
 
@@ -22,7 +25,7 @@ void Enimy::Update()
 {
 	if (currentAnimation!=nullptr) 
 	{
-		sprite->UpdateImage(currentAnimation->GetCurrentFrameImage());
+		this->spriteRenderer->UpdateSprite(currentAnimation->GetCurrentFrameImage());
 	}
 	
 }

@@ -30,9 +30,6 @@
     <ClInclude Include="core\Camera.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="core\GameObject.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="core\InputSystem.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -114,9 +111,6 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="core\Camera.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="core\GameObject.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="core\InputSystem.cpp">

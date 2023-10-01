@@ -57,12 +57,6 @@ namespace noa {
 	extern int pixelHeight;
 	#define DRAWPIXEL(x,y,color) ((x < 0 || y < 0 || x >= pixelWidth || y >= pixelHeight)?( - 1):(((Uint32*)pixelBuffer)[y * pixelWidth + x] = color))
 
-	enum class GRAPHIC
-	{
-		SDL = 0,
-		OPENGL = 1
-	};
-
 
 }
 

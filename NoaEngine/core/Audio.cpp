@@ -8,12 +8,12 @@ namespace noa {
 	Audio::Audio(const char* filePath, AudioType type) {
 
 		this->type = type;
-		if (type == Music)
+		if (type == AudioType::MUSIC)
 		{
 			this->music = Mix_LoadMUS(filePath);
 			Mix_VolumeMusic(MIX_MAX_VOLUME*volume);
 		}
-		else if (type == Chunk)
+		else if (type == AudioType::CHUNK)
 		{
 			this->chunk = Mix_LoadWAV(filePath);
 			Mix_VolumeChunk(this->chunk, MIX_MAX_VOLUME*volume); // 将音量设置为一半
@@ -34,7 +34,7 @@ namespace noa {
 
 	void Audio::Play(bool loop) const
 	{
-		if (type == Music)
+		if (type == AudioType::MUSIC)
 		{
 			if (loop)
 			{
@@ -45,7 +45,7 @@ namespace noa {
 			}
 			Mix_VolumeMusic(MIX_MAX_VOLUME * volume);
 		}
-		else if (type == Chunk)
+		else if (type == AudioType::CHUNK)
 		{
 			if (loop)
 			{
@@ -60,11 +60,11 @@ namespace noa {
 
 	void Audio::Stop() const
 	{
-		if (type == Music)
+		if (type == AudioType::MUSIC)
 		{
 			Mix_PauseMusic();
 		}
-		else if (type == Chunk)
+		else if (type == AudioType::CHUNK)
 		{
 			Mix_HaltChannel(-1);
 		}

@@ -19,7 +19,6 @@ namespace noa {
 	class Renderer
 	{
 	public:
-		GRAPHIC API;
 
 	protected:
 		int pixelWidth;

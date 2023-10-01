@@ -7,7 +7,7 @@
 Shotgun::Shotgun(Player* player, int* bulletCount,FreeCamera * camera):Gun(bulletCount,camera)
 {
 
-	this->audio =new Audio("./Assets/Wolf/Music/sg552-2.wav", Chunk);
+	this->audio =new Audio("./Assets/Wolf/Music/sg552-2.wav", AudioType::CHUNK);
 
 	this->animation = Animation::Create(player,12, false);
 	this->player = player;

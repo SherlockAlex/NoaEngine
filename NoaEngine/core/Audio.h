@@ -5,14 +5,14 @@
 #include <SDL2/SDL_mixer.h>
 
 namespace noa {
-	enum AudioType {
-		Music,
-		Chunk
+	enum class AudioType {
+		MUSIC,
+		CHUNK
 	};
 
 	class Audio {
 	private:
-		AudioType type = Music;
+		AudioType type = AudioType::MUSIC;
 		Mix_Music* music = nullptr;
 		Mix_Chunk* chunk = nullptr;
 	public:

@@ -110,7 +110,6 @@
 #include "Audio.h"
 #include "InputSystem.h"
 #include "Actor.h"
-#include "GameObject.h"
 #include "Animator.h"
 #include "Sprite.h"
 #include "Physics.h"
@@ -125,6 +124,7 @@
 #include "Time.h"
 #include "Texture.h"
 #include "Renderer.h"
+#include "SpriteRenderer.h"
 
 #ifdef _WIN64
 
@@ -279,7 +279,7 @@ namespace noa {
 	public:
 		NoaEngine(
 			int width, int height,
-			WINDOWMODE windowMode,
+			WindowMode windowMode,
 			std::string gameName
 		);
 

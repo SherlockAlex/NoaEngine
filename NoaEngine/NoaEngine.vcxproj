@@ -162,7 +162,6 @@
     <ClInclude Include="core\Audio.h" />
     <ClInclude Include="core\Actor.h" />
     <ClInclude Include="core\Camera.h" />
-    <ClInclude Include="core\GameObject.h" />
     <ClInclude Include="core\Graphic.h" />
     <ClInclude Include="core\InputSystem.h" />
     <ClInclude Include="core\NoaAction.h" />
@@ -192,7 +191,6 @@
     <ClCompile Include="core\Audio.cpp" />
     <ClCompile Include="core\Actor.cpp" />
     <ClCompile Include="core\Camera.cpp" />
-    <ClCompile Include="core\GameObject.cpp" />
     <ClCompile Include="core\Graphic.cpp" />
     <ClCompile Include="core\InputSystem.cpp" />
     <ClCompile Include="core\NoaAction.cpp" />

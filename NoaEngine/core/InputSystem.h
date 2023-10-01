@@ -24,75 +24,75 @@
 namespace noa {
 	extern SDL_Event ioEvent;
 
-	enum class MOUSEKEY {
-		LeftButton = 1,
-		MiddleButton = 2,
-		RightButton = 3,
+	enum class MouseButton {
+		LEFT_BUTTON = 1,
+		MIDDLE_BUTTON = 2,
+		RIGHT_BUTTON = 3,
 		// 添加其他鼠标按钮
 	};
 
 	//按键映射
-	enum class KEYCODE
+	enum class KeyCode
 	{
 #ifdef __linux
-		KeyA = 'a',
-		KeyB = 'b',
-		KeyC = 'c',
-		KeyD = 'd',
-		KeyE = 'e',
-		KeyF = 'f',
-		KeyG = 'g',
-		KeyH = 'h',
-		KeyI = 'i',
-		KeyJ = 'j',
-		KeyK = 'k',
-		KeyL = 'l',
-		KeyM = 'm',
-		KeyN = 'n',
-		KeyO = 'o',
-		KeyP = 'p',
-		KeyQ = 'q',
-		KeyR = 'r',
-		KeyS = 's',
-		KeyT = 't',
-		KeyU = 'u',
-		KeyV = 'v',
-		KeyW = 'w',
-		KeyX = 'x',
-		KeyY = 'y',
-		KeyZ = 'z',
-		KeySpace = ' ',
-		KeyESC = XK_Escape
+		KEY_A = 'a',
+		KEY_B = 'b',
+		KEY_C = 'c',
+		KEY_D = 'd',
+		KEY_E = 'e',
+		KEY_F = 'f',
+		KEY_G = 'g',
+		KEY_H = 'h',
+		KEY_I = 'i',
+		KEY_J = 'j',
+		KEY_K = 'k',
+		KEY_L = 'l',
+		KEY_M = 'm',
+		KEY_N = 'n',
+		KEY_O = 'o',
+		KEY_P = 'p',
+		KEY_Q = 'q',
+		KEY_R = 'r',
+		KEY_S = 's',
+		KEY_T = 't',
+		KEY_U = 'u',
+		KEY_V = 'v',
+		KEY_W = 'w',
+		KEY_X = 'x',
+		KEY_Y = 'y',
+		KEY_Z = 'z',
+		KEY_SPACE = ' ',
+		KEY_ESC = XK_Escape
 #endif // __linux
 #ifdef _WIN64
-		KeyA = 'A',
-		KeyB = 'B',
-		KeyC = 'C',
-		KeyD = 'D',
-		KeyE = 'E',
-		KeyF = 'F',
-		KeyG = 'G',
-		KeyH = 'H',
-		KeyI = 'I',
-		KeyJ = 'J',
-		KeyK = 'K',
-		KeyL = 'L',
-		KeyM = 'M',
-		KeyN = 'N',
-		KeyO = 'O',
-		KeyP = 'P',
-		KeyQ = 'Q',
-		KeyR = 'R',
-		KeyS = 'S',
-		KeyT = 'T',
-		KeyU = 'U',
-		KeyV = 'V',
-		KeyW = 'W',
-		KeyX = 'X',
-		KeyY = 'Y',
-		KeyZ = 'Z',
-		KeySpace = ' ',
-		KeyESC = VK_ESCAPE
+		KEY_A = 'A',
+		KEY_B = 'B',
+		KEY_C = 'C',
+		KEY_D = 'D',
+		KEY_E = 'E',
+		KEY_F = 'F',
+		KEY_G = 'G',
+		KEY_H = 'H',
+		KEY_I = 'I',
+		KEY_J = 'J',
+		KEY_K = 'K',
+		KEY_L = 'L',
+		KEY_M = 'M',
+		KEY_N = 'N',
+		KEY_O = 'O',
+		KEY_P = 'P',
+		KEY_Q = 'Q',
+		KEY_R = 'R',
+		KEY_S = 'S',
+		KEY_T = 'T',
+		KEY_U = 'U',
+		KEY_V = 'V',
+		KEY_W = 'W',
+		KEY_X = 'X',
+		KEY_Y = 'Y',
+		KEY_Z = 'Z',
+		KEY_SPACE = ' ',
+		KEY_ESC = VK_ESCAPE
 #endif // _WIN64
 	};
 
@@ -122,8 +122,8 @@ namespace noa {
 		~InputSystem();
 	public:
 
-		bool GetKeyHold(KEYCODE key);
-		bool GetKeyDown(KEYCODE key);
+		bool GetKeyHold(KeyCode key);
+		bool GetKeyDown(KeyCode key);
 		bool GetMouseMoveState();
 
 		/*
@@ -137,7 +137,7 @@ namespace noa {
 		Vector<double> & GetMousePosition();
 		Vector<double> & GetMouseWheel();
 
-		bool GetMouseButton(MOUSEKEY mouseButton);
+		bool GetMouseButton(MouseButton mouseButton);
 
 	public:
 		static Vector<double> scroll;

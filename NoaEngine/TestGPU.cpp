@@ -35,11 +35,11 @@ public:
 
 		//Debug(to_string(pos.x) + ":" + to_string(pos.y));
 
-		if (inputSystem.GetMouseButton(MOUSEKEY::LeftButton)) 
+		if (inputSystem.GetMouseButton(MouseButton::LEFT_BUTTON)) 
 		{
 			eulerAngle += (100*Time::deltaTime);
 		}
-		else if (inputSystem.GetMouseButton(MOUSEKEY::RightButton))
+		else if (inputSystem.GetMouseButton(MouseButton::RIGHT_BUTTON))
 		{
 			eulerAngle -= (100*Time::deltaTime);
 		}
@@ -48,8 +48,9 @@ public:
 		sprite.UpdateImage(animation->GetCurrentFrameImage());
 		//sprite.DrawSprite(pos.x, pos.y, true,true);
 		spriteGPU->DrawSprite(pos.x, pos.y, true,eulerAngle);
+		Debug(to_string(1.0/Time::deltaTime));
 		//spriteGPU.DrawSprite(0.5 * pixelWidth, pixelHeight - sprite.scale.y, true);
-		renderer->DrawString("FPS:" + to_string(1.0 / Time::deltaTime), 10, 10, WHITE, 0.05 * pixelWidth);
+		//renderer->DrawString("FPS:" + to_string(1.0 / Time::deltaTime), 10, 10, WHITE, 0.05 * pixelWidth);
 	}
 
 public:
@@ -81,10 +82,12 @@ public:
 	void Awake() override 
 	{
 		player = Player::Create(this);
+		Sprite sprite = Sprite(resource.LoadSprFile("./Assets/JumpMan/Texture/gameBackground.spr"), {pixelWidth,pixelHeight});
+		sprite.DrawSpriteFull();
 	}
 
 	void Update() override {
-		renderer->FullScreen(BLACK);
+		//renderer->FullScreen(BLACK);
 		player->Update();
 	}
 

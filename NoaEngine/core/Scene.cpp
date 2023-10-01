@@ -191,30 +191,6 @@ namespace noa
 
 	}
 
-	void Scene::AddGameObject(GameObjectBuffer gameObject)
-	{
-		this->gameObjects.push_back(gameObject);
-	}
-
-	void Scene::RemoveGameObject(GameObject* gameObject)
-	{
-		if (gameObject == nullptr)
-		{
-			return;
-		}
-
-		// 使用迭代器查找要删除的对象
-		for (auto it = gameObjects.begin(); it != gameObjects.end(); ++it) {
-			if (it->object == gameObject) 
-			{
-				gameObjects.erase(it); // 删除匹配的对象
-				break; // 一旦删除，就可以退出循环
-			}
-		}
-
-		
-	}
-
 	void Scene::AddRigidbody(Rigidbody* rigid)
 	{
 		if (rigid == nullptr)
@@ -405,7 +381,6 @@ namespace noa
 		}
 
 		actors.clear();
-		gameObjects.clear();
 		rigidbodys.clear();
 		destroyActors.clear();
 		destroyRigids.clear();
@@ -528,9 +503,10 @@ namespace noa
 		{
 			return;
 		}
-
+		
 
 		activeScene->Update();
+		spriteRendererInstances.clear();
 		activeScene->ActorUpdate();
 
 		//处理老场景资源
@@ -547,6 +523,9 @@ namespace noa
 			done = true;
 			isLoading = false;	
 		}
+
+		
+
 
 	}
 

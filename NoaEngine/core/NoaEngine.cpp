@@ -266,7 +266,7 @@ namespace noa {
 
 	
 
-	NoaEngine::NoaEngine(int width, int height, WINDOWMODE windowMode, string gameName)
+	NoaEngine::NoaEngine(int width, int height, WindowMode windowMode, string gameName)
 	{
 
 		pixelWidth = width;
@@ -325,7 +325,6 @@ namespace noa {
 	{
 		while (!platform->CheckWindowClose())
 		{
-
 			tp2 = std::chrono::system_clock::now();
 			elapsedTime = tp2 - tp1;
 			Time::deltaTime = Time::timeScale * elapsedTime.count();
@@ -369,7 +368,7 @@ namespace noa {
 			}
 
 			renderer->Present(window);
-
+			
 			spriteInstances.clear();
 
 			tp1 = tp2;
@@ -405,11 +404,22 @@ namespace noa {
 
 	void Debug(std::string msg)
 	{
-		std::time_t current_time = std::time(nullptr);
+		/*std::time_t current_time = std::time(nullptr);
 
 		char time_string[100];
 		std::strftime(time_string, sizeof(time_string), "%Y-%m-%d %H:%M:%S", std::localtime(&current_time));
-		cout << "[INFO " << time_string << "]:" << msg << endl;
+		cout << "[INFO " << time_string << "]:" << msg << endl;*/
+
+		// 获取当前时间点
+		auto current_time = std::chrono::system_clock::now();
+
+		// 将当前时间转换为时间戳
+		std::time_t current_time_t = std::chrono::system_clock::to_time_t(current_time);
+
+
+		// 使用 std::put_time 格式化输出时间
+		cout << "[INFO " << current_time_t << "]:" << msg << endl;
+
 	}
 
 

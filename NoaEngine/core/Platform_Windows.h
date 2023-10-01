@@ -14,7 +14,7 @@ namespace noa {
 
 		//创建窗口
 		int Create(int width, int height,
-				WINDOWMODE windowMode,
+				WindowMode windowMode,
 				std::string gameName) override;
 
 		//确定窗口关闭

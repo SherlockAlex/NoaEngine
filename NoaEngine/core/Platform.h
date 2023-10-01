@@ -25,13 +25,14 @@
 
 namespace noa {
 
-	//平台抽象类
-	enum class WINDOWMODE
+	//窗口类型
+	enum class WindowMode
 	{
 		FULLSCREEN = 1,
 		WINDOW = 2048
 	};
 
+	//平台抽象类
 	class Platform {
 	protected:
 
@@ -48,7 +49,7 @@ namespace noa {
 
 		//创建窗口
 		virtual int Create(int width, int height,
-				WINDOWMODE windowMode,
+				WindowMode windowMode,
 				std::string gameName) = 0;
 
 		//确定窗口关闭

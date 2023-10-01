@@ -1,9 +1,10 @@
 #pragma once
 #include "GameEngine.h"
 using namespace noa;
-class Bullet:public GameObject
+class Bullet:public Actor
 {
 public:
+	SpriteRenderer* spriteRenderer = SpriteRenderer::Create(this);
 	Rigidbody* rigid = Rigidbody::Create(this);
 	Animation* animation = Animation::Create(this, 20, false);
 	Vector<float> dir = {0,0};

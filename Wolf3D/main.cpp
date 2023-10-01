@@ -22,7 +22,7 @@ using namespace noa;
 class Wolf3D :public NoaEngine
 {
 public:
-	Wolf3D(int width, int height, WINDOWMODE windowMode, std::string gameName) :
+	Wolf3D(int width, int height, WindowMode windowMode, std::string gameName) :
 		NoaEngine(width, height, windowMode, gameName)
 	{
 		//加载第一个场景
@@ -38,7 +38,7 @@ public:
 	
 	void Update() override 
 	{
-		if (inputSystem.GetKeyHold(KEYCODE::KeyESC))
+		if (inputSystem.GetKeyHold(KeyCode::KEY_ESC))
 		{
 			Quit();
 		}
@@ -55,6 +55,6 @@ private:
 
 int main(int argc,char * argv[])
 {
-	Wolf3D wolf3D(1920/4, 1080/4, WINDOWMODE::FULLSCREEN, "Wolf-3D");
+	Wolf3D wolf3D(1920/4, 1080/4, WindowMode::WINDOW, "Wolf-3D");
 	return wolf3D.Run();
 }

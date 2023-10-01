@@ -2,7 +2,7 @@
 #include "Player.h"
 #include "WolfResource.h"
 
-Bullet::Bullet(Scene * scene,Sprite* sprite) :GameObject(scene,sprite, {32,32})
+Bullet::Bullet(Scene * scene,Sprite* sprite) :Actor(scene)
 {
 	animation->SetFrame(&wolfResource->bulletDestroyFrame);
 
@@ -11,6 +11,9 @@ Bullet::Bullet(Scene * scene,Sprite* sprite) :GameObject(scene,sprite, {32,32})
 	rigid->collision.isTrigger = true;
 	rigid->useGravity = false;
 	rigid->tag = "Bullet";
+
+	sprite->scale = { 32,32 };
+	spriteRenderer->SetSprite(sprite);
 	
 	animation->SetFrameEvent(3,
 		[this]() 
@@ -39,7 +42,7 @@ Bullet::~Bullet()
 void Bullet::Update()
 {
 	rigid->velocity = dir.Normalize() * speed;
-	this->sprite->UpdateImage(animation->GetCurrentFrameImage());
+	this->spriteRenderer->UpdateSprite(animation->GetCurrentFrameImage());
 }
 
 void Bullet::OnHitTile()

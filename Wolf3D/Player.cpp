@@ -68,27 +68,27 @@ void Player::ActorControl()
 
 	this->RotateControl();
 
-	if (!inputSystem.GetKeyHold(KEYCODE::KeyM)) 
+	if (!inputSystem.GetKeyHold(KeyCode::KEY_M)) 
 	{
-		if (inputSystem.GetKeyHold(KEYCODE::KeyW))
+		if (inputSystem.GetKeyHold(KeyCode::KEY_W))
 		{
 			rigid->velocity.x += sinf(transform.eulerAngle);
 			rigid->velocity.y += cosf(transform.eulerAngle);
 		}
 
-		if (inputSystem.GetKeyHold(KEYCODE::KeyS))
+		if (inputSystem.GetKeyHold(KeyCode::KEY_S))
 		{
 			rigid->velocity.x += -sinf(transform.eulerAngle);
 			rigid->velocity.y += -cosf(transform.eulerAngle);
 		}
 
-		if (inputSystem.GetKeyHold(KEYCODE::KeyA))
+		if (inputSystem.GetKeyHold(KeyCode::KEY_A))
 		{
 			rigid->velocity.x += -cosf(transform.eulerAngle);
 			rigid->velocity.y += sinf(transform.eulerAngle);
 		}
 
-		if (inputSystem.GetKeyHold(KEYCODE::KeyD))
+		if (inputSystem.GetKeyHold(KeyCode::KEY_D))
 		{
 			rigid->velocity.x += cosf(transform.eulerAngle);
 			rigid->velocity.y += -sinf(transform.eulerAngle);
@@ -96,37 +96,37 @@ void Player::ActorControl()
 	}
 	else 
 	{
-		if (inputSystem.GetKeyHold(KEYCODE::KeyW))
+		if (inputSystem.GetKeyHold(KeyCode::KEY_W))
 		{
 			rigid->velocity.x += 0;
 			rigid->velocity.y += -1;
 		}
 
-		if (inputSystem.GetKeyHold(KEYCODE::KeyS))
+		if (inputSystem.GetKeyHold(KeyCode::KEY_S))
 		{
 			rigid->velocity.x += 0;
 			rigid->velocity.y += 1;
 		}
 
-		if (inputSystem.GetKeyHold(KEYCODE::KeyA))
+		if (inputSystem.GetKeyHold(KeyCode::KEY_A))
 		{
 			rigid->velocity.x += -1;
 			rigid->velocity.y += 0;
 		}
 
-		if (inputSystem.GetKeyHold(KEYCODE::KeyD))
+		if (inputSystem.GetKeyHold(KeyCode::KEY_D))
 		{
 			rigid->velocity.x += 1;
 			rigid->velocity.y += 0;
 		}
 	}
 
-	if (inputSystem.GetMouseButton(MOUSEKEY::LeftButton)&&bulletCount>0)
+	if (inputSystem.GetMouseButton(MouseButton::LEFT_BUTTON)&&bulletCount>0)
 	{
 		guns[currentGunIndex]->Shoot();
 	}
 
-	if (inputSystem.GetKeyDown(KEYCODE::KeyE))
+	if (inputSystem.GetKeyDown(KeyCode::KEY_E))
 	{
 		const Ray ray = camera->GetRayInfo(pixelWidth * 0.5);
 		const float distanceToWall = ray.distance;
@@ -193,7 +193,7 @@ void Player::Update()
 
 	float vel = rigid->velocity.SqrMagnitude();
 
-	if (!inputSystem.GetKeyHold(KEYCODE::KeyM))
+	if (!inputSystem.GetKeyHold(KeyCode::KEY_M))
 	{
 		guns[currentGunIndex]->Update();
 	}

@@ -19,11 +19,8 @@
 #include "Sprite.h"
 #include "Resource.h"
 
-#include "GameObject.h"
-
 namespace noa {
-	/*struct GameObjectBuffer;
-	typedef struct GameObjectBuffer GameObjectBuffer;*/
+
 
 	typedef unsigned char Uint8;
 
@@ -112,7 +109,6 @@ namespace noa {
 
 		std::map<size_t, Rigidbody*> rigidbodys;
 		std::map<size_t, Actor*> actors;//调用
-		std::vector<GameObjectBuffer> gameObjects;//绘图用的
 
 		std::vector<Rigidbody*> destroyRigids;
 		std::vector<Actor*> destroyActors;
@@ -139,9 +135,6 @@ namespace noa {
 	public:
 		void AddActor(Actor* actor);
 		void RemoveActor(Actor * actor);
-
-		void AddGameObject(GameObjectBuffer gameObject);
-		void RemoveGameObject(GameObject* gameObject);
 		
 		void AddRigidbody(Rigidbody* actor);
 		void RemoveRigidbody(Rigidbody* actor);
