@@ -25,11 +25,11 @@
 
 * Sprite:精灵，使用CPU渲染图片到屏幕上。
 
-* Renderer:CPU渲染器，使用CPU将图片渲染到屏幕上。
+* Renderer:渲染器抽象类，一个图形API对应一个抽象子类。
 
 * GLTexture:OpenGL纹理，创建OpenGL纹理使用GPU加速渲染图片。
 
-* GLRenderer:用于渲染GLTexture对象。
+* GLRenderer:基于OpenGL的渲染器。
 
 * SpriteGL:使用GPU加速Sprite的绘制。
 
