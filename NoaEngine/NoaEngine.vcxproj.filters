@@ -99,6 +99,9 @@
     <ClInclude Include="core\Platform_Windows.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="core\SpriteRenderer.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="core\Animator.cpp">
@@ -180,6 +183,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="core\Platform_Windows.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="core\SpriteRenderer.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

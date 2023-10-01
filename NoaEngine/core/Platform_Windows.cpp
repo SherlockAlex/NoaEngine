@@ -24,6 +24,7 @@ int noa::Platform_Windows::Create(int width, int height, WINDOWMODE windowMode, 
 		noa::Debug("Create window faild");
 		exit(-1);
 	}
+
 	return 0;
 }
 

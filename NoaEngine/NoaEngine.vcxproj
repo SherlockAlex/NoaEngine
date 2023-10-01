@@ -184,6 +184,7 @@
     <ClInclude Include="core\Texture.h" />
     <ClInclude Include="core\GLTexture.h" />
     <ClInclude Include="core\Platform_Windows.h" />
+    <ClInclude Include="core\SpriteRenderer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="core\ActorComponent.cpp" />
@@ -210,6 +211,7 @@
     <ClCompile Include="core\GLRenderer.cpp" />
     <ClCompile Include="core\GLTexture.cpp" />
     <ClCompile Include="core\Platform_Windows.cpp" />
+    <ClCompile Include="core\SpriteRenderer.cpp" />
     <ClCompile Include="TestGPU.cpp" />
     <ClCompile Include="core\Time.cpp" />
     <ClCompile Include="core\Texture.cpp" />

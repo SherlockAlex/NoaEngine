@@ -32,7 +32,7 @@ public:
 
 	FreeCamera* camera = nullptr;
 	float speed = 7;
-	float mouseSpeed = 0.02;
+	float mouseSpeed = 0.03;
 
 	Audio painAFX = Audio("./Assets/Wolf/Music/player_pain.wav",Chunk);
 

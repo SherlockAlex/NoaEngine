@@ -5,9 +5,6 @@
 
 namespace noa {
 
-	//extern unordered_map<int, bool> collisionTiles;
-	//extern vector<GameObjectBuffer> gameObjects;
-
 	Camera::Camera()
 	{
 
