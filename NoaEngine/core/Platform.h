@@ -6,11 +6,6 @@
 * 为了更好的支持游戏引擎的跨平台特性，我们采用了OpenGL作为主机平台的图形接口，并采用OpenGLES作为移动设备端的图形接口(目前正在开发中)，
 * 平台方面，我们决定统一使用SDL2用于创建窗口。
 */
-
-
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-#include <GL/glut.h>
 #include <string>
 #include <functional>
 #include <chrono>
@@ -49,6 +44,7 @@ namespace noa {
 	public:
 
 		Platform();
+		virtual ~Platform();
 
 		//创建窗口
 		virtual int Create(int width, int height,
@@ -57,8 +53,6 @@ namespace noa {
 
 		//确定窗口关闭
 		virtual bool CheckWindowClose() = 0;
-
-		virtual int SystemLoop() = 0;
 
 		void Quit();
 

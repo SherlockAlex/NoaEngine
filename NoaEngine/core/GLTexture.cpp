@@ -1,3 +1,5 @@
+#ifdef _WIN64
+
 #include "GLTexture.h"
 
 namespace noa {
@@ -50,3 +52,5 @@ namespace noa {
         return height;
     }
 }
+
+#endif //_WIN64

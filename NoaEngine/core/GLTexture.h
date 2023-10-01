@@ -1,4 +1,8 @@
-#pragma once
+#ifdef _WIN64
+
+#ifndef NOAENGINE_GLTEXTURE_H
+#define NOAENGINE_GLTEXTURE_H
+
 #include "Texture.h"
 
 #include <GL/glew.h>
@@ -24,4 +28,8 @@ namespace noa {
 		int height;
 	};
 }
+
+#endif // !NOAENGINE_GLTEXTURE_H
+
+#endif //_WIN64
 

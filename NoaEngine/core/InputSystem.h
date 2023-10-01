@@ -116,15 +116,8 @@ namespace noa {
 		double mouseX = 0;
 		double mouseY = 0;
 
-		GRAPHIC graphicAPI;
-
-		GLFWwindow* window = nullptr;
-
 	public:
 		void Update();
-
-		void SetGraphicAPI(GRAPHIC api);
-		void SetGLWindow(GLFWwindow* window);
 		InputSystem();
 		~InputSystem();
 	public:
@@ -149,8 +142,6 @@ namespace noa {
 	public:
 		static Vector<double> scroll;
 		static bool mouseWheelEventReceived;
-
-		static void MouseScrollCallback(GLFWwindow* window, double xoffset, double yoffset);
 
 	};
 

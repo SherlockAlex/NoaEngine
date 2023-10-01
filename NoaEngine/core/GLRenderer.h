@@ -1,5 +1,11 @@
+#ifdef _WIN64
+
 #ifndef NOAENGINE_GLRENDERER_H
 #define NOAENGINE_GLRENDERER_H
+
+#include <GL/glew.h>
+#include <GLFW/glfw3.h>
+#include <GL/glut.h>
 
 #include "Renderer.h"
 
@@ -14,7 +20,6 @@ namespace noa {
 
 		void InitRenderer() override;
 		void Clear() override;
-		void Present(GLFWwindow* window);
 		void DrawTexture(Texture* texture, int index, int x, int y, int w, int h, float eulerAngle = 0, bool isFlipX = false) override;
 		void SetContext(SDL_Window* windows) override;
 		void Present(SDL_Window* windows) override;
@@ -64,4 +69,6 @@ void main()
 }
 
 #endif
+
+#endif // _WIN64
 

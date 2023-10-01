@@ -20,8 +20,6 @@ namespace noa {
 		//确定窗口关闭
 		bool CheckWindowClose() override;
 
-		int SystemLoop() override;
-
 	};
 }
 

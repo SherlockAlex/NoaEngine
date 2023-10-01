@@ -141,6 +141,9 @@
     <ClCompile Include="..\NoaEngine\core\Texture.cpp">
       <Filter>源文件\core</Filter>
     </ClCompile>
+    <ClCompile Include="..\NoaEngine\core\Platform_Windows.cpp">
+      <Filter>源文件\core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\NoaEngine\core\Animator.h">
@@ -261,6 +264,9 @@
       <Filter>头文件\core</Filter>
     </ClInclude>
     <ClInclude Include="..\NoaEngine\core\Texture.h">
+      <Filter>头文件\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\NoaEngine\core\Platform_Windows.h">
       <Filter>头文件\core</Filter>
     </ClInclude>
   </ItemGroup>

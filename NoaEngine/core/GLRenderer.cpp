@@ -1,3 +1,5 @@
+#ifdef _WIN64
+
 #include "GLRenderer.h"
 #include "NoaEngine.h"
 #include "GLTexture.h"
@@ -83,12 +85,6 @@ namespace noa {
         glClear(GL_COLOR_BUFFER_BIT);
     }
 
-
-
-    void GLRenderer::Present(GLFWwindow* window) {
-        glfwSwapBuffers(window);
-    }
-
     void GLRenderer::DrawTexture(Texture* tex, int index, int x, int y, int w, int h, float eulerAngle, bool isFlipX)
     {
         
@@ -167,3 +163,5 @@ namespace noa {
     }
 
 }
+
+#endif //_WIN64

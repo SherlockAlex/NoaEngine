@@ -1,5 +1,8 @@
+#ifdef _WIN64
+
 #include "Platform_Windows.h"
 #include "NoaEngine.h"
+
 
 noa::Platform_Windows::Platform_Windows():Platform()
 {
@@ -29,8 +32,4 @@ bool noa::Platform_Windows::CheckWindowClose()
 	return !isRun;
 }
 
-int noa::Platform_Windows::SystemLoop()
-{
-
-	return 0;
-}
+#endif //_WIN64

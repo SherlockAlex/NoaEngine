@@ -1,5 +1,5 @@
 #include "Time.h"
 
-float Time::deltaTime = 0;
-float Time::timeScale = 1;
-float Time::time = 0;
+float noa::Time::deltaTime = 0;
+float noa::Time::timeScale = 1;
+float noa::Time::time = 0;

@@ -309,7 +309,11 @@ namespace noa {
 		
 		Start();
 		
+		//thread t = thread([this]() {this->EventLoop(); });
+
 		this->EngineThread();
+
+		//t.join();
 
 		Quit();
 
@@ -375,9 +379,10 @@ namespace noa {
 
 	void NoaEngine::EventLoop()
 	{
+		
 		while (SDL_WaitEvent(&ioEvent))
 		{
-			//inputSystem.Update();
+			inputSystem.Update();
 			if (ioEvent.type == SDL_QUIT)
 			{
 				Quit();

@@ -21,17 +21,6 @@ namespace noa {
 
 #endif // __linux
 
-
-	void InputSystem::SetGLWindow(GLFWwindow* window)
-	{
-		this->window = window;
-	}
-
-	void InputSystem::SetGraphicAPI(GRAPHIC api)
-	{
-		this->graphicAPI = api;
-	}
-
 	void InputSystem::Update()
 	{
 
@@ -185,13 +174,6 @@ namespace noa {
 		int mouseX, mouseY;
 		const Uint32 mouseState = SDL_GetMouseState(&mouseX, &mouseY);
 		return mouseState & SDL_BUTTON((static_cast<int>(mouseButton)));
-	}
-
-	void InputSystem::MouseScrollCallback(GLFWwindow* window, double xoffset, double yoffset)
-	{
-		scroll.x = xoffset;
-		scroll.y = yoffset;
-		mouseWheelEventReceived = true;
 	}
 
 
