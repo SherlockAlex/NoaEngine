@@ -109,7 +109,6 @@
 #include "Scene.h"
 #include "Audio.h"
 #include "InputSystem.h"
-#include "Renderer.h"
 #include "Actor.h"
 #include "GameObject.h"
 #include "Animator.h"
@@ -124,6 +123,17 @@
 #include "ActorComponent.h"
 #include "NObject.h"
 #include "Time.h"
+#include "Texture.h"
+#include "Renderer.h"
+
+#ifdef _WIN64
+
+#include "Platform_Windows.h"
+
+#include "GLRenderer.h"
+#include "GLTexture.h"
+
+#endif
 
 //窗口属性
 
@@ -132,91 +142,75 @@ namespace noa {
 	extern int pixelHeight;
 	extern int pixelWidth;
 
-	extern Renderer renderer;
+	extern std::shared_ptr<Renderer> renderer;
 
 #pragma region SDL
-	typedef struct SpriteGPUInstanceSDL {
-		SDL_Texture* texture;
-		SDL_Rect* srcRect;
-		SDL_Rect * dstRect;
 
-		float eulerAngle = 0.0;
+	
+	//class NoaEngineSDL {
+	//public:
+	//	
 
-		bool flip = false;
+	//private:
+	//	std::chrono::system_clock::time_point tp1 = std::chrono::system_clock::now();
+	//	std::chrono::duration<float> elapsedTime;
+	//	std::chrono::system_clock::time_point tp2 = std::chrono::system_clock::now();
 
-	}SpriteGPUInstanceSDL;
+	//	SDL_GLContext glContext = nullptr;
+	//	SDL_Window* window = nullptr;
+	//	SDL_Surface* surface = nullptr;
+	//	SDL_Renderer* mainRenderer = nullptr;
+	//	SDL_Texture* texture = nullptr;
+	//	SDL_PixelFormat* format;
 
-	extern std::vector<SpriteGPUInstanceSDL> spriteSDLInstances;
+	//	//窗口
+	//	int width;
+	//	int height;
+	//	std::string gameName;
+	//	WINDOWMODE gameWindowMode;
 
-	/*
-	* o-----------------------——-o
-	* |    游戏基类，一个抽象类     |
-	* o------------------------——o
-	*/
-	class NoaEngineSDL {
-	public:
-		
+	//	//像素宽度和高度
+	//	int surfaceWidth;
+	//	int surfaceHeight;
 
-	private:
-		std::chrono::system_clock::time_point tp1 = std::chrono::system_clock::now();
-		std::chrono::duration<float> elapsedTime;
-		std::chrono::system_clock::time_point tp2 = std::chrono::system_clock::now();
+	//	bool isRun = true;
 
-		SDL_GLContext glContext = nullptr;
-		SDL_Window* window = nullptr;
-		SDL_Surface* surface = nullptr;
-		SDL_Renderer* mainRenderer = nullptr;
-		SDL_Texture* texture = nullptr;
-		SDL_PixelFormat* format;
+	//protected:
+	//	//float deltaTime = 0;
 
-		//窗口
-		int width;
-		int height;
-		std::string gameName;
-		WINDOWMODE gameWindowMode;
+	//public:
+	//	virtual void Start() = 0;
+	//	virtual void Update() = 0;
+	//	virtual void OnDisable() {};
+	//public:
 
-		//像素宽度和高度
-		int surfaceWidth;
-		int surfaceHeight;
+	//	//渲染器
 
-		bool isRun = true;
-
-	protected:
-		//float deltaTime = 0;
-
-	public:
-		virtual void Start() = 0;
-		virtual void Update() = 0;
-		virtual void OnDisable() {};
-	public:
-
-		//渲染器
-
-		/// <summary>
-		/// 游戏构造函数，用于创建游戏基本组件
-		/// </summary>
-		/// <param name="width">窗口宽度</param>
-		/// <param name="height">窗口高度</param>
-		/// <param name="windowMode">窗口模式</param>
-		/// <param name="gameName">游戏名称</param>
-		NoaEngineSDL(
-			int width, int height,
-			WINDOWMODE windowMode,
-			std::string gameName
-		);
+	//	/// <summary>
+	//	/// 游戏构造函数，用于创建游戏基本组件
+	//	/// </summary>
+	//	/// <param name="width">窗口宽度</param>
+	//	/// <param name="height">窗口高度</param>
+	//	/// <param name="windowMode">窗口模式</param>
+	//	/// <param name="gameName">游戏名称</param>
+	//	NoaEngineSDL(
+	//		int width, int height,
+	//		WINDOWMODE windowMode,
+	//		std::string gameName
+	//	);
 
 
-		~NoaEngineSDL();
+	//	~NoaEngineSDL();
 
-		void* PixelBuffer();
-		int Run();
+	//	void* PixelBuffer();
+	//	int Run();
 
-		void EngineThread();
-		void EventLoop();
+	//	void EngineThread();
+	//	void EventLoop();
 
-		int Quit();
+	//	int Quit();
 
-	};
+	//};
 
 	//线程池
 	class ThreadPool {
@@ -254,17 +248,17 @@ namespace noa {
 #pragma region OPENGL
 
 
-	typedef struct SpriteGPUInstanceGL 
+	typedef struct SpriteGPUInstance
 	{
-		GLTexture* texture;
+		Texture* texture;
 		Vector<int> position;
 		Vector<int> scale;
 		float eulerAngle = 0.0;
 		bool flip = false;
 
-	}SpriteGPUInstanceGL;
+	}SpriteGPUInstance;
 
-	extern std::vector<SpriteGPUInstanceGL> spriteInstancesGL;
+	extern std::vector<SpriteGPUInstance> spriteInstances;
 
 	/*
 	* o--------------------------o
@@ -273,6 +267,14 @@ namespace noa {
 	*/
 	class NoaEngine
 	{
+
+	private:
+		std::chrono::system_clock::time_point tp1 = std::chrono::system_clock::now();
+		std::chrono::system_clock::time_point tp2 = std::chrono::system_clock::now();
+		std::chrono::duration<float> elapsedTime = tp1 - tp2;
+
+		Texture* texture = nullptr;
+		SDL_Window* window = nullptr;
 
 	public:
 		NoaEngine(
@@ -288,6 +290,9 @@ namespace noa {
 		virtual void OnDisable() {};
 
 		int Run();
+
+		void EngineThread();
+		void EventLoop();
 
 		int Quit();
 

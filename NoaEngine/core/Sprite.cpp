@@ -2,12 +2,11 @@
 #include "NoaEngine.h"
 
 
-
 using namespace std;
 
 namespace noa {
 
-	extern Renderer renderer;
+	extern shared_ptr<Renderer> renderer;
 
 	///Sprite类的实现
 	Sprite::Sprite(SpriteFile sprFile, Vector<int> scale)
@@ -145,7 +144,7 @@ namespace noa {
 				{
 					continue;
 				}
-				renderer.DrawPixel(x, y, pixelColor);
+				renderer->DrawPixel(x, y, pixelColor);
 			}
 		}
 
@@ -172,7 +171,7 @@ namespace noa {
 				{
 					continue;
 				}
-				renderer.DrawPixel(x, y, color);
+				renderer->DrawPixel(x, y, color);
 			}
 		}
 
@@ -207,7 +206,7 @@ namespace noa {
 				{
 					continue;
 				}
-				renderer.DrawPixel(x, y, pixelColor);
+				renderer->DrawPixel(x, y, pixelColor);
 			}
 		}
 
@@ -224,7 +223,7 @@ namespace noa {
 			for (int y = 0;y < pixelHeight;y++) 
 			{
 				const Uint32 color = GetColor(x*dx, y*dy);
-				renderer.DrawPixel(x,y,color);
+				renderer->DrawPixel(x,y,color);
 			}
 		}
 	}
@@ -283,98 +282,36 @@ namespace noa {
 
 	SpriteGPU::SpriteGPU(Sprite* sprite)
 	{
-
-		// 不太好用，这意味着SpriteGPU不能独立于游戏引擎独立创造
-
-		if (sprite != nullptr&& renderer.API == GRAPHIC::SDL)
+		if (sprite == nullptr||renderer == nullptr) 
 		{
-			this->sprite = sprite;
-
-			srcRect.w = sprite->w;
-			srcRect.h = sprite->h;
-
-			sdlTexture = SDL_CreateTexture(renderer.GetSDLRenderer()
-				, SDL_PIXELFORMAT_ABGR8888
-				, SDL_TEXTUREACCESS_STREAMING
-				, sprite->w
-				, sprite->h
-			);
-
-			SDL_UpdateTexture(sdlTexture, &srcRect, sprite->GetImage().data(), sprite->w * sizeof(uint32_t));
-			SDL_SetTextureBlendMode(sdlTexture, SDL_BLENDMODE_BLEND);
-
-			dstRect.x = sprite->posx;
-			dstRect.y = sprite->posy;
-			dstRect.w = static_cast<int>(sprite->scale.x);
-			dstRect.h = static_cast<int>(sprite->scale.y);
-
+			return;
 		}
-		else if (sprite != nullptr && renderer.API == GRAPHIC::OPENGL)
-		{
-			this->sprite = sprite;
-			this->glTexture = new GLTexture(sprite->w, sprite->h, pixelBuffer);
-			glTexture->EnableAlpha();
-		}
+		this->sprite = sprite;
+		this->texture = renderer->CreateTexture(sprite->w, sprite->h, pixelBuffer);
+		texture->EnableAlpha();
 
 	}
 
 	SpriteGPU::~SpriteGPU()
 	{
-		SDL_DestroyTexture(sdlTexture);
-		if (glTexture!=nullptr&&renderer.API == GRAPHIC::OPENGL) 
+		//SDL_DestroyTexture(sdlTexture);
+		if (texture!=nullptr) 
 		{
-			delete glTexture;
+			delete texture;
 		}
 	}
 
 	void SpriteGPU::Update(Sprite* sprite)
 	{
-		if (renderer.API == GRAPHIC::SDL)
+
+		if (this->sprite != nullptr)
 		{
-			if (this->sprite != nullptr)
-			{
-				SDL_DestroyTexture(sdlTexture);
-			}
-
-			if (sprite != nullptr)
-			{
-
-				this->sprite = sprite;
-
-				srcRect.w = sprite->w;
-				srcRect.h = sprite->h;
-
-				sdlTexture = SDL_CreateTexture(renderer.GetSDLRenderer()
-					, SDL_PIXELFORMAT_ABGR8888
-					, SDL_TEXTUREACCESS_STREAMING
-					, sprite->w
-					, sprite->h
-				);
-
-				SDL_UpdateTexture(sdlTexture, &srcRect, sprite->GetImage().data(), sprite->w * sizeof(uint32_t));
-				SDL_SetTextureBlendMode(sdlTexture, SDL_BLENDMODE_BLEND);
-
-				dstRect.x = sprite->posx;
-				dstRect.y = sprite->posy;
-				dstRect.w = static_cast<int>(sprite->scale.x);
-				dstRect.h = static_cast<int>(sprite->scale.y);
-
-			}
+			delete this->texture;
 		}
-		else if (renderer.API == GRAPHIC::OPENGL)
+
+		if (sprite != nullptr)
 		{
-
-			if (this->sprite != nullptr)
-			{
-				delete this->glTexture;
-			}
-
-			if (sprite != nullptr)
-			{
-				//glTexture->EnableAlpha();
-				glTexture->UpdateTexture(sprite->GetImage().data(),sprite->w,sprite->h);
-			}
-
+			texture->UpdateTexture(sprite->GetImage().data(), sprite->w, sprite->h);
 		}
 
 		
@@ -383,57 +320,22 @@ namespace noa {
 	void SpriteGPU::DrawSprite(float x, float y, bool mirror, float eulerAngle)
 	{
 
-		
-
-		if (renderer.API == GRAPHIC::SDL)
+		if (texture == nullptr || sprite == nullptr)
 		{
-			
-			if (sdlTexture == nullptr || sprite == nullptr)
-			{
-				return;
-			}
-
-			srcRect.w = sprite->w;
-			srcRect.h = sprite->h;
-
-			SDL_UpdateTexture(sdlTexture, &srcRect, sprite->GetImage().data(), sprite->w * sizeof(uint32_t));
-
-			dstRect.x = x;
-			dstRect.y = y;
-			dstRect.w = static_cast<int>(sprite->scale.x);
-			dstRect.h = static_cast<int>(sprite->scale.y);
-
-
-			SpriteGPUInstanceSDL instance;
-			instance.texture = this->sdlTexture;
-			instance.dstRect = &this->dstRect;
-			instance.srcRect = &this->srcRect;
-			instance.flip = mirror;
-			instance.eulerAngle = eulerAngle;
-			spriteSDLInstances.push_back(instance);
-		}
-		else if (renderer.API == GRAPHIC::OPENGL)
-		{
-			if (glTexture == nullptr || sprite == nullptr)
-			{
-				return;
-			}
-			
-			glTexture->UpdateTexture(sprite->GetImage().data(),sprite->w,sprite->h);
-
-			SpriteGPUInstanceGL instance;
-			instance.texture = glTexture;
-			instance.position.x = x;
-			instance.position.y = y;
-			instance.scale.x = sprite->scale.x;
-			instance.scale.y = sprite->scale.y;
-			instance.eulerAngle = eulerAngle;
-			instance.flip = mirror;
-			spriteInstancesGL.push_back(instance);
-
+			return;
 		}
 
-		
+		texture->UpdateTexture(sprite->GetImage().data(), sprite->w, sprite->h);
+
+		SpriteGPUInstance instance;
+		instance.texture = texture;
+		instance.position.x = x;
+		instance.position.y = y;
+		instance.scale.x = sprite->scale.x;
+		instance.scale.y = sprite->scale.y;
+		instance.eulerAngle = eulerAngle;
+		instance.flip = mirror;
+		spriteInstances.push_back(instance);
 
 	}
 

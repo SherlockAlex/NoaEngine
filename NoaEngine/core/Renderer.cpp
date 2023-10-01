@@ -10,24 +10,30 @@ using namespace std;
 namespace noa {
 	extern void Debug(string msg);
 
+	/*extern int pixelHeight;
+	extern int pixelWidth;
+	extern void* pixelBuffer;*/
+
 	FontAsset fontAsset("./Assets/font/font.ttf",48);
 
 	Renderer::Renderer()
 	{
-		pixelBuffer = nullptr;
-		pixelHeight = 0;
-		pixelWidth = 0;
-		this->sdlRenderer = nullptr;
-		this->sdlTexture = nullptr;
+		/*this->pixelWidth = pixelWidth;
+		this->pixelHeight = pixelHeight;
+		this->pixelBuffer = (Uint32*)pixelBuffer;
+
+		this->invPixelWidth = 1.0 / pixelWidth;
+		this->invPixelHeight = 1.0 / pixelHeight;*/
+
 	}
 
-	Renderer::Renderer(int pixelWidth, int pixelHeight, void* pixelBuffer, SDL_Renderer* sdlRenderer,SDL_Texture* sdlTexture)
-	{
+	void Renderer::SetRenderer(int pixelWidth, int pixelHeight, Uint32* pixelBuffer) {
 		this->pixelWidth = pixelWidth;
 		this->pixelHeight = pixelHeight;
 		this->pixelBuffer = (Uint32*)pixelBuffer;
-		this->sdlRenderer = sdlRenderer;
-		this->sdlTexture = sdlTexture;
+
+		this->invPixelWidth = 1.0 / pixelWidth;
+		this->invPixelHeight = 1.0 / pixelHeight;
 	}
 
 	void Renderer::DrawPixel(const uint32_t x, const uint32_t y, const uint32_t color) const
@@ -346,19 +352,6 @@ namespace noa {
 		{
 			pixelBuffer[i] = color;
 		}
-		//std::memset(pixelBuffer, color, pixelWidth * pixelHeight * sizeof(Uint32));
-	}
-
-	void Renderer::UpdateScreen()
-	{
-		SDL_UnlockTexture(sdlTexture);
-		SDL_RenderCopy(sdlRenderer, sdlTexture, nullptr, nullptr);
-		SDL_RenderPresent(sdlRenderer);
-	}
-
-	SDL_Renderer* Renderer::GetSDLRenderer()
-	{
-		return this->sdlRenderer;
 	}
 
 }

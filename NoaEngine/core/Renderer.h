@@ -9,8 +9,11 @@
 #include "Graphic.h"
 #include "NoaMath.h"
 
+
+
 namespace noa {
 
+	class Texture;
 	class Sprite;
 
 	class Renderer
@@ -18,16 +21,17 @@ namespace noa {
 	public:
 		GRAPHIC API;
 
-	private:
+	protected:
 		int pixelWidth;
 		int pixelHeight;
 		Uint32* pixelBuffer;
-		SDL_Renderer* sdlRenderer;
-		SDL_Texture* sdlTexture;
+
+		float invPixelWidth;
+		float invPixelHeight;
 
 	public:
 		Renderer();
-		Renderer(int pixelWidth, int pixelHeight, void* pixelBuffer,SDL_Renderer* sdlRenderer, SDL_Texture* sdlTexture);
+		void SetRenderer(int pixelWidth, int pixelHeight, Uint32* pixelBuffer);
 		//»æÖÆÏñËØµã
 		void DrawPixel(const uint32_t x,const uint32_t y,const uint32_t color) const;
 		void DrawLine(int x1, int y1, int x2, int y2, Uint32 color) const;
@@ -62,10 +66,13 @@ namespace noa {
 		void DrawString(const std::string& str, int x, int y,float narrow, Uint32 color, int size);
 
 		void FullScreen(Uint32 color) const;
-		
-		void UpdateScreen();
 
-		SDL_Renderer* GetSDLRenderer();
+		virtual void InitRenderer() = 0;
+		virtual Texture* CreateTexture(int w, int h, uint32_t* pixelBuffer) = 0;
+		virtual void DrawTexture(Texture* texture,int index, int x, int y, int w, int h, float eulerAngle = 0, bool isFlipX = false) = 0;
+		virtual void Clear() = 0;
+		virtual void SetContext(SDL_Window * windows) = 0;
+		virtual void Present(SDL_Window * windows) = 0;
 
 	};
 }

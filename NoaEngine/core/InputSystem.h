@@ -1,10 +1,6 @@
 #ifndef NOAGAMEENGINE_INPUTSYSTEM_H
 #define NOAGAMEENGINE_INPUTSYSTEM_H
 
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-#include <GL/glut.h>
-
 #include <SDL2/SDL.h>
 //Windows System
 #ifdef _WIN64
@@ -29,9 +25,9 @@ namespace noa {
 	extern SDL_Event ioEvent;
 
 	enum class MOUSEKEY {
-		LeftButton = GLFW_MOUSE_BUTTON_LEFT,
-		MiddleButton = GLFW_MOUSE_BUTTON_RIGHT,
-		RightButton = GLFW_MOUSE_BUTTON_MIDDLE,
+		LeftButton = 1,
+		MiddleButton = 2,
+		RightButton = 3,
 		// 添加其他鼠标按钮
 	};
 

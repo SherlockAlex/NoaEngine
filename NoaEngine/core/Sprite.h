@@ -18,7 +18,6 @@
 #include "Resource.h"
 #include "Graphic.h"
 #include "Transform.h"
-
 namespace noa {
 
 	typedef unsigned int Uint32;
@@ -68,18 +67,13 @@ namespace noa {
 
 	};
 
+	class Texture;
 	// 使用GPU渲染图片，强制要求必须创建在NoaEngine之后
 	class SpriteGPU final {
 	private:
 		Sprite* sprite = nullptr;
 
-#pragma region SDL
-		SDL_Texture* sdlTexture = nullptr;
-		SDL_Rect srcRect = { 0,0,0,0 };
-		SDL_Rect dstRect = { 0,0,0,0 };
-#pragma endregion
-
-		GLTexture* glTexture = nullptr;
+		Texture* texture = nullptr;
 
 	public:
 		SpriteGPU(Sprite * sprite);

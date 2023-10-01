@@ -198,7 +198,7 @@ void Player::Update()
 		guns[currentGunIndex]->Update();
 	}
 
-	renderer.DrawString("FPS:"+std::to_string(1.0/Time::deltaTime), 10, 10, RED, pixelHeight / 20);
+	renderer->DrawString("FPS:"+std::to_string(1.0/Time::deltaTime), 10, 10, RED, pixelHeight / 20);
 
 }
 

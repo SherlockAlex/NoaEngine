@@ -87,6 +87,18 @@
     <ClInclude Include="core\Platform.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="core\GLRenderer.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="core\Texture.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="core\GLTexture.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="core\Platform_Windows.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="core\Animator.cpp">
@@ -156,6 +168,18 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="core\Platform.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="core\GLRenderer.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="core\Texture.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="core\GLTexture.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="core\Platform_Windows.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

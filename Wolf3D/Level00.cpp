@@ -135,7 +135,7 @@ void Level00::Update()
 	if (inputSystem.GetKeyHold(KEYCODE::KeyM))
 	{
 		Vector<int> drawPos = mapCamera.Render(*map->mapLayer, { 0,0 }, {0,0});
-		renderer.DrawRect(drawPos, drawPos + Vector<int>(32, 32), WHITE);
+		renderer->DrawRect(drawPos, drawPos + Vector<int>(32, 32), WHITE);
 	}
 
 	

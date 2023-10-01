@@ -11,7 +11,7 @@
 
 namespace noa {
 	extern void Debug(std::string msg);
-	extern Renderer renderer;
+	extern std::shared_ptr<Renderer> renderer;
 
 	extern int pixelWidth;
 	extern int pixelHeight;
@@ -254,14 +254,14 @@ namespace noa {
 
 		if (sprite == nullptr)
 		{
-			renderer.DrawRect(transform.position, transform.position + scale, currentColor);
+			renderer->DrawRect(transform.position, transform.position + scale, currentColor);
 		}
 		else {
-			renderer.DrawRect(transform.position, transform.position + scale, sprite,currentColor,true);
+			renderer->DrawRect(transform.position, transform.position + scale, sprite,currentColor,true);
 		}
 		
 		//显示文字
-		renderer.DrawString(text, transform.position.x + 0.5*scale.x - text.length() * 0.5*fontSize* fontNarrowX, transform.position.y + 0.5*scale.y - 0.5*fontSize* fontNarrowX, fontNarrowX, textColor, fontSize);
+		renderer->DrawString(text, transform.position.x + 0.5*scale.x - text.length() * 0.5*fontSize* fontNarrowX, transform.position.y + 0.5*scale.y - 0.5*fontSize* fontNarrowX, fontNarrowX, textColor, fontSize);
 	}
 
 	void NoaButton::AddClickEvent(std::function<void()> func)
@@ -317,7 +317,7 @@ namespace noa {
 	void NoaText::Update()
 	{
 		//显示文字
-		renderer.DrawString(text, transform.position.x, transform.position.y, textColor, size);
+		renderer->DrawString(text, transform.position.x, transform.position.y, textColor, size);
 	}
 
 	UICanvas::UICanvas(Scene* scene):Actor(scene)
@@ -423,11 +423,11 @@ namespace noa {
 	{
 		if (sprite==nullptr) 
 		{
-			renderer.DrawRect(transform.position, transform.position + scale, color);
+			renderer->DrawRect(transform.position, transform.position + scale, color);
 		}
 		else 
 		{
-			renderer.DrawRect(transform.position, transform.position + scale, sprite, color, true);
+			renderer->DrawRect(transform.position, transform.position + scale, sprite, color, true);
 		}
 		
 	}

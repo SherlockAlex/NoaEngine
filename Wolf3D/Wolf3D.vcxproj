@@ -25,6 +25,8 @@
     <ClCompile Include="..\NoaEngine\core\Audio.cpp" />
     <ClCompile Include="..\NoaEngine\core\Camera.cpp" />
     <ClCompile Include="..\NoaEngine\core\GameObject.cpp" />
+    <ClCompile Include="..\NoaEngine\core\GLRenderer.cpp" />
+    <ClCompile Include="..\NoaEngine\core\GLTexture.cpp" />
     <ClCompile Include="..\NoaEngine\core\Graphic.cpp" />
     <ClCompile Include="..\NoaEngine\core\InputSystem.cpp" />
     <ClCompile Include="..\NoaEngine\core\NoaAction.cpp" />
@@ -38,6 +40,7 @@
     <ClCompile Include="..\NoaEngine\core\Scene.cpp" />
     <ClCompile Include="..\NoaEngine\core\Sprite.cpp" />
     <ClCompile Include="..\NoaEngine\core\StateMachine.cpp" />
+    <ClCompile Include="..\NoaEngine\core\Texture.cpp" />
     <ClCompile Include="..\NoaEngine\core\Time.cpp" />
     <ClCompile Include="..\NoaEngine\core\Transform.cpp" />
     <ClCompile Include="Bullet.cpp" />
@@ -64,6 +67,8 @@
     <ClInclude Include="..\NoaEngine\core\Audio.h" />
     <ClInclude Include="..\NoaEngine\core\Camera.h" />
     <ClInclude Include="..\NoaEngine\core\GameObject.h" />
+    <ClInclude Include="..\NoaEngine\core\GLRenderer.h" />
+    <ClInclude Include="..\NoaEngine\core\GLTexture.h" />
     <ClInclude Include="..\NoaEngine\core\Graphic.h" />
     <ClInclude Include="..\NoaEngine\core\InputSystem.h" />
     <ClInclude Include="..\NoaEngine\core\NoaAction.h" />
@@ -77,6 +82,7 @@
     <ClInclude Include="..\NoaEngine\core\Scene.h" />
     <ClInclude Include="..\NoaEngine\core\Sprite.h" />
     <ClInclude Include="..\NoaEngine\core\StateMachine.h" />
+    <ClInclude Include="..\NoaEngine\core\Texture.h" />
     <ClInclude Include="..\NoaEngine\core\Time.h" />
     <ClInclude Include="..\NoaEngine\core\Transform.h" />
     <ClInclude Include="Bullet.h" />

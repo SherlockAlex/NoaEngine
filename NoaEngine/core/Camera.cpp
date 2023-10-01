@@ -77,7 +77,7 @@ namespace noa {
 				const int tileID = tileMap.GetTileID(x + offset.x, y + offset.y);
 				if (tileID == -1)
 				{
-					renderer.DrawRect(
+					renderer->DrawRect(
 						Vector<int>((x- 0) * tileScale.x - tileOffset.x, (y- 0)*tileScale.y - tileOffset.y),
 						Vector<int>((x + 1) * tileScale.x - tileOffset.x, (y + 1) * tileScale.y - tileOffset.y),
 						BLACK
@@ -89,14 +89,14 @@ namespace noa {
 				Tile* tile = tileMap.GetTile(tileID);
 				if (tile == nullptr)
 				{
-					renderer.DrawRect(
+					renderer->DrawRect(
 						Vector<int>(x * tileScale.x - tileOffset.x, y * tileScale.y - tileOffset.y),
 						Vector<int>((x + 1) * tileScale.x - tileOffset.x, (y + 1) * tileScale.y - tileOffset.y),
 						LIGHTRED
 					);
 					continue;
 				}
-				renderer.DrawRect(
+				renderer->DrawRect(
 					Vector<int>(x * tileScale.x - tileOffset.x, y * tileScale.y - tileOffset.y),
 					Vector<int>((x + 1) * tileScale.x - tileOffset.x, (y + 1) * tileScale.y - tileOffset.y),
 					*tileMap.GetTile(tileID)->sprite

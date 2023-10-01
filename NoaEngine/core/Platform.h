@@ -1,6 +1,13 @@
 #ifndef NOAENGINE_PLATFORM
 #define NOAENGINE_PLATFORM
 
+
+/*
+* 为了更好的支持游戏引擎的跨平台特性，我们采用了OpenGL作为主机平台的图形接口，并采用OpenGLES作为移动设备端的图形接口(目前正在开发中)，
+* 平台方面，我们决定统一使用SDL2用于创建窗口。
+*/
+
+
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <GL/glut.h>
@@ -8,7 +15,18 @@
 #include <functional>
 #include <chrono>
 
+#include <SDL2/SDL.h>
+
 #include "Graphic.h"
+
+#ifdef _WIN64
+
+#include "GLTexture.h"
+#include "GLRenderer.h"
+
+#endif // _WIN64
+
+
 
 namespace noa {
 
@@ -21,18 +39,16 @@ namespace noa {
 
 	class Platform {
 	protected:
-		std::function<void()> engineUpdate;
+
+		SDL_Window* windows = nullptr;
 
 		//系统时钟
-		std::chrono::system_clock::time_point tp1 = std::chrono::system_clock::now();
-		std::chrono::system_clock::time_point tp2 = std::chrono::system_clock::now();
-		std::chrono::duration<float> elapsedTime = tp1 - tp2;
 
 		bool isRun = true;
 
 	public:
 
-		void SetEngineUpdate(std::function<void()> engineUpdate);
+		Platform();
 
 		//创建窗口
 		virtual int Create(int width, int height,
@@ -44,9 +60,9 @@ namespace noa {
 
 		virtual int SystemLoop() = 0;
 
-		virtual int PresentWindow() = 0;
-
 		void Quit();
+
+		SDL_Window* GetWindow();
 
 
 	};
@@ -55,29 +71,29 @@ namespace noa {
 
 #ifdef _WIN64
 
+	//class Platform_OGL :public Platform {
 
-	class Platform_OGL :public Platform {
+	//private:
+	//	GLFWwindow* window;
 
-	private:
-		GLFWwindow* window;
+	//	GLTexture* mainTexture;
+	//	//GLRenderer* mainRenderer;
 
-		GLTexture* mainTexture;
-		GLRenderer* mainRenderer;
+	//public:
+	//	Platform_OGL();
+	//	~Platform_OGL();
 
-	public:
-		~Platform_OGL();
+	//	int Create(int width, int height,
+	//			WINDOWMODE windowMode,
+	//			std::string gameName) override;
 
-		int Create(int width, int height,
-				WINDOWMODE windowMode,
-				std::string gameName) override;
+	//	bool CheckWindowClose() override;
 
-		bool CheckWindowClose() override;
+	//	int SystemLoop() override;
 
-		int SystemLoop() override;
+	//	int PresentWindow() override;
 
-		int PresentWindow() override;
-
-	};
+	//};
 
 #endif // _WIN64
 

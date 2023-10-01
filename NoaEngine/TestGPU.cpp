@@ -49,7 +49,7 @@ public:
 		//sprite.DrawSprite(pos.x, pos.y, true,true);
 		spriteGPU->DrawSprite(pos.x, pos.y, true,eulerAngle);
 		//spriteGPU.DrawSprite(0.5 * pixelWidth, pixelHeight - sprite.scale.y, true);
-		renderer.DrawString("FPS:" + to_string(1.0 / Time::deltaTime), 10, 10, WHITE, 0.05 * pixelWidth);
+		renderer->DrawString("FPS:" + to_string(1.0 / Time::deltaTime), 10, 10, WHITE, 0.05 * pixelWidth);
 	}
 
 public:
@@ -84,7 +84,7 @@ public:
 	}
 
 	void Update() override {
-		renderer.FullScreen(BLACK);
+		renderer->FullScreen(BLACK);
 		player->Update();
 	}
 
@@ -93,10 +93,10 @@ private:
 
 };
 
-class TestGPU :public NoaEngineGL {
+class TestGPU :public NoaEngine {
 public:
 	TestGPU(int w,int h,WINDOWMODE windowMode,string name) 
-	:NoaEngineGL(w,h,windowMode,name)
+	:NoaEngine(w,h,windowMode,name)
 	{
 
 		scene = SimpleScene::Create();
