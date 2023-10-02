@@ -157,6 +157,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="core\Collider2D.h" />
     <ClInclude Include="core\ActorComponent.h" />
     <ClInclude Include="core\Animator.h" />
     <ClInclude Include="core\Audio.h" />
@@ -184,8 +185,10 @@
     <ClInclude Include="core\GLTexture.h" />
     <ClInclude Include="core\Platform_Windows.h" />
     <ClInclude Include="core\SpriteRenderer.h" />
+    <ClInclude Include="core\PhysicsSystem.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="core\Collider2D.cpp" />
     <ClCompile Include="core\ActorComponent.cpp" />
     <ClCompile Include="core\Animator.cpp" />
     <ClCompile Include="core\Audio.cpp" />
@@ -210,6 +213,7 @@
     <ClCompile Include="core\GLTexture.cpp" />
     <ClCompile Include="core\Platform_Windows.cpp" />
     <ClCompile Include="core\SpriteRenderer.cpp" />
+    <ClCompile Include="core\PhysicsSystem.cpp" />
     <ClCompile Include="TestGPU.cpp" />
     <ClCompile Include="core\Time.cpp" />
     <ClCompile Include="core\Texture.cpp" />

@@ -99,6 +99,12 @@
     <ClInclude Include="core\SpriteRenderer.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="core\Collider2D.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="core\PhysicsSystem.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="core\Animator.cpp">
@@ -180,6 +186,12 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="core\SpriteRenderer.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="core\Collider2D.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="core\PhysicsSystem.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

@@ -1,56 +1,38 @@
-#include "TestRigidbody.h"
+#include "Physics.h"
+#include "PhysicsSystem.h"
 
-// No sub steps
-void PhysicsManager::Update(float deltaTime)
+void noa::PhysicsSystem::SetGrid(int width, int height)
 {
-	// Perform the update
+	grid.cells.clear();
+	grid.width = width;
+	grid.height = height;
+	const size_t count = static_cast<size_t>(width) * static_cast<size_t>(height);
+	grid.cells.resize(count);
 }
 
-// Using sub steps
-void PhysicsManager::UpdateSubSteps(float deltaTime, int subSteps)
+void noa::PhysicsSystem::Update()
 {
-	const float sub_dt = deltaTime / float(subSteps);
-	for (int i{subSteps};i--;)
-	{
-		Update(sub_dt);
-	}
+	FindCollisionsGrid();
 }
 
-void PhysicsManager::FindCollisions()
+void noa::PhysicsSystem::FindCollisionsGrid()
 {
-	//算法瓶颈可以用网格化检测替代
-	for (auto & collider1: physicsWorld)
+	for (int x{ 1 }; x < grid.width - 1; x++)
 	{
-		for (auto & collider2:physicsWorld)
+		for (int y{ 1 }; y < grid.height - 1; y++)
 		{
-			if (collider1 != collider2)
-			{
-				if (Collide(collider1,collider2)) 
-				{
-					SolveCollision(collider1,collider2);
-				}
-			}
-		}
-	}
-}
+			auto& currentCell = grid.GetCell(x, y);
 
-void PhysicsManager::FindCollisionsGrid()
-{
-	// Skip left and right columns
-	for (int x{1};x<grid.width-1;x++)
-	{
-		// Skip top and bottom rows
-		for (int y{1};y<grid.height-1;y++)
-		{
-			auto& currentCell = grid.GetCell(x,y);
-			// Iterate on all surrounding cells,including the current one
-
-			for (int dx{-1};dx<=1;dx++)
+			for (int dx{ -1 }; dx <= 1; dx++)
 			{
-				for (int dy{-1};dy<=1;dy++)
+				for (int dy{ -1 }; dy <= 1; dy++)
 				{
-					auto& otherCell = grid.GetCell(x+dx,y+dy);
+					auto& otherCell = grid.GetCell(x + dx, y + dy);
 					CheckCellsCollisions(currentCell, otherCell);
+
+					//清除网格内的碰撞体
+					otherCell.colliders.clear();
+					currentCell.colliders.clear();
 				}
 			}
 
@@ -58,7 +40,7 @@ void PhysicsManager::FindCollisionsGrid()
 	}
 }
 
-bool PhysicsManager::Collide(CircleCollider2D* obj1, CircleCollider2D* obj2)
+bool noa::PhysicsSystem::Collide(CircleCollider2D* obj1, CircleCollider2D* obj2)
 {
 	// 计算两圆心之间的距离的平方
 	float dx = obj2->rigidbody->actor->transform.position.x - obj1->rigidbody->actor->transform.position.x;
@@ -72,7 +54,7 @@ bool PhysicsManager::Collide(CircleCollider2D* obj1, CircleCollider2D* obj2)
 	return distanceSquared <= radiusSumSquared;
 }
 
-void PhysicsManager::SolveCollision(CircleCollider2D* obj1, CircleCollider2D* obj2)
+void noa::PhysicsSystem::SolveCollision(CircleCollider2D* obj1, CircleCollider2D* obj2)
 {
 	//处理两个被判定为碰撞的物体
 	// 计算碰撞法线
@@ -92,13 +74,13 @@ void PhysicsManager::SolveCollision(CircleCollider2D* obj1, CircleCollider2D* ob
 	obj2->rigidbody->actor->transform.position.y += collisionNormalY * (penetration * 0.5f);
 }
 
-void PhysicsManager::CheckCellsCollisions(Cell& cell1, Cell& cell2)
+void noa::PhysicsSystem::CheckCellsCollisions(Cell& cell1, Cell& cell2)
 {
-	for (auto & collider1:cell1.colliders) 
+	for (auto& collider1 : cell1.colliders)
 	{
-		for (auto & collider2:cell2.colliders)
+		for (auto& collider2 : cell2.colliders)
 		{
-			if (collider1!=collider2) 
+			if (collider1 != collider2)
 			{
 				if (Collide(collider1, collider2))
 				{
