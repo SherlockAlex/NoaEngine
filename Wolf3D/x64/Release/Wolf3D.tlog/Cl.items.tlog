@@ -3,6 +3,7 @@ D:\Work\NoaEngine\NoaEngine\core\ActorComponent.cpp;D:\Work\NoaEngine\Wolf3D\x64
 D:\Work\NoaEngine\NoaEngine\core\Animator.cpp;D:\Work\NoaEngine\Wolf3D\x64\Release\Animator.obj
 D:\Work\NoaEngine\NoaEngine\core\Audio.cpp;D:\Work\NoaEngine\Wolf3D\x64\Release\Audio.obj
 D:\Work\NoaEngine\NoaEngine\core\Camera.cpp;D:\Work\NoaEngine\Wolf3D\x64\Release\Camera.obj
+D:\Work\NoaEngine\NoaEngine\core\Collider2D.cpp;D:\Work\NoaEngine\Wolf3D\x64\Release\Collider2D.obj
 D:\Work\NoaEngine\NoaEngine\core\GLRenderer.cpp;D:\Work\NoaEngine\Wolf3D\x64\Release\GLRenderer.obj
 D:\Work\NoaEngine\NoaEngine\core\GLTexture.cpp;D:\Work\NoaEngine\Wolf3D\x64\Release\GLTexture.obj
 D:\Work\NoaEngine\NoaEngine\core\Graphic.cpp;D:\Work\NoaEngine\Wolf3D\x64\Release\Graphic.obj
@@ -12,6 +13,7 @@ D:\Work\NoaEngine\NoaEngine\core\NoaEngine.cpp;D:\Work\NoaEngine\Wolf3D\x64\Rele
 D:\Work\NoaEngine\NoaEngine\core\NoaGUI.cpp;D:\Work\NoaEngine\Wolf3D\x64\Release\NoaGUI.obj
 D:\Work\NoaEngine\NoaEngine\core\NoaMath.cpp;D:\Work\NoaEngine\Wolf3D\x64\Release\NoaMath.obj
 D:\Work\NoaEngine\NoaEngine\core\Physics.cpp;D:\Work\NoaEngine\Wolf3D\x64\Release\Physics.obj
+D:\Work\NoaEngine\NoaEngine\core\PhysicsSystem.cpp;D:\Work\NoaEngine\Wolf3D\x64\Release\PhysicsSystem.obj
 D:\Work\NoaEngine\NoaEngine\core\Platform.cpp;D:\Work\NoaEngine\Wolf3D\x64\Release\Platform.obj
 D:\Work\NoaEngine\NoaEngine\core\Platform_Windows.cpp;D:\Work\NoaEngine\Wolf3D\x64\Release\Platform_Windows.obj
 D:\Work\NoaEngine\NoaEngine\core\Renderer.cpp;D:\Work\NoaEngine\Wolf3D\x64\Release\Renderer.obj

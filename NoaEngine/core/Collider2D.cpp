@@ -1,10 +1,9 @@
-#include "Collider2D.h"
-#include "PhysicsSystem.h"
+#include "NoaEngine.h"
 
-noa::Cell& noa::Grid::GetCell(int x, int y)
+noa::Cell* noa::Grid::GetCell(int x, int y)
 {
 	// TODO: 在此处插入 return 语句
-	return cells[y * width + x];
+	return &cells[y * width + x];
 }
 
 noa::Collider2D::Collider2D(Actor* actor, Rigidbody* rigidbody) :ActorComponent(actor)
@@ -24,11 +23,7 @@ noa::Collider2D* noa::Collider2D::Create(Actor* actor, Rigidbody* rigidbody)
 
 void noa::Collider2D::Update()
 {
-	if (rigidbody == nullptr)
-	{
-		return;
-	}
-	//将rigidbody传入对应的cell里面
+	
 }
 
 void noa::Collider2D::Delete()
@@ -49,6 +44,29 @@ noa::CircleCollider2D::~CircleCollider2D()
 noa::CircleCollider2D* noa::CircleCollider2D::Create(Actor* actor, Rigidbody* rigidbody)
 {
 	return new CircleCollider2D(actor, rigidbody);
+}
+
+void noa::CircleCollider2D::Update()
+{
+	if (rigidbody == nullptr)
+	{
+		return;
+	}
+	//将rigidbody传入对应的cell里面
+	int x = static_cast<int>(actor->transform.position.x);
+	int y = static_cast<int>(actor->transform.position.y);
+	PhysicsSystem::grid.GetCell(x, y)->colliders.push_back(this);
+	/*PhysicsSystem::grid.GetCell(x, y+0.5)->colliders.push_back(this);
+	PhysicsSystem::grid.GetCell(x+0.5, y)->colliders.push_back(this);
+	PhysicsSystem::grid.GetCell(x+0.5, y+0.5)->colliders.push_back(this);
+
+	PhysicsSystem::grid.GetCell(x, y - 0.5)->colliders.push_back(this);
+	PhysicsSystem::grid.GetCell(x - 0.5, y)->colliders.push_back(this);
+	PhysicsSystem::grid.GetCell(x - 0.5, y - 0.5)->colliders.push_back(this);
+
+	PhysicsSystem::grid.GetCell(x+0.5, y - 0.5)->colliders.push_back(this);
+	PhysicsSystem::grid.GetCell(x - 0.5, y+0.5)->colliders.push_back(this);*/
+
 }
 
 void noa::CircleCollider2D::Delete()

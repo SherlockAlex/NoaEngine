@@ -10,6 +10,7 @@ class Enimy :public Actor,public LiveEntity
 public:
 	SpriteRenderer* spriteRenderer = SpriteRenderer::Create(this);
 	Rigidbody* rigid = Rigidbody::Create(this);
+	Collider2D* collider = CircleCollider2D::Create(this, rigid);
 	Transform* player = nullptr;
 	StateMachine* fsm = StateMachine::Create(this);
 	NoaEvent deathEvent;

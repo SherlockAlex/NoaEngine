@@ -24,6 +24,7 @@
     <ClCompile Include="..\NoaEngine\core\Animator.cpp" />
     <ClCompile Include="..\NoaEngine\core\Audio.cpp" />
     <ClCompile Include="..\NoaEngine\core\Camera.cpp" />
+    <ClCompile Include="..\NoaEngine\core\Collider2D.cpp" />
     <ClCompile Include="..\NoaEngine\core\GLRenderer.cpp" />
     <ClCompile Include="..\NoaEngine\core\GLTexture.cpp" />
     <ClCompile Include="..\NoaEngine\core\Graphic.cpp" />
@@ -33,6 +34,7 @@
     <ClCompile Include="..\NoaEngine\core\NoaGUI.cpp" />
     <ClCompile Include="..\NoaEngine\core\NoaMath.cpp" />
     <ClCompile Include="..\NoaEngine\core\Physics.cpp" />
+    <ClCompile Include="..\NoaEngine\core\PhysicsSystem.cpp" />
     <ClCompile Include="..\NoaEngine\core\Platform.cpp" />
     <ClCompile Include="..\NoaEngine\core\Platform_Windows.cpp" />
     <ClCompile Include="..\NoaEngine\core\Renderer.cpp" />
@@ -67,6 +69,7 @@
     <ClInclude Include="..\NoaEngine\core\Animator.h" />
     <ClInclude Include="..\NoaEngine\core\Audio.h" />
     <ClInclude Include="..\NoaEngine\core\Camera.h" />
+    <ClInclude Include="..\NoaEngine\core\Collider2D.h" />
     <ClInclude Include="..\NoaEngine\core\GLRenderer.h" />
     <ClInclude Include="..\NoaEngine\core\GLTexture.h" />
     <ClInclude Include="..\NoaEngine\core\Graphic.h" />
@@ -76,6 +79,7 @@
     <ClInclude Include="..\NoaEngine\core\NoaGUI.h" />
     <ClInclude Include="..\NoaEngine\core\NoaMath.h" />
     <ClInclude Include="..\NoaEngine\core\Physics.h" />
+    <ClInclude Include="..\NoaEngine\core\PhysicsSystem.h" />
     <ClInclude Include="..\NoaEngine\core\Platform.h" />
     <ClInclude Include="..\NoaEngine\core\Platform_Windows.h" />
     <ClInclude Include="..\NoaEngine\core\Renderer.h" />

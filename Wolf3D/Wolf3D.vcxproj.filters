@@ -144,6 +144,12 @@
     <ClCompile Include="..\NoaEngine\core\SpriteRenderer.cpp">
       <Filter>源文件\core</Filter>
     </ClCompile>
+    <ClCompile Include="..\NoaEngine\core\Collider2D.cpp">
+      <Filter>源文件\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\NoaEngine\core\PhysicsSystem.cpp">
+      <Filter>源文件\core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\NoaEngine\core\Animator.h">
@@ -267,6 +273,12 @@
       <Filter>头文件\core</Filter>
     </ClInclude>
     <ClInclude Include="..\NoaEngine\core\SpriteRenderer.h">
+      <Filter>头文件\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\NoaEngine\core\Collider2D.h">
+      <Filter>头文件\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\NoaEngine\core\PhysicsSystem.h">
       <Filter>头文件\core</Filter>
     </ClInclude>
   </ItemGroup>

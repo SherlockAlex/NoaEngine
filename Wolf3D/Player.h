@@ -29,6 +29,8 @@ public:
 
 public:
 	Rigidbody* rigid = Rigidbody::Create(this);
+	Collider2D* collider = CircleCollider2D::Create(this,rigid);
+
 
 	FreeCamera* camera = nullptr;
 	float speed = 7;

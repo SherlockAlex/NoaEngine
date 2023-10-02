@@ -15,8 +15,6 @@ namespace noa {
 #endif // _WIN64
 	std::vector<SpriteGPUInstance> spriteInstances;
 
-	//mutex mtx; // 定义互斥锁对象
-
 	int pixelHeight = 0;
 	int pixelWidth = 0;
 
@@ -335,10 +333,10 @@ namespace noa {
 				Time::time = 0;
 			}
 
-			while (SDL_PollEvent(&ioEvent))
+			while (SDL_PollEvent(&inputSystem.ioEvent))
 			{
 				inputSystem.Update();
-				if (ioEvent.type == SDL_QUIT)
+				if (inputSystem.ioEvent.type == SDL_QUIT)
 				{
 					Quit();
 				}
@@ -379,10 +377,10 @@ namespace noa {
 	void NoaEngine::EventLoop()
 	{
 		
-		while (SDL_WaitEvent(&ioEvent))
+		while (SDL_WaitEvent(&inputSystem.ioEvent))
 		{
 			inputSystem.Update();
-			if (ioEvent.type == SDL_QUIT)
+			if (inputSystem.ioEvent.type == SDL_QUIT)
 			{
 				Quit();
 			}

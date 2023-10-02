@@ -1,9 +1,9 @@
+D:\Work\NoaEngine\NoaEngine\core\Collider2D.cpp;D:\Work\NoaEngine\NoaEngine\x64\Release\Collider2D.obj
 D:\Work\NoaEngine\NoaEngine\core\ActorComponent.cpp;D:\Work\NoaEngine\NoaEngine\x64\Release\ActorComponent.obj
 D:\Work\NoaEngine\NoaEngine\core\Animator.cpp;D:\Work\NoaEngine\NoaEngine\x64\Release\Animator.obj
 D:\Work\NoaEngine\NoaEngine\core\Audio.cpp;D:\Work\NoaEngine\NoaEngine\x64\Release\Audio.obj
 D:\Work\NoaEngine\NoaEngine\core\Actor.cpp;D:\Work\NoaEngine\NoaEngine\x64\Release\Actor.obj
 D:\Work\NoaEngine\NoaEngine\core\Camera.cpp;D:\Work\NoaEngine\NoaEngine\x64\Release\Camera.obj
-D:\Work\NoaEngine\NoaEngine\core\GameObject.cpp;D:\Work\NoaEngine\NoaEngine\x64\Release\GameObject.obj
 D:\Work\NoaEngine\NoaEngine\core\Graphic.cpp;D:\Work\NoaEngine\NoaEngine\x64\Release\Graphic.obj
 D:\Work\NoaEngine\NoaEngine\core\InputSystem.cpp;D:\Work\NoaEngine\NoaEngine\x64\Release\InputSystem.obj
 D:\Work\NoaEngine\NoaEngine\core\NoaAction.cpp;D:\Work\NoaEngine\NoaEngine\x64\Release\NoaAction.obj
@@ -23,6 +23,7 @@ D:\Work\NoaEngine\NoaEngine\core\GLRenderer.cpp;D:\Work\NoaEngine\NoaEngine\x64\
 D:\Work\NoaEngine\NoaEngine\core\GLTexture.cpp;D:\Work\NoaEngine\NoaEngine\x64\Release\GLTexture.obj
 D:\Work\NoaEngine\NoaEngine\core\Platform_Windows.cpp;D:\Work\NoaEngine\NoaEngine\x64\Release\Platform_Windows.obj
 D:\Work\NoaEngine\NoaEngine\core\SpriteRenderer.cpp;D:\Work\NoaEngine\NoaEngine\x64\Release\SpriteRenderer.obj
+D:\Work\NoaEngine\NoaEngine\core\PhysicsSystem.cpp;D:\Work\NoaEngine\NoaEngine\x64\Release\PhysicsSystem.obj
 D:\Work\NoaEngine\NoaEngine\TestGPU.cpp;D:\Work\NoaEngine\NoaEngine\x64\Release\TestGPU.obj
 D:\Work\NoaEngine\NoaEngine\core\Time.cpp;D:\Work\NoaEngine\NoaEngine\x64\Release\Time.obj
 D:\Work\NoaEngine\NoaEngine\core\Texture.cpp;D:\Work\NoaEngine\NoaEngine\x64\Release\Texture.obj

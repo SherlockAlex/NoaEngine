@@ -98,7 +98,7 @@ private:
 
 class TestGPU :public NoaEngine {
 public:
-	TestGPU(int w,int h,WINDOWMODE windowMode,string name) 
+	TestGPU(int w,int h,WindowMode windowMode,string name) 
 	:NoaEngine(w,h,windowMode,name)
 	{
 
@@ -123,7 +123,7 @@ public:
 };
 
 int main() {
-	TestGPU test(1920/2, 1080/2, WINDOWMODE::WINDOW, "TestGPU");
+	TestGPU test(1920/2, 1080/2, WindowMode::WINDOW, "TestGPU");
 	test.Run();
 	return 0;
 }

@@ -1,9 +1,14 @@
-#include "Physics.h"
-#include "PhysicsSystem.h"
+#include "NoaEngine.h"
+
+noa::Grid noa::PhysicsSystem::grid;
 
 void noa::PhysicsSystem::SetGrid(int width, int height)
 {
 	grid.cells.clear();
+	if (width * height == 0)
+	{
+		return;
+	}
 	grid.width = width;
 	grid.height = height;
 	const size_t count = static_cast<size_t>(width) * static_cast<size_t>(height);
@@ -21,23 +26,27 @@ void noa::PhysicsSystem::FindCollisionsGrid()
 	{
 		for (int y{ 1 }; y < grid.height - 1; y++)
 		{
-			auto& currentCell = grid.GetCell(x, y);
-
+			auto* currentCell = grid.GetCell(x, y);
+			
 			for (int dx{ -1 }; dx <= 1; dx++)
 			{
 				for (int dy{ -1 }; dy <= 1; dy++)
 				{
-					auto& otherCell = grid.GetCell(x + dx, y + dy);
-					CheckCellsCollisions(currentCell, otherCell);
-
-					//清除网格内的碰撞体
-					otherCell.colliders.clear();
-					currentCell.colliders.clear();
+					auto* otherCell = grid.GetCell(x + dx, y + dy);
+					CheckCellsCollisions(*currentCell, *otherCell);
+					
 				}
 			}
 
 		}
 	}
+
+
+	for (auto & cell:grid.cells) 
+	{
+		cell.colliders.clear();
+	}
+
 }
 
 bool noa::PhysicsSystem::Collide(CircleCollider2D* obj1, CircleCollider2D* obj2)
@@ -72,10 +81,12 @@ void noa::PhysicsSystem::SolveCollision(CircleCollider2D* obj1, CircleCollider2D
 	obj1->rigidbody->actor->transform.position.y -= collisionNormalY * (penetration * 0.5f);
 	obj2->rigidbody->actor->transform.position.x += collisionNormalX * (penetration * 0.5f);
 	obj2->rigidbody->actor->transform.position.y += collisionNormalY * (penetration * 0.5f);
+
 }
 
 void noa::PhysicsSystem::CheckCellsCollisions(Cell& cell1, Cell& cell2)
 {
+	
 	for (auto& collider1 : cell1.colliders)
 	{
 		for (auto& collider2 : cell2.colliders)

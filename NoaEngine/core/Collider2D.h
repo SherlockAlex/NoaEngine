@@ -33,6 +33,7 @@ namespace noa
 		~CircleCollider2D();
 	public:
 		static CircleCollider2D* Create(Actor* actor, Rigidbody* rigidbody);
+		void Update() override;
 		void Delete() override;
 
 	};
@@ -49,7 +50,7 @@ namespace noa
 		std::vector<Cell> cells;
 
 		//返回坐标为x,y的cell
-		Cell& GetCell(int x, int y);
+		Cell * GetCell(int x, int y);
 
 	}Grid;
 

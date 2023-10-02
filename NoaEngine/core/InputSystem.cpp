@@ -9,8 +9,6 @@ using namespace std;
 
 namespace noa {
 	InputSystem inputSystem;
-	SDL_Event ioEvent;
-
 	bool InputSystem::mouseWheelEventReceived = false;
 	Vector<double> InputSystem::scroll = { 0.0,0.0 };
 }
@@ -133,17 +131,12 @@ bool noa::InputSystem::GetKeyDown(noa::KeyCode key)
 
 bool noa::InputSystem::GetMouseMoveState()
 {
-	return noa::ioEvent.type == SDL_MOUSEMOTION;
+	return ioEvent.type == SDL_MOUSEMOTION;
 }
 
 void noa::InputSystem::SetRelativeMouseMode(bool mode)
 {
-	if (mode) {
-		SDL_SetRelativeMouseMode(SDL_TRUE);
-	}
-	else {
-		SDL_SetRelativeMouseMode(SDL_FALSE);
-	}
+	SDL_SetRelativeMouseMode(mode?SDL_TRUE:SDL_FALSE);
 
 }
 

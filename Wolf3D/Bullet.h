@@ -6,6 +6,8 @@ class Bullet:public Actor
 public:
 	SpriteRenderer* spriteRenderer = SpriteRenderer::Create(this);
 	Rigidbody* rigid = Rigidbody::Create(this);
+	Collider2D* collider = CircleCollider2D::Create(this, rigid);
+
 	Animation* animation = Animation::Create(this, 20, false);
 	Vector<float> dir = {0,0};
 	float speed = 9;

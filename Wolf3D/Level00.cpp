@@ -113,6 +113,8 @@ void Level00::Awake()
 	}
 	map->mapLayer->SetCollisionTileID(collisionTileID);
 
+	
+
 	//传递当前场景地图给玩家
 	player->rigid->SetTileMap(map->mapLayer);
 	//设置玩家位置

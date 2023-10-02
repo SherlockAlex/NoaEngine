@@ -9,6 +9,7 @@ public:
 	SpriteRenderer* spriteRenderer = SpriteRenderer::Create(this);
 
 	Rigidbody* rigid = Rigidbody::Create(this);
+	Collider2D* collider = CircleCollider2D::Create(this, rigid);
 private:
 	Item(Scene * scene,Sprite* sprite);
 	virtual ~Item();

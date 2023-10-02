@@ -22,8 +22,6 @@
 #include "Graphic.h"
 
 namespace noa {
-	extern SDL_Event ioEvent;
-
 	enum class MouseButton {
 		LEFT_BUTTON = 1,
 		MIDDLE_BUTTON = 2,
@@ -107,7 +105,8 @@ namespace noa {
 
 	class InputSystem final
 	{
-
+	public:
+		SDL_Event ioEvent;
 	private:
 
 		MouseInput mouseInput;

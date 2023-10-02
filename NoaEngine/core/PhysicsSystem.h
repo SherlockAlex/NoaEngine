@@ -2,28 +2,27 @@
 
 #include "Collider2D.h"
 
-namespace noa {
-	struct Grid;
+namespace noa 
+{
 
 	class PhysicsSystem
 	{
-	private:
-		Grid grid;
+	public:
+		static Grid grid;
 
 	public:
-
-		void SetGrid(int width,int height);
-		void Update();
+		static void SetGrid(int width,int height);
+		static void Update();
 
 	private:
 
-		void FindCollisionsGrid();
+		static void FindCollisionsGrid();
 
-		void CheckCellsCollisions(Cell& cell1, Cell& cell2);
+		static void CheckCellsCollisions(Cell& cell1, Cell& cell2);
 
-		bool Collide(CircleCollider2D* obj1, CircleCollider2D* obj2);
+		static bool Collide(CircleCollider2D* obj1, CircleCollider2D* obj2);
 
-		void SolveCollision(CircleCollider2D* obj1, CircleCollider2D* obj2);
+		static void SolveCollision(CircleCollider2D* obj1, CircleCollider2D* obj2);
 	};
 }
 

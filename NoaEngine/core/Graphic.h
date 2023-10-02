@@ -27,20 +27,24 @@ namespace noa {
 	#define	YELLOW			0xFF55FFFF
 	#define	WHITE			0xFFFFFFFF
 	#define ALPHA			0x00000000
-	
-	
+
 	//È¡µÍÎ»
-	#define LOBYTE(w)           ((Uint8)(w&0xff))
+#ifndef LOBYTE(w)           ((Uint8)(w&0xff))
+#define LOBYTE(w)           ((Uint8)(w&0xff))
+
+#endif // !LOBYTE
 	
 	// Color conversion macro
 	#define BGR(color)	((((color) & 0xFF) << 16) | ((color) & 0xFF00FF00) | (((color) & 0xFF0000) >> 16))
 	
 	#define RGB(r,g,b)  ((Uint32)(((Uint8)(r)|((Uint8)((Uint8)(g))<<8))|(((unsigned long)(Uint8)(b))<<16)))
-	#define RGBA(r, g, b, a)  ((Uint32)(((Uint8)(r)|((Uint8)((Uint8)(g))<<8))|(((unsigned long)(Uint8)(b))<<16)|(((unsigned long)(Uint8)(a))<<24)))
-
+	
+	
 	#define GetRValue(rgb)      (LOBYTE(rgb))
 	#define GetGValue(rgb)      (LOBYTE(((unsigned short)(rgb)) >> 8))
 	#define GetBValue(rgb)      (LOBYTE((rgb)>>16))
+
+	#define RGBA(r, g, b, a)  ((Uint32)(((Uint8)(r)|((Uint8)((Uint8)(g))<<8))|(((unsigned long)(Uint8)(b))<<16)|(((unsigned long)(Uint8)(a))<<24)))
 	#define GetAValue(argb)      (LOBYTE((argb) >> 24))
 
 	#define MULTICOLOR(color,mutiColor) (RGBA(GetRValue(color)* (float(GetRValue(mutiColor)) / 255.0), GetGValue(color)* (float(GetGValue(mutiColor)) / 255.0), GetBValue(color)* (float(GetBValue(mutiColor)) / 255.0),GetAValue(color)))

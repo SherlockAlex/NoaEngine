@@ -126,6 +126,9 @@
 #include "Renderer.h"
 #include "SpriteRenderer.h"
 
+#include "Collider2D.h"
+#include "PhysicsSystem.h"
+
 #ifdef _WIN64
 
 #include "Platform_Windows.h"

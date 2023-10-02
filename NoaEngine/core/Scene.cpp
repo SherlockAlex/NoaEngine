@@ -1,5 +1,6 @@
 #include "Scene.h"
 #include "NoaEngine.h"
+#include "PhysicsSystem.h"
 
 #include <iostream>
 #include <fstream>
@@ -25,6 +26,8 @@ namespace noa
 		this->h = map.h;
 
 		level = map.image;
+
+		PhysicsSystem::SetGrid(w,h);
 
 		Debug("load map from file successfully");
 
@@ -281,6 +284,8 @@ namespace noa
 
 		// Ö´ÐÐÅö×²¼ì²â
 		//PerformCollisionDetection(rootNode);
+
+		PhysicsSystem::Update();
 
 		const auto rigidLast = rigidbodys.end();
 		for (auto i = rigidbodys.begin();i!= rigidLast;i++)

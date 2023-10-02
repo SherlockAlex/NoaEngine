@@ -76,8 +76,8 @@ namespace noa
 			collision.hitTileID = -1;
 			ApplyCollision();
 			//处理碰撞检测
-			CollisionWithinRigidbody();
-			ApplyCollision();
+			//CollisionWithinRigidbody();
+			//ApplyCollision();
 		}
 
 		//更新位置
