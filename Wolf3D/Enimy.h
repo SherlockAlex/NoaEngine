@@ -10,16 +10,14 @@ class Enimy :public Actor,public LiveEntity
 public:
 	SpriteRenderer* spriteRenderer = SpriteRenderer::Create(this);
 	Rigidbody* rigid = Rigidbody::Create(this);
-	Collider2D* collider = CircleCollider2D::Create(this, rigid);
+	CircleCollider2D* collider = CircleCollider2D::Create(this, rigid);
 	Transform* player = nullptr;
 	StateMachine* fsm = StateMachine::Create(this);
 	NoaEvent deathEvent;
 	Animation* currentAnimation = nullptr;
 	LiveEntity* enimy = nullptr;
-	//int hp = 100;
 
 protected:
-	//void TakeDamage(int damage);
 	Enimy(Scene * scene,Sprite* sprite, Transform* player,LiveEntity * enimy);
 	virtual ~Enimy();
 public:

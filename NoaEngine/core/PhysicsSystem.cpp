@@ -51,36 +51,46 @@ void noa::PhysicsSystem::FindCollisionsGrid()
 
 bool noa::PhysicsSystem::Collide(CircleCollider2D* obj1, CircleCollider2D* obj2)
 {
-	// 计算两圆心之间的距离的平方
-	float dx = obj2->rigidbody->actor->transform.position.x - obj1->rigidbody->actor->transform.position.x;
-	float dy = obj2->rigidbody->actor->transform.position.y - obj1->rigidbody->actor->transform.position.y;
-	float distanceSquared = dx * dx + dy * dy;
+	//Rigidbody* body2 = obj2->rigidbody;
+	const float deltaX = obj1->rigidbody->actor->transform.position.x 
+		- obj2->rigidbody->actor->transform.position.x;
 
-	// 计算两圆半径之和的平方
-	float radiusSumSquared = (obj1->radius + obj2->radius) * (obj1->radius + obj2->radius);
+	const float deltaY = obj1->rigidbody->actor->transform.position.y 
+		- obj2->rigidbody->actor->transform.position.y;
 
-	// 如果距离的平方小于等于半径之和的平方，说明发生碰撞
-	return distanceSquared <= radiusSumSquared;
+	const float deltaR = obj1->radius + obj2->radius;
+
+	const float distanceSquared = deltaX * deltaX + deltaY * deltaY;
+	const float radiusSumSquared = deltaR * deltaR;
+
+	// 如果两个球型包围盒的距离的平方小于半径之和的平方，则它们相交
+	return distanceSquared < radiusSumSquared;
 }
 
 void noa::PhysicsSystem::SolveCollision(CircleCollider2D* obj1, CircleCollider2D* obj2)
 {
-	//处理两个被判定为碰撞的物体
-	// 计算碰撞法线
-	float dx = obj2->rigidbody->actor->transform.position.x - obj1->rigidbody->actor->transform.position.x;
-	float dy = obj2->rigidbody->actor->transform.position.y - obj1->rigidbody->actor->transform.position.y;
-	float length = std::sqrt(dx * dx + dy * dy);
-	float collisionNormalX = dx / length;
-	float collisionNormalY = dy / length;
+	//该方法只处理碰撞，比如说两者的碰撞瞬间的动量问题
+	if (obj1->rigidbody->collision.isTrigger||obj2->rigidbody->collision.isTrigger)
+	{
+		return;
+	}
 
-	// 计算推开距离，这里简单使用两圆半径之和减去两圆心距离的一半
-	float penetration = (obj1->radius + obj2->radius) - length;
+	// 处理两个被判定为碰撞的物体
 
-	// 将碰撞法线乘以推开距离，分别推开两个圆
-	obj1->rigidbody->actor->transform.position.x -= collisionNormalX * (penetration * 0.5f);
-	obj1->rigidbody->actor->transform.position.y -= collisionNormalY * (penetration * 0.5f);
-	obj2->rigidbody->actor->transform.position.x += collisionNormalX * (penetration * 0.5f);
-	obj2->rigidbody->actor->transform.position.y += collisionNormalY * (penetration * 0.5f);
+	const float dx = obj2->rigidbody->newPosition.x - obj1->rigidbody->actor->transform.position.x;
+	const float dy = obj2->rigidbody->newPosition.y - obj1->rigidbody->actor->transform.position.y;
+	const float length = std::sqrt(dx * dx + dy * dy);
+	const float collisionNormalX = (length == 0) ? 0 : (dx / length);
+	const float collisionNormalY = (length == 0) ? 0 : (dy / length);
+
+	// 计算推开距离,碰撞的物体马上停下来
+	const float penetration = (obj1->radius + obj2->radius) - length;
+
+	obj2->rigidbody->newPosition.x += 0.499*collisionNormalX * (penetration);
+	obj2->rigidbody->newPosition.y += 0.499*collisionNormalY * (penetration);
+
+	obj2->rigidbody->velocity = { 0,0 };
+	obj1->rigidbody->velocity = { 0,0 };
 
 }
 
@@ -95,6 +105,8 @@ void noa::PhysicsSystem::CheckCellsCollisions(Cell& cell1, Cell& cell2)
 			{
 				if (Collide(collider1, collider2))
 				{
+					collider1->rigidbody->collision.other = collider2->rigidbody;
+					collider2->rigidbody->collision.other = collider1->rigidbody;
 					SolveCollision(collider1, collider2);
 				}
 			}

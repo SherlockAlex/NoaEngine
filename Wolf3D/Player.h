@@ -29,7 +29,7 @@ public:
 
 public:
 	Rigidbody* rigid = Rigidbody::Create(this);
-	Collider2D* collider = CircleCollider2D::Create(this,rigid);
+	CircleCollider2D* collider = CircleCollider2D::Create(this,rigid);
 
 
 	FreeCamera* camera = nullptr;

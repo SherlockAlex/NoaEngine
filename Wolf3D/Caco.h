@@ -30,11 +30,6 @@ public:
 	void OnDestroy() override;
 
 public:
-	/*shared_ptr<CacoIdleState> idleState;
-	shared_ptr<CacoMoveState> moveState;
-	shared_ptr<CacoAttackState> attackState;
-	shared_ptr<CacoDieState> dieState;
-	shared_ptr<CacoPainState> painState;*/
 
 	CacoIdleState* idleState = nullptr;
 	CacoMoveState* moveState = nullptr;

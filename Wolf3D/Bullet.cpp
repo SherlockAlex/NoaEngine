@@ -7,7 +7,7 @@ Bullet::Bullet(Scene * scene,Sprite* sprite) :Actor(scene)
 	animation->SetFrame(&wolfResource->bulletDestroyFrame);
 
 	rigid->collision.sacle = { -0.3,-0.3 };
-	rigid->collision.radius = 0.2;
+	collider->radius = 0.2;
 	rigid->collision.isTrigger = true;
 	rigid->useGravity = false;
 	rigid->tag = "Bullet";

@@ -53,20 +53,9 @@ void noa::CircleCollider2D::Update()
 		return;
 	}
 	//将rigidbody传入对应的cell里面
-	int x = static_cast<int>(actor->transform.position.x);
-	int y = static_cast<int>(actor->transform.position.y);
+	const int x = static_cast<int>(actor->transform.position.x+0.5);
+	const int y = static_cast<int>(actor->transform.position.y+0.5);
 	PhysicsSystem::grid.GetCell(x, y)->colliders.push_back(this);
-	/*PhysicsSystem::grid.GetCell(x, y+0.5)->colliders.push_back(this);
-	PhysicsSystem::grid.GetCell(x+0.5, y)->colliders.push_back(this);
-	PhysicsSystem::grid.GetCell(x+0.5, y+0.5)->colliders.push_back(this);
-
-	PhysicsSystem::grid.GetCell(x, y - 0.5)->colliders.push_back(this);
-	PhysicsSystem::grid.GetCell(x - 0.5, y)->colliders.push_back(this);
-	PhysicsSystem::grid.GetCell(x - 0.5, y - 0.5)->colliders.push_back(this);
-
-	PhysicsSystem::grid.GetCell(x+0.5, y - 0.5)->colliders.push_back(this);
-	PhysicsSystem::grid.GetCell(x - 0.5, y+0.5)->colliders.push_back(this);*/
-
 }
 
 void noa::CircleCollider2D::Delete()

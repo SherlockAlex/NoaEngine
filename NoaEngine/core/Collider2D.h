@@ -27,7 +27,6 @@ namespace noa
 	{
 	public:
 		float radius = 1;
-
 	private:
 		CircleCollider2D(Actor* actor, Rigidbody* rigidbody);
 		~CircleCollider2D();

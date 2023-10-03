@@ -14,33 +14,17 @@ namespace noa {
 	//Rigidbody只能实例化，没办法继承
 	class Rigidbody;
 
-	// 定义四叉树节点结构体
-	typedef struct QuadTreeNode {
-		float minX;
-		float minY;
-		float maxX;
-		float maxY;
-		std::vector<Rigidbody*> rigidbodies;
-		QuadTreeNode* children[4]; // 子节点数组，代表四个象限
-	}QuadTreeNode;
 
-
-	//存储人物的碰撞信息
+	//存储人物与Tile的碰撞信息
 	typedef struct Collision 
 	{
 		Vector<float> sacle = Vector<float>(0, 0);
-		float radius = 0.5;
 		bool isHitCollisionTile = false;
 		bool isGrounded = false;
 		bool isTrigger = false;
 		Rigidbody * other = nullptr;
 		int hitTileID = -1;
-		bool collisionInfo[2][2] = { false,false,false,false };
-		void Update(bool isHitCollisionTile,bool isGrounded) 
-		{
-			this->isHitCollisionTile = isHitCollisionTile;
-			this->isGrounded = isGrounded;
-		}
+		
 
 	}Collision;
 
@@ -83,7 +67,8 @@ namespace noa {
 		bool isFrozen = false;
 
 		Vector<float> velocity = Vector<float>(0.0,0.0);
-		QuadTreeNode* node;
+
+		// 存储刚体与人物的碰撞信息
 		Collision collision;
 		bool useGravity = true;
 		bool useCollision = true;
@@ -100,6 +85,7 @@ namespace noa {
 
 		void Start();
 		void Update();
+		void LateUpdate();
 
 		void UpdatePosition();
 
@@ -152,19 +138,7 @@ namespace noa {
 			return nextId++;
 		}
 
-	public:
-		bool CollisionWithinRigidbody();
-
 	};
-
-
-	
-	//空间四叉树
-	extern QuadTreeNode* CreateQuadTreeNode(float minX, float minY, float maxX, float maxY);
-	
-	extern void PerformCollisionDetection(QuadTreeNode* node);
-
-	extern void InsertRigidbody(QuadTreeNode* node, Rigidbody* rigidbody);
 
 }
 

@@ -12,8 +12,6 @@ using namespace std;
 namespace noa 
 {
 
-	QuadTreeNode* rootNode = nullptr;
-
 	SceneManager sceneManager;
 
 	LevelMap::LevelMap() {
@@ -168,7 +166,7 @@ namespace noa
 
 	void Scene::SetTileMap(TileMap* map)
 	{
-		rootNode = CreateQuadTreeNode(0.0f, 0.0f, map->w, map->h);
+		PhysicsSystem::SetGrid(map->w, map->h);
 	}
 
 	void Scene::AddActor(Actor* actor)
@@ -282,11 +280,6 @@ namespace noa
 	void Scene::ActorUpdate()
 	{
 
-		// Ö´ÐÐÅö×²¼ì²â
-		//PerformCollisionDetection(rootNode);
-
-		PhysicsSystem::Update();
-
 		const auto rigidLast = rigidbodys.end();
 		for (auto i = rigidbodys.begin();i!= rigidLast;i++)
 		{
@@ -296,6 +289,18 @@ namespace noa
 			}
 			Rigidbody * rigid = i->second;
 			rigid->Update();
+		}
+
+		PhysicsSystem::Update();
+
+		for (auto i = rigidbodys.begin(); i != rigidLast; i++)
+		{
+			if (i->second == nullptr)
+			{
+				continue;
+			}
+			Rigidbody* rigid = i->second;
+			rigid->LateUpdate();
 		}
 
 		const auto actorLast = actors.end();

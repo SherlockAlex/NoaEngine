@@ -6,12 +6,6 @@
 
 Enimy* attackingEnimy = nullptr;
 
-//CacoIdleState* idleState;
-//CacoMoveState* moveState;
-//CacoAttackState* attackState;
-//CacoDieState* dieState;
-//CacoPainState* painState;
-
 Caco::Caco(Scene* scene, Sprite* sprite, Transform* player, LiveEntity* enimy) :Enimy(scene,sprite, player,enimy)
 {
 	if (player == nullptr) 
@@ -22,7 +16,7 @@ Caco::Caco(Scene* scene, Sprite* sprite, Transform* player, LiveEntity* enimy) :
 	
 	this->isRaycasted = true;
 
-	this->rigid->collision.radius = 1;
+	collider->radius = 1;
 
 	idleState = CacoIdleState::Create(fsm, this, player, &wolfResource->cacoIdleFrame);
 	moveState = CacoMoveState::Create(fsm, this, player, &wolfResource->cacoMoveFrame);
