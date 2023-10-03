@@ -35,8 +35,8 @@ namespace noa {
 		}
 
 		// 将位图数据拷贝到SpriteFile的images字段中
-		for (int y = 0; y < bitmap->rows; y++) {
-			for (int x = 0; x < bitmap->width; x++) {
+		for (unsigned int y = 0; y < bitmap->rows; y++) {
+			for (unsigned int x = 0; x < bitmap->width; x++) {
 				// 在这里根据位图的格式将数据复制到images字段中
 				// 由于不清楚位图的格式，这里假设位图的每个像素都是单通道的灰度值（8位或更多）
 				// 你可能需要根据实际的位图格式进行适当的处理
@@ -261,7 +261,12 @@ namespace noa {
 		}
 		
 		//显示文字
-		renderer->DrawString(text, transform.position.x + 0.5*scale.x - text.length() * 0.5*fontSize* fontNarrowX, transform.position.y + 0.5*scale.y - 0.5*fontSize* fontNarrowX, fontNarrowX, textColor, fontSize);
+		renderer->DrawString(text, 
+			static_cast<int>(transform.position.x + 0.5 * scale.x - text.length() * 0.5 * fontSize * fontNarrowX)
+			, static_cast<int>(transform.position.y + 0.5 * scale.y - 0.5 * fontSize * fontNarrowX)
+			, fontNarrowX
+			, textColor
+			, fontSize);
 	}
 
 	void NoaButton::AddClickEvent(std::function<void()> func)
@@ -374,7 +379,7 @@ namespace noa {
 
 	void UICanvas::Start()
 	{
-		for (int i = 0; i < uiComponent.size(); i++)
+		for (int i = 0; i < static_cast<int>(uiComponent.size()); i++)
 		{
 			uiComponent[i]->Start();
 		}
@@ -382,7 +387,7 @@ namespace noa {
 
 	void UICanvas::Update()
 	{
-		const int uiComponentCount = uiComponent.size();
+		const int uiComponentCount = static_cast<int>(uiComponent.size());
 		for (int i=0;i< uiComponentCount;i++)
 		{
 			if (!uiComponent[i]->GetActive())

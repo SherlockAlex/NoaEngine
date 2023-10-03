@@ -8,7 +8,6 @@ namespace noa {
 
 	extern shared_ptr<Renderer> renderer;
 
-	///Sprite类的实现
 	Sprite::Sprite(SpriteFile sprFile, Vector<int> scale)
 	{
 		this->posx = sprFile.x;
@@ -215,8 +214,8 @@ namespace noa {
 	void Sprite::DrawSpriteFull()
 	{
 		//全屏绘制图片
-		const float dx = 1.0 / pixelWidth;
-		const float dy = 1.0 / pixelHeight;
+		const float dx = 1.0f / pixelWidth;
+		const float dy = 1.0f / pixelHeight;
 		
 		for (int x = 0;x < pixelWidth;x++) 
 		{
@@ -323,8 +322,8 @@ namespace noa {
 
 		SpriteGPUInstance instance;
 		instance.texture = texture;
-		instance.position.x = x;
-		instance.position.y = y;
+		instance.position.x = static_cast<int>(x);
+		instance.position.y = static_cast<int>(y);
 		instance.scale.x = sprite->scale.x;
 		instance.scale.y = sprite->scale.y;
 		instance.eulerAngle = eulerAngle;

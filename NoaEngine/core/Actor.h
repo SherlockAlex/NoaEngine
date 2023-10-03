@@ -98,8 +98,6 @@ namespace noa {
 		void DestroyComponent();
 
 		void AddRigidbody(Rigidbody* rigid);
-		void RemoveRigidbody();
-		void DestroyRigidbody();
 
 	private:
 		size_t id;

@@ -20,7 +20,7 @@ namespace noa {
 		
 
 	public:
-		Transform* follow;
+		Transform* follow = nullptr;
 		Vector<float> position;
 
 	protected:
@@ -37,7 +37,7 @@ namespace noa {
 		Vector<int> tileScale = Vector<int>(64, 64);
 		Vector<float> visibleTiles;
 		Vector<float> offset;
-		Vector<int> followPositionOnScreen = Vector<int>(0.0, 0.0);
+		Vector<int> followPositionOnScreen = Vector<int>(0, 0);
 		
 		//获取射线射中的物品
 		std::vector<void*> objectBufferWithRay = std::vector<void*>(pixelWidth*pixelHeight, nullptr);
@@ -81,10 +81,10 @@ namespace noa {
 		std::vector<void*> objectBufferWithRay = std::vector<void*>(pixelWidth, nullptr);
 		std::vector<Ray> rayResult = std::vector<Ray>(pixelWidth, Ray());
 	public:
-		float FOV = 0.25 * PI;
-		const float halfFOV = FOV * 0.5;
+		float FOV = static_cast<float>(0.25 * PI);
+		const float halfFOV = static_cast<float>(FOV * 0.5f);
 		float viewDepth = 60;
-		const float normalEyeRay = (1.0 / cosf(halfFOV));
+		const float normalEyeRay = (1.0f / cosf(halfFOV));
 		
 		//const float normalEyeRay = 1;
 

@@ -23,7 +23,7 @@ public:
 
 	AnimationFrame bulletDestroyFrame = AnimationFrame("./Assets/Wolf/firebomb-destroy.amt");
 
-	Sprite sky = Sprite(resource.LoadSprFile("./Assets/Wolf/sky-sun.spr"), Vector<int>(1.0, 1.0));
+	Sprite sky = Sprite(resource.LoadSprFile("./Assets/Wolf/sky-sun.spr"), Vector<int>(1, 1));
 
 	//资源相关
 	Sprite mouse = Sprite(resource.LoadSprFile("./Assets/Wolf/mouse.spr"), Vector<int>(0.02 * pixelWidth, 0.02 * pixelWidth));

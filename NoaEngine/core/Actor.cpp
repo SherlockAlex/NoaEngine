@@ -2,6 +2,7 @@
 #include "NoaEngine.h"
 #include "ActorComponent.h"
 #include "Physics.h"
+#include "SpriteRenderer.h"
 
 #include <queue>
 #include <list>
@@ -15,14 +16,12 @@ namespace noa
 
 void noa::DestroyBehaviour(noa::Actor* behaviour)
 {
-	//sceneManager.RemoveActor(behaviour);
 	noa::Scene* activeScene = behaviour->GetActiveScene();
 	activeScene->RemoveActor(behaviour);
 
 	noa::Debug("Behaviour " + to_string(behaviour->GetHash()) + " is destroy");
 }
 
-// 初始化静态计数器
 size_t noa::Actor::nextId = 0;
 
 noa::Actor::Actor(noa::Scene* activeScene)
@@ -37,7 +36,6 @@ noa::Actor::Actor(noa::Scene* activeScene)
 
 noa::Actor::~Actor()
 {
-	//删除此actor
 	if (rigidbody!=nullptr)
 	{
 		rigidbody->actor = nullptr;
@@ -49,8 +47,15 @@ noa::Actor::~Actor()
 		component->DeleteActorEvent();
 	}
 
+	for (auto & instance:spriteRendererInstances) 
+	{
+		if (instance.actor == this) 
+		{
+			instance.actor = nullptr;
+		}
+	}
+
 	DestroyComponent();
-	DestroyRigidbody();
 	Debug("Remove actor");
 }
 
@@ -61,9 +66,6 @@ void noa::Actor::AddComponent(noa::ActorComponent* component)
 		return;
 	}
 	components.push_back(component);
-
-	//添加完组件后开始排查重复项
-
 
 }
 
@@ -107,8 +109,7 @@ void noa::Actor::ComponentUpdate()
 {
 	if (rigidbody!=nullptr&&!rigidbody->isRemoved)
 	{
-		rigidbody->Update();
-		this->activeScene->rigidbodys.push_back(rigidbody);
+		PhysicsSystem::rigidbodys.push_back(rigidbody);
 	}
 
 	for (int i = 0; i < components.size(); i++)
@@ -170,31 +171,11 @@ void noa::Actor::DestroyComponent()
 
 void noa::Actor::AddRigidbody(Rigidbody* rigid)
 {
-	// 为角色添加刚体
-	if (rigid == nullptr)
+	if (rigid == nullptr||rigidbody!=nullptr)
 	{
 		return;
 	}
 	this->rigidbody = rigid;
-
-}
-
-void noa::Actor::RemoveRigidbody()
-{
-	rigidbody = nullptr;
-}
-
-void noa::Actor::DestroyRigidbody()
-{
-	// 移除刚体
-	if (rigidbody == nullptr)
-	{
-		return;
-	}
-
-	rigidbody->Destroy();
-	rigidbody = nullptr;
-
 }
 
 noa::Actor* noa::Actor::Create(Scene* activeScene)
@@ -207,11 +188,9 @@ void noa::Actor::Delete()
 	delete this;
 }
 
-//销毁游戏物品
 void noa::Actor::Destroy()
 {
 	SetActive(false);
-	DestroyRigidbody();
 	activeScene->RemoveActor(this);
 }
 

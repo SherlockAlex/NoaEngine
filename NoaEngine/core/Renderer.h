@@ -20,12 +20,12 @@ namespace noa {
 	public:
 
 	protected:
-		int pixelWidth;
-		int pixelHeight;
-		Uint32* pixelBuffer;
+		int pixelWidth = 0;
+		int pixelHeight = 0;
+		Uint32* pixelBuffer = nullptr;
 
-		float invPixelWidth;
-		float invPixelHeight;
+		float invPixelWidth = 0;
+		float invPixelHeight = 0;
 
 	public:
 		Renderer();

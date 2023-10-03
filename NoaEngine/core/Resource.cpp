@@ -20,7 +20,7 @@ namespace noa {
 			input.read(reinterpret_cast<char*>(&imagesCount), sizeof(uint32_t));
 
 			//spriteFile.images = new uint32_t[imagesCount];
-			for (int i = 0; i < imagesCount; ++i)
+			for (uint32_t i = 0; i < imagesCount; ++i)
 			{
 				uint32_t imageValue;
 				input.read(reinterpret_cast<char*>(&imageValue), sizeof(uint32_t));
@@ -232,7 +232,7 @@ namespace noa {
 
 	Tile::Tile(SpriteFile spriteFile, bool isCollision)
 	{
-		this->sprite = make_shared<Sprite>(spriteFile, Vector<int>(1.0, 1.0));
+		this->sprite = make_shared<Sprite>(spriteFile, Vector<int>(1, 1));
 		this->isCollision = isCollision;
 	}
 

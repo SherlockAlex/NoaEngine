@@ -30,8 +30,8 @@ public:
 
 	void Update() override {
 		Vector<float> pos;
-		pos.x = inputSystem.GetMousePosition().x;
-		pos.y = inputSystem.GetMousePosition().y;
+		pos.x = static_cast<float>(inputSystem.GetMousePosition().x);
+		pos.y = static_cast<float>(inputSystem.GetMousePosition().y);
 
 		//Debug(to_string(pos.x) + ":" + to_string(pos.y));
 

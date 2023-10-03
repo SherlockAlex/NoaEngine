@@ -3,11 +3,8 @@
 #ifndef NOAENGINE_GLTEXTURE_H
 #define NOAENGINE_GLTEXTURE_H
 
+#include "GLHelper.h"
 #include "Texture.h"
-
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-#include <GL/glut.h>
 
 namespace noa {
 	class GLTexture :public Texture

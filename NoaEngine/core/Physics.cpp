@@ -14,7 +14,7 @@ using namespace std;
 namespace noa 
 {
 	//检测rigid是否和其他刚体相撞，如果相撞就返回
-	float gravityAcceration = 9.81;
+	float gravityAcceration = 9.81f;
 	
 	unordered_map<size_t, bool> isCheckCollision;
 
@@ -27,7 +27,7 @@ namespace noa
 		collision.other = nullptr;
 		this->actor = actor;
 		this->velocity = { 0,0 };
-		invMass = 1.0 / mass;
+		invMass = 1.0f / mass;
 		//actor->GetActiveScene()->AddRigidbody(this);
 		actor->AddRigidbody(this);
 		colliders.reserve(10);
@@ -39,10 +39,6 @@ namespace noa
 	Rigidbody::~Rigidbody()
 	{
 		Debug("Destory rigidBody");
-		if (actor!=nullptr) 
-		{
-			actor->RemoveRigidbody();
-		}
 
 		if (!colliders.empty()) 
 		{
@@ -60,7 +56,7 @@ namespace noa
 	}
 
 	//实现物理效果
-	void Rigidbody::Update()
+	void Rigidbody::Update(float deltaTime)
 	{
 
 		if (!active) 
@@ -70,32 +66,28 @@ namespace noa
 
 		if (useMotion&&useGravity&&(!collision.isGrounded)) 
 		{
-			velocity.y += gravityWeight * gravityAcceration * Time::deltaTime;
+			velocity.y += gravityWeight * gravityAcceration * deltaTime;
 		}
 
 		if (useMotion)
 		{
 			//处理力和速度的关系，同时计算下一帧的位置信息
-			velocity = (velocity * (1 - damping)) + (sumForce * (Time::deltaTime * invMass));
-			newPosition = (this->actor->transform.position) + (velocity * Time::deltaTime);
+			velocity = (velocity * (1 - damping)) + (sumForce * (deltaTime * invMass));
+			newPosition = (this->actor->transform.position) + (velocity * deltaTime);
 			
 			ApplyCollision();
 		}
 
 	}
 
-	void Rigidbody::LateUpdate()
+	void Rigidbody::LateUpdate(float deltaTime)
 	{
 		if (!active)
 		{
 			return;
 		}
 		ApplyCollision();
-		if (collision.isTrigger && collision.other != nullptr && this->actor != nullptr)
-		{
-			this->actor->OnTrigger(collision);
-		}
-		collision.other = nullptr;
+		
 
 		if (collision.isHitCollisionTile && this->actor != nullptr)
 		{
@@ -104,11 +96,11 @@ namespace noa
 		collision.isHitCollisionTile = false;
 
 		//更新位置
-		if (useMotion && (!isFrozen))
+		if (useMotion && (!isFrozen)&&actor!=nullptr)
 		{
 			collision.isGrounded = false;
 			collision.hitTileID = -1;
-			this->actor->transform.position = newPosition;
+			actor->transform.position = newPosition;
 		}
 	}
 
@@ -152,8 +144,8 @@ namespace noa
 		const float scaleX = collision.sacle.x;
 		const float scaleY = collision.sacle.y;
 
-		if (tileMap->IsCollisionTile(newPosition.x - scaleX, this->actor->transform.position.y - scaleY)
-			|| tileMap->IsCollisionTile(newPosition.x - scaleX, this->actor->transform.position.y + 0.999 + scaleY)
+		if (tileMap->IsCollisionTile(static_cast<int>(newPosition.x - scaleX), static_cast<int>(this->actor->transform.position.y - scaleY))
+			|| tileMap->IsCollisionTile(static_cast<int>(newPosition.x - scaleX), static_cast<int>(this->actor->transform.position.y + 0.999 + scaleY))
 		)
 		{
 			collision.isHitCollisionTile = true;
@@ -165,8 +157,8 @@ namespace noa
 			}
 		}
 
-		if (tileMap->IsCollisionTile(newPosition.x + 0.999 + scaleX, this->actor->transform.position.y - scaleY)
-			|| tileMap->IsCollisionTile(newPosition.x + 0.999 + scaleX, this->actor->transform.position.y + 0.999 + scaleY)
+		if (tileMap->IsCollisionTile(static_cast<int>(newPosition.x + 0.999 + scaleX), static_cast<int>(this->actor->transform.position.y - scaleY))
+			|| tileMap->IsCollisionTile(static_cast<int>(newPosition.x + 0.999 + scaleX), static_cast<int>(this->actor->transform.position.y + 0.999 + scaleY))
 		)
 		{
 			collision.isHitCollisionTile = true;
@@ -179,8 +171,8 @@ namespace noa
 
 		}
 
-		if (tileMap->IsCollisionTile(newPosition.x - scaleX, newPosition.y - scaleY)
-			|| tileMap->IsCollisionTile(newPosition.x + 0.999 + scaleX, newPosition.y - scaleY)
+		if (tileMap->IsCollisionTile(static_cast<int>(newPosition.x - scaleX), static_cast<int>(newPosition.y - scaleY))
+			|| tileMap->IsCollisionTile(static_cast<int>(newPosition.x + 0.999 + scaleX), static_cast<int>(newPosition.y - scaleY))
 		)
 		{
 			collision.isHitCollisionTile = true;
@@ -192,8 +184,8 @@ namespace noa
 			}
 		}
 
-		if (tileMap->IsCollisionTile(newPosition.x - scaleX, newPosition.y + 0.999 + scaleY)
-			|| tileMap->IsCollisionTile(newPosition.x + 0.999 + scaleX, newPosition.y + 0.999 + scaleY)
+		if (tileMap->IsCollisionTile(static_cast<int>(newPosition.x - scaleX), static_cast<int>(newPosition.y + 0.999 + scaleY))
+			|| tileMap->IsCollisionTile(static_cast<int>(newPosition.x + 0.999 + scaleX), static_cast<int>(newPosition.y + 0.999 + scaleY))
 		)
 		{
 			collision.isHitCollisionTile = true;
@@ -210,6 +202,14 @@ namespace noa
 	void Rigidbody::BindCollider(Collider2D* collider) 
 	{
 		colliders.push_back(collider);
+	}
+
+	void Rigidbody::ApplyTrigger() {
+		if (collision.isTrigger && collision.other != nullptr && this->actor != nullptr)
+		{
+			this->actor->OnTrigger(collision);
+		}
+		collision.other = nullptr;
 	}
 
 	TileMap* Rigidbody::GetTileMap()

@@ -97,8 +97,6 @@ namespace noa {
 		std::map<size_t, Actor*> actors;//µ÷ÓÃ
 		std::vector<Actor*> destroyActors;
 
-		std::vector<Rigidbody*> rigidbodys;
-
 	protected:
 		Scene(std::string name);
 		virtual ~Scene();

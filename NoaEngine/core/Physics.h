@@ -48,7 +48,7 @@ namespace noa {
 			Impulse = 1 << 1,
 		};
 		float mass = 1;
-		float damping = 0.02;
+		float damping = 0.02f;
 		Actor* actor;
 		Vector<float> newPosition;
 		float gravityWeight = 1.0;
@@ -87,8 +87,8 @@ namespace noa {
 		static Rigidbody* Create(Actor* actor);
 
 		void Start();
-		void Update();
-		void LateUpdate();
+		void Update(float deltaTime);
+		void LateUpdate(float deltaTime);
 
 		void UpdatePosition();
 
@@ -104,6 +104,8 @@ namespace noa {
 		void ApplyCollision();
 
 		void BindCollider(Collider2D * collider);
+
+		void ApplyTrigger();
 
 	public:
 

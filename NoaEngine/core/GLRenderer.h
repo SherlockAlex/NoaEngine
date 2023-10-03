@@ -3,10 +3,7 @@
 #ifndef NOAENGINE_GLRENDERER_H
 #define NOAENGINE_GLRENDERER_H
 
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-#include <GL/glut.h>
-
+#include "GLHelper.h"
 #include "Renderer.h"
 
 namespace noa {
@@ -27,7 +24,7 @@ namespace noa {
 		void Present(SDL_Window* windows) override;
 
 	private:
-		SDL_GLContext context;
+		SDL_GLContext context = nullptr;
 
 		GLuint VAO, VBO, EBO;
 		GLint modelLoc, projectionLoc;

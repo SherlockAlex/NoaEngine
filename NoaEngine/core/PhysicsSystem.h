@@ -11,10 +11,10 @@ namespace noa
 	{
 	public:
 		static Grid grid;
-
+		static std::vector<Rigidbody*> rigidbodys;
 	public:
 		static void SetGrid(int width,int height);
-		static void Update();
+		static void Update(int step);
 
 	private:
 

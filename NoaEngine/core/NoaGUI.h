@@ -27,7 +27,7 @@ namespace noa {
 
 		Font(SpriteFile spriteFile)
 		{
-			this->sprite = new Sprite(spriteFile, Vector<int>(1.0, 1.0));
+			this->sprite = new Sprite(spriteFile, Vector<int>(1, 1));
 		}
 
 	}Font;
@@ -150,7 +150,7 @@ namespace noa {
 		uint32_t textColor = BLACK;
 		
 		uint32_t fontSize = 20;
-		float fontNarrowX = 0.8;
+		float fontNarrowX = 0.8f;
 
 		//°´¼ü³£ÁÁÑÕÉ«
 		Sprite* sprite = nullptr;

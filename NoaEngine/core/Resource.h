@@ -26,19 +26,19 @@ namespace noa {
 	typedef struct SpriteFile
 	{
 		std::vector<uint32_t> images;
-		int x;
-		int y;
-		int width;
-		int height;
+		int x = 0;
+		int y = 0;
+		int width = 0;
+		int height = 0;
 	}SpriteFile;
 
 	//本地动画文件
 	typedef struct AnimationFile {
 		std::vector<SpriteFile> data;
-		int posx;
-		int posy;
-		int w;
-		int h;
+		int posx = 0;
+		int posy = 0;
+		int w = 0;
+		int h = 0;
 	}AnimationFile;
 
 	//本地地图文件

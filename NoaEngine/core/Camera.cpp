@@ -35,7 +35,7 @@ namespace noa {
 	void TileMapCamera::SetTileScale(Vector<int> tileScale)
 	{
 		this->tileScale = tileScale;
-		visibleTiles = Vector<float>(int(pixelWidth / tileScale.x), int(pixelHeight / tileScale.y));
+		visibleTiles = Vector<float>(static_cast<float>(int(pixelWidth / tileScale.x)), static_cast<float>(int(pixelHeight / tileScale.y)));
 	}
 
 	Vector<float> tileOffset;
@@ -78,12 +78,12 @@ namespace noa {
 			for (int y = -2; y < visibleTiles.y+2 ; y++)
 			{
 				//首先获取tile
-				const int tileID = tileMap.GetTileID(x + offset.x, y + offset.y);
+				const int tileID = tileMap.GetTileID(static_cast<int>(x + offset.x), static_cast<int>(y + offset.y));
 				if (tileID == -1)
 				{
 					renderer->DrawRect(
-						Vector<int>((x- 0) * tileScale.x - tileOffset.x, (y- 0)*tileScale.y - tileOffset.y),
-						Vector<int>((x + 1) * tileScale.x - tileOffset.x, (y + 1) * tileScale.y - tileOffset.y),
+						Vector<int>(static_cast<int>((x - 0) * tileScale.x - tileOffset.x), static_cast<int>((y - 0) * tileScale.y - tileOffset.y)),
+						Vector<int>(static_cast<int>((x + 1) * tileScale.x - tileOffset.x), static_cast<int>((y + 1) * tileScale.y - tileOffset.y)),
 						BLACK
 					);
 					continue;
@@ -94,15 +94,15 @@ namespace noa {
 				if (tile == nullptr)
 				{
 					renderer->DrawRect(
-						Vector<int>(x * tileScale.x - tileOffset.x, y * tileScale.y - tileOffset.y),
-						Vector<int>((x + 1) * tileScale.x - tileOffset.x, (y + 1) * tileScale.y - tileOffset.y),
+						Vector<int>(static_cast<int>(x * tileScale.x - tileOffset.x), static_cast<int>(y * tileScale.y - tileOffset.y)),
+						Vector<int>(static_cast<int>((x + 1) * tileScale.x - tileOffset.x), static_cast<int>((y + 1) * tileScale.y - tileOffset.y)),
 						LIGHTRED
 					);
 					continue;
 				}
 				renderer->DrawRect(
-					Vector<int>(x * tileScale.x - tileOffset.x, y * tileScale.y - tileOffset.y),
-					Vector<int>((x + 1) * tileScale.x - tileOffset.x, (y + 1) * tileScale.y - tileOffset.y),
+					Vector<int>(static_cast<int>(x * tileScale.x - tileOffset.x), static_cast<int>(y * tileScale.y - tileOffset.y)),
+					Vector<int>(static_cast<int>((x + 1) * tileScale.x - tileOffset.x), static_cast<int>((y + 1) * tileScale.y - tileOffset.y)),
 					*tileMap.GetTile(tileID)->sprite
 				);
 
@@ -110,7 +110,7 @@ namespace noa {
 		}
 
 
-		followPositionOnScreen = std::move(Vector<int>((follow->position.x - offset.x) * tileScale.x, (follow->position.y - offset.y) * tileScale.y));
+		followPositionOnScreen = std::move(Vector<int>(static_cast<int>((follow->position.x - offset.x) * tileScale.x), static_cast<int>((follow->position.y - offset.y) * tileScale.y)));
 		
 		//绘制游戏物品
 		for (const auto& instance:spriteRendererInstances) 
@@ -123,8 +123,8 @@ namespace noa {
 			}
 
 			Vector<int> objPos = Vector<int>(
-				(instance.actor->transform.position.x - offset.x) * tileScale.x,
-				(instance.actor->transform.position.y - offset.y) * tileScale.y
+				static_cast<int>((instance.actor->transform.position.x - offset.x) * tileScale.x),
+				static_cast<int>((instance.actor->transform.position.y - offset.y) * tileScale.y)
 				);
 			instance.sprite->DrawSprite(objPos.x, objPos.y, true);
 			if (objPos.y<pixelHeight&&objPos.y>=0
@@ -166,7 +166,7 @@ namespace noa {
 		const float rayDirX1 = dirX + planeX;
 		const float rayDirY1 = dirY + planeY;
 
-		for (int y = pixelHeight * 0.5; y < pixelHeight; y++)
+		for (int y = static_cast<int>(pixelHeight * 0.5); y < pixelHeight; y++)
 		{
 			// Current y position compared to the center of the screen (the horizon)
 			//const int p = y - pixelHeight * 0.5;
@@ -175,7 +175,7 @@ namespace noa {
 			//const float posZ = 0.5 * pixelHeight;
 
 			// Horizontal distance from the camera to the floor for the current row.
-			const float rowDistance = pixelHeight/(2.0*y - pixelHeight);
+			const float rowDistance = pixelHeight/(2.0f*y - pixelHeight);
 
 			// calculate the real world step vector we have to add for each x (parallel to camera plane)
 			// adding step by step avoids multiplications with a weight in the inner loop
@@ -183,8 +183,8 @@ namespace noa {
 			const float floorStepY = rowDistance * (2 * planeY) / pixelWidth;
 
 			// real world coordinates of the leftmost column. This will be updated as we step to the right.
-			float floorX = follow->position.x + rowDistance * rayDirX0 + 0.5;
-			float floorY = follow->position.y + rowDistance * rayDirY0 + 0.5;
+			float floorX = follow->position.x + rowDistance * rayDirX0 + 0.5f;
+			float floorY = follow->position.y + rowDistance * rayDirY0 + 0.5f;
 
 			for (int x = 0; x < pixelWidth; ++x)
 			{
@@ -253,7 +253,7 @@ namespace noa {
 			rayResult[x] = ray;
 
 			//绘制墙壁
-			const float ceiling = pixelHeight * 0.5 - pixelHeight / ray.distance;
+			const float ceiling = pixelHeight * 0.5f - pixelHeight / ray.distance;
 			const float floor = pixelHeight - ceiling;
 			uint32_t color = ERROR;
 
@@ -272,7 +272,7 @@ namespace noa {
 						continue;
 					}
 					const float dx = (x + 200 * follow->eulerAngle) / pixelWidth;
-					const float dy = y / (pixelHeight*2.0);
+					const float dy = y / (pixelHeight*2.0f);
 
 					color = skybox->GetColor(dy, dx);
 
@@ -313,9 +313,9 @@ namespace noa {
 	Ray FreeCamera::RaycastHit(int pixelX,const TileMap& map)
 	{
 		Ray ray;
-		ray.distance = 0.0;
-		ray.angle = follow->eulerAngle - FOV * (0.5 - (float)pixelX / pixelWidth);
-		const float rayForwordStep = 0.02;
+		ray.distance = 0.0f;
+		ray.angle = follow->eulerAngle - FOV * (0.5f - (float)pixelX / pixelWidth);
+		const float rayForwordStep = 0.02f;
 		const Vector<float> eye = std::move(Vector<float>(sinf(ray.angle), cosf(ray.angle)));
 
 		while (!map.IsCollisionTile(ray.hitTile)&&ray.distance<viewDepth) 
@@ -324,7 +324,7 @@ namespace noa {
 			ray.distance += rayForwordStep;
 
 			const Vector<float> floatHitPoint = std::move(follow->position + eye * ray.distance+Vector<float>(0.5,0.5));
-			const Vector<int> intHitPoint = std::move(Vector<int>(floatHitPoint.x, floatHitPoint.y));
+			const Vector<int> intHitPoint = std::move(Vector<int>(static_cast<int>(floatHitPoint.x), static_cast<int>(floatHitPoint.y)));
 
 			if (intHitPoint.x < 0||intHitPoint.x >= map.w || intHitPoint.y < 0|| intHitPoint.y >= map.h)
 			{
@@ -339,8 +339,8 @@ namespace noa {
 			if (map.IsCollisionTile(ray.hitTile)) 
 			{
 
-				const float blockMidX = (float)intHitPoint.x + 0.5;
-				const float blockMidY = (float)intHitPoint.y + 0.5;
+				const float blockMidX = (float)intHitPoint.x + 0.5f;
+				const float blockMidY = (float)intHitPoint.y + 0.5f;
 
 				const float testAngle = atan2f((floatHitPoint.y - blockMidY), (floatHitPoint.x - blockMidX));
 
@@ -420,7 +420,7 @@ namespace noa {
 
 		}
 
-		QuickSort(spriteRendererInstances, 0, spriteRendererInstances.size() - 1);
+		QuickSort(spriteRendererInstances, 0, static_cast<int>(spriteRendererInstances.size()) - 1);
 	}
 
 	void FreeCamera::RenderGameObject(uint32_t multiColor)
@@ -456,12 +456,12 @@ namespace noa {
 			const bool isInPlayerFOV = fabs(objectAngle) < HALFPI;
 			//const bool isInPlayerFOV = true;
 
-			if (isInPlayerFOV && distanceFromPlayer >= 0.5 &&
+			if (isInPlayerFOV && distanceFromPlayer >= 0.5f &&
 				distanceFromPlayer < viewDepth)
 			{
 
 				//绘制物体到屏幕上
-				const float objectCeiling = pixelHeight * 0.5
+				const float objectCeiling = pixelHeight * 0.5f
 					- pixelHeight / distanceFromPlayer;
 
 				const float objectFloor = pixelHeight - objectCeiling;
@@ -469,14 +469,14 @@ namespace noa {
 				const float objectHeight = objectFloor - objectCeiling;
 				const float objectWidth = objectHeight;
 
-				const float middleOfObject = ((objectAngle / FOV + 0.5))
+				const float middleOfObject = ((objectAngle / FOV + 0.5f))
 					* pixelWidth;
 
 				const float objectPosZ = 2 * instance.actor->transform.posZ / distanceFromPlayer;
 
 				for (float lx = 0; lx < objectWidth; lx++)
 				{
-					const int objectColumn = middleOfObject + lx - objectWidth * 0.5f;
+					const int objectColumn = static_cast<int>(middleOfObject + lx - objectWidth * 0.5f);
 					const float objSimpleX = lx / objectWidth;
 					if (
 						 objectColumn < 0 || objectColumn >= pixelWidth

@@ -187,6 +187,7 @@
     <ClInclude Include="core\Platform_Windows.h" />
     <ClInclude Include="core\SpriteRenderer.h" />
     <ClInclude Include="core\PhysicsSystem.h" />
+    <ClInclude Include="core\GLHelper.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="core\Collider2D.cpp" />

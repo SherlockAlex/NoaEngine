@@ -108,6 +108,9 @@
     <ClInclude Include="core\SDLHelper.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="core\GLHelper.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="core\Animator.cpp">

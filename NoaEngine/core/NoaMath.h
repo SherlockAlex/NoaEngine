@@ -8,9 +8,9 @@
 
 namespace noa {
 // Math Constance
-#define PI 3.1415926
-#define HALFPI 1.57079633
-#define MUTIPI 6.28318531
+#define PI 3.1415926f
+#define HALFPI 1.57079633f
+#define MUTIPI 6.28318531f
 #define Min(a,b) ((a>b)?b:a)
 #define Max(a,b) ((a>b)?a:b)
 
@@ -23,7 +23,8 @@ namespace noa {
 
 		Vector()
 		{
-
+			x = static_cast<T>(0);
+			y = static_cast<T>(0);
 		}
 
 		Vector(T x, T y)
@@ -58,10 +59,10 @@ namespace noa {
 			{
 				return Vector(0, 0);
 			}
-			const float invLength =1.0 / sqrtf(this->x * this->x + this->y * this->y);
+			const float invLength =1.0f / sqrtf(this->x * this->x + this->y * this->y);
 			Vector result;
-			result.x = (float)this->x * invLength;
-			result.y = (float)this->y * invLength;
+			result.x = static_cast<T>((float)this->x * invLength);
+			result.y = static_cast<T>((float)this->y * invLength);
 			return result;
 
 		}

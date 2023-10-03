@@ -1,6 +1,7 @@
 #include "NoaEngine.h"
 
 noa::Grid noa::PhysicsSystem::grid;
+std::vector<noa::Rigidbody*> noa::PhysicsSystem::rigidbodys;
 
 void noa::PhysicsSystem::SetGrid(int width, int height)
 {
@@ -19,14 +20,29 @@ void noa::PhysicsSystem::SetGrid(int width, int height)
 	}
 }
 
-void noa::PhysicsSystem::Update()
+void noa::PhysicsSystem::Update(int step)
 {
-	FindCollisionsGrid();
+	const float subDeltaTime = Time::deltaTime / static_cast<float>(step);
+	for (int i{step};i--;)
+	{
+		for (auto& rigidbody : rigidbodys)
+		{
+			rigidbody->Update(subDeltaTime);
+		}
+		FindCollisionsGrid();
+		for (auto& rigidbody : rigidbodys)
+		{
+			rigidbody->ApplyTrigger();
+			rigidbody->LateUpdate(subDeltaTime);
+		}
+	}
+	
 
 	for (auto& cell : grid.cells)
 	{
 		cell.colliders.clear();
 	}
+	rigidbodys.clear();
 }
 
 void noa::PhysicsSystem::FindCollisionsGrid()
@@ -54,12 +70,11 @@ void noa::PhysicsSystem::FindCollisionsGrid()
 bool noa::PhysicsSystem::Collide(CircleCollider2D* obj1, CircleCollider2D* obj2)
 {
 
-	//Rigidbody* body2 = obj2->rigidbody;
 	const float deltaX = obj1->rigidbody->actor->transform.position.x 
-		- obj2->rigidbody->actor->transform.position.x;
+		- obj2->rigidbody->newPosition.x;
 
 	const float deltaY = obj1->rigidbody->actor->transform.position.y 
-		- obj2->rigidbody->actor->transform.position.y;
+		- obj2->rigidbody->newPosition.y;
 
 	const float deltaR = obj1->radius + obj2->radius;
 
@@ -89,8 +104,8 @@ void noa::PhysicsSystem::SolveCollision(CircleCollider2D* obj1, CircleCollider2D
 	// 计算推开距离,碰撞的物体马上停下来
 	const float penetration = (obj1->radius + obj2->radius) - length;
 
-	obj2->rigidbody->newPosition.x += 0.499*collisionNormalX * (penetration);
-	obj2->rigidbody->newPosition.y += 0.499*collisionNormalY * (penetration);
+	obj2->rigidbody->newPosition.x += collisionNormalX * (penetration);
+	obj2->rigidbody->newPosition.y += collisionNormalY * (penetration);
 
 	obj2->rigidbody->velocity = { 0,0 };
 	obj1->rigidbody->velocity = { 0,0 };

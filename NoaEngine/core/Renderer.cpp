@@ -10,20 +10,10 @@ using namespace std;
 namespace noa {
 	extern void Debug(string msg);
 
-	/*extern int pixelHeight;
-	extern int pixelWidth;
-	extern void* pixelBuffer;*/
-
 	FontAsset fontAsset("./Assets/font/font.ttf",48);
 
 	Renderer::Renderer()
 	{
-		/*this->pixelWidth = pixelWidth;
-		this->pixelHeight = pixelHeight;
-		this->pixelBuffer = (Uint32*)pixelBuffer;
-
-		this->invPixelWidth = 1.0 / pixelWidth;
-		this->invPixelHeight = 1.0 / pixelHeight;*/
 
 	}
 
@@ -32,14 +22,14 @@ namespace noa {
 		this->pixelHeight = pixelHeight;
 		this->pixelBuffer = (Uint32*)pixelBuffer;
 
-		this->invPixelWidth = 1.0 / pixelWidth;
-		this->invPixelHeight = 1.0 / pixelHeight;
+		this->invPixelWidth = 1.0f / pixelWidth;
+		this->invPixelHeight = 1.0f / pixelHeight;
 	}
 
 	void Renderer::DrawPixel(const uint32_t x, const uint32_t y, const uint32_t color) const
 	{
 		//µ×²ãµÄ»æÍ¼´úÂë£¬µ÷ÓÃÆµ·±
-		if (x>=pixelWidth||y>=pixelHeight)
+		if (x >= static_cast<uint32_t>(pixelWidth) || y >= static_cast<uint32_t>(pixelHeight))
 		{
 			return;
 		}
@@ -168,8 +158,8 @@ namespace noa {
 			for (int y = minY; y <= maxY; y++)
 			{
 				const Vector<float> simple(
-					(x - x1 + 0.0) / (x2 - x1),
-					(y - y1 +0.0) / (y2 - y1)
+					(x - x1 + 0.0f) / (x2 - x1),
+					(y - y1 +0.0f) / (y2 - y1)
 				);
 				const uint32_t fontColor = sprite.GetColor(simple.x, simple.y);
 
@@ -290,8 +280,8 @@ namespace noa {
 		int row = 0;
 		int offset = 0;
 
-		const float narrowx = 0.8;
-		const int length = str.length();
+		const float narrowx = 0.8f;
+		const int length = static_cast<int>(str.length());
 		const char* c_str = str.c_str();
 		for (int i=0;i<length;i++) 
 		{
@@ -309,8 +299,8 @@ namespace noa {
 			}
 			
 			
-			const Vector<int> point1 = move(Vector<int>(x+(offset *size)* narrowx, y + row * size));
-			const Vector<int> point2 = move(Vector<int>(x+size+(offset *size)* narrowx, y+size + row * size));
+			const Vector<int> point1 = move(Vector<int>(static_cast<int>(x + (offset * size) * narrowx), static_cast<int>(y + row * size)));
+			const Vector<int> point2 = move(Vector<int>(static_cast<int>(x + size + (offset * size) * narrowx), static_cast<int>(y + size + row * size)));
 			DrawFont(point1,point2,*font->sprite,color);
 			offset++;
 		}
@@ -321,7 +311,7 @@ namespace noa {
 		int row = 0;
 		int offset = 0;
 
-		const int length = str.length();
+		const int length = static_cast<int>(str.length());
 		const char* c_str = str.c_str();
 		for (int i = 0; i < length; i++)
 		{
@@ -338,9 +328,8 @@ namespace noa {
 			}
 
 
-			const Vector<int> point1 = move(Vector<int>(x + (offset * size) * narrowx, y + row * size));
-			const Vector<int> point2 = move(Vector<int>(x + size + (offset * size) * narrowx, y + size + row * size));
-			//DrawRect(point1, point2, *font->sprite, color, true);
+			const Vector<int> point1 = move(Vector<int>(static_cast<int>(x + (offset * size) * narrowx), static_cast<int>(y + row * size)));
+			const Vector<int> point2 = move(Vector<int>(static_cast<int>(x + size + (offset * size) * narrowx), static_cast<int>(y + size + row * size)));
 			DrawFont(point1, point2, *font->sprite, color);
 			offset++;
 		}

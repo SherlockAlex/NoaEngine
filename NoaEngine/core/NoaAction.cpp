@@ -7,7 +7,7 @@ namespace noa {
 	
 	void NoaEvent::Invoke()
 	{
-		const int functionCount = functions.size();
+		const int functionCount = static_cast<int>(functions.size());
 		for (int i = 0; i < functionCount; i++)
 		{
 			try {

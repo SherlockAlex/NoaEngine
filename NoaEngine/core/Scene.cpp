@@ -133,7 +133,7 @@ namespace noa
 	void TileMap::SetCollisionTileID(std::vector<int> collisionTileIDs)
 	{
 		//…Ë÷√Collision Tiles
-		const int collisionTilesCount = collisionTileIDs.size();
+		const int collisionTilesCount = static_cast<int>(collisionTileIDs.size());
 		for (int i = 0; i < collisionTilesCount; i++)
 		{
 			collisionTiles[collisionTileIDs[i]] = true;
@@ -154,8 +154,6 @@ namespace noa
 	{
 		this->name = name;
 		sceneManager.AddScene(this);
-
-		rigidbodys.reserve(4096);
 		destroyActors.reserve(4096);
 	}
 
@@ -290,12 +288,7 @@ namespace noa
 			i->second->ComponentUpdate();
 		}
 
-		PhysicsSystem::Update();
-
-		for (auto& rigidbody : rigidbodys)
-		{
-			rigidbody->LateUpdate();
-		}
+		PhysicsSystem::Update(3);
 
 		for (auto i = actors.begin(); i != actorLast; i++)
 		{
@@ -305,8 +298,6 @@ namespace noa
 			}
 			i->second->Update();
 		}
-
-		rigidbodys.clear();
 
 	}
 

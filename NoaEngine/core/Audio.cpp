@@ -11,12 +11,12 @@ namespace noa {
 		if (type == AudioType::MUSIC)
 		{
 			this->music = Mix_LoadMUS(filePath);
-			Mix_VolumeMusic(MIX_MAX_VOLUME*volume);
+			Mix_VolumeMusic(static_cast<int>(MIX_MAX_VOLUME * volume));
 		}
 		else if (type == AudioType::CHUNK)
 		{
 			this->chunk = Mix_LoadWAV(filePath);
-			Mix_VolumeChunk(this->chunk, MIX_MAX_VOLUME*volume); // 将音量设置为一半
+			Mix_VolumeChunk(this->chunk, static_cast<int>(MIX_MAX_VOLUME * volume)); // 将音量设置为一半
 		}
 	}
 
@@ -43,7 +43,7 @@ namespace noa {
 			else {
 				Mix_PlayMusic(music, 0);
 			}
-			Mix_VolumeMusic(MIX_MAX_VOLUME * volume);
+			Mix_VolumeMusic(static_cast<int>(MIX_MAX_VOLUME * volume));
 		}
 		else if (type == AudioType::CHUNK)
 		{
@@ -54,7 +54,7 @@ namespace noa {
 			else {
 				Mix_PlayChannel(-1, chunk, 0);
 			}
-			Mix_VolumeChunk(this->chunk, MIX_MAX_VOLUME * volume); // 将音量设置为一半
+			Mix_VolumeChunk(this->chunk, static_cast<int>(MIX_MAX_VOLUME * volume)); // 将音量设置为一半
 		}
 	}
 

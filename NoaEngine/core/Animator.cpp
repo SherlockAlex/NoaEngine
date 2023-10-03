@@ -160,7 +160,7 @@ void noa::Animation::Update() {
 		return;
 	}
 
-	i += Time::deltaTime * speed;
+	i += ((1.0f / Time::deltaTime) < 60 ? 0.0167f: Time::deltaTime) * speed;
 	if (i >= this->frameData->framesImage.size())
 	{
 		i = 0;
@@ -171,15 +171,15 @@ void noa::Animation::Update() {
 		isPlaying = false;
 	}
 
-	this->Play(i);
+	this->Play(static_cast<int>(i));
 
 	//当前帧事件只执行一次
 	const bool isFrameStart = (previousFrameIndex != int(i));
 
 	if (isFrameStart && (!framesEvent.empty()))
 	{
-		previousFrameIndex = int(i);
-		framesEvent[i].Invoke();
+		previousFrameIndex = static_cast<int>(i);
+		framesEvent[previousFrameIndex].Invoke();
 	}
 
 }
