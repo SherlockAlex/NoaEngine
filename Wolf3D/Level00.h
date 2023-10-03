@@ -20,9 +20,6 @@ public:
 	void Unload() override;
 
 public:
-	
-	//用来释放状态机状态
-	std::vector<State*> allStates;
 
 	Player* player = nullptr;
 	FreeCamera camera;

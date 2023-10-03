@@ -1,4 +1,6 @@
-#pragma once
+#ifndef NOAENGINE_PHYSICSSYSTEM_H
+#define NOAENGINE_PHYSICSSYSTEM_H
+
 
 #include "Collider2D.h"
 
@@ -25,5 +27,7 @@ namespace noa
 		static void SolveCollision(CircleCollider2D* obj1, CircleCollider2D* obj2);
 	};
 }
+
+#endif // !NOAENGINE_PHYSICSSYSTEM_H
 
 

@@ -37,6 +37,18 @@ noa::Actor::Actor(noa::Scene* activeScene)
 
 noa::Actor::~Actor()
 {
+	//删除此actor
+	if (rigidbody!=nullptr)
+	{
+		rigidbody->actor = nullptr;
+		delete rigidbody;
+	}
+
+	for (auto & component:components)
+	{
+		component->DeleteActorEvent();
+	}
+
 	DestroyComponent();
 	DestroyRigidbody();
 	Debug("Remove actor");
@@ -93,6 +105,12 @@ void noa::Actor::ComponentStart()
 
 void noa::Actor::ComponentUpdate()
 {
+	if (rigidbody!=nullptr&&!rigidbody->isRemoved)
+	{
+		rigidbody->Update();
+		this->activeScene->rigidbodys.push_back(rigidbody);
+	}
+
 	for (int i = 0; i < components.size(); i++)
 	{
 		if (components[i] == nullptr || !components[i]->GetActive())
@@ -152,6 +170,7 @@ void noa::Actor::DestroyComponent()
 
 void noa::Actor::AddRigidbody(Rigidbody* rigid)
 {
+	// 为角色添加刚体
 	if (rigid == nullptr)
 	{
 		return;
@@ -167,6 +186,7 @@ void noa::Actor::RemoveRigidbody()
 
 void noa::Actor::DestroyRigidbody()
 {
+	// 移除刚体
 	if (rigidbody == nullptr)
 	{
 		return;

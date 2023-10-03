@@ -46,5 +46,10 @@ bool noa::ActorComponent::GetActive()
 	return active;
 }
 
+void noa::ActorComponent::DeleteActorEvent()
+{
+	this->actor = nullptr;
+}
+
 
 

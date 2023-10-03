@@ -1,11 +1,10 @@
 #ifndef NOAENGINE_RENDERER_H
 #define NOAENGINE_RENDERER_H
 
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_ttf.h>
 #include <string>
 #include <vector>
 
+#include "SDLHelper.h"
 #include "Graphic.h"
 #include "NoaMath.h"
 

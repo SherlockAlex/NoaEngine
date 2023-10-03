@@ -29,8 +29,6 @@ void Level00::Delete()
 void Level00::Awake()
 {
 
-	allStates.clear();
-
 	if (wolfResource == nullptr)
 	{
 		wolfResource = new WolfResource();
@@ -150,22 +148,5 @@ void Level00::Unload()
 		delete map;
 		Debug("–∂‘ÿ≥°æ∞≥…π¶");
 	}
-	
-	if (!allStates.empty())
-	{
-		auto last = std::unique(allStates.begin(), allStates.end());
-		allStates.erase(last, allStates.end());
-
-		for (int i = 0; i < allStates.size(); i++)
-		{
-			if (allStates[i] == nullptr)
-			{
-				continue;
-			}
-			allStates[i]->Delete();
-		}
-	}
-
-	allStates.clear();
 
 }

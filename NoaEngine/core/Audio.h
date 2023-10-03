@@ -1,8 +1,7 @@
 #ifndef NOAENGINE_AUDIO_H
 #define NOAENGINE_AUDIO_H
 
-#include <SDL2/SDL_audio.h>
-#include <SDL2/SDL_mixer.h>
+#include "SDLHelper.h"
 
 namespace noa {
 	enum class AudioType {

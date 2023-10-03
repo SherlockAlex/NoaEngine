@@ -50,11 +50,6 @@ namespace noa {
 		std::unordered_map<int, Tile> tileSet;
 		std::unordered_map<int, bool> collisionTiles;
 	public:
-		/// <summary>
-		/// 加载瓦片地图
-		/// </summary>
-		/// <param name="tileSet">瓦片集合</param>
-		/// <param name="map">地图数据</param>
 		TileMap();
 		TileMap(std::unordered_map<int,Tile> tileSet,MapFile map);
 		TileMap(std::unordered_map<int, Tile> tileSet, std::vector<MapFile> mapLayer);
@@ -62,7 +57,6 @@ namespace noa {
 
 		int GetTileID(const int x,const int y) const;
 		void SetTileID(const int x, const int y,const int tileID);
-		//仅仅适用于静态的全局Tile，不使用于带动画的事件Tile
 		Tile* GetTile(const int id);
 		bool IsTile(const int code) const;
 		bool IsCollisionTile(int tileID) const;
@@ -70,11 +64,6 @@ namespace noa {
 		void SetCollisionTileID(std::vector<int> collisionTileIDs);
 	};
 
-	
-
-	/// <summary>
-	/// map,object,tile set
-	/// </summary>
 	typedef struct SceneInfo
 	{
 		std::string mapPath = "";
@@ -105,28 +94,18 @@ namespace noa {
 	{
 	public:
 		std::string name = "Scene";
-		//SceneInfo info;
-
-		std::map<size_t, Rigidbody*> rigidbodys;
 		std::map<size_t, Actor*> actors;//调用
-
-		std::vector<Rigidbody*> destroyRigids;
 		std::vector<Actor*> destroyActors;
 
-		std::vector<ScriptableActor*> destroyScriptableActors;
+		std::vector<Rigidbody*> rigidbodys;
 
 	protected:
 		Scene(std::string name);
 		virtual ~Scene();
 
 	public:
-
 		void SetTileMap(TileMap * map);
-
 		virtual void Delete() = 0;
-
-		//MapInfo GetTileMap();
-
 		virtual void Awake() {}
 		virtual void Start() {}
 		virtual void Update() {}
@@ -135,20 +114,12 @@ namespace noa {
 	public:
 		void AddActor(Actor* actor);
 		void RemoveActor(Actor * actor);
-		
-		void AddRigidbody(Rigidbody* actor);
-		void RemoveRigidbody(Rigidbody* actor);
-
 		void ActorAwake();
 		void ActorOnEnable();
 		void ActorStart();
 		void ActorUpdate();
 		void ActorOnDisable();
-
 		void DestoyScene();
-
-		void AddScriptableActor(ScriptableActor * SA);
-		void ClearSA();
 
 
 	};
@@ -156,8 +127,6 @@ namespace noa {
 	class SceneManager 
 	{
 	public:
-		//加载场景时发生的事件
-		//MapInfo activeMapInfo;
 		Scene * GetActiveScene();
 		void LoadScene(std::string sceneName);
 		void AddScene(Scene* scene);

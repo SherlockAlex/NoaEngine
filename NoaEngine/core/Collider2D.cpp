@@ -9,6 +9,10 @@ noa::Cell* noa::Grid::GetCell(int x, int y)
 noa::Collider2D::Collider2D(Actor* actor, Rigidbody* rigidbody) :ActorComponent(actor)
 {
 	this->rigidbody = rigidbody;
+	if (rigidbody!=nullptr)
+	{
+		rigidbody->BindCollider(this);
+	}
 	
 }
 

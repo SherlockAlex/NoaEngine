@@ -1,9 +1,6 @@
 #include "InputSystem.h"
-
-#include <SDL2/SDL.h>
-#include <iostream>
 #include "NoaEngine.h"
-
+#include <iostream>
 
 using namespace std;
 

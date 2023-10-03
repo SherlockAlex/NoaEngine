@@ -34,6 +34,7 @@ namespace noa {
 	class Actor;
 	class TileMap;
 	class Transform;
+	class Collider2D;
 	/// <summary>
 	/// 刚体类，当不在使用刚体时，或者物品被摧毁是，请使用
 	/// </summary>
@@ -59,6 +60,8 @@ namespace noa {
 		Vector<float> sumForce = Vector<float>(0.0, 0.0);
 		float invMass = 1;
 		bool active = true;
+
+		std::vector<Collider2D*> colliders;
 
 	public:
 		
@@ -99,6 +102,10 @@ namespace noa {
 
 		//碰撞检测线程
 		void ApplyCollision();
+
+		void BindCollider(Collider2D * collider);
+
+	public:
 
 		template<class T>
 		T GetActorAs() {

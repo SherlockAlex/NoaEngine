@@ -18,9 +18,6 @@ public:
 	void Unload() override;
 
 public:
-
-	std::vector<State*> allStates;
-
 	Player* player = nullptr;
 	FreeCamera camera;
 	TileMapCamera mapCamera;

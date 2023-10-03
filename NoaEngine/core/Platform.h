@@ -10,7 +10,7 @@
 #include <functional>
 #include <chrono>
 
-#include <SDL2/SDL.h>
+#include "SDLHelper.h"
 
 #include "Graphic.h"
 

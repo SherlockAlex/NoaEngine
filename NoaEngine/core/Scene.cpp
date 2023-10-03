@@ -25,7 +25,7 @@ namespace noa
 
 		level = map.image;
 
-		PhysicsSystem::SetGrid(w,h);
+		//PhysicsSystem::SetGrid(w,h);
 
 		Debug("load map from file successfully");
 
@@ -155,8 +155,8 @@ namespace noa
 		this->name = name;
 		sceneManager.AddScene(this);
 
-		destroyActors.reserve(1024);
-		destroyRigids.reserve(1024);
+		rigidbodys.reserve(4096);
+		destroyActors.reserve(4096);
 	}
 
 	Scene::~Scene()
@@ -176,6 +176,7 @@ namespace noa
 			return;
 		}
 		this->actors[actor->GetHash()] = actor;
+		destroyActors.push_back(actor);
 	}
 
 	void Scene::RemoveActor(Actor* actor)
@@ -188,39 +189,39 @@ namespace noa
 		actor->SetActive(false);
 		actor->OnDestroy();
 		actors[actor->GetHash()] = nullptr;
-		destroyActors.push_back(actor);
+		//destroyActors.push_back(actor);
 
 	}
 
-	void Scene::AddRigidbody(Rigidbody* rigid)
+	/*void Scene::AddRigidbody(Rigidbody* rigid)
 	{
 		if (rigid == nullptr)
 		{
 			return;
 		}
 		this->rigidbodys[rigid->GetHashCode()] = rigid;
-
-	}
-
-	void Scene::RemoveRigidbody(Rigidbody* rigid)
-	{
-		if (rigid == nullptr)
-		{
-			return;
-		}
-
-		const size_t hashCode = rigid->GetHashCode();
-
-		if (rigidbodys.count(hashCode)<0)
-		{
-			return;
-		}
-		rigidbodys[hashCode] = nullptr;
 		destroyRigids.push_back(rigid);
+	}*/
+
+	//void Scene::RemoveRigidbody(Rigidbody* rigid)
+	//{
+	//	if (rigid == nullptr)
+	//	{
+	//		return;
+	//	}
+
+	//	const size_t hashCode = rigid->GetHashCode();
+
+	//	if (rigidbodys.count(hashCode)<0)
+	//	{
+	//		return;
+	//	}
+	//	rigidbodys[hashCode] = nullptr;
+	//	//destroyRigids.push_back(rigid);
 
 
 
-	}
+	//}
 
 	void Scene::ActorAwake()
 	{
@@ -253,7 +254,7 @@ namespace noa
 
 	void Scene::ActorStart()
 	{
-		for (auto e : this->rigidbodys)
+		/*for (auto e : this->rigidbodys)
 		{
 			
 			if (e.second == nullptr)
@@ -262,7 +263,7 @@ namespace noa
 			}
 			Rigidbody* rigid = e.second;
 			rigid->Start();
-		}
+		}*/
 
 		for (auto e : this->actors)
 		{
@@ -279,41 +280,33 @@ namespace noa
 
 	void Scene::ActorUpdate()
 	{
-
-		const auto rigidLast = rigidbodys.end();
-		for (auto i = rigidbodys.begin();i!= rigidLast;i++)
+		const auto actorLast = actors.end();
+		for (auto i = actors.begin(); i != actorLast; i++)
 		{
-			if (i->second == nullptr)
+			if (i->second == nullptr || (!i->second->GetActive()))
 			{
 				continue;
 			}
-			Rigidbody * rigid = i->second;
-			rigid->Update();
+			i->second->ComponentUpdate();
 		}
 
 		PhysicsSystem::Update();
 
-		for (auto i = rigidbodys.begin(); i != rigidLast; i++)
+		for (auto& rigidbody : rigidbodys)
 		{
-			if (i->second == nullptr)
-			{
-				continue;
-			}
-			Rigidbody* rigid = i->second;
-			rigid->LateUpdate();
+			rigidbody->LateUpdate();
 		}
 
-		const auto actorLast = actors.end();
-		for (auto i = actors.begin();i!= actorLast;i++)
+		for (auto i = actors.begin(); i != actorLast; i++)
 		{
-			if (i->second == nullptr||(!i->second->GetActive())) 
+			if (i->second == nullptr || (!i->second->GetActive()))
 			{
 				continue;
 			}
-			Actor * actor = i->second;
-			actor->ComponentUpdate();
-			actor->Update();
+			i->second->Update();
 		}
+
+		rigidbodys.clear();
 
 	}
 
@@ -334,52 +327,9 @@ namespace noa
 
 	void Scene::DestoyScene()
 	{
-
-		for (auto& e : actors)
-		{
-			if (e.second == nullptr)
-			{
-				continue;
-			}
-			auto it = find(destroyActors.begin(), destroyActors.end(), e.second);
-			if (it == destroyActors.end())
-			{
-				destroyActors.push_back(e.second);
-			}
-
-		}
-
-		for (auto& e : rigidbodys)
-		{
-			if (e.second == nullptr)
-			{
-				continue;
-			}
-
-			auto it = find(destroyRigids.begin(), destroyRigids.end(), e.second);
-			if (it == destroyRigids.end())
-			{
-				destroyRigids.push_back(e.second);
-			}
-		}
-
-		std::sort(destroyRigids.begin(),destroyRigids.end());
-		auto rigidLast = std::unique(destroyRigids.begin(), destroyRigids.end());
-		destroyRigids.erase(rigidLast, destroyRigids.end());
-
 		std::sort(destroyActors.begin(), destroyActors.end());
 		auto actorLast = std::unique(destroyActors.begin(), destroyActors.end());
 		destroyActors.erase(actorLast, destroyActors.end());
-
-		for (int i = 0; i < destroyRigids.size(); i++)
-		{
-			//会出现野指针的情况，就是一个值会出现两次
-			if (destroyRigids[i] == nullptr)
-			{
-				continue;
-			}
-			delete destroyRigids[i];
-		}
 
 		for (int i = 0; i < destroyActors.size(); i++)
 		{
@@ -391,42 +341,7 @@ namespace noa
 		}
 
 		actors.clear();
-		rigidbodys.clear();
 		destroyActors.clear();
-		destroyRigids.clear();
-
-	}
-
-	void Scene::AddScriptableActor(ScriptableActor* SA)
-	{
-		if (SA == nullptr) 
-		{
-			return;
-		}
-		this->destroyScriptableActors.push_back(SA);
-	}
-
-	void Scene::ClearSA()
-	{
-		if (destroyScriptableActors.empty())
-		{
-			return;
-		}
-
-		std::sort(destroyScriptableActors.begin(), destroyScriptableActors.end());
-		auto last = std::unique(destroyScriptableActors.begin(), destroyScriptableActors.end());
-		destroyScriptableActors.erase(last, destroyScriptableActors.end());
-
-		for (int i = 0;i< destroyScriptableActors.size();i++)
-		{
-			if (destroyScriptableActors[i] == nullptr)
-			{
-				continue;
-			}
-			destroyScriptableActors[i]->Delete();
-		}
-
-		destroyScriptableActors.clear();
 
 	}
 
@@ -456,7 +371,6 @@ namespace noa
 		
 		Awake();
 		Start();
-		//done = true;
 
 	}
 
@@ -469,7 +383,6 @@ namespace noa
 		if (activeScene==nullptr) 
 		{
 			activeScene = scene;
-			//activeMapInfo = activeScene->GetTileMap();
 		}
 
 		sceneList[scene->name] = scene;
@@ -478,7 +391,6 @@ namespace noa
 
 	void SceneManager::Awake()
 	{
-		//清理actor和rigidbodys
 		if (activeScene != nullptr)
 		{
 			activeScene->Awake();
@@ -487,7 +399,6 @@ namespace noa
 
 	void SceneManager::Destroy()
 	{
-		//清理actor和rigidbodys
 		if (activeScene != nullptr)
 		{
 			oldScene = activeScene;

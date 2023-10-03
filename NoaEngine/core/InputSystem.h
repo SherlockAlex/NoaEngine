@@ -1,7 +1,10 @@
 #ifndef NOAGAMEENGINE_INPUTSYSTEM_H
 #define NOAGAMEENGINE_INPUTSYSTEM_H
 
-#include <SDL2/SDL.h>
+#include "SDLHelper.h"
+#include "NoaMath.h"
+#include "Graphic.h"
+
 //Windows System
 #ifdef _WIN64
 #include <Windows.h>
@@ -18,8 +21,7 @@
 #include <X11/keysym.h>
 #endif // __linux
 
-#include "NoaMath.h"
-#include "Graphic.h"
+
 
 namespace noa {
 	enum class MouseButton {

@@ -32,6 +32,8 @@ namespace noa {
 		virtual void SetActive(bool value);
 		virtual bool GetActive();
 
+		void DeleteActorEvent();
+
 		template<class T>
 		T GetActorAs() {
 			return dynamic_cast<T>(actor);

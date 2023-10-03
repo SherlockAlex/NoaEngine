@@ -2,6 +2,8 @@
 #include "NoaEngine.h"
 #include "Scene.h"
 #include "Actor.h"
+#include "PhysicsSystem.h"
+#include "Collider2D.h"
 
 #include <unordered_map>
 #include <thread>
@@ -12,10 +14,6 @@ using namespace std;
 namespace noa 
 {
 	//检测rigid是否和其他刚体相撞，如果相撞就返回
-	extern bool CollisionWithRigidbody(Rigidbody* rigid);
-	extern bool BoundingBoxIntersect(Rigidbody* a, Rigidbody* b);
-	// 判断两个球型包围盒是否相交
-	extern bool IsColliding(Rigidbody* body1,Rigidbody* body2);
 	float gravityAcceration = 9.81;
 	
 	unordered_map<size_t, bool> isCheckCollision;
@@ -30,8 +28,9 @@ namespace noa
 		this->actor = actor;
 		this->velocity = { 0,0 };
 		invMass = 1.0 / mass;
-		actor->GetActiveScene()->AddRigidbody(this);
+		//actor->GetActiveScene()->AddRigidbody(this);
 		actor->AddRigidbody(this);
+		colliders.reserve(10);
 	}
 
 	// 初始化静态计数器
@@ -44,6 +43,15 @@ namespace noa
 		{
 			actor->RemoveRigidbody();
 		}
+
+		if (!colliders.empty()) 
+		{
+			for (auto & collider:colliders) 
+			{
+				collider->rigidbody = nullptr;
+			}
+		}
+
 	}
 
 	void Rigidbody::Start()
@@ -199,7 +207,10 @@ namespace noa
 
 	}
 
-	
+	void Rigidbody::BindCollider(Collider2D* collider) 
+	{
+		colliders.push_back(collider);
+	}
 
 	TileMap* Rigidbody::GetTileMap()
 	{
@@ -216,7 +227,7 @@ namespace noa
 		Debug("Remove rigidbody");
 		//会出现这个已经被销毁，但还是被访问
 		this->isRemoved = true;
-		this->actor->GetActiveScene()->RemoveRigidbody(this);
+		//this->actor->GetActiveScene()->RemoveRigidbody(this);
 	}
 
 	int Rigidbody::GetIndexInMap() const

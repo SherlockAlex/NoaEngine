@@ -12,8 +12,6 @@
 #include <fstream>
 #include <string>
 
-#include <SDL2/SDL.h>
-
 #include "NoaMath.h"
 #include "Resource.h"
 #include "Graphic.h"

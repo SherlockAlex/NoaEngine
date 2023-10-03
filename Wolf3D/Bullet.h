@@ -1,7 +1,7 @@
 #pragma once
 #include "GameEngine.h"
 using namespace noa;
-class Bullet:public Actor
+class Bullet:public Actor					
 {
 public:
 	SpriteRenderer* spriteRenderer = SpriteRenderer::Create(this);

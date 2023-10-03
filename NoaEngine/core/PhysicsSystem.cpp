@@ -11,13 +11,22 @@ void noa::PhysicsSystem::SetGrid(int width, int height)
 	}
 	grid.width = width;
 	grid.height = height;
-	const size_t count = static_cast<size_t>(width) * static_cast<size_t>(height);
-	grid.cells.resize(count);
+	for (int i = 0;i<width * height;i++)
+	{
+		Cell cell;
+		cell.colliders.clear();
+		grid.cells.push_back(cell);
+	}
 }
 
 void noa::PhysicsSystem::Update()
 {
 	FindCollisionsGrid();
+
+	for (auto& cell : grid.cells)
+	{
+		cell.colliders.clear();
+	}
 }
 
 void noa::PhysicsSystem::FindCollisionsGrid()
@@ -27,30 +36,24 @@ void noa::PhysicsSystem::FindCollisionsGrid()
 		for (int y{ 1 }; y < grid.height - 1; y++)
 		{
 			auto* currentCell = grid.GetCell(x, y);
-			
+
 			for (int dx{ -1 }; dx <= 1; dx++)
 			{
 				for (int dy{ -1 }; dy <= 1; dy++)
 				{
 					auto* otherCell = grid.GetCell(x + dx, y + dy);
 					CheckCellsCollisions(*currentCell, *otherCell);
-					
 				}
 			}
 
 		}
 	}
 
-
-	for (auto & cell:grid.cells) 
-	{
-		cell.colliders.clear();
-	}
-
 }
 
 bool noa::PhysicsSystem::Collide(CircleCollider2D* obj1, CircleCollider2D* obj2)
 {
+
 	//Rigidbody* body2 = obj2->rigidbody;
 	const float deltaX = obj1->rigidbody->actor->transform.position.x 
 		- obj2->rigidbody->actor->transform.position.x;
