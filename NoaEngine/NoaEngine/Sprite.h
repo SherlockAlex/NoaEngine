@@ -82,6 +82,8 @@ namespace noa {
 
 		void DrawSprite(float x, float y,bool mirror = false,float eulerAngle = 0.0f);
 
+		void DrawSprite(float x, float y,float w,float h, bool mirror = false, float eulerAngle = 0.0f);
+
 	};
 
 }

@@ -286,7 +286,7 @@ namespace noa {
 			return;
 		}
 		this->sprite = sprite;
-		this->texture = renderer->CreateTexture(sprite->w, sprite->h, pixelBuffer);
+		this->texture = renderer->CreateTexture(sprite->w, sprite->h, sprite->GetImage().data());
 		texture->EnableAlpha();
 
 	}
@@ -329,6 +329,26 @@ namespace noa {
 		instance.flip = mirror;
 		spriteInstances.push_back(instance);
 
+	}
+
+	void SpriteGPU::DrawSprite(float x, float y, float w, float h, bool mirror, float eulerAngle)
+	{
+		if (texture == nullptr || sprite == nullptr)
+		{
+			return;
+		}
+
+		texture->UpdateTexture(sprite->GetImage().data(), sprite->w, sprite->h);
+
+		SpriteGPUInstance instance;
+		instance.texture = texture;
+		instance.position.x = static_cast<int>(x);
+		instance.position.y = static_cast<int>(y);
+		instance.scale.x = w;
+		instance.scale.y = h;
+		instance.eulerAngle = eulerAngle;
+		instance.flip = mirror;
+		spriteInstances.push_back(instance);
 	}
 
 }

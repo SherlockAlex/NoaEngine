@@ -29,6 +29,18 @@ namespace noa {
 		
 	};
 
+	//¾²Ì¬Ïà»ú
+	class SpriteGPU;
+	class StaticCamera final :public Camera 
+	{
+	private:
+		//±³¾°Í¼Æ¬
+		SpriteGPU * background = nullptr;
+	public:
+		StaticCamera(Sprite * sprite);
+		void Render();
+	};
+
 	class TileMapCamera final:public Camera
 	{
 	private:

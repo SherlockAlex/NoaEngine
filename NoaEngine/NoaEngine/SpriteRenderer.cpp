@@ -51,9 +51,11 @@ void noa::SpriteRenderer::SetSprite(Sprite* sprite)
 
 	if (spriteGPU == nullptr) 
 	{
-		
+		spriteGPU = new SpriteGPU(sprite);
 		return;
 	}
+
+	spriteGPU->Update(sprite);
 	
 }
 

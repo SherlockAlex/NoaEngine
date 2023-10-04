@@ -1,6 +1,7 @@
 #ifdef _WIN64
 
 #include "GLTexture.h"
+#include "Debug.h"
 
 namespace noa {
     GLTexture::GLTexture(int w, int h, uint32_t* pixelBuffer)
@@ -9,7 +10,7 @@ namespace noa {
 
         glGenTextures(1, &textureID);
         glBindTexture(GL_TEXTURE_2D, textureID);
-
+        
         // 设置纹理参数
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);

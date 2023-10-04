@@ -114,7 +114,7 @@ namespace noa {
 				static_cast<int>((instance.actor->transform.position.x - offset.x) * tileScale.x),
 				static_cast<int>((instance.actor->transform.position.y - offset.y) * tileScale.y)
 				);
-			instance.sprite->DrawSprite(objPos.x, objPos.y, true);
+			instance.spriteGPU->DrawSprite(objPos.x, objPos.y, true);
 			if (objPos.y<pixelHeight&&objPos.y>=0
 				&&objPos.x < pixelWidth && objPos.x >= 0
 				) {
@@ -458,6 +458,33 @@ namespace noa {
 				}
 			}
 		}
+
+	}
+
+	StaticCamera::StaticCamera(Sprite* sprite)
+	{
+		if (sprite == nullptr)
+		{
+			return;
+		}
+		background = new SpriteGPU(sprite);
+	}
+
+	void StaticCamera::Render()
+	{
+		(background != nullptr) ? background->DrawSprite(0, 0, pixelWidth, pixelHeight, false, 0) : renderer->FullScreen(BLUE);
+
+		for (const auto & instance:spriteRendererInstances) 
+		{
+			//»æÖÆActorµ½ÆÁÄ»Î»ÖÃ
+			if (instance.actor == nullptr)
+			{
+				continue;
+			}
+			instance.spriteGPU->DrawSprite(instance.actor->transform.position.x,instance.actor->transform.position.y,true);
+		}
+		
+
 
 	}
 
