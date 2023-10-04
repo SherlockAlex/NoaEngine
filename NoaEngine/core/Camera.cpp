@@ -194,9 +194,6 @@ namespace noa {
 
 	void FreeCamera::Render(TileMap& map, bool renderFloor, Sprite* skybox, uint32_t multiColor)
 	{
-
-		
-
 		if (follow == nullptr) 
 		{
 			return;
@@ -211,8 +208,8 @@ namespace noa {
 		{
 			Ray ray = std::move(RaycastHit(x, map));
 
-			wallDistanceBuffer[x] = ray.distance;
-			rayResult[x] = ray;
+			wallDistanceBuffer[x] = std::move(ray.distance);
+			rayResult[x] = std::move(ray);
 
 			const float ceiling = pixelHeight * 0.5f - pixelHeight / ray.distance;
 			const float floor = pixelHeight - ceiling;
@@ -274,14 +271,14 @@ namespace noa {
 		Ray ray;
 		ray.distance = 0.0f;
 		ray.angle = follow->eulerAngle - FOV * (0.5f - (float)pixelX / pixelWidth);
-		const float rayForwordStep = 0.02f;
+		const float rayForwordStep = 0.05f;
 		const Vector<float> eye = std::move(Vector<float>(sinf(ray.angle), cosf(ray.angle)));
-
-		while (!map.IsCollisionTile(ray.hitTile)&&ray.distance<viewDepth) 
+		bool isHitCollisionTile = map.IsCollisionTile(ray.hitTile);
+		while (!isHitCollisionTile && ray.distance < viewDepth)
 		{
 			ray.distance += rayForwordStep;
 
-			const Vector<float> floatHitPoint = std::move(follow->position + eye * ray.distance+Vector<float>(0.5,0.5));
+			const Vector<float> floatHitPoint = std::move(follow->position + eye * ray.distance+Vector<float>(0.5f,0.5f));
 			const Vector<int> intHitPoint = std::move(Vector<int>(static_cast<int>(floatHitPoint.x), static_cast<int>(floatHitPoint.y)));
 
 			if (intHitPoint.x < 0||intHitPoint.x >= map.w || intHitPoint.y < 0|| intHitPoint.y >= map.h)
@@ -294,11 +291,13 @@ namespace noa {
 			ray.hitTile = map.GetTileID(intHitPoint.x, intHitPoint.y);
 			ray.tilePosition = { intHitPoint.x,intHitPoint.y };
 
-			if (map.IsCollisionTile(ray.hitTile)) 
+			isHitCollisionTile = map.IsCollisionTile(ray.hitTile);
+
+			if (isHitCollisionTile)
 			{
 
-				const float blockMidX = (float)intHitPoint.x + 0.5f;
-				const float blockMidY = (float)intHitPoint.y + 0.5f;
+				const float blockMidX = intHitPoint.x + 0.5f;
+				const float blockMidY = intHitPoint.y + 0.5f;
 
 				const float testAngle = atan2f((floatHitPoint.y - blockMidY), (floatHitPoint.x - blockMidX));
 
@@ -391,7 +390,7 @@ namespace noa {
 
 			const float distanceFromPlayer = instance.distanceToPlayer;
 
-			const Vector<float> eye = std::move(Vector<float>(sinf(follow->eulerAngle), cosf(follow->eulerAngle)));
+			const Vector<float>& eye = Vector<float>(sinf(follow->eulerAngle), cosf(follow->eulerAngle));
 
 			float objectAngle = atan2(eye.y, eye.x) - atan2(vecToFollow.y, vecToFollow.x);
 			if (objectAngle <= -PI)
@@ -450,7 +449,7 @@ namespace noa {
 						DRAWPIXEL(objectColumn, (int)(objectCeiling + ly + objectPosZ), objColor);
 						if (instance.actor->isRaycasted)
 						{
-							objectBufferWithRay[objectColumn] = (void*)instance.actor;
+							objectBufferWithRay[objectColumn] = instance.actor;
 						}
 						wallDistanceBuffer[objectColumn] = distanceFromPlayer;
 						rayResult[objectColumn].hitTile = -1;

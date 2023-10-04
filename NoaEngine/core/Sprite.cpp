@@ -245,8 +245,8 @@ namespace noa {
 
 		
 
-		const int sx = NOAABS((int)(normalizedX * (w-1))) % w;
-		const int sy = NOAABS((int)(normalizedY * (h-1))) % h;
+		const int sx = static_cast<int>(std::abs(normalizedX * (w - 1))) % w;
+		const int sy = static_cast<int>(std::abs(normalizedY * (h - 1))) % h;
 
 		return image[sy * w + sx];
 	}
