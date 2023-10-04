@@ -1,3 +1,5 @@
+#define NOA_GL
+
 #include "GameEngine.h"
 #include "Level00.h"
 #include "Level01.h"

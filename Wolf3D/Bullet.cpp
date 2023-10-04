@@ -57,8 +57,8 @@ void Bullet::OnTrigger(Collision other)
 {
 	Rigidbody* rigid = other.other;
 
-	Player* player = rigid->GetActorAs<Player*>();
-	if (player!=nullptr&&rigid->tag == "Player")
+	Player* player = nullptr;
+	if (rigid->TryGetActorAs<Player*>(player)&&rigid->tag == "Player")
 	{
 		//this->rigid->Destroy();
 		player->TakeDamage(3);

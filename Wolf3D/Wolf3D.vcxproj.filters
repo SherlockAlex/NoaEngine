@@ -24,48 +24,6 @@
     <ClCompile Include="main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="..\NoaEngine\core\Animator.cpp">
-      <Filter>源文件\core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\NoaEngine\core\Audio.cpp">
-      <Filter>源文件\core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\NoaEngine\core\Camera.cpp">
-      <Filter>源文件\core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\NoaEngine\core\InputSystem.cpp">
-      <Filter>源文件\core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\NoaEngine\core\NoaAction.cpp">
-      <Filter>源文件\core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\NoaEngine\core\NoaEngine.cpp">
-      <Filter>源文件\core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\NoaEngine\core\NoaGUI.cpp">
-      <Filter>源文件\core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\NoaEngine\core\NoaMath.cpp">
-      <Filter>源文件\core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\NoaEngine\core\Physics.cpp">
-      <Filter>源文件\core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\NoaEngine\core\Renderer.cpp">
-      <Filter>源文件\core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\NoaEngine\core\Scene.cpp">
-      <Filter>源文件\core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\NoaEngine\core\Sprite.cpp">
-      <Filter>源文件\core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\NoaEngine\core\StateMachine.cpp">
-      <Filter>源文件\core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\NoaEngine\core\Transform.cpp">
-      <Filter>源文件\core</Filter>
-    </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -84,9 +42,6 @@
     <ClCompile Include="LiveEntity.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="..\NoaEngine\core\Resource.cpp">
-      <Filter>源文件\core</Filter>
-    </ClCompile>
     <ClCompile Include="Gun.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -102,9 +57,6 @@
     <ClCompile Include="M4A1.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="..\NoaEngine\core\Actor.cpp">
-      <Filter>源文件\core</Filter>
-    </ClCompile>
     <ClCompile Include="Bullet.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -114,92 +66,98 @@
     <ClCompile Include="Level01.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="..\NoaEngine\core\ActorComponent.cpp">
-      <Filter>源文件\core</Filter>
-    </ClCompile>
     <ClCompile Include="MainMenuLevel.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="..\NoaEngine\core\Graphic.cpp">
-      <Filter>源文件\core</Filter>
+    <ClCompile Include="..\NoaEngine\NoaEngine\Actor.cpp">
+      <Filter>头文件\core</Filter>
     </ClCompile>
-    <ClCompile Include="..\NoaEngine\core\Time.cpp">
-      <Filter>源文件\core</Filter>
+    <ClCompile Include="..\NoaEngine\NoaEngine\ActorComponent.cpp">
+      <Filter>头文件\core</Filter>
     </ClCompile>
-    <ClCompile Include="..\NoaEngine\core\Platform.cpp">
-      <Filter>源文件\core</Filter>
+    <ClCompile Include="..\NoaEngine\NoaEngine\Animator.cpp">
+      <Filter>头文件\core</Filter>
     </ClCompile>
-    <ClCompile Include="..\NoaEngine\core\GLRenderer.cpp">
-      <Filter>源文件\core</Filter>
+    <ClCompile Include="..\NoaEngine\NoaEngine\Audio.cpp">
+      <Filter>头文件\core</Filter>
     </ClCompile>
-    <ClCompile Include="..\NoaEngine\core\GLTexture.cpp">
-      <Filter>源文件\core</Filter>
+    <ClCompile Include="..\NoaEngine\NoaEngine\Camera.cpp">
+      <Filter>头文件\core</Filter>
     </ClCompile>
-    <ClCompile Include="..\NoaEngine\core\Texture.cpp">
-      <Filter>源文件\core</Filter>
+    <ClCompile Include="..\NoaEngine\NoaEngine\Collider2D.cpp">
+      <Filter>头文件\core</Filter>
     </ClCompile>
-    <ClCompile Include="..\NoaEngine\core\Platform_Windows.cpp">
-      <Filter>源文件\core</Filter>
+    <ClCompile Include="..\NoaEngine\NoaEngine\Debug.cpp">
+      <Filter>头文件\core</Filter>
     </ClCompile>
-    <ClCompile Include="..\NoaEngine\core\SpriteRenderer.cpp">
-      <Filter>源文件\core</Filter>
+    <ClCompile Include="..\NoaEngine\NoaEngine\GLRenderer.cpp">
+      <Filter>头文件\core</Filter>
     </ClCompile>
-    <ClCompile Include="..\NoaEngine\core\Collider2D.cpp">
-      <Filter>源文件\core</Filter>
+    <ClCompile Include="..\NoaEngine\NoaEngine\GLTexture.cpp">
+      <Filter>头文件\core</Filter>
     </ClCompile>
-    <ClCompile Include="..\NoaEngine\core\PhysicsSystem.cpp">
-      <Filter>源文件\core</Filter>
+    <ClCompile Include="..\NoaEngine\NoaEngine\Graphic.cpp">
+      <Filter>头文件\core</Filter>
     </ClCompile>
-    <ClCompile Include="..\NoaEngine\core\Debug.cpp">
-      <Filter>源文件\core</Filter>
+    <ClCompile Include="..\NoaEngine\NoaEngine\InputSystem.cpp">
+      <Filter>头文件\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\NoaEngine\NoaEngine\NoaAction.cpp">
+      <Filter>头文件\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\NoaEngine\NoaEngine\NoaEngine.cpp">
+      <Filter>头文件\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\NoaEngine\NoaEngine\NoaGUI.cpp">
+      <Filter>头文件\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\NoaEngine\NoaEngine\NoaMath.cpp">
+      <Filter>头文件\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\NoaEngine\NoaEngine\NObject.cpp">
+      <Filter>头文件\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\NoaEngine\NoaEngine\Physics.cpp">
+      <Filter>头文件\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\NoaEngine\NoaEngine\PhysicsSystem.cpp">
+      <Filter>头文件\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\NoaEngine\NoaEngine\Platform.cpp">
+      <Filter>头文件\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\NoaEngine\NoaEngine\Platform_Windows.cpp">
+      <Filter>头文件\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\NoaEngine\NoaEngine\Renderer.cpp">
+      <Filter>头文件\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\NoaEngine\NoaEngine\Resource.cpp">
+      <Filter>头文件\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\NoaEngine\NoaEngine\Scene.cpp">
+      <Filter>头文件\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\NoaEngine\NoaEngine\Sprite.cpp">
+      <Filter>头文件\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\NoaEngine\NoaEngine\SpriteRenderer.cpp">
+      <Filter>头文件\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\NoaEngine\NoaEngine\StateMachine.cpp">
+      <Filter>头文件\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\NoaEngine\NoaEngine\Texture.cpp">
+      <Filter>头文件\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\NoaEngine\NoaEngine\Time.cpp">
+      <Filter>头文件\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\NoaEngine\NoaEngine\Transform.cpp">
+      <Filter>头文件\core</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\NoaEngine\core\Animator.h">
-      <Filter>头文件\core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\NoaEngine\core\Audio.h">
-      <Filter>头文件\core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\NoaEngine\core\Camera.h">
-      <Filter>头文件\core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\NoaEngine\core\Graphic.h">
-      <Filter>头文件\core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\NoaEngine\core\InputSystem.h">
-      <Filter>头文件\core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\NoaEngine\core\NoaAction.h">
-      <Filter>头文件\core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\NoaEngine\core\NoaEngine.h">
-      <Filter>头文件\core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\NoaEngine\core\NoaGUI.h">
-      <Filter>头文件\core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\NoaEngine\core\NoaMath.h">
-      <Filter>头文件\core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\NoaEngine\core\Physics.h">
-      <Filter>头文件\core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\NoaEngine\core\Renderer.h">
-      <Filter>头文件\core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\NoaEngine\core\Scene.h">
-      <Filter>头文件\core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\NoaEngine\core\Sprite.h">
-      <Filter>头文件\core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\NoaEngine\core\StateMachine.h">
-      <Filter>头文件\core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\NoaEngine\core\Transform.h">
-      <Filter>头文件\core</Filter>
-    </ClInclude>
     <ClInclude Include="GameEngine.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -221,9 +179,6 @@
     <ClInclude Include="LiveEntity.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="..\NoaEngine\core\Resource.h">
-      <Filter>头文件\core</Filter>
-    </ClInclude>
     <ClInclude Include="Gun.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -239,9 +194,6 @@
     <ClInclude Include="M4A1.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="..\NoaEngine\core\Actor.h">
-      <Filter>头文件\core</Filter>
-    </ClInclude>
     <ClInclude Include="Bullet.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -251,40 +203,103 @@
     <ClInclude Include="Level01.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="..\NoaEngine\core\ActorComponent.h">
-      <Filter>头文件\core</Filter>
-    </ClInclude>
     <ClInclude Include="MainMenuLevel.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="..\NoaEngine\core\Time.h">
+    <ClInclude Include="..\NoaEngine\NoaEngine\Actor.h">
       <Filter>头文件\core</Filter>
     </ClInclude>
-    <ClInclude Include="..\NoaEngine\core\Platform.h">
+    <ClInclude Include="..\NoaEngine\NoaEngine\ActorComponent.h">
       <Filter>头文件\core</Filter>
     </ClInclude>
-    <ClInclude Include="..\NoaEngine\core\GLRenderer.h">
+    <ClInclude Include="..\NoaEngine\NoaEngine\Animator.h">
       <Filter>头文件\core</Filter>
     </ClInclude>
-    <ClInclude Include="..\NoaEngine\core\GLTexture.h">
+    <ClInclude Include="..\NoaEngine\NoaEngine\Audio.h">
       <Filter>头文件\core</Filter>
     </ClInclude>
-    <ClInclude Include="..\NoaEngine\core\Texture.h">
+    <ClInclude Include="..\NoaEngine\NoaEngine\Camera.h">
       <Filter>头文件\core</Filter>
     </ClInclude>
-    <ClInclude Include="..\NoaEngine\core\Platform_Windows.h">
+    <ClInclude Include="..\NoaEngine\NoaEngine\Collider2D.h">
       <Filter>头文件\core</Filter>
     </ClInclude>
-    <ClInclude Include="..\NoaEngine\core\SpriteRenderer.h">
+    <ClInclude Include="..\NoaEngine\NoaEngine\Debug.h">
       <Filter>头文件\core</Filter>
     </ClInclude>
-    <ClInclude Include="..\NoaEngine\core\Collider2D.h">
+    <ClInclude Include="..\NoaEngine\NoaEngine\GLHelper.h">
       <Filter>头文件\core</Filter>
     </ClInclude>
-    <ClInclude Include="..\NoaEngine\core\PhysicsSystem.h">
+    <ClInclude Include="..\NoaEngine\NoaEngine\GLRenderer.h">
       <Filter>头文件\core</Filter>
     </ClInclude>
-    <ClInclude Include="..\NoaEngine\core\Debug.h">
+    <ClInclude Include="..\NoaEngine\NoaEngine\GLTexture.h">
+      <Filter>头文件\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\NoaEngine\NoaEngine\Graphic.h">
+      <Filter>头文件\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\NoaEngine\NoaEngine\InputSystem.h">
+      <Filter>头文件\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\NoaEngine\NoaEngine\NoaAction.h">
+      <Filter>头文件\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\NoaEngine\NoaEngine\NoaEngine.h">
+      <Filter>头文件\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\NoaEngine\NoaEngine\NoaGUI.h">
+      <Filter>头文件\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\NoaEngine\NoaEngine\NoaMath.h">
+      <Filter>头文件\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\NoaEngine\NoaEngine\NObject.h">
+      <Filter>头文件\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\NoaEngine\NoaEngine\Physics.h">
+      <Filter>头文件\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\NoaEngine\NoaEngine\PhysicsSystem.h">
+      <Filter>头文件\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\NoaEngine\NoaEngine\Platform.h">
+      <Filter>头文件\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\NoaEngine\NoaEngine\Platform_Windows.h">
+      <Filter>头文件\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\NoaEngine\NoaEngine\Renderer.h">
+      <Filter>头文件\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\NoaEngine\NoaEngine\Resource.h">
+      <Filter>头文件\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\NoaEngine\NoaEngine\Scene.h">
+      <Filter>头文件\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\NoaEngine\NoaEngine\ScriptableActor.h">
+      <Filter>头文件\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\NoaEngine\NoaEngine\SDLHelper.h">
+      <Filter>头文件\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\NoaEngine\NoaEngine\Sprite.h">
+      <Filter>头文件\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\NoaEngine\NoaEngine\SpriteRenderer.h">
+      <Filter>头文件\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\NoaEngine\NoaEngine\StateMachine.h">
+      <Filter>头文件\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\NoaEngine\NoaEngine\Texture.h">
+      <Filter>头文件\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\NoaEngine\NoaEngine\Time.h">
+      <Filter>头文件\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\NoaEngine\NoaEngine\Transform.h">
       <Filter>头文件\core</Filter>
     </ClInclude>
   </ItemGroup>
