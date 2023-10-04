@@ -4,6 +4,8 @@
 #include <vector>
 #include <unordered_map>
 #include <memory>
+#include "Debug.h"
+
 #include "ScriptableActor.h"
 #include "ActorComponent.h"
 
@@ -20,10 +22,6 @@ namespace noa
 	class Actor;
 	class StateMachine;
 
-	/// <summary>
-	/// 状态类，将每一个状态都必须继承这个类，并且只能分配到堆空间
-	/// 请覆写方法 T Create() 和 void Delete()
-	/// </summary>
 	class State 
 	{
 	protected:
@@ -32,7 +30,7 @@ namespace noa
 		std::unordered_map<int, State*> nextStates;
 	protected:
 		State(StateMachine* stateMachine);
-		virtual ~State() {};
+		virtual ~State() {}
 	public:
 		virtual void Delete() = 0;
 
@@ -47,9 +45,6 @@ namespace noa
 		virtual void OnExit() {};
 	};
 
-	/// <summary>
-	/// 状态机，用来管理所有的状态,注意所有的状态类都必须继承自State抽象类
-	/// </summary>
 	class StateMachine:ActorComponent
 	{
 	protected:

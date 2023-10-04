@@ -4,7 +4,7 @@ using namespace noa;
 class Item :public Actor
 {
 public:
-	NoaEvent pickEvent;
+	NoaEvent<void> pickEvent;
 
 	SpriteRenderer* spriteRenderer = SpriteRenderer::Create(this);
 

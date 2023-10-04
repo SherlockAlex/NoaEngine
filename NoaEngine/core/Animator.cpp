@@ -13,7 +13,6 @@ noa::Animation::Animation(noa::Actor* actor) :noa::ActorComponent(actor)
 
 noa::Animation::Animation(noa::Actor* actor, float speed, bool loop) :noa::ActorComponent(actor)
 {
-	noa::Debug("Init Animator");
 	this->speed = speed;
 	this->loop = loop;
 
@@ -27,7 +26,6 @@ noa::Animation::Animation(noa::Actor* actor, float speed, bool loop) :noa::Actor
 
 noa::Animation::Animation(noa::Actor* actor, float speed, bool loop, noa::AnimationFrame* frame) :noa::ActorComponent(actor)
 {
-	noa::Debug("Init Animator");
 	this->speed = speed;
 	this->loop = loop;
 
@@ -52,30 +50,13 @@ void noa::Animation::Delete()
 
 noa::Animation::~Animation()
 {
-	//ActorComponent::~ActorComponent();
-	noa::Debug("Remove animation");
+
 }
-
-/// <summary>
-/// 从本地动画文件加载动画
-/// </summary>
-/// <param name="filePath">动画文件路径</param>
-/*void Animation::LoadFromAnimationFile(const char* filePath)
-{
-	const AnimationFile animatorFile = move(resource.LoadAnimationFile(filePath));
-	for (const SpriteFile & frame : animatorFile.data)
-	{
-		InsertFrameImage(frame);
-	}
-
-}*/
 
 void noa::Animation::SetFrame(noa::AnimationFrame* frame)
 {
-	//设置Frame数据
 	if (frame == nullptr)
 	{
-		noa::Debug("this frame is empty");
 		return;
 	}
 	this->frameData = frame;
@@ -86,25 +67,16 @@ void noa::Animation::SetFrame(noa::AnimationFrame* frame)
 
 }
 
-/// <summary>
-/// 获取当前帧的图像
-/// </summary>
-/// <returns></returns>
 noa::SpriteFile& noa::Animation::GetCurrentFrameImage()
 {
 	return currentFrame;
 }
 
-/// <summary>
-/// 获取指定帧的图像
-/// </summary>
-/// <param name="frame">第frame帧</param>
-/// <returns></returns>
 noa::SpriteFile& noa::Animation::GetFrameImage(int frame)
 {
 	if (frameData == nullptr)
 	{
-		noa::Debug("this frame is empty");
+		noa::Debug::Error("this frame is empty");
 		exit(-1);
 	}
 	frame = frame % frameData->framesImage.size();
@@ -113,14 +85,9 @@ noa::SpriteFile& noa::Animation::GetFrameImage(int frame)
 
 void noa::Animation::SetFrameEvent(int frame, function<void()> e)
 {
-	//设置帧事件
 	this->framesEvent[frame] += e;
 }
 
-/// <summary>
-/// 播放动画化
-/// </summary>
-/// <param name="frame">播放第frame帧的图像</param>
 void noa::Animation::Play(int frame)
 {
 	if (this->frameData == nullptr || this->frameData->framesImage.empty())
@@ -151,9 +118,6 @@ void noa::Animation::Start()
 
 }
 
-/// <summary>
-/// 实时更新刷新
-/// </summary>
 void noa::Animation::Update() {
 	if (!isPlaying || this->frameData == nullptr)
 	{
@@ -184,12 +148,11 @@ void noa::Animation::Update() {
 
 }
 
-
 noa::AnimationClip::AnimationClip(noa::Animator* animator, noa::Animation* animation) :noa::State(animator)
 {
 	if (animator == nullptr)
 	{
-		Debug("init animator failed");
+		Debug::Error("init animator failed");
 		exit(-1);
 	}
 	this->animtion = animation;

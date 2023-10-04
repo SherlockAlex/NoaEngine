@@ -24,6 +24,7 @@ D:\Work\NoaEngine\NoaEngine\core\GLTexture.cpp;D:\Work\NoaEngine\NoaEngine\x64\R
 D:\Work\NoaEngine\NoaEngine\core\Platform_Windows.cpp;D:\Work\NoaEngine\NoaEngine\x64\Release\Platform_Windows.obj
 D:\Work\NoaEngine\NoaEngine\core\SpriteRenderer.cpp;D:\Work\NoaEngine\NoaEngine\x64\Release\SpriteRenderer.obj
 D:\Work\NoaEngine\NoaEngine\core\PhysicsSystem.cpp;D:\Work\NoaEngine\NoaEngine\x64\Release\PhysicsSystem.obj
+D:\Work\NoaEngine\NoaEngine\core\Debug.cpp;D:\Work\NoaEngine\NoaEngine\x64\Release\Debug.obj
 D:\Work\NoaEngine\NoaEngine\TestGPU.cpp;D:\Work\NoaEngine\NoaEngine\x64\Release\TestGPU.obj
 D:\Work\NoaEngine\NoaEngine\core\Time.cpp;D:\Work\NoaEngine\NoaEngine\x64\Release\Time.obj
 D:\Work\NoaEngine\NoaEngine\core\Texture.cpp;D:\Work\NoaEngine\NoaEngine\x64\Release\Texture.obj

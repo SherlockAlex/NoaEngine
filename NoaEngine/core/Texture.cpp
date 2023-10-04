@@ -1,10 +1,18 @@
 #include "Texture.h"
+#include "NoaEngine.h"
 
-namespace noa {
-	Texture::Texture()
-	{
-
-	}
+noa::Texture::Texture()
+{
 
 }
 
+noa::Texture::~Texture()
+{
+	for (auto & instance:spriteInstances) 
+	{
+		if (instance.texture == this) 
+		{
+			instance.texture = nullptr;
+		}
+	}
+}

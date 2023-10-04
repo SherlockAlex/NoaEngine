@@ -9,29 +9,18 @@
 
 using namespace std;
 
-namespace noa 
-{
-	void DestroyBehaviour(Actor* behaviour);
-}
-
-void noa::DestroyBehaviour(noa::Actor* behaviour)
-{
-	noa::Scene* activeScene = behaviour->GetActiveScene();
-	activeScene->RemoveActor(behaviour);
-
-	noa::Debug("Behaviour " + to_string(behaviour->GetHash()) + " is destroy");
-}
-
 size_t noa::Actor::nextId = 0;
 
 noa::Actor::Actor(noa::Scene* activeScene)
 {
+	if (activeScene == nullptr) 
+	{
+		Debug::Error("Actor's scene is nullptr");
+		exit(-1);
+	}
 	id = GetNextId();
 	this->activeScene = activeScene;
-	if (activeScene != nullptr)
-	{
-		activeScene->AddActor(this);
-	}
+	activeScene->AddActor(this);
 }
 
 noa::Actor::~Actor()
@@ -40,6 +29,7 @@ noa::Actor::~Actor()
 	{
 		rigidbody->actor = nullptr;
 		delete rigidbody;
+		rigidbody = nullptr;
 	}
 
 	for (auto & component:components)
@@ -56,7 +46,7 @@ noa::Actor::~Actor()
 	}
 
 	DestroyComponent();
-	Debug("Remove actor");
+	
 }
 
 void noa::Actor::AddComponent(noa::ActorComponent* component)
@@ -171,9 +161,13 @@ void noa::Actor::DestroyComponent()
 
 void noa::Actor::AddRigidbody(Rigidbody* rigid)
 {
-	if (rigid == nullptr||rigidbody!=nullptr)
+	if (rigid == nullptr)
 	{
 		return;
+	}
+	if (rigidbody != nullptr)
+	{
+		delete rigidbody;
 	}
 	this->rigidbody = rigid;
 }

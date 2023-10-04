@@ -73,7 +73,7 @@ public:
 
 	void Delete() override {
 		delete this;
-		Debug("Remove caco move state successfully");
+		
 	}
 
 	void OnUpdate() override;

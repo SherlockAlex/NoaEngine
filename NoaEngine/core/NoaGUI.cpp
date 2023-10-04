@@ -4,13 +4,13 @@
 #include "Renderer.h"
 #include "InputSystem.h"
 #include "Resource.h"
+#include "Debug.h"
 
 #include <ft2build.h>
 #include FT_FREETYPE_H
 
 
 namespace noa {
-	extern void Debug(std::string msg);
 	extern std::shared_ptr<Renderer> renderer;
 
 	extern int pixelWidth;
@@ -81,8 +81,6 @@ namespace noa {
 			int tileCount;
 			inputFile.read(reinterpret_cast<char*>(&tileCount), sizeof(int));
 
-			Debug("Font asset size:" + std::to_string(tileCount));
-
 			for (int i = 0; i < tileCount; i++)
 			{
 				TileData pixelData;
@@ -102,7 +100,6 @@ namespace noa {
 					inputFile.read(reinterpret_cast<char*>(&pixelValue), sizeof(int));
 					if (pixelValue == 0) 
 					{
-						//将黑色调为透明色
 						pixelValue = ERRORCOLOR;
 					}
 					pixelData.sprites.images.push_back(pixelValue);
@@ -114,7 +111,7 @@ namespace noa {
 			inputFile.close();
 		}
 		else {
-			Debug("Can't find the font assets file");
+			Debug::Error("Can't find the font assets file");
 			exit(-1);
 		}
 
@@ -133,45 +130,32 @@ namespace noa {
 			this->fonts[c] = result[i];
 			
 		}
-		Debug("Init font asset successfully");
-		//this->fonts = result;
-		//return result;
 	}
 
 	FontAsset::FontAsset(const char* ttfPath, int size)
 	{
-		//创建字体
-		// 初始化FreeType库
 		FT_Library ft;
 		if (FT_Init_FreeType(&ft)) {
-			// 处理初始化错误
-			Debug("Init FreeType failed");
+			Debug::Error("Init FreeType failed");
 			exit(-1);
 		}
 
-		// 加载字体文件
 		FT_Face face;
 		if (FT_New_Face(ft, ttfPath, 0, &face)) {
-			// 处理加载字体错误
-			Debug("Init FT_Face failed");
+			Debug::Error("Init FT_Face failed");
 			exit(-1);
 		}
 
-		// 设置字体大小（以像素为单位）
-		FT_Set_Pixel_Sizes(face, 0, size); // size像素大小
+		FT_Set_Pixel_Sizes(face, 0, size);
 
-		// 渲染文字
 		for (unsigned char c = 0; c < 128; c++) {
 			if (FT_Load_Char(face, c, FT_LOAD_RENDER)) {
-				// 处理字符加载错误
 				continue;
 			}
 
 			Font* font = new Font(CreateSpriteFromBitmap(&face->glyph->bitmap));
 			this->fonts[c] = font;
 		}
-
-		Debug("Init font asset successfully");
 
 	}
 
@@ -203,6 +187,7 @@ namespace noa {
 	{
 		delete this;
 	}
+
 
 	void NoaButton::SwapState()
 	{
@@ -343,7 +328,6 @@ namespace noa {
 					continue;
 				}
 				uiComponent[i]->Delete();
-				Debug("Remove UI component");
 			}
 		}
 	}

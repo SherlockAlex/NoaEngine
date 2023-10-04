@@ -16,7 +16,7 @@ namespace noa {
 
     GLRenderer::~GLRenderer() {
 
-        glDeleteProgram(shaderProgram); // 删除着色器程序
+        glDeleteProgram(shaderProgram);
         glDeleteVertexArrays(1, &VAO);
         glDeleteBuffers(1, &VBO);
         glDeleteBuffers(1, &EBO);
@@ -26,11 +26,10 @@ namespace noa {
     {
 
         if (glewInit() != GLEW_OK) {
-            Debug("Failed to initialize GLEW");
+            Debug::Error("Failed to initialize GLEW");
             exit(-1);
         }
 
-        // 创建和编译着色器程序
         GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
 
         glShaderSource(vertexShader, 1, &vertexShaderSource, nullptr);
@@ -150,11 +149,10 @@ namespace noa {
         this->context = SDL_GL_CreateContext(windows);
         if (context == nullptr) 
         {
-            Debug("Create GL Context failed");
+            Debug::Error("Create GL Context failed");
             exit(-1);
         }
         SDL_GL_SetSwapInterval(0);
-        Debug("Create GL Context successfully");
     }
 
     void GLRenderer::Present(SDL_Window* windows)

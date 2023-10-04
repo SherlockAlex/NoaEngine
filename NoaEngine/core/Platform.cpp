@@ -10,7 +10,7 @@ namespace noa {
 		int init = SDL_Init(SDL_INIT_EVERYTHING);
 		if (init != 0)
 		{
-			Debug("Game init failed");
+			Debug::Error("Game init failed");
 			exit(-1);
 		}
 	}

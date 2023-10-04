@@ -157,7 +157,7 @@ namespace noa {
 		uint32_t normalColor = WHITE;
 		uint32_t selectColor = LIGHTGRAY;
 		//°´¼üÊÂ¼þ
-		NoaEvent clickEvent;
+		NoaEvent<void> clickEvent;
 
 	private:
 		bool isSelect = false;

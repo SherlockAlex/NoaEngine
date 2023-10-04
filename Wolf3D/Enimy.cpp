@@ -17,7 +17,7 @@ Enimy::Enimy(Scene* scene, Sprite* sprite, Transform* player, LiveEntity* enimy)
 
 Enimy::~Enimy()
 {
-	Debug("Remove enimy");
+	
 }
 
 

@@ -1,202 +1,65 @@
 ﻿  Actor.cpp
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
 D:\Work\NoaEngine\packages\nupengl.core.0.1.0.1\build\native\include\GLFW\glfw3.h(92,1): message : 参见“APIENTRY”的前一个定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(206,1): warning C4005: “LOBYTE”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(33,1): message : 参见“LOBYTE”的前一个定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1859,1): warning C4005: “RGB”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(40,1): message : 参见“RGB”的前一个定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1870,1): warning C4005: “GetGValue”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(44,1): message : 参见“GetGValue”的前一个定义
   ActorComponent.cpp
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
 D:\Work\NoaEngine\packages\nupengl.core.0.1.0.1\build\native\include\GLFW\glfw3.h(92,1): message : 参见“APIENTRY”的前一个定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(206,1): warning C4005: “LOBYTE”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(33,1): message : 参见“LOBYTE”的前一个定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1859,1): warning C4005: “RGB”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(40,1): message : 参见“RGB”的前一个定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1870,1): warning C4005: “GetGValue”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(44,1): message : 参见“GetGValue”的前一个定义
   Animator.cpp
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
 D:\Work\NoaEngine\packages\nupengl.core.0.1.0.1\build\native\include\GLFW\glfw3.h(92,1): message : 参见“APIENTRY”的前一个定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(206,1): warning C4005: “LOBYTE”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(33,1): message : 参见“LOBYTE”的前一个定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1859,1): warning C4005: “RGB”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(40,1): message : 参见“RGB”的前一个定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1870,1): warning C4005: “GetGValue”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(44,1): message : 参见“GetGValue”的前一个定义
-D:\Work\NoaEngine\NoaEngine\core\Animator.cpp(163,65): warning C4244: “+=”: 从“double”转换到“float”，可能丢失数据
   Audio.cpp
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
 D:\Work\NoaEngine\packages\nupengl.core.0.1.0.1\build\native\include\GLFW\glfw3.h(92,1): message : 参见“APIENTRY”的前一个定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(206,1): warning C4005: “LOBYTE”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(33,1): message : 参见“LOBYTE”的前一个定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1859,1): warning C4005: “RGB”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(40,1): message : 参见“RGB”的前一个定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1870,1): warning C4005: “GetGValue”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(44,1): message : 参见“GetGValue”的前一个定义
   Camera.cpp
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
 D:\Work\NoaEngine\packages\nupengl.core.0.1.0.1\build\native\include\GLFW\glfw3.h(92,1): message : 参见“APIENTRY”的前一个定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(206,1): warning C4005: “LOBYTE”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(33,1): message : 参见“LOBYTE”的前一个定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1859,1): warning C4005: “RGB”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(40,1): message : 参见“RGB”的前一个定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1870,1): warning C4005: “GetGValue”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(44,1): message : 参见“GetGValue”的前一个定义
   Collider2D.cpp
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
 D:\Work\NoaEngine\packages\nupengl.core.0.1.0.1\build\native\include\GLFW\glfw3.h(92,1): message : 参见“APIENTRY”的前一个定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(206,1): warning C4005: “LOBYTE”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(33,1): message : 参见“LOBYTE”的前一个定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1859,1): warning C4005: “RGB”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(40,1): message : 参见“RGB”的前一个定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1870,1): warning C4005: “GetGValue”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(44,1): message : 参见“GetGValue”的前一个定义
   GLRenderer.cpp
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
 D:\Work\NoaEngine\packages\nupengl.core.0.1.0.1\build\native\include\GLFW\glfw3.h(92,1): message : 参见“APIENTRY”的前一个定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(40,1): warning C4005: “RGB”: 宏重定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1859,1): message : 参见“RGB”的前一个定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(44,1): warning C4005: “GetGValue”: 宏重定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1870,1): message : 参见“GetGValue”的前一个定义
-  GLTexture.cpp
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
-D:\Work\NoaEngine\packages\nupengl.core.0.1.0.1\build\native\include\GLFW\glfw3.h(92,1): message : 参见“APIENTRY”的前一个定义
-  Graphic.cpp
   InputSystem.cpp
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(206,1): warning C4005: “LOBYTE”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(33,1): message : 参见“LOBYTE”的前一个定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1859,1): warning C4005: “RGB”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(40,1): message : 参见“RGB”的前一个定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1870,1): warning C4005: “GetGValue”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(44,1): message : 参见“GetGValue”的前一个定义
   NoaAction.cpp
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
 D:\Work\NoaEngine\packages\nupengl.core.0.1.0.1\build\native\include\GLFW\glfw3.h(92,1): message : 参见“APIENTRY”的前一个定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(206,1): warning C4005: “LOBYTE”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(33,1): message : 参见“LOBYTE”的前一个定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1859,1): warning C4005: “RGB”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(40,1): message : 参见“RGB”的前一个定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1870,1): warning C4005: “GetGValue”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(44,1): message : 参见“GetGValue”的前一个定义
-D:\Work\NoaEngine\NoaEngine\core\NoaAction.cpp(10,43): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
-D:\Work\NoaEngine\NoaEngine\core\NoaAction.cpp(10,27): warning C4267: “初始化”: 从“size_t”转换到“const int”，可能丢失数据
   NoaEngine.cpp
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
 D:\Work\NoaEngine\packages\nupengl.core.0.1.0.1\build\native\include\GLFW\glfw3.h(92,1): message : 参见“APIENTRY”的前一个定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(206,1): warning C4005: “LOBYTE”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(33,1): message : 参见“LOBYTE”的前一个定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1859,1): warning C4005: “RGB”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(40,1): message : 参见“RGB”的前一个定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1870,1): warning C4005: “GetGValue”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(44,1): message : 参见“GetGValue”的前一个定义
-  NoaGUI.cpp
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(206,1): warning C4005: “LOBYTE”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(33,1): message : 参见“LOBYTE”的前一个定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1859,1): warning C4005: “RGB”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(40,1): message : 参见“RGB”的前一个定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1870,1): warning C4005: “GetGValue”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(44,1): message : 参见“GetGValue”的前一个定义
-D:\Work\NoaEngine\NoaEngine\core\NoaGUI.cpp(38,21): warning C4018: “<”: 有符号/无符号不匹配
-D:\Work\NoaEngine\NoaEngine\core\NoaGUI.cpp(39,22): warning C4018: “<”: 有符号/无符号不匹配
-  NoaMath.cpp
   Physics.cpp
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
 D:\Work\NoaEngine\packages\nupengl.core.0.1.0.1\build\native\include\GLFW\glfw3.h(92,1): message : 参见“APIENTRY”的前一个定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(206,1): warning C4005: “LOBYTE”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(33,1): message : 参见“LOBYTE”的前一个定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1859,1): warning C4005: “RGB”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(40,1): message : 参见“RGB”的前一个定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1870,1): warning C4005: “GetGValue”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(44,1): message : 参见“GetGValue”的前一个定义
   PhysicsSystem.cpp
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
 D:\Work\NoaEngine\packages\nupengl.core.0.1.0.1\build\native\include\GLFW\glfw3.h(92,1): message : 参见“APIENTRY”的前一个定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(206,1): warning C4005: “LOBYTE”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(33,1): message : 参见“LOBYTE”的前一个定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1859,1): warning C4005: “RGB”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(40,1): message : 参见“RGB”的前一个定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1870,1): warning C4005: “GetGValue”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(44,1): message : 参见“GetGValue”的前一个定义
   Platform.cpp
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
 D:\Work\NoaEngine\packages\nupengl.core.0.1.0.1\build\native\include\GLFW\glfw3.h(92,1): message : 参见“APIENTRY”的前一个定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(206,1): warning C4005: “LOBYTE”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(33,1): message : 参见“LOBYTE”的前一个定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1859,1): warning C4005: “RGB”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(40,1): message : 参见“RGB”的前一个定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1870,1): warning C4005: “GetGValue”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(44,1): message : 参见“GetGValue”的前一个定义
   Platform_Windows.cpp
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
 D:\Work\NoaEngine\packages\nupengl.core.0.1.0.1\build\native\include\GLFW\glfw3.h(92,1): message : 参见“APIENTRY”的前一个定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(206,1): warning C4005: “LOBYTE”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(33,1): message : 参见“LOBYTE”的前一个定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1859,1): warning C4005: “RGB”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(40,1): message : 参见“RGB”的前一个定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1870,1): warning C4005: “GetGValue”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(44,1): message : 参见“GetGValue”的前一个定义
-  Renderer.cpp
   Resource.cpp
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
 D:\Work\NoaEngine\packages\nupengl.core.0.1.0.1\build\native\include\GLFW\glfw3.h(92,1): message : 参见“APIENTRY”的前一个定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(206,1): warning C4005: “LOBYTE”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(33,1): message : 参见“LOBYTE”的前一个定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1859,1): warning C4005: “RGB”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(40,1): message : 参见“RGB”的前一个定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1870,1): warning C4005: “GetGValue”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(44,1): message : 参见“GetGValue”的前一个定义
-D:\Work\NoaEngine\NoaEngine\core\Resource.cpp(23,22): warning C4018: “<”: 有符号/无符号不匹配
-  正在编译...
   Scene.cpp
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
 D:\Work\NoaEngine\packages\nupengl.core.0.1.0.1\build\native\include\GLFW\glfw3.h(92,1): message : 参见“APIENTRY”的前一个定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(206,1): warning C4005: “LOBYTE”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(33,1): message : 参见“LOBYTE”的前一个定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1859,1): warning C4005: “RGB”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(40,1): message : 参见“RGB”的前一个定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1870,1): warning C4005: “GetGValue”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(44,1): message : 参见“GetGValue”的前一个定义
   Sprite.cpp
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
 D:\Work\NoaEngine\packages\nupengl.core.0.1.0.1\build\native\include\GLFW\glfw3.h(92,1): message : 参见“APIENTRY”的前一个定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(206,1): warning C4005: “LOBYTE”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(33,1): message : 参见“LOBYTE”的前一个定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1859,1): warning C4005: “RGB”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(40,1): message : 参见“RGB”的前一个定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1870,1): warning C4005: “GetGValue”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(44,1): message : 参见“GetGValue”的前一个定义
   SpriteRenderer.cpp
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
 D:\Work\NoaEngine\packages\nupengl.core.0.1.0.1\build\native\include\GLFW\glfw3.h(92,1): message : 参见“APIENTRY”的前一个定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(206,1): warning C4005: “LOBYTE”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(33,1): message : 参见“LOBYTE”的前一个定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1859,1): warning C4005: “RGB”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(40,1): message : 参见“RGB”的前一个定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1870,1): warning C4005: “GetGValue”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(44,1): message : 参见“GetGValue”的前一个定义
   StateMachine.cpp
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
 D:\Work\NoaEngine\packages\nupengl.core.0.1.0.1\build\native\include\GLFW\glfw3.h(92,1): message : 参见“APIENTRY”的前一个定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(206,1): warning C4005: “LOBYTE”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(33,1): message : 参见“LOBYTE”的前一个定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1859,1): warning C4005: “RGB”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(40,1): message : 参见“RGB”的前一个定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1870,1): warning C4005: “GetGValue”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(44,1): message : 参见“GetGValue”的前一个定义
   Texture.cpp
-  Time.cpp
-  Transform.cpp
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
+D:\Work\NoaEngine\packages\nupengl.core.0.1.0.1\build\native\include\GLFW\glfw3.h(92,1): message : 参见“APIENTRY”的前一个定义
+  正在编译...
   Bullet.cpp
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
 D:\Work\NoaEngine\packages\nupengl.core.0.1.0.1\build\native\include\GLFW\glfw3.h(92,1): message : 参见“APIENTRY”的前一个定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(206,1): warning C4005: “LOBYTE”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(33,1): message : 参见“LOBYTE”的前一个定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1859,1): warning C4005: “RGB”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(40,1): message : 参见“RGB”的前一个定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1870,1): warning C4005: “GetGValue”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(44,1): message : 参见“GetGValue”的前一个定义
 D:\Work\NoaEngine\Wolf3D\WolfResource.h(29,109): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
           with
           [
@@ -221,12 +84,6 @@ D:\Work\NoaEngine\Wolf3D\Bullet.cpp(10,21): warning C4305: “=”: 从“double
   Caco.cpp
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
 D:\Work\NoaEngine\packages\nupengl.core.0.1.0.1\build\native\include\GLFW\glfw3.h(92,1): message : 参见“APIENTRY”的前一个定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(206,1): warning C4005: “LOBYTE”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(33,1): message : 参见“LOBYTE”的前一个定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1859,1): warning C4005: “RGB”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(40,1): message : 参见“RGB”的前一个定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1870,1): warning C4005: “GetGValue”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(44,1): message : 参见“GetGValue”的前一个定义
 D:\Work\NoaEngine\Wolf3D\WolfResource.h(29,109): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
           with
           [
@@ -240,12 +97,6 @@ D:\Work\NoaEngine\Wolf3D\WolfResource.h(29,90): warning C4244: “参数”: 从
   CacoState.cpp
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
 D:\Work\NoaEngine\packages\nupengl.core.0.1.0.1\build\native\include\GLFW\glfw3.h(92,1): message : 参见“APIENTRY”的前一个定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(206,1): warning C4005: “LOBYTE”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(33,1): message : 参见“LOBYTE”的前一个定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1859,1): warning C4005: “RGB”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(40,1): message : 参见“RGB”的前一个定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1870,1): warning C4005: “GetGValue”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(44,1): message : 参见“GetGValue”的前一个定义
 D:\Work\NoaEngine\Wolf3D\WolfResource.h(29,109): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
           with
           [
@@ -264,40 +115,16 @@ D:\Work\NoaEngine\Wolf3D\CacoState.cpp(305,30): warning C4244: “=”: 从“do
   Enimy.cpp
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
 D:\Work\NoaEngine\packages\nupengl.core.0.1.0.1\build\native\include\GLFW\glfw3.h(92,1): message : 参见“APIENTRY”的前一个定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(206,1): warning C4005: “LOBYTE”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(33,1): message : 参见“LOBYTE”的前一个定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1859,1): warning C4005: “RGB”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(40,1): message : 参见“RGB”的前一个定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1870,1): warning C4005: “GetGValue”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(44,1): message : 参见“GetGValue”的前一个定义
   Gun.cpp
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
 D:\Work\NoaEngine\packages\nupengl.core.0.1.0.1\build\native\include\GLFW\glfw3.h(92,1): message : 参见“APIENTRY”的前一个定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(206,1): warning C4005: “LOBYTE”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(33,1): message : 参见“LOBYTE”的前一个定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1859,1): warning C4005: “RGB”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(40,1): message : 参见“RGB”的前一个定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1870,1): warning C4005: “GetGValue”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(44,1): message : 参见“GetGValue”的前一个定义
   Item.cpp
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
 D:\Work\NoaEngine\packages\nupengl.core.0.1.0.1\build\native\include\GLFW\glfw3.h(92,1): message : 参见“APIENTRY”的前一个定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(206,1): warning C4005: “LOBYTE”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(33,1): message : 参见“LOBYTE”的前一个定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1859,1): warning C4005: “RGB”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(40,1): message : 参见“RGB”的前一个定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1870,1): warning C4005: “GetGValue”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(44,1): message : 参见“GetGValue”的前一个定义
 D:\Work\NoaEngine\Wolf3D\Item.cpp(43,30): warning C4305: “*=”: 从“double”到“float”截断
   Level00.cpp
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
 D:\Work\NoaEngine\packages\nupengl.core.0.1.0.1\build\native\include\GLFW\glfw3.h(92,1): message : 参见“APIENTRY”的前一个定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(206,1): warning C4005: “LOBYTE”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(33,1): message : 参见“LOBYTE”的前一个定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1859,1): warning C4005: “RGB”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(40,1): message : 参见“RGB”的前一个定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1870,1): warning C4005: “GetGValue”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(44,1): message : 参见“GetGValue”的前一个定义
 D:\Work\NoaEngine\Wolf3D\WolfResource.h(29,109): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
           with
           [
@@ -334,12 +161,6 @@ D:\Work\NoaEngine\Wolf3D\Level00.cpp(134,53): warning C4244: “参数”: 从�
   Level01.cpp
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
 D:\Work\NoaEngine\packages\nupengl.core.0.1.0.1\build\native\include\GLFW\glfw3.h(92,1): message : 参见“APIENTRY”的前一个定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(206,1): warning C4005: “LOBYTE”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(33,1): message : 参见“LOBYTE”的前一个定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1859,1): warning C4005: “RGB”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(40,1): message : 参见“RGB”的前一个定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1870,1): warning C4005: “GetGValue”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(44,1): message : 参见“GetGValue”的前一个定义
 D:\Work\NoaEngine\Wolf3D\WolfResource.h(29,109): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
           with
           [
@@ -376,21 +197,9 @@ D:\Work\NoaEngine\Wolf3D\Level01.cpp(131,53): warning C4244: “参数”: 从�
   LiveEntity.cpp
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
 D:\Work\NoaEngine\packages\nupengl.core.0.1.0.1\build\native\include\GLFW\glfw3.h(92,1): message : 参见“APIENTRY”的前一个定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(206,1): warning C4005: “LOBYTE”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(33,1): message : 参见“LOBYTE”的前一个定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1859,1): warning C4005: “RGB”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(40,1): message : 参见“RGB”的前一个定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1870,1): warning C4005: “GetGValue”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(44,1): message : 参见“GetGValue”的前一个定义
   M4A1.cpp
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
 D:\Work\NoaEngine\packages\nupengl.core.0.1.0.1\build\native\include\GLFW\glfw3.h(92,1): message : 参见“APIENTRY”的前一个定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(206,1): warning C4005: “LOBYTE”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(33,1): message : 参见“LOBYTE”的前一个定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1859,1): warning C4005: “RGB”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(40,1): message : 参见“RGB”的前一个定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1870,1): warning C4005: “GetGValue”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(44,1): message : 参见“GetGValue”的前一个定义
 D:\Work\NoaEngine\Wolf3D\WolfResource.h(29,109): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
           with
           [
@@ -413,24 +222,9 @@ D:\Work\NoaEngine\Wolf3D\M4A1.cpp(50,21): warning C4244: “参数”: 从“dou
               T=int
           ]
 D:\Work\NoaEngine\Wolf3D\M4A1.cpp(68,46): warning C4244: “参数”: 从“double”转换到“float”，可能丢失数据
-  main.cpp
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
-D:\Work\NoaEngine\packages\nupengl.core.0.1.0.1\build\native\include\GLFW\glfw3.h(92,1): message : 参见“APIENTRY”的前一个定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(206,1): warning C4005: “LOBYTE”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(33,1): message : 参见“LOBYTE”的前一个定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1859,1): warning C4005: “RGB”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(40,1): message : 参见“RGB”的前一个定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1870,1): warning C4005: “GetGValue”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(44,1): message : 参见“GetGValue”的前一个定义
   MainMenuLevel.cpp
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
 D:\Work\NoaEngine\packages\nupengl.core.0.1.0.1\build\native\include\GLFW\glfw3.h(92,1): message : 参见“APIENTRY”的前一个定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(206,1): warning C4005: “LOBYTE”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(33,1): message : 参见“LOBYTE”的前一个定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1859,1): warning C4005: “RGB”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(40,1): message : 参见“RGB”的前一个定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1870,1): warning C4005: “GetGValue”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(44,1): message : 参见“GetGValue”的前一个定义
 D:\Work\NoaEngine\Wolf3D\WolfResource.h(29,109): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
           with
           [
@@ -454,12 +248,6 @@ D:\Work\NoaEngine\Wolf3D\MainMenuLevel.cpp(41,42): warning C4244: “=”: 从�
   Pistol.cpp
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
 D:\Work\NoaEngine\packages\nupengl.core.0.1.0.1\build\native\include\GLFW\glfw3.h(92,1): message : 参见“APIENTRY”的前一个定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(206,1): warning C4005: “LOBYTE”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(33,1): message : 参见“LOBYTE”的前一个定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1859,1): warning C4005: “RGB”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(40,1): message : 参见“RGB”的前一个定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1870,1): warning C4005: “GetGValue”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(44,1): message : 参见“GetGValue”的前一个定义
 D:\Work\NoaEngine\Wolf3D\WolfResource.h(29,109): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
           with
           [
@@ -482,16 +270,9 @@ D:\Work\NoaEngine\Wolf3D\Pistol.cpp(54,21): warning C4244: “参数”: 从“d
               T=int
           ]
 D:\Work\NoaEngine\Wolf3D\Pistol.cpp(72,47): warning C4244: “参数”: 从“double”转换到“float”，可能丢失数据
-  正在编译...
   Player.cpp
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
 D:\Work\NoaEngine\packages\nupengl.core.0.1.0.1\build\native\include\GLFW\glfw3.h(92,1): message : 参见“APIENTRY”的前一个定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(206,1): warning C4005: “LOBYTE”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(33,1): message : 参见“LOBYTE”的前一个定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1859,1): warning C4005: “RGB”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(40,1): message : 参见“RGB”的前一个定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1870,1): warning C4005: “GetGValue”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(44,1): message : 参见“GetGValue”的前一个定义
 D:\Work\NoaEngine\Wolf3D\Player.cpp(7,34): warning C4305: “参数”: 从“double”到“T”截断
           with
           [
@@ -522,12 +303,6 @@ D:\Work\NoaEngine\Wolf3D\Player.cpp(170,34): warning C4267: “=”: 从“size_
   Shotgun.cpp
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
 D:\Work\NoaEngine\packages\nupengl.core.0.1.0.1\build\native\include\GLFW\glfw3.h(92,1): message : 参见“APIENTRY”的前一个定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(206,1): warning C4005: “LOBYTE”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(33,1): message : 参见“LOBYTE”的前一个定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1859,1): warning C4005: “RGB”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(40,1): message : 参见“RGB”的前一个定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1870,1): warning C4005: “GetGValue”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(44,1): message : 参见“GetGValue”的前一个定义
 D:\Work\NoaEngine\Wolf3D\WolfResource.h(29,109): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
           with
           [
@@ -553,12 +328,6 @@ D:\Work\NoaEngine\Wolf3D\Shotgun.cpp(72,47): warning C4244: “参数”: 从“
   WolfResource.cpp
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
 D:\Work\NoaEngine\packages\nupengl.core.0.1.0.1\build\native\include\GLFW\glfw3.h(92,1): message : 参见“APIENTRY”的前一个定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(206,1): warning C4005: “LOBYTE”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(33,1): message : 参见“LOBYTE”的前一个定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1859,1): warning C4005: “RGB”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(40,1): message : 参见“RGB”的前一个定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\wingdi.h(1870,1): warning C4005: “GetGValue”: 宏重定义
-D:\Work\NoaEngine\NoaEngine\core\Graphic.h(44,1): message : 参见“GetGValue”的前一个定义
 D:\Work\NoaEngine\Wolf3D\WolfResource.h(29,109): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
           with
           [
@@ -569,8 +338,13 @@ D:\Work\NoaEngine\Wolf3D\WolfResource.h(29,90): warning C4244: “参数”: 从
           [
               T=int
           ]
+  main.cpp
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
+D:\Work\NoaEngine\packages\nupengl.core.0.1.0.1\build\native\include\GLFW\glfw3.h(92,1): message : 参见“APIENTRY”的前一个定义
+LINK : warning LNK4098: 默认库“MSVCRT”与其他库的使用冲突；请使用 /NODEFAULTLIB:library
   正在生成代码
-  Previous IPDB not found, fall back to full compilation.
-  All 3261 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  23 of 3423 functions ( 0.7%) were compiled, the rest were copied from previous compilation.
+    2 functions were new in current compilation
+    4 functions had inline decision re-evaluated but remain unchanged
   已完成代码的生成
   Wolf3D.vcxproj -> D:\Work\NoaEngine\x64\Release\Wolf3D.exe

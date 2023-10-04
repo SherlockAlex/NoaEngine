@@ -10,7 +10,7 @@ Caco::Caco(Scene* scene, Sprite* sprite, Transform* player, LiveEntity* enimy) :
 {
 	if (player == nullptr) 
 	{
-		Debug("Get player error");
+		
 		exit(-1);
 	}
 	
@@ -53,7 +53,7 @@ Caco::Caco(Scene* scene, Sprite* sprite, Transform* player, LiveEntity* enimy) :
 Caco::~Caco()
 {
 	//Enimy::~Enimy();
-	Debug("Remove Caco");
+	
 }
 
 Caco* Caco::Create(Scene* scene, Sprite* sprite, Transform* player, LiveEntity* enimy)

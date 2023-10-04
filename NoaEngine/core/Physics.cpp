@@ -13,7 +13,6 @@ using namespace std;
 
 namespace noa 
 {
-	//检测rigid是否和其他刚体相撞，如果相撞就返回
 	float gravityAcceration = 9.81f;
 	
 	unordered_map<size_t, bool> isCheckCollision;
@@ -28,18 +27,14 @@ namespace noa
 		this->actor = actor;
 		this->velocity = { 0,0 };
 		invMass = 1.0f / mass;
-		//actor->GetActiveScene()->AddRigidbody(this);
 		actor->AddRigidbody(this);
 		colliders.reserve(10);
 	}
 
-	// 初始化静态计数器
 	size_t Rigidbody::nextId = 0;
 
 	Rigidbody::~Rigidbody()
 	{
-		Debug("Destory rigidBody");
-
 		if (!colliders.empty()) 
 		{
 			for (auto & collider:colliders) 
@@ -55,7 +50,6 @@ namespace noa
 
 	}
 
-	//实现物理效果
 	void Rigidbody::Update(float deltaTime)
 	{
 
@@ -71,12 +65,13 @@ namespace noa
 
 		if (useMotion)
 		{
-			//处理力和速度的关系，同时计算下一帧的位置信息
 			velocity = (velocity * (1 - damping)) + (sumForce * (deltaTime * invMass));
 			newPosition = (this->actor->transform.position) + (velocity * deltaTime);
 			
 			ApplyCollision();
 		}
+
+		sumForce = {};
 
 	}
 
@@ -95,7 +90,6 @@ namespace noa
 		}
 		collision.isHitCollisionTile = false;
 
-		//更新位置
 		if (useMotion && (!isFrozen)&&actor!=nullptr)
 		{
 			collision.isGrounded = false;
@@ -128,7 +122,7 @@ namespace noa
 		this->tileMap = map;
 		if (this->tileMap==nullptr)
 		{
-			Debug("Load tile map failed");
+			Debug::Error("Load tile map failed");
 			exit(-1);
 		}
 	}
@@ -224,10 +218,7 @@ namespace noa
 
 	void Rigidbody::Destroy()
 	{
-		Debug("Remove rigidbody");
-		//会出现这个已经被销毁，但还是被访问
 		this->isRemoved = true;
-		//this->actor->GetActiveScene()->RemoveRigidbody(this);
 	}
 
 	int Rigidbody::GetIndexInMap() const

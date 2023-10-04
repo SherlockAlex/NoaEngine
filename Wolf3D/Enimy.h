@@ -13,7 +13,7 @@ public:
 	CircleCollider2D* collider = CircleCollider2D::Create(this, rigid);
 	Transform* player = nullptr;
 	StateMachine* fsm = StateMachine::Create(this);
-	NoaEvent deathEvent;
+	NoaEvent<void> deathEvent;
 	Animation* currentAnimation = nullptr;
 	LiveEntity* enimy = nullptr;
 

@@ -7,9 +7,7 @@ namespace noa {
 	{
 	public:
 		Vector<float> position = {0,0};
-		//the euler angle in the world with behaviour
 		float eulerAngle = 0.0;
-		//the height information with behaviour
 		float posZ = 0.0;
 	};
 

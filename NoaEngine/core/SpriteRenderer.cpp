@@ -51,10 +51,9 @@ void noa::SpriteRenderer::SetSprite(Sprite* sprite)
 
 	if (spriteGPU == nullptr) 
 	{
-		//this->spriteGPU = new SpriteGPU(sprite);
+		
 		return;
 	}
-	//spriteGPU->Update(sprite);
 	
 }
 
@@ -62,7 +61,7 @@ void noa::SpriteRenderer::Update()
 {
 	if (sprite == nullptr) 
 	{
-		noa::Debug("The sprite of SpriteRenderer is null");
+		noa::Debug::Warring("The sprite of SpriteRenderer is null");
 		return;
 	}
 

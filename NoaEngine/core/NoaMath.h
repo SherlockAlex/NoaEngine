@@ -105,14 +105,12 @@ namespace noa {
 		}
 		T operator * (const Vector & a) const
 		{
-			//向量点乘
 			T result = x * a.x + y * a.y;
 			return result;
 		}
 
 		Vector operator * (T a) const
 		{
-			//向量乘常数
 			Vector result;
 			result.x = this->x * a;
 			result.y = this->y * a;

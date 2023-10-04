@@ -45,6 +45,7 @@ void Level00::Awake()
 
 	player = Player::Create(this);
 	camera.SetFollow(&player->transform);
+
 	mapCamera.SetFollow(&player->transform);
 	mapCamera.SetTileScale(Vector<int>(32, 32));
 
@@ -146,7 +147,7 @@ void Level00::Unload()
 	if (map!=nullptr)
 	{
 		delete map;
-		Debug("–∂‘ÿ≥°æ∞≥…π¶");
+		
 	}
 
 }

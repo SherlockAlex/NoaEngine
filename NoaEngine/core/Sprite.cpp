@@ -64,7 +64,7 @@ namespace noa {
 
 	Sprite::~Sprite()
 	{
-		Debug("Remove sprite successfully");
+		
 	}
 
 	std::vector<uint32_t> Sprite::GetImage()
@@ -293,7 +293,6 @@ namespace noa {
 
 	SpriteGPU::~SpriteGPU()
 	{
-		//SDL_DestroyTexture(sdlTexture);
 		if (texture!=nullptr) 
 		{
 			delete texture;

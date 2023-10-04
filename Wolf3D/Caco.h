@@ -13,7 +13,7 @@ class Caco final:public Enimy
 
 public:
 	Sprite* item = nullptr;
-	NoaEvent itemPickEvent;
+	NoaEvent<void> itemPickEvent;
 private:
 
 	Caco(Scene * scene,Sprite* sprite, Transform* player,LiveEntity * enimy);

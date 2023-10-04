@@ -33,8 +33,6 @@ public:
 		pos.x = static_cast<float>(inputSystem.GetMousePosition().x);
 		pos.y = static_cast<float>(inputSystem.GetMousePosition().y);
 
-		//Debug(to_string(pos.x) + ":" + to_string(pos.y));
-
 		if (inputSystem.GetMouseButton(MouseButton::LEFT_BUTTON)) 
 		{
 			eulerAngle += (100*Time::deltaTime);
@@ -48,7 +46,7 @@ public:
 		sprite.UpdateImage(animation->GetCurrentFrameImage());
 		//sprite.DrawSprite(pos.x, pos.y, true,true);
 		spriteGPU->DrawSprite(pos.x, pos.y, true,eulerAngle);
-		Debug(to_string(1.0/Time::deltaTime));
+		Debug::Warring(to_string(1.0/Time::deltaTime));
 		//spriteGPU.DrawSprite(0.5 * pixelWidth, pixelHeight - sprite.scale.y, true);
 		//renderer->DrawString("FPS:" + to_string(1.0 / Time::deltaTime), 10, 10, WHITE, 0.05 * pixelWidth);
 	}

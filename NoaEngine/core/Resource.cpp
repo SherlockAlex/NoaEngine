@@ -11,7 +11,6 @@ namespace noa {
 	SpriteFile Resource::LoadSprFile(const char* file) const
 	{
 		SpriteFile spriteFile;
-		//spriteFile.images = nullptr;
 
 		std::ifstream input(file, std::ios::binary);
 		if (input)
@@ -19,13 +18,11 @@ namespace noa {
 			uint32_t imagesCount;
 			input.read(reinterpret_cast<char*>(&imagesCount), sizeof(uint32_t));
 
-			//spriteFile.images = new uint32_t[imagesCount];
 			for (uint32_t i = 0; i < imagesCount; ++i)
 			{
 				uint32_t imageValue;
 				input.read(reinterpret_cast<char*>(&imageValue), sizeof(uint32_t));
 				spriteFile.images.push_back(imageValue);
-				//input.read(reinterpret_cast<char*>(&spriteFile.images[i]), sizeof(uint32_t));
 			}
 
 			input.read(reinterpret_cast<char*>(&spriteFile.x), sizeof(int));
@@ -37,8 +34,7 @@ namespace noa {
 		}
 		else
 		{
-			Debug("∂¡»° ß∞‹£∫" + string(file));
-			//std::cerr << "∂¡»° ß∞‹£∫" << file << std::endl;
+			Debug::Warring("∂¡»° ß∞‹£∫" + string(file));
 		}
 
 		return spriteFile;
@@ -50,7 +46,7 @@ namespace noa {
 
 		std::ifstream inputFile(file, std::ios::binary);
 		if (!inputFile) {
-			Debug("Opening file: " + string(file) + " error");
+			Debug::Error("Opening file: " + string(file) + " error");
 			exit(-1);
 		}
 
@@ -123,8 +119,7 @@ namespace noa {
 		std::ifstream file(filename);
 		if (!file.is_open())
 		{
-			Debug("Failed to open file: " + filename);
-			//std::cout << "Failed to open file: " << filename << std::endl;
+			Debug::Warring("Failed to open file: " + filename);
 			return map;
 		}
 
@@ -150,8 +145,6 @@ namespace noa {
 			}
 			else if (col != map.w)
 			{
-				Debug("Invalid row width at line: " + to_string(row));
-				//std::cout << "Invalid row width at line: " << row << std::endl;
 				map.image.clear();
 				break;
 			}
@@ -179,8 +172,6 @@ namespace noa {
 		{
 			int tileCount;
 			inputFile.read(reinterpret_cast<char*>(&tileCount), sizeof(int));
-
-			Debug("tile set size:" + to_string(tileCount));
 
 			for (int i = 0; i < tileCount; i++)
 			{
@@ -214,8 +205,6 @@ namespace noa {
 			result[data.id] = tile;
 		}
 
-		Debug("Init tileset successfully");
-
 		return result;
 	}
 
@@ -238,7 +227,7 @@ namespace noa {
 
 	Tile::~Tile()
 	{
-		Debug("Free tile successfully");
+		
 	}
 
 	BinaryFile::BinaryFile(const char* fileName,Mode mode)
@@ -268,7 +257,7 @@ namespace noa {
 	{
 		if (ifile)
 		{
-			Debug("read data from file failed");
+			Debug::Error("read data from file failed");
 			exit(-1);
 		}
 		T value;
@@ -281,7 +270,7 @@ namespace noa {
 	{
 		if (ofile)
 		{
-			Debug("write data to file failed");
+			Debug::Log("write data to file failed");
 			return false;
 		}
 		T data = value;

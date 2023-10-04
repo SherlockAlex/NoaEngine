@@ -4,11 +4,6 @@
 
 using namespace std;
 
-namespace noa {
-
-	
-}
-
 noa::ActorComponent::ActorComponent(noa::Actor* actor)
 {
 	actor->AddComponent(this);
@@ -17,7 +12,7 @@ noa::ActorComponent::ActorComponent(noa::Actor* actor)
 
 noa::ActorComponent::~ActorComponent()
 {
-	noa::Debug("Remove component");
+	
 }
 
 noa::ActorComponent* noa::ActorComponent::Create(noa::Actor* actor)

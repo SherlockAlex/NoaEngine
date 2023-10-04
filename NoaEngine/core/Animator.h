@@ -22,8 +22,6 @@
 namespace noa {
 	typedef unsigned int Uint32;
 
-	//出现了问题，必须重构
-
 	typedef struct AnimationFrame {
 		std::vector<SpriteFile> framesImage;
 
@@ -33,24 +31,18 @@ namespace noa {
 			for (const SpriteFile& frame : animatorFile.data)
 			{
 				framesImage.push_back(frame);
-				//InsertFrameImage(frame);
 			}
 		}
 
 	}AnimationFrame;
 
-	//动画器
 	class Animation:public ActorComponent
 	{
 	private:
-		//framesImage可以通过复用降低内存消耗
-		//vector<SpriteFile> framesImage;
 		AnimationFrame* frameData = nullptr;
-		std::unordered_map<Uint32,NoaEvent> framesEvent;
-		//unordered_map<Uint32, function<void()>> framesEvent;
+		std::unordered_map<Uint32, NoaEvent<void>> framesEvent;
 		SpriteFile currentFrame;
 		bool isPlaying = false;
-		//动画播放速度
 		float speed = 7;
 		float i = 0;
 		bool loop = false;
@@ -68,13 +60,11 @@ namespace noa {
 		void Delete() override;
 		
 		void SetFrame(AnimationFrame * frame);
-		//void LoadFromAnimationFile(const char* filePath);
 		SpriteFile& GetCurrentFrameImage();
 		SpriteFile& GetFrameImage(int frame);
 		void SetFrameEvent(int frame, std::function<void()> e);
 		void Play(int frame);
 		void Play();
-		//void InsertFrameImage(const SpriteFile & frameImage);
 		void Reset();
 		
 		void Start() override;
@@ -97,7 +87,6 @@ namespace noa {
 		void OnExit() override;
 	};
 
-	//动画状态机
 	class Animator:public StateMachine
 	{
 	public:

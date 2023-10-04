@@ -62,36 +62,6 @@ namespace noa {
 
 	};
 
-
-
-#ifdef _WIN64
-
-	//class Platform_OGL :public Platform {
-
-	//private:
-	//	GLFWwindow* window;
-
-	//	GLTexture* mainTexture;
-	//	//GLRenderer* mainRenderer;
-
-	//public:
-	//	Platform_OGL();
-	//	~Platform_OGL();
-
-	//	int Create(int width, int height,
-	//			WINDOWMODE windowMode,
-	//			std::string gameName) override;
-
-	//	bool CheckWindowClose() override;
-
-	//	int SystemLoop() override;
-
-	//	int PresentWindow() override;
-
-	//};
-
-#endif // _WIN64
-
 }
 
 

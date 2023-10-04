@@ -279,7 +279,6 @@ namespace noa {
 
 		texture = renderer->CreateTexture(width,height,pixelBuffer);
 
-		//处理音频设备初始化
 		if (Mix_OpenAudio(
 			MIX_DEFAULT_FREQUENCY,
 			MIX_DEFAULT_FORMAT,
@@ -287,7 +286,7 @@ namespace noa {
 			4096
 		) == -1)
 		{
-			Debug("Init audio device failed");
+			Debug::Error("Init audio device failed");
 			exit(-1);
 		}
 
@@ -306,12 +305,8 @@ namespace noa {
 	{
 		
 		Start();
-		
-		//thread t = thread([this]() {this->EventLoop(); });
 
 		this->EngineThread();
-
-		//t.join();
 
 		Quit();
 
@@ -333,12 +328,16 @@ namespace noa {
 				Time::time = 0;
 			}
 
-			while (SDL_PollEvent(&inputSystem.ioEvent))
+			while (SDL_PollEvent(&inputSystem.e))
 			{
-				inputSystem.Update();
-				if (inputSystem.ioEvent.type == SDL_QUIT)
+				switch (inputSystem.e.type)
 				{
+				case SDL_QUIT:
 					Quit();
+					break;
+				default:
+					inputSystem.Update();
+					break;
 				}
 			}
 
@@ -377,12 +376,16 @@ namespace noa {
 	void NoaEngine::EventLoop()
 	{
 		
-		while (SDL_WaitEvent(&inputSystem.ioEvent))
+		while (SDL_WaitEvent(&inputSystem.e))
 		{
-			inputSystem.Update();
-			if (inputSystem.ioEvent.type == SDL_QUIT)
+			switch (inputSystem.e.type)
 			{
+			case SDL_QUIT:
 				Quit();
+				break;
+			default:
+				inputSystem.Update();
+				break;
 			}
 		}
 	}
@@ -396,36 +399,6 @@ namespace noa {
 	}
 
 #pragma endregion
-
-	
-
-
-	void Debug(std::string msg)
-	{
-		/*std::time_t current_time = std::time(nullptr);
-
-		char time_string[100];
-		std::strftime(time_string, sizeof(time_string), "%Y-%m-%d %H:%M:%S", std::localtime(&current_time));
-		cout << "[INFO " << time_string << "]:" << msg << endl;*/
-
-		// 获取当前时间点
-		auto current_time = std::chrono::system_clock::now();
-
-		// 将当前时间转换为时间戳
-		std::time_t current_time_t = std::chrono::system_clock::to_time_t(current_time);
-
-
-		// 使用 std::put_time 格式化输出时间
-		cout << "[INFO " << current_time_t << "]:" << msg << endl;
-
-	}
-
-
-
-
-
-
-
 
 }
 

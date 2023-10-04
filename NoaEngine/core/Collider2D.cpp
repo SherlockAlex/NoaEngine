@@ -2,7 +2,6 @@
 
 noa::Cell* noa::Grid::GetCell(int x, int y)
 {
-	// TODO: 在此处插入 return 语句
 	return &cells[y * width + x];
 }
 
@@ -56,7 +55,6 @@ void noa::CircleCollider2D::Update()
 	{
 		return;
 	}
-	//将rigidbody传入对应的cell里面
 	const int x = static_cast<int>(actor->transform.position.x+0.5);
 	const int y = static_cast<int>(actor->transform.position.y+0.5);
 	PhysicsSystem::grid.GetCell(x, y)->colliders.push_back(this);

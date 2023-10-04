@@ -96,27 +96,21 @@ namespace noa {
 #endif // _WIN64
 	};
 
-	typedef struct MouseInput {
+	typedef struct MouseEvent {
 		Vector<double> position;
 		Vector<double> delta;
 		Vector<double> wheel;
 
 		bool motion = false;
 
-	}MouseInput;
+	}MouseEvent;
 
 	class InputSystem final
 	{
 	public:
-		SDL_Event ioEvent;
+		SDL_Event e = {};
 	private:
-
-		MouseInput mouseInput;
-
-		//鼠标的位置信息
-		double mouseX = 0;
-		double mouseY = 0;
-
+		MouseEvent mouseEvent;
 	public:
 		void Update();
 		InputSystem();
@@ -127,22 +121,12 @@ namespace noa {
 		bool GetKeyDown(KeyCode key);
 		bool GetMouseMoveState();
 
-		/*
-		x > 0 鼠标向右移动 : x
-		x < 0 鼠标向左移动 : -x
-		y > 0 鼠标向下移动 : y
-		y < 0 鼠标向上移动 : -y
-		*/
 		void SetRelativeMouseMode(bool mode);
 		Vector<double> & GetMouseMoveDelta();
 		Vector<double> & GetMousePosition();
 		Vector<double> & GetMouseWheel();
 
 		bool GetMouseButton(MouseButton mouseButton);
-
-	public:
-		static Vector<double> scroll;
-		static bool mouseWheelEventReceived;
 
 	};
 

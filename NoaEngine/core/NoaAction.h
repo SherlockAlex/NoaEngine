@@ -11,30 +11,50 @@
 
 namespace noa 
 {
-	class NoaEvent
+	template<typename ...Args>
+	class NoaEvent 
+	{
+	private:
+		std::vector<std::function<void(Args...)>> functions;
+	public:
+
+		void Invoke(Args... args)
+		{
+			const int functionCount = static_cast<int>(functions.size());
+			for (int i = 0; i < functionCount; i++)
+			{
+				functions[i](args);
+			}
+		}
+
+		//订阅事件
+		void operator += (std::function<void(Args...)> func) {
+			functions.push_back(func);
+		}
+
+	};
+
+	template<>
+	class NoaEvent<void>
 	{
 	private:
 		std::vector<std::function<void()>> functions;
 	public:
-		
-		//执行事件
-		void Invoke();
 
-		//订阅事件
-		void operator += (std::function<void()> func);
-
-		//注销事件
-		void operator -= (std::function<void()> func)
+		void Invoke()
 		{
-			/*auto it = std::find(functions.begin(), functions.end(), func);
-			if (it != functions.end())
+			const int functionCount = static_cast<int>(functions.size());
+			for (int i = 0; i < functionCount; i++)
 			{
-				functions.erase(it);
-			}*/
+				functions[i]();
+			}
 		}
 
+		void operator += (std::function<void()> func) {
+			functions.push_back(func);
+		}
 	};
-	
+
 }
 
 

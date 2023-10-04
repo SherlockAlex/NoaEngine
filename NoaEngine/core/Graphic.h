@@ -54,16 +54,6 @@ namespace noa {
 					GetAValue(color));
 	}
 
-	/*extern unsigned char LOBYTE(unsigned int w);
-	extern unsigned int BGR(unsigned int color);
-	extern unsigned int RGB(unsigned char r, unsigned char g, unsigned char b);
-	extern unsigned char GetRValue(unsigned int rgb);
-	extern unsigned char GetGValue(unsigned int rgb);
-	extern unsigned char GetBValue(unsigned int rgb);
-	extern unsigned int RGBA(unsigned char r, unsigned char g, unsigned char b, unsigned char a);
-	extern unsigned char GetAValue(unsigned int argb);
-	extern unsigned int MULTICOLOR(unsigned int color, unsigned int mutiColor);*/
-
 	enum Color : unsigned int {
 		BLACK = 0xFF000000,
 		BLUE = 0xFFAA0000,

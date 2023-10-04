@@ -57,7 +57,9 @@ namespace noa {
 		//用于物体之间的碰撞检测
 		int indexInMap = -1;
 		TileMap* tileMap = nullptr;
+		
 		Vector<float> sumForce = Vector<float>(0.0, 0.0);
+
 		float invMass = 1;
 		bool active = true;
 

@@ -30,18 +30,12 @@ namespace noa {
 		}
 		
 		stateList.clear();
-		Debug("Remove finite state machine");
 	}
 
 	StateMachine* StateMachine::Create(Actor* actor)
 	{
 		return new StateMachine(actor);
 	}
-
-	/*StateMachine* StateMachine::Create(vector<shared_ptr<State>> stateList)
-	{
-		return new StateMachine(stateList);
-	}*/
 
 	void StateMachine::Delete()
 	{

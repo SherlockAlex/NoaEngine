@@ -6,8 +6,6 @@ using namespace std;
 
 namespace noa {
 	InputSystem inputSystem;
-	bool InputSystem::mouseWheelEventReceived = false;
-	Vector<double> InputSystem::scroll = { 0.0,0.0 };
 }
 
 
@@ -22,30 +20,30 @@ Display* display = nullptr;
 void noa::InputSystem::Update()
 {
 
-	if (ioEvent.type == SDL_MOUSEMOTION)
+	if (e.type == SDL_MOUSEMOTION)
 	{
-		mouseInput.delta.x += static_cast<double>(ioEvent.motion.xrel);
-		mouseInput.delta.y += static_cast<double>(ioEvent.motion.yrel);
+		mouseEvent.delta.x += static_cast<double>(e.motion.xrel);
+		mouseEvent.delta.y += static_cast<double>(e.motion.yrel);
 	}
 	else {
-		mouseInput.delta = { 0,0 };
+		mouseEvent.delta = { 0,0 };
 	}
 
 
-	mouseInput.motion = (ioEvent.type == SDL_MOUSEMOTION);
+	mouseEvent.motion = (e.type == SDL_MOUSEMOTION);
 
-	if (ioEvent.type != SDL_MOUSEWHEEL)
+	if (e.type != SDL_MOUSEWHEEL)
 	{
-		mouseInput.wheel = { 0,0 };
+		mouseEvent.wheel = { 0,0 };
 	}
 	else {
-		mouseInput.wheel.x = ioEvent.wheel.x;
-		mouseInput.wheel.y = ioEvent.wheel.y;
+		mouseEvent.wheel.x = e.wheel.x;
+		mouseEvent.wheel.y = e.wheel.y;
 	}
 
 
-	mouseInput.position.x = ioEvent.motion.x;
-	mouseInput.position.y = ioEvent.motion.y;
+	mouseEvent.position.x = e.motion.x;
+	mouseEvent.position.y = e.motion.y;
 
 
 
@@ -53,8 +51,7 @@ void noa::InputSystem::Update()
 
 noa::InputSystem::InputSystem()
 {
-
-	// 开启相对鼠标模式
+	SDL_PollEvent(&e);
 #ifdef __linux
 
 	display = XOpenDisplay(nullptr);
@@ -71,7 +68,6 @@ noa::InputSystem::~InputSystem()
 }
 
 bool noa::InputSystem::GetKeyHold(noa::KeyCode key) {
-	//监听按键是否按住
 
 #ifdef _WIN64
 	if (GetAsyncKeyState((unsigned short)key) & 0x8000) {
@@ -100,7 +96,6 @@ bool noa::InputSystem::GetKeyHold(noa::KeyCode key) {
 
 bool noa::InputSystem::GetKeyDown(noa::KeyCode key)
 {
-	//检测按键按下瞬间
 #ifdef _WIN64
 	if (GetAsyncKeyState((unsigned short)key) & 1) {
 		return true;
@@ -128,7 +123,7 @@ bool noa::InputSystem::GetKeyDown(noa::KeyCode key)
 
 bool noa::InputSystem::GetMouseMoveState()
 {
-	return ioEvent.type == SDL_MOUSEMOTION;
+	return e.type == SDL_MOUSEMOTION;
 }
 
 void noa::InputSystem::SetRelativeMouseMode(bool mode)
@@ -141,15 +136,15 @@ noa::Vector<double> delta;
 noa::Vector<double>& noa::InputSystem::GetMouseMoveDelta()
 {
 
-	delta = mouseInput.delta;
-	mouseInput.delta = { 0,0 };
+	delta = mouseEvent.delta;
+	mouseEvent.delta = { 0,0 };
 	return delta;
 
 }
 
 noa::Vector<double>& noa::InputSystem::GetMousePosition()
 {
-	return mouseInput.position;
+	return mouseEvent.position;
 }
 
 
@@ -157,8 +152,8 @@ noa::Vector<double> wheel;
 noa::Vector<double>& noa::InputSystem::GetMouseWheel()
 {
 
-	wheel = mouseInput.wheel;
-	mouseInput.wheel = { 0,0 };
+	wheel = mouseEvent.wheel;
+	mouseEvent.wheel = { 0,0 };
 	return wheel;
 }
 

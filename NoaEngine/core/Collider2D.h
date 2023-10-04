@@ -14,7 +14,7 @@ namespace noa
 
 	protected:
 		Collider2D(Actor* actor, Rigidbody* rigidbody);
-		virtual ~Collider2D();
+		virtual ~Collider2D() override;
 
 	public:
 		static Collider2D* Create(Actor * actor,Rigidbody * rigidbody);
@@ -29,7 +29,7 @@ namespace noa
 		float radius = 1;
 	private:
 		CircleCollider2D(Actor* actor, Rigidbody* rigidbody);
-		~CircleCollider2D();
+		~CircleCollider2D() override;
 	public:
 		static CircleCollider2D* Create(Actor* actor, Rigidbody* rigidbody);
 		void Update() override;

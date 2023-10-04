@@ -36,7 +36,7 @@ void Bullet::Delete()
 
 Bullet::~Bullet()
 {
-	Debug("Remove bullet");
+	
 }
 
 void Bullet::Update()

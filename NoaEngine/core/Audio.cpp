@@ -1,8 +1,5 @@
 #include "Audio.h"
 #include "NoaEngine.h"
-/// <summary>
-/// Audio类的实现
-/// </summary>
 
 namespace noa {
 	Audio::Audio(const char* filePath, AudioType type) {
@@ -16,7 +13,7 @@ namespace noa {
 		else if (type == AudioType::CHUNK)
 		{
 			this->chunk = Mix_LoadWAV(filePath);
-			Mix_VolumeChunk(this->chunk, static_cast<int>(MIX_MAX_VOLUME * volume)); // 将音量设置为一半
+			Mix_VolumeChunk(this->chunk, static_cast<int>(MIX_MAX_VOLUME * volume));
 		}
 	}
 
@@ -29,7 +26,6 @@ namespace noa {
 		{
 			Mix_FreeMusic(music);
 		}
-		Debug("Remove audio resource successfully");
 	}
 
 	void Audio::Play(bool loop) const
@@ -43,7 +39,7 @@ namespace noa {
 			else {
 				Mix_PlayMusic(music, 0);
 			}
-			Mix_VolumeMusic(static_cast<int>(MIX_MAX_VOLUME * volume));
+			//Mix_VolumeMusic(static_cast<int>(MIX_MAX_VOLUME * volume));
 		}
 		else if (type == AudioType::CHUNK)
 		{
@@ -54,7 +50,7 @@ namespace noa {
 			else {
 				Mix_PlayChannel(-1, chunk, 0);
 			}
-			Mix_VolumeChunk(this->chunk, static_cast<int>(MIX_MAX_VOLUME * volume)); // 将音量设置为一半
+			//Mix_VolumeChunk(this->chunk, static_cast<int>(MIX_MAX_VOLUME * volume)); // 将音量设置为一半
 		}
 	}
 

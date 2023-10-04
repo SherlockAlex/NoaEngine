@@ -126,6 +126,7 @@
 
 #include "Platform.h"
 #include "Transform.h"
+#include "Debug.h"
 #include "NoaMath.h"
 #include "Scene.h"
 #include "Audio.h"
@@ -324,9 +325,6 @@ namespace noa {
 
 #pragma endregion
 
-
-
-	extern void Debug(std::string msg);
 }
 
 

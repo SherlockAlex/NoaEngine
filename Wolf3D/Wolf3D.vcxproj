@@ -25,6 +25,7 @@
     <ClCompile Include="..\NoaEngine\core\Audio.cpp" />
     <ClCompile Include="..\NoaEngine\core\Camera.cpp" />
     <ClCompile Include="..\NoaEngine\core\Collider2D.cpp" />
+    <ClCompile Include="..\NoaEngine\core\Debug.cpp" />
     <ClCompile Include="..\NoaEngine\core\GLRenderer.cpp" />
     <ClCompile Include="..\NoaEngine\core\GLTexture.cpp" />
     <ClCompile Include="..\NoaEngine\core\Graphic.cpp" />
@@ -70,6 +71,7 @@
     <ClInclude Include="..\NoaEngine\core\Audio.h" />
     <ClInclude Include="..\NoaEngine\core\Camera.h" />
     <ClInclude Include="..\NoaEngine\core\Collider2D.h" />
+    <ClInclude Include="..\NoaEngine\core\Debug.h" />
     <ClInclude Include="..\NoaEngine\core\GLRenderer.h" />
     <ClInclude Include="..\NoaEngine\core\GLTexture.h" />
     <ClInclude Include="..\NoaEngine\core\Graphic.h" />
@@ -218,6 +220,7 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>D:\SDL2\msvc%28VS%29\SDL2-2.26.0-allinone\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

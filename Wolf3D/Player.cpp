@@ -37,7 +37,7 @@ Player::~Player() {
 		}
 	}
 	
-	Debug("É¾³ýÍæ¼Ò");
+	
 	//Rigidbody::~Rigidbody();
 }
 

@@ -48,7 +48,7 @@ void CacoIdleState::Reason()
 	}
 	if (enimy->hp<=0) 
 	{
-		Debug("Enimy die");
+		
 		enimy->rigid->useMotion = false;
 		enimy->rigid->velocity = { 0,0 };
 		animation->Reset();
@@ -95,7 +95,7 @@ void CacoMoveState::Reason()
 {
 	if (enimy->hp <= 0)
 	{
-		Debug("Enimy die");
+		
 		enimy->rigid->useMotion = false;
 		enimy->rigid->velocity = { 0,0 };
 		animation->Reset();
@@ -179,7 +179,7 @@ void CacoAttackState::Reason()
 
 	if (enimy->hp <= 0)
 	{
-		Debug("Enimy die");
+		
 		enimy->rigid->useMotion = false;
 		enimy->rigid->velocity = { 0,0 };
 		animation->Reset();

@@ -9,7 +9,7 @@ public:
 	int hp = 100;
 	int maxHp = 100;
 
-	NoaEvent death;
+	NoaEvent<void> death;
 
 	virtual void TakeDamage(int damage);
 

@@ -15,7 +15,6 @@ namespace noa {
 		Mix_Music* music = nullptr;
 		Mix_Chunk* chunk = nullptr;
 	public:
-		//控制音量大小
 		float volume = 1.0;
 
 		Audio(const char* filePath, AudioType type);

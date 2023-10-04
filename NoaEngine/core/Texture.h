@@ -9,6 +9,8 @@ namespace noa {
 	protected:
 		Texture();
 	public:
+		virtual ~Texture();
+
 		virtual void UpdateTexture(const uint32_t* pixelBuffer, const int width, const int height) = 0;
 		virtual void EnableAlpha() = 0;
 	};

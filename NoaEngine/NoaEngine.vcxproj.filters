@@ -111,6 +111,9 @@
     <ClInclude Include="core\GLHelper.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="core\Debug.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="core\Animator.cpp">
@@ -198,6 +201,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="core\PhysicsSystem.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="core\Debug.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

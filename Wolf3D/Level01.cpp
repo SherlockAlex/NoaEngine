@@ -142,7 +142,7 @@ void Level01::Unload()
 	if (map != nullptr)
 	{
 		delete map;
-		Debug("–∂‘ÿ≥°æ∞≥…π¶");
+		
 	}
 
 }

@@ -13,7 +13,7 @@ Item::Item(Scene* scene, Sprite* sprite) :Actor(scene)
 
 Item::~Item()
 {
-	Debug("Remove Item");
+	
 }
 
 Item* Item::Create(Scene* scene, Sprite* sprite)
@@ -34,7 +34,7 @@ void Item::OnTrigger(Collision other)
 		//这个地方有问题
 		pickEvent.Invoke();
 		Destroy();
-		Debug("Pick up the bullet");
+		
 	}
 }
 

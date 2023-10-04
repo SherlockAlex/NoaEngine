@@ -25,10 +25,6 @@ namespace noa
 
 		level = map.image;
 
-		//PhysicsSystem::SetGrid(w,h);
-
-		Debug("load map from file successfully");
-
 	}
 
 	void LevelMap::Construct(MapFile& map)
@@ -38,13 +34,11 @@ namespace noa
 
 		level = map.image;
 
-		Debug("load map from file successfully");
 	}
 
 	void LevelMap::ConstructLayer(std::vector<std::vector<int>> layer)
 	{
 		levelLayer = layer;
-		Debug("Update the layer map");
 	}
 
 	TileMap::TileMap()
@@ -69,7 +63,6 @@ namespace noa
 		for (int i = 0;i<mapLayer.size();i++) 
 		{
 			layer.push_back(mapLayer[i].image);
-			Debug("the layer is added");
 		}
 
 		for (int i=1;i<mapLayer.size();i++) 
@@ -191,36 +184,6 @@ namespace noa
 
 	}
 
-	/*void Scene::AddRigidbody(Rigidbody* rigid)
-	{
-		if (rigid == nullptr)
-		{
-			return;
-		}
-		this->rigidbodys[rigid->GetHashCode()] = rigid;
-		destroyRigids.push_back(rigid);
-	}*/
-
-	//void Scene::RemoveRigidbody(Rigidbody* rigid)
-	//{
-	//	if (rigid == nullptr)
-	//	{
-	//		return;
-	//	}
-
-	//	const size_t hashCode = rigid->GetHashCode();
-
-	//	if (rigidbodys.count(hashCode)<0)
-	//	{
-	//		return;
-	//	}
-	//	rigidbodys[hashCode] = nullptr;
-	//	//destroyRigids.push_back(rigid);
-
-
-
-	//}
-
 	void Scene::ActorAwake()
 	{
 		for (auto e:this->actors)
@@ -252,16 +215,6 @@ namespace noa
 
 	void Scene::ActorStart()
 	{
-		/*for (auto e : this->rigidbodys)
-		{
-			
-			if (e.second == nullptr)
-			{
-				continue;
-			}
-			Rigidbody* rigid = e.second;
-			rigid->Start();
-		}*/
 
 		for (auto e : this->actors)
 		{
@@ -349,7 +302,7 @@ namespace noa
 		}
 		if (!ContainKey<string,Scene*>(this->sceneList,sceneName)) 
 		{
-			Debug("Load scene:"+ sceneName+"failed");
+			Debug::Error("Load scene:"+ sceneName+"failed");
 			return;
 		}
 		nextScene = sceneList[sceneName];
@@ -421,7 +374,6 @@ namespace noa
 		spriteRendererInstances.clear();
 		activeScene->ActorUpdate();
 
-		//处理老场景资源
 		if (!done&&oldScene != nullptr && oldScene != activeScene)
 		{
 			oldScene->ActorOnDisable();
