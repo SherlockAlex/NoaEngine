@@ -1,6 +1,8 @@
 #ifndef NOAENGINE_ACTORCOMPONENT_H
 #define NOAENGINE_ACTORCOMPONENT_H
 
+#include "NObject.h"
+
 namespace noa {
 	class Actor;
 
@@ -9,6 +11,8 @@ namespace noa {
 	/// </summary>
 	class ActorComponent
 	{
+		friend class NObject<ActorComponent>;
+
 	protected:
 		Actor* actor = nullptr;
 	private:
@@ -19,7 +23,6 @@ namespace noa {
 		virtual ~ActorComponent();
 
 	public:
-		static ActorComponent* Create(Actor* actor);
 		virtual void Delete();
 
 		virtual void Awake() {};

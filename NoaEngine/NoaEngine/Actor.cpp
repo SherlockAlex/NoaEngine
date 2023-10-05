@@ -172,11 +172,6 @@ void noa::Actor::AddRigidbody(Rigidbody* rigid)
 	this->rigidbody = rigid;
 }
 
-noa::Actor* noa::Actor::Create(Scene* activeScene)
-{
-	return new Actor(activeScene);
-}
-
 void noa::Actor::Delete()
 {
 	delete this;

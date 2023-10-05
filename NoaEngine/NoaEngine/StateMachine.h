@@ -47,6 +47,7 @@ namespace noa
 
 	class StateMachine:ActorComponent
 	{
+		friend class NObject<StateMachine>;
 	protected:
 		std::vector<State*> stateList;
 	public:

@@ -15,11 +15,6 @@ noa::ActorComponent::~ActorComponent()
 	
 }
 
-noa::ActorComponent* noa::ActorComponent::Create(noa::Actor* actor)
-{
-	return new noa::ActorComponent(actor);
-}
-
 void noa::ActorComponent::Delete()
 {
 	delete this;

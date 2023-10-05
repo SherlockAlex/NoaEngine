@@ -17,6 +17,7 @@ namespace noa {
 
 	class Actor
 	{
+		friend class NObject<Actor>;
 	protected:
 		Scene* activeScene = nullptr;
 	private:
@@ -36,8 +37,6 @@ namespace noa {
 		
 
 	public:
-		
-		static Actor* Create(Scene* activeScene);
 		virtual void Delete();
 
 		virtual void Awake() {};
@@ -52,6 +51,8 @@ namespace noa {
 		virtual void SetActive(bool value);
 		virtual bool GetActive();
 		Scene* GetActiveScene();
+
+		
 
 	public:
 		size_t GetHash() const {

@@ -78,6 +78,9 @@ namespace noa {
 
         // 获取着色器中的uniform位置
         modelLoc = glGetUniformLocation(shaderProgram, "model");
+
+        // 使用OpenGL绘制纹理
+        glUseProgram(shaderProgram);
     }
 
     void GLRenderer::Clear() {
@@ -95,8 +98,7 @@ namespace noa {
         }
 
         glActiveTexture(GL_TEXTURE + index);
-        // 使用OpenGL绘制纹理
-        glUseProgram(shaderProgram);
+        
 
         // 渲染矩形
         glBindVertexArray(VAO);
@@ -130,17 +132,18 @@ namespace noa {
         };
 
         // 更新顶点缓冲区数据
-        glBindBuffer(GL_ARRAY_BUFFER, VBO);
-        glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+        //glBindBuffer(GL_ARRAY_BUFFER, VBO);
+        //glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+        glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices);
 
         // 更新索引缓冲区数据
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-        glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+        //glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+        //glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
         // 绘制矩形
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
-        glBindVertexArray(0);
+        //glBindVertexArray(0);
 
     }
 

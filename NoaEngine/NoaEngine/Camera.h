@@ -36,8 +36,15 @@ namespace noa {
 	private:
 		//±³¾°Í¼Æ¬
 		SpriteGPU * background = nullptr;
+
+		Vector<int> tileScale = Vector<int>(64, 64);
+		Vector<float> offset = Vector<float>(10, 10);
+		Vector<float> visibleTiles;
+		
 	public:
 		StaticCamera(Sprite * sprite);
+
+		void SetTileScale(const Vector<int> & tileScale);
 		void Render();
 	};
 

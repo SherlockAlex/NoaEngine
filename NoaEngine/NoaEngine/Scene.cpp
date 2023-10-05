@@ -338,6 +338,7 @@ namespace noa
 		if (activeScene != nullptr)
 		{
 			activeScene->Awake();
+			activeScene->ActorAwake();
 		}
 	}
 
@@ -355,7 +356,6 @@ namespace noa
 		if (activeScene != nullptr)
 		{
 			activeScene->Start();
-			activeScene->ActorAwake();
 			activeScene->ActorOnEnable();
 			activeScene->ActorStart();
 		}

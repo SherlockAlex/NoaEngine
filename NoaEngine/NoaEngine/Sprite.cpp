@@ -344,8 +344,8 @@ namespace noa {
 		instance.texture = texture;
 		instance.position.x = static_cast<int>(x);
 		instance.position.y = static_cast<int>(y);
-		instance.scale.x = w;
-		instance.scale.y = h;
+		instance.scale.x = static_cast<int>(w);
+		instance.scale.y = static_cast<int>(h);
 		instance.eulerAngle = eulerAngle;
 		instance.flip = mirror;
 		spriteInstances.push_back(instance);

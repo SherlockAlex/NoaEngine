@@ -57,6 +57,14 @@ void noa::CircleCollider2D::Update()
 	}
 	const int x = static_cast<int>(actor->transform.position.x+0.5);
 	const int y = static_cast<int>(actor->transform.position.y+0.5);
+	
+	const int w = PhysicsSystem::grid.width;
+	const int h = PhysicsSystem::grid.height;
+
+	if (x<0||x>=w||y<0||y>=h) 
+	{
+		return;
+	}
 	PhysicsSystem::grid.GetCell(x, y)->colliders.push_back(this);
 }
 

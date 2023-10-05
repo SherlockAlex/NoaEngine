@@ -1,31 +1,36 @@
 #ifndef NOAENGINE_NOBJECT_H
 #define NOAENGINE_NOBJECT_H
 
+/**************************
+* 
+* NObject 模块
+* 作用:用于将Actor和ActorComponent分配到堆上
+* 
+**************************/
+
 namespace noa 
 {
-	class NObject
+	template<typename T>
+	class NObject final
 	{
-	protected:
-		virtual ~NObject() {}
 	public:
 
-		template<typename T,typename ...Args>
+		template<typename ...Args>
 		static T* Create(Args... args) 
 		{
-			return new T(args);
+			return new T(args...);
 		};
 
-		template<typename T>
 		static T* Create()
 		{
 			return new T();
 		};
 
-		virtual void Delete() 
-		{
-			delete this;
-		}
 	};
+
+	//T的对象由NObject管理
+	#define NOBJECT(T) friend class NObject<T>;
+
 }
 
 

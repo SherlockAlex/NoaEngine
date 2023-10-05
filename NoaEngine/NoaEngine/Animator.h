@@ -38,6 +38,7 @@ namespace noa {
 
 	class Animation:public ActorComponent
 	{
+		friend class NObject<Animation>;
 	private:
 		AnimationFrame* frameData = nullptr;
 		std::unordered_map<Uint32, NoaEvent<void>> framesEvent;

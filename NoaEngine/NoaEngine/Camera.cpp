@@ -470,6 +470,12 @@ namespace noa {
 		background = new SpriteGPU(sprite);
 	}
 
+	void StaticCamera::SetTileScale(const Vector<int>& tileScale)
+	{
+		this->tileScale = tileScale;
+		visibleTiles = Vector<float>(static_cast<float>(int(pixelWidth / tileScale.x)), static_cast<float>(int(pixelHeight / tileScale.y)));
+	}
+
 	void StaticCamera::Render()
 	{
 		(background != nullptr) ? background->DrawSprite(0, 0, pixelWidth, pixelHeight, false, 0) : renderer->FullScreen(BLUE);
@@ -481,7 +487,10 @@ namespace noa {
 			{
 				continue;
 			}
-			instance.spriteGPU->DrawSprite(instance.actor->transform.position.x,instance.actor->transform.position.y,true);
+
+			const float posX = (instance.actor->transform.position.x) * tileScale.x;
+			const float posY = (instance.actor->transform.position.y) * tileScale.y;
+			instance.spriteGPU->DrawSprite(posX,posY,tileScale.x,tileScale.y,true);
 		}
 		
 
