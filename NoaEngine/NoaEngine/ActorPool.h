@@ -45,6 +45,9 @@ namespace noa {
 
 			actor->SetActive(false);
 			ObjectPool<T>::Return(member);
+
+			
+
 		}
 
 	};
