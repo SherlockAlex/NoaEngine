@@ -5,6 +5,13 @@
 #include "Transform.h"
 #include "NObject.h"
 
+/*
+* 
+* Actor模块
+* 作用:游戏场景Scene中的活动的对象，可挂载组件实现各种各样的游戏行为
+* 
+*/
+
 namespace noa {
 
 	struct Collision;
