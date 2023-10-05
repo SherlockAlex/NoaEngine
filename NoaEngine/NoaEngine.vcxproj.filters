@@ -114,6 +114,21 @@
     <ClInclude Include="NoaEngine\Debug.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="NoaEngine\IPool.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="NoaEngine\ObjectPool.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="NoaEngine\IPoolObjectFactroy.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="NoaEngine\ActorPool.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="NoaEngine\ActorPoolFactory.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="NoaEngine\Animator.cpp">
@@ -204,6 +219,15 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="NoaEngine\Debug.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="NoaEngine\IPoolObjectFactroy.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="NoaEngine\ActorPool.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="NoaEngine\ActorPoolFactory.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

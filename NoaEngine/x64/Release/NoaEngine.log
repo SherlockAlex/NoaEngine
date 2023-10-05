@@ -1,49 +1,103 @@
-﻿  Actor.cpp
-D:\Work\NoaEngine\NoaEngine\NoaEngine\SDLHelper.h(8,10): fatal  error C1083: 无法打开包括文件: “SDL.h”: No such file or directory
+﻿  Collider2D.cpp
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
+D:\Work\NoaEngine\packages\nupengl.core.0.1.0.1\build\native\include\GLFW\glfw3.h(92,1): message : 参见“APIENTRY”的前一个定义
   ActorComponent.cpp
-D:\Work\NoaEngine\NoaEngine\NoaEngine\SDLHelper.h(8,10): fatal  error C1083: 无法打开包括文件: “SDL.h”: No such file or directory
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
+D:\Work\NoaEngine\packages\nupengl.core.0.1.0.1\build\native\include\GLFW\glfw3.h(92,1): message : 参见“APIENTRY”的前一个定义
   Animator.cpp
-D:\Work\NoaEngine\NoaEngine\NoaEngine\SDLHelper.h(8,10): fatal  error C1083: 无法打开包括文件: “SDL.h”: No such file or directory
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
+D:\Work\NoaEngine\packages\nupengl.core.0.1.0.1\build\native\include\GLFW\glfw3.h(92,1): message : 参见“APIENTRY”的前一个定义
   Audio.cpp
-D:\Work\NoaEngine\NoaEngine\NoaEngine\SDLHelper.h(8,10): fatal  error C1083: 无法打开包括文件: “SDL.h”: No such file or directory
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
+D:\Work\NoaEngine\packages\nupengl.core.0.1.0.1\build\native\include\GLFW\glfw3.h(92,1): message : 参见“APIENTRY”的前一个定义
+  Actor.cpp
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
+D:\Work\NoaEngine\packages\nupengl.core.0.1.0.1\build\native\include\GLFW\glfw3.h(92,1): message : 参见“APIENTRY”的前一个定义
   Camera.cpp
-D:\Work\NoaEngine\NoaEngine\NoaEngine\SDLHelper.h(8,10): fatal  error C1083: 无法打开包括文件: “SDL.h”: No such file or directory
-  Collider2D.cpp
-D:\Work\NoaEngine\NoaEngine\NoaEngine\SDLHelper.h(8,10): fatal  error C1083: 无法打开包括文件: “SDL.h”: No such file or directory
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
+D:\Work\NoaEngine\packages\nupengl.core.0.1.0.1\build\native\include\GLFW\glfw3.h(92,1): message : 参见“APIENTRY”的前一个定义
+D:\Work\NoaEngine\NoaEngine\NoaEngine\Camera.cpp(117,51): warning C4244: “参数”: 从“T”转换到“float”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\NoaEngine\NoaEngine\NoaEngine\Camera.cpp(117,41): warning C4244: “参数”: 从“T”转换到“float”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\NoaEngine\NoaEngine\NoaEngine\Camera.cpp(481,70): warning C4244: “参数”: 从“int”转换到“float”，可能丢失数据
+D:\Work\NoaEngine\NoaEngine\NoaEngine\Camera.cpp(481,58): warning C4244: “参数”: 从“int”转换到“float”，可能丢失数据
+D:\Work\NoaEngine\NoaEngine\NoaEngine\Camera.cpp(493,66): warning C4244: “参数”: 从“T”转换到“float”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\NoaEngine\NoaEngine\NoaEngine\Camera.cpp(493,54): warning C4244: “参数”: 从“T”转换到“float”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+  Graphic.cpp
+  InputSystem.cpp
+  NoaAction.cpp
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
+D:\Work\NoaEngine\packages\nupengl.core.0.1.0.1\build\native\include\GLFW\glfw3.h(92,1): message : 参见“APIENTRY”的前一个定义
+  NoaEngine.cpp
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
+D:\Work\NoaEngine\packages\nupengl.core.0.1.0.1\build\native\include\GLFW\glfw3.h(92,1): message : 参见“APIENTRY”的前一个定义
+  NoaGUI.cpp
+  NoaMath.cpp
+  Physics.cpp
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
+D:\Work\NoaEngine\packages\nupengl.core.0.1.0.1\build\native\include\GLFW\glfw3.h(92,1): message : 参见“APIENTRY”的前一个定义
+  Renderer.cpp
+D:\Work\NoaEngine\NoaEngine\NoaEngine\Renderer.cpp(271,137): warning C4244: “参数”: 从“double”转换到“unsigned char”，可能丢失数据
+D:\Work\NoaEngine\NoaEngine\NoaEngine\Renderer.cpp(271,86): warning C4244: “参数”: 从“double”转换到“unsigned char”，可能丢失数据
+D:\Work\NoaEngine\NoaEngine\NoaEngine\Renderer.cpp(271,35): warning C4244: “参数”: 从“double”转换到“unsigned char”，可能丢失数据
+  Resource.cpp
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
+D:\Work\NoaEngine\packages\nupengl.core.0.1.0.1\build\native\include\GLFW\glfw3.h(92,1): message : 参见“APIENTRY”的前一个定义
+  Scene.cpp
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
+D:\Work\NoaEngine\packages\nupengl.core.0.1.0.1\build\native\include\GLFW\glfw3.h(92,1): message : 参见“APIENTRY”的前一个定义
+  Sprite.cpp
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
+D:\Work\NoaEngine\packages\nupengl.core.0.1.0.1\build\native\include\GLFW\glfw3.h(92,1): message : 参见“APIENTRY”的前一个定义
+  StateMachine.cpp
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
+D:\Work\NoaEngine\packages\nupengl.core.0.1.0.1\build\native\include\GLFW\glfw3.h(92,1): message : 参见“APIENTRY”的前一个定义
+  Transform.cpp
+  NObject.cpp
+  正在编译...
+  Platform.cpp
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
+D:\Work\NoaEngine\packages\nupengl.core.0.1.0.1\build\native\include\GLFW\glfw3.h(92,1): message : 参见“APIENTRY”的前一个定义
   GLRenderer.cpp
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
 D:\Work\NoaEngine\packages\nupengl.core.0.1.0.1\build\native\include\GLFW\glfw3.h(92,1): message : 参见“APIENTRY”的前一个定义
-D:\Work\NoaEngine\NoaEngine\NoaEngine\SDLHelper.h(8,10): fatal  error C1083: 无法打开包括文件: “SDL.h”: No such file or directory
-  InputSystem.cpp
-D:\Work\NoaEngine\NoaEngine\NoaEngine\SDLHelper.h(8,10): fatal  error C1083: 无法打开包括文件: “SDL.h”: No such file or directory
-  NoaAction.cpp
-D:\Work\NoaEngine\NoaEngine\NoaEngine\SDLHelper.h(8,10): fatal  error C1083: 无法打开包括文件: “SDL.h”: No such file or directory
-  NoaEngine.cpp
-D:\Work\NoaEngine\NoaEngine\NoaEngine\SDLHelper.h(8,10): fatal  error C1083: 无法打开包括文件: “SDL.h”: No such file or directory
-  NoaGUI.cpp
-D:\Work\NoaEngine\NoaEngine\NoaEngine\SDLHelper.h(8,10): fatal  error C1083: 无法打开包括文件: “SDL.h”: No such file or directory
-  Physics.cpp
-D:\Work\NoaEngine\NoaEngine\NoaEngine\SDLHelper.h(8,10): fatal  error C1083: 无法打开包括文件: “SDL.h”: No such file or directory
-  PhysicsSystem.cpp
-D:\Work\NoaEngine\NoaEngine\NoaEngine\SDLHelper.h(8,10): fatal  error C1083: 无法打开包括文件: “SDL.h”: No such file or directory
-  Platform.cpp
-D:\Work\NoaEngine\NoaEngine\NoaEngine\SDLHelper.h(8,10): fatal  error C1083: 无法打开包括文件: “SDL.h”: No such file or directory
+  GLTexture.cpp
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
+D:\Work\NoaEngine\packages\nupengl.core.0.1.0.1\build\native\include\GLFW\glfw3.h(92,1): message : 参见“APIENTRY”的前一个定义
   Platform_Windows.cpp
-D:\Work\NoaEngine\NoaEngine\NoaEngine\SDLHelper.h(8,10): fatal  error C1083: 无法打开包括文件: “SDL.h”: No such file or directory
-  Renderer.cpp
-D:\Work\NoaEngine\NoaEngine\NoaEngine\SDLHelper.h(8,10): fatal  error C1083: 无法打开包括文件: “SDL.h”: No such file or directory
-  Resource.cpp
-D:\Work\NoaEngine\NoaEngine\NoaEngine\SDLHelper.h(8,10): fatal  error C1083: 无法打开包括文件: “SDL.h”: No such file or directory
-  Scene.cpp
-D:\Work\NoaEngine\NoaEngine\NoaEngine\SDLHelper.h(8,10): fatal  error C1083: 无法打开包括文件: “SDL.h”: No such file or directory
-  Sprite.cpp
-D:\Work\NoaEngine\NoaEngine\NoaEngine\SDLHelper.h(8,10): fatal  error C1083: 无法打开包括文件: “SDL.h”: No such file or directory
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
+D:\Work\NoaEngine\packages\nupengl.core.0.1.0.1\build\native\include\GLFW\glfw3.h(92,1): message : 参见“APIENTRY”的前一个定义
   SpriteRenderer.cpp
-D:\Work\NoaEngine\NoaEngine\NoaEngine\SDLHelper.h(8,10): fatal  error C1083: 无法打开包括文件: “SDL.h”: No such file or directory
-  正在编译...
-  StateMachine.cpp
-D:\Work\NoaEngine\NoaEngine\NoaEngine\SDLHelper.h(8,10): fatal  error C1083: 无法打开包括文件: “SDL.h”: No such file or directory
-  Texture.cpp
-D:\Work\NoaEngine\NoaEngine\NoaEngine\SDLHelper.h(8,10): fatal  error C1083: 无法打开包括文件: “SDL.h”: No such file or directory
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
+D:\Work\NoaEngine\packages\nupengl.core.0.1.0.1\build\native\include\GLFW\glfw3.h(92,1): message : 参见“APIENTRY”的前一个定义
+  PhysicsSystem.cpp
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
+D:\Work\NoaEngine\packages\nupengl.core.0.1.0.1\build\native\include\GLFW\glfw3.h(92,1): message : 参见“APIENTRY”的前一个定义
+  Debug.cpp
   TestGPU.cpp
-D:\Work\NoaEngine\NoaEngine\NoaEngine\SDLHelper.h(8,10): fatal  error C1083: 无法打开包括文件: “SDL.h”: No such file or directory
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
+D:\Work\NoaEngine\packages\nupengl.core.0.1.0.1\build\native\include\GLFW\glfw3.h(92,1): message : 参见“APIENTRY”的前一个定义
+  Time.cpp
+  Texture.cpp
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
+D:\Work\NoaEngine\packages\nupengl.core.0.1.0.1\build\native\include\GLFW\glfw3.h(92,1): message : 参见“APIENTRY”的前一个定义
+  正在生成代码
+  Compiler switch has changed, fall back to full compilation.
+  All 2082 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  已完成代码的生成
+  NoaEngine.vcxproj -> D:\Work\NoaEngine\x64\Release\NoaEngine.exe

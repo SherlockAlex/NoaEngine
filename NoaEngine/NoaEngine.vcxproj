@@ -77,10 +77,10 @@
     <ReferencePath>D:\SDL2\mingw(CLion+VSC)\SDL2-2.26.0-allinone\x86_64-w64-mingw32\lib;$(ReferencePath)</ReferencePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>D:\SDL2\msvc(VS)\SDL2-2.26.0-allinone\include;$(IncludePath)</IncludePath>
-    <ExternalIncludePath>D:\SDL2\msvc(VS)\SDL2-2.26.0-allinone\include;$(ExternalIncludePath)</ExternalIncludePath>
-    <LibraryPath>D:\SDL2\msvc(VS)\SDL2-2.26.0-allinone\lib\x64;$(LibraryPath)</LibraryPath>
-    <PublicIncludeDirectories>D:\SDL2\msvc(VS)\SDL2-2.26.0-allinone\include;$(PublicIncludeDirectories)</PublicIncludeDirectories>
+    <IncludePath>$(IncludePath)</IncludePath>
+    <ExternalIncludePath>$(ExternalIncludePath)</ExternalIncludePath>
+    <LibraryPath>$(LibraryPath)</LibraryPath>
+    <PublicIncludeDirectories>$(PublicIncludeDirectories)</PublicIncludeDirectories>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <IncludePath>D:\SDL2\msvc(VS)\SDL2-2.26.0-allinone\include;$(IncludePath)</IncludePath>
@@ -142,15 +142,15 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>D:\SDL2\msvc(VS)\SDL2-2.26.0-allinone\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>D:\SDL2\msvc(VS)\SDL2-2.26.0-allinone\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2.lib;SDL2_image.lib;SDL2_mixer.lib;SDL2_ttf.lib;SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
       <Profile>true</Profile>
     </Link>
   </ItemDefinitionGroup>
@@ -158,6 +158,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="NoaEngine\ActorPoolFactory.h" />
+    <ClInclude Include="NoaEngine\ActorPool.h" />
+    <ClInclude Include="NoaEngine\IPoolObjectFactroy.h" />
     <ClInclude Include="NoaEngine\Collider2D.h" />
     <ClInclude Include="NoaEngine\ActorComponent.h" />
     <ClInclude Include="NoaEngine\Animator.h" />
@@ -166,11 +169,13 @@
     <ClInclude Include="NoaEngine\Camera.h" />
     <ClInclude Include="NoaEngine\Graphic.h" />
     <ClInclude Include="NoaEngine\InputSystem.h" />
+    <ClInclude Include="NoaEngine\IPool.h" />
     <ClInclude Include="NoaEngine\NoaAction.h" />
     <ClInclude Include="NoaEngine\NoaEngine.h" />
     <ClInclude Include="NoaEngine\NoaGUI.h" />
     <ClInclude Include="NoaEngine\NoaMath.h" />
     <ClInclude Include="NoaEngine\Physics.h" />
+    <ClInclude Include="NoaEngine\ObjectPool.h" />
     <ClInclude Include="NoaEngine\Renderer.h" />
     <ClInclude Include="NoaEngine\Resource.h" />
     <ClInclude Include="NoaEngine\Scene.h" />
@@ -192,6 +197,9 @@
     <ClInclude Include="NoaEngine\Debug.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="NoaEngine\ActorPoolFactory.cpp" />
+    <ClCompile Include="NoaEngine\ActorPool.cpp" />
+    <ClCompile Include="NoaEngine\IPoolObjectFactroy.cpp" />
     <ClCompile Include="NoaEngine\Collider2D.cpp" />
     <ClCompile Include="NoaEngine\ActorComponent.cpp" />
     <ClCompile Include="NoaEngine\Animator.cpp" />
@@ -230,6 +238,10 @@
     <Import Project="..\packages\freetype.redist.2.8.0.1\build\native\freetype.redist.targets" Condition="Exists('..\packages\freetype.redist.2.8.0.1\build\native\freetype.redist.targets')" />
     <Import Project="..\packages\freetype.2.8.0.1\build\native\freetype.targets" Condition="Exists('..\packages\freetype.2.8.0.1\build\native\freetype.targets')" />
     <Import Project="..\packages\freetype2.2.6.0.1\build\native\freetype2.targets" Condition="Exists('..\packages\freetype2.2.6.0.1\build\native\freetype2.targets')" />
+    <Import Project="..\packages\sdl2_mixer.nuget.redist.2.6.3\build\native\sdl2_mixer.nuget.redist.targets" Condition="Exists('..\packages\sdl2_mixer.nuget.redist.2.6.3\build\native\sdl2_mixer.nuget.redist.targets')" />
+    <Import Project="..\packages\sdl2_mixer.nuget.2.6.3\build\native\sdl2_mixer.nuget.targets" Condition="Exists('..\packages\sdl2_mixer.nuget.2.6.3\build\native\sdl2_mixer.nuget.targets')" />
+    <Import Project="..\packages\sdl2.nuget.redist.2.28.3\build\native\sdl2.nuget.redist.targets" Condition="Exists('..\packages\sdl2.nuget.redist.2.28.3\build\native\sdl2.nuget.redist.targets')" />
+    <Import Project="..\packages\sdl2.nuget.2.28.3\build\native\sdl2.nuget.targets" Condition="Exists('..\packages\sdl2.nuget.2.28.3\build\native\sdl2.nuget.targets')" />
   </ImportGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
@@ -240,5 +252,9 @@
     <Error Condition="!Exists('..\packages\freetype.redist.2.8.0.1\build\native\freetype.redist.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\freetype.redist.2.8.0.1\build\native\freetype.redist.targets'))" />
     <Error Condition="!Exists('..\packages\freetype.2.8.0.1\build\native\freetype.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\freetype.2.8.0.1\build\native\freetype.targets'))" />
     <Error Condition="!Exists('..\packages\freetype2.2.6.0.1\build\native\freetype2.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\freetype2.2.6.0.1\build\native\freetype2.targets'))" />
+    <Error Condition="!Exists('..\packages\sdl2_mixer.nuget.redist.2.6.3\build\native\sdl2_mixer.nuget.redist.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\sdl2_mixer.nuget.redist.2.6.3\build\native\sdl2_mixer.nuget.redist.targets'))" />
+    <Error Condition="!Exists('..\packages\sdl2_mixer.nuget.2.6.3\build\native\sdl2_mixer.nuget.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\sdl2_mixer.nuget.2.6.3\build\native\sdl2_mixer.nuget.targets'))" />
+    <Error Condition="!Exists('..\packages\sdl2.nuget.redist.2.28.3\build\native\sdl2.nuget.redist.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\sdl2.nuget.redist.2.28.3\build\native\sdl2.nuget.redist.targets'))" />
+    <Error Condition="!Exists('..\packages\sdl2.nuget.2.28.3\build\native\sdl2.nuget.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\sdl2.nuget.2.28.3\build\native\sdl2.nuget.targets'))" />
   </Target>
 </Project>

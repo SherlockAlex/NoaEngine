@@ -1,5 +1,6 @@
 #include "Player.h"
 #include "Bullet.h"
+#include "BulletPool.h"
 
 using namespace noa;
 
@@ -58,7 +59,7 @@ void Player::Update()
 		if (delay > 0.1)
 		{
 			shootAFX.Play(false);
-			Bullet* bullet = NObject<Bullet>::Create<Scene*>(this->activeScene);
+			Bullet* bullet = bulletPool->Request();
 			bullet->SetPostion(this->transform.position);
 			delay = 0;
 		}

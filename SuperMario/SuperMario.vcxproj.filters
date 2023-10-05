@@ -21,10 +21,22 @@
     <ClCompile Include="SuperMario.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Bullet.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
     <ClCompile Include="..\NoaEngine\NoaEngine\Actor.cpp">
       <Filter>头文件\NoaEngine</Filter>
     </ClCompile>
     <ClCompile Include="..\NoaEngine\NoaEngine\ActorComponent.cpp">
+      <Filter>头文件\NoaEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\NoaEngine\NoaEngine\ActorPool.cpp">
+      <Filter>头文件\NoaEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\NoaEngine\NoaEngine\ActorPoolFactory.cpp">
       <Filter>头文件\NoaEngine</Filter>
     </ClCompile>
     <ClCompile Include="..\NoaEngine\NoaEngine\Animator.cpp">
@@ -52,6 +64,9 @@
       <Filter>头文件\NoaEngine</Filter>
     </ClCompile>
     <ClCompile Include="..\NoaEngine\NoaEngine\InputSystem.cpp">
+      <Filter>头文件\NoaEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\NoaEngine\NoaEngine\IPoolObjectFactroy.cpp">
       <Filter>头文件\NoaEngine</Filter>
     </ClCompile>
     <ClCompile Include="..\NoaEngine\NoaEngine\NoaAction.cpp">
@@ -108,10 +123,10 @@
     <ClCompile Include="..\NoaEngine\NoaEngine\Transform.cpp">
       <Filter>头文件\NoaEngine</Filter>
     </ClCompile>
-    <ClCompile Include="Bullet.cpp">
+    <ClCompile Include="BulletFactory.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
+    <ClCompile Include="BulletPool.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -122,10 +137,22 @@
     <ClInclude Include="GameEngine.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="Bullet.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
     <ClInclude Include="..\NoaEngine\NoaEngine\Actor.h">
       <Filter>头文件\NoaEngine</Filter>
     </ClInclude>
     <ClInclude Include="..\NoaEngine\NoaEngine\ActorComponent.h">
+      <Filter>头文件\NoaEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\NoaEngine\NoaEngine\ActorPool.h">
+      <Filter>头文件\NoaEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\NoaEngine\NoaEngine\ActorPoolFactory.h">
       <Filter>头文件\NoaEngine</Filter>
     </ClInclude>
     <ClInclude Include="..\NoaEngine\NoaEngine\Animator.h">
@@ -158,6 +185,12 @@
     <ClInclude Include="..\NoaEngine\NoaEngine\InputSystem.h">
       <Filter>头文件\NoaEngine</Filter>
     </ClInclude>
+    <ClInclude Include="..\NoaEngine\NoaEngine\IPool.h">
+      <Filter>头文件\NoaEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\NoaEngine\NoaEngine\IPoolObjectFactroy.h">
+      <Filter>头文件\NoaEngine</Filter>
+    </ClInclude>
     <ClInclude Include="..\NoaEngine\NoaEngine\NoaAction.h">
       <Filter>头文件\NoaEngine</Filter>
     </ClInclude>
@@ -171,6 +204,9 @@
       <Filter>头文件\NoaEngine</Filter>
     </ClInclude>
     <ClInclude Include="..\NoaEngine\NoaEngine\NObject.h">
+      <Filter>头文件\NoaEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\NoaEngine\NoaEngine\ObjectPool.h">
       <Filter>头文件\NoaEngine</Filter>
     </ClInclude>
     <ClInclude Include="..\NoaEngine\NoaEngine\Physics.h">
@@ -218,10 +254,10 @@
     <ClInclude Include="..\NoaEngine\NoaEngine\Transform.h">
       <Filter>头文件\NoaEngine</Filter>
     </ClInclude>
-    <ClInclude Include="Bullet.h">
+    <ClInclude Include="BulletFactory.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h">
+    <ClInclude Include="BulletPool.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

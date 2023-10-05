@@ -24,6 +24,7 @@
     <ProjectGuid>{311e78e0-3964-4327-8115-610fde66d9b4}</ProjectGuid>
     <RootNamespace>SuperMario</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>ShootGame</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -132,6 +133,8 @@
   <ItemGroup>
     <ClCompile Include="..\NoaEngine\NoaEngine\Actor.cpp" />
     <ClCompile Include="..\NoaEngine\NoaEngine\ActorComponent.cpp" />
+    <ClCompile Include="..\NoaEngine\NoaEngine\ActorPool.cpp" />
+    <ClCompile Include="..\NoaEngine\NoaEngine\ActorPoolFactory.cpp" />
     <ClCompile Include="..\NoaEngine\NoaEngine\Animator.cpp" />
     <ClCompile Include="..\NoaEngine\NoaEngine\Audio.cpp" />
     <ClCompile Include="..\NoaEngine\NoaEngine\Camera.cpp" />
@@ -141,6 +144,7 @@
     <ClCompile Include="..\NoaEngine\NoaEngine\GLTexture.cpp" />
     <ClCompile Include="..\NoaEngine\NoaEngine\Graphic.cpp" />
     <ClCompile Include="..\NoaEngine\NoaEngine\InputSystem.cpp" />
+    <ClCompile Include="..\NoaEngine\NoaEngine\IPoolObjectFactroy.cpp" />
     <ClCompile Include="..\NoaEngine\NoaEngine\NoaAction.cpp" />
     <ClCompile Include="..\NoaEngine\NoaEngine\NoaEngine.cpp" />
     <ClCompile Include="..\NoaEngine\NoaEngine\NoaGUI.cpp" />
@@ -160,6 +164,8 @@
     <ClCompile Include="..\NoaEngine\NoaEngine\Time.cpp" />
     <ClCompile Include="..\NoaEngine\NoaEngine\Transform.cpp" />
     <ClCompile Include="Bullet.cpp" />
+    <ClCompile Include="BulletFactory.cpp" />
+    <ClCompile Include="BulletPool.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="SuperMario.cpp" />
   </ItemGroup>
@@ -169,6 +175,8 @@
   <ItemGroup>
     <ClInclude Include="..\NoaEngine\NoaEngine\Actor.h" />
     <ClInclude Include="..\NoaEngine\NoaEngine\ActorComponent.h" />
+    <ClInclude Include="..\NoaEngine\NoaEngine\ActorPool.h" />
+    <ClInclude Include="..\NoaEngine\NoaEngine\ActorPoolFactory.h" />
     <ClInclude Include="..\NoaEngine\NoaEngine\Animator.h" />
     <ClInclude Include="..\NoaEngine\NoaEngine\Audio.h" />
     <ClInclude Include="..\NoaEngine\NoaEngine\Camera.h" />
@@ -179,11 +187,14 @@
     <ClInclude Include="..\NoaEngine\NoaEngine\GLTexture.h" />
     <ClInclude Include="..\NoaEngine\NoaEngine\Graphic.h" />
     <ClInclude Include="..\NoaEngine\NoaEngine\InputSystem.h" />
+    <ClInclude Include="..\NoaEngine\NoaEngine\IPool.h" />
+    <ClInclude Include="..\NoaEngine\NoaEngine\IPoolObjectFactroy.h" />
     <ClInclude Include="..\NoaEngine\NoaEngine\NoaAction.h" />
     <ClInclude Include="..\NoaEngine\NoaEngine\NoaEngine.h" />
     <ClInclude Include="..\NoaEngine\NoaEngine\NoaGUI.h" />
     <ClInclude Include="..\NoaEngine\NoaEngine\NoaMath.h" />
     <ClInclude Include="..\NoaEngine\NoaEngine\NObject.h" />
+    <ClInclude Include="..\NoaEngine\NoaEngine\ObjectPool.h" />
     <ClInclude Include="..\NoaEngine\NoaEngine\Physics.h" />
     <ClInclude Include="..\NoaEngine\NoaEngine\PhysicsSystem.h" />
     <ClInclude Include="..\NoaEngine\NoaEngine\Platform.h" />
@@ -200,6 +211,8 @@
     <ClInclude Include="..\NoaEngine\NoaEngine\Time.h" />
     <ClInclude Include="..\NoaEngine\NoaEngine\Transform.h" />
     <ClInclude Include="Bullet.h" />
+    <ClInclude Include="BulletFactory.h" />
+    <ClInclude Include="BulletPool.h" />
     <ClInclude Include="GameEngine.h" />
     <ClInclude Include="Player.h" />
   </ItemGroup>

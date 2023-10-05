@@ -159,6 +159,12 @@
 #include "Collider2D.h"
 #include "PhysicsSystem.h"
 
+#include "ObjectPool.h"
+#include "IPoolObjectFactroy.h"
+
+#include "ActorPool.h"
+#include "ActorPoolFactory.h"
+
 #ifdef _WIN64
 
 #include "Platform_Windows.h"

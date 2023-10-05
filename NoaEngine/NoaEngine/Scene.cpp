@@ -180,10 +180,11 @@ namespace noa
 			return;
 		}
 		actor->SetActive(false);
+
 		actor->ComponentOnDestroy();
 		actor->OnDestroy();
+
 		actors[actor->GetHash()] = nullptr;
-		//destroyActors.push_back(actor);
 
 	}
 

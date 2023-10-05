@@ -1,5 +1,8 @@
 ﻿#include "GameEngine.h"
 #include "Player.h"
+#include "Bullet.h"
+#include "BulletFactory.h"
+#include "BulletPool.h"
 
 using namespace std;
 using namespace noa;
@@ -50,6 +53,9 @@ public:
 
 		sceneManager.LoadScene("SimpleScene");
 
+		bulletFactory = make_shared<BulletFactory>();
+		bulletPool = make_shared<BulletPool>();
+
 	}
 
 	void Start() override {
@@ -70,6 +76,10 @@ public:
 public:
 	SimpleScene* scene;
 	Audio bgm = Audio("./Assets/Fly/Audio/bgm.ogg", AudioType::CHUNK);
+
+	
+
+
 };
 
 int main() {

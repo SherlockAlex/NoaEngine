@@ -59,6 +59,7 @@ namespace noa {
 		virtual bool GetActive();
 		Scene* GetActiveScene();
 
+		static Actor* HandleActor(NOAObject* object);
 		
 
 	public:

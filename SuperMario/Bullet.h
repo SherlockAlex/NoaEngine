@@ -11,8 +11,6 @@ public:
 
 public:
 
-	void Start() override;
-
 	void Update() override;
 
 	void SetPostion(const noa::Vector<float>& pos);

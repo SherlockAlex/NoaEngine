@@ -28,9 +28,6 @@ noa::Actor::Actor(noa::Scene* activeScene)
 noa::Actor::~Actor()
 {
 
-	this->ComponentOnDisable();
-	this->OnDisable();
-
 	if (rigidbody!=nullptr)
 	{
 		rigidbody->actor = nullptr;
@@ -198,9 +195,11 @@ void noa::Actor::SetActive(bool value)
 	isActive = value;
 	if (isActive)
 	{
+		ComponentOnEnable();
 		OnEnable();
 		return;
 	}
+	ComponentOnEnable();
 	OnDisable();
 
 }
@@ -213,6 +212,11 @@ bool noa::Actor::GetActive()
 noa::Scene* noa::Actor::GetActiveScene()
 {
 	return activeScene;
+}
+
+noa::Actor* noa::Actor::HandleActor(NOAObject* object)
+{
+	return dynamic_cast<Actor*>(object);
 }
 
 void noa::Actor::SetActiveScene(noa::Scene* scene)
