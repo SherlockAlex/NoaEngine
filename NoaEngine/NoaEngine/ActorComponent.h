@@ -9,7 +9,7 @@ namespace noa {
 	/// <summary>
 	/// 组件类，只有ActorComponent及其子类才能够成为组件在挂在到Actor身上
 	/// </summary>
-	class ActorComponent
+	class ActorComponent:public NOAObject
 	{
 		friend class NObject<ActorComponent>;
 

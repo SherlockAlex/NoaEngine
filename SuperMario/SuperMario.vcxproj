@@ -71,7 +71,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>D:\SDL2\msvc%28VS%29\SDL2-2.26.0-allinone\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -130,68 +130,78 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\NoaEngine\core\Actor.cpp" />
-    <ClCompile Include="..\NoaEngine\core\ActorComponent.cpp" />
-    <ClCompile Include="..\NoaEngine\core\Animator.cpp" />
-    <ClCompile Include="..\NoaEngine\core\Audio.cpp" />
-    <ClCompile Include="..\NoaEngine\core\Camera.cpp" />
-    <ClCompile Include="..\NoaEngine\core\GameObject.cpp" />
-    <ClCompile Include="..\NoaEngine\core\GLRenderer.cpp" />
-    <ClCompile Include="..\NoaEngine\core\GLTexture.cpp" />
-    <ClCompile Include="..\NoaEngine\core\Graphic.cpp" />
-    <ClCompile Include="..\NoaEngine\core\InputSystem.cpp" />
-    <ClCompile Include="..\NoaEngine\core\NoaAction.cpp" />
-    <ClCompile Include="..\NoaEngine\core\NoaEngine.cpp" />
-    <ClCompile Include="..\NoaEngine\core\NoaGUI.cpp" />
-    <ClCompile Include="..\NoaEngine\core\NoaMath.cpp" />
-    <ClCompile Include="..\NoaEngine\core\NObject.cpp" />
-    <ClCompile Include="..\NoaEngine\core\Physics.cpp" />
-    <ClCompile Include="..\NoaEngine\core\Platform.cpp" />
-    <ClCompile Include="..\NoaEngine\core\Platform_Windows.cpp" />
-    <ClCompile Include="..\NoaEngine\core\Renderer.cpp" />
-    <ClCompile Include="..\NoaEngine\core\Resource.cpp" />
-    <ClCompile Include="..\NoaEngine\core\Scene.cpp" />
-    <ClCompile Include="..\NoaEngine\core\Sprite.cpp" />
-    <ClCompile Include="..\NoaEngine\core\SpriteRenderer.cpp" />
-    <ClCompile Include="..\NoaEngine\core\StateMachine.cpp" />
-    <ClCompile Include="..\NoaEngine\core\Texture.cpp" />
-    <ClCompile Include="..\NoaEngine\core\Time.cpp" />
-    <ClCompile Include="..\NoaEngine\core\Transform.cpp" />
+    <ClCompile Include="..\NoaEngine\NoaEngine\Actor.cpp" />
+    <ClCompile Include="..\NoaEngine\NoaEngine\ActorComponent.cpp" />
+    <ClCompile Include="..\NoaEngine\NoaEngine\Animator.cpp" />
+    <ClCompile Include="..\NoaEngine\NoaEngine\Audio.cpp" />
+    <ClCompile Include="..\NoaEngine\NoaEngine\Camera.cpp" />
+    <ClCompile Include="..\NoaEngine\NoaEngine\Collider2D.cpp" />
+    <ClCompile Include="..\NoaEngine\NoaEngine\Debug.cpp" />
+    <ClCompile Include="..\NoaEngine\NoaEngine\GLRenderer.cpp" />
+    <ClCompile Include="..\NoaEngine\NoaEngine\GLTexture.cpp" />
+    <ClCompile Include="..\NoaEngine\NoaEngine\Graphic.cpp" />
+    <ClCompile Include="..\NoaEngine\NoaEngine\InputSystem.cpp" />
+    <ClCompile Include="..\NoaEngine\NoaEngine\NoaAction.cpp" />
+    <ClCompile Include="..\NoaEngine\NoaEngine\NoaEngine.cpp" />
+    <ClCompile Include="..\NoaEngine\NoaEngine\NoaGUI.cpp" />
+    <ClCompile Include="..\NoaEngine\NoaEngine\NoaMath.cpp" />
+    <ClCompile Include="..\NoaEngine\NoaEngine\NObject.cpp" />
+    <ClCompile Include="..\NoaEngine\NoaEngine\Physics.cpp" />
+    <ClCompile Include="..\NoaEngine\NoaEngine\PhysicsSystem.cpp" />
+    <ClCompile Include="..\NoaEngine\NoaEngine\Platform.cpp" />
+    <ClCompile Include="..\NoaEngine\NoaEngine\Platform_Windows.cpp" />
+    <ClCompile Include="..\NoaEngine\NoaEngine\Renderer.cpp" />
+    <ClCompile Include="..\NoaEngine\NoaEngine\Resource.cpp" />
+    <ClCompile Include="..\NoaEngine\NoaEngine\Scene.cpp" />
+    <ClCompile Include="..\NoaEngine\NoaEngine\Sprite.cpp" />
+    <ClCompile Include="..\NoaEngine\NoaEngine\SpriteRenderer.cpp" />
+    <ClCompile Include="..\NoaEngine\NoaEngine\StateMachine.cpp" />
+    <ClCompile Include="..\NoaEngine\NoaEngine\Texture.cpp" />
+    <ClCompile Include="..\NoaEngine\NoaEngine\Time.cpp" />
+    <ClCompile Include="..\NoaEngine\NoaEngine\Transform.cpp" />
+    <ClCompile Include="Bullet.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="SuperMario.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\NoaEngine\core\Actor.h" />
-    <ClInclude Include="..\NoaEngine\core\ActorComponent.h" />
-    <ClInclude Include="..\NoaEngine\core\Animator.h" />
-    <ClInclude Include="..\NoaEngine\core\Audio.h" />
-    <ClInclude Include="..\NoaEngine\core\Camera.h" />
-    <ClInclude Include="..\NoaEngine\core\GameObject.h" />
-    <ClInclude Include="..\NoaEngine\core\GLRenderer.h" />
-    <ClInclude Include="..\NoaEngine\core\GLTexture.h" />
-    <ClInclude Include="..\NoaEngine\core\Graphic.h" />
-    <ClInclude Include="..\NoaEngine\core\InputSystem.h" />
-    <ClInclude Include="..\NoaEngine\core\NoaAction.h" />
-    <ClInclude Include="..\NoaEngine\core\NoaEngine.h" />
-    <ClInclude Include="..\NoaEngine\core\NoaGUI.h" />
-    <ClInclude Include="..\NoaEngine\core\NoaMath.h" />
-    <ClInclude Include="..\NoaEngine\core\NObject.h" />
-    <ClInclude Include="..\NoaEngine\core\Physics.h" />
-    <ClInclude Include="..\NoaEngine\core\Platform.h" />
-    <ClInclude Include="..\NoaEngine\core\Platform_Windows.h" />
-    <ClInclude Include="..\NoaEngine\core\Renderer.h" />
-    <ClInclude Include="..\NoaEngine\core\Resource.h" />
-    <ClInclude Include="..\NoaEngine\core\Scene.h" />
-    <ClInclude Include="..\NoaEngine\core\ScriptableActor.h" />
-    <ClInclude Include="..\NoaEngine\core\Sprite.h" />
-    <ClInclude Include="..\NoaEngine\core\SpriteRenderer.h" />
-    <ClInclude Include="..\NoaEngine\core\StateMachine.h" />
-    <ClInclude Include="..\NoaEngine\core\Texture.h" />
-    <ClInclude Include="..\NoaEngine\core\Time.h" />
-    <ClInclude Include="..\NoaEngine\core\Transform.h" />
+    <ClInclude Include="..\NoaEngine\NoaEngine\Actor.h" />
+    <ClInclude Include="..\NoaEngine\NoaEngine\ActorComponent.h" />
+    <ClInclude Include="..\NoaEngine\NoaEngine\Animator.h" />
+    <ClInclude Include="..\NoaEngine\NoaEngine\Audio.h" />
+    <ClInclude Include="..\NoaEngine\NoaEngine\Camera.h" />
+    <ClInclude Include="..\NoaEngine\NoaEngine\Collider2D.h" />
+    <ClInclude Include="..\NoaEngine\NoaEngine\Debug.h" />
+    <ClInclude Include="..\NoaEngine\NoaEngine\GLHelper.h" />
+    <ClInclude Include="..\NoaEngine\NoaEngine\GLRenderer.h" />
+    <ClInclude Include="..\NoaEngine\NoaEngine\GLTexture.h" />
+    <ClInclude Include="..\NoaEngine\NoaEngine\Graphic.h" />
+    <ClInclude Include="..\NoaEngine\NoaEngine\InputSystem.h" />
+    <ClInclude Include="..\NoaEngine\NoaEngine\NoaAction.h" />
+    <ClInclude Include="..\NoaEngine\NoaEngine\NoaEngine.h" />
+    <ClInclude Include="..\NoaEngine\NoaEngine\NoaGUI.h" />
+    <ClInclude Include="..\NoaEngine\NoaEngine\NoaMath.h" />
+    <ClInclude Include="..\NoaEngine\NoaEngine\NObject.h" />
+    <ClInclude Include="..\NoaEngine\NoaEngine\Physics.h" />
+    <ClInclude Include="..\NoaEngine\NoaEngine\PhysicsSystem.h" />
+    <ClInclude Include="..\NoaEngine\NoaEngine\Platform.h" />
+    <ClInclude Include="..\NoaEngine\NoaEngine\Platform_Windows.h" />
+    <ClInclude Include="..\NoaEngine\NoaEngine\Renderer.h" />
+    <ClInclude Include="..\NoaEngine\NoaEngine\Resource.h" />
+    <ClInclude Include="..\NoaEngine\NoaEngine\Scene.h" />
+    <ClInclude Include="..\NoaEngine\NoaEngine\ScriptableActor.h" />
+    <ClInclude Include="..\NoaEngine\NoaEngine\SDLHelper.h" />
+    <ClInclude Include="..\NoaEngine\NoaEngine\Sprite.h" />
+    <ClInclude Include="..\NoaEngine\NoaEngine\SpriteRenderer.h" />
+    <ClInclude Include="..\NoaEngine\NoaEngine\StateMachine.h" />
+    <ClInclude Include="..\NoaEngine\NoaEngine\Texture.h" />
+    <ClInclude Include="..\NoaEngine\NoaEngine\Time.h" />
+    <ClInclude Include="..\NoaEngine\NoaEngine\Transform.h" />
+    <ClInclude Include="Bullet.h" />
     <ClInclude Include="GameEngine.h" />
+    <ClInclude Include="Player.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
@@ -200,6 +210,10 @@
     <Import Project="..\packages\sdl2.nuget.redist.2.28.3\build\native\sdl2.nuget.redist.targets" Condition="Exists('..\packages\sdl2.nuget.redist.2.28.3\build\native\sdl2.nuget.redist.targets')" />
     <Import Project="..\packages\sdl2.nuget.2.28.3\build\native\sdl2.nuget.targets" Condition="Exists('..\packages\sdl2.nuget.2.28.3\build\native\sdl2.nuget.targets')" />
     <Import Project="..\packages\freetype2.2.6.0.1\build\native\freetype2.targets" Condition="Exists('..\packages\freetype2.2.6.0.1\build\native\freetype2.targets')" />
+    <Import Project="..\packages\sdl2_mixer.nuget.redist.2.6.3\build\native\sdl2_mixer.nuget.redist.targets" Condition="Exists('..\packages\sdl2_mixer.nuget.redist.2.6.3\build\native\sdl2_mixer.nuget.redist.targets')" />
+    <Import Project="..\packages\sdl2_mixer.nuget.2.6.3\build\native\sdl2_mixer.nuget.targets" Condition="Exists('..\packages\sdl2_mixer.nuget.2.6.3\build\native\sdl2_mixer.nuget.targets')" />
+    <Import Project="..\packages\freetype.redist.2.8.0.1\build\native\freetype.redist.targets" Condition="Exists('..\packages\freetype.redist.2.8.0.1\build\native\freetype.redist.targets')" />
+    <Import Project="..\packages\freetype.2.8.0.1\build\native\freetype.targets" Condition="Exists('..\packages\freetype.2.8.0.1\build\native\freetype.targets')" />
   </ImportGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
@@ -210,5 +224,9 @@
     <Error Condition="!Exists('..\packages\sdl2.nuget.redist.2.28.3\build\native\sdl2.nuget.redist.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\sdl2.nuget.redist.2.28.3\build\native\sdl2.nuget.redist.targets'))" />
     <Error Condition="!Exists('..\packages\sdl2.nuget.2.28.3\build\native\sdl2.nuget.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\sdl2.nuget.2.28.3\build\native\sdl2.nuget.targets'))" />
     <Error Condition="!Exists('..\packages\freetype2.2.6.0.1\build\native\freetype2.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\freetype2.2.6.0.1\build\native\freetype2.targets'))" />
+    <Error Condition="!Exists('..\packages\sdl2_mixer.nuget.redist.2.6.3\build\native\sdl2_mixer.nuget.redist.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\sdl2_mixer.nuget.redist.2.6.3\build\native\sdl2_mixer.nuget.redist.targets'))" />
+    <Error Condition="!Exists('..\packages\sdl2_mixer.nuget.2.6.3\build\native\sdl2_mixer.nuget.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\sdl2_mixer.nuget.2.6.3\build\native\sdl2_mixer.nuget.targets'))" />
+    <Error Condition="!Exists('..\packages\freetype.redist.2.8.0.1\build\native\freetype.redist.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\freetype.redist.2.8.0.1\build\native\freetype.redist.targets'))" />
+    <Error Condition="!Exists('..\packages\freetype.2.8.0.1\build\native\freetype.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\freetype.2.8.0.1\build\native\freetype.targets'))" />
   </Target>
 </Project>

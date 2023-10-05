@@ -10,11 +10,11 @@ using namespace std;
 namespace noa {
 	extern void Debug(string msg);
 
-	FontAsset fontAsset("./Assets/font/font.ttf",48);
+	std::shared_ptr<FontAsset> fontAsset;
 
 	Renderer::Renderer()
 	{
-
+		fontAsset = make_shared<FontAsset>("./Assets/font/font.ttf", 48);
 	}
 
 	void Renderer::SetRenderer(int pixelWidth, int pixelHeight, Uint32* pixelBuffer) {
@@ -292,7 +292,7 @@ namespace noa {
 				offset = 0;
 				continue;
 			}
-			const Font* font = fontAsset[c];
+			const Font* font = fontAsset->GetFont(c);
 			if (font == nullptr)
 			{
 				continue;
@@ -321,7 +321,7 @@ namespace noa {
 				row++;
 				offset = 0;
 			}
-			const Font* font = fontAsset[c];
+			const Font* font = fontAsset->GetFont(c);
 			if (font == nullptr)
 			{
 				continue;

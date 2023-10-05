@@ -1,34 +1,35 @@
-#define OLC_PGE_APPLICATION
-#include "D:\olcPixelGameEngine\olcPixelGameEngine.h"
+#include <iostream>
 
-using namespace olc;
+using namespace std;
 
-class ExampleGame:public PixelGameEngine {
+class Base 
+{
 public:
-	bool OnUserCreate() override
-	{
-		return true;
+	Base() {
+		Debug();
 	}
-	// Called every frame, and provides you with a time per frame value
-	bool OnUserUpdate(float fElapsedTime) override
-	{
-		for (int x = 0;x<ScreenWidth();x++) 
-		{
-			for (int y = 0;y<ScreenHeight();y++) 
-			{
-				Draw(x,y,BLACK);
-			}
-		}
-		DrawString(10, 10, std::to_string(GetFPS()), WHITE, 10);
 
-		return true;
+	virtual void Debug() {
+		cout << "Hello Base" << endl;
 	}
+};
+
+class Child:public Base 
+{
+public:
+	Child() :Base() {
+
+	}
+
+	void Debug() override {
+		cout << "Hello Child" << endl;
+	}
+
 };
 
 int main(int argc,char * argv[])
 {
-	ExampleGame game;
-	game.Construct(1920/2,1080/2,1920/2,1080/2,true,false,true);
-	game.Start();
+	Child c;
+
 	return 0;
 }

@@ -166,8 +166,10 @@ namespace noa
 		{
 			return;
 		}
+
 		this->actors[actor->GetHash()] = actor;
 		destroyActors.push_back(actor);
+
 	}
 
 	void Scene::RemoveActor(Actor* actor)
@@ -178,55 +180,11 @@ namespace noa
 			return;
 		}
 		actor->SetActive(false);
+		actor->ComponentOnDestroy();
 		actor->OnDestroy();
 		actors[actor->GetHash()] = nullptr;
 		//destroyActors.push_back(actor);
 
-	}
-
-	void Scene::ActorAwake()
-	{
-		for (auto e:this->actors)
-		{
-			if (e.second == nullptr)
-			{
-				continue;
-			}
-			Actor* actor = e.second;
-			actor->ComponentAwake();
-			actor->Awake();
-		}
-	}
-
-	void Scene::ActorOnEnable()
-	{
-		for (auto e : this->actors)
-		{
-			
-			if (e.second == nullptr)
-			{
-				continue;
-			}
-			Actor* actor = e.second;
-			actor->ComponentOnEnable();
-			actor->OnEnable();
-		}
-	}
-
-	void Scene::ActorStart()
-	{
-
-		for (auto e : this->actors)
-		{
-			
-			if (e.second == nullptr)
-			{
-				continue;
-			}
-			Actor* actor = e.second;
-			actor->ComponentStart();
-			actor->Start();
-		}
 	}
 
 	void Scene::ActorUpdate()
@@ -252,21 +210,6 @@ namespace noa
 			i->second->Update();
 		}
 
-	}
-
-	void Scene::ActorOnDisable()
-	{
-		for (auto & e : this->actors)
-		{
-			
-			if (e.second == nullptr)
-			{
-				continue;
-			}
-			Actor* actor = e.second;
-			actor->ComponentOnDisable();
-			actor->OnDisable();
-		}
 	}
 
 	void Scene::DestoyScene()
@@ -338,7 +281,6 @@ namespace noa
 		if (activeScene != nullptr)
 		{
 			activeScene->Awake();
-			activeScene->ActorAwake();
 		}
 	}
 
@@ -356,8 +298,6 @@ namespace noa
 		if (activeScene != nullptr)
 		{
 			activeScene->Start();
-			activeScene->ActorOnEnable();
-			activeScene->ActorStart();
 		}
 		
 	}
@@ -376,7 +316,6 @@ namespace noa
 
 		if (!done&&oldScene != nullptr && oldScene != activeScene)
 		{
-			oldScene->ActorOnDisable();
 			oldScene->DestoyScene();
 			oldScene->Unload();
 			oldScene = nullptr;

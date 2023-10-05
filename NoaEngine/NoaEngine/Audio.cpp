@@ -43,12 +43,13 @@ namespace noa {
 		}
 		else if (type == AudioType::CHUNK)
 		{
+			int channel = -1;
 			if (loop)
 			{
-				Mix_PlayChannel(-1, chunk, -1);
+				channel = Mix_PlayChannelTimed(-1, chunk, -1,-1);
 			}
 			else {
-				Mix_PlayChannel(-1, chunk, 0);
+				channel = Mix_PlayChannelTimed(-1, chunk, 0, -1); // 播放一次，持续时间设置为-1
 			}
 			//Mix_VolumeChunk(this->chunk, static_cast<int>(MIX_MAX_VOLUME * volume)); // 将音量设置为一半
 		}

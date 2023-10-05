@@ -112,11 +112,7 @@ namespace noa {
 	public:
 		void AddActor(Actor* actor);
 		void RemoveActor(Actor * actor);
-		void ActorAwake();
-		void ActorOnEnable();
-		void ActorStart();
 		void ActorUpdate();
-		void ActorOnDisable();
 		void DestoyScene();
 
 

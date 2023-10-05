@@ -10,27 +10,39 @@
 
 namespace noa 
 {
+
+	class NOAObject {
+	protected:
+		virtual ~NOAObject() {}
+	};
+
+	extern void InitNObject(NOAObject* obj);
+
 	template<typename T>
 	class NObject final
 	{
 	public:
 
 		template<typename ...Args>
-		static T* Create(Args... args) 
-		{
-			return new T(args...);
-		};
+		static T* Create(Args... args) {
+			T* obj = new T(args...);
+			InitNObject(obj);
+			return obj;
+		}
 
-		static T* Create()
-		{
-			return new T();
-		};
+		static T* Create() {
+			T* obj = new T();
+			InitNObject(obj);
+			return obj;
+		}
 
 	};
 
 	//T的对象由NObject管理
-	#define NOBJECT(T) friend class NObject<T>;
+	#define NOBJECT(T) friend class noa::NObject<T>;
 
+	//安全删除
+	#define SAFE_DELETE(ptr) if(ptr) {delete ptr;(ptr) = nullptr;}
 }
 
 

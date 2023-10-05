@@ -1,2 +1,2 @@
 #pragma once
-#include "./../NoaEngine/core/NoaEngine.h"
+#include "./../NoaEngine/NoaEngine/NoaEngine.h"

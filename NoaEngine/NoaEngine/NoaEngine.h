@@ -1,4 +1,12 @@
 /*
+* 项目依赖库：
+* (1)SDL2
+* (2)sdl2_mixer.nuget
+* (3)freetype2
+* (4)freetype
+* (5)nupengl
+* 
+* 
 * NoaEngine游戏引擎内容如下:
 * Animator					动画器
 * Audio						声音模块

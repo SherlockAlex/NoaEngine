@@ -20,11 +20,17 @@ noa::Actor::Actor(noa::Scene* activeScene)
 	}
 	id = GetNextId();
 	this->activeScene = activeScene;
+
+	// 这个时候内存只构建了Actor，它的子类还没有被构建
 	activeScene->AddActor(this);
 }
 
 noa::Actor::~Actor()
 {
+
+	this->ComponentOnDisable();
+	this->OnDisable();
+
 	if (rigidbody!=nullptr)
 	{
 		rigidbody->actor = nullptr;

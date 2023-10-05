@@ -22,7 +22,7 @@ namespace noa {
 	class ActorComponent;
 	class Rigidbody;
 
-	class Actor
+	class Actor:public NOAObject
 	{
 		friend class NObject<Actor>;
 	protected:
