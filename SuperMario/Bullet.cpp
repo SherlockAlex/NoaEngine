@@ -10,6 +10,7 @@ Bullet::Bullet(Scene* scene):Actor(scene)
 
 	rigid->collision.isTrigger = true;
 	rigid->tag = "Bullet";
+	collider->radius = 0.2f;
 }
 
 void Bullet::SetDestroy()
@@ -53,6 +54,5 @@ void Bullet::OnTrigger(const noa::Collision& other)
 		return;
 	}
 	entity->TakeDamage(20);
-	Debug::Log("66");
 	SetDestroy();
 }

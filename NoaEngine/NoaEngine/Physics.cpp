@@ -237,6 +237,10 @@ namespace noa
 
 	void Rigidbody::SetActive(bool value)
 	{
+		if (active == value)
+		{
+			return;
+		}
 		active = value;
 	}
 

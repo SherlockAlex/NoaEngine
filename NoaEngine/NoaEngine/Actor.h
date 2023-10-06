@@ -41,7 +41,7 @@ namespace noa {
 		Actor(Scene* activeScene);
 		virtual ~Actor();
 
-		
+		void SetComponentActive(bool value);
 
 	public:
 		virtual void Delete();
@@ -103,6 +103,8 @@ namespace noa {
 		void ComponentOnDisable();
 		void ComponentOnDestroy();
 		void DestroyComponent();
+
+		
 
 		void AddRigidbody(Rigidbody* rigid);
 

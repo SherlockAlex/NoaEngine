@@ -22,6 +22,10 @@ void noa::ActorComponent::Delete()
 
 void noa::ActorComponent::SetActive(bool value)
 {
+	if (active == value) 
+	{
+		return;
+	}
 	active = value;
 	if (value)
 	{

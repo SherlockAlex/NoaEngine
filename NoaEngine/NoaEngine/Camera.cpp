@@ -110,7 +110,7 @@ namespace noa {
 				continue;
 			}
 
-			Vector<int> objPos = Vector<int>(
+			const Vector<int> & objPos = Vector<int>(
 				static_cast<int>((instance.actor->transform.position.x - offset.x) * tileScale.x),
 				static_cast<int>((instance.actor->transform.position.y - offset.y) * tileScale.y)
 				);
@@ -272,14 +272,14 @@ namespace noa {
 		ray.distance = 0.0f;
 		ray.angle = follow->eulerAngle - FOV * (0.5f - (float)pixelX / pixelWidth);
 		const float rayForwordStep = 0.05f;
-		const Vector<float> eye = std::move(Vector<float>(sinf(ray.angle), cosf(ray.angle)));
+		const Vector<float> & eye = Vector<float>(sinf(ray.angle), cosf(ray.angle));
 		bool isHitCollisionTile = map.IsCollisionTile(ray.hitTile);
 		while (!isHitCollisionTile && ray.distance < viewDepth)
 		{
 			ray.distance += rayForwordStep;
 
-			const Vector<float> floatHitPoint = std::move(follow->position + eye * ray.distance+Vector<float>(0.5f,0.5f));
-			const Vector<int> intHitPoint = std::move(Vector<int>(static_cast<int>(floatHitPoint.x), static_cast<int>(floatHitPoint.y)));
+			const Vector<float> & floatHitPoint = follow->position + eye * ray.distance+Vector<float>(0.5f,0.5f);
+			const Vector<int> & intHitPoint = Vector<int>(static_cast<int>(floatHitPoint.x), static_cast<int>(floatHitPoint.y));
 
 			if (intHitPoint.x < 0||intHitPoint.x >= map.w || intHitPoint.y < 0|| intHitPoint.y >= map.h)
 			{

@@ -9,6 +9,7 @@ namespace noa {
 
 noa::Animation::Animation(noa::Actor* actor) :noa::ActorComponent(actor)
 {
+
 }
 
 noa::Animation::Animation(noa::Actor* actor, float speed, bool loop) :noa::ActorComponent(actor)
@@ -118,7 +119,9 @@ void noa::Animation::Start()
 
 }
 
-void noa::Animation::Update() {
+void noa::Animation::Update() 
+{
+
 	if (!isPlaying || this->frameData == nullptr)
 	{
 		return;

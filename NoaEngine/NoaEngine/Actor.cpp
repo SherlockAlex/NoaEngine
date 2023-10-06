@@ -52,6 +52,23 @@ noa::Actor::~Actor()
 	
 }
 
+void noa::Actor::SetComponentActive(bool value)
+{
+
+	if (rigidbody)
+	{
+		rigidbody->SetActive(value);
+	}
+
+	for (auto & component:components) 
+	{
+		if (component) 
+		{
+			component->SetActive(value);
+		}
+	}
+}
+
 void noa::Actor::AddComponent(noa::ActorComponent* component)
 {
 	if (component == nullptr)
@@ -193,19 +210,14 @@ void noa::Actor::SetActive(bool value)
 	{
 		return;
 	}
+	SetComponentActive(value);
 	isActive = value;
-	if (rigidbody) 
-	{
-		rigidbody->SetActive(value);
-	}
+	
 	if (isActive)
-	{
-		
-		ComponentOnEnable();
+	{	
 		OnEnable();
 		return;
 	}
-	ComponentOnEnable();
 	OnDisable();
 
 }
