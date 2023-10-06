@@ -130,7 +130,7 @@ namespace noa
 	Vector<float> pos(0.0, 0.0);
 	void Rigidbody::ApplyCollision()
 	{
-		if (!useCollision||tileMap == nullptr)
+		if (!active||!useCollision||tileMap == nullptr)
 		{
 			return;
 		}
@@ -199,7 +199,7 @@ namespace noa
 	}
 
 	void Rigidbody::ApplyTrigger() {
-		if (collision.isTrigger && collision.other != nullptr && this->actor != nullptr)
+		if (active&&collision.isTrigger && collision.other != nullptr && this->actor != nullptr)
 		{
 			this->actor->OnTrigger(collision);
 		}

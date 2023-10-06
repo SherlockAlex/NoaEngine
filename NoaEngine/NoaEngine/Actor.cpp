@@ -183,6 +183,7 @@ void noa::Actor::Delete()
 void noa::Actor::Destroy()
 {
 	SetActive(false);
+	
 	activeScene->RemoveActor(this);
 }
 
@@ -193,8 +194,13 @@ void noa::Actor::SetActive(bool value)
 		return;
 	}
 	isActive = value;
+	if (rigidbody) 
+	{
+		rigidbody->SetActive(value);
+	}
 	if (isActive)
 	{
+		
 		ComponentOnEnable();
 		OnEnable();
 		return;
@@ -225,8 +231,9 @@ void noa::Actor::SetActiveScene(noa::Scene* scene)
 	scene->AddActor(this);
 }
 
-void noa::Actor::OnTrigger(noa::Collision collision)
+void noa::Actor::OnTrigger(const noa::Collision & collision)
 {
+
 }
 
 

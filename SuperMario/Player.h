@@ -1,6 +1,8 @@
 #pragma once
 #include "GameEngine.h"
-class Player :public noa::Actor {
+#include "LiveEntity.h"
+class Player :public LiveEntity
+{
 	NOBJECT(Player)
 private:
 	Player(noa::Scene* scene);
@@ -8,6 +10,8 @@ private:
 public:
 
 	void Update() override;
+
+	void TakeDamage(int damage) override;
 
 public:
 	noa::SpriteRenderer* spriteRenderer = noa::SpriteRenderer::Create(this);

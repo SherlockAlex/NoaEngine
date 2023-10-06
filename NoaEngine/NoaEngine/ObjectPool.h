@@ -1,7 +1,7 @@
 #ifndef NOAENGINE_POOLOBJECT_H
 #define NOAENGINE_POOLOBJECT_H
 
-#include <stack>
+#include <queue>
 
 #include "IPool.h"
 #include "IPoolObjectFactroy.h"
@@ -13,11 +13,12 @@ namespace noa {
 	private:
 		bool isPrewarmed = false;
 	protected:
-		std::stack<T*> available;
+		std::queue<T*> available;
 		IPoolObjectFactroy<T> * factory = nullptr;
 
 		virtual ~ObjectPool()
 		{
+
 			while (!available.empty()) 
 			{
 				available.pop();
@@ -64,7 +65,7 @@ namespace noa {
 		virtual T* Request() override {
 			if (available.size()>0)
 			{
-				T* result = available.top();
+				T* result = available.front();
 				available.pop();
 				return result;
 			}

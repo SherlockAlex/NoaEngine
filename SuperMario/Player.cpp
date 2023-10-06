@@ -4,10 +4,13 @@
 
 using namespace noa;
 
-Player::Player(Scene* scene) :Actor(scene)
+Player::Player(Scene* scene) :LiveEntity(scene)
 {
 	spriteRenderer->SetSprite(&sprite);
 	rigid->useGravity = false;
+
+	rigid->tag = "Player";
+
 }
 
 void Player::Update()
@@ -60,8 +63,18 @@ void Player::Update()
 		{
 			shootAFX.Play(false);
 			Bullet* bullet = bulletPool->Request();
+			bullet->ownTag = rigid->tag;
 			bullet->SetPostion(this->transform.position);
 			delay = 0;
 		}
+	}
+}
+
+void Player::TakeDamage(int damage) 
+{
+	this->hp -= damage;
+	if (hp<=0) 
+	{
+		Debug::Log("This liveEntity is done");
 	}
 }

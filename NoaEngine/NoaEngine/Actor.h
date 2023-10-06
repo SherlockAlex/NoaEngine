@@ -92,7 +92,7 @@ namespace noa {
 	public:
 		void SetActiveScene(Scene * scene);
 
-		virtual void OnTrigger(Collision collision);
+		virtual void OnTrigger(const Collision & collision);
 		virtual void OnHitTile() {}
 
 		void AddComponent(ActorComponent* component);

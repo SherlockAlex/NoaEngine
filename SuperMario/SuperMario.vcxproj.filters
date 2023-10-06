@@ -129,6 +129,12 @@
     <ClCompile Include="BulletPool.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="LiveEntity.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Enimy.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -258,6 +264,12 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="BulletPool.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="LiveEntity.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Enimy.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

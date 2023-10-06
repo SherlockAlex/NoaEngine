@@ -33,5 +33,7 @@ D:\Work\NoaEngine\NoaEngine\NoaEngine\Transform.cpp;D:\Work\NoaEngine\SuperMario
 D:\Work\NoaEngine\SuperMario\Bullet.cpp;D:\Work\NoaEngine\SuperMario\x64\Release\Bullet.obj
 D:\Work\NoaEngine\SuperMario\BulletFactory.cpp;D:\Work\NoaEngine\SuperMario\x64\Release\BulletFactory.obj
 D:\Work\NoaEngine\SuperMario\BulletPool.cpp;D:\Work\NoaEngine\SuperMario\x64\Release\BulletPool.obj
+D:\Work\NoaEngine\SuperMario\Enimy.cpp;D:\Work\NoaEngine\SuperMario\x64\Release\Enimy.obj
+D:\Work\NoaEngine\SuperMario\LiveEntity.cpp;D:\Work\NoaEngine\SuperMario\x64\Release\LiveEntity.obj
 D:\Work\NoaEngine\SuperMario\Player.cpp;D:\Work\NoaEngine\SuperMario\x64\Release\Player.obj
 D:\Work\NoaEngine\SuperMario\SuperMario.cpp;D:\Work\NoaEngine\SuperMario\x64\Release\SuperMario.obj

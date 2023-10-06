@@ -1,5 +1,6 @@
 ﻿#include "GameEngine.h"
 #include "Player.h"
+#include "Enimy.h"
 #include "Bullet.h"
 #include "BulletFactory.h"
 #include "BulletPool.h"
@@ -28,6 +29,10 @@ public:
 		PhysicsSystem::SetGrid(10, 10 * pixelHeight / (pixelWidth));
 		player = NObject<Player>::Create<Scene*>(this);
 		player->transform.position = { 4.5f,4.5f };
+
+		Enimy* enimy = NObject<Enimy>::Create<Scene*>(this);
+		enimy->SetPosition({4.5f,0});
+
 	}
 
 	void Update() override {
