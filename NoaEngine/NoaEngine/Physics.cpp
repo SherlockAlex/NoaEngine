@@ -14,6 +14,8 @@ using namespace std;
 namespace noa 
 {
 	float gravityAcceration = 9.81f;
+
+	Vector<float> gravity = { 0,gravityAcceration };
 	
 	unordered_map<size_t, bool> isCheckCollision;
 
@@ -60,7 +62,7 @@ namespace noa
 
 		if (useMotion&&useGravity&&(!collision.isGrounded)) 
 		{
-			velocity.y += gravityWeight * gravityAcceration * deltaTime;
+			this->force += (gravity *gravityWeight);
 		}
 
 		if (useMotion)
@@ -100,7 +102,7 @@ namespace noa
 		}
 	}
 
-	void Rigidbody::AddForce(const Vector<float> force, ForceType forceType)
+	void Rigidbody::AddForce(const Vector<float> & force, ForceType forceType)
 	{
 		//添加力到物体上
 

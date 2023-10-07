@@ -24,8 +24,17 @@ namespace noa {
 
 	class Actor:public NOAObject
 	{
+	private:
 		friend class NObject<Actor>;
+		friend class Scene;
+		friend class SceneManager;
+		friend class Rigidbody;
+		friend class PhysicsSystem;
+
+		friend void InitNObject(NOAObject* obj);
+
 	protected:
+
 		Scene* activeScene = nullptr;
 	private:
 		bool isActive = true;
@@ -41,10 +50,8 @@ namespace noa {
 		Actor(Scene* activeScene);
 		virtual ~Actor();
 
-		void SetComponentActive(bool value);
-
-	public:
-		virtual void Delete();
+	protected:
+		
 
 		virtual void Awake() {};
 		virtual void OnEnable() {}
@@ -53,6 +60,15 @@ namespace noa {
 		virtual void OnDisable() {}
 		virtual void OnDestroy() {}
 
+		virtual void OnTrigger(const Collision& collision);
+		virtual void OnHitTile() {}
+
+
+	public:
+		void SetActiveScene(Scene* scene);
+
+		void AddRigidbody(Rigidbody* rigid);
+		void AddComponent(ActorComponent* component);
 		virtual void Destroy();
 
 		virtual void SetActive(bool value);
@@ -60,6 +76,7 @@ namespace noa {
 		Scene* GetActiveScene();
 
 		static Actor* HandleActor(NOAObject* object);
+		
 		
 
 	public:
@@ -89,13 +106,8 @@ namespace noa {
 			return this;
 		}
 
-	public:
-		void SetActiveScene(Scene * scene);
+	private:
 
-		virtual void OnTrigger(const Collision & collision);
-		virtual void OnHitTile() {}
-
-		void AddComponent(ActorComponent* component);
 		void ComponentAwake();
 		void ComponentOnEnable();
 		void ComponentStart();
@@ -104,9 +116,10 @@ namespace noa {
 		void ComponentOnDestroy();
 		void DestroyComponent();
 
-		
+		void SetComponentActive(bool value);
 
-		void AddRigidbody(Rigidbody* rigid);
+	private:
+		void Delete();
 
 	private:
 		size_t id;

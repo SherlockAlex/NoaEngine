@@ -22,9 +22,15 @@ namespace noa
 
 		static void CheckCellsCollisions(Cell& cell1, Cell& cell2);
 
-		static bool Collide(CircleCollider2D* obj1, CircleCollider2D* obj2);
+		static bool CircleCollide(CircleCollider2D * obj1,CircleCollider2D * obj2);
 
-		static void SolveCollision(CircleCollider2D* obj1, CircleCollider2D* obj2);
+		static bool BoxCollide(BoxCollider2D * obj1,BoxCollider2D * obj2);
+
+		static bool BoxAndCircleCollide(BoxCollider2D* obj1, CircleCollider2D* obj2);
+
+		static bool Collide(Collider2D* obj1, Collider2D* obj2);
+
+		static void SolveCollision(Collider2D* obj1, Collider2D* obj2);
 	};
 }
 

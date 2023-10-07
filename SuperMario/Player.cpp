@@ -9,7 +9,7 @@ Player::Player(Scene* scene) :LiveEntity(scene)
 	spriteRenderer->SetSprite(&sprite);
 	rigid->useGravity = false;
 	//rigid->collision.isTrigger = true;
-	collider->radius = 0.5f;
+	//collider->radius = 0.5f;
 	rigid->tag = "Player";
 
 }
@@ -56,7 +56,7 @@ void Player::Update()
 		transform.position.y = 4.5;
 	}
 
-	if (inputSystem.GetKeyHold(KeyCode::KEY_K))
+	if (inputSystem.GetKeyHold(KeyCode::KEY_K)||inputSystem.GetMouseButton(MouseButton::LEFT_BUTTON))
 	{
 
 		delay = delay + Time::deltaTime;

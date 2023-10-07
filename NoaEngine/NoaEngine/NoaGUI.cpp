@@ -1,10 +1,4 @@
-#include "NoaGUI.h"
-#include <unordered_map>
-#include "Scene.h"
-#include "Renderer.h"
-#include "InputSystem.h"
-#include "Resource.h"
-#include "Debug.h"
+#include "NoaEngine.h"
 
 #include <ft2build.h>
 #include FT_FREETYPE_H
@@ -335,11 +329,6 @@ namespace noa {
 	UICanvas* UICanvas::Create(Scene* scene)
 	{
 		return new UICanvas(scene);
-	}
-
-	void UICanvas::Delete()
-	{
-		delete this;
 	}
 
 	void UICanvas::AddComponent(UIComponent* component)

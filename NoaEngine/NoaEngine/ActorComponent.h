@@ -11,9 +11,10 @@ namespace noa {
 	/// </summary>
 	class ActorComponent:public NOAObject
 	{
-		friend class NObject<ActorComponent>;
-
 	protected:
+		friend class NObject<ActorComponent>;
+		friend class Actor;
+
 		Actor* actor = nullptr;
 	private:
 		bool active = true;
@@ -22,7 +23,7 @@ namespace noa {
 		ActorComponent(Actor* actor);
 		virtual ~ActorComponent();
 
-	public:
+	protected:
 		virtual void Delete();
 
 		virtual void Awake() {};
@@ -32,10 +33,14 @@ namespace noa {
 		virtual void OnDisable() {}
 		virtual void OnDestroy() {}
 
+		void DeleteActorEvent();
+
+	public:
+
 		virtual void SetActive(bool value);
 		virtual bool GetActive();
 
-		void DeleteActorEvent();
+		
 
 		template<class T>
 		T GetActorAs() {

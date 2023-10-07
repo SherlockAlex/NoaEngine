@@ -6,9 +6,18 @@
 
 namespace noa 
 {
+
+	enum class ColliderType {
+		CIRCLE_COLLIDER,
+		BOX_COLLIDER
+	};
+
 	class Rigidbody;
 	class Collider2D:public ActorComponent
 	{
+	protected:
+		friend class PhysicsSystem;
+		ColliderType colliderType;
 	public:
 		Rigidbody* rigidbody = nullptr;
 
@@ -23,22 +32,32 @@ namespace noa
 
 	};
 
+	class BoxCollider2D :public Collider2D {
+	public:
+		Vector<float> scale = {1,1};
+	private:
+		BoxCollider2D(Actor * actor,Rigidbody* rigidbody);
+		~BoxCollider2D() override;
+
+	public:
+		static BoxCollider2D* Create(Actor * actor,Rigidbody * rigidbody);
+
+	};
+
 	class CircleCollider2D :public Collider2D
 	{
 	public:
-		float radius = 1;
+		float radius = 0.5f;
 	private:
 		CircleCollider2D(Actor* actor, Rigidbody* rigidbody);
 		~CircleCollider2D() override;
 	public:
 		static CircleCollider2D* Create(Actor* actor, Rigidbody* rigidbody);
-		void Update() override;
-		void Delete() override;
 
 	};
 
 	typedef struct Cell {
-		std::vector<CircleCollider2D*> colliders;
+		std::vector<Collider2D*> colliders;
 	}Cell;
 
 	typedef struct Grid

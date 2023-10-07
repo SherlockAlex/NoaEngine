@@ -80,7 +80,6 @@ namespace noa {
 		~UICanvas() override;
 	public:
 		static UICanvas* Create(Scene* scene);
-		void Delete() override;
 
 		void AddComponent(UIComponent* component);
 		void SetActive(bool active) override;

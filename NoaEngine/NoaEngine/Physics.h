@@ -83,10 +83,6 @@ namespace noa {
 
 	private:
 		Rigidbody(Actor* actor);
-		
-		Rigidbody(const Rigidbody&);
-		Rigidbody& operator = (const Rigidbody&);
-
 	public:
 		~Rigidbody();
 		static Rigidbody* Create(Actor* actor);
@@ -99,7 +95,7 @@ namespace noa {
 
 		void Destroy();
 
-		void AddForce(const Vector<float> force, ForceType forceType);
+		void AddForce(const Vector<float> & force, ForceType forceType);
 		
 		void SetTileMap(TileMap * map);
 
