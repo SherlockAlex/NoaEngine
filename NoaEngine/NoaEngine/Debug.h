@@ -4,6 +4,8 @@
 #include <string>
 #include <iostream>
 
+#include "NoaMath.h"
+
 namespace noa {
 	class Debug
 	{
@@ -26,6 +28,18 @@ namespace noa {
 		}
 
 	};
+
+	template<typename T>
+	inline std::string ToString(T value) {
+		return std::to_string(value);
+	}
+
+	template<typename T>
+	inline std::string ToString(const noa::Vector<T> & value)
+	{
+		return "(" + std::to_string(value.x) + "," + std::to_string(value.y) + ")";
+	}
+
 }
 
 

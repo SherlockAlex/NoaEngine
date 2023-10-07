@@ -36,7 +36,6 @@ namespace noa {
 	private:
 		std::unordered_map<char, Font*> fonts;
 	public:
-		FontAsset(const char * fontPath);
 		FontAsset(const char* ttfPath,int size);
 		Font* GetFont(char c);
 

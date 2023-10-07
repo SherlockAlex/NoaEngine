@@ -67,6 +67,9 @@ void Player::Update()
 			delay = 0;
 		}
 	}
+
+	Debug::Log(ToString<float>(transform.position));
+
 }
 
 void Player::TakeDamage(int damage) 

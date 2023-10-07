@@ -1,10 +1,117 @@
 ﻿D:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(531,5): warning MSB8028: 中间目录(x64\Release\)包含从另一个项目(SuperMario.vcxproj)共享的文件。   这会导致错误的清除和重新生成行为。
+  Actor.cpp
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
+D:\Work\NoaEngine\packages\nupengl.core.0.1.0.1\build\native\include\GLFW\glfw3.h(92,1): message : 参见“APIENTRY”的前一个定义
+  ActorComponent.cpp
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
+D:\Work\NoaEngine\packages\nupengl.core.0.1.0.1\build\native\include\GLFW\glfw3.h(92,1): message : 参见“APIENTRY”的前一个定义
+  ActorPool.cpp
+  Animator.cpp
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
+D:\Work\NoaEngine\packages\nupengl.core.0.1.0.1\build\native\include\GLFW\glfw3.h(92,1): message : 参见“APIENTRY”的前一个定义
+  Audio.cpp
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
+D:\Work\NoaEngine\packages\nupengl.core.0.1.0.1\build\native\include\GLFW\glfw3.h(92,1): message : 参见“APIENTRY”的前一个定义
+  Camera.cpp
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
+D:\Work\NoaEngine\packages\nupengl.core.0.1.0.1\build\native\include\GLFW\glfw3.h(92,1): message : 参见“APIENTRY”的前一个定义
+D:\Work\NoaEngine\NoaEngine\NoaEngine\Camera.cpp(117,51): warning C4244: “参数”: 从“const T”转换到“float”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\NoaEngine\NoaEngine\NoaEngine\Camera.cpp(117,41): warning C4244: “参数”: 从“const T”转换到“float”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\NoaEngine\NoaEngine\NoaEngine\Camera.cpp(481,70): warning C4244: “参数”: 从“int”转换到“float”，可能丢失数据
+D:\Work\NoaEngine\NoaEngine\NoaEngine\Camera.cpp(481,58): warning C4244: “参数”: 从“int”转换到“float”，可能丢失数据
+D:\Work\NoaEngine\NoaEngine\NoaEngine\Camera.cpp(493,66): warning C4244: “参数”: 从“T”转换到“float”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\NoaEngine\NoaEngine\NoaEngine\Camera.cpp(493,54): warning C4244: “参数”: 从“T”转换到“float”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+  Collider2D.cpp
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
+D:\Work\NoaEngine\packages\nupengl.core.0.1.0.1\build\native\include\GLFW\glfw3.h(92,1): message : 参见“APIENTRY”的前一个定义
+  Debug.cpp
+  GLRenderer.cpp
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
+D:\Work\NoaEngine\packages\nupengl.core.0.1.0.1\build\native\include\GLFW\glfw3.h(92,1): message : 参见“APIENTRY”的前一个定义
+  GLTexture.cpp
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
+D:\Work\NoaEngine\packages\nupengl.core.0.1.0.1\build\native\include\GLFW\glfw3.h(92,1): message : 参见“APIENTRY”的前一个定义
+  InputSystem.cpp
+  NoaAction.cpp
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
+D:\Work\NoaEngine\packages\nupengl.core.0.1.0.1\build\native\include\GLFW\glfw3.h(92,1): message : 参见“APIENTRY”的前一个定义
+  NoaEngine.cpp
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
+D:\Work\NoaEngine\packages\nupengl.core.0.1.0.1\build\native\include\GLFW\glfw3.h(92,1): message : 参见“APIENTRY”的前一个定义
+  NoaGUI.cpp
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
+D:\Work\NoaEngine\packages\nupengl.core.0.1.0.1\build\native\include\GLFW\glfw3.h(92,1): message : 参见“APIENTRY”的前一个定义
+  Physics.cpp
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
+D:\Work\NoaEngine\packages\nupengl.core.0.1.0.1\build\native\include\GLFW\glfw3.h(92,1): message : 参见“APIENTRY”的前一个定义
+  PhysicsSystem.cpp
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
+D:\Work\NoaEngine\packages\nupengl.core.0.1.0.1\build\native\include\GLFW\glfw3.h(92,1): message : 参见“APIENTRY”的前一个定义
+D:\Work\NoaEngine\NoaEngine\NoaEngine\PhysicsSystem.cpp(258,30): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
+  Platform.cpp
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
+D:\Work\NoaEngine\packages\nupengl.core.0.1.0.1\build\native\include\GLFW\glfw3.h(92,1): message : 参见“APIENTRY”的前一个定义
+  Platform_Windows.cpp
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
+D:\Work\NoaEngine\packages\nupengl.core.0.1.0.1\build\native\include\GLFW\glfw3.h(92,1): message : 参见“APIENTRY”的前一个定义
+  Resource.cpp
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
+D:\Work\NoaEngine\packages\nupengl.core.0.1.0.1\build\native\include\GLFW\glfw3.h(92,1): message : 参见“APIENTRY”的前一个定义
+  Scene.cpp
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
+D:\Work\NoaEngine\packages\nupengl.core.0.1.0.1\build\native\include\GLFW\glfw3.h(92,1): message : 参见“APIENTRY”的前一个定义
+  正在编译...
+  Sprite.cpp
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
+D:\Work\NoaEngine\packages\nupengl.core.0.1.0.1\build\native\include\GLFW\glfw3.h(92,1): message : 参见“APIENTRY”的前一个定义
+  SpriteRenderer.cpp
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
+D:\Work\NoaEngine\packages\nupengl.core.0.1.0.1\build\native\include\GLFW\glfw3.h(92,1): message : 参见“APIENTRY”的前一个定义
+  StateMachine.cpp
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
+D:\Work\NoaEngine\packages\nupengl.core.0.1.0.1\build\native\include\GLFW\glfw3.h(92,1): message : 参见“APIENTRY”的前一个定义
+  Texture.cpp
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
+D:\Work\NoaEngine\packages\nupengl.core.0.1.0.1\build\native\include\GLFW\glfw3.h(92,1): message : 参见“APIENTRY”的前一个定义
+  Bullet.cpp
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
+D:\Work\NoaEngine\packages\nupengl.core.0.1.0.1\build\native\include\GLFW\glfw3.h(92,1): message : 参见“APIENTRY”的前一个定义
+  BulletFactory.cpp
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
+D:\Work\NoaEngine\packages\nupengl.core.0.1.0.1\build\native\include\GLFW\glfw3.h(92,1): message : 参见“APIENTRY”的前一个定义
+  BulletPool.cpp
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
+D:\Work\NoaEngine\packages\nupengl.core.0.1.0.1\build\native\include\GLFW\glfw3.h(92,1): message : 参见“APIENTRY”的前一个定义
+  Enimy.cpp
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
+D:\Work\NoaEngine\packages\nupengl.core.0.1.0.1\build\native\include\GLFW\glfw3.h(92,1): message : 参见“APIENTRY”的前一个定义
+  LiveEntity.cpp
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
+D:\Work\NoaEngine\packages\nupengl.core.0.1.0.1\build\native\include\GLFW\glfw3.h(92,1): message : 参见“APIENTRY”的前一个定义
   Player.cpp
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
 D:\Work\NoaEngine\packages\nupengl.core.0.1.0.1\build\native\include\GLFW\glfw3.h(92,1): message : 参见“APIENTRY”的前一个定义
+  main.cpp
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
+D:\Work\NoaEngine\packages\nupengl.core.0.1.0.1\build\native\include\GLFW\glfw3.h(92,1): message : 参见“APIENTRY”的前一个定义
   正在生成代码
-  0 of 2257 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    0 functions had inline decision re-evaluated but remain unchanged
+  Previous IPDB and IOBJ mismatch, fall back to full compilation.
+  All 2279 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
   已完成代码的生成
   SuperMario.vcxproj -> D:\Work\NoaEngine\x64\Release\ShootGame.exe
