@@ -1,13 +1,14 @@
 #include "Enimy.h"
+#include "Bullet.h"
+#include "BulletPool.h"
 using namespace noa;
 
-Sprite enimySprite(noa::resource.LoadSprFile("./Assets/Fly/player.spr"), { 32,32 });
+Sprite enimySprite(noa::resource.LoadSprFile("./Assets/Fly/enimy.spr"), { 32,32 });
 
 
 Enimy::Enimy(noa::Scene* scene) :LiveEntity(scene)
 {
 	rigid->useGravity = false;
-	//collider->radius = 0.5f;
 	this->spriteRenderer->SetSprite(&enimySprite);
 }
 
@@ -29,6 +30,17 @@ void Enimy::SetPosition(const Vector<float>& position)
 void Enimy::Update() 
 {
 	
+	rigid->velocity.y = 0.1f;
 
+	delay = delay + Time::deltaTime;
+	if (delay > 0.5)
+	{
+		//shootAFX.Play(false);
+		Bullet* bullet = bulletPool->Request();
+		bullet->SetDirection({ 0,1 });
+		bullet->ownTag = rigid->tag;
+		bullet->SetPostion(this->transform.position);
+		delay = 0;
+	}
 
 }

@@ -27,7 +27,7 @@ public:
 		player->transform.position = { 4.5f,4.5f };
 
 		Enimy* enimy = NObject<Enimy>::Create<Scene*>(this);
-		enimy->SetPosition({4.5f,2.5});
+		enimy->SetPosition({4.5f,0.0f});
 
 	}
 

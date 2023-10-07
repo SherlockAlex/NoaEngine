@@ -4,6 +4,7 @@
 
 class Enimy:public LiveEntity
 {
+	float delay = 0.0f;
 	NOBJECT(Enimy)
 	Enimy(noa::Scene* scene);
 public:

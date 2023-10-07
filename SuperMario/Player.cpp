@@ -8,15 +8,12 @@ Player::Player(Scene* scene) :LiveEntity(scene)
 {
 	spriteRenderer->SetSprite(&sprite);
 	rigid->useGravity = false;
-	//rigid->collision.isTrigger = true;
-	//collider->radius = 0.5f;
 	rigid->tag = "Player";
 
 }
 
 void Player::Update()
 {
-	//rigid->velocity.x = 0.9995f * rigid->velocity.x;
 	if (inputSystem.GetKeyHold(KeyCode::KEY_A))
 	{
 		rigid->velocity.x = -7;
@@ -64,6 +61,7 @@ void Player::Update()
 		{
 			shootAFX.Play(false);
 			Bullet* bullet = bulletPool->Request();
+			bullet->SetDirection({0,-1});
 			bullet->ownTag = rigid->tag;
 			bullet->SetPostion(this->transform.position);
 			delay = 0;

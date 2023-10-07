@@ -13,6 +13,11 @@ Bullet::Bullet(Scene* scene):Actor(scene)
 	collider->radius = 0.5f;
 }
 
+void Bullet::SetDirection(const noa::Vector<float>& direction)
+{
+	this->dir = direction;
+}
+
 void Bullet::SetDestroy()
 {
 	time = 0;
@@ -21,9 +26,8 @@ void Bullet::SetDestroy()
 
 void Bullet::Update() {
 
+	rigid->velocity = dir * speed;
 
-
-	rigid->velocity.y = -12;
 	time = time + Time::deltaTime;
 
 	if (time >0.5)
@@ -62,6 +66,6 @@ void Bullet::OnTrigger(const noa::Collision& other)
 	{
 		return;
 	}
-	//entity->TakeDamage(20);
+	entity->TakeDamage(20);
 	SetDestroy();
 }

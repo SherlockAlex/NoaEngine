@@ -6,10 +6,14 @@ class Bullet :public noa::Actor
 public:
 	NOBJECT(Bullet)
 private:
+	noa::Vector<float> dir = {0,-1};
+	float speed = 10.0f;
 	Bullet(noa::Scene* scene);
 public:
 	std::string ownTag = "Default";
 public:
+
+	void SetDirection(const noa::Vector<float> & direction);
 
 	void SetDestroy();
 
