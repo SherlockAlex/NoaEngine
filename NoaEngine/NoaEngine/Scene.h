@@ -103,7 +103,7 @@ namespace noa {
 
 	public:
 		void SetTileMap(TileMap * map);
-		virtual void Delete() = 0;
+		void Delete() { delete this; };
 		virtual void Awake() {}
 		virtual void Start() {}
 		virtual void Update() {}

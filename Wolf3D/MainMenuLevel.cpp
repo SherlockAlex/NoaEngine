@@ -16,11 +16,6 @@ MainMenuLevel* MainMenuLevel::Create()
 	return new MainMenuLevel;
 }
 
-void MainMenuLevel::Delete()
-{
-	delete this;
-}
-
 void MainMenuLevel::Awake()
 {
 	if (wolfResource == nullptr)

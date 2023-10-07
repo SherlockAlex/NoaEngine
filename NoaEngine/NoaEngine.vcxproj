@@ -227,7 +227,6 @@
     <ClCompile Include="NoaEngine\SpriteRenderer.cpp" />
     <ClCompile Include="NoaEngine\PhysicsSystem.cpp" />
     <ClCompile Include="NoaEngine\Debug.cpp" />
-    <ClCompile Include="TestGPU.cpp" />
     <ClCompile Include="NoaEngine\Time.cpp" />
     <ClCompile Include="NoaEngine\Texture.cpp" />
   </ItemGroup>

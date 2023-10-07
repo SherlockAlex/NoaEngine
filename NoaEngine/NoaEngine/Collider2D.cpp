@@ -55,8 +55,8 @@ void noa::CircleCollider2D::Update()
 	{
 		return;
 	}
-	const int x = static_cast<int>(actor->transform.position.x+0.5);
-	const int y = static_cast<int>(actor->transform.position.y+0.5);
+	const int x = static_cast<int>(actor->transform.position.x);
+	const int y = static_cast<int>(actor->transform.position.y);
 	
 	const int w = PhysicsSystem::grid.width;
 	const int h = PhysicsSystem::grid.height;

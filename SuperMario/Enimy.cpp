@@ -7,6 +7,7 @@ Sprite enimySprite(noa::resource.LoadSprFile("./Assets/Fly/player.spr"), { 32,32
 Enimy::Enimy(noa::Scene* scene) :LiveEntity(scene)
 {
 	rigid->useGravity = false;
+	collider->radius = 0.5f;
 	this->spriteRenderer->SetSprite(&enimySprite);
 }
 

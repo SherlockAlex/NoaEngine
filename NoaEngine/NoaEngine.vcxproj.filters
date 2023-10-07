@@ -188,9 +188,6 @@
     <ClCompile Include="NoaEngine\Graphic.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="TestGPU.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="NoaEngine\Time.cpp">
       <Filter>源文件</Filter>
     </ClCompile>

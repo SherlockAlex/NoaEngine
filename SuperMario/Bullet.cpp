@@ -7,10 +7,10 @@ using namespace noa;
 Bullet::Bullet(Scene* scene):Actor(scene) 
 {
 	spriteRenderer->SetSprite(&sprite);
-
+	rigid->useGravity = false;
 	rigid->collision.isTrigger = true;
 	rigid->tag = "Bullet";
-	collider->radius = 0.2f;
+	collider->radius = 0.5f;
 }
 
 void Bullet::SetDestroy()
@@ -20,6 +20,9 @@ void Bullet::SetDestroy()
 }
 
 void Bullet::Update() {
+
+
+
 	rigid->velocity.y = -12;
 	time = time + Time::deltaTime;
 
@@ -27,6 +30,12 @@ void Bullet::Update() {
 	{
 		SetDestroy();
 	}
+
+	/*if (rigid->velocity.y>0&&transform.position.y>4.5f) 
+	{
+		transform.position.y = 4.5f;
+		rigid->velocity.y = 0;
+	}*/
 
 }
 
@@ -53,6 +62,6 @@ void Bullet::OnTrigger(const noa::Collision& other)
 	{
 		return;
 	}
-	entity->TakeDamage(20);
+	//entity->TakeDamage(20);
 	SetDestroy();
 }

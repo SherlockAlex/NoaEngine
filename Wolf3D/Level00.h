@@ -12,7 +12,6 @@ private:
 	~Level00();
 public:
 	static Level00* Create();
-	void Delete() override;
 
 	void Awake() override;
 	void Start() override;

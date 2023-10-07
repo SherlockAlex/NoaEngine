@@ -65,13 +65,15 @@ namespace noa
 
 		if (useMotion)
 		{
-			velocity = (velocity * (1 - damping)) + (sumForce * (deltaTime * invMass));
+			velocity = (velocity * (1 - damping)) + (this->force * (deltaTime * invMass));
 			newPosition = (this->actor->transform.position) + (velocity * deltaTime);
 			
 			ApplyCollision();
 		}
 
-		sumForce = {};
+		
+
+		this->force = {};
 
 	}
 
@@ -101,13 +103,14 @@ namespace noa
 	void Rigidbody::AddForce(const Vector<float> force, ForceType forceType)
 	{
 		//添加力到物体上
+
 		switch (forceType)
 		{
-		case Rigidbody::ContinuousForce:
+		case ForceType::CONTINUOUS_FORCE:
 			//添加恒力到物体上
-			sumForce += force;
+			this->force = this->force + force;
 			break;
-		case Rigidbody::Impulse:
+		case ForceType::IMPULSE_FORCE:
 			//添加一个冲量到物体上，作用完马上就消失
 			velocity += force * invMass;
 			break;

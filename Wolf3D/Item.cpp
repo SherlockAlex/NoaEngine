@@ -26,7 +26,7 @@ void Item::Delete()
 	delete this;
 }
 
-void Item::OnTrigger(Collision other)
+void Item::OnTrigger(const Collision & other)
 {
 	Rigidbody* rigid = other.other;
 	if (rigid!=nullptr&&rigid->tag == "Player")

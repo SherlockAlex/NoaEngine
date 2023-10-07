@@ -11,7 +11,6 @@ private:
 
 public:
 	static MainMenuLevel* Create();
-	void Delete() override;
 
 	void Awake() override;
 

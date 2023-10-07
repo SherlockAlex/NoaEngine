@@ -169,7 +169,7 @@
     <ClCompile Include="Enimy.cpp" />
     <ClCompile Include="LiveEntity.cpp" />
     <ClCompile Include="Player.cpp" />
-    <ClCompile Include="SuperMario.cpp" />
+    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

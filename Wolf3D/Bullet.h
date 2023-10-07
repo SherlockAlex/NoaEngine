@@ -25,7 +25,7 @@ public:
 
 	void OnHitTile() override;
 
-	void OnTrigger(Collision other) override;
+	void OnTrigger(const Collision & other) override;
 
 };
 

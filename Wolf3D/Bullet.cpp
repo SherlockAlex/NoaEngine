@@ -53,7 +53,7 @@ void Bullet::OnHitTile()
 	
 }
 
-void Bullet::OnTrigger(Collision other)
+void Bullet::OnTrigger(const Collision & other)
 {
 	Rigidbody* rigid = other.other;
 

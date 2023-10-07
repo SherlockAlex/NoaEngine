@@ -8,14 +8,15 @@ Player::Player(Scene* scene) :LiveEntity(scene)
 {
 	spriteRenderer->SetSprite(&sprite);
 	rigid->useGravity = false;
-
+	//rigid->collision.isTrigger = true;
+	collider->radius = 0.5f;
 	rigid->tag = "Player";
 
 }
 
 void Player::Update()
 {
-	rigid->velocity.x = 0.9995f * rigid->velocity.x;
+	//rigid->velocity.x = 0.9995f * rigid->velocity.x;
 	if (inputSystem.GetKeyHold(KeyCode::KEY_A))
 	{
 		rigid->velocity.x = -7;
@@ -44,10 +45,10 @@ void Player::Update()
 		transform.position.x = 9;
 	}
 
-	if (rigid->velocity.y < 0 && transform.position.y <= 2.5)
+	if (rigid->velocity.y < 0 && transform.position.y <= 0)
 	{
 		rigid->velocity.y = 0;
-		transform.position.y = 2.5;
+		transform.position.y = 0;
 	}
 	else if (rigid->velocity.y > 0 && transform.position.y >= 4.5)
 	{

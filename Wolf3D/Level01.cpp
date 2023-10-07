@@ -21,11 +21,6 @@ Level01* Level01::Create()
 	return new Level01();
 }
 
-void Level01::Delete()
-{
-	delete this;
-}
-
 void Level01::Awake()
 {
 

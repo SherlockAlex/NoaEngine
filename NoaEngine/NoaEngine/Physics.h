@@ -38,15 +38,18 @@ namespace noa {
 	/// <summary>
 	/// 刚体类，当不在使用刚体时，或者物品被摧毁是，请使用
 	/// </summary>
+	
+	
+	enum class ForceType
+	{
+		CONTINUOUS_FORCE = 1 << 0,
+		IMPULSE_FORCE = 1 << 1,
+	};
+
 	class Rigidbody final
 	{
 	public:
 		std::string tag = "default";
-		enum ForceType
-		{
-			ContinuousForce = 1 << 0,
-			Impulse = 1 << 1,
-		};
 		float mass = 1;
 		float damping = 0.02f;
 		Actor* actor;
@@ -58,7 +61,7 @@ namespace noa {
 		int indexInMap = -1;
 		TileMap* tileMap = nullptr;
 		
-		Vector<float> sumForce = Vector<float>(0.0, 0.0);
+		Vector<float> force = Vector<float>(0.0, 0.0);
 
 		float invMass = 1;
 		bool active = true;
