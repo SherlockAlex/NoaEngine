@@ -139,18 +139,6 @@ namespace noa {
 	void NoaEngine::EventLoop()
 	{
 		
-		while (SDL_WaitEvent(&inputSystem.e))
-		{
-			switch (inputSystem.e.type)
-			{
-			case SDL_QUIT:
-				Quit();
-				break;
-			default:
-				inputSystem.Update();
-				break;
-			}
-		}
 	}
 
 	int NoaEngine::Quit()

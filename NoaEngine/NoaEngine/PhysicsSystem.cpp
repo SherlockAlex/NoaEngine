@@ -29,10 +29,9 @@ void noa::PhysicsSystem::Update(int step)
 
 		for (auto& rigidbody : rigidbodys)
 		{
-			rigidbody->Update(subDeltaTime);
-
+			rigidbody->UpdateVelocity(subDeltaTime);
 			rigidbody->ApplyTrigger();
-			rigidbody->LateUpdate(subDeltaTime);
+			rigidbody->UpdatePosition(subDeltaTime);
 		}
 		
 	}
@@ -167,12 +166,11 @@ bool noa::PhysicsSystem::CircleCollide(CircleCollider2D* obj1, CircleCollider2D*
 	const float deltaY = obj1->rigidbody->actor->transform.position.y
 		- obj2->rigidbody->newPosition.y;
 
-	const float deltaR = ((CircleCollider2D*)obj1)->radius + ((CircleCollider2D*)obj2)->radius;
+	const float deltaR = obj1->radius + obj2->radius;
 
 	const float distanceSquared = deltaX * deltaX + deltaY * deltaY;
 	const float radiusSumSquared = deltaR * deltaR;
 
-	// 如果两个球型包围盒的距离的平方小于半径之和的平方，则它们相交
 	return distanceSquared < radiusSumSquared;
 }
 
@@ -182,7 +180,6 @@ bool noa::PhysicsSystem::BoxCollide(BoxCollider2D* obj1, BoxCollider2D* obj2)
 		return false;
 	}
 
-	// 获取两个碰撞器的位置和大小信息
 	float obj1X = obj1->rigidbody->actor->transform.position.x;
 	float obj1Y = obj1->rigidbody->actor->transform.position.y;
 	float obj1Width = obj1->scale.x;
@@ -193,7 +190,6 @@ bool noa::PhysicsSystem::BoxCollide(BoxCollider2D* obj1, BoxCollider2D* obj2)
 	float obj2Width = obj2->scale.x;
 	float obj2Height = obj2->scale.y;
 
-	// 计算两个碰撞器的边界框
 	float obj1Left = obj1X - obj1Width / 2;
 	float obj1Right = obj1X + obj1Width / 2;
 	float obj1Top = obj1Y + obj1Height / 2;
@@ -204,7 +200,6 @@ bool noa::PhysicsSystem::BoxCollide(BoxCollider2D* obj1, BoxCollider2D* obj2)
 	float obj2Top = obj2Y + obj2Height / 2;
 	float obj2Bottom = obj2Y - obj2Height / 2;
 
-	// 使用AABB碰撞检测，检查两个矩形是否相交
 	if (obj1Right < obj2Left || obj1Left > obj2Right || obj1Top < obj2Bottom || obj1Bottom > obj2Top) {
 		return false;
 	}
@@ -218,43 +213,35 @@ bool noa::PhysicsSystem::BoxAndCircleCollide(BoxCollider2D* obj1, CircleCollider
 		return false;
 	}
 
-	// 获取矩形碰撞器的位置和大小信息
 	float rectX = obj1->rigidbody->actor->transform.position.x;
 	float rectY = obj1->rigidbody->actor->transform.position.y;
 	float rectWidth = obj1->scale.x;
 	float rectHeight = obj1->scale.y;
 
-	// 获取圆形碰撞器的位置和半径
 	float circleX = obj2->rigidbody->actor->transform.position.x;
 	float circleY = obj2->rigidbody->actor->transform.position.y;
 	float circleRadius = obj2->radius;
 
-	// 计算矩形的半宽和半高
 	float rectHalfWidth = rectWidth / 2;
 	float rectHalfHeight = rectHeight / 2;
 
-	// 计算矩形的中心点坐标
 	float rectCenterX = rectX + rectHalfWidth;
 	float rectCenterY = rectY + rectHalfHeight;
 
-	// 计算矩形和圆形之间的距离
 	float deltaX = abs(circleX - rectCenterX);
 	float deltaY = abs(circleY - rectCenterY);
 
-	// 使用最近点算法来判断矩形和圆形是否相交
 	if (deltaX > (rectHalfWidth + circleRadius)) {
-		return false;  // 矩形和圆形在水平方向上不相交
+		return false;
 	}
 	if (deltaY > (rectHalfHeight + circleRadius)) {
-		return false;  // 矩形和圆形在垂直方向上不相交
+		return false;
 	}
 
-	// 如果最近点在矩形内部，则相交
 	if (deltaX <= rectHalfWidth || deltaY <= rectHalfHeight) {
 		return true;
 	}
 
-	// 否则，检查最近点到圆心的距离是否小于圆的半径的平方
 	float cornerDistanceSquared = pow(deltaX - rectHalfWidth, 2) + pow(deltaY - rectHalfHeight, 2);
 	return cornerDistanceSquared <= (circleRadius * circleRadius);
 }

@@ -44,11 +44,6 @@ noa::Animation* noa::Animation::Create(noa::Actor* actor, float speed, bool loop
 	return new noa::Animation(actor, speed, loop, frame);
 }
 
-void noa::Animation::Delete()
-{
-	delete this;
-}
-
 noa::Animation::~Animation()
 {
 

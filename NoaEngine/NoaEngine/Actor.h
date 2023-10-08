@@ -29,12 +29,9 @@ namespace noa {
 		friend class Scene;
 		friend class SceneManager;
 		friend class Rigidbody;
-		friend class PhysicsSystem;
-
 		friend void InitNObject(NOAObject* obj);
 
 	protected:
-
 		Scene* activeScene = nullptr;
 	private:
 		bool isActive = true;

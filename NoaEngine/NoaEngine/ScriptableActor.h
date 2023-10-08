@@ -4,10 +4,11 @@
 namespace noa 
 {
 	class ScriptableActor {
-	public:
+	private:
+		ScriptableActor() {}
 		virtual ~ScriptableActor() {}
-
-		virtual void Delete() { delete this; }
+	public:
+		void Delete() { delete this; }
 
 	};
 }

@@ -13,6 +13,7 @@ namespace noa {
 	{
 	protected:
 		friend class NObject<ActorComponent>;
+		friend void InitNObject(NOAObject* obj);
 		friend class Actor;
 
 		Actor* actor = nullptr;
@@ -24,7 +25,7 @@ namespace noa {
 		virtual ~ActorComponent();
 
 	protected:
-		virtual void Delete();
+		void Delete();
 
 		virtual void Awake() {};
 		virtual void OnEnable() {}

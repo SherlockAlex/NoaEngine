@@ -27,11 +27,6 @@ noa::SpriteRenderer* noa::SpriteRenderer::Create(Actor* actor)
 	return new SpriteRenderer(actor);
 }
 
-void noa::SpriteRenderer::Delete()
-{
-	delete this;
-}
-
 void noa::SpriteRenderer::UpdateSprite(const SpriteFile& spriteFile)
 {
 	if (sprite == nullptr)

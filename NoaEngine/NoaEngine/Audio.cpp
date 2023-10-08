@@ -39,7 +39,7 @@ namespace noa {
 			else {
 				Mix_PlayMusic(music, 0);
 			}
-			//Mix_VolumeMusic(static_cast<int>(MIX_MAX_VOLUME * volume));
+			Mix_VolumeMusic(static_cast<int>(MIX_MAX_VOLUME * volume));
 		}
 		else if (type == AudioType::CHUNK)
 		{
@@ -51,7 +51,7 @@ namespace noa {
 			else {
 				channel = Mix_PlayChannelTimed(-1, chunk, 0, -1); // 播放一次，持续时间设置为-1
 			}
-			//Mix_VolumeChunk(this->chunk, static_cast<int>(MIX_MAX_VOLUME * volume)); // 将音量设置为一半
+			Mix_VolumeChunk(this->chunk, static_cast<int>(MIX_MAX_VOLUME * volume)); // 将音量设置为一半
 		}
 	}
 

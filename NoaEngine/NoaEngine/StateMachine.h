@@ -58,7 +58,6 @@ namespace noa
 
 	public:
 		static StateMachine* Create(Actor* actor);
-		virtual void Delete() override;
 
 		virtual void PerformTransition(int transition);
 		virtual void AddState(State* state);

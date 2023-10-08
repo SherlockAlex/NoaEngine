@@ -63,8 +63,8 @@
             "scale": 0.25,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": -644,
-                "y": -962
+                "x": -652,
+                "y": -966
             }
         }
     },
@@ -84,12 +84,12 @@
     ],
     "project": "level1.tiled-project",
     "recentFiles": [
-        "D:/Work/NoaEngine/Wolf3D/Assets/Wolf/Map/level.tmx",
         "tile.tsx",
         "level.tmx",
         "level-1.tmx",
         "新手关.tmx",
         "第二关.tmx",
+        "D:/Work/NoaEngine/Wolf3D/Assets/Wolf/Map/level.tmx",
         "object.tsx",
         "tile2.tsx"
     ],

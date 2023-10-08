@@ -28,7 +28,6 @@ namespace noa {
 
 	void Renderer::DrawPixel(const uint32_t x, const uint32_t y, const uint32_t color) const
 	{
-		//底层的绘图代码，调用频繁
 		if (x >= static_cast<uint32_t>(pixelWidth) || y >= static_cast<uint32_t>(pixelHeight))
 		{
 			return;
@@ -49,7 +48,6 @@ namespace noa {
 
 		while (true)
 		{
-			//DrawPixel(x1, y1, color);
 
 			DRAWPIXEL(x1, y1, color);
 
@@ -135,14 +133,12 @@ namespace noa {
 		for (int x = minX; x <= maxX; x++) {
 			for (int y = minY; y <= maxY; y++) {
 				DRAWPIXEL(x, y, color);
-				//DrawPixel(x, y, color);
 			}
 		}
 	}
 
 	void Renderer::DrawFont(const Vector<int>& point1, const Vector<int>& point2, Sprite& sprite, uint32_t color) const
 	{
-		//将sprite图片填充到矩形上
 		const int x1 = point1.x;
 		const int y1 = point1.y;
 		const int x2 = point2.x;
@@ -169,8 +165,7 @@ namespace noa {
 				}
 
 				DRAWPIXEL(x, y, color);
-				
-				//DrawPixel(x, y, color);
+
 			}
 		}
 	}
@@ -196,12 +191,8 @@ namespace noa {
 					(float)(x - x1) / (x2 - x1), 
 					(float)(y - y1) / (y2 - y1)
 				);
-				//const uint32_t color = RED;
 				const uint32_t color = sprite.GetColor(simple.x, simple.y);
-				//const uint32_t color = sprite.GetTransposeColor(simple.y,simple.x);
-				//const uint32_t color = sprite.GetColor(simple.x, simple.y);
 				DRAWPIXEL(x, y, color);
-				//DrawPixel(x, y, color);
 			}
 		}
 	}
@@ -228,14 +219,12 @@ namespace noa {
 					(float)(y - y1) / (y2 - y1)
 				);
 				const uint32_t color = sprite.GetColor(simple.x, simple.y);
-				//const uint32_t color = sprite.GetTransposeColor(simple.y, simple.x);
 				if (isAlpha&& GetAValue(color) == 0)
 				{
 					continue;
 				}
 
 				DRAWPIXEL(x, y, mutiColor);
-				//DrawPixel(x, y, mutiColor);
 			}
 		}
 	}

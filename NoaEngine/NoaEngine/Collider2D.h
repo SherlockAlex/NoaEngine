@@ -28,7 +28,6 @@ namespace noa
 	public:
 		static Collider2D* Create(Actor * actor,Rigidbody * rigidbody);
 		virtual void Update() override;
-		virtual void Delete() override;
 
 	};
 

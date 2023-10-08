@@ -127,7 +127,7 @@ namespace noa {
 			return;
 		}
 
-		Vector<double> mousePos = inputSystem.GetMousePosition();
+		const Vector<double> & mousePos = inputSystem.GetMousePosition();
 
 		if (mousePos.x>transform.position.x&&mousePos.x<transform.position.x+scale.x
 			&& mousePos.y>transform.position.y && mousePos.y < transform.position.y + scale.y

@@ -2,10 +2,6 @@
 #define NOAENGINE_PLATFORM
 
 
-/*
-* 为了更好的支持游戏引擎的跨平台特性，我们采用了OpenGL作为主机平台的图形接口，并采用OpenGLES作为移动设备端的图形接口(目前正在开发中)，
-* 平台方面，我们决定统一使用SDL2用于创建窗口。
-*/
 #include <string>
 #include <functional>
 #include <chrono>

@@ -24,7 +24,6 @@ namespace noa
 
 		this->isRemoved = false;
 
-		id = GetNextId();
 		collision.other = nullptr;
 		this->actor = actor;
 		this->velocity = { 0,0 };
@@ -32,8 +31,6 @@ namespace noa
 		actor->AddRigidbody(this);
 		colliders.reserve(10);
 	}
-
-	size_t Rigidbody::nextId = 0;
 
 	Rigidbody::~Rigidbody()
 	{
@@ -52,7 +49,12 @@ namespace noa
 
 	}
 
-	void Rigidbody::Update(float deltaTime)
+	void Rigidbody::Update()
+	{
+		PhysicsSystem::rigidbodys.push_back(this);
+	}
+
+	void Rigidbody::UpdateVelocity(float deltaTime)
 	{
 
 		if (!active) 
@@ -79,7 +81,7 @@ namespace noa
 
 	}
 
-	void Rigidbody::LateUpdate(float deltaTime)
+	void Rigidbody::UpdatePosition(float deltaTime)
 	{
 		if (!active)
 		{
@@ -224,20 +226,6 @@ namespace noa
 	void Rigidbody::Destroy()
 	{
 		this->isRemoved = true;
-	}
-
-	int Rigidbody::GetIndexInMap() const
-	{
-		return this->indexInMap;
-	}
-
-	void Rigidbody::UpdatePosition()
-	{
-		if (useMotion && (!isFrozen))
-		{
-			ApplyCollision();
-			this->actor->transform.position = newPosition;
-		}
 	}
 
 	void Rigidbody::SetActive(bool value)

@@ -37,11 +37,6 @@ namespace noa {
 		return new StateMachine(actor);
 	}
 
-	void StateMachine::Delete()
-	{
-		delete this;
-	}
-
 	void StateMachine::PerformTransition(int transition)
 	{
 		//切换到下一个状态

@@ -117,9 +117,9 @@ void noa::Actor::ComponentStart()
 
 void noa::Actor::ComponentUpdate()
 {
-	if (rigidbody!=nullptr&&!rigidbody->isRemoved)
+	if (rigidbody!=nullptr&&!rigidbody->isRemoved&&rigidbody->GetActive())
 	{
-		PhysicsSystem::rigidbodys.push_back(rigidbody);
+		rigidbody->Update();
 	}
 
 	for (int i = 0; i < components.size(); i++)

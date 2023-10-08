@@ -58,7 +58,6 @@ namespace noa {
 	public:
 		static Animation* Create(Actor* actor, float speed, bool loop);
 		static Animation* Create(Actor* actor, float speed, bool loop, AnimationFrame* frame);
-		void Delete() override;
 		
 		void SetFrame(AnimationFrame * frame);
 		SpriteFile& GetCurrentFrameImage();

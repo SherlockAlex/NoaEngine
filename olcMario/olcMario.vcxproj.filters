@@ -15,13 +15,49 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\olcPixelGameEngine\olcPixelGameEngine.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="main.cpp">
+    <ClCompile Include="..\..\olcNES-master\Part #5 - PPU Foregrounds\Bus.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\olcNES-master\Part #5 - PPU Foregrounds\Cartridge.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\olcNES-master\Part #5 - PPU Foregrounds\Mapper.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\olcNES-master\Part #5 - PPU Foregrounds\Mapper_000.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\olcNES-master\Part #5 - PPU Foregrounds\olc2C02.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\olcNES-master\Part #5 - PPU Foregrounds\olc6502.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\olcNES-master\Part #5 - PPU Foregrounds\olcNes_PPU_Foregrounds.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\olcNES-master\Part #5 - PPU Foregrounds\Bus.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\olcNES-master\Part #5 - PPU Foregrounds\Cartridge.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\olcNES-master\Part #5 - PPU Foregrounds\Mapper.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\olcNES-master\Part #5 - PPU Foregrounds\Mapper_000.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\olcNES-master\Part #5 - PPU Foregrounds\olc2C02.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\olcNES-master\Part #5 - PPU Foregrounds\olc6502.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\olcNES-master\Part #5 - PPU Foregrounds\olcPixelGameEngine.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

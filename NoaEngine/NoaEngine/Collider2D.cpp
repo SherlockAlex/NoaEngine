@@ -43,11 +43,6 @@ void noa::Collider2D::Update()
 	PhysicsSystem::grid.GetCell(x, y)->colliders.push_back(this);
 }
 
-void noa::Collider2D::Delete()
-{
-	delete this;
-}
-
 noa::CircleCollider2D::CircleCollider2D(Actor* actor, Rigidbody* rigidbody):noa::Collider2D(actor,rigidbody)
 {
 	this->colliderType = ColliderType::CIRCLE_COLLIDER;
