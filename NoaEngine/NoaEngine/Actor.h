@@ -69,22 +69,19 @@ namespace noa {
 
 		static Actor* HandleActor(NOAObject* object);
 		
-		
+		bool CompareTag(const std::string & tag);
 
 	public:
-		size_t GetHash() const {
-			return id;
+
+		template<class T>
+		T* GetActorAs() {
+			return dynamic_cast<T*>(this);
 		}
 
 		template<class T>
-		T GetActorAs() {
-			return dynamic_cast<T>(this);
-		}
-
-		template<class T>
-		bool TryGetActorAs(T & outBuffer)
+		bool TryGetActorAs(T *& outBuffer)
 		{
-			T buffer = dynamic_cast<T>(this);
+			T* buffer = dynamic_cast<T*>(this);
 			if (buffer == nullptr)
 			{
 				outBuffer = nullptr;
@@ -94,9 +91,28 @@ namespace noa {
 			return true;
 		}
 
-		Actor* GetActor() {
-			return this;
+		template<class T>
+		T* GetComponent() {
+			T* buffer = nullptr;
+			for (auto & component:components) 
+			{
+				if (component==nullptr) 
+				{
+					continue;
+				}
+				buffer = dynamic_cast<T*>(component);
+				if (buffer == nullptr)
+				{
+					continue;
+				}
+				break;
+			}
+			return buffer;
 		}
+
+		Actor* FindActorWithTag(const std::string& tag);
+
+		Actor* GetActor();
 
 	private:
 
@@ -112,12 +128,6 @@ namespace noa {
 		void Delete(Actor*& ptr);
 
 	private:
-		size_t id;
-		static size_t nextId;
-
-		static size_t GetNextId() {
-			return nextId++;
-		}
 
 		bool isRemoved = false;
 

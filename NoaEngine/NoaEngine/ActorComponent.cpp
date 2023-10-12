@@ -49,6 +49,11 @@ std::string& noa::ActorComponent::GetActorTag()
 	return actor->tag;
 }
 
+bool noa::ActorComponent::CompareTag(const std::string& tag)
+{
+	return actor->tag == tag;
+}
+
 noa::Actor* noa::ActorComponent::GetActor()
 {
 	return this->actor;

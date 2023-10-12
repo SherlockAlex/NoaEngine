@@ -125,6 +125,8 @@ namespace noa {
 		void ActorUpdate();
 		void DestoyScene();
 
+		Actor* FindActorWithTag(const std::string& tag);
+
 		std::string GetName();
 
 	private:

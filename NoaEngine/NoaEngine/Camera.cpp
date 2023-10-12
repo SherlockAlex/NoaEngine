@@ -138,6 +138,17 @@ namespace noa {
 
 	}
 
+	void TileMapCamera::SetTileMap(TileMap* tileMap)
+	{
+		this->tileMap = tileMap;
+	}
+
+	void TileMapCamera::SetDelta(const Vector<float>& frontDelta, const Vector<float>& endDelta)
+	{
+		this->frontDelta = frontDelta;
+		this->endDelta = endDelta;
+	}
+
 	
 
 	FreeCamera::FreeCamera(Scene* scene):Camera(scene)

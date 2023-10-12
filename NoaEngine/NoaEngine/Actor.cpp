@@ -9,8 +9,6 @@
 
 using namespace std;
 
-size_t noa::Actor::nextId = 0;
-
 noa::Actor::Actor(noa::Scene* activeScene)
 {
 	if (activeScene == nullptr) 
@@ -18,7 +16,6 @@ noa::Actor::Actor(noa::Scene* activeScene)
 		Debug::Error("Actor's scene is nullptr");
 		exit(-1);
 	}
-	id = GetNextId();
 	this->activeScene = activeScene;
 
 	activeScene->AddActor(this);
@@ -64,6 +61,20 @@ void noa::Actor::AddComponent(noa::ActorComponent* component)
 	}
 	components.push_back(component);
 
+}
+
+noa::Actor* noa::Actor::FindActorWithTag(const std::string& tag)
+{
+	if (activeScene == nullptr)
+	{
+		return nullptr;
+	}
+
+	return activeScene->FindActorWithTag(tag);
+}
+
+noa::Actor* noa::Actor::GetActor() {
+	return this;
 }
 
 void noa::Actor::ComponentAwake()
@@ -219,6 +230,11 @@ noa::Scene* noa::Actor::GetActiveScene()
 noa::Actor* noa::Actor::HandleActor(NOAObject* object)
 {
 	return dynamic_cast<Actor*>(object);
+}
+
+bool noa::Actor::CompareTag(const std::string& tag)
+{
+	return this->tag == tag;
 }
 
 void noa::Actor::SetActiveScene(noa::Scene* scene)

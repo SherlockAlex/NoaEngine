@@ -218,7 +218,7 @@ CacoDieState::CacoDieState(
 		wolfResource->npcDeath->volume = 10.0/(distance* distance);
 		wolfResource->npcDeath->Play(false);
 		this->enimy->rigid->collision.isTrigger = true;
-		Caco* e = this->enimy->GetActorAs<Caco*>();
+		Caco* e = this->enimy->GetActorAs<Caco>();
 		if (e != nullptr) {
 			e->OnDeath();
 		}
@@ -226,7 +226,7 @@ CacoDieState::CacoDieState(
 
 	animation->SetFrameEvent(10, [this]()
 		{
-			Caco* e = this->enimy->GetActorAs<Caco*>();
+			Caco* e = this->enimy->GetActorAs<Caco>();
 			if (e != nullptr) {
 				e->deathEvent.Invoke();
 				//e->rigid->Destroy();

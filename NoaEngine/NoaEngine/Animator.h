@@ -56,6 +56,7 @@ namespace noa {
 		~Animation();
 
 	public:
+		static Animation* Create(Actor* actor);
 		static Animation* Create(Actor* actor, float speed, bool loop);
 		static Animation* Create(Actor* actor, float speed, bool loop, AnimationFrame* frame);
 		
@@ -69,6 +70,9 @@ namespace noa {
 		
 		void Start() override;
 		void Update() override;//¸üÐÂ¶¯»­Ö¡
+
+		void SetLoop(bool value);
+		void SetSpeed(float value);
 
 	};
 

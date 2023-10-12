@@ -26,7 +26,7 @@ M4A1::M4A1(Player* player, int* bulletCount, FreeCamera* camera) :Gun(bulletCoun
 
 			for (int i = 0.5 * pixelWidth - 0.01 * pixelWidth; i <= 0.5 * pixelWidth + 0.01 * pixelWidth; i++)
 			{
-				enimy = this->camera->GetRayHitInfoAs<Enimy*>(i);
+				enimy = this->camera->GetRayHitInfoAs<Enimy>(i);
 
 				if (enimy != nullptr)
 				{

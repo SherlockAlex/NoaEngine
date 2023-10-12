@@ -35,10 +35,10 @@ void Enimy::Update()
 	delay = delay + Time::deltaTime;
 	if (delay > 0.5)
 	{
-		//Bullet* bullet = bulletPool->Request();
-		//bullet->SetDirection({ 0,1 });
-		//bullet->ownTag = tag;
-		//bullet->SetPostion(this->transform.position);
+		Bullet* bullet = bulletPool->Request();
+		bullet->SetDirection(FindActorWithTag("Player")->transform.position - transform.position);
+		bullet->ownTag = tag;
+		bullet->SetPostion(this->transform.position);
 		delay = 0;
 	}
 

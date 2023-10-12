@@ -30,7 +30,7 @@ Pistol::Pistol(Player* player, int* bulletCount, FreeCamera* camera):Gun(bulletC
 
 			for (int i = 0.5 * pixelWidth - 0.01 * pixelWidth; i <= 0.5 * pixelWidth + 0.01 * pixelWidth; i++)
 			{
-				enimy = this->camera->GetRayHitInfoAs<Enimy*>(i);
+				enimy = this->camera->GetRayHitInfoAs<Enimy>(i);
 
 				if (enimy != nullptr)
 				{

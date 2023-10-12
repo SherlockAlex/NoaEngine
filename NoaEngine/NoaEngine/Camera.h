@@ -96,8 +96,8 @@ namespace noa {
 		static TileMapCamera * Create(Scene * scene);
 
 		void SetTileScale(Vector<int> tileScale);
-
-		
+		void SetTileMap(TileMap * tileMap);
+		void SetDelta(const Vector<float> & frontDelta,const Vector<float> & endDelta);
 
 		template<class T>
 		T GetRayHitInfoAs(int index) {
@@ -138,8 +138,8 @@ namespace noa {
 		Ray RaycastHit(int pixelX);
 
 		template<class T>
-		T GetRayHitInfoAs(int index) {
-			return (T)objectBufferWithRay[index];
+		T* GetRayHitInfoAs(int index) {
+			return (T*)objectBufferWithRay[index];
 		}
 
 		Ray GetRayInfo(int index) {

@@ -45,19 +45,19 @@ namespace noa {
 		virtual void SetActive(bool value);
 		virtual bool GetActive();
 		std::string& GetActorTag();
-		
+		bool CompareTag(const std::string& tag);
 
 		Actor* GetActor();
 
 		template<class T>
-		T GetActorAs() {
-			return dynamic_cast<T>(actor);
+		T* GetActorAs() {
+			return dynamic_cast<T*>(actor);
 		}
 
 		template<class T>
-		bool TryGetActorAs(T & out) 
+		bool TryGetActorAs(T* & out) 
 		{
-			T buffer = dynamic_cast<T>(actor);
+			T* buffer = dynamic_cast<T*>(actor);
 			if (buffer == nullptr)
 			{
 				out = nullptr;
@@ -68,14 +68,14 @@ namespace noa {
 		}
 
 		template<class T>
-		T GetComponentAs() {
-			return dynamic_cast<T>(this);
+		T* GetComponentAs() {
+			return dynamic_cast<T*>(this);
 		}
 
 		template<class T>
-		bool TryGetComponentAs(T & out) 
+		bool TryGetComponentAs(T* & out) 
 		{
-			T buffer = dynamic_cast<T>(this);
+			T* buffer = dynamic_cast<T*>(this);
 			if (buffer==nullptr)
 			{
 				out = nullptr;

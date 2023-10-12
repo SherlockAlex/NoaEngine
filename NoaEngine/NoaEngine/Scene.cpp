@@ -233,6 +233,23 @@ namespace noa
 		cameras.clear();
 	}
 
+	Actor* Scene::FindActorWithTag(const string& tag)
+	{
+		Actor* buffer = nullptr;
+		for (auto & actor:actors) 
+		{
+			if (actor == nullptr) 
+			{
+				continue;
+			}
+			if (actor->tag == tag)
+			{
+				buffer = actor;
+			}
+		}
+		return buffer;
+	}
+
 	std::string Scene::GetName()
 	{
 		return this->name;

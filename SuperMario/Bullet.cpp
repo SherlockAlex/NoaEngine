@@ -15,7 +15,7 @@ Bullet::Bullet(Scene* scene):Actor(scene)
 
 void Bullet::SetDirection(const noa::Vector<float>& direction)
 {
-	this->dir = direction;
+	this->dir = direction.Normalize();
 }
 
 void Bullet::SetDestroy()
@@ -33,12 +33,6 @@ void Bullet::Update() {
 	if (time >0.5)
 	{
 		SetDestroy();
-	}
-
-	if (rigid->velocity.y>0&&transform.position.y>4.5f) 
-	{
-		transform.position.y = 4.5f;
-		rigid->velocity.y = 0;
 	}
 
 }
@@ -61,7 +55,7 @@ void Bullet::OnTrigger(const noa::Collision& other)
 	}
 	//处理事件
 
-	LiveEntity* entity = rigidbody->GetActorAs<LiveEntity*>();
+	LiveEntity* entity = rigidbody->GetActorAs<LiveEntity>();
 	if (entity == nullptr) 
 	{
 		return;

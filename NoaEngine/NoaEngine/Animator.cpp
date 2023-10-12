@@ -34,6 +34,11 @@ noa::Animation::Animation(noa::Actor* actor, float speed, bool loop, noa::Animat
 
 }
 
+noa::Animation* noa::Animation::Create(Actor* actor)
+{
+	return new noa::Animation(actor);
+}
+
 noa::Animation* noa::Animation::Create(noa::Actor* actor, float speed, bool loop)
 {
 	return new noa::Animation(actor, speed, loop);
@@ -144,6 +149,16 @@ void noa::Animation::Update()
 		framesEvent[previousFrameIndex].Invoke();
 	}
 
+}
+
+void noa::Animation::SetLoop(bool value)
+{
+	this->loop = value;
+}
+
+void noa::Animation::SetSpeed(float value)
+{
+	this->speed = value;
 }
 
 noa::AnimationClip::AnimationClip(noa::Animator* animator, noa::Animation* animation) :noa::State(animator)
