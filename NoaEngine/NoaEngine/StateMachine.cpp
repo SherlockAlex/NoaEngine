@@ -18,15 +18,14 @@ namespace noa {
 			auto last = std::unique(stateList.begin(), stateList.end());
 			stateList.erase(last, stateList.end());
 
-			for (int i = 0;i<stateList.size();i++)
+			for (auto & state:stateList) 
 			{
-				if (stateList[i] == nullptr)
+				if (state == nullptr) 
 				{
 					continue;
 				}
-				stateList[i]->Delete();
+				state->Delete(state);
 			}
-			stateList.clear();
 		}
 		
 		stateList.clear();
@@ -39,11 +38,10 @@ namespace noa {
 
 	void StateMachine::PerformTransition(int transition)
 	{
-		//切换到下一个状态
-		if (currentState == nullptr
+		const bool checkNextStateError = currentState == nullptr
 			|| !ContainKey<int, State*>(currentState->nextStates, transition)
-			|| currentState->nextStates[transition] == nullptr
-			)
+			|| currentState->nextStates[transition] == nullptr;
+		if (checkNextStateError)
 		{
 			return;
 		}
@@ -97,6 +95,10 @@ namespace noa {
 		this->stateMachine = stateMachine;
 	}
 
+	State::~State() {
+
+	}
+
 
 	void State::AddTransition(int transition, State* nextState)
 	{
@@ -110,6 +112,12 @@ namespace noa {
 			return;
 		}
 		stateMachine->PerformTransition(transition);
+	}
+
+	void State::Delete(State*& ptr)
+	{
+		delete this;
+		ptr = nullptr;
 	}
 
 }

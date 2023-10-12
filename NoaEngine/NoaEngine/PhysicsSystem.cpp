@@ -146,6 +146,12 @@ void noa::PhysicsSystem::CheckCellsCollisions(Cell& cell1, Cell& cell2)
 			{
 				if (Collide(collider1, collider2))
 				{
+					const bool isAllTrigger = collider1->rigidbody->collision.isTrigger
+						&& collider2->rigidbody->collision.isTrigger;
+					if (isAllTrigger) 
+					{
+						continue;
+					}
 					collider1->rigidbody->collision.other = collider2->rigidbody;
 					collider2->rigidbody->collision.other = collider1->rigidbody;
 					SolveCollision(collider1, collider2);

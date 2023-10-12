@@ -3,6 +3,7 @@
 
 #include "NoaMath.h"
 #include "Scene.h"
+#include "NObject.h"
 
 /*
 * Ïà»úÄ£¿é:
@@ -13,13 +14,24 @@ namespace noa {
 	extern int pixelWidth;
 	extern int pixelHeight;
 
+	typedef struct Ray {
+		float angle = 0.0;
+		float distance = 0.0;
+
+		Vector<int> tilePosition = { 0,0 };
+
+		int hitTile = -1;
+
+		Vector<float> simple = { 0,0 };
+	}Ray;
+
 	class Scene;
 	class Transform;
-	class Camera
+	class Camera:public NOAObject
 	{
 	protected:
 		friend class Scene;
-		friend class SceneManager;
+		friend class SceneManager;	
 	public:
 		Transform* follow = nullptr;
 		Vector<float> position;
@@ -40,6 +52,8 @@ namespace noa {
 	class SpriteGPU;
 	class StaticCamera final :public Camera 
 	{
+		NOBJECT(StaticCamera)
+
 	private:
 		//±³¾°Í¼Æ¬
 		SpriteGPU * background = nullptr;
@@ -62,6 +76,7 @@ namespace noa {
 
 	class TileMapCamera final:public Camera
 	{
+		NOBJECT(TileMapCamera)
 	private:
 		TileMap* tileMap = nullptr;
 		Vector<float> frontDelta = { 0.0f,0.0f };
@@ -93,19 +108,9 @@ namespace noa {
 		void Render() override;
 	};
 
-	typedef struct Ray {
-		float angle = 0.0;
-		float distance = 0.0;
-		
-		Vector<int> tilePosition = {0,0};
-
-		int hitTile = -1;
-
-		Vector<float> simple = {0,0};
-	}Ray;
-
 	class FreeCamera final:public Camera
 	{
+		NOBJECT(FreeCamera)
 	protected:
 		std::vector<float> wallDistanceBuffer;
 		std::vector<void*> objectBufferWithRay = std::vector<void*>(pixelWidth, nullptr);

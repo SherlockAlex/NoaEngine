@@ -201,16 +201,6 @@ namespace noa
 
 	void Scene::ActorUpdate()
 	{
-
-		for (const auto& actor : actors)
-		{
-			if (actor.second == nullptr||!actor.second->GetActive()) 
-			{
-				continue;
-			}
-			actor.second->ComponentUpdate();
-		}
-
 		PhysicsSystem::Update(3);
 
 		for (const auto& actor : actors)
@@ -219,6 +209,7 @@ namespace noa
 			{
 				continue;
 			}
+			actor.second->ComponentUpdate();
 			actor.second->Update();
 		}
 
@@ -258,6 +249,15 @@ namespace noa
 		actors.clear();
 		destroyActors.clear();
 		cameras.clear();
+	}
+
+	void Scene::ApplyCamera()
+	{
+		if (MainCamera < 0||MainCamera>=cameras.size())
+		{
+			return;
+		}
+		cameras[MainCamera]->Render();
 	}
 
 	Scene * SceneManager::GetActiveScene()
@@ -340,14 +340,9 @@ namespace noa
 			return;
 		}
 		
-		
 		activeScene->ActorUpdate();
-		if (activeScene->MainCamera != -1) 
-		{
-			activeScene->cameras[activeScene->MainCamera]->Render();
-		}
+		activeScene->ApplyCamera();
 		
-
 		if (!done&&oldScene != nullptr && oldScene != activeScene)
 		{
 			oldScene->DestoyScene();
@@ -360,9 +355,6 @@ namespace noa
 			done = true;
 			isLoading = false;	
 		}
-
-		
-
 
 	}
 

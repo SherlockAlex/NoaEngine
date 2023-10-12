@@ -1,14 +1,10 @@
 ﻿D:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(531,5): warning MSB8028: 中间目录(x64\Release\)包含从另一个项目(SuperMario.vcxproj)共享的文件。   这会导致错误的清除和重新生成行为。
-  PhysicsSystem.cpp
+  Scene.cpp
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
 D:\Work\NoaEngine\packages\nupengl.core.0.1.0.1\build\native\include\GLFW\glfw3.h(92,1): message : 参见“APIENTRY”的前一个定义
-  Renderer.cpp
-D:\Work\NoaEngine\NoaEngine\NoaEngine\Renderer.cpp(260,137): warning C4244: “参数”: 从“double”转换到“unsigned char”，可能丢失数据
-D:\Work\NoaEngine\NoaEngine\NoaEngine\Renderer.cpp(260,86): warning C4244: “参数”: 从“double”转换到“unsigned char”，可能丢失数据
-D:\Work\NoaEngine\NoaEngine\NoaEngine\Renderer.cpp(260,35): warning C4244: “参数”: 从“double”转换到“unsigned char”，可能丢失数据
   正在生成代码
-  2 of 2337 functions (<0.1%) were compiled, the rest were copied from previous compilation.
+  0 of 2338 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    1 functions had inline decision re-evaluated but remain unchanged
+    0 functions had inline decision re-evaluated but remain unchanged
   已完成代码的生成
   SuperMario.vcxproj -> D:\Work\NoaEngine\x64\Release\ShootGame.exe

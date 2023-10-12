@@ -124,7 +124,8 @@ namespace noa {
 		void RemoveActor(Actor * actor);
 		void ActorUpdate();
 		void DestoyScene();
-
+	private:
+		void ApplyCamera();
 
 	};
 

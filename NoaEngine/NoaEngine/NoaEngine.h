@@ -165,13 +165,11 @@
 #include "ActorPool.h"
 #include "ActorPoolFactory.h"
 
-#ifdef _WIN64
-
-#include "Platform_Windows.h"
-
 #include "GLRenderer.h"
 #include "GLTexture.h"
 
+#ifdef _WIN64
+#include "Platform_Windows.h"
 #endif
 
 //¥∞ø⁄ Ù–‘

@@ -106,9 +106,9 @@ namespace noa {
 
 			sceneManager.Update();
 			Update();
-
-			int i = 0;
+			
 			renderer->Clear();
+			int i = 0;
 			texture->UpdateTexture(pixelBuffer, pixelWidth, pixelHeight);
 			renderer->DrawTexture(this->texture, i, 0, 0, pixelWidth, pixelHeight);
 			i++;
@@ -126,10 +126,8 @@ namespace noa {
 				);
 				i++;
 			}
-
-			renderer->Present(window);
-			
 			spriteInstances.clear();
+			renderer->Present(window);
 
 			tp1 = tp2;
 

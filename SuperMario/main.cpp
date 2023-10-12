@@ -12,9 +12,7 @@ class SimpleScene :public Scene {
 private:
 	SimpleScene() :Scene("SimpleScene")
 	{
-		camera = StaticCamera::Create(this);
-		camera->SetBackground(&background);
-		camera->SetTileScale({ pixelWidth / 10,pixelWidth / 10 });
+		
 	}
 public:
 	static SimpleScene* Create() {
@@ -24,6 +22,12 @@ public:
 	void Awake() override
 	{
 		PhysicsSystem::SetGrid(10, 10 * pixelHeight / (pixelWidth));
+		
+		//初始化Camera
+		camera = NObject<StaticCamera>::Create<Scene*>(this);
+		camera->SetBackground(&background);
+		camera->SetTileScale({ pixelWidth / 10,pixelWidth / 10 });
+
 		player = NObject<Player>::Create<Scene*>(this);
 		player->transform.position = { 4.5f,4.5f };
 
@@ -32,14 +36,10 @@ public:
 
 	}
 
-	void Update() override {
-
-	}
-
 private:
-	StaticCamera* camera = nullptr;
 	Sprite background = Sprite(resource.LoadSprFile("./Assets/Fly/background.spr"), { pixelWidth,pixelHeight });
 
+	StaticCamera* camera = nullptr;
 	Player* player = nullptr;
 };
 
@@ -58,18 +58,18 @@ public:
 
 	}
 
-	void Start() override {
+	void Start() override 
+	{
 		
 		bgm.Play(true);
 	}
 
-	void Update() override {
-
+	void Update() override 
+	{
 		if (inputSystem.GetKeyHold(KeyCode::KEY_ESC))
 		{
 			Quit();
 		}
-
 	}
 
 

@@ -24,15 +24,15 @@ namespace noa
 
 	class State 
 	{
+		friend class StateMachine;
 	protected:
 		StateMachine* stateMachine;
-	public:
+	private:
 		std::unordered_map<int, State*> nextStates;
 	protected:
 		State(StateMachine* stateMachine);
-		virtual ~State() {}
+		virtual ~State();
 	public:
-		virtual void Delete() = 0;
 
 		void AddTransition(int transition,State* nextState);
 		void SetTransition(int transition);
@@ -43,6 +43,10 @@ namespace noa
 		virtual void OnUpdate() {};
 		virtual void Reason() {};
 		virtual void OnExit() {};
+
+	private:
+		void Delete(State*& ptr);
+
 	};
 
 	class StateMachine:ActorComponent
