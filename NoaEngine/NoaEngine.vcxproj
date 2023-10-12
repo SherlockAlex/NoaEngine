@@ -195,6 +195,8 @@
     <ClInclude Include="NoaEngine\PhysicsSystem.h" />
     <ClInclude Include="NoaEngine\GLHelper.h" />
     <ClInclude Include="NoaEngine\Debug.h" />
+    <ClInclude Include="NoaEngine\SDLRenderer.h" />
+    <ClInclude Include="NoaEngine\SDLTexture.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="NoaEngine\ActorPoolFactory.cpp" />
@@ -229,6 +231,8 @@
     <ClCompile Include="NoaEngine\Debug.cpp" />
     <ClCompile Include="NoaEngine\Time.cpp" />
     <ClCompile Include="NoaEngine\Texture.cpp" />
+    <ClCompile Include="NoaEngine\SDLRenderer.cpp" />
+    <ClCompile Include="NoaEngine\SDLTexture.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

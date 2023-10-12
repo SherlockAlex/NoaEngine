@@ -21,8 +21,7 @@ namespace noa {
 
 	private:
 		GLuint textureID;
-		int width;
-		int height;
+		
 	};
 }
 

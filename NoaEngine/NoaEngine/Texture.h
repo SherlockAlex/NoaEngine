@@ -6,6 +6,9 @@ namespace noa {
 
 	class Texture
 	{
+	public:
+		int width;
+		int height;
 	protected:
 		Texture();
 	public:

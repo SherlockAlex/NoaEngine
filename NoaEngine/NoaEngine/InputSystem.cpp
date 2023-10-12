@@ -128,7 +128,7 @@ bool noa::InputSystem::GetMouseMoveState()
 
 void noa::InputSystem::SetRelativeMouseMode(bool mode)
 {
-	SDL_SetRelativeMouseMode(mode?SDL_TRUE:SDL_FALSE);
+	SDL_SetRelativeMouseMode(static_cast<SDL_bool>(mode));
 
 }
 

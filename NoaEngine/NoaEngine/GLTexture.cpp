@@ -5,8 +5,11 @@
 
 namespace noa {
     GLTexture::GLTexture(int w, int h, uint32_t* pixelBuffer)
-        :Texture(), width(w), height(h)
+        :Texture()
     {
+
+        this->width = w;
+        this->height = h;
 
         glGenTextures(1, &textureID);
         glBindTexture(GL_TEXTURE_2D, textureID);
@@ -31,6 +34,9 @@ namespace noa {
 
     void GLTexture::UpdateTexture(const uint32_t* pixelBuffer, const int width, const int height)
     {
+        this->width = width;
+        this->height = height;
+
         glBindTexture(GL_TEXTURE_2D, textureID);
         // 更新纹理数据
         glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, width, height, GL_RGBA, GL_UNSIGNED_BYTE, pixelBuffer);
