@@ -1,9 +1,4 @@
-#include "Physics.h"
 #include "NoaEngine.h"
-#include "Scene.h"
-#include "Actor.h"
-#include "PhysicsSystem.h"
-#include "Collider2D.h"
 
 #include <unordered_map>
 #include <thread>
@@ -19,7 +14,7 @@ namespace noa
 	
 	unordered_map<size_t, bool> isCheckCollision;
 
-	Rigidbody::Rigidbody(Actor * actor)
+	Rigidbody::Rigidbody(Actor * actor) :ActorComponent(actor)
 	{
 
 		this->isRemoved = false;
@@ -28,8 +23,8 @@ namespace noa
 		this->actor = actor;
 		this->velocity = { 0,0 };
 		invMass = 1.0f / mass;
-		actor->AddRigidbody(this);
 		colliders.reserve(10);
+
 	}
 
 	Rigidbody::~Rigidbody()
@@ -51,13 +46,17 @@ namespace noa
 
 	void Rigidbody::Update()
 	{
+		if (isRemoved)
+		{
+			return;
+		}
 		PhysicsSystem::rigidbodys.push_back(this);
 	}
 
 	void Rigidbody::UpdateVelocity(float deltaTime)
 	{
 
-		if (!active) 
+		if (!GetActive())
 		{
 			return;
 		}
@@ -83,7 +82,7 @@ namespace noa
 
 	void Rigidbody::UpdatePosition(float deltaTime)
 	{
-		if (!active)
+		if (!GetActive())
 		{
 			return;
 		}
@@ -137,7 +136,7 @@ namespace noa
 	Vector<float> pos(0.0, 0.0);
 	void Rigidbody::ApplyCollision()
 	{
-		if (!active||!useCollision||tileMap == nullptr)
+		if (!GetActive() ||!useCollision||tileMap == nullptr)
 		{
 			return;
 		}
@@ -206,7 +205,7 @@ namespace noa
 	}
 
 	void Rigidbody::ApplyTrigger() {
-		if (active&&collision.isTrigger && collision.other != nullptr && this->actor != nullptr)
+		if (GetActive() &&collision.isTrigger && collision.other != nullptr && this->actor != nullptr)
 		{
 			this->actor->OnTrigger(collision);
 		}
@@ -226,20 +225,6 @@ namespace noa
 	void Rigidbody::Destroy()
 	{
 		this->isRemoved = true;
-	}
-
-	void Rigidbody::SetActive(bool value)
-	{
-		if (active == value)
-		{
-			return;
-		}
-		active = value;
-	}
-
-	bool Rigidbody::GetActive()
-	{
-		return active;
 	}
 
 }

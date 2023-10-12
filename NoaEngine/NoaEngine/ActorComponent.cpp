@@ -15,18 +15,22 @@ noa::ActorComponent::~ActorComponent()
 	
 }
 
-void noa::ActorComponent::Delete()
+void noa::ActorComponent::Delete(ActorComponent*& ptr)
 {
 	delete this;
+	if (ptr != nullptr) 
+	{
+		ptr = nullptr;
+	}
 }
 
 void noa::ActorComponent::SetActive(bool value)
 {
-	if (active == value) 
+	if (isActive == value)
 	{
 		return;
 	}
-	active = value;
+	isActive = value;
 	if (value)
 	{
 		OnEnable();
@@ -37,7 +41,17 @@ void noa::ActorComponent::SetActive(bool value)
 
 bool noa::ActorComponent::GetActive()
 {
-	return active;
+	return isActive;
+}
+
+std::string& noa::ActorComponent::GetActorTag()
+{
+	return actor->tag;
+}
+
+noa::Actor* noa::ActorComponent::GetActor()
+{
+	return this->actor;
 }
 
 void noa::ActorComponent::DeleteActorEvent()

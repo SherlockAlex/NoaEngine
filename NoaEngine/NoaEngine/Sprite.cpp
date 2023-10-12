@@ -8,7 +8,7 @@ namespace noa {
 
 	extern shared_ptr<Renderer> renderer;
 
-	Sprite::Sprite(SpriteFile sprFile, Vector<int> scale)
+	Sprite::Sprite(const SpriteFile& sprFile, const Vector<int>& scale)
 	{
 		this->posx = sprFile.x;
 		this->posx = sprFile.y;
@@ -23,13 +23,13 @@ namespace noa {
 		this->sh = (h / 2) * 2;
 	}
 
-	Sprite::Sprite(Vector<int> scale)
+	Sprite::Sprite(const Vector<int>& scale)
 	{
 		this->scale = scale;
 		this->isEmpty = this->image.empty();
 	}
 
-	Sprite::Sprite(const char* file, Vector<int> scale) {
+	Sprite::Sprite(const char* file, const Vector<int>& scale) {
 		SpriteFile sprFile = resource.LoadSprFile(file);
 		this->posx = sprFile.x;
 		this->posx = sprFile.y;

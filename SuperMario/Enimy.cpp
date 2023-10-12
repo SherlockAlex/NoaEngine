@@ -35,11 +35,10 @@ void Enimy::Update()
 	delay = delay + Time::deltaTime;
 	if (delay > 0.5)
 	{
-		//shootAFX.Play(false);
-		Bullet* bullet = bulletPool->Request();
-		bullet->SetDirection({ 0,1 });
-		bullet->ownTag = rigid->tag;
-		bullet->SetPostion(this->transform.position);
+		//Bullet* bullet = bulletPool->Request();
+		//bullet->SetDirection({ 0,1 });
+		//bullet->ownTag = tag;
+		//bullet->SetPostion(this->transform.position);
 		delay = 0;
 	}
 

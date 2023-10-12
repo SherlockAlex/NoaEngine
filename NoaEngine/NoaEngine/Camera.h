@@ -4,32 +4,39 @@
 #include "NoaMath.h"
 #include "Scene.h"
 
+/*
+* 相机模块:
+*/
+
 namespace noa {
-	//这个是游戏的相机，用来显示游戏的画面内容
-	//主要是用来渲染游戏的场景
-	// 越靠前的就先被渲染
 	
 	extern int pixelWidth;
 	extern int pixelHeight;
 
+	class Scene;
 	class Transform;
 	class Camera
 	{
 	protected:
-
+		friend class Scene;
+		friend class SceneManager;
 	public:
 		Transform* follow = nullptr;
 		Vector<float> position;
 
 	protected:
-		Camera();
+		Camera(Scene * scene);
 		virtual ~Camera();
+	private:
+		void Delete(Camera*& ptr);
 	public:
-		void SetFollow(Transform* follow);
 		
+
+		void SetFollow(Transform* follow);
+	protected:
+		virtual void Render() = 0;
 	};
 
-	//静态相机
 	class SpriteGPU;
 	class StaticCamera final :public Camera 
 	{
@@ -38,36 +45,52 @@ namespace noa {
 		SpriteGPU * background = nullptr;
 
 		Vector<int> tileScale = Vector<int>(64, 64);
+
 		Vector<float> offset = Vector<float>(10, 10);
 		Vector<float> visibleTiles;
 		
-	public:
-		StaticCamera(Sprite * sprite);
+		StaticCamera(Scene * scene);
 
+	public:
+		static StaticCamera* Create(Scene* scene);
+
+		void SetBackground(Sprite * sprite);
 		void SetTileScale(const Vector<int> & tileScale);
-		void Render();
+	private:
+		void Render() override;
 	};
 
 	class TileMapCamera final:public Camera
 	{
 	private:
+		TileMap* tileMap = nullptr;
+		Vector<float> frontDelta = { 0.0f,0.0f };
+		Vector<float> endDelta = { 0.0f,0.0f };
+
 		Vector<int> tileScale = Vector<int>(64, 64);
 		Vector<float> visibleTiles;
 		Vector<float> offset;
 		Vector<int> followPositionOnScreen = Vector<int>(0, 0);
 		
 		std::vector<void*> objectBufferWithRay = std::vector<void*>(pixelWidth*pixelHeight, nullptr);
+
+		TileMapCamera(Scene * scene);
+
 	public:
-		TileMapCamera();
+		
+		static TileMapCamera * Create(Scene * scene);
 
 		void SetTileScale(Vector<int> tileScale);
 
-		Vector<int> Render(TileMap& tileMap,const Vector<float> & frontDelta,const Vector<float> & endDelta);
+		
 
 		template<class T>
 		T GetRayHitInfoAs(int index) {
 			return (T)objectBufferWithRay[index];
 		}
+
+	private:
+		void Render() override;
 	};
 
 	typedef struct Ray {
@@ -87,21 +110,27 @@ namespace noa {
 		std::vector<float> wallDistanceBuffer;
 		std::vector<void*> objectBufferWithRay = std::vector<void*>(pixelWidth, nullptr);
 		std::vector<Ray> rayResult = std::vector<Ray>(pixelWidth, Ray());
+
+	private:
+		TileMap* map = nullptr;
+		Sprite* skybox = nullptr;
+
 	public:
 		float FOV = static_cast<float>(0.25 * PI);
 		const float halfFOV = static_cast<float>(FOV * 0.5f);
 		float viewDepth = 60;
 		const float normalEyeRay = (1.0f / cosf(halfFOV));
+		bool renderFloor = false;
 
+	private:
+		FreeCamera(Scene * scene);
 	public:
-		FreeCamera();
-	public:
-		void RenderFloor(TileMap& map,uint32_t multiColor);
-		void Render(TileMap& map, bool renderFloor, Sprite * skybox,uint32_t mutiColor);
-		void RenderGameObjectEnter();
-		void RenderGameObject(uint32_t multiColor);
+		static FreeCamera* Create(Scene* scene);
 
-		Ray RaycastHit(int pixelX, const TileMap& map);
+
+		
+
+		Ray RaycastHit(int pixelX);
 
 		template<class T>
 		T GetRayHitInfoAs(int index) {
@@ -111,6 +140,12 @@ namespace noa {
 		Ray GetRayInfo(int index) {
 			return rayResult[index];
 		}
+
+	private:
+		void RenderFloor();
+		void Render() override;
+		void RenderGameObjectEnter();
+		void RenderGameObject();
 
 	};
 

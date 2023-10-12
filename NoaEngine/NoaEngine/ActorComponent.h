@@ -1,14 +1,16 @@
 #ifndef NOAENGINE_ACTORCOMPONENT_H
 #define NOAENGINE_ACTORCOMPONENT_H
 
+#include <string>
 #include "NObject.h"
+/*
+* ActorPool
+* 作用:生成制作Actor及其派生类的对象池，主要用于射击游戏
+*/
 
 namespace noa {
 	class Actor;
 
-	/// <summary>
-	/// 组件类，只有ActorComponent及其子类才能够成为组件在挂在到Actor身上
-	/// </summary>
 	class ActorComponent:public NOAObject
 	{
 	protected:
@@ -18,14 +20,13 @@ namespace noa {
 
 		Actor* actor = nullptr;
 	private:
-		bool active = true;
+		bool isActive = true;
 
 	protected:
 		ActorComponent(Actor* actor);
 		virtual ~ActorComponent();
 
 	protected:
-		void Delete();
 
 		virtual void Awake() {};
 		virtual void OnEnable() {}
@@ -35,13 +36,18 @@ namespace noa {
 		virtual void OnDestroy() {}
 
 		void DeleteActorEvent();
+	
+	private:
+		void Delete(ActorComponent*& ptr);
 
 	public:
 
 		virtual void SetActive(bool value);
 		virtual bool GetActive();
-
+		std::string& GetActorTag();
 		
+
+		Actor* GetActor();
 
 		template<class T>
 		T GetActorAs() {

@@ -9,7 +9,7 @@ Bullet::Bullet(Scene* scene):Actor(scene)
 	spriteRenderer->SetSprite(&sprite);
 	rigid->useGravity = true;
 	rigid->collision.isTrigger = true;
-	rigid->tag = "Bullet";
+	tag = "Bullet";
 	collider->radius = 0.5f;
 }
 
@@ -55,7 +55,7 @@ void Bullet::OnTrigger(const noa::Collision& other)
 	{
 		return;
 	}
-	if (rigidbody->tag == this->ownTag || rigidbody->tag == this->rigid->tag)
+	if (rigidbody->GetActorTag() == this->ownTag || rigidbody->GetActorTag() == this->rigid->GetActorTag())
 	{
 		return;
 	}

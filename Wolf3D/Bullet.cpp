@@ -10,7 +10,7 @@ Bullet::Bullet(Scene * scene,Sprite* sprite) :Actor(scene)
 	collider->radius = 0.2;
 	rigid->collision.isTrigger = true;
 	rigid->useGravity = false;
-	rigid->tag = "Bullet";
+	tag = "Bullet";
 
 	sprite->scale = { 32,32 };
 	spriteRenderer->SetSprite(sprite);
@@ -58,7 +58,7 @@ void Bullet::OnTrigger(const Collision & other)
 	Rigidbody* rigid = other.other;
 
 	Player* player = nullptr;
-	if (rigid->TryGetActorAs<Player*>(player)&&rigid->tag == "Player")
+	if (rigid->TryGetActorAs<Player*>(player)&&rigid->GetActorTag() == "Player")
 	{
 		//this->rigid->Destroy();
 		player->TakeDamage(3);

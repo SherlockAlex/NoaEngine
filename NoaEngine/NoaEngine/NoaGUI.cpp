@@ -14,48 +14,36 @@ namespace noa {
 	{
 		SpriteFile sprite;
 
-		// 固定大小为 48x48
-		sprite.width = 48;
-		sprite.height = 48;
+		sprite.width = 64;
+		sprite.height = 64;
+		sprite.images.resize(64 * 64, ERRORCOLOR);
 
-		// 初始化 images 字段，将所有像素置为黑色
-		sprite.images.resize(48 * 48, ERRORCOLOR);
-
-		// 如果位图为空，则返回一个空的SpriteFile
 		if (bitmap->width == 0 || bitmap->rows == 0) {
 			sprite.x = 0;
 			sprite.y = 0;
 			return sprite;
 		}
 
-		// 将位图数据拷贝到SpriteFile的images字段中
 		for (unsigned int y = 0; y < bitmap->rows; y++) {
 			for (unsigned int x = 0; x < bitmap->width; x++) {
-				// 在这里根据位图的格式将数据复制到images字段中
-				// 由于不清楚位图的格式，这里假设位图的每个像素都是单通道的灰度值（8位或更多）
-				// 你可能需要根据实际的位图格式进行适当的处理
-				
-				//uint8_t pixelValue = bitmap_mono_get_pixel(bitmap->buffer,bitmap->width,bitmap->rows,x,y);
+
 				uint8_t pixelValue = bitmap->buffer[y * (bitmap->pitch) + x];
 				uint32_t pixelColor = (pixelValue>=(256/2))?WHITE:ERRORCOLOR;
 
 
-				// 将像素放置到画布的左下方
 				int destX = x;
-				int destY = 48 - bitmap->rows + y;
+				int destY = 64 - bitmap->rows + y;
 
-				if (destX<0||destY<0||destX>=48||destY>=48)
+				if (destX<0||destY<0||destX>=64||destY>=64)
 				{
 					continue;
 				}
 
-				// 将像素颜色合并
-				sprite.images[destY * 48 + destX] = pixelColor;
+				sprite.images[destY * 64 + destX] = pixelColor;
 
 			}
 		}
 
-		// 设置位图的位置（这部分根据实际需求设置）
 		sprite.x = 0;
 		sprite.y = 0;
 
@@ -121,7 +109,6 @@ namespace noa {
 
 	void NoaButton::SwapState()
 	{
-		//检测鼠标的范围，如果在范围内就切换状态
 		if (!isActive)
 		{
 			return;

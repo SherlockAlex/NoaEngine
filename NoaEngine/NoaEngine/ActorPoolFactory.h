@@ -4,11 +4,15 @@
 #include "Actor.h"
 #include "IPoolObjectFactroy.h"
 
+/*
+* ActorFactory
+* 作用:生成制作Actor及其派生类的对象池，主要用于射击游戏
+*/
+
 namespace noa {
 	template<class T>
 	class ActorFactory:public IPoolObjectFactroy<T> 
 	{
-		// 具体的构造函数请你更具你的对象构造函数进行封装
 	public:
 		virtual T* Create() = 0;
 	};

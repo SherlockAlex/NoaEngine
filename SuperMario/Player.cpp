@@ -8,7 +8,7 @@ Player::Player(Scene* scene) :LiveEntity(scene)
 {
 	spriteRenderer->SetSprite(&sprite);
 	rigid->useGravity = false;
-	rigid->tag = "Player";
+	tag = "Player";
 
 }
 
@@ -62,13 +62,13 @@ void Player::Update()
 			shootAFX.Play(false);
 			Bullet* bullet = bulletPool->Request();
 			bullet->SetDirection({0,-1});
-			bullet->ownTag = rigid->tag;
+			bullet->ownTag = tag;
 			bullet->SetPostion(this->transform.position);
 			delay = 0;
 		}
 	}
 
-	Debug::Log(ToString<float>(transform.position));
+	//Debug::Log(noa::ToString<float>(1.0f/noa::Time::deltaTime));
 
 }
 

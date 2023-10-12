@@ -199,9 +199,9 @@ namespace noa {
 	extern std::vector<SpriteGPUInstance> spriteInstances;
 
 	/*
-	* o--------------------------o
-	* ||    游戏基类，一个抽象类   ||
-	* o--------------------------o
+	o--------------------------o
+	||    游戏基类，一个抽象类   ||
+	o--------------------------o
 	*/
 	class NoaEngine
 	{

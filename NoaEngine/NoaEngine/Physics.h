@@ -29,7 +29,7 @@ namespace noa {
 	class TileMap;
 	class Transform;
 	class Collider2D;
-	
+	class ActorComponent;
 	
 	enum class ForceType
 	{
@@ -37,14 +37,12 @@ namespace noa {
 		IMPULSE_FORCE = 1 << 1,
 	};
 
-	class Rigidbody final
+	class Rigidbody final:public ActorComponent
 	{
 	private:
-		friend class Actor;
 		friend class PhysicsSystem;
 		friend class Collider2D;
 	public:
-		std::string tag = "default";
 		float mass = 1;
 		float damping = 0.02f;
 		float gravityWeight = 1.0;
@@ -61,7 +59,6 @@ namespace noa {
 
 	private:
 		float invMass = 1;
-		bool active = true;
 
 		Vector<float> newPosition;
 		Vector<float> force = Vector<float>(0.0, 0.0);
@@ -76,16 +73,14 @@ namespace noa {
 	public:
 		static Rigidbody* Create(Actor* actor);
 	private:
-		void Start();
-		void Update();
+		void Start() override;
+		void Update() override;
 
 		void UpdateVelocity(float deltaTime);
 		void UpdatePosition(float deltaTime);
 
 		void UpdatePosition();
-
 		void ApplyTrigger();
-
 		//Åö×²¼ì²âÏß³Ì
 		void ApplyCollision();
 
@@ -95,28 +90,9 @@ namespace noa {
 		void Destroy();
 		void AddForce(const Vector<float> & force, ForceType forceType);
 		void SetTileMap(TileMap * map);
-		void SetActive(bool value);
-		bool GetActive();
+
 		TileMap* GetTileMap();
-
-	public:
-
-		template<class T>
-		T GetActorAs() {
-			return dynamic_cast<T>(this->actor);
-		}
-
-		template<class T>
-		bool TryGetActorAs(T & out)
-		{
-			T buffer = dynamic_cast<T>(this->actor);
-			if (buffer == nullptr)
-			{
-				return false;
-			}
-			out = buffer;
-			return true;
-		}
+		
 
 	};
 

@@ -1,19 +1,25 @@
-#include "Camera.h"
 #include "NoaEngine.h"
 #include <thread>
-#include "Graphic.h"
-#include "SpriteRenderer.h"
 
 namespace noa {
 
-	Camera::Camera()
+	Camera::Camera(Scene* scene)
 	{
-
+		scene->AddCamera(this);
 	}
 
 	Camera::~Camera()
 	{
 
+	}
+
+	void Camera::Delete(Camera *& ptr)
+	{
+		delete this;
+		if (ptr!=nullptr) 
+		{
+			ptr = nullptr;
+		}
 	}
 
 	void Camera::SetFollow(Transform* follow)
@@ -22,8 +28,14 @@ namespace noa {
 	}
 
 
-	TileMapCamera::TileMapCamera()
+	TileMapCamera::TileMapCamera(Scene * scene):Camera(scene)
 	{
+
+	}
+
+	TileMapCamera* TileMapCamera::Create(Scene* scene)
+	{
+		return new TileMapCamera(scene);
 	}
 
 	void TileMapCamera::SetTileScale(Vector<int> tileScale)
@@ -33,11 +45,11 @@ namespace noa {
 	}
 
 	Vector<float> tileOffset;
-	Vector<int> TileMapCamera::Render(TileMap& tileMap,const Vector<float>& frontDelta,const Vector<float>& endDelta)
+	void TileMapCamera::Render()
 	{
-		if (follow == nullptr)
+		if (follow == nullptr||tileMap == nullptr)
 		{
-			return {0,0};
+			return;
 		}
 		for (auto& object:objectBufferWithRay) 
 		{
@@ -50,15 +62,15 @@ namespace noa {
 		if (offset.x < frontDelta.x) {
 			offset.x = frontDelta.x;
 		}
-		else if (offset.x > tileMap.w - visibleTiles.x + endDelta.x) {
-			offset.x = tileMap.w - visibleTiles.x + endDelta.x;
+		else if (offset.x > tileMap->w - visibleTiles.x + endDelta.x) {
+			offset.x = tileMap->w - visibleTiles.x + endDelta.x;
 		}
 
 		if (offset.y < frontDelta.y) {
 			offset.y = frontDelta.y;
 		}
-		else if (offset.y > tileMap.h - visibleTiles.y + endDelta.y) {
-			offset.y = tileMap.h - visibleTiles.y + endDelta.y;
+		else if (offset.y > tileMap->h - visibleTiles.y + endDelta.y) {
+			offset.y = tileMap->h - visibleTiles.y + endDelta.y;
 		}
 
 		tileOffset.x = (offset.x - (int)offset.x) * tileScale.x;
@@ -68,7 +80,7 @@ namespace noa {
 		{
 			for (int y = -2; y < visibleTiles.y+2 ; y++)
 			{
-				const int tileID = tileMap.GetTileID(static_cast<int>(x + offset.x), static_cast<int>(y + offset.y));
+				const int tileID = tileMap->GetTileID(static_cast<int>(x + offset.x), static_cast<int>(y + offset.y));
 				if (tileID == -1)
 				{
 					renderer->DrawRect(
@@ -79,7 +91,7 @@ namespace noa {
 					continue;
 				}
 
-				Tile* tile = tileMap.GetTile(tileID);
+				Tile* tile = tileMap->GetTile(tileID);
 				if (tile == nullptr)
 				{
 					renderer->DrawRect(
@@ -92,21 +104,21 @@ namespace noa {
 				renderer->DrawRect(
 					Vector<int>(static_cast<int>(x * tileScale.x - tileOffset.x), static_cast<int>(y * tileScale.y - tileOffset.y)),
 					Vector<int>(static_cast<int>((x + 1) * tileScale.x - tileOffset.x), static_cast<int>((y + 1) * tileScale.y - tileOffset.y)),
-					*tileMap.GetTile(tileID)->sprite
+					*tileMap->GetTile(tileID)->sprite
 				);
 
 			}
 		}
 
-
+		//玩家在屏幕上的位置
 		followPositionOnScreen = std::move(Vector<int>(static_cast<int>((follow->position.x - offset.x) * tileScale.x), static_cast<int>((follow->position.y - offset.y) * tileScale.y)));
 		
+		//渲染物品到屏幕上
 		for (const auto& instance:spriteRendererInstances) 
 		{
 
 			if (instance.actor==nullptr)
-			{
-				
+			{				
 				continue;
 			}
 
@@ -114,7 +126,7 @@ namespace noa {
 				static_cast<int>((instance.actor->transform.position.x - offset.x) * tileScale.x),
 				static_cast<int>((instance.actor->transform.position.y - offset.y) * tileScale.y)
 				);
-			instance.spriteGPU->DrawSprite(objPos.x, objPos.y, true);
+			instance.spriteGPU->DrawSprite(static_cast<float>(objPos.x), static_cast<float>(objPos.y), true);
 			if (objPos.y<pixelHeight&&objPos.y>=0
 				&&objPos.x < pixelWidth && objPos.x >= 0
 				) {
@@ -122,21 +134,25 @@ namespace noa {
 			}
 
 		}
-
-		return followPositionOnScreen;
+		spriteRendererInstances.clear();
 
 	}
 
 	
 
-	FreeCamera::FreeCamera()
+	FreeCamera::FreeCamera(Scene* scene):Camera(scene)
 	{
 		wallDistanceBuffer = std::vector<float>(pixelWidth, 0.0);
 		objectBufferWithRay = std::vector<void*>(pixelWidth, nullptr);
 	}
 
 	
-	void FreeCamera::RenderFloor(TileMap& map, uint32_t multiColor)
+	FreeCamera* FreeCamera::Create(Scene* scene)
+	{
+		return new FreeCamera(scene);
+	}
+
+	void FreeCamera::RenderFloor()
 	{
 		
 		const float angle = follow->eulerAngle - halfFOV;
@@ -174,8 +190,8 @@ namespace noa {
 				floorX += floorStepX;
 				floorY += floorStepY;
 
-				const int floorTileID = map.GetTileID(cellX, cellY);
-				const Tile* floorTile = map.GetTile(floorTileID);
+				const int floorTileID = map->GetTileID(cellX, cellY);
+				const Tile* floorTile = map->GetTile(floorTileID);
 				if (floorTileID == -1 || floorTile == nullptr)
 				{
 					DRAWPIXEL(x, y, LIGHTRED);
@@ -184,7 +200,7 @@ namespace noa {
 
 				Uint32 color = floorTile->sprite->GetColor(simpleX, simpleY);
 
-				color = MULTICOLOR(color, multiColor);
+				//color = MULTICOLOR(color, multiColor);
 
 				DRAWPIXEL(x, y, color);
 
@@ -192,21 +208,21 @@ namespace noa {
 		}
 	}
 
-	void FreeCamera::Render(TileMap& map, bool renderFloor, Sprite* skybox, uint32_t multiColor)
+	void FreeCamera::Render()
 	{
-		if (follow == nullptr) 
+		if (follow == nullptr||map == nullptr) 
 		{
 			return;
 		}
 
 		if (renderFloor)
 		{
-			RenderFloor(map, multiColor);
+			RenderFloor();
 		}
 
 		for (int x = 0; x < pixelWidth; x++)
 		{
-			Ray ray = std::move(RaycastHit(x, map));
+			Ray ray = std::move(RaycastHit(x));
 
 			wallDistanceBuffer[x] = std::move(ray.distance);
 			rayResult[x] = std::move(ray);
@@ -223,7 +239,7 @@ namespace noa {
 					if (skybox==nullptr)
 					{
 						color = RGBA(63, 63, 63,255);
-						color = MULTICOLOR(color, multiColor);
+						//color = MULTICOLOR(color, multiColor);
 						DRAWPIXEL(x, y, color);
 						continue;
 					}
@@ -240,7 +256,7 @@ namespace noa {
 					ray.simple.y = (y - ceiling)
 						/ (floor - ceiling);
 
-					const Tile* tile = map.GetTile(ray.hitTile);
+					const Tile* tile = map->GetTile(ray.hitTile);
 					if (tile != nullptr)
 					{
 						color = tile->sprite->GetColor(ray.simple.y, ray.simple.x);
@@ -253,27 +269,25 @@ namespace noa {
 					
 				}
 
-				color = MULTICOLOR(color, multiColor);
-
 				DRAWPIXEL(x, y, color);
 
 			}
 
 		}
 
-		RenderGameObject(multiColor);
+		RenderGameObject();
 
 	}
 	
 
-	Ray FreeCamera::RaycastHit(int pixelX,const TileMap& map)
+	Ray FreeCamera::RaycastHit(int pixelX)
 	{
 		Ray ray;
 		ray.distance = 0.0f;
 		ray.angle = follow->eulerAngle - FOV * (0.5f - (float)pixelX / pixelWidth);
 		const float rayForwordStep = 0.05f;
 		const Vector<float> & eye = Vector<float>(sinf(ray.angle), cosf(ray.angle));
-		bool isHitCollisionTile = map.IsCollisionTile(ray.hitTile);
+		bool isHitCollisionTile = map->IsCollisionTile(ray.hitTile);
 		while (!isHitCollisionTile && ray.distance < viewDepth)
 		{
 			ray.distance += rayForwordStep;
@@ -281,17 +295,17 @@ namespace noa {
 			const Vector<float> & floatHitPoint = follow->position + eye * ray.distance+Vector<float>(0.5f,0.5f);
 			const Vector<int> & intHitPoint = Vector<int>(static_cast<int>(floatHitPoint.x), static_cast<int>(floatHitPoint.y));
 
-			if (intHitPoint.x < 0||intHitPoint.x >= map.w || intHitPoint.y < 0|| intHitPoint.y >= map.h)
+			if (intHitPoint.x < 0||intHitPoint.x >= map->w || intHitPoint.y < 0|| intHitPoint.y >= map->h)
 			{
 				ray.hitTile = -1;
 				ray.distance = viewDepth;
 				continue;
 			}
 
-			ray.hitTile = map.GetTileID(intHitPoint.x, intHitPoint.y);
+			ray.hitTile = map->GetTileID(intHitPoint.x, intHitPoint.y);
 			ray.tilePosition = { intHitPoint.x,intHitPoint.y };
 
-			isHitCollisionTile = map.IsCollisionTile(ray.hitTile);
+			isHitCollisionTile = map->IsCollisionTile(ray.hitTile);
 
 			if (isHitCollisionTile)
 			{
@@ -356,6 +370,11 @@ namespace noa {
 	void FreeCamera::RenderGameObjectEnter()
 	{
 
+		if (spriteRendererInstances.empty())
+		{
+			return;
+		}
+
 		for (int i = 0; i < objectBufferWithRay.size(); i++)
 		{
 			objectBufferWithRay[i] = nullptr;
@@ -375,7 +394,7 @@ namespace noa {
 		QuickSort(spriteRendererInstances, 0, static_cast<int>(spriteRendererInstances.size()) - 1);
 	}
 
-	void FreeCamera::RenderGameObject(uint32_t multiColor)
+	void FreeCamera::RenderGameObject()
 	{
 		RenderGameObjectEnter();
 
@@ -445,7 +464,7 @@ namespace noa {
 						{
 							continue;
 						}
-						objColor = MULTICOLOR(objColor, multiColor);
+						//objColor = MULTICOLOR(objColor, multiColor);
 						DRAWPIXEL(objectColumn, (int)(objectCeiling + ly + objectPosZ), objColor);
 						if (instance.actor->isRaycasted)
 						{
@@ -459,9 +478,21 @@ namespace noa {
 			}
 		}
 
+		spriteRendererInstances.clear();
+
 	}
 
-	StaticCamera::StaticCamera(Sprite* sprite)
+	StaticCamera::StaticCamera(Scene* scene):Camera(scene)
+	{
+		
+	}
+
+	StaticCamera* StaticCamera::Create(Scene* scene)
+	{
+		return new StaticCamera(scene);
+	}
+
+	void StaticCamera::SetBackground(Sprite* sprite)
 	{
 		if (sprite == nullptr)
 		{
@@ -478,7 +509,7 @@ namespace noa {
 
 	void StaticCamera::Render()
 	{
-		(background != nullptr) ? background->DrawSprite(0, 0, pixelWidth, pixelHeight, false, 0) : renderer->FullScreen(BLUE);
+		(background != nullptr) ? background->DrawSprite(0.0f, 0.0f, static_cast<float>(pixelWidth), static_cast<float>(pixelHeight), false, 0.0f) : renderer->FullScreen(BLUE);
 
 		for (const auto & instance:spriteRendererInstances) 
 		{
@@ -490,10 +521,10 @@ namespace noa {
 
 			const float posX = (instance.actor->transform.position.x) * tileScale.x;
 			const float posY = (instance.actor->transform.position.y) * tileScale.y;
-			instance.spriteGPU->DrawSprite(posX,posY,tileScale.x,tileScale.y,true);
+			instance.spriteGPU->DrawSprite(posX, posY, static_cast<float>(tileScale.x), static_cast<float>(tileScale.y), true);
 		}
-		
 
+		spriteRendererInstances.clear();
 
 	}
 

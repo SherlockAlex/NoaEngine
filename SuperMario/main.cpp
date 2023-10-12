@@ -12,7 +12,8 @@ class SimpleScene :public Scene {
 private:
 	SimpleScene() :Scene("SimpleScene")
 	{
-		camera = new StaticCamera(&background);
+		camera = StaticCamera::Create(this);
+		camera->SetBackground(&background);
 		camera->SetTileScale({ pixelWidth / 10,pixelWidth / 10 });
 	}
 public:
@@ -32,8 +33,6 @@ public:
 	}
 
 	void Update() override {
-
-		camera->Render();
 
 	}
 
@@ -77,9 +76,6 @@ public:
 public:
 	SimpleScene* scene;
 	Audio bgm = Audio("./Assets/Fly/Audio/bgm.ogg", AudioType::CHUNK);
-
-	
-
 
 };
 

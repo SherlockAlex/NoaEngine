@@ -6,10 +6,8 @@
 #include "NObject.h"
 
 /*
-* 
 * Actor模块
 * 作用:游戏场景Scene中的活动的对象，可挂载组件实现各种各样的游戏行为
-* 
 */
 
 namespace noa {
@@ -20,7 +18,6 @@ namespace noa {
 	class Transform;
 	class Scene;
 	class ActorComponent;
-	class Rigidbody;
 
 	class Actor:public NOAObject
 	{
@@ -31,14 +28,14 @@ namespace noa {
 		friend class Rigidbody;
 		friend void InitNObject(NOAObject* obj);
 
+	public:
+		std::string tag = "default";
 	protected:
 		Scene* activeScene = nullptr;
 	private:
 		bool isActive = true;
 
 		std::vector<ActorComponent*> components;
-		Rigidbody* rigidbody = nullptr;
-
 	public:
 		Transform transform;
 		bool isRaycasted = false;
@@ -49,7 +46,6 @@ namespace noa {
 
 	protected:
 		
-
 		virtual void Awake() {};
 		virtual void OnEnable() {}
 		virtual void Start() {}
@@ -64,7 +60,6 @@ namespace noa {
 	public:
 		void SetActiveScene(Scene* scene);
 
-		void AddRigidbody(Rigidbody* rigid);
 		void AddComponent(ActorComponent* component);
 		virtual void Destroy();
 
@@ -114,9 +109,7 @@ namespace noa {
 		void DestroyComponent();
 
 		void SetComponentActive(bool value);
-
-	private:
-		void Delete();
+		void Delete(Actor*& ptr);
 
 	private:
 		size_t id;

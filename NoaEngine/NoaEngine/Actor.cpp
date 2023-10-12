@@ -21,19 +21,11 @@ noa::Actor::Actor(noa::Scene* activeScene)
 	id = GetNextId();
 	this->activeScene = activeScene;
 
-	// 这个时候内存只构建了Actor，它的子类还没有被构建
 	activeScene->AddActor(this);
 }
 
 noa::Actor::~Actor()
 {
-
-	if (rigidbody!=nullptr)
-	{
-		rigidbody->actor = nullptr;
-		delete rigidbody;
-		rigidbody = nullptr;
-	}
 
 	for (auto & component:components)
 	{
@@ -54,11 +46,6 @@ noa::Actor::~Actor()
 
 void noa::Actor::SetComponentActive(bool value)
 {
-
-	if (rigidbody)
-	{
-		rigidbody->SetActive(value);
-	}
 
 	for (auto & component:components) 
 	{
@@ -81,79 +68,82 @@ void noa::Actor::AddComponent(noa::ActorComponent* component)
 
 void noa::Actor::ComponentAwake()
 {
-	for (int i = 0; i < components.size(); i++)
+	for (auto& component : components)
 	{
-		if (components[i] == nullptr)
+		if (component == nullptr)
 		{
 			continue;
 		}
-		components[i]->Awake();
+		component->Awake();
 	}
+
 }
 
 void noa::Actor::ComponentOnEnable()
 {
-	for (int i = 0; i < components.size(); i++)
+	for (auto& component:components)
 	{
-		if (components[i] == nullptr)
+		if (component == nullptr)
 		{
 			continue;
 		}
-		components[i]->OnEnable();
+		component->OnEnable();
 	}
 }
 
 void noa::Actor::ComponentStart()
 {
-	for (int i = 0; i < components.size(); i++)
+
+	for (auto& component : components)
 	{
-		if (components[i] == nullptr)
+		if (component == nullptr)
 		{
 			continue;
 		}
-		components[i]->Start();
+		component->Start();
 	}
+
 }
 
 void noa::Actor::ComponentUpdate()
 {
-	if (rigidbody!=nullptr&&!rigidbody->isRemoved&&rigidbody->GetActive())
-	{
-		rigidbody->Update();
-	}
 
-	for (int i = 0; i < components.size(); i++)
+	for (auto& component : components)
 	{
-		if (components[i] == nullptr || !components[i]->GetActive())
+		if (component == nullptr||!component->GetActive())
 		{
 			continue;
 		}
-		components[i]->Update();
+		component->Update();
 	}
+
 }
 
 void noa::Actor::ComponentOnDisable()
 {
-	for (int i = 0; i < components.size(); i++)
+	for (auto& component : components)
 	{
-		if (components[i] == nullptr)
+		if (component == nullptr)
 		{
 			continue;
 		}
-		components[i]->OnDisable();
+		component->OnDisable();
 	}
+
 }
 
 void noa::Actor::ComponentOnDestroy()
 {
-	for (int i = 0; i < components.size(); i++)
+
+	for (auto& component : components)
 	{
-		if (components[i] == nullptr)
+		if (component == nullptr)
 		{
 			continue;
 		}
-		components[i]->OnDestroy();
+		component->OnDestroy();
 	}
+
 }
 
 void noa::Actor::DestroyComponent()
@@ -167,34 +157,27 @@ void noa::Actor::DestroyComponent()
 	auto last = std::unique(components.begin(), components.end());
 	components.erase(last, components.end());
 
-	for (int i = 0; i < components.size(); i++)
+	for (auto& component : components)
 	{
-		if (components[i] == nullptr)
+		if (component == nullptr)
 		{
 			continue;
 		}
-		components[i]->OnDestroy();
-		components[i]->Delete();
+		component->OnDestroy();
+		component->Delete(component);
 	}
+
 	components.clear();
 }
 
-void noa::Actor::AddRigidbody(Rigidbody* rigid)
-{
-	if (rigid == nullptr)
-	{
-		return;
-	}
-	if (rigidbody != nullptr)
-	{
-		delete rigidbody;
-	}
-	this->rigidbody = rigid;
-}
 
-void noa::Actor::Delete()
+void noa::Actor::Delete(Actor *& ptr)
 {
 	delete this;
+	if (ptr !=nullptr)
+	{
+		ptr = nullptr;
+	}
 }
 
 void noa::Actor::Destroy()

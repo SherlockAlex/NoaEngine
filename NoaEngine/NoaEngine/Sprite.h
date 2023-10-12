@@ -41,9 +41,9 @@ namespace noa {
 		int sh = 2;
 
 	public:
-		Sprite(SpriteFile sprFile, Vector<int> scale);
-		Sprite(Vector<int> scale);
-		Sprite(const char* file, Vector<int> scale);
+		Sprite(const SpriteFile & sprFile, const Vector<int>& scale);
+		Sprite(const Vector<int> & scale);
+		Sprite(const char* file, const Vector<int>& scale);
 		Sprite();
 		Sprite(int w, int h, Vector<int> scale, std::vector<Uint32> image);
 		~Sprite();

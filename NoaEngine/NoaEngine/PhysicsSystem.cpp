@@ -46,6 +46,7 @@ void noa::PhysicsSystem::Update(int step)
 
 void noa::PhysicsSystem::FindCollisionsGrid()
 {
+#pragma omp parallel for
 	for (int x{ 1 }; x < grid.width - 1; x++)
 	{
 		for (int y{ 1 }; y < grid.height - 1; y++)
@@ -136,6 +137,7 @@ void noa::PhysicsSystem::SolveCollision(Collider2D* obj1, Collider2D* obj2)
 void noa::PhysicsSystem::CheckCellsCollisions(Cell& cell1, Cell& cell2)
 {
 	
+#pragma omp parallel for
 	for (auto& collider1 : cell1.colliders)
 	{
 		for (auto& collider2 : cell2.colliders)
@@ -242,6 +244,6 @@ bool noa::PhysicsSystem::BoxAndCircleCollide(BoxCollider2D* obj1, CircleCollider
 		return true;
 	}
 
-	float cornerDistanceSquared = pow(deltaX - rectHalfWidth, 2) + pow(deltaY - rectHalfHeight, 2);
+	float cornerDistanceSquared = powf(deltaX - rectHalfWidth, 2) + powf(deltaY - rectHalfHeight, 2);
 	return cornerDistanceSquared <= (circleRadius * circleRadius);
 }

@@ -28,6 +28,7 @@ namespace noa {
 	class Actor;
 	class Rigidbody;
 	class ScriptableActor;
+	class Camera;
 
 	class LevelMap {
 	public:
@@ -92,10 +93,17 @@ namespace noa {
 
 	class Scene 
 	{
-	public:
+
+	private:
+		friend class SceneManager;
+
+	private:
 		std::string name = "Scene";
 		std::map<size_t, Actor*> actors;//µ÷ÓÃ
 		std::vector<Actor*> destroyActors;
+		std::vector<Camera*> cameras;
+
+		int MainCamera = -1;
 
 	protected:
 		Scene(std::string name);
@@ -110,6 +118,8 @@ namespace noa {
 		virtual void Unload() {}
 
 	public:
+		void AddCamera(Camera* camera);
+
 		void AddActor(Actor* actor);
 		void RemoveActor(Actor * actor);
 		void ActorUpdate();

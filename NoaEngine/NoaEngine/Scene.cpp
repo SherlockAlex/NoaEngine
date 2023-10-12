@@ -1,11 +1,9 @@
-#include "Scene.h"
-#include "NoaEngine.h"
-#include "PhysicsSystem.h"
-
 #include <iostream>
 #include <fstream>
 #include <sstream>
 #include <vector>
+
+#include "NoaEngine.h"
 
 using namespace std;
 
@@ -147,7 +145,7 @@ namespace noa
 	{
 		this->name = name;
 		sceneManager.AddScene(this);
-		destroyActors.reserve(4096);
+		destroyActors.reserve(1024*10);
 	}
 
 	Scene::~Scene()
@@ -158,6 +156,19 @@ namespace noa
 	void Scene::SetTileMap(TileMap* map)
 	{
 		PhysicsSystem::SetGrid(map->w, map->h);
+	}
+
+	void Scene::AddCamera(Camera* camera)
+	{
+		if (camera == nullptr) 
+		{
+			return;
+		}
+		this->cameras.push_back(camera);
+		if (MainCamera == -1) 
+		{
+			MainCamera = 0;
+		}
 	}
 
 	void Scene::AddActor(Actor* actor)
@@ -190,25 +201,25 @@ namespace noa
 
 	void Scene::ActorUpdate()
 	{
-		const auto actorLast = actors.end();
-		for (auto i = actors.begin(); i != actorLast; i++)
+
+		for (const auto& actor : actors)
 		{
-			if (i->second == nullptr || (!i->second->GetActive()))
+			if (actor.second == nullptr||!actor.second->GetActive()) 
 			{
 				continue;
 			}
-			i->second->ComponentUpdate();
+			actor.second->ComponentUpdate();
 		}
 
 		PhysicsSystem::Update(3);
 
-		for (auto i = actors.begin(); i != actorLast; i++)
+		for (const auto& actor : actors)
 		{
-			if (i->second == nullptr || (!i->second->GetActive()))
+			if (actor.second == nullptr || !actor.second->GetActive())
 			{
 				continue;
 			}
-			i->second->Update();
+			actor.second->Update();
 		}
 
 	}
@@ -219,18 +230,34 @@ namespace noa
 		auto actorLast = std::unique(destroyActors.begin(), destroyActors.end());
 		destroyActors.erase(actorLast, destroyActors.end());
 
+		std::sort(cameras.begin(),cameras.end());
+		auto cameraLast = std::unique(cameras.begin(), cameras.end());
+		cameras.erase(cameraLast,cameras.end());
+
 		for (int i = 0; i < destroyActors.size(); i++)
 		{
 			if (destroyActors[i] == nullptr)
 			{
 				continue;
 			}
-			destroyActors[i]->Delete();
+			destroyActors[i]->Delete(destroyActors[i]);
 		}
+
+		for (int i = 0;i<cameras.size();i++) 
+		{
+			if (cameras[i] == nullptr)
+			{
+				continue;
+			}
+			//É¾³ýµ÷Camera
+			cameras[i]->Delete(cameras[i]);
+
+		}
+		MainCamera = -1;
 
 		actors.clear();
 		destroyActors.clear();
-
+		cameras.clear();
 	}
 
 	Scene * SceneManager::GetActiveScene()
@@ -240,15 +267,18 @@ namespace noa
 
 	void SceneManager::LoadScene(string sceneName)
 	{
+		
 		if (isLoading) 
 		{
 			return;
 		}
-		if (!ContainKey<string,Scene*>(this->sceneList,sceneName)) 
+
+		if (this->sceneList.count(sceneName)<=0) 
 		{
-			Debug::Error("Load scene:"+ sceneName+"failed");
+			Debug::Error("Load scene:" + sceneName + "failed");
 			return;
 		}
+
 		nextScene = sceneList[sceneName];
 		done = false;
 		isLoading = true;
@@ -310,10 +340,13 @@ namespace noa
 			return;
 		}
 		
-
-		activeScene->Update();
-		spriteRendererInstances.clear();
+		
 		activeScene->ActorUpdate();
+		if (activeScene->MainCamera != -1) 
+		{
+			activeScene->cameras[activeScene->MainCamera]->Render();
+		}
+		
 
 		if (!done&&oldScene != nullptr && oldScene != activeScene)
 		{
