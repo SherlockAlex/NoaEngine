@@ -132,8 +132,8 @@ namespace noa {
 	public:
 		static FreeCamera* Create(Scene* scene);
 
-
-		
+		void SetTileMap(TileMap* map);
+		void SetSkybox(Sprite* skybox);
 
 		Ray RaycastHit(int pixelX);
 

@@ -119,6 +119,8 @@ namespace noa {
 			return nextId++;
 		}
 
+		bool isRemoved = false;
+
 	};
 
 }

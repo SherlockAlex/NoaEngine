@@ -210,7 +210,6 @@ CacoDieState::CacoDieState(
 {
 	animation = Animation::Create(enimy,12, false);
 	animation->SetFrame(frameData);
-	//animation.LoadFromAnimationFile(animationPath);
 	this->enimy = enimy;
 	this->target = target;
 
@@ -227,10 +226,12 @@ CacoDieState::CacoDieState(
 
 	animation->SetFrameEvent(10, [this]()
 		{
-			
-			this->enimy->Destroy();
-			this->enimy->rigid->Destroy();
-			this->enimy->deathEvent.Invoke();
+			Caco* e = this->enimy->GetActorAs<Caco*>();
+			if (e != nullptr) {
+				e->deathEvent.Invoke();
+				//e->rigid->Destroy();
+				e->Destroy();
+			}
 		});
 }
 

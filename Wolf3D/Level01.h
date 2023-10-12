@@ -18,8 +18,8 @@ public:
 
 public:
 	Player* player = nullptr;
-	FreeCamera camera;
-	TileMapCamera mapCamera;
+	FreeCamera* camera = nullptr;
+	TileMapCamera* mapCamera = nullptr;
 
 	MapInfo* map = nullptr;
 

@@ -6,7 +6,7 @@ Player::Player(Scene* scene) :Actor(scene)
 {
 	rigid->collision.sacle = {-0.2,-0.2};
 
-	rigid->tag = "Player";
+	tag = "Player";
 	rigid->useGravity = false;
 
 	rigid->damping = 0;
@@ -18,11 +18,6 @@ Player::Player(Scene* scene) :Actor(scene)
 Player* Player::Create(Scene* scene)
 {
 	return new Player(scene);
-}
-
-void Player::Delete()
-{
-	delete this;
 }
 
 Player::~Player() {
@@ -137,11 +132,11 @@ void Player::ActorControl()
 				this->rigid->GetTileMap()->SetTileID(ray.tilePosition.x,ray.tilePosition.y,107);
 				interactAFX.Play(false);
 			}
-			else if (ray.hitTile == 102&&sceneManager.GetActiveScene()->name == "NewGame")
+			else if (ray.hitTile == 102&&sceneManager.GetActiveScene()->GetName() == "NewGame")
 			{
 				sceneManager.LoadScene("SecondFloor");
 			}
-			else if (ray.hitTile == 102 && sceneManager.GetActiveScene()->name == "SecondFloor")
+			else if (ray.hitTile == 102 && sceneManager.GetActiveScene()->GetName() == "SecondFloor")
 			{
 				sceneManager.LoadScene("NewGame");
 			}

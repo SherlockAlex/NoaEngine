@@ -40,7 +40,7 @@ Shotgun::Shotgun(Player* player, int* bulletCount,FreeCamera * camera):Gun(bulle
 
 			if (enimy != nullptr)
 			{
-				if (enimy->rigid->tag != "Enimy")
+				if (enimy->rigid->GetActorTag() != "Enimy")
 				{
 					return;
 				}

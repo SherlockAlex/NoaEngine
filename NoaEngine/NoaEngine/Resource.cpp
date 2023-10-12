@@ -81,37 +81,6 @@ namespace noa {
 		return animator;
 	}
 
-	MapFile Resource::LoadMap(const char* fileName) const
-	{
-
-		MapFile map;
-
-		// 打开二进制文件
-		std::ifstream file(fileName, std::ios::binary);
-		if (!file)
-		{
-			std::cout << "打开文件失败" << std::endl;
-			return map;
-		}
-
-		// 读取地图宽度和高度
-		file.read(reinterpret_cast<char*>(&map.w), sizeof(int));
-		file.read(reinterpret_cast<char*>(&map.h), sizeof(int));
-
-		// 计算图像的总像素数
-		int imageSize = map.w * map.h;
-
-		// 读取图像灰度值
-		map.image.resize(imageSize);
-		file.read(reinterpret_cast<char*>(&map.image[0]), imageSize * sizeof(int));
-
-		// 关闭文件
-		file.close();
-
-		return map;
-
-	}
-
 	MapFile Resource::LoadMapFromCSV(const std::string filename) const
 	{
 		Map map;

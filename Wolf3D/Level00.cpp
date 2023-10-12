@@ -39,12 +39,17 @@ void Level00::Awake()
 	SetTileMap(map->mapLayer);
 
 	player = Player::Create(this);
-	camera.SetFollow(&player->transform);
 
-	mapCamera.SetFollow(&player->transform);
-	mapCamera.SetTileScale(Vector<int>(32, 32));
+	camera = NObject<FreeCamera>::Create<Scene*>(this);
+	mapCamera = NObject<TileMapCamera>::Create<Scene*>(this);
 
-	player->SetCamera(&camera);
+	camera->SetFollow(&player->transform);
+	camera->SetTileMap(map->mapLayer);
+
+	mapCamera->SetFollow(&player->transform);
+	mapCamera->SetTileScale(Vector<int>(32, 32));
+
+	player->SetCamera(camera);
 
 	for (int i = 0; i < map->objectLayer->w; i++)
 	{
@@ -126,13 +131,13 @@ void Level00::Start()
 void Level00::Update()
 {
 	
-	camera.Render(*map->mapLayer, false, nullptr, WHITE);
+	//camera.Render(*map->mapLayer, false, nullptr, WHITE);
 	wolfResource->mouseGPU.DrawSprite(pixelWidth * 0.5 - 0.5 * wolfResource->mouse.scale.x, pixelHeight * 0.5 - 0.5 * wolfResource->mouse.scale.y);
-	if (inputSystem.GetKeyHold(KeyCode::KEY_M))
+	/*if (inputSystem.GetKeyHold(KeyCode::KEY_M))
 	{
 		Vector<int> drawPos = mapCamera.Render(*map->mapLayer, { 0,0 }, {0,0});
 		renderer->DrawRect(drawPos, drawPos + Vector<int>(32, 32), WHITE);
-	}
+	}*/
 	
 	
 }

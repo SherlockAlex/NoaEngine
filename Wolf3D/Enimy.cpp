@@ -4,7 +4,7 @@ Enimy::Enimy(Scene* scene, Sprite* sprite, Transform* player, LiveEntity* enimy)
 	Actor(scene)
 {
 
-	rigid->tag = "Enimy";
+	tag = "Enimy";
 
 	this->player = player;
 	rigid->useGravity = false;

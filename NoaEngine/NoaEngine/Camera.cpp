@@ -340,6 +340,16 @@ namespace noa {
 		return ray;
 	}
 
+	void FreeCamera::SetTileMap(TileMap* map)
+	{
+		this->map = map;
+	}
+
+	void FreeCamera::SetSkybox(Sprite* skybox)
+	{
+		this->skybox = skybox;
+	}
+
 	inline int Partition(std::vector<SpriteRendererInstance>& arr, int low, int high) {
 		const float pivot = arr[high].distanceToPlayer;
 		int i = (low - 1);

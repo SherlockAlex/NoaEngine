@@ -27,6 +27,18 @@
     <ClCompile Include="Player.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="BulletFactory.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="BulletPool.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="LiveEntity.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Enimy.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
     <ClCompile Include="..\NoaEngine\NoaEngine\Actor.cpp">
       <Filter>头文件\NoaEngine</Filter>
     </ClCompile>
@@ -105,6 +117,12 @@
     <ClCompile Include="..\NoaEngine\NoaEngine\Scene.cpp">
       <Filter>头文件\NoaEngine</Filter>
     </ClCompile>
+    <ClCompile Include="..\NoaEngine\NoaEngine\SDLRenderer.cpp">
+      <Filter>头文件\NoaEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\NoaEngine\NoaEngine\SDLTexture.cpp">
+      <Filter>头文件\NoaEngine</Filter>
+    </ClCompile>
     <ClCompile Include="..\NoaEngine\NoaEngine\Sprite.cpp">
       <Filter>头文件\NoaEngine</Filter>
     </ClCompile>
@@ -123,18 +141,6 @@
     <ClCompile Include="..\NoaEngine\NoaEngine\Transform.cpp">
       <Filter>头文件\NoaEngine</Filter>
     </ClCompile>
-    <ClCompile Include="BulletFactory.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="BulletPool.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="LiveEntity.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Enimy.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -147,6 +153,18 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="BulletFactory.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="BulletPool.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="LiveEntity.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Enimy.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="..\NoaEngine\NoaEngine\Actor.h">
@@ -242,6 +260,12 @@
     <ClInclude Include="..\NoaEngine\NoaEngine\SDLHelper.h">
       <Filter>头文件\NoaEngine</Filter>
     </ClInclude>
+    <ClInclude Include="..\NoaEngine\NoaEngine\SDLRenderer.h">
+      <Filter>头文件\NoaEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\NoaEngine\NoaEngine\SDLTexture.h">
+      <Filter>头文件\NoaEngine</Filter>
+    </ClInclude>
     <ClInclude Include="..\NoaEngine\NoaEngine\Sprite.h">
       <Filter>头文件\NoaEngine</Filter>
     </ClInclude>
@@ -259,18 +283,6 @@
     </ClInclude>
     <ClInclude Include="..\NoaEngine\NoaEngine\Transform.h">
       <Filter>头文件\NoaEngine</Filter>
-    </ClInclude>
-    <ClInclude Include="BulletFactory.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="BulletPool.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="LiveEntity.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="Enimy.h">
-      <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

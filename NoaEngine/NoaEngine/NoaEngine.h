@@ -168,6 +168,9 @@
 #include "GLRenderer.h"
 #include "GLTexture.h"
 
+#include "SDLRenderer.h"
+#include "SDLTexture.h"
+
 #ifdef _WIN64
 #include "Platform_Windows.h"
 #endif

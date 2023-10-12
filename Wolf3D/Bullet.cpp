@@ -29,11 +29,6 @@ Bullet* Bullet::Create(Scene* scene, Sprite* sprite)
 	return new Bullet(scene, sprite);
 }
 
-void Bullet::Delete()
-{
-	delete this;
-}
-
 Bullet::~Bullet()
 {
 	

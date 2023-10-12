@@ -20,7 +20,6 @@ private:
 	~Caco() override;
 public:
 	static Caco* Create(Scene* scene, Sprite* sprite, Transform* player, LiveEntity* enimy);
-	void Delete() override;
 
 	void OnPain() override;
 	void OnDeath();

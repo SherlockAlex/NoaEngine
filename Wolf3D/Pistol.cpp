@@ -40,7 +40,7 @@ Pistol::Pistol(Player* player, int* bulletCount, FreeCamera* camera):Gun(bulletC
 
 			if (enimy != nullptr)
 			{
-				if (enimy->rigid->tag != "Enimy")
+				if (enimy->rigid->GetActorTag() != "Enimy")
 				{
 					return;
 				}

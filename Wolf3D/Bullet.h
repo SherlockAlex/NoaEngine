@@ -15,11 +15,9 @@ public:
 
 protected:
 	Bullet(Scene* scene, Sprite* sprite);
+	virtual ~Bullet();
 public:
 	static Bullet * Create(Scene* scene, Sprite* sprite);
-	void Delete() override;
-
-	~Bullet();
 
 	void Update() override;
 

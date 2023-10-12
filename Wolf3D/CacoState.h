@@ -37,10 +37,6 @@ public:
 		return new CacoIdleState(stateMachine,enimy,target,frameData);
 	}
 
-	void Delete() override {
-		delete this;
-	}
-
 	void OnUpdate() override;
 	void Reason() override;
 
@@ -71,11 +67,6 @@ public:
 		return new CacoMoveState(stateMachine, enimy, target, frameData);
 	}
 
-	void Delete() override {
-		delete this;
-		
-	}
-
 	void OnUpdate() override;
 	void Reason() override;
 
@@ -104,10 +95,6 @@ public:
 		Enimy* enimy, Transform* target,
 		AnimationFrame* frameData) {
 		return new CacoAttackState(stateMachine, enimy, target, frameData);
-	}
-
-	void Delete() override {
-		delete this;
 	}
 
 	void OnUpdate() override;
@@ -141,10 +128,6 @@ public:
 		return new CacoDieState(stateMachine, enimy, target, frameData);
 	}
 
-	void Delete() override {
-		delete this;
-	}
-
 	void OnEnter() override;
 	void OnUpdate() override;
 	void Reason() override;
@@ -175,10 +158,6 @@ public:
 		Enimy* enimy, Transform* target,
 		AnimationFrame* frameData) {
 		return new CacoPainState(stateMachine, enimy, target, frameData);
-	}
-
-	void Delete() override {
-		delete this;
 	}
 
 	void OnUpdate() override;

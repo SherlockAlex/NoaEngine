@@ -24,6 +24,8 @@ D:\Work\NoaEngine\NoaEngine\NoaEngine\Platform_Windows.cpp;D:\Work\NoaEngine\Sup
 D:\Work\NoaEngine\NoaEngine\NoaEngine\Renderer.cpp;D:\Work\NoaEngine\SuperMario\x64\Release\Renderer.obj
 D:\Work\NoaEngine\NoaEngine\NoaEngine\Resource.cpp;D:\Work\NoaEngine\SuperMario\x64\Release\Resource.obj
 D:\Work\NoaEngine\NoaEngine\NoaEngine\Scene.cpp;D:\Work\NoaEngine\SuperMario\x64\Release\Scene.obj
+D:\Work\NoaEngine\NoaEngine\NoaEngine\SDLRenderer.cpp;D:\Work\NoaEngine\SuperMario\x64\Release\SDLRenderer.obj
+D:\Work\NoaEngine\NoaEngine\NoaEngine\SDLTexture.cpp;D:\Work\NoaEngine\SuperMario\x64\Release\SDLTexture.obj
 D:\Work\NoaEngine\NoaEngine\NoaEngine\Sprite.cpp;D:\Work\NoaEngine\SuperMario\x64\Release\Sprite.obj
 D:\Work\NoaEngine\NoaEngine\NoaEngine\SpriteRenderer.cpp;D:\Work\NoaEngine\SuperMario\x64\Release\SpriteRenderer.obj
 D:\Work\NoaEngine\NoaEngine\NoaEngine\StateMachine.cpp;D:\Work\NoaEngine\SuperMario\x64\Release\StateMachine.obj

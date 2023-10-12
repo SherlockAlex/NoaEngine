@@ -145,7 +145,7 @@ namespace noa
 	{
 		this->name = name;
 		sceneManager.AddScene(this);
-		destroyActors.reserve(1024*10);
+		actors.reserve(1024*10);
 	}
 
 	Scene::~Scene()
@@ -178,24 +178,7 @@ namespace noa
 			return;
 		}
 
-		this->actors[actor->GetHash()] = actor;
-		destroyActors.push_back(actor);
-
-	}
-
-	void Scene::RemoveActor(Actor* actor)
-	{
-
-		if (actor == nullptr)
-		{
-			return;
-		}
-		actor->SetActive(false);
-
-		actor->ComponentOnDestroy();
-		actor->OnDestroy();
-
-		actors[actor->GetHash()] = nullptr;
+		actors.push_back(actor);
 
 	}
 
@@ -205,50 +188,54 @@ namespace noa
 
 		for (const auto& actor : actors)
 		{
-			if (actor.second == nullptr || !actor.second->GetActive())
+			if (actor == nullptr || !actor->GetActive()||actor->isRemoved)
 			{
 				continue;
 			}
-			actor.second->ComponentUpdate();
-			actor.second->Update();
+			actor->ComponentUpdate();
+			actor->Update();
 		}
 
 	}
 
 	void Scene::DestoyScene()
 	{
-		std::sort(destroyActors.begin(), destroyActors.end());
-		auto actorLast = std::unique(destroyActors.begin(), destroyActors.end());
-		destroyActors.erase(actorLast, destroyActors.end());
+		std::sort(actors.begin(), actors.end());
+		auto actorLast = std::unique(actors.begin(), actors.end());
+		actors.erase(actorLast, actors.end());
 
 		std::sort(cameras.begin(),cameras.end());
 		auto cameraLast = std::unique(cameras.begin(), cameras.end());
 		cameras.erase(cameraLast,cameras.end());
 
-		for (int i = 0; i < destroyActors.size(); i++)
+		for (int i = 0; i < actors.size(); i++)
 		{
-			if (destroyActors[i] == nullptr)
+			if (actors[i] == nullptr)
 			{
 				continue;
 			}
-			destroyActors[i]->Delete(destroyActors[i]);
+			actors[i]->Delete(actors[i]);
 		}
 
-		for (int i = 0;i<cameras.size();i++) 
+		for (auto & camera:cameras) 
 		{
-			if (cameras[i] == nullptr)
+			if (camera == nullptr)
 			{
 				continue;
 			}
 			//É¾³ýµ÷Camera
-			cameras[i]->Delete(cameras[i]);
+			camera->Delete(camera);
 
 		}
 		MainCamera = -1;
 
 		actors.clear();
-		destroyActors.clear();
 		cameras.clear();
+	}
+
+	std::string Scene::GetName()
+	{
+		return this->name;
 	}
 
 	void Scene::ApplyCamera()
@@ -342,6 +329,7 @@ namespace noa
 		
 		activeScene->ActorUpdate();
 		activeScene->ApplyCamera();
+		activeScene->Update();
 		
 		if (!done&&oldScene != nullptr && oldScene != activeScene)
 		{

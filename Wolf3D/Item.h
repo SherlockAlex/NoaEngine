@@ -15,7 +15,6 @@ private:
 	virtual ~Item();
 public:
 	static Item* Create(Scene* scene, Sprite* sprite);
-	void Delete() override;
 
 	void OnTrigger(const Collision & other) override;
 	void Update() override;

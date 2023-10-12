@@ -61,11 +61,6 @@ Caco* Caco::Create(Scene* scene, Sprite* sprite, Transform* player, LiveEntity* 
 	return new Caco(scene, sprite, player, enimy);
 }
 
-void Caco::Delete()
-{
-	delete this;
-}
-
 void Caco::OnPain()
 {
 	if (fsm->currentState == nullptr) 

@@ -30,6 +30,8 @@ namespace noa {
 	class ScriptableActor;
 	class Camera;
 
+	//关卡地图
+	//注意图层的概念
 	class LevelMap {
 	public:
 		std::vector<int> level;
@@ -99,8 +101,7 @@ namespace noa {
 
 	private:
 		std::string name = "Scene";
-		std::map<size_t, Actor*> actors;//调用
-		std::vector<Actor*> destroyActors;
+		std::vector<Actor*> actors;
 		std::vector<Camera*> cameras;
 
 		int MainCamera = -1;
@@ -121,9 +122,11 @@ namespace noa {
 		void AddCamera(Camera* camera);
 
 		void AddActor(Actor* actor);
-		void RemoveActor(Actor * actor);
 		void ActorUpdate();
 		void DestoyScene();
+
+		std::string GetName();
+
 	private:
 		void ApplyCamera();
 

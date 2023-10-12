@@ -14,7 +14,6 @@ private:
 	~Player();
 public:
 	static Player* Create(Scene* scene);
-	void Delete() override;
 	
 	void SetPosition(int tileID, MapFile& tileMap);
 	void ActorControl();

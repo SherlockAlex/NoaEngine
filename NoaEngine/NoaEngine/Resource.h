@@ -79,13 +79,9 @@ namespace noa {
 
 	class Resource {
 	public:
-
-		//加载本地的spr文件
 		SpriteFile LoadSprFile(const char* file) const;
 
 		AnimationFile LoadAnimationFile(const char* file) const;
-		//加载地图
-		MapFile LoadMap(const char* fileName) const;
 
 		MapFile LoadMapFromCSV(const std::string filename) const;
 

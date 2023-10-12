@@ -183,8 +183,9 @@ void noa::Actor::Delete(Actor *& ptr)
 void noa::Actor::Destroy()
 {
 	SetActive(false);
-	
-	activeScene->RemoveActor(this);
+	ComponentOnDestroy();
+	OnDestroy();
+	isRemoved = true;
 }
 
 void noa::Actor::SetActive(bool value)
