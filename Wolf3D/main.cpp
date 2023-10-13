@@ -45,6 +45,8 @@ public:
 			Quit();
 		}
 
+		Debug::Log(ToString<float>(1.0f/Time::deltaTime));
+
 	}
 
 private:

@@ -165,10 +165,19 @@ namespace noa
 			return;
 		}
 		this->cameras.push_back(camera);
-		if (MainCamera == -1) 
+		if (mainCamera == -1)
 		{
-			MainCamera = 0;
+			mainCamera = 0;
 		}
+	}
+
+	Camera* Scene::GetMainCamera()
+	{
+		if (mainCamera<0||mainCamera>=cameras.size())
+		{
+			return nullptr;
+		}
+		return cameras[mainCamera];
 	}
 
 	void Scene::AddActor(Actor* actor)
@@ -184,8 +193,7 @@ namespace noa
 
 	void Scene::ActorUpdate()
 	{
-		PhysicsSystem::Update(3);
-
+		
 		for (const auto& actor : actors)
 		{
 			if (actor == nullptr || !actor->GetActive()||actor->isRemoved)
@@ -195,6 +203,8 @@ namespace noa
 			actor->ComponentUpdate();
 			actor->Update();
 		}
+
+		PhysicsSystem::Update(3);
 
 	}
 
@@ -208,13 +218,13 @@ namespace noa
 		auto cameraLast = std::unique(cameras.begin(), cameras.end());
 		cameras.erase(cameraLast,cameras.end());
 
-		for (int i = 0; i < actors.size(); i++)
+		for (auto & actor:actors) 
 		{
-			if (actors[i] == nullptr)
+			if (actor == nullptr)
 			{
 				continue;
 			}
-			actors[i]->Delete(actors[i]);
+			actor->Delete(actor);
 		}
 
 		for (auto & camera:cameras) 
@@ -227,7 +237,7 @@ namespace noa
 			camera->Delete(camera);
 
 		}
-		MainCamera = -1;
+		mainCamera = -1;
 
 		actors.clear();
 		cameras.clear();
@@ -257,11 +267,11 @@ namespace noa
 
 	void Scene::ApplyCamera()
 	{
-		if (MainCamera < 0||MainCamera>=cameras.size())
+		if (mainCamera < 0|| mainCamera >=cameras.size())
 		{
 			return;
 		}
-		cameras[MainCamera]->Render();
+		cameras[mainCamera]->Render();
 	}
 
 	Scene * SceneManager::GetActiveScene()
@@ -367,13 +377,12 @@ namespace noa
 	{
 		if (!sceneList.empty()) 
 		{
-			for (auto i = sceneList.begin();i!=sceneList.end();i++)
+			for (auto & scene:sceneList)
 			{
-				if (i->second == nullptr) 
+				if (scene.second == nullptr) 
 				{
-					continue;
+					scene.second->Delete();
 				}
-				i->second->Delete();
 			}
 		}
 		sceneList.clear();

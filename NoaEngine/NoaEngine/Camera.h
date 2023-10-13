@@ -113,7 +113,7 @@ namespace noa {
 		NOBJECT(FreeCamera)
 	protected:
 		std::vector<float> wallDistanceBuffer;
-		std::vector<void*> objectBufferWithRay = std::vector<void*>(pixelWidth, nullptr);
+		std::vector<NOAObject*> objectBufferWithRay = std::vector<NOAObject*>(pixelWidth, nullptr);
 		std::vector<Ray> rayResult = std::vector<Ray>(pixelWidth, Ray());
 
 	private:
@@ -139,7 +139,7 @@ namespace noa {
 
 		template<class T>
 		T* GetRayHitInfoAs(int index) {
-			return (T*)objectBufferWithRay[index];
+			return dynamic_cast<T*>(objectBufferWithRay[index]);
 		}
 
 		Ray GetRayInfo(int index) {

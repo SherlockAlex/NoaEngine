@@ -182,6 +182,8 @@ namespace noa {
 	extern int pixelHeight;
 	extern int pixelWidth;
 
+	extern Vector<int> hardwareScreenPixel;
+
 	extern std::shared_ptr<Renderer> renderer;
 
 #pragma region OPENGL

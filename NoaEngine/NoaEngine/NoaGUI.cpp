@@ -109,6 +109,9 @@ namespace noa {
 
 	void NoaButton::SwapState()
 	{
+
+		//下面函数在全屏时会出现bug，需要解决
+
 		if (!isActive)
 		{
 			return;
@@ -116,8 +119,11 @@ namespace noa {
 
 		const Vector<double> & mousePos = inputSystem.GetMousePosition();
 
-		if (mousePos.x>transform.position.x&&mousePos.x<transform.position.x+scale.x
-			&& mousePos.y>transform.position.y && mousePos.y < transform.position.y + scale.y
+		const float posX = (static_cast<float>(mousePos.x));
+		const float posY = (static_cast<float>(mousePos.y));
+
+		if (posX >transform.position.x&& posX<transform.position.x+scale.x
+			&& posY>transform.position.y && posY < transform.position.y + scale.y
 			) 
 		{
 			isSelect = true;

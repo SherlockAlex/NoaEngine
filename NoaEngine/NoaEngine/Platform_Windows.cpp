@@ -3,6 +3,10 @@
 #include "Platform_Windows.h"
 #include "NoaEngine.h"
 
+namespace noa {
+	extern Vector<int> hardwareScreenPixel;
+}
+
 
 noa::Platform_Windows::Platform_Windows():Platform()
 {
@@ -21,9 +25,19 @@ int noa::Platform_Windows::Create(int width, int height, WindowMode windowMode, 
 
 	if (windows == nullptr)
 	{
-		noa::Debug::Error("Create window faild");
+		noa::Debug::Error("Create window failed");
 		exit(-1);
 	}
+
+	SDL_DisplayMode displayMode;
+	if (SDL_GetDesktopDisplayMode(0,&displayMode)!=0) 
+	{
+		noa::Debug::Error("Unable to get display mode: " + std::string(SDL_GetError()));
+		exit(-1);
+	}
+
+	hardwareScreenPixel.x = displayMode.w;
+	hardwareScreenPixel.y = displayMode.h;
 
 	return 0;
 }

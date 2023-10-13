@@ -8,7 +8,7 @@ Bullet::Bullet(Scene * scene,Sprite* sprite) :Actor(scene)
 
 	rigid->collision.sacle = { -0.3,-0.3 };
 	collider->radius = 0.2;
-	rigid->collision.isTrigger = true;
+	collider->isTrigger = true;
 	rigid->useGravity = false;
 	tag = "Bullet";
 
@@ -42,10 +42,8 @@ void Bullet::Update()
 
 void Bullet::OnHitTile()
 {
-	//rigid->Destroy();
-	rigid->Destroy();
+	rigid->SetActive(false);
 	animation->Play();
-	
 }
 
 void Bullet::OnTrigger(const Collision & other)
@@ -55,7 +53,6 @@ void Bullet::OnTrigger(const Collision & other)
 	Player* player = nullptr;
 	if (rigid->TryGetActorAs<Player>(player)&&rigid->CompareTag("Player"))
 	{
-		//this->rigid->Destroy();
 		player->TakeDamage(3);
 		Destroy();
 	}

@@ -17,17 +17,24 @@ namespace noa
 	{
 	protected:
 		friend class PhysicsSystem;
+		friend class Rigidbody;
 		ColliderType colliderType;
+	private:
+		TileMap* tileMap = nullptr;
+		bool isHitCollisionTile = false;
 	public:
 		Rigidbody* rigidbody = nullptr;
+		bool isTrigger = false;
 
 	protected:
 		Collider2D(Actor* actor, Rigidbody* rigidbody);
 		virtual ~Collider2D() override;
-
+		void ApplyTileMapCollision();
+		void ApplyTrigger();
 	public:
 		static Collider2D* Create(Actor * actor,Rigidbody * rigidbody);
 		virtual void Update() override;
+		void SetTileMap(TileMap * tileMap);
 
 	};
 

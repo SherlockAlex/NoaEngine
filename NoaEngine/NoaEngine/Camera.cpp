@@ -154,7 +154,7 @@ namespace noa {
 	FreeCamera::FreeCamera(Scene* scene):Camera(scene)
 	{
 		wallDistanceBuffer = std::vector<float>(pixelWidth, 0.0);
-		objectBufferWithRay = std::vector<void*>(pixelWidth, nullptr);
+		objectBufferWithRay = std::vector<NOAObject*>(pixelWidth, nullptr);
 	}
 
 	

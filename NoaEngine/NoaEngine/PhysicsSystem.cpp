@@ -29,8 +29,11 @@ void noa::PhysicsSystem::Update(int step)
 
 		for (auto& rigidbody : rigidbodys)
 		{
+			if (rigidbody == nullptr)
+			{
+				continue;
+			}
 			rigidbody->UpdateVelocity(subDeltaTime);
-			rigidbody->ApplyTrigger();
 			rigidbody->UpdatePosition(subDeltaTime);
 		}
 		
@@ -108,7 +111,7 @@ bool noa::PhysicsSystem::Collide(Collider2D* obj1, Collider2D* obj2)
 
 void noa::PhysicsSystem::SolveCollision(Collider2D* obj1, Collider2D* obj2)
 {
-	if (obj1->rigidbody->collision.isTrigger||obj2->rigidbody->collision.isTrigger)
+	if (obj1->isTrigger||obj2->isTrigger)
 	{
 		return;
 	}
@@ -146,8 +149,8 @@ void noa::PhysicsSystem::CheckCellsCollisions(Cell& cell1, Cell& cell2)
 			{
 				if (Collide(collider1, collider2))
 				{
-					const bool isAllTrigger = collider1->rigidbody->collision.isTrigger
-						&& collider2->rigidbody->collision.isTrigger;
+					const bool isAllTrigger = collider1->isTrigger
+						&& collider2->isTrigger;
 					if (isAllTrigger) 
 					{
 						continue;
@@ -155,6 +158,8 @@ void noa::PhysicsSystem::CheckCellsCollisions(Cell& cell1, Cell& cell2)
 					collider1->rigidbody->collision.other = collider2->rigidbody;
 					collider2->rigidbody->collision.other = collider1->rigidbody;
 					SolveCollision(collider1, collider2);
+					collider1->ApplyTrigger();
+					collider2->ApplyTrigger();
 				}
 			}
 		}

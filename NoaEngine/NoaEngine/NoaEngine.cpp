@@ -21,6 +21,8 @@ namespace noa {
 	int pixelHeight = 0;
 	int pixelWidth = 0;
 
+	Vector<int> hardwareScreenPixel;
+
 	uint32_t* pixelBuffer = nullptr;
 
 #pragma region OPENGL
@@ -39,6 +41,12 @@ namespace noa {
 		window = platform->GetWindow();
 		renderer->SetContext(window);
 		renderer->InitRenderer();
+
+		if (windowMode == WindowMode::WINDOW) 
+		{
+			hardwareScreenPixel.x = width;
+			hardwareScreenPixel.y = height;
+		}
 
 		texture = renderer->CreateTexture(width,height,pixelBuffer);
 

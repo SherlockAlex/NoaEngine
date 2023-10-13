@@ -104,7 +104,7 @@ namespace noa {
 		std::vector<Actor*> actors;
 		std::vector<Camera*> cameras;
 
-		int MainCamera = -1;
+		int mainCamera = -1;
 
 	protected:
 		Scene(std::string name);
@@ -120,6 +120,9 @@ namespace noa {
 
 	public:
 		void AddCamera(Camera* camera);
+
+		
+		Camera* GetMainCamera();
 
 		void AddActor(Actor* actor);
 		void ActorUpdate();

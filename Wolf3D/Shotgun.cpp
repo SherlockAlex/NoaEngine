@@ -30,7 +30,7 @@ Shotgun::Shotgun(Player* player, int* bulletCount,FreeCamera * camera):Gun(bulle
 
 			for (int i = 0.5 * pixelWidth - 0.01 * pixelWidth; i <= 0.5 * pixelWidth + 0.01 * pixelWidth; i++)
 			{
-				enimy = this->camera->GetRayHitInfoAs<Enimy*>(i);
+				enimy = this->camera->GetRayHitInfoAs<Enimy>(i);
 
 				if (enimy != nullptr)
 				{
@@ -40,10 +40,6 @@ Shotgun::Shotgun(Player* player, int* bulletCount,FreeCamera * camera):Gun(bulle
 
 			if (enimy != nullptr)
 			{
-				if (enimy->rigid->GetActorTag() != "Enimy")
-				{
-					return;
-				}
 				enimy->OnPain();
 				enimy->TakeDamage(damage);
 			}

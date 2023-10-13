@@ -8,7 +8,7 @@ Bullet::Bullet(Scene* scene):Actor(scene)
 {
 	spriteRenderer->SetSprite(&sprite);
 	rigid->useGravity = true;
-	rigid->collision.isTrigger = true;
+	collider->isTrigger = true;
 	tag = "Bullet";
 	collider->radius = 0.5f;
 }

@@ -14,11 +14,11 @@ namespace noa {
 	typedef struct Collision 
 	{
 		Vector<float> sacle = Vector<float>(0, 0);
-		bool isHitCollisionTile = false;
+		//bool isHitCollisionTile = false;
 		bool isGrounded = false;
-		bool isTrigger = false;
+		//bool isTrigger = false;
 		Rigidbody * other = nullptr;
-		int hitTileID = -1;
+		//int hitTileID = -1;
 
 	}Collision;
 
@@ -47,7 +47,6 @@ namespace noa {
 		float damping = 0.02f;
 		float gravityWeight = 1.0;
 
-		bool isRemoved = false;
 		bool useMotion = true;
 		bool isFrozen = false;
 		bool useGravity = true;
@@ -82,12 +81,11 @@ namespace noa {
 		void UpdatePosition();
 		void ApplyTrigger();
 		//Åö×²¼ì²âÏß³Ì
-		void ApplyCollision();
+		void ApplyTileCollision();
 
 		void BindCollider(Collider2D* collider);
 
 	public:
-		void Destroy();
 		void AddForce(const Vector<float> & force, ForceType forceType);
 		void SetTileMap(TileMap * map);
 

@@ -217,7 +217,7 @@ CacoDieState::CacoDieState(
 		float distance = (this->enimy->transform.position - this->target->position).Magnitude();
 		wolfResource->npcDeath->volume = 10.0/(distance* distance);
 		wolfResource->npcDeath->Play(false);
-		this->enimy->rigid->collision.isTrigger = true;
+		this->enimy->collider->isTrigger = true;
 		Caco* e = this->enimy->GetActorAs<Caco>();
 		if (e != nullptr) {
 			e->OnDeath();

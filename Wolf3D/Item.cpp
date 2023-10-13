@@ -3,7 +3,7 @@
 Item::Item(Scene* scene, Sprite* sprite) :Actor(scene)
 {
 	rigid->useGravity = false;
-	rigid->collision.isTrigger = true;
+	collider->isTrigger = true;
 	tag = "item";
 
 	sprite->scale = { 32,32 };
@@ -24,7 +24,7 @@ Item* Item::Create(Scene* scene, Sprite* sprite)
 void Item::OnTrigger(const Collision & other)
 {
 	Rigidbody* rigid = other.other;
-	if (rigid!=nullptr&&rigid->GetActorTag() == "Player")
+	if (rigid!=nullptr&&rigid->CompareTag("Player"))
 	{
 		//这个地方有问题
 		pickEvent.Invoke();

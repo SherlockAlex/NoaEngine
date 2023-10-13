@@ -25,7 +25,7 @@ namespace noa {
 		friend class NObject<Actor>;
 		friend class Scene;
 		friend class SceneManager;
-		friend class Rigidbody;
+		friend class Collider2D;
 		friend void InitNObject(NOAObject* obj);
 
 	public:

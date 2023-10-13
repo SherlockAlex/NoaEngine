@@ -133,11 +133,6 @@ void Level00::Update()
 	
 	//camera.Render(*map->mapLayer, false, nullptr, WHITE);
 	wolfResource->mouseGPU.DrawSprite(pixelWidth * 0.5 - 0.5 * wolfResource->mouse.scale.x, pixelHeight * 0.5 - 0.5 * wolfResource->mouse.scale.y);
-	/*if (inputSystem.GetKeyHold(KeyCode::KEY_M))
-	{
-		Vector<int> drawPos = mapCamera.Render(*map->mapLayer, { 0,0 }, {0,0});
-		renderer->DrawRect(drawPos, drawPos + Vector<int>(32, 32), WHITE);
-	}*/
 	
 	
 }

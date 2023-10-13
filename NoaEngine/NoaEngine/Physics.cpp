@@ -17,8 +17,6 @@ namespace noa
 	Rigidbody::Rigidbody(Actor * actor) :ActorComponent(actor)
 	{
 
-		this->isRemoved = false;
-
 		collision.other = nullptr;
 		this->actor = actor;
 		this->velocity = { 0,0 };
@@ -46,10 +44,6 @@ namespace noa
 
 	void Rigidbody::Update()
 	{
-		if (isRemoved)
-		{
-			return;
-		}
 		PhysicsSystem::rigidbodys.push_back(this);
 	}
 
@@ -70,8 +64,9 @@ namespace noa
 		{
 			velocity = (velocity * (1 - damping)) + (this->force * (deltaTime * invMass));
 			newPosition = (this->actor->transform.position) + (velocity * deltaTime);
-			
-			ApplyCollision();
+
+			this->ApplyTileCollision();
+
 		}
 
 		
@@ -86,19 +81,14 @@ namespace noa
 		{
 			return;
 		}
-		ApplyCollision();
 		
-
-		if (collision.isHitCollisionTile && this->actor != nullptr)
-		{
-			this->actor->OnHitTile();
-		}
-		collision.isHitCollisionTile = false;
+		this->ApplyTileCollision();
+		
+		
 
 		if (useMotion && (!isFrozen)&&actor!=nullptr)
 		{
 			collision.isGrounded = false;
-			collision.hitTileID = -1;
 			actor->transform.position = newPosition;
 		}
 	}
@@ -134,7 +124,7 @@ namespace noa
 	}
 
 	Vector<float> pos(0.0, 0.0);
-	void Rigidbody::ApplyCollision()
+	void Rigidbody::ApplyTileCollision()
 	{
 		if (!GetActive() ||!useCollision||tileMap == nullptr)
 		{
@@ -148,26 +138,30 @@ namespace noa
 			|| tileMap->IsCollisionTile(static_cast<int>(newPosition.x - scaleX), static_cast<int>(this->actor->transform.position.y + 0.999 + scaleY))
 		)
 		{
-			collision.isHitCollisionTile = true;
-			if (!collision.isTrigger)
+			for (auto & collider:colliders)
 			{
-				
-				newPosition.x = (int)newPosition.x + 1 + scaleX;
-				velocity.x = 0;
+				if (collider)
+				{
+					collider->isHitCollisionTile = true;
+				}
 			}
+			newPosition.x = (int)newPosition.x + 1 + scaleX;
+			velocity.x = 0;
 		}
 
 		if (tileMap->IsCollisionTile(static_cast<int>(newPosition.x + 0.999 + scaleX), static_cast<int>(this->actor->transform.position.y - scaleY))
 			|| tileMap->IsCollisionTile(static_cast<int>(newPosition.x + 0.999 + scaleX), static_cast<int>(this->actor->transform.position.y + 0.999 + scaleY))
 		)
 		{
-			collision.isHitCollisionTile = true;
-			if (!collision.isTrigger)
+			for (auto& collider : colliders)
 			{
-				
-				newPosition.x = (int)newPosition.x - scaleX;
-				velocity.x = 0;
+				if (collider)
+				{
+					collider->isHitCollisionTile = true;
+				}
 			}
+			newPosition.x = (int)newPosition.x - scaleX;
+			velocity.x = 0;
 
 		}
 
@@ -175,42 +169,49 @@ namespace noa
 			|| tileMap->IsCollisionTile(static_cast<int>(newPosition.x + 0.999 + scaleX), static_cast<int>(newPosition.y - scaleY))
 		)
 		{
-			collision.isHitCollisionTile = true;
-			if (!collision.isTrigger)
+			for (auto& collider : colliders)
 			{
-				
-				newPosition.y = (int)newPosition.y + 1 + scaleY;
-				velocity.y = 0;
+				if (collider)
+				{
+					collider->isHitCollisionTile = true;
+				}
 			}
+			newPosition.y = (int)newPosition.y + 1 + scaleY;
+			velocity.y = 0;
 		}
 
 		if (tileMap->IsCollisionTile(static_cast<int>(newPosition.x - scaleX), static_cast<int>(newPosition.y + 0.999 + scaleY))
 			|| tileMap->IsCollisionTile(static_cast<int>(newPosition.x + 0.999 + scaleX), static_cast<int>(newPosition.y + 0.999 + scaleY))
 		)
 		{
-			collision.isHitCollisionTile = true;
-			if (!collision.isTrigger) {
-				collision.isGrounded = true;
-				
-				newPosition.y = (int)newPosition.y - scaleY;
-				velocity.y = 0;
+			for (auto& collider : colliders)
+			{
+				if (collider)
+				{
+					collider->isHitCollisionTile = true;
+				}
 			}
+			collision.isGrounded = true;
+
+			newPosition.y = (int)newPosition.y - scaleY;
+			velocity.y = 0;
 		}
 
 	}
 
 	void Rigidbody::BindCollider(Collider2D* collider) 
 	{
+		collider->SetTileMap(this->tileMap);
 		colliders.push_back(collider);
 	}
 
-	void Rigidbody::ApplyTrigger() {
-		if (GetActive() &&collision.isTrigger && collision.other != nullptr && this->actor != nullptr)
+	/*void Rigidbody::ApplyTrigger() {
+		if (GetActive() && collision.other != nullptr && this->actor != nullptr)
 		{
 			this->actor->OnTrigger(collision);
 		}
 		collision.other = nullptr;
-	}
+	}*/
 
 	TileMap* Rigidbody::GetTileMap()
 	{
@@ -220,11 +221,6 @@ namespace noa
 	Rigidbody* Rigidbody::Create(Actor* actor)
 	{
 		return new Rigidbody(actor);
-	}
-
-	void Rigidbody::Destroy()
-	{
-		this->isRemoved = true;
 	}
 
 }
