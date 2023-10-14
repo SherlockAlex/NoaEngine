@@ -116,6 +116,8 @@ void noa::PhysicsSystem::SolveCollision(Collider2D* obj1, Collider2D* obj2)
 		return;
 	}
 
+	//如果两者夹在一起
+
 	const float m1 = obj1->rigidbody->mass;
 	const float m2 = obj2->rigidbody->mass;
 
@@ -155,11 +157,12 @@ void noa::PhysicsSystem::CheckCellsCollisions(Cell& cell1, Cell& cell2)
 					{
 						continue;
 					}
-					collider1->rigidbody->collision.other = collider2->rigidbody;
-					collider2->rigidbody->collision.other = collider1->rigidbody;
+					collider1->rigidbody->collision.actor = collider2->actor;
+					collider2->rigidbody->collision.actor = collider1->actor;
 					SolveCollision(collider1, collider2);
 					collider1->ApplyTrigger();
 					collider2->ApplyTrigger();
+
 				}
 			}
 		}
@@ -174,17 +177,17 @@ bool noa::PhysicsSystem::CircleCollide(CircleCollider2D* obj1, CircleCollider2D*
 	}
 
 	const float deltaX = obj1->rigidbody->actor->transform.position.x
-		- obj2->rigidbody->newPosition.x;
+		- obj2->rigidbody->actor->transform.position.x;
 
 	const float deltaY = obj1->rigidbody->actor->transform.position.y
-		- obj2->rigidbody->newPosition.y;
+		- obj2->rigidbody->actor->transform.position.y;
 
 	const float deltaR = obj1->radius + obj2->radius;
 
 	const float distanceSquared = deltaX * deltaX + deltaY * deltaY;
 	const float radiusSumSquared = deltaR * deltaR;
 
-	return distanceSquared < radiusSumSquared;
+	return distanceSquared <= radiusSumSquared;
 }
 
 bool noa::PhysicsSystem::BoxCollide(BoxCollider2D* obj1, BoxCollider2D* obj2)

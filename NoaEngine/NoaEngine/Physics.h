@@ -13,12 +13,10 @@ namespace noa {
 
 	typedef struct Collision 
 	{
-		Vector<float> sacle = Vector<float>(0, 0);
-		//bool isHitCollisionTile = false;
-		bool isGrounded = false;
-		//bool isTrigger = false;
-		Rigidbody * other = nullptr;
-		//int hitTileID = -1;
+		//存储碰撞信息
+		Actor * actor = nullptr;
+
+		bool CompareTag(const std::string & tag) const;
 
 	}Collision;
 
@@ -43,20 +41,22 @@ namespace noa {
 		friend class PhysicsSystem;
 		friend class Collider2D;
 	public:
-		float mass = 1;
 		float damping = 0.02f;
-		float gravityWeight = 1.0;
+		float gravityWeight = 3.5;
 
 		bool useMotion = true;
 		bool isFrozen = false;
 		bool useGravity = true;
 		bool useCollision = true;
+		bool isGrounded = false;
+
+		
 
 		Vector<float> velocity = Vector<float>(0.0, 0.0);
-		// 存储刚体与人物的碰撞信息
-		Collision collision;
+		
 
 	private:
+		float mass = 1;
 		float invMass = 1;
 
 		Vector<float> newPosition;
@@ -65,6 +65,11 @@ namespace noa {
 		TileMap* tileMap = nullptr;
 		
 		std::vector<Collider2D*> colliders;
+
+		// 存储刚体与人物的碰撞信息
+		Collision collision;
+		// 设置刚体和TileMap之间的碰撞大小
+		Vector<float> tileColliderSacle = Vector<float>(1.0f, 1.0f);
 
 	private:
 		Rigidbody(Actor* actor);
@@ -79,7 +84,6 @@ namespace noa {
 		void UpdatePosition(float deltaTime);
 
 		void UpdatePosition();
-		void ApplyTrigger();
 		//碰撞检测线程
 		void ApplyTileCollision();
 
@@ -88,6 +92,8 @@ namespace noa {
 	public:
 		void AddForce(const Vector<float> & force, ForceType forceType);
 		void SetTileMap(TileMap * map);
+		void SetMass(float value);
+		void SetTileColliderScale(float x,float y);
 
 		TileMap* GetTileMap();
 		

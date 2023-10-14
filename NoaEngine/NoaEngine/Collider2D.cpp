@@ -17,71 +17,6 @@ noa::Collider2D::Collider2D(Actor* actor, Rigidbody* rigidbody) :ActorComponent(
 
 noa::Collider2D::~Collider2D()
 {
-}
-
-void noa::Collider2D::ApplyTileMapCollision()
-{
-
-	if (!GetActive() || rigidbody == nullptr || !rigidbody->useCollision || tileMap == nullptr)
-	{
-		return;
-	}
-
-	const float scaleX = rigidbody->collision.sacle.x;
-	const float scaleY = rigidbody->collision.sacle.y;
-
-	if (tileMap->IsCollisionTile(static_cast<int>(rigidbody->newPosition.x - scaleX), static_cast<int>(this->actor->transform.position.y - scaleY))
-		|| tileMap->IsCollisionTile(static_cast<int>(rigidbody->newPosition.x - scaleX), static_cast<int>(this->actor->transform.position.y + 0.999 + scaleY))
-	)
-	{
-		isHitCollisionTile = true;
-		if (!isTrigger)
-		{
-
-			rigidbody->newPosition.x = (int)rigidbody->newPosition.x + 1 + scaleX;
-			rigidbody->velocity.x = 0;
-		}
-	}
-
-	if (tileMap->IsCollisionTile(static_cast<int>(rigidbody->newPosition.x + 0.999 + scaleX), static_cast<int>(this->actor->transform.position.y - scaleY))
-		|| tileMap->IsCollisionTile(static_cast<int>(rigidbody->newPosition.x + 0.999 + scaleX), static_cast<int>(this->actor->transform.position.y + 0.999 + scaleY))
-	)
-	{
-		isHitCollisionTile = true;
-		if (!isTrigger)
-		{
-
-			rigidbody->newPosition.x = (int)rigidbody->newPosition.x - scaleX;
-			rigidbody->velocity.x = 0;
-		}
-
-	}
-
-	if (tileMap->IsCollisionTile(static_cast<int>(rigidbody->newPosition.x - scaleX), static_cast<int>(rigidbody->newPosition.y - scaleY))
-		|| tileMap->IsCollisionTile(static_cast<int>(rigidbody->newPosition.x + 0.999 + scaleX), static_cast<int>(rigidbody->newPosition.y - scaleY))
-	)
-	{
-		isHitCollisionTile = true;
-		if (!isTrigger)
-		{
-
-			rigidbody->newPosition.y = (int)rigidbody->newPosition.y + 1 + scaleY;
-			rigidbody->velocity.y = 0;
-		}
-	}
-
-	if (tileMap->IsCollisionTile(static_cast<int>(rigidbody->newPosition.x - scaleX), static_cast<int>(rigidbody->newPosition.y + 0.999 + scaleY))
-		|| tileMap->IsCollisionTile(static_cast<int>(rigidbody->newPosition.x + 0.999 + scaleX), static_cast<int>(rigidbody->newPosition.y + 0.999 + scaleY))
-	)
-	{
-		isHitCollisionTile = true;
-		if (!isTrigger) {
-			rigidbody->collision.isGrounded = true;
-
-			rigidbody->newPosition.y = (int)rigidbody->newPosition.y - scaleY;
-			rigidbody->velocity.y = 0;
-		}
-	}
 
 }
 
@@ -95,13 +30,13 @@ void noa::Collider2D::ApplyTrigger()
 	const bool canApplyTrigger =  rigidbody->GetActive()
 		&& GetActive()
 		&& isTrigger
-		&& rigidbody->collision.other != nullptr
+		&& rigidbody->collision.actor != nullptr
 		&& actor != nullptr;
 	if (canApplyTrigger)
 	{
 		actor->OnTrigger(rigidbody->collision);
 	}
-	rigidbody->collision.other = nullptr;
+	rigidbody->collision.actor = nullptr;
 
 	if (isHitCollisionTile)
 	{
@@ -109,11 +44,6 @@ void noa::Collider2D::ApplyTrigger()
 		isHitCollisionTile = false;
 	}
 
-}
-
-noa::Collider2D* noa::Collider2D::Create(Actor* actor, Rigidbody* rigidbody)
-{
-	return new Collider2D(actor,rigidbody);
 }
 
 void noa::Collider2D::Update()

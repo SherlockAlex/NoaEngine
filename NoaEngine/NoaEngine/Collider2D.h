@@ -29,13 +29,10 @@ namespace noa
 	protected:
 		Collider2D(Actor* actor, Rigidbody* rigidbody);
 		virtual ~Collider2D() override;
-		void ApplyTileMapCollision();
 		void ApplyTrigger();
 	public:
-		static Collider2D* Create(Actor * actor,Rigidbody * rigidbody);
 		virtual void Update() override;
 		void SetTileMap(TileMap * tileMap);
-
 	};
 
 	class BoxCollider2D :public Collider2D {
@@ -68,8 +65,8 @@ namespace noa
 
 	typedef struct Grid
 	{
-		int width;
-		int height;
+		int width = 0;
+		int height = 0;
 
 		std::vector<Cell> cells;
 

@@ -260,6 +260,22 @@ namespace noa
 		return buffer;
 	}
 
+	std::vector<Actor*> Scene::FindActorsWithTag(const std::string& tag)
+	{
+		std::vector<Actor*> target;
+
+		for (auto & actor:this->actors)
+		{
+			if (actor == nullptr||actor->isRemoved||actor->tag!=tag) 
+			{
+				continue;
+			}
+			target.push_back(actor);
+		}
+
+		return target;
+	}
+
 	std::string Scene::GetName()
 	{
 		return this->name;

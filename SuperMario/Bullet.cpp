@@ -44,18 +44,13 @@ void Bullet::SetPostion(const Vector<float>& pos)
 
 void Bullet::OnTrigger(const noa::Collision& other)
 {
-	Rigidbody* rigidbody = other.other;
-	if (rigidbody == nullptr)
-	{
-		return;
-	}
-	if (rigidbody->GetActorTag() == this->ownTag || rigidbody->GetActorTag() == this->rigid->GetActorTag())
+	if (other.actor->CompareTag(this->ownTag) || other.actor->CompareTag(this->rigid->GetActorTag()))
 	{
 		return;
 	}
 	//处理事件
 
-	LiveEntity* entity = rigidbody->GetActorAs<LiveEntity>();
+	LiveEntity* entity = other.actor->GetActorAs<LiveEntity>();
 	if (entity == nullptr) 
 	{
 		return;

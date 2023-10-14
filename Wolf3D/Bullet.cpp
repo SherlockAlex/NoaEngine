@@ -6,7 +6,7 @@ Bullet::Bullet(Scene * scene,Sprite* sprite) :Actor(scene)
 {
 	animation->SetFrame(&wolfResource->bulletDestroyFrame);
 
-	rigid->collision.sacle = { -0.3,-0.3 };
+	rigid->SetTileColliderScale(0.7,0.7);
 	collider->radius = 0.2;
 	collider->isTrigger = true;
 	rigid->useGravity = false;
@@ -48,12 +48,9 @@ void Bullet::OnHitTile()
 
 void Bullet::OnTrigger(const Collision & other)
 {
-	Rigidbody* rigid = other.other;
-
-	Player* player = nullptr;
-	if (rigid->TryGetActorAs<Player>(player)&&rigid->CompareTag("Player"))
+	if (other.actor->CompareTag("Player"))
 	{
-		player->TakeDamage(3);
+		other.actor->GetActorAs<Player>()->TakeDamage(3);
 		Destroy();
 	}
 

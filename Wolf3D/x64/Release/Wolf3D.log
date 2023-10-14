@@ -1,8 +1,46 @@
-﻿  Scene.cpp
+﻿  Actor.cpp
+  ActorComponent.cpp
+  Animator.cpp
+  Audio.cpp
+  Camera.cpp
+  Collider2D.cpp
+  GLRenderer.cpp
+  InputSystem.cpp
+  NoaAction.cpp
+  NoaEngine.cpp
+  NoaGUI.cpp
+  Physics.cpp
+  PhysicsSystem.cpp
+  Platform.cpp
+  Platform_Windows.cpp
+  Resource.cpp
+  SDLRenderer.cpp
+  Scene.cpp
+  Sprite.cpp
+  SpriteRenderer.cpp
+  正在编译...
+  StateMachine.cpp
+  Texture.cpp
+  Bullet.cpp
+  Caco.cpp
+  CacoState.cpp
+  Enimy.cpp
+  Gun.cpp
+  Item.cpp
+  Level00.cpp
+  Level01.cpp
+  LiveEntity.cpp
+  M4A1.cpp
+  MainMenuLevel.cpp
+  Pistol.cpp
+  Player.cpp
+  Shotgun.cpp
+  WolfResource.cpp
+  main.cpp
 LINK : warning LNK4098: 默认库“MSVCRT”与其他库的使用冲突；请使用 /NODEFAULTLIB:library
   正在生成代码
-  4 of 3497 functions ( 0.1%) were compiled, the rest were copied from previous compilation.
+  27 of 3482 functions ( 0.8%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    1 functions had inline decision re-evaluated but remain unchanged
+    0 functions had inline decision re-evaluated but remain unchanged
   已完成代码的生成
   Wolf3D.vcxproj -> D:\Work\NoaEngine\x64\Release\Wolf3D.exe

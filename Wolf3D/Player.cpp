@@ -4,7 +4,7 @@
 
 Player::Player(Scene* scene) :Actor(scene)
 {
-	rigid->collision.sacle = {-0.2,-0.2};
+	rigid->SetTileColliderScale(0.8,0.8);
 
 	tag = "Player";
 	rigid->useGravity = false;

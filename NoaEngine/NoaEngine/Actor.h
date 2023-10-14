@@ -111,6 +111,7 @@ namespace noa {
 		}
 
 		Actor* FindActorWithTag(const std::string& tag);
+		std::vector<Actor*> FindActorsWithTag(const std::string& tag);
 
 		Actor* GetActor();
 

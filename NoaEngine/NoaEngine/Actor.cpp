@@ -73,6 +73,15 @@ noa::Actor* noa::Actor::FindActorWithTag(const std::string& tag)
 	return activeScene->FindActorWithTag(tag);
 }
 
+std::vector<noa::Actor*> noa::Actor::FindActorsWithTag(const std::string& tag)
+{
+	if (activeScene == nullptr) 
+	{
+		return std::vector<noa::Actor*>();
+	}
+	return activeScene->FindActorsWithTag(tag);
+}
+
 noa::Actor* noa::Actor::GetActor() {
 	return this;
 }
@@ -201,11 +210,12 @@ void noa::Actor::Destroy()
 
 void noa::Actor::SetActive(bool value)
 {
+	
+	SetComponentActive(value);
 	if (isActive == value)
 	{
 		return;
 	}
-	SetComponentActive(value);
 	isActive = value;
 	
 	if (isActive)
@@ -245,7 +255,7 @@ void noa::Actor::SetActiveScene(noa::Scene* scene)
 
 void noa::Actor::OnTrigger(const noa::Collision & collision)
 {
-
+	// 由子类覆写，当Actor绑定一个Collider组件的时候就可以调用
 }
 
 

@@ -23,8 +23,7 @@ Item* Item::Create(Scene* scene, Sprite* sprite)
 
 void Item::OnTrigger(const Collision & other)
 {
-	Rigidbody* rigid = other.other;
-	if (rigid!=nullptr&&rigid->CompareTag("Player"))
+	if (other.CompareTag("Player"))
 	{
 		//这个地方有问题
 		pickEvent.Invoke();
