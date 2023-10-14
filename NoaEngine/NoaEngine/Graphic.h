@@ -74,7 +74,7 @@ namespace noa {
 		ALPHA = 0x00000000
 	};
 	
-	#define ERRORCOLOR noa::RGBA(152,0,136,255)
+	#define ERRORCOLOR noa::RGBA(152,0,136,0)
 
 	typedef unsigned int ColorRef;
 

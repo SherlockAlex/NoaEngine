@@ -13,21 +13,31 @@ namespace noa {
 	//×ÖÌå
 	typedef struct Font
 	{
-		Sprite* sprite = nullptr;
-
+		std::shared_ptr<Sprite> sprite = nullptr;
+		std::shared_ptr<SpriteGPU> spriteGPU = nullptr;
 		Font()
 		{
 
 		}
 
-		Font(Sprite* sprite)
+		Font(std::shared_ptr<Sprite> sprite)
 		{
 			this->sprite = sprite;
+			if (sprite) 
+			{
+				spriteGPU = std::make_shared<SpriteGPU>(sprite.get());
+				spriteGPU->SetLayer(InstanceLayer::UI_LAYER);
+			}
 		}
 
-		Font(SpriteFile spriteFile)
+		Font(const SpriteFile & spriteFile)
 		{
-			this->sprite = new Sprite(spriteFile, Vector<int>(1, 1));
+			this->sprite = std::make_shared<Sprite>(spriteFile, Vector<int>(64, 64));
+			if (sprite) 
+			{
+				spriteGPU = std::make_shared<SpriteGPU>(sprite.get());
+				spriteGPU->SetLayer(InstanceLayer::UI_LAYER);
+			}
 		}
 
 	}Font;

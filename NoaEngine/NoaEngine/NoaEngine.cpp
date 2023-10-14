@@ -13,7 +13,7 @@ namespace noa {
 	shared_ptr<Renderer> renderer = make_shared<GLRenderer>();
 #endif
 
-	std::vector<SpriteGPUInstance> spriteInstances;
+	std::vector<std::vector<SpriteGPUInstance>> rendererInstanceLayer;
 
 	int pixelHeight = 0;
 	int pixelWidth = 0;
@@ -38,6 +38,7 @@ namespace noa {
 		window = platform->GetWindow();
 		renderer->SetContext(window);
 		renderer->InitRenderer();
+		renderer->InitFontAsset();
 
 		if (windowMode == WindowMode::WINDOW) 
 		{
@@ -58,8 +59,7 @@ namespace noa {
 			exit(-1);
 		}
 
-
-
+		
 	}
 
 	NoaEngine::~NoaEngine()
@@ -72,6 +72,10 @@ namespace noa {
 	int NoaEngine::Run()
 	{
 		
+		rendererInstanceLayer.push_back(std::vector<SpriteGPUInstance>());
+		rendererInstanceLayer.push_back(std::vector<SpriteGPUInstance>());
+		rendererInstanceLayer.push_back(std::vector<SpriteGPUInstance>());
+
 		Start();
 
 		this->EngineThread();
@@ -117,9 +121,12 @@ namespace noa {
 			texture->UpdateTexture(pixelBuffer, pixelWidth, pixelHeight);
 			renderer->DrawTexture(this->texture, textureIndex, 0, 0, pixelWidth, pixelHeight);
 			textureIndex++;
-			for (const auto& instance : spriteInstances)
+
+			for (auto & layer:rendererInstanceLayer)
 			{
-				renderer->DrawTexture(
+				for (const auto& instance :layer)
+				{
+					renderer->DrawTexture(
 					instance.texture
 					, textureIndex
 					, instance.position.x
@@ -128,10 +135,12 @@ namespace noa {
 					, instance.scale.y
 					, instance.eulerAngle
 					, instance.flip
-				);
-				textureIndex++;
+					);
+					textureIndex++;
+				}
+				layer.clear();
 			}
-			spriteInstances.clear();
+
 			renderer->Present(window);
 
 			tp1 = tp2;
@@ -146,9 +155,9 @@ namespace noa {
 
 	int NoaEngine::Quit()
 	{
-		OnDisable();
 		sceneManager.Quit();
 		platform->Quit();
+		OnExit();
 		return 0;
 	}
 

@@ -22,7 +22,6 @@ void Gun::Update()
 	{
 		sprite->UpdateImage(animation->GetCurrentFrameImage());
 	}
-	//显示图片位置的功能在子类完成
 }
 
 void Gun::Shoot()

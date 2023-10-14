@@ -95,12 +95,10 @@ void CacoMoveState::Reason()
 {
 	if (enimy->hp <= 0)
 	{
-		
 		enimy->rigid->useMotion = false;
 		enimy->rigid->velocity = { 0,0 };
 		animation->Reset();
-		enimy->fsm->PerformTransition(Die);
-		//SetTransition(Die);
+		SetTransition(Die);
 	}
 
 	Vector<float> distanceVector = target->position - enimy->transform.position;
@@ -112,8 +110,7 @@ void CacoMoveState::Reason()
 		enimy->rigid->velocity = { 0,0 };
 		if (attackingEnimy == nullptr) {
 			animation->Reset();
-			enimy->fsm->PerformTransition(Attack);
-			//SetTransition(Attack);
+			SetTransition(Attack);
 		}
 		else {
 			return;
@@ -147,8 +144,6 @@ CacoAttackState::CacoAttackState(
 
 			if (distance <= 3 * 3)
 			{
-				//this->enimy->enimy->TakeDamage(2);
-				//实现角色的raycasting，如果集中的是墙壁
 				Bullet* bullet = Bullet::Create(this->enimy->GetActiveScene(), &wolfResource->firebomb);
 				bullet->rigid->SetTileMap(this->enimy->rigid->GetTileMap());
 				bullet->transform.position = this->enimy->transform.position;
@@ -183,15 +178,13 @@ void CacoAttackState::Reason()
 		enimy->rigid->useMotion = false;
 		enimy->rigid->velocity = { 0,0 };
 		animation->Reset();
-		enimy->fsm->PerformTransition(Die);
-		//SetTransition(Die);
+		SetTransition(Die);
 	}
 
 	if (distance > 3 * 3)
 	{
 		animation->Reset();
-		enimy->fsm->PerformTransition(Move);
-		//SetTransition(Move);
+		SetTransition(Move);
 	}
 	
 
@@ -229,7 +222,6 @@ CacoDieState::CacoDieState(
 			Caco* e = this->enimy->GetActorAs<Caco>();
 			if (e != nullptr) {
 				e->deathEvent.Invoke();
-				//e->rigid->Destroy();
 				e->Destroy();
 			}
 		});
@@ -237,7 +229,7 @@ CacoDieState::CacoDieState(
 
 void CacoDieState::OnEnter()
 {
-	//((Caco*)enimy)->OnDeath();
+	
 }
 
 void CacoDieState::OnUpdate()
@@ -285,11 +277,9 @@ CacoPainState::CacoPainState(
 		{
 			if (this->enimy->hp<=0)
 			{
-				this->enimy->fsm->PerformTransition(Die);
-				//SetTransition(Die);
+				SetTransition(Die);
 			}
-			this->enimy->fsm->PerformTransition(Idle);
-			//SetTransition(Idle);
+			SetTransition(Idle);
 		});
 }
 
@@ -312,8 +302,7 @@ void CacoPainState::Reason()
 	if (this->enimy->hp <= 0)
 	{
 		animation->Reset();
-		enimy->fsm->PerformTransition(Die);
-		//SetTransition(Die);
+		SetTransition(Die);
 	}
 }
 

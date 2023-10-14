@@ -67,8 +67,7 @@ void Caco::OnPain()
 	{
 		return;
 	}
-	this->fsm->PerformTransition(Pain);
-	//this->fsm->currentState->SetTransition(Pain);
+	this->fsm->currentState->SetTransition(Pain);
 }
 
 void Caco::OnDeath()

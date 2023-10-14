@@ -8,11 +8,15 @@ noa::Texture::Texture()
 
 noa::Texture::~Texture()
 {
-	for (auto & instance:spriteInstances) 
+	for (auto & layer:rendererInstanceLayer) 
 	{
-		if (instance.texture == this) 
+		for (auto& instance : layer)
 		{
-			instance.texture = nullptr;
+			if (instance.texture == this)
+			{
+				instance.texture = nullptr;
+			}
 		}
 	}
+	
 }

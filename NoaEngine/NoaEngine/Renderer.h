@@ -29,6 +29,9 @@ namespace noa {
 
 	public:
 		Renderer();
+
+		void InitFontAsset();
+
 		void SetRenderer(int pixelWidth, int pixelHeight, Uint32* pixelBuffer);
 
 		void DrawPixel(const uint32_t x,const uint32_t y,const uint32_t color) const;

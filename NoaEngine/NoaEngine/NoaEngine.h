@@ -179,6 +179,8 @@
 
 namespace noa {
 
+	
+
 	extern int pixelHeight;
 	extern int pixelWidth;
 
@@ -199,7 +201,7 @@ namespace noa {
 
 	}SpriteGPUInstance;
 
-	extern std::vector<SpriteGPUInstance> spriteInstances;
+	extern std::vector<std::vector<SpriteGPUInstance>> rendererInstanceLayer;
 
 	/*
 	o--------------------------o
@@ -226,9 +228,9 @@ namespace noa {
 
 		virtual ~NoaEngine();
 
-		virtual void Start() = 0;
-		virtual void Update() = 0;
-		virtual void OnDisable() {};
+		virtual void Start() {};
+		virtual void Update() {};
+		virtual void OnExit() {};
 
 		int Run();
 

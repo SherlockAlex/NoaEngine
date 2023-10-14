@@ -299,6 +299,11 @@ namespace noa {
 		}
 	}
 
+	void SpriteGPU::SetLayer(InstanceLayer layer)
+	{
+		this->layer = layer;
+	}
+
 	void SpriteGPU::Update(Sprite* sprite)
 	{
 
@@ -326,7 +331,7 @@ namespace noa {
 		instance.scale.y = sprite->scale.y;
 		instance.eulerAngle = eulerAngle;
 		instance.flip = mirror;
-		spriteInstances.push_back(instance);
+		rendererInstanceLayer[static_cast<int>(layer)].push_back(instance);
 
 	}
 
@@ -346,7 +351,7 @@ namespace noa {
 		instance.scale.y = static_cast<int>(h);
 		instance.eulerAngle = eulerAngle;
 		instance.flip = mirror;
-		spriteInstances.push_back(instance);
+		rendererInstanceLayer[static_cast<unsigned int>(layer)].push_back(instance);
 	}
 
 }

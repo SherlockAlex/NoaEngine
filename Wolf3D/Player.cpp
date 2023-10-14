@@ -188,7 +188,6 @@ void Player::Update()
 
 	float vel = rigid->velocity.SqrMagnitude();
 	guns[currentGunIndex]->Update();
-	//renderer->DrawString("HP:" + std::to_string(hp) + "\nBULLET:"+std::to_string(bulletCount), 10, 10, RED, pixelHeight / 20);
 	renderer->DrawString("FPS:"+std::to_string(1.0/Time::deltaTime), 10, 10, RED, pixelHeight / 20);
 
 }

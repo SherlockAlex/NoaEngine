@@ -14,7 +14,12 @@ namespace noa {
 
 	Renderer::Renderer()
 	{
-		fontAsset = make_shared<FontAsset>("./Assets/font/font.ttf", 48);
+		
+	}
+
+	void Renderer::InitFontAsset() {
+		// ³õÊ¼»¯×ÖÌå
+		fontAsset = make_shared<FontAsset>("./Assets/font/font.ttf",64);
 	}
 
 	void Renderer::SetRenderer(int pixelWidth, int pixelHeight, Uint32* pixelBuffer) {
@@ -287,10 +292,9 @@ namespace noa {
 				continue;
 			}
 			
-			
-			const Vector<int> point1 = move(Vector<int>(static_cast<int>(x + (offset * size) * narrowx), static_cast<int>(y + row * size)));
-			const Vector<int> point2 = move(Vector<int>(static_cast<int>(x + size + (offset * size) * narrowx), static_cast<int>(y + size + row * size)));
-			DrawFont(point1,point2,*font->sprite,color);
+			const Vector<float>& position = { static_cast<float>(x + (offset * size) * narrowx),static_cast<float>(y + row * size) };
+			font->spriteGPU->DrawSprite(position.x, position.y,size,size,false);
+
 			offset++;
 		}
 	}
@@ -315,11 +319,10 @@ namespace noa {
 			{
 				continue;
 			}
-
-
-			const Vector<int> point1 = move(Vector<int>(static_cast<int>(x + (offset * size) * narrowx), static_cast<int>(y + row * size)));
-			const Vector<int> point2 = move(Vector<int>(static_cast<int>(x + size + (offset * size) * narrowx), static_cast<int>(y + size + row * size)));
-			DrawFont(point1, point2, *font->sprite, color);
+			
+			const Vector<float>& position = { static_cast<float>(x + (offset * size) * narrowx),static_cast<float>(y + row * size) };
+			font->spriteGPU->DrawSprite(position.x, position.y, size, size, false);
+			
 			offset++;
 		}
 	}

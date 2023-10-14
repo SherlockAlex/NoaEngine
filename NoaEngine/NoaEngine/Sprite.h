@@ -18,6 +18,12 @@
 #include "Transform.h"
 namespace noa {
 
+	enum class InstanceLayer {
+		MAIN_LAYER = 0,		//默认图层
+		GAME_LAYER = 1,		//游戏图层
+		UI_LAYER = 2			//UI图层
+	};
+
 	typedef unsigned int Uint32;
 
 	//精灵贴图，由CPU进行绘图显示
@@ -73,10 +79,14 @@ namespace noa {
 
 		Texture* texture = nullptr;
 
+		InstanceLayer layer = InstanceLayer::MAIN_LAYER;
+
 	public:
 		SpriteGPU(Sprite * sprite);
 
 		~SpriteGPU();
+
+		void SetLayer(InstanceLayer layer);
 
 		void Update(Sprite* sprite);
 

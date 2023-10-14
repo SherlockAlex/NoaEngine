@@ -10,13 +10,13 @@ namespace noa {
 	extern int pixelWidth;
 	extern int pixelHeight;
 
-	SpriteFile CreateSpriteFromBitmap(FT_Bitmap * bitmap) 
+	SpriteFile CreateSpriteFromBitmap(FT_Bitmap * bitmap,int size) 
 	{
 		SpriteFile sprite;
 
-		sprite.width = 64;
-		sprite.height = 64;
-		sprite.images.resize(64 * 64, ERRORCOLOR);
+		sprite.width = size;
+		sprite.height = size;
+		sprite.images.resize(size * size, ERRORCOLOR);
 
 		if (bitmap->width == 0 || bitmap->rows == 0) {
 			sprite.x = 0;
@@ -32,14 +32,14 @@ namespace noa {
 
 
 				int destX = x;
-				int destY = 64 - bitmap->rows + y;
+				int destY = size - bitmap->rows + y;
 
-				if (destX<0||destY<0||destX>=64||destY>=64)
+				if (destX<0||destY<0||destX >= size ||destY >= size)
 				{
 					continue;
 				}
 
-				sprite.images[destY * 64 + destX] = pixelColor;
+				sprite.images[destY * size + destX] = pixelColor;
 
 			}
 		}
@@ -71,7 +71,7 @@ namespace noa {
 				continue;
 			}
 
-			Font* font = new Font(CreateSpriteFromBitmap(&face->glyph->bitmap));
+			Font* font = new Font(CreateSpriteFromBitmap(&face->glyph->bitmap,size));
 			this->fonts[c] = font;
 		}
 
