@@ -66,7 +66,7 @@ void Pistol::Update()
 	const float offsetX = 30 * (sinf((player->rigid->velocity.SqrMagnitude() != 0) * Time::time * 3) + 1);
 	const float offsetY = 15 * (sinf((player->rigid->velocity.SqrMagnitude() != 0) * Time::time * 6) + 1);
 
-	this->spriteGPU->DrawSprite(0.5 * pixelWidth + offsetX, pixelHeight - sprite->scale.y + offsetY, true);
+	this->spriteGPU->DrawSprite(0.5 * pixelWidth + offsetX, pixelHeight - sprite->scale.y + offsetY, true, 0.0f);
 	//this->sprite->DrawSprite(0.5 * pixelWidth, pixelHeight - 0.5 * pixelWidth + offsetY, true,true);
 }
 

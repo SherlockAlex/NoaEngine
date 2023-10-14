@@ -19,7 +19,7 @@ namespace noa {
 
 		void InitRenderer() override;
 		void Clear() override;
-		void DrawTexture(Texture* texture, int index, int x, int y, int w, int h, float eulerAngle = 0, bool isFlipX = false) override;
+		void DrawTexture(Texture* texture, int index, int x, int y, int w, int h, unsigned int tint, float eulerAngle, bool isFlipX) override;
 		void SetContext(SDL_Window* windows) override;
 		void Present(SDL_Window* windows) override;
 
@@ -27,13 +27,14 @@ namespace noa {
 		SDL_GLContext context = nullptr;
 
 		GLuint VAO, VBO, EBO;
-		GLint modelLoc, projectionLoc;
 
 		GLuint fragmentShader;
 
 		GLuint shaderProgram;
 
 		GLuint vertexShader;
+
+		int tintLocation;
 
 		const char* vertexShaderSource = R"glsl(
 #version 330 core
@@ -52,15 +53,21 @@ void main()
 		const char* fragmentShaderSource = R"glsl(
 // 片段着色器
 #version 330 core
-out lowp vec4 FragColor;
+out vec4 FragColor;		//最终要显示的颜色
 in vec2 TexCoord;
 
-uniform sampler2D ourTexture;
+uniform sampler2D ourTexture;	//采样图片
+uniform vec4 tint;
 
 void main()
 {
-    lowp vec4 texColor = texture(ourTexture, TexCoord);
-    FragColor = texColor;
+    vec4 texColor = texture(ourTexture, TexCoord);
+	vec4 finalColor;
+	finalColor.x = texColor.x * (tint.x/255);
+	finalColor.y = texColor.y * (tint.y/255);
+	finalColor.z = texColor.z * (tint.z/255);
+	finalColor.w = texColor.w * (tint.w/255);
+    FragColor = finalColor;
 }
 )glsl";
 

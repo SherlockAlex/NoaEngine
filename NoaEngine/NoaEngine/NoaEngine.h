@@ -194,6 +194,7 @@ namespace noa {
 	typedef struct SpriteGPUInstance
 	{
 		Texture* texture = nullptr;
+		uint32_t tint = WHITE;
 		Vector<int> position;
 		Vector<int> scale;
 		float eulerAngle = 0.0f;

@@ -21,7 +21,7 @@ noa::Texture* noa::SDLRenderer::CreateTexture(int w, int h, uint32_t* pixelBuffe
 	return texture;
 }
 
-void noa::SDLRenderer::DrawTexture(Texture* tex, int index, int x, int y, int w, int h, float eulerAngle, bool isFlipX)
+void noa::SDLRenderer::DrawTexture(Texture* tex, int index, int x, int y, int w, int h, unsigned int tint, float eulerAngle, bool isFlipX)
 {
 	SDLTexture* texture = dynamic_cast<SDLTexture*>(tex);
 	if (texture == nullptr)

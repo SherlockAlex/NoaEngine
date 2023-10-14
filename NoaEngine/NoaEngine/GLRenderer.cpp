@@ -76,8 +76,7 @@ namespace noa {
         glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float)));
         glEnableVertexAttribArray(1);
 
-        // 获取着色器中的uniform位置
-        modelLoc = glGetUniformLocation(shaderProgram, "model");
+        tintLocation = glGetUniformLocation(shaderProgram,"tint");
 
         // 使用OpenGL绘制纹理
         glUseProgram(shaderProgram);
@@ -87,7 +86,7 @@ namespace noa {
         glClear(GL_COLOR_BUFFER_BIT);
     }
 
-    void GLRenderer::DrawTexture(Texture* tex, int index, int x, int y, int w, int h, float eulerAngle, bool isFlipX)
+    void GLRenderer::DrawTexture(Texture* tex, int index, int x, int y, int w, int h,unsigned int tint,float eulerAngle, bool isFlipX)
     {
         
 
@@ -103,6 +102,8 @@ namespace noa {
         // 渲染矩形
         glBindVertexArray(VAO);
         texture->Bind();
+
+        glUniform4f(tintLocation, GetRValue(tint), GetGValue(tint), GetBValue(tint), GetAValue(tint));
 
         const float left = 2.0f * x * invPixelWidth - 1.0f;
         const float right = 2.0f * (x + w) * invPixelWidth - 1.0f;

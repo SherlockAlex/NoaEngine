@@ -293,7 +293,7 @@ namespace noa {
 			}
 			
 			const Vector<float>& position = { static_cast<float>(x + (offset * size) * narrowx),static_cast<float>(y + row * size) };
-			font->spriteGPU->DrawSprite(position.x, position.y,size,size,false);
+			font->spriteGPU->DrawSprite(position.x, position.y,size,size,color,false,0.0f);
 
 			offset++;
 		}
@@ -321,7 +321,7 @@ namespace noa {
 			}
 			
 			const Vector<float>& position = { static_cast<float>(x + (offset * size) * narrowx),static_cast<float>(y + row * size) };
-			font->spriteGPU->DrawSprite(position.x, position.y, size, size, false);
+			font->spriteGPU->DrawSprite(position.x, position.y, size, size, color,false,0.0f);
 			
 			offset++;
 		}

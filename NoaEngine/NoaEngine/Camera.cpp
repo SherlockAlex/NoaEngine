@@ -530,7 +530,7 @@ namespace noa {
 
 	void StaticCamera::Render()
 	{
-		(background != nullptr) ? background->DrawSprite(0.0f, 0.0f, static_cast<float>(pixelWidth), static_cast<float>(pixelHeight), false, 0.0f) : renderer->FullScreen(BLUE);
+		(background != nullptr) ? background->DrawSprite(0.0f, 0.0f, static_cast<float>(pixelWidth), static_cast<float>(pixelHeight), WHITE, false,0.0f) : renderer->FullScreen(BLUE);
 
 		for (const auto & instance:spriteRendererInstances) 
 		{
@@ -542,7 +542,7 @@ namespace noa {
 
 			const float posX = (instance.actor->transform.position.x) * tileScale.x;
 			const float posY = (instance.actor->transform.position.y) * tileScale.y;
-			instance.spriteGPU->DrawSprite(posX, posY, static_cast<float>(tileScale.x), static_cast<float>(tileScale.y), true);
+			instance.spriteGPU->DrawSprite(posX, posY, static_cast<float>(tileScale.x), static_cast<float>(tileScale.y), WHITE,false,0.0f);
 		}
 
 		spriteRendererInstances.clear();

@@ -329,13 +329,14 @@ namespace noa {
 		instance.position.y = static_cast<int>(y);
 		instance.scale.x = sprite->scale.x;
 		instance.scale.y = sprite->scale.y;
+		instance.tint = WHITE;
 		instance.eulerAngle = eulerAngle;
 		instance.flip = mirror;
 		rendererInstanceLayer[static_cast<int>(layer)].push_back(instance);
 
 	}
 
-	void SpriteGPU::DrawSprite(float x, float y, float w, float h, bool mirror, float eulerAngle)
+	void SpriteGPU::DrawSprite(float x, float y, float w, float h, unsigned int tint, bool mirror, float eulerAngle)
 	{
 		if (texture == nullptr || sprite == nullptr)
 		{
@@ -350,6 +351,7 @@ namespace noa {
 		instance.scale.x = static_cast<int>(w);
 		instance.scale.y = static_cast<int>(h);
 		instance.eulerAngle = eulerAngle;
+		instance.tint = tint;
 		instance.flip = mirror;
 		rendererInstanceLayer[static_cast<unsigned int>(layer)].push_back(instance);
 	}

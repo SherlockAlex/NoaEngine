@@ -119,7 +119,7 @@ namespace noa {
 			renderer->Clear();
 			int textureIndex = 0;
 			texture->UpdateTexture(pixelBuffer, pixelWidth, pixelHeight);
-			renderer->DrawTexture(this->texture, textureIndex, 0, 0, pixelWidth, pixelHeight);
+			renderer->DrawTexture(this->texture, textureIndex, 0, 0, pixelWidth, pixelHeight,WHITE,0.0f,false);
 			textureIndex++;
 
 			for (auto & layer:rendererInstanceLayer)
@@ -133,6 +133,7 @@ namespace noa {
 					, instance.position.y
 					, instance.scale.x
 					, instance.scale.y
+					, instance.tint
 					, instance.eulerAngle
 					, instance.flip
 					);
