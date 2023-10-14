@@ -15,7 +15,6 @@ namespace noa {
 	{
 		//存储碰撞信息
 		Actor * actor = nullptr;
-
 		bool CompareTag(const std::string & tag) const;
 
 	}Collision;
@@ -43,15 +42,11 @@ namespace noa {
 	public:
 		float damping = 0.02f;
 		float gravityWeight = 3.5;
-
 		bool useMotion = true;
 		bool isFrozen = false;
 		bool useGravity = true;
 		bool useCollision = true;
 		bool isGrounded = false;
-
-		
-
 		Vector<float> velocity = Vector<float>(0.0, 0.0);
 		
 
@@ -63,12 +58,8 @@ namespace noa {
 		Vector<float> force = Vector<float>(0.0, 0.0);
 		Actor* actor = nullptr;
 		TileMap* tileMap = nullptr;
-		
 		std::vector<Collider2D*> colliders;
-
-		// 存储刚体与人物的碰撞信息
 		Collision collision;
-		// 设置刚体和TileMap之间的碰撞大小
 		Vector<float> tileColliderSacle = Vector<float>(1.0f, 1.0f);
 
 	private:
@@ -79,11 +70,8 @@ namespace noa {
 	private:
 		void Start() override;
 		void Update() override;
-
 		void UpdateVelocity(float deltaTime);
 		void UpdatePosition(float deltaTime);
-
-		void UpdatePosition();
 		//碰撞检测线程
 		void ApplyTileCollision();
 

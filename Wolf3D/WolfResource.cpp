@@ -1,3 +1,3 @@
 #include "WolfResource.h"
 
-WolfResource * wolfResource = nullptr;
+std::shared_ptr<WolfResource> wolfResource = nullptr;

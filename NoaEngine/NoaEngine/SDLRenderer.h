@@ -8,6 +8,8 @@ namespace noa {
 	class SDLRenderer:public Renderer
 	{
 	public:
+		~SDLRenderer();
+
 		void InitRenderer() override;
 		Texture* CreateTexture(int w, int h, uint32_t* pixelBuffer) override;
 		void DrawTexture(Texture* texture, int index, int x, int y, int w, int h, float eulerAngle = 0, bool isFlipX = false) override;

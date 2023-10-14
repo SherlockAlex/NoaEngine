@@ -18,10 +18,6 @@ MainMenuLevel* MainMenuLevel::Create()
 
 void MainMenuLevel::Awake()
 {
-	if (wolfResource == nullptr)
-	{
-		wolfResource = new WolfResource();
-	}
 
 	canvas = UICanvas::Create(this);
 	background = NoaImage::Create();

@@ -318,7 +318,6 @@ namespace noa {
 		}
 
 		texture->UpdateTexture(sprite->GetImage().data(), sprite->w, sprite->h);
-
 		SpriteGPUInstance instance;
 		instance.texture = texture;
 		instance.position.x = static_cast<int>(x);
@@ -339,7 +338,6 @@ namespace noa {
 		}
 
 		texture->UpdateTexture(sprite->GetImage().data(), sprite->w, sprite->h);
-
 		SpriteGPUInstance instance;
 		instance.texture = texture;
 		instance.position.x = static_cast<int>(x);

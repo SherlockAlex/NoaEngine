@@ -24,11 +24,6 @@ Level00* Level00::Create()
 void Level00::Awake()
 {
 
-	if (wolfResource == nullptr)
-	{
-		wolfResource = new WolfResource();
-	}
-
 	map = new MapInfo();
 	map->mapLayer = new TileMap(
 		resource.LoadTileFromTsd("./Assets/Wolf/Map/tileSet.tsd"),

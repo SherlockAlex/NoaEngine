@@ -116,6 +116,13 @@ namespace noa
 	void Rigidbody::SetTileMap(TileMap* map)
 	{
 		this->tileMap = map;
+		for (auto & collider:colliders) 
+		{
+			if (collider)
+			{
+				collider->SetTileMap(map);
+			}
+		}
 		if (this->tileMap==nullptr)
 		{
 			Debug::Error("Load tile map failed");

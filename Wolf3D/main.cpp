@@ -4,6 +4,7 @@
 #include "Level00.h"
 #include "Level01.h"
 #include "MainMenuLevel.h"
+#include "WolfResource.h"
 
 using namespace noa;
 
@@ -27,6 +28,12 @@ public:
 	Wolf3D(int width, int height, WindowMode windowMode, std::string gameName) :
 		NoaEngine(width, height, windowMode, gameName)
 	{
+		wolfResource = std::make_shared<WolfResource>();
+
+		this->mainMenu = MainMenuLevel::Create();
+		this->level00 = Level00::Create();
+		this->level01 = Level01::Create();
+
 		//加载第一个场景
 		sceneManager.LoadScene("MainMenu");
 
@@ -34,7 +41,7 @@ public:
 
 	void Start() override
 	{
-
+		
 	}
 
 	
@@ -45,15 +52,13 @@ public:
 			Quit();
 		}
 
-		//Debug::Log(ToString<float>(1.0f/Time::deltaTime));
-
 	}
 
 private:
 
-	MainMenuLevel* mainMenu = MainMenuLevel::Create();
-	Level00 * level00 = Level00::Create();
-	Level01 * level01 = Level01::Create();
+	MainMenuLevel* mainMenu = nullptr;
+	Level00 * level00 = nullptr;
+	Level01 * level01 = nullptr;
 
 };
 

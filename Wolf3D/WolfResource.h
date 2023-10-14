@@ -38,17 +38,17 @@ public:
 
 	Sprite backgroundSprite = Sprite(resource.LoadSprFile("./Assets/Wolf/background.spr"), {pixelWidth,pixelHeight});
 
-	Audio * bulletPickUpSFX = new Audio("./Assets/Wolf/Music/pickUpBullet.mp3", AudioType::CHUNK);
+	std::shared_ptr<Audio> bulletPickUpSFX = std::make_shared<Audio>("./Assets/Wolf/Music/pickUpBullet.mp3", AudioType::CHUNK);
 
-	Audio * BGM = new Audio("./Assets/Wolf/Music/theme.mp3", AudioType::MUSIC);
+	std::shared_ptr<Audio> BGM = std::make_shared<Audio>("./Assets/Wolf/Music/theme.mp3", AudioType::MUSIC);
 
-	Audio * npcAttack = new Audio("Assets/Wolf/Music/npc_attack.wav", AudioType::CHUNK);
+	std::shared_ptr<Audio> npcAttack = std::make_shared<Audio>("Assets/Wolf/Music/npc_attack.wav", AudioType::CHUNK);
 
-	Audio * npcDeath = new Audio("Assets/Wolf/Music/npc_death.wav", AudioType::CHUNK);
+	std::shared_ptr<Audio> npcDeath = std::make_shared<Audio>("Assets/Wolf/Music/npc_death.wav", AudioType::CHUNK);
 
-	Audio * npcPain = new Audio("Assets/Wolf/Music/npc_pain.wav", AudioType::CHUNK);
+	std::shared_ptr<Audio> npcPain = std::make_shared<Audio>("Assets/Wolf/Music/npc_pain.wav", AudioType::CHUNK);
 
 };
 
-extern WolfResource * wolfResource;
+extern std::shared_ptr<WolfResource> wolfResource;
 

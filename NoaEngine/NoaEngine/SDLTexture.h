@@ -17,7 +17,6 @@ namespace noa {
 		void EnableAlpha() override;
 	public:
 		SDL_Texture* sdlTexture = nullptr;
-
 	private:
 		uint32_t* pixelBuffer = nullptr;
 

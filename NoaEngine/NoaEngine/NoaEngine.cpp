@@ -8,11 +8,8 @@ using namespace std;
 
 namespace noa {
 
-#ifdef _WIN64
-	static shared_ptr<Platform> platform = make_shared<Platform_Windows>();
-#endif // _WIN64
-
 #if defined(_WIN64) || defined(_WIN32)||defined(__linux__)
+	static shared_ptr<Platform> platform = make_shared<Platform_Windows>();
 	shared_ptr<Renderer> renderer = make_shared<GLRenderer>();
 #endif
 
@@ -116,15 +113,15 @@ namespace noa {
 			Update();
 			
 			renderer->Clear();
-			int i = 0;
+			int textureIndex = 0;
 			texture->UpdateTexture(pixelBuffer, pixelWidth, pixelHeight);
-			renderer->DrawTexture(this->texture, i, 0, 0, pixelWidth, pixelHeight);
-			i++;
+			renderer->DrawTexture(this->texture, textureIndex, 0, 0, pixelWidth, pixelHeight);
+			textureIndex++;
 			for (const auto& instance : spriteInstances)
 			{
 				renderer->DrawTexture(
 					instance.texture
-					, i
+					, textureIndex
 					, instance.position.x
 					, instance.position.y
 					, instance.scale.x
@@ -132,7 +129,7 @@ namespace noa {
 					, instance.eulerAngle
 					, instance.flip
 				);
-				i++;
+				textureIndex++;
 			}
 			spriteInstances.clear();
 			renderer->Present(window);

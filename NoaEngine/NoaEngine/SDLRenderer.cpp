@@ -2,6 +2,11 @@
 #include "SDLTexture.h"
 #include "NoaEngine.h"
 
+noa::SDLRenderer::~SDLRenderer()
+{
+	SDL_DestroyRenderer(this->sdlRenderer);
+}
+
 void noa::SDLRenderer::InitRenderer()
 {
 	//初始化Renderer
@@ -18,7 +23,6 @@ noa::Texture* noa::SDLRenderer::CreateTexture(int w, int h, uint32_t* pixelBuffe
 
 void noa::SDLRenderer::DrawTexture(Texture* tex, int index, int x, int y, int w, int h, float eulerAngle, bool isFlipX)
 {
-	//SDL_RendererCopy
 	SDLTexture* texture = dynamic_cast<SDLTexture*>(tex);
 	if (texture == nullptr)
 	{
@@ -49,7 +53,9 @@ void noa::SDLRenderer::Clear()
 
 void noa::SDLRenderer::SetContext(SDL_Window* windows)
 {
+	//创建一个SDLRenderer
 	sdlRenderer = SDL_CreateRenderer(windows,-1,SDL_RENDERER_ACCELERATED);
+	SDL_SetRenderDrawBlendMode(sdlRenderer, SDL_BLENDMODE_BLEND);
 }
 
 void noa::SDLRenderer::Present(SDL_Window* windows)

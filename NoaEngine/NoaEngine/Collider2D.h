@@ -6,7 +6,7 @@
 
 namespace noa 
 {
-
+	class TileMap;
 	enum class ColliderType {
 		CIRCLE_COLLIDER,
 		BOX_COLLIDER

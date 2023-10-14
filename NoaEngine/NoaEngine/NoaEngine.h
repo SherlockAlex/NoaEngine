@@ -194,7 +194,7 @@ namespace noa {
 		Texture* texture = nullptr;
 		Vector<int> position;
 		Vector<int> scale;
-		float eulerAngle = 0.0;
+		float eulerAngle = 0.0f;
 		bool flip = false;
 
 	}SpriteGPUInstance;
