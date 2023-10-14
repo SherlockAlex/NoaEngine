@@ -210,7 +210,7 @@ void noa::Actor::Destroy()
 
 void noa::Actor::SetActive(bool value)
 {
-	
+
 	SetComponentActive(value);
 	if (isActive == value)
 	{

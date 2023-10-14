@@ -90,7 +90,7 @@ namespace noa {
     {
         
 
-        GLTexture* texture = dynamic_cast<GLTexture*>(tex);
+        GLTexture* texture = tex->GetTextureAs<GLTexture>();
         if (texture == nullptr) 
         {
             return;
@@ -98,8 +98,6 @@ namespace noa {
 
         glActiveTexture(GL_TEXTURE + index);
         
-
-        // äÖÈ¾¾ØÐÎ
         glBindVertexArray(VAO);
         texture->Bind();
 

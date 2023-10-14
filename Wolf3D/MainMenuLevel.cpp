@@ -20,27 +20,24 @@ void MainMenuLevel::Awake()
 {
 
 	canvas = UICanvas::Create(this);
-	background = NoaImage::Create();
-	startButton = NoaButton::Create();
+	background = Image::Create(canvas);
+	startButton = Button::Create(canvas);
 
-	background->sprite = &wolfResource->backgroundSprite;
-	background->scale = { pixelWidth,pixelHeight };
+	background->SetSprite(& wolfResource->backgroundSprite);
+	background->transform.scale = { pixelWidth,pixelHeight };
 	background->transform.position = { 0,0 };
 
-	startButton->scale = { (int)(0.2 * pixelWidth),(int)(0.2 * pixelHeight) };
-	startButton->transform.position.x = 0.5 * pixelWidth - 0.5 * startButton->scale.x;
+	startButton->image->color = WHITE;
+	startButton->transform.scale = { (int)(0.2 * pixelWidth),(int)(0.2 * pixelHeight) };
+	startButton->transform.position.x = 0.5 * pixelWidth - 0.5 * startButton->transform.scale.x;
 	startButton->transform.position.y = 0.5 * pixelHeight;
-	startButton->textColor = BLACK;
-	startButton->text = "START";
+	startButton->text->color = BLACK;
+	startButton->text->text = "START";
 	startButton->AddClickEvent([this]() 
 		{
 			sceneManager.LoadScene("NewGame");
 		}
 	);
-
-
-	canvas->AddComponent(this->background);
-	canvas->AddComponent(this->startButton);
 
 
 

@@ -59,16 +59,21 @@ in vec2 TexCoord;
 uniform sampler2D ourTexture;	//²ÉÑùÍ¼Æ¬
 uniform vec4 tint;
 
+extern vec4 getColor();
+
 void main()
 {
-    vec4 texColor = texture(ourTexture, TexCoord);
-	vec4 finalColor;
-	finalColor.x = texColor.x * (tint.x/255);
-	finalColor.y = texColor.y * (tint.y/255);
-	finalColor.z = texColor.z * (tint.z/255);
-	finalColor.w = texColor.w * (tint.w/255);
+	vec4 finalColor = getColor();
     FragColor = finalColor;
 }
+
+vec4 getColor(){
+    vec4 texColor = texture(ourTexture, TexCoord);
+	const float invGrayValue = 1.0f/255;
+	vec4 finalColor = texColor * tint * invGrayValue;
+	return finalColor;
+}
+
 )glsl";
 
 	};

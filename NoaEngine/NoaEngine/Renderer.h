@@ -39,8 +39,6 @@ namespace noa {
 		void DrawLine(const Vector<int> & point1,const Vector<int> & point2, Uint32 color) const;
 
 		void DrawRect(const Vector<int> & point1,const Vector<int> & point2,Uint32 color) const;
-
-		void DrawFont(const Vector<int>& point1, const Vector<int>& point2, Sprite & sprite,uint32_t color) const;
 		void DrawRect(const Vector<int>& point1, const Vector<int>& point2, Sprite & sprite) const;
 		void DrawRect(const Vector<int>& point1, const Vector<int>& point2, Sprite& sprite, Uint32 mutiColor, bool isAlpha) const;
 		void DrawRect(const Vector<int>& point1, const Vector<int>& point2, Sprite* sprite, Uint32 mutiColor, bool isAlpha) const;

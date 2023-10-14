@@ -21,8 +21,8 @@ public:
 public:
 
 	UICanvas* canvas = nullptr;
-	NoaImage* background = nullptr;
-	NoaButton* startButton = nullptr;
+	Image* background = nullptr;
+	Button* startButton = nullptr;
 
 };
 

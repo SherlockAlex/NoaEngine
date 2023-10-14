@@ -86,28 +86,99 @@ namespace noa {
 		return fonts[c];
 	}
 
-	NoaButton::NoaButton():UIComponent()
+	UICanvas::UICanvas(Scene* scene) :Actor(scene)
 	{
 
 	}
 
-	NoaButton::~NoaButton()
+	UICanvas::~UICanvas()
+	{
+		if (!this->uiComponent.empty())
+		{
+			auto last = std::unique(uiComponent.begin(), uiComponent.end());
+			uiComponent.erase(last, uiComponent.end());
+
+			for (auto& component : uiComponent)
+			{
+				if (component)
+				{
+					component->Delete(component);
+				}
+			}
+
+		}
+	}
+
+	UICanvas* UICanvas::Create(Scene* scene)
+	{
+		return new UICanvas(scene);
+	}
+
+	void UICanvas::AddUIComponent(UIComponent* component)
+	{
+		if (component == nullptr)
+		{
+			return;
+		}
+		component->SetActive(true);
+		uiComponent.push_back(component);
+	}
+
+	void UICanvas::SetActive(bool active)
+	{
+		Actor::SetActive(active);
+		for (int i = 0; i < uiComponent.size(); i++)
+		{
+			uiComponent[i]->SetActive(active);
+		}
+	}
+
+	void UICanvas::Start()
+	{
+		for (int i = 0; i < static_cast<int>(uiComponent.size()); i++)
+		{
+			uiComponent[i]->Start();
+		}
+	}
+
+	void UICanvas::Update()
+	{
+		const int uiComponentCount = static_cast<int>(uiComponent.size());
+		for (int i = 0; i < uiComponentCount; i++)
+		{
+			if (!uiComponent[i]->GetActive())
+			{
+				continue;
+			}
+			uiComponent[i]->Update();
+
+		}
+	}
+
+	Button::Button(UICanvas* canvas):UIComponent()
+	{
+		if (canvas) 
+		{
+			canvas->AddUIComponent(this);
+		}
+		image = Image::Create(canvas);
+		text = Text::Create(canvas);
+
+	}
+
+	Button::~Button()
 	{
 
 	}
 
-	NoaButton* NoaButton::Create()
+	Button* Button::Create(UICanvas* canvas)
 	{
-		return new NoaButton();
-	}
-
-	void NoaButton::Delete()
-	{
-		delete this;
+		Button* button = new Button(canvas);
+		return button;
 	}
 
 
-	void NoaButton::SwapState()
+	void Button::SwapState()
 	{
 
 		//下面函数在全屏时会出现bug，需要解决
@@ -122,8 +193,8 @@ namespace noa {
 		const float posX = (static_cast<float>(mousePos.x));
 		const float posY = (static_cast<float>(mousePos.y));
 
-		if (posX >transform.position.x&& posX<transform.position.x+scale.x
-			&& posY>transform.position.y && posY < transform.position.y + scale.y
+		if (posX >transform.position.x&& posX<transform.position.x+transform.scale.x
+			&& posY>transform.position.y && posY < transform.position.y + transform.scale.y
 			) 
 		{
 			isSelect = true;
@@ -150,34 +221,25 @@ namespace noa {
 
 	}
 
-	void NoaButton::Start()
+	void Button::Start()
 	{
 
 	}
 
-	void NoaButton::Update()
+	void Button::Update()
 	{
 
 		this->SwapState();
 
-		if (sprite == nullptr)
-		{
-			renderer->DrawRect(transform.position, transform.position + scale, currentColor);
-		}
-		else {
-			renderer->DrawRect(transform.position, transform.position + scale, sprite,currentColor,true);
-		}
-		
-		//显示文字
-		renderer->DrawString(text, 
-			static_cast<int>(transform.position.x + 0.5 * scale.x - text.length() * 0.5 * fontSize * fontNarrowX)
-			, static_cast<int>(transform.position.y + 0.5 * scale.y - 0.5 * fontSize * fontNarrowX)
-			, fontNarrowX
-			, textColor
-			, fontSize);
+		image->transform = transform;
+		image->color = currentColor;
+
+
+		text->transform.position.x = transform.position.x + 0.5 * transform.scale.x - text->text.length() * 0.5 * text->size * text->narrow;
+		text->transform.position.y = transform.position.y + 0.5 * transform.scale.y -  0.5 * text->size * text->narrow;
 	}
 
-	void NoaButton::AddClickEvent(std::function<void()> func)
+	void Button::AddClickEvent(std::function<void()> func)
 	{
 		this->clickEvent += func;
 	}
@@ -192,6 +254,12 @@ namespace noa {
 		
 	}
 
+	void UIComponent::Delete(UIComponent*& ptr)
+	{
+		delete this;
+		ptr = nullptr;
+	}
+
 	void UIComponent::SetActive(bool active)
 	{
 		this->isActive = active;
@@ -202,141 +270,105 @@ namespace noa {
 		return isActive;
 	}
 
-	NoaText::NoaText():UIComponent()
+	Text::Text(UICanvas* canvas):UIComponent()
 	{
-
-	}
-
-	NoaText::~NoaText()
-	{
-
-	}
-
-	NoaText* NoaText::Create()
-	{
-		return new NoaText();
-	}
-
-	void NoaText::Delete()
-	{
-		delete this;
-	}
-
-	void NoaText::Start()
-	{
-
-	}
-
-	void NoaText::Update()
-	{
-		//显示文字
-		renderer->DrawString(text, transform.position.x, transform.position.y, textColor, size);
-	}
-
-	UICanvas::UICanvas(Scene* scene):Actor(scene)
-	{
-
-	}
-
-	UICanvas::~UICanvas()
-	{
-		if (!this->uiComponent.empty())
+		if (canvas) 
 		{
-			auto last = std::unique(uiComponent.begin(), uiComponent.end());
-			uiComponent.erase(last, uiComponent.end());
-			for (int i = 0;i<uiComponent.size();i++) 
-			{
-				if (uiComponent[i]==nullptr)
-				{
-					continue;
-				}
-				uiComponent[i]->Delete();
-			}
+			canvas->AddUIComponent(this);
 		}
 	}
 
-	UICanvas* UICanvas::Create(Scene* scene)
+	Text::~Text()
 	{
-		return new UICanvas(scene);
+
 	}
 
-	void UICanvas::AddComponent(UIComponent* component)
+	Text* Text::Create(UICanvas* canvas)
 	{
-		if (component==nullptr)
+		Text* text = new Text(canvas);
+		return text;
+	}
+
+	void Text::Start()
+	{
+
+	}
+
+	void Text::Update()
+	{
+		//显示文字
+		renderer->DrawString(text, transform.position.x, transform.position.y,narrow, color, size);
+	}
+
+	
+
+	Image::Image(UICanvas* canvas):UIComponent()
+	{
+		if (canvas)
+		{
+			canvas->AddUIComponent(this);
+		}
+	}
+
+	Image::~Image()
+	{
+		if (spriteGPU)
+		{
+			delete spriteGPU;
+			spriteGPU = nullptr;
+		}
+	}
+
+	Image* Image::Create(UICanvas* canvas)
+	{
+		Image* image = new Image(canvas);
+		return image;
+	}
+
+	void Image::SetSprite(Sprite* sprite)
+	{
+		if (!sprite)
 		{
 			return;
 		}
-		component->SetActive(true);
-		uiComponent.push_back(component);
-	}
-
-	void UICanvas::SetActive(bool active)
-	{
-		Actor::SetActive(active);
-		for (int i=0;i<uiComponent.size();i++) 
+		this->sprite = sprite;
+		if (spriteGPU)
 		{
-			uiComponent[i]->SetActive(active);
+			spriteGPU->Update(sprite);
+			spriteGPU->SetLayer(InstanceLayer::UI_LAYER);
+			return;
 		}
+		spriteGPU = new SpriteGPU(sprite);
+		spriteGPU->SetLayer(InstanceLayer::UI_LAYER);
 	}
 
-	void UICanvas::Start()
+
+	void Image::Start()
 	{
-		for (int i = 0; i < static_cast<int>(uiComponent.size()); i++)
+
+	}
+
+	void Image::Update()
+	{
+
+		if (sprite == nullptr)
 		{
-			uiComponent[i]->Start();
+			renderer->DrawRect(transform.position, transform.position + transform.scale, color);
 		}
-	}
-
-	void UICanvas::Update()
-	{
-		const int uiComponentCount = static_cast<int>(uiComponent.size());
-		for (int i=0;i< uiComponentCount;i++)
-		{
-			if (!uiComponent[i]->GetActive())
-			{
-				continue;
-			}
-			uiComponent[i]->Update();
-			
+		else {
+			spriteGPU->DrawSprite(
+				transform.position.x
+				,transform.position.y
+				,transform.scale.x
+				,transform.scale.y
+				,color
+				,false
+				,0.0f
+			);
 		}
-	}
 
-	NoaImage::NoaImage():UIComponent()
-	{
 
-	}
 
-	NoaImage::~NoaImage()
-	{
-
-	}
-
-	NoaImage* NoaImage::Create()
-	{
-		return new NoaImage();
-	}
-
-	void NoaImage::Delete()
-	{
-		delete this;
-	}
-
-	void NoaImage::Start()
-	{
-
-	}
-
-	void NoaImage::Update()
-	{
-		if (sprite==nullptr) 
-		{
-			renderer->DrawRect(transform.position, transform.position + scale, color);
-		}
-		else 
-		{
-			renderer->DrawRect(transform.position, transform.position + scale, sprite, color, true);
-		}
-		
 	}
 
 }

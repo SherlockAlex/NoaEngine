@@ -16,6 +16,13 @@ namespace noa {
 
 		virtual void UpdateTexture(const uint32_t* pixelBuffer, const int width, const int height) = 0;
 		virtual void EnableAlpha() = 0;
+
+	public:
+		template<class T>
+		T* GetTextureAs() {
+			return dynamic_cast<T*>(this);
+		}
+
 	};
 }
 

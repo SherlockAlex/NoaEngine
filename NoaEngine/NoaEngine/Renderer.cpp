@@ -142,39 +142,6 @@ namespace noa {
 		}
 	}
 
-	void Renderer::DrawFont(const Vector<int>& point1, const Vector<int>& point2, Sprite& sprite, uint32_t color) const
-	{
-		const int x1 = point1.x;
-		const int y1 = point1.y;
-		const int x2 = point2.x;
-		const int y2 = point2.y;
-
-		const int minX = Min(x1, x2);
-		const int maxX = Max(x1, x2);
-		const int minY = Min(y1, y2);
-		const int maxY = Max(y1, y2);
-
-		for (int x = minX; x <= maxX; x++)
-		{
-			for (int y = minY; y <= maxY; y++)
-			{
-				const Vector<float> simple(
-					(x - x1 + 0.0f) / (x2 - x1),
-					(y - y1 +0.0f) / (y2 - y1)
-				);
-				const uint32_t fontColor = sprite.GetColor(simple.x, simple.y);
-
-				if (fontColor == ERRORCOLOR|| GetAValue(fontColor) == 0)
-				{
-					continue;
-				}
-
-				DRAWPIXEL(x, y, color);
-
-			}
-		}
-	}
-
 	void Renderer::DrawRect(const Vector<int>& point1, const Vector<int>& point2, Sprite& sprite) const
 	{
 		//将sprite图片填充到矩形上

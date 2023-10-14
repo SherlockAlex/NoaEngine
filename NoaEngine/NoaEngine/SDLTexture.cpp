@@ -14,7 +14,11 @@ noa::SDLTexture::~SDLTexture()
 
 void noa::SDLTexture::CreateSDLTexture(SDL_Renderer* sdlRenderer)
 {
-	this->sdlTexture = SDL_CreateTexture(sdlRenderer, SDL_PIXELFORMAT_ABGR8888, SDL_TEXTUREACCESS_TARGET, this->width, this->height);
+	this->sdlTexture = SDL_CreateTexture(
+		sdlRenderer
+		, SDL_PIXELFORMAT_ABGR8888
+		, SDL_TEXTUREACCESS_TARGET
+		, this->width, this->height);
 	SDL_UnlockTexture(sdlTexture);
 	SDL_UpdateTexture(sdlTexture, nullptr, this->pixelBuffer, this->width * sizeof(uint32_t));
 }

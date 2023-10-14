@@ -60,7 +60,7 @@ namespace noa {
 	{
 	protected:
 		bool isActive = false;
-
+		friend class UICanvas;
 	public:
 		//屏幕位置
 		UITransform transform;
@@ -69,8 +69,9 @@ namespace noa {
 		UIComponent();
 		virtual ~UIComponent();
 
+		void Delete(UIComponent *& ptr);
+
 	public:
-		virtual void Delete() = 0;
 
 		virtual void Start() = 0;
 		virtual void Update() = 0;
@@ -79,7 +80,7 @@ namespace noa {
 		bool GetActive();
 	};
 
-	class UICanvas : Actor
+	class UICanvas final : Actor
 	{
 	private:
 		std::vector<UIComponent*> uiComponent;
@@ -90,7 +91,7 @@ namespace noa {
 	public:
 		static UICanvas* Create(Scene* scene);
 
-		void AddComponent(UIComponent* component);
+		void AddUIComponent(UIComponent* component);
 		void SetActive(bool active) override;
 
 		void Start() override;
@@ -98,70 +99,60 @@ namespace noa {
 
 	};
 
-	class NoaButton;
-	class NoaText;
-	class NoaImage;
+	class Button;
+	class Text;
+	class Image;
 
-	class NoaText :public UIComponent 
+	class Text :public UIComponent 
 	{
 	public:
 		std::string text = "text";
-		//字体颜色
-		uint32_t textColor = BLACK;
-		//字体大小
+		uint32_t color = BLACK;
 		int size = 25;
-	
+		float narrow = 0.8f;
+
 	protected:
-		NoaText();
-		~NoaText();
+		Text(UICanvas* canvas);
+		~Text();
 
 	public:
 
-		static NoaText* Create();
-		void Delete() override;
+		static Text* Create(UICanvas * canvas);
 
 		void Start() override;
 		void Update() override;
 
 	};
 
-	class NoaImage :public UIComponent {
+	class Image :public UIComponent {
 	public:
-		//宽度高度
-		Vector<int> scale = Vector<int>(150, 150);
-		
-		Sprite * sprite = nullptr;
-		ColorRef color = WHITE;
+		uint32_t color = WHITE;
+
+	private:
+		Sprite* sprite = nullptr;
+		SpriteGPU* spriteGPU = nullptr;
+	private:
+		Image(UICanvas * canvas);
+		~Image();
 
 	public:
-		NoaImage();
-		~NoaImage();
 
-	public:
+		static Image* Create(UICanvas * canvas);
 
-		static NoaImage* Create();
-		void Delete() override;
+		void SetSprite(Sprite * sprite);
 
 		void Start() override;
 		void Update() override;
 
 	};
 
-	class NoaButton :public UIComponent
+	class Button :public UIComponent
 	{
 	public:
-		//宽度高度
-		Vector<int> scale = Vector<int>(150, 50);
-		//按键名
-		std::string text = "BUTTON";
-		//字体颜色
-		uint32_t textColor = BLACK;
-		
-		uint32_t fontSize = 20;
-		float fontNarrowX = 0.8f;
+		Text* text = nullptr;
+		Image* image = nullptr;
 
 		//按键常亮颜色
-		Sprite* sprite = nullptr;
 		uint32_t normalColor = WHITE;
 		uint32_t selectColor = LIGHTGRAY;
 		//按键事件
@@ -172,12 +163,11 @@ namespace noa {
 		ColorRef currentColor = normalColor;
 
 	private:
-		NoaButton();
-		~NoaButton();
+		Button(UICanvas* canvas);
+		~Button();
 
 	public:
-		static NoaButton* Create();
-		void Delete() override;
+		static Button* Create(UICanvas * canvas);
 
 		void SwapState();
 
