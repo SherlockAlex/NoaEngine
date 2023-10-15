@@ -17,9 +17,9 @@ namespace noa {
     GLRenderer::~GLRenderer() {
 
         glDeleteProgram(shaderProgram);
-        glDeleteVertexArrays(1, &VAO);
-        glDeleteBuffers(1, &VBO);
-        glDeleteBuffers(1, &EBO);
+        //glDeleteVertexArrays(1, &VAO);
+        //glDeleteBuffers(1, &VBO);
+        //glDeleteBuffers(1, &EBO);
     }
 
     void GLRenderer::InitRenderer()
@@ -47,34 +47,37 @@ namespace noa {
         glDeleteShader(fragmentShader);
 
 
-        float vertices[16] = {
-            // 顶点坐标        纹理坐标
-             1.0f,  1.0f,  1.0f, 0.0f, // 右下角
-             1.0f, -1.0f,  1.0f, 1.0f, // 右上角
-            -1.0f, -1.0f,  0.0f, 1.0f, // 左上角
-            -1.0f,  1.0f,  0.0f, 0.0f  // 左下角
-        };
+        //float vertices[16] = {
+        //    // 顶点坐标        纹理坐标
+        //     1.0f,  1.0f,  1.0f, 0.0f, // 右下角
+        //     1.0f, -1.0f,  1.0f, 1.0f, // 右上角
+        //    -1.0f, -1.0f,  0.0f, 1.0f, // 左上角
+        //    -1.0f,  1.0f,  0.0f, 0.0f  // 左下角
+        //};
 
-        unsigned int indices[6] = {
-           0, 1, 3, // 第一个三角形
-           1, 2, 3  // 第二个三角形
-        };
+        //unsigned int indices[6] = {
+        //   0, 1, 3, // 第一个三角形
+        //   1, 2, 3  // 第二个三角形
+        //};
 
-        glGenVertexArrays(1, &VAO);
-        glBindVertexArray(VAO);
+        //glGenVertexArrays(1, &VAO);
+        //glBindVertexArray(VAO);
 
-        glGenBuffers(1, &VBO);
-        glBindBuffer(GL_ARRAY_BUFFER, VBO);
-        glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+        //glGenVertexArrays(1, &VAO);
+        //glBindVertexArray(VAO);
 
-        glGenBuffers(1, &EBO);
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-        glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+        //glGenBuffers(1, &VBO);
+        //glBindBuffer(GL_ARRAY_BUFFER, VBO);
+        //glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
-        glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
+        //glGenBuffers(1, &EBO);
+        //glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+        //glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+
+        /*glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
         glEnableVertexAttribArray(0);
         glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float)));
-        glEnableVertexAttribArray(1);
+        glEnableVertexAttribArray(1);*/
 
         tintLocation = glGetUniformLocation(shaderProgram,"tint");
 
@@ -89,6 +92,7 @@ namespace noa {
     void GLRenderer::DrawTexture(Texture* tex, int index, int x, int y, int w, int h,unsigned int tint,float eulerAngle, bool isFlipX)
     {
         
+        //正常一个物件一个VAO
 
         GLTexture* texture = tex->GetTextureAs<GLTexture>();
         if (texture == nullptr) 
@@ -97,12 +101,9 @@ namespace noa {
         }
 
         glActiveTexture(GL_TEXTURE + index);
-        
-        glBindVertexArray(VAO);
-        texture->Bind();
-
         glUniform4f(tintLocation, GetRValue(tint), GetGValue(tint), GetBValue(tint), GetAValue(tint));
 
+        texture->Bind();
         const float left = 2.0f * x * invPixelWidth - 1.0f;
         const float right = 2.0f * (x + w) * invPixelWidth - 1.0f;
         const float bottom = -(2.0f * y * invPixelHeight - 1.0f);
@@ -124,18 +125,10 @@ namespace noa {
             vertices[14] = 1.0;
         }
 
-        // 设置矩形的索引
-        unsigned int indices[] = {
-           0, 1, 3, // 第一个三角形
-           1, 2, 3  // 第二个三角形
-        };
-
         // 更新顶点缓冲区数据
         glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices);
 
         // 更新索引缓冲区数据
-
-        // 绘制矩形
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
     }

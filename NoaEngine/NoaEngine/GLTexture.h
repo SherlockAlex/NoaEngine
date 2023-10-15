@@ -19,9 +19,11 @@ namespace noa {
 		int GetWidth();
 		int GetHeight();
 
+		GLuint GetVAO();
+
 	private:
 		GLuint textureID;
-		
+		GLuint VAO,VBO,EBO;
 	};
 }
 

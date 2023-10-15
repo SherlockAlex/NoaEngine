@@ -26,8 +26,6 @@ namespace noa {
 	private:
 		SDL_GLContext context = nullptr;
 
-		GLuint VAO, VBO, EBO;
-
 		GLuint fragmentShader;
 
 		GLuint shaderProgram;
@@ -56,7 +54,7 @@ void main()
 out vec4 FragColor;		//最终要显示的颜色
 in vec2 TexCoord;
 
-uniform sampler2D ourTexture;	//采样图片
+uniform sampler2D picture;	//采样图片
 uniform vec4 tint;
 
 extern vec4 getColor();
@@ -68,7 +66,7 @@ void main()
 }
 
 vec4 getColor(){
-    vec4 texColor = texture(ourTexture, TexCoord);
+    vec4 texColor = texture(picture, TexCoord);
 	const float invGrayValue = 1.0f/255;
 	vec4 finalColor = texColor * tint * invGrayValue;
 	return finalColor;
