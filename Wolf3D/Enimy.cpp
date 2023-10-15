@@ -12,12 +12,17 @@ Enimy::Enimy(Scene* scene, Sprite* sprite, Transform* player, LiveEntity* enimy)
 
 	sprite->scale = { 32,32 };
 	this->spriteRenderer->SetSprite(sprite);
+	this->sprite = sprite;
 
 }
 
 Enimy::~Enimy()
 {
-	
+	if (sprite)
+	{
+		delete sprite;
+		sprite = nullptr;
+	}
 }
 
 

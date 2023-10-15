@@ -12,22 +12,19 @@ namespace noa {
 	StateMachine::~StateMachine()
 	{
 		currentState = nullptr;
-		if (!stateList.empty())
-		{
-
-			auto last = std::unique(stateList.begin(), stateList.end());
-			stateList.erase(last, stateList.end());
-
-			for (auto & state:stateList) 
-			{
-				if (state == nullptr) 
-				{
-					continue;
-				}
-				state->Delete(state);
-			}
-		}
 		
+		auto last = std::unique(stateList.begin(), stateList.end());
+		stateList.erase(last, stateList.end());
+
+		for (auto& state : stateList)
+		{
+			if (state == nullptr)
+			{
+				continue;
+			}
+			state->Delete(state);
+		}
+
 		stateList.clear();
 	}
 

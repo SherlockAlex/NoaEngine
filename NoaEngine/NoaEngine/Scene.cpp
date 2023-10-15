@@ -16,7 +16,7 @@ namespace noa
 
 	}
 
-	LevelMap::LevelMap(MapFile & map)
+	LevelMap::LevelMap(const MapFile & map)
 	{
 		this->w = map.w;
 		this->h = map.h;
@@ -25,7 +25,7 @@ namespace noa
 
 	}
 
-	void LevelMap::Construct(MapFile& map)
+	void LevelMap::Construct(const MapFile& map)
 	{
 		this->w = map.w;
 		this->h = map.h;
@@ -34,7 +34,7 @@ namespace noa
 
 	}
 
-	void LevelMap::ConstructLayer(std::vector<std::vector<int>> layer)
+	void LevelMap::ConstructLayer(const std::vector<std::vector<int>> & layer)
 	{
 		levelLayer = layer;
 	}
@@ -43,12 +43,12 @@ namespace noa
 	{
 	}
 
-	TileMap::TileMap(unordered_map<int, Tile> tileSet, MapFile map) :LevelMap(map)
+	TileMap::TileMap(const std::unordered_map<int, Tile> & tileSet,const MapFile & map) :LevelMap(map)
 	{
 		this->tileSet = tileSet;
 	}
 
-	TileMap::TileMap(unordered_map<int, Tile> tileSet, std::vector<MapFile> mapLayer)
+	TileMap::TileMap(const std::unordered_map<int, Tile> & tileSet,const std::vector<MapFile> & mapLayer)
 	{
 		this->tileSet = tileSet;
 		MapFile map;
@@ -121,7 +121,7 @@ namespace noa
 		return collisionTiles.count(level[y * w + x]) > 0;
 	}
 
-	void TileMap::SetCollisionTileID(std::vector<int> collisionTileIDs)
+	void TileMap::SetCollisionTileID(const std::vector<int> & collisionTileIDs)
 	{
 		//…Ë÷√Collision Tiles
 		const int collisionTilesCount = static_cast<int>(collisionTileIDs.size());
@@ -141,7 +141,7 @@ namespace noa
 		return &tileSet[id];
 	}
 
-	Scene::Scene(string name)
+	Scene::Scene(const std::string & name)
 	{
 		this->name = name;
 		sceneManager.AddScene(this);
@@ -295,7 +295,7 @@ namespace noa
 		return activeScene;
 	}
 
-	void SceneManager::LoadScene(string sceneName)
+	void SceneManager::LoadScene(const std::string & sceneName)
 	{
 		
 		if (isLoading) 

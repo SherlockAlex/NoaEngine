@@ -168,7 +168,7 @@ namespace noa {
 			inputFile.close();
 		}
 
-		for (TileData data : resultData)
+		for (const auto & data : resultData)
 		{
 			Tile tile = Tile(data.sprites);
 			result[data.id] = tile;
@@ -186,12 +186,20 @@ namespace noa {
 	{
 		this->sprite = sprite;
 		this->isCollision = isCollision;
+		if (sprite)
+		{
+			spriteGPU = make_shared<SpriteGPU>(sprite.get());
+		}
 	}
 
 	Tile::Tile(SpriteFile spriteFile, bool isCollision)
 	{
 		this->sprite = make_shared<Sprite>(spriteFile, Vector<int>(1, 1));
 		this->isCollision = isCollision;
+		if (sprite)
+		{
+			
+		}
 	}
 
 	Tile::~Tile()

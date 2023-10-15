@@ -19,7 +19,6 @@ noa::SpriteRenderer::~SpriteRenderer()
 		delete spriteGPU;
 		spriteGPU = nullptr;
 	}
-	
 }
 
 noa::SpriteRenderer* noa::SpriteRenderer::Create(Actor* actor)

@@ -40,9 +40,9 @@ namespace noa {
 		int h = 0;
 	public:
 		LevelMap();
-		LevelMap(MapFile & map);
-		void Construct(MapFile& map);
-		void ConstructLayer(std::vector<std::vector<int>> layer);
+		LevelMap(const MapFile & map);
+		void Construct(const MapFile& map);
+		void ConstructLayer(const std::vector<std::vector<int>> & layer);
 		
 	};
 
@@ -54,8 +54,8 @@ namespace noa {
 		std::unordered_map<int, bool> collisionTiles;
 	public:
 		TileMap();
-		TileMap(std::unordered_map<int,Tile> tileSet,MapFile map);
-		TileMap(std::unordered_map<int, Tile> tileSet, std::vector<MapFile> mapLayer);
+		TileMap(const std::unordered_map<int,Tile> & tileSet,const MapFile & map);
+		TileMap(const std::unordered_map<int,Tile> & tileSet,const std::vector<MapFile> & mapLayer);
 		virtual ~TileMap();
 
 		int GetTileID(const int x,const int y) const;
@@ -64,7 +64,7 @@ namespace noa {
 		bool IsTile(const int code) const;
 		bool IsCollisionTile(int tileID) const;
 		bool IsCollisionTile(const int x,const int y) const;
-		void SetCollisionTileID(std::vector<int> collisionTileIDs);
+		void SetCollisionTileID(const std::vector<int> & collisionTileIDs);
 	};
 
 	typedef struct SceneInfo
@@ -75,21 +75,8 @@ namespace noa {
 	}SceneInfo;
 
 	typedef struct MapInfo {
-		TileMap * mapLayer;
-		MapFile * objectLayer;
-
-		~MapInfo() {
-			if (mapLayer!=nullptr)
-			{
-				delete mapLayer;
-			}
-
-			if (objectLayer!=nullptr)
-			{
-				delete objectLayer;
-			}
-
-		}
+		std::shared_ptr<TileMap> mapLayer;
+		std::shared_ptr<MapFile> objectLayer;
 
 	}MapInfo;
 
@@ -107,7 +94,7 @@ namespace noa {
 		int mainCamera = -1;
 
 	protected:
-		Scene(std::string name);
+		Scene(const std::string & name);
 		virtual ~Scene();
 
 	public:
@@ -142,7 +129,7 @@ namespace noa {
 	{
 	public:
 		Scene * GetActiveScene();
-		void LoadScene(std::string sceneName);
+		void LoadScene(const std::string & sceneName);
 		void AddScene(Scene* scene);
 
 		void Awake();

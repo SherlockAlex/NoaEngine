@@ -160,7 +160,7 @@ namespace noa {
 
 	private:
 		bool isSelect = false;
-		ColorRef currentColor = normalColor;
+		uint32_t currentColor = normalColor;
 
 	private:
 		Button(UICanvas* canvas);

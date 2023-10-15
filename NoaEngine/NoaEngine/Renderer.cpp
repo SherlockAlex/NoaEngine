@@ -2,6 +2,7 @@
 #include "Sprite.h"
 #include "NoaGUI.h"
 #include "NoaMath.h"
+#include "Debug.h"
 
 #include <algorithm>
 

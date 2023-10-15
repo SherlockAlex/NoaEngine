@@ -144,14 +144,14 @@ namespace noa {
 	void UICanvas::Update()
 	{
 		const int uiComponentCount = static_cast<int>(uiComponent.size());
-		for (int i = 0; i < uiComponentCount; i++)
+
+		for (auto& component : uiComponent)
 		{
-			if (!uiComponent[i]->GetActive())
+			if (!component->GetActive())
 			{
 				continue;
 			}
-			uiComponent[i]->Update();
-
+			component->Update();
 		}
 	}
 
@@ -163,6 +163,8 @@ namespace noa {
 		}
 		image = Image::Create(canvas);
 		text = Text::Create(canvas);
+
+		this->transform.scale = {320,160};
 
 	}
 

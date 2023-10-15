@@ -50,7 +50,7 @@ namespace noa {
 		this->isEmpty = this->image.empty();
 	}
 
-	Sprite::Sprite(int w, int h, Vector<int> scale, vector<Uint32> image)
+	Sprite::Sprite(int w, int h,const Vector<int> & scale,const std::vector<Uint32> & image)
 	{
 		this->w = w;
 		this->h = h;

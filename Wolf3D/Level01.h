@@ -21,7 +21,7 @@ public:
 	FreeCamera* camera = nullptr;
 	TileMapCamera* mapCamera = nullptr;
 
-	MapInfo* map = nullptr;
+	std::shared_ptr<MapInfo> map = nullptr;
 
 };
 

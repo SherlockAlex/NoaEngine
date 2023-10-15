@@ -28,7 +28,7 @@ void MainMenuLevel::Awake()
 	background->transform.position = { 0,0 };
 
 	startButton->image->color = WHITE;
-	startButton->transform.scale = { (int)(0.2 * pixelWidth),(int)(0.2 * pixelHeight) };
+	startButton->transform.scale = { (int)(0.2f * pixelWidth),(int)(0.2f* pixelHeight) };
 	startButton->transform.position.x = 0.5 * pixelWidth - 0.5 * startButton->transform.scale.x;
 	startButton->transform.position.y = 0.5 * pixelHeight;
 	startButton->text->color = BLACK;

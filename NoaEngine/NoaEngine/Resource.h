@@ -51,10 +51,12 @@ namespace noa {
 	}Map;
 
 	class Sprite;
+	class SpriteGPU;
 	//ÍßÆ¬
 	typedef struct Tile
 	{
 		std::shared_ptr<Sprite> sprite = nullptr;
+		std::shared_ptr<SpriteGPU> spriteGPU = nullptr;
 		bool isCollision = false;
 
 		//Ìí¼ÓÒ»¸öAnimation

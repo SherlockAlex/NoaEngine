@@ -7,6 +7,8 @@ using namespace noa;
 
 class Enimy :public Actor,public LiveEntity
 {
+private:
+	Sprite* sprite = nullptr;
 public:
 	SpriteRenderer* spriteRenderer = SpriteRenderer::Create(this);
 	Rigidbody* rigid = Rigidbody::Create(this);

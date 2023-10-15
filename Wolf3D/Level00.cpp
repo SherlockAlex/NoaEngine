@@ -24,14 +24,14 @@ Level00* Level00::Create()
 void Level00::Awake()
 {
 
-	map = new MapInfo();
-	map->mapLayer = new TileMap(
+	map = std::make_shared<MapInfo>();
+	map->mapLayer =std::make_shared<TileMap>(
 		resource.LoadTileFromTsd("./Assets/Wolf/Map/tileSet.tsd"),
 		resource.LoadMapFromCSV("./Assets/Wolf/Map/新手关_图块层 1.csv")
 	);
-	map->objectLayer = new MapFile(resource.LoadMapFromCSV("./Assets/Wolf/Map/新手关_对象层.csv"));
+	map->objectLayer = std::make_shared<MapFile>(resource.LoadMapFromCSV("./Assets/Wolf/Map/新手关_对象层.csv"));
 
-	SetTileMap(map->mapLayer);
+	SetTileMap(map->mapLayer.get());
 
 	player = Player::Create(this);
 
@@ -39,7 +39,7 @@ void Level00::Awake()
 	mapCamera = NObject<TileMapCamera>::Create<Scene*>(this);
 
 	camera->SetFollow(&player->transform);
-	camera->SetTileMap(map->mapLayer);
+	camera->SetTileMap(map->mapLayer.get());
 
 	mapCamera->SetFollow(&player->transform);
 	mapCamera->SetTileScale(Vector<int>(32, 32));
@@ -53,7 +53,7 @@ void Level00::Awake()
 			if (map->objectLayer->image[j * map->objectLayer->w + i] == 18)
 			{
 				Caco * enimy = Caco::Create(this,new Sprite(), &player->transform, player);
-				enimy->rigid->SetTileMap(map->mapLayer);
+				enimy->rigid->SetTileMap(map->mapLayer.get());
 				enimy->item = &wolfResource->bulletSprite;
 				enimy->itemPickEvent += [this]() {
 					player->bulletCount += 10;
@@ -75,7 +75,7 @@ void Level00::Awake()
 			if (map->objectLayer->image[j * map->objectLayer->w + i] == 27)
 			{
 				Item * healthBox = Item::Create(this,&wolfResource->healthBoxSprite);
-				healthBox->rigid->SetTileMap(map->mapLayer);
+				healthBox->rigid->SetTileMap(map->mapLayer.get());
 				healthBox->transform.position.x = i;
 				healthBox->transform.position.y = j;
 
@@ -110,7 +110,7 @@ void Level00::Awake()
 	
 
 	//传递当前场景地图给玩家
-	player->rigid->SetTileMap(map->mapLayer);
+	player->rigid->SetTileMap(map->mapLayer.get());
 	//设置玩家位置
 	player->SetPosition(35, *map->objectLayer);
 	player->transform.eulerAngle = PI;
@@ -134,10 +134,5 @@ void Level00::Update()
 
 void Level00::Unload()
 {
-	if (map!=nullptr)
-	{
-		delete map;
-		
-	}
 
 }
