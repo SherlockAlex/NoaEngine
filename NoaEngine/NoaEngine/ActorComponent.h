@@ -20,7 +20,7 @@ namespace noa {
 
 		Actor* actor = nullptr;
 	private:
-		bool isActive = true;
+		bool active = true;
 
 	protected:
 		ActorComponent(Actor* actor);

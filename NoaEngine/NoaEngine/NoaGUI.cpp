@@ -1,8 +1,12 @@
-#include "NoaEngine.h"
-
 #include <ft2build.h>
 #include FT_FREETYPE_H
 
+#include <memory>
+#include "Renderer.h"
+#include "Debug.h"
+#include "NoaGUI.h"
+#include "Sprite.h"
+#include "InputSystem.h"
 
 namespace noa {
 	extern std::shared_ptr<Renderer> renderer;
@@ -185,7 +189,7 @@ namespace noa {
 
 		//下面函数在全屏时会出现bug，需要解决
 
-		if (!isActive)
+		if (!active)
 		{
 			return;
 		}
@@ -237,8 +241,16 @@ namespace noa {
 		image->color = currentColor;
 
 
-		text->transform.position.x = transform.position.x + 0.5 * transform.scale.x - text->text.length() * 0.5 * text->size * text->narrow;
-		text->transform.position.y = transform.position.y + 0.5 * transform.scale.y -  0.5 * text->size * text->narrow;
+		text->transform.position.x = 
+			static_cast<int>(
+				transform.position.x 
+				+ 0.5 * transform.scale.x 
+				- text->text.length() * 0.5 * text->size * text->narrow);
+		text->transform.position.y = 
+			static_cast<int>(
+				transform.position.y 
+				+ 0.5 * transform.scale.y 
+				- 0.5 * text->size * text->narrow);
 	}
 
 	void Button::AddClickEvent(std::function<void()> func)
@@ -264,12 +276,12 @@ namespace noa {
 
 	void UIComponent::SetActive(bool active)
 	{
-		this->isActive = active;
+		this->active = active;
 	}
 
 	bool UIComponent::GetActive()
 	{
-		return isActive;
+		return active;
 	}
 
 	Text::Text(UICanvas* canvas):UIComponent()
@@ -359,10 +371,10 @@ namespace noa {
 		}
 		else {
 			spriteGPU->DrawSprite(
-				transform.position.x
-				,transform.position.y
-				,transform.scale.x
-				,transform.scale.y
+				static_cast<float>(transform.position.x)
+				, static_cast<float>(transform.position.y)
+				, static_cast<float>(transform.scale.x)
+				, static_cast<float>(transform.scale.y)
 				,color
 				,false
 				,0.0f

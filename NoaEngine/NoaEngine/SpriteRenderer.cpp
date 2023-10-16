@@ -1,6 +1,7 @@
 #include "Actor.h"
+#include "Sprite.h"
 #include "SpriteRenderer.h"
-#include "NoaEngine.h"
+#include "Debug.h"
 
 namespace noa {
 	std::vector<noa::SpriteRendererInstance> spriteRendererInstances;

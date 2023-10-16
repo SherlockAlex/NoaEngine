@@ -1,4 +1,8 @@
-#include "NoaEngine.h"
+#include "Actor.h"
+#include "ActorComponent.h"
+#include "Collider2D.h"
+#include "Physics.h"
+#include "PhysicsSystem.h"
 
 noa::Cell* noa::Grid::GetCell(int x, int y)
 {

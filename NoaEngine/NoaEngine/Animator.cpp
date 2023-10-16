@@ -1,10 +1,20 @@
 #include "Animator.h"
-#include "NoaEngine.h"
+#include "Actor.h"
+#include "Time.h"
 
 using namespace std;
 
 namespace noa {
 
+}
+
+noa::AnimationFrame::AnimationFrame(const char* filePath)
+{
+	const AnimationFile animatorFile = std::move(resource.LoadAnimationFile(filePath));
+	for (const SpriteFile& frame : animatorFile.data)
+	{
+		framesImage.push_back(frame);
+	}
 }
 
 noa::Animation::Animation(noa::Actor* actor) :noa::ActorComponent(actor)

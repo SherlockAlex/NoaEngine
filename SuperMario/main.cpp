@@ -104,6 +104,6 @@ int main() {
 	Debug::Log(ToString<double>(sysCast.count()));
 
 	Demo demo(1920 / 2, 1080 / 2, WindowMode::WINDOW, "TestGPU");
-	//demo.Run();
+	demo.Run();
 	return 0;
 }

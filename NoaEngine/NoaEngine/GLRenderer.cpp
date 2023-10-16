@@ -1,7 +1,8 @@
 #ifdef _WIN64
 
+#include "Graphic.h"
+#include "Debug.h"
 #include "GLRenderer.h"
-#include "NoaEngine.h"
 #include "GLTexture.h"
 
 namespace noa {

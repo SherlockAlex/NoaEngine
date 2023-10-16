@@ -1,11 +1,10 @@
 #include "Actor.h"
-#include "NoaEngine.h"
+#include "Scene.h"
+#include "Debug.h"
 #include "ActorComponent.h"
 #include "Physics.h"
 #include "SpriteRenderer.h"
 
-#include <queue>
-#include <list>
 
 using namespace std;
 
@@ -210,15 +209,14 @@ void noa::Actor::Destroy()
 
 void noa::Actor::SetActive(bool value)
 {
-
 	SetComponentActive(value);
-	if (isActive == value)
+	if (active == value)
 	{
 		return;
 	}
-	isActive = value;
+	active = value;
 	
-	if (isActive)
+	if (active)
 	{	
 		OnEnable();
 		return;
@@ -229,7 +227,7 @@ void noa::Actor::SetActive(bool value)
 
 bool noa::Actor::GetActive()
 {
-	return isActive;
+	return active;
 }
 
 noa::Scene* noa::Actor::GetActiveScene()

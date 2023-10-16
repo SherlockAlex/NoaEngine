@@ -1,4 +1,8 @@
-#include "NoaEngine.h"
+#include "Collider2D.h"
+#include "PhysicsSystem.h"
+#include "Time.h"
+#include "Physics.h"
+
 
 noa::Grid noa::PhysicsSystem::grid;
 std::vector<noa::Rigidbody*> noa::PhysicsSystem::rigidbodys;

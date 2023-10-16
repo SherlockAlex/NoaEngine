@@ -2,6 +2,7 @@
 #define NOAENGINE_COLLIDER2D_H
 
 #include "ActorComponent.h"
+#include "NoaMath.h"
 #include <vector>
 
 namespace noa 

@@ -1,6 +1,5 @@
 #include "ActorComponent.h"
 #include "Actor.h"
-#include "NoaEngine.h"
 
 using namespace std;
 
@@ -26,11 +25,11 @@ void noa::ActorComponent::Delete(ActorComponent*& ptr)
 
 void noa::ActorComponent::SetActive(bool value)
 {
-	if (isActive == value)
+	if (active == value)
 	{
 		return;
 	}
-	isActive = value;
+	active = value;
 	if (value)
 	{
 		OnEnable();
@@ -41,7 +40,7 @@ void noa::ActorComponent::SetActive(bool value)
 
 bool noa::ActorComponent::GetActive()
 {
-	return isActive;
+	return active;
 }
 
 std::string& noa::ActorComponent::GetActorTag()

@@ -1,5 +1,8 @@
 #include "Texture.h"
-#include "NoaEngine.h"
+#include "Sprite.h"
+#include <vector>
+
+extern std::vector<std::vector<noa::SpriteGPUInstance>> rendererInstanceLayer;
 
 noa::Texture::Texture()
 {

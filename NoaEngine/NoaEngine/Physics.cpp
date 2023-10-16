@@ -1,4 +1,10 @@
-#include "NoaEngine.h"
+#include "Actor.h"
+#include "ActorComponent.h"
+#include "Scene.h"
+#include "Debug.h"
+#include "Physics.h"
+#include "PhysicsSystem.h"
+#include "Collider2D.h"
 
 #include <unordered_map>
 #include <thread>

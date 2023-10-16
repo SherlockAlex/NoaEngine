@@ -1,5 +1,4 @@
 #include "Audio.h"
-#include "NoaEngine.h"
 
 namespace noa {
 	Audio::Audio(const char* filePath, AudioType type) {

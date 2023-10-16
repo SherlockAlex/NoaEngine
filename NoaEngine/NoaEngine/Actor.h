@@ -2,6 +2,7 @@
 #define NOAENGINE_ACTOR_H
 
 #include <vector>
+
 #include "Transform.h"
 #include "NObject.h"
 
@@ -33,7 +34,7 @@ namespace noa {
 	protected:
 		Scene* activeScene = nullptr;
 	private:
-		bool isActive = true;
+		bool active = true;
 
 		std::vector<ActorComponent*> components;
 	public:

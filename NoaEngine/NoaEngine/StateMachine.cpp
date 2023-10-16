@@ -1,6 +1,8 @@
+#include "Actor.h"
 #include "StateMachine.h"
 #include "NoaMath.h"
-#include "NoaEngine.h"
+
+#include <algorithm>
 
 namespace noa {
 

@@ -1,7 +1,7 @@
 #ifdef _WIN64
 
 #include "Platform_Windows.h"
-#include "NoaEngine.h"
+#include "Debug.h"
 
 namespace noa {
 	extern Vector<int> hardwareScreenPixel;

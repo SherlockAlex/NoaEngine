@@ -16,7 +16,6 @@
 #include <string>
 
 #include "NoaMath.h"
-#include "Sprite.h"
 #include "Resource.h"
 
 namespace noa {

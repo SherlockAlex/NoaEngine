@@ -186,23 +186,8 @@ namespace noa {
 
 	extern Vector<int> hardwareScreenPixel;
 
-	extern std::shared_ptr<Renderer> renderer;
 
 #pragma region OPENGL
-
-
-	typedef struct SpriteGPUInstance
-	{
-		Texture* texture = nullptr;
-		uint32_t tint = WHITE;
-		Vector<int> position;
-		Vector<int> scale;
-		float eulerAngle = 0.0f;
-		bool flip = false;
-
-	}SpriteGPUInstance;
-
-	extern std::vector<std::vector<SpriteGPUInstance>> rendererInstanceLayer;
 
 	/*
 	o--------------------------o

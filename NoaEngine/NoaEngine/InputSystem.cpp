@@ -1,5 +1,4 @@
 #include "InputSystem.h"
-#include "NoaEngine.h"
 #include <iostream>
 
 using namespace std;

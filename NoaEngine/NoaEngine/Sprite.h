@@ -14,9 +14,29 @@
 
 #include "NoaMath.h"
 #include "Resource.h"
-#include "Graphic.h"
 #include "Transform.h"
+
+/*
+* Sprite和SpriteGPU
+* 都是游戏的重要资源
+* 游戏引擎迫切的需要对资源进行统一管理
+*/
+
 namespace noa {
+
+	class Texture;
+	typedef struct SpriteGPUInstance
+	{
+		Texture* texture = nullptr;
+		uint32_t tint = 0xFFFFFFFF;
+		Vector<int> position;
+		Vector<int> scale;
+		float eulerAngle = 0.0f;
+		bool flip = false;
+
+	}SpriteGPUInstance;
+
+	extern std::vector<std::vector<SpriteGPUInstance>> rendererInstanceLayer;
 
 	enum class InstanceLayer {
 		MAIN_LAYER = 0,		//默认图层
@@ -72,6 +92,7 @@ namespace noa {
 	};
 
 	class Texture;
+
 	// 使用GPU渲染图片，强制要求必须创建在NoaEngine之后
 	class SpriteGPU final {
 	private:

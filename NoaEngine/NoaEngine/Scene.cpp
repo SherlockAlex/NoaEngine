@@ -3,7 +3,11 @@
 #include <sstream>
 #include <vector>
 
-#include "NoaEngine.h"
+#include "Actor.h"
+#include "Scene.h"
+#include "PhysicsSystem.h"
+#include "Camera.h"
+#include "Debug.h"
 
 using namespace std;
 

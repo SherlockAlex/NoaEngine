@@ -1,11 +1,15 @@
 #ifndef NOAENGINE_PHYSICSSYSTEM_H
 #define NOAENGINE_PHYSICSSYSTEM_H
 
-
-#include "Collider2D.h"
-
 namespace noa 
 {
+	struct Grid;
+	struct Cell;
+
+	class Rigidbody;
+	class Collider2D;
+	class CircleCollider2D;
+	class BoxCollider2D;
 
 	class PhysicsSystem
 	{

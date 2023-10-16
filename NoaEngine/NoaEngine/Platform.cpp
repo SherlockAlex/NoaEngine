@@ -1,5 +1,5 @@
 #include "Platform.h"
-#include "NoaEngine.h"
+#include "Debug.h"
 
 namespace noa {
 

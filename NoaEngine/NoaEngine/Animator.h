@@ -14,26 +14,19 @@
 
 #include "Sprite.h"
 #include "NoaAction.h"
-#include "Actor.h"
-#include "StateMachine.h"
 #include "Resource.h"
 #include "ActorComponent.h"
+#include "StateMachine.h"
+
 
 namespace noa {
 	typedef unsigned int Uint32;
 
+	class Actor;
+
 	typedef struct AnimationFrame {
 		std::vector<SpriteFile> framesImage;
-
-		AnimationFrame(const char * filePath)
-		{
-			const AnimationFile animatorFile = std::move(resource.LoadAnimationFile(filePath));
-			for (const SpriteFile& frame : animatorFile.data)
-			{
-				framesImage.push_back(frame);
-			}
-		}
-
+		AnimationFrame(const char* filePath);
 	}AnimationFrame;
 
 	class Animation:public ActorComponent

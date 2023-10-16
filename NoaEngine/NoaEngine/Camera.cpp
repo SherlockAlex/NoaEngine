@@ -1,7 +1,16 @@
-#include "NoaEngine.h"
+#include "Actor.h"
+#include "ActorComponent.h"
+#include "Camera.h"
+#include "Renderer.h"
+#include "Sprite.h"
+#include "SpriteRenderer.h"
+#include "Graphic.h"
+
 #include <thread>
 
 namespace noa {
+
+
 
 	Camera::Camera(Scene* scene)
 	{
@@ -240,7 +249,7 @@ namespace noa {
 
 			const float ceiling = pixelHeight * 0.5f - pixelHeight / ray.distance;
 			const float floor = pixelHeight - ceiling;
-			uint32_t color = ERROR;
+			uint32_t color = ERRORCOLOR;
 
 			for (int y = 0; y < pixelHeight; y++)
 			{

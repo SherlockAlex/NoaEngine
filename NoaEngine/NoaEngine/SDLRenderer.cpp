@@ -1,6 +1,5 @@
 #include "SDLRenderer.h"
 #include "SDLTexture.h"
-#include "NoaEngine.h"
 
 noa::SDLRenderer::~SDLRenderer()
 {

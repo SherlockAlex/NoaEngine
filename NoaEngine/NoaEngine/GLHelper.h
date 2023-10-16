@@ -8,7 +8,7 @@
 //#include <GL/gl.h>
 #define GLFW_INCLUDE_NONE
 #include <GL/glew.h>
-#include <GLFW/glfw3.h>
+//#include <GLFW/glfw3.h>
 #include <GL/glut.h>
 
 #endif

@@ -8,8 +8,6 @@
 
 #include "SDLHelper.h"
 
-#include "Graphic.h"
-
 #ifdef _WIN64
 
 #include "GLTexture.h"

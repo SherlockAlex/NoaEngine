@@ -1,3 +1,4 @@
+#include "Graphic.h"
 #include "Renderer.h"
 #include "Sprite.h"
 #include "NoaGUI.h"
@@ -230,7 +231,12 @@ namespace noa {
 					continue;
 				}
 
-				color = RGBA(GetRValue(color) * (GetRValue(mutiColor) / 255.0), GetGValue(color) * (GetGValue(mutiColor) / 255.0), GetBValue(color) * (GetBValue(mutiColor) / 255.0),GetAValue(color));
+				color = RGBA(
+					static_cast<unsigned char>(GetRValue(color) * (GetRValue(mutiColor) / 255.0))
+					, static_cast<unsigned char>(GetGValue(color) * (GetGValue(mutiColor) / 255.0))
+					, static_cast<unsigned char>(GetBValue(color) * (GetBValue(mutiColor) / 255.0))
+					, static_cast<unsigned char>(GetAValue(color))
+				);
 
 				DRAWPIXEL(x, y, color);
 			}
@@ -261,7 +267,14 @@ namespace noa {
 			}
 			
 			const Vector<float>& position = { static_cast<float>(x + (offset * size) * narrowx),static_cast<float>(y + row * size) };
-			font->spriteGPU->DrawSprite(position.x, position.y,size,size,color,false,0.0f);
+			font->spriteGPU->DrawSprite(
+				position.x
+				, position.y
+				, static_cast<float>(size)
+				, static_cast<float>(size)
+				,color
+				,false
+				,0.0f);
 
 			offset++;
 		}
@@ -289,7 +302,14 @@ namespace noa {
 			}
 			
 			const Vector<float>& position = { static_cast<float>(x + (offset * size) * narrowx),static_cast<float>(y + row * size) };
-			font->spriteGPU->DrawSprite(position.x, position.y, size, size, color,false,0.0f);
+			font->spriteGPU->DrawSprite(
+				position.x
+				, position.y
+				, static_cast<float>(size)
+				, static_cast<float>(size)
+				, color
+				,false
+				,0.0f);
 			
 			offset++;
 		}

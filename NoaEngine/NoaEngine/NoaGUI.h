@@ -59,7 +59,7 @@ namespace noa {
 	class UIComponent
 	{
 	protected:
-		bool isActive = false;
+		bool active = false;
 		friend class UICanvas;
 	public:
 		//ÆÁÄ»Î»ÖÃ

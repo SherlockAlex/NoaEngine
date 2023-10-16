@@ -1,6 +1,6 @@
 #include "Resource.h"
-#include "NoaEngine.h"
 #include "Sprite.h"
+#include "Debug.h"
 
 using namespace std;
 

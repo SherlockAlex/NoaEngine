@@ -1,11 +1,11 @@
 #ifndef NOAENGINE_RENDERER_H
 #define NOAENGINE_RENDERER_H
 
+#include <memory>
 #include <string>
 #include <vector>
 
 #include "SDLHelper.h"
-#include "Graphic.h"
 #include "NoaMath.h"
 
 
@@ -56,6 +56,9 @@ namespace noa {
 		virtual void Present(SDL_Window * windows) = 0;
 
 	};
+
+	extern std::shared_ptr<Renderer> renderer;
+
 }
 
 

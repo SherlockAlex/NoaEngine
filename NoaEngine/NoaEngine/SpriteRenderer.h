@@ -2,7 +2,6 @@
 #define NOAENGINE_SPRITERENDERER_H
 
 #include "ActorComponent.h"
-#include "Sprite.h"
 
 namespace noa {
 

@@ -1,6 +1,7 @@
 #include "Sprite.h"
-#include "NoaEngine.h"
-
+#include "Texture.h"
+#include "Renderer.h"
+#include "Graphic.h"
 
 using namespace std;
 
