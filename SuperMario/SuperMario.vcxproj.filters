@@ -215,6 +215,9 @@
     <ClInclude Include="..\NoaEngine\NoaEngine\IPoolObjectFactroy.h">
       <Filter>头文件\NoaEngine</Filter>
     </ClInclude>
+    <ClInclude Include="..\NoaEngine\NoaEngine\List.h">
+      <Filter>头文件\NoaEngine</Filter>
+    </ClInclude>
     <ClInclude Include="..\NoaEngine\NoaEngine\NoaAction.h">
       <Filter>头文件\NoaEngine</Filter>
     </ClInclude>
@@ -272,6 +275,9 @@
     <ClInclude Include="..\NoaEngine\NoaEngine\SpriteRenderer.h">
       <Filter>头文件\NoaEngine</Filter>
     </ClInclude>
+    <ClInclude Include="..\NoaEngine\NoaEngine\Stack.h">
+      <Filter>头文件\NoaEngine</Filter>
+    </ClInclude>
     <ClInclude Include="..\NoaEngine\NoaEngine\StateMachine.h">
       <Filter>头文件\NoaEngine</Filter>
     </ClInclude>
@@ -282,6 +288,9 @@
       <Filter>头文件\NoaEngine</Filter>
     </ClInclude>
     <ClInclude Include="..\NoaEngine\NoaEngine\Transform.h">
+      <Filter>头文件\NoaEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\NoaEngine\NoaEngine\Queue.h">
       <Filter>头文件\NoaEngine</Filter>
     </ClInclude>
   </ItemGroup>

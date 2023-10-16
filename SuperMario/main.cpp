@@ -4,6 +4,9 @@
 #include "Bullet.h"
 #include "BulletFactory.h"
 #include "BulletPool.h"
+#include "./../NoaEngine/NoaEngine/Stack.h"
+#include "./../NoaEngine/NoaEngine/Queue.h"
+#include "./../NoaEngine/NoaEngine/List.h"
 
 using namespace std;
 using namespace noa;
@@ -80,7 +83,27 @@ public:
 };
 
 int main() {
+	List<int> queue;
+	auto myStartTime = std::chrono::high_resolution_clock::now();
+	for (int i = 0;i<10000;i++)
+	{
+		queue.Add(i);
+	}
+	auto myEndTime = std::chrono::high_resolution_clock::now();
+	std::chrono::duration<double> myCast = myEndTime - myStartTime;
+	Debug::Log(ToString<double>(myCast.count()));
+
+	std::vector<int> sysq;
+	auto sysStartTime = std::chrono::high_resolution_clock::now();
+	for (int i = 0; i < 10000; i++)
+	{
+		sysq.push_back(i);
+	}
+	auto sysEndTime = std::chrono::high_resolution_clock::now();
+	std::chrono::duration<double> sysCast = sysEndTime - sysStartTime;
+	Debug::Log(ToString<double>(sysCast.count()));
+
 	Demo demo(1920 / 2, 1080 / 2, WindowMode::WINDOW, "TestGPU");
-	demo.Run();
+	//demo.Run();
 	return 0;
 }

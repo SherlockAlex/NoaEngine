@@ -193,6 +193,7 @@
     <ClInclude Include="..\NoaEngine\NoaEngine\InputSystem.h" />
     <ClInclude Include="..\NoaEngine\NoaEngine\IPool.h" />
     <ClInclude Include="..\NoaEngine\NoaEngine\IPoolObjectFactroy.h" />
+    <ClInclude Include="..\NoaEngine\NoaEngine\List.h" />
     <ClInclude Include="..\NoaEngine\NoaEngine\NoaAction.h" />
     <ClInclude Include="..\NoaEngine\NoaEngine\NoaEngine.h" />
     <ClInclude Include="..\NoaEngine\NoaEngine\NoaGUI.h" />
@@ -203,6 +204,7 @@
     <ClInclude Include="..\NoaEngine\NoaEngine\PhysicsSystem.h" />
     <ClInclude Include="..\NoaEngine\NoaEngine\Platform.h" />
     <ClInclude Include="..\NoaEngine\NoaEngine\Platform_Windows.h" />
+    <ClInclude Include="..\NoaEngine\NoaEngine\Queue.h" />
     <ClInclude Include="..\NoaEngine\NoaEngine\Renderer.h" />
     <ClInclude Include="..\NoaEngine\NoaEngine\Resource.h" />
     <ClInclude Include="..\NoaEngine\NoaEngine\Scene.h" />
@@ -212,6 +214,7 @@
     <ClInclude Include="..\NoaEngine\NoaEngine\SDLTexture.h" />
     <ClInclude Include="..\NoaEngine\NoaEngine\Sprite.h" />
     <ClInclude Include="..\NoaEngine\NoaEngine\SpriteRenderer.h" />
+    <ClInclude Include="..\NoaEngine\NoaEngine\Stack.h" />
     <ClInclude Include="..\NoaEngine\NoaEngine\StateMachine.h" />
     <ClInclude Include="..\NoaEngine\NoaEngine\Texture.h" />
     <ClInclude Include="..\NoaEngine\NoaEngine\Time.h" />
