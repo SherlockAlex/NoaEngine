@@ -8,6 +8,7 @@ void noa::InitNObject(noa::NOAObject* obj)
 	if (actor != nullptr)
 	{
 		actor->Awake();
+		actor->ComponentAwake();
 
 		if (actor->GetActive())
 		{

@@ -21,7 +21,16 @@ noa::Texture* noa::SDLRenderer::CreateTexture(int w, int h, uint32_t* pixelBuffe
 	return texture;
 }
 
-void noa::SDLRenderer::DrawTexture(Texture* tex, int index, int x, int y, int w, int h, unsigned int tint, float eulerAngle, bool isFlipX)
+void noa::SDLRenderer::DrawTexture(
+	Texture* tex
+	, int index
+	, int x
+	, int y
+	, int w
+	, int h
+	, unsigned int tint
+	, float eulerAngle
+	, bool isFlipX)
 {
 	SDLTexture* texture = dynamic_cast<SDLTexture*>(tex);
 	if (texture == nullptr)
@@ -42,7 +51,14 @@ void noa::SDLRenderer::DrawTexture(Texture* tex, int index, int x, int y, int w,
 	dstRect.w = w;
 	dstRect.h = h;
 
-	SDL_RenderCopyEx(sdlRenderer, texture->sdlTexture, &srcRect, &dstRect, eulerAngle, nullptr, static_cast<SDL_RendererFlip>(isFlipX));
+	SDL_RenderCopyEx(
+		sdlRenderer
+		, texture->sdlTexture
+		,&srcRect
+		, &dstRect
+		, eulerAngle
+		, nullptr
+		, static_cast<SDL_RendererFlip>(isFlipX));
 
 }
 

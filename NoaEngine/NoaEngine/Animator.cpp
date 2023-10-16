@@ -25,7 +25,13 @@ noa::Animation::Animation(noa::Actor* actor, float speed, bool loop) :noa::Actor
 
 }
 
-noa::Animation::Animation(noa::Actor* actor, float speed, bool loop, noa::AnimationFrame* frame) :noa::ActorComponent(actor)
+noa::Animation::Animation(
+	noa::Actor* actor
+	, float speed
+	, bool loop
+	, noa::AnimationFrame* frame
+) 
+	:noa::ActorComponent(actor)
 {
 	this->speed = speed;
 	this->loop = loop;
@@ -39,12 +45,17 @@ noa::Animation* noa::Animation::Create(Actor* actor)
 	return new noa::Animation(actor);
 }
 
-noa::Animation* noa::Animation::Create(noa::Actor* actor, float speed, bool loop)
+noa::Animation* noa::Animation::Create(
+	noa::Actor* actor
+	, float speed, bool loop)
 {
 	return new noa::Animation(actor, speed, loop);
 }
 
-noa::Animation* noa::Animation::Create(noa::Actor* actor, float speed, bool loop, noa::AnimationFrame* frame)
+noa::Animation* noa::Animation::Create(
+	noa::Actor* actor
+	, float speed, bool loop
+	, noa::AnimationFrame* frame)
 {
 	return new noa::Animation(actor, speed, loop, frame);
 }
@@ -91,7 +102,8 @@ void noa::Animation::SetFrameEvent(int frame, function<void()> e)
 
 void noa::Animation::Play(int frame)
 {
-	if (this->frameData == nullptr || this->frameData->framesImage.empty())
+	if (this->frameData == nullptr 
+		|| this->frameData->framesImage.empty())
 	{
 		return;
 	}
@@ -161,7 +173,10 @@ void noa::Animation::SetSpeed(float value)
 	this->speed = value;
 }
 
-noa::AnimationClip::AnimationClip(noa::Animator* animator, noa::Animation* animation) :noa::State(animator)
+noa::AnimationClip::AnimationClip(
+	noa::Animator* animator
+	, noa::Animation* animation) 
+	:noa::State(animator)
 {
 	if (animator == nullptr)
 	{
@@ -198,12 +213,18 @@ void noa::AnimationClip::OnExit()
 	animtion->Reset();
 }
 
-noa::Animator::Animator(noa::Actor* actor, noa::Sprite* sprite) :noa::StateMachine(actor)
+noa::Animator::Animator(noa::Actor* actor, noa::Sprite* sprite) 
+	:noa::StateMachine(actor)
 {
 	this->sprite = sprite;
 }
 
-noa::Animator::Animator(noa::Actor* actor, noa::Sprite, std::vector<noa::State*> stateList) :noa::StateMachine(actor)
+noa::Animator::Animator(
+	noa::Actor* actor
+	, noa::Sprite
+	, std::vector<noa::State*> stateList
+) 
+	:noa::StateMachine(actor)
 {
 	this->sprite = sprite;
 }

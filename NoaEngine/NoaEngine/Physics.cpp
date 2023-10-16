@@ -158,8 +158,12 @@ namespace noa
 		const float scaleX = tileColliderSacle.x-1;
 		const float scaleY = tileColliderSacle.y-1;
 
-		if (tileMap->IsCollisionTile(static_cast<int>(newPosition.x - scaleX), static_cast<int>(this->actor->transform.position.y - scaleY))
-			|| tileMap->IsCollisionTile(static_cast<int>(newPosition.x - scaleX), static_cast<int>(this->actor->transform.position.y + 0.999 + scaleY))
+		if (tileMap->IsCollisionTile(
+			static_cast<int>(newPosition.x - scaleX)
+			, static_cast<int>(this->actor->transform.position.y - scaleY))
+			|| tileMap->IsCollisionTile(
+				static_cast<int>(newPosition.x - scaleX)
+				, static_cast<int>(this->actor->transform.position.y + 0.999 + scaleY))
 		)
 		{
 			for (auto & collider:colliders)
@@ -173,8 +177,12 @@ namespace noa
 			velocity.x = 0;
 		}
 
-		if (tileMap->IsCollisionTile(static_cast<int>(newPosition.x + 0.999 + scaleX), static_cast<int>(this->actor->transform.position.y - scaleY))
-			|| tileMap->IsCollisionTile(static_cast<int>(newPosition.x + 0.999 + scaleX), static_cast<int>(this->actor->transform.position.y + 0.999 + scaleY))
+		if (tileMap->IsCollisionTile(
+			static_cast<int>(newPosition.x + 0.999 + scaleX)
+			, static_cast<int>(this->actor->transform.position.y - scaleY))
+			|| tileMap->IsCollisionTile(
+				static_cast<int>(newPosition.x + 0.999 + scaleX)
+				, static_cast<int>(this->actor->transform.position.y + 0.999 + scaleY))
 		)
 		{
 			for (auto& collider : colliders)
@@ -189,8 +197,12 @@ namespace noa
 
 		}
 
-		if (tileMap->IsCollisionTile(static_cast<int>(newPosition.x - scaleX), static_cast<int>(newPosition.y - scaleY))
-			|| tileMap->IsCollisionTile(static_cast<int>(newPosition.x + 0.999 + scaleX), static_cast<int>(newPosition.y - scaleY))
+		if (tileMap->IsCollisionTile(
+			static_cast<int>(newPosition.x - scaleX)
+			, static_cast<int>(newPosition.y - scaleY))
+			|| tileMap->IsCollisionTile(
+				static_cast<int>(newPosition.x + 0.999 + scaleX)
+				, static_cast<int>(newPosition.y - scaleY))
 		)
 		{
 			for (auto& collider : colliders)
@@ -204,8 +216,12 @@ namespace noa
 			velocity.y = 0;
 		}
 
-		if (tileMap->IsCollisionTile(static_cast<int>(newPosition.x - scaleX), static_cast<int>(newPosition.y + 0.999 + scaleY))
-			|| tileMap->IsCollisionTile(static_cast<int>(newPosition.x + 0.999 + scaleX), static_cast<int>(newPosition.y + 0.999 + scaleY))
+		if (tileMap->IsCollisionTile(
+			static_cast<int>(newPosition.x - scaleX)
+			, static_cast<int>(newPosition.y + 0.999 + scaleY))
+			|| tileMap->IsCollisionTile(
+				static_cast<int>(newPosition.x + 0.999 + scaleX)
+				, static_cast<int>(newPosition.y + 0.999 + scaleY))
 		)
 		{
 			for (auto& collider : colliders)
