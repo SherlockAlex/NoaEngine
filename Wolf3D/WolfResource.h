@@ -26,7 +26,7 @@ public:
 	Sprite sky = Sprite(resource.LoadSprFile("./Assets/Wolf/sky-sun.spr"), Vector<int>(1, 1));
 
 	//资源相关
-	Sprite mouse = Sprite(resource.LoadSprFile("./Assets/Wolf/mouse.spr"), Vector<int>(0.02 * pixelWidth, 0.02 * pixelWidth));
+	Sprite mouse = Sprite(resource.LoadSprFile("./Assets/Wolf/mouse.spr"), Vector<int>(0.02 * Screen::width, 0.02 * Screen::width));
 
 	//SpriteGPU需要在初始化游戏引擎之后才能进行创建
 	SpriteGPU mouseGPU = SpriteGPU(&mouse);
@@ -36,7 +36,7 @@ public:
 	Sprite bulletSprite = Sprite(resource.LoadSprFile("./Assets/Wolf/bullet.spr"), Vector<int>(64, 64));
 	Sprite healthBoxSprite = Sprite(resource.LoadSprFile("./Assets/Wolf/health-box.spr"), Vector<int>(64, 64));
 
-	Sprite backgroundSprite = Sprite(resource.LoadSprFile("./Assets/Wolf/background.spr"), {pixelWidth,pixelHeight});
+	Sprite backgroundSprite = Sprite(resource.LoadSprFile("./Assets/Wolf/background.spr"), {Screen::width,Screen::height});
 
 	std::shared_ptr<Audio> bulletPickUpSFX = std::make_shared<Audio>("./Assets/Wolf/Music/pickUpBullet.mp3", AudioType::CHUNK);
 

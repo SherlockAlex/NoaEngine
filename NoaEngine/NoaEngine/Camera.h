@@ -40,10 +40,11 @@ namespace noa {
 	private:
 		void Delete(Camera*& ptr);
 	public:
-		
-
 		void SetFollow(Transform* follow);
 	protected:
+
+		// 用户可以覆写自己的相机类
+
 		virtual void Render() = 0;
 	};
 

@@ -123,7 +123,7 @@ void Player::ActorControl()
 
 	if (inputSystem.GetKeyDown(KeyCode::KEY_E))
 	{
-		const Ray ray = camera->GetRayInfo(pixelWidth * 0.5);
+		const Ray ray = camera->GetRayInfo(Screen::width * 0.5);
 		const float distanceToWall = ray.distance;
 		if (distanceToWall < 1.5)
 		{
@@ -188,7 +188,7 @@ void Player::Update()
 
 	float vel = rigid->velocity.SqrMagnitude();
 	guns[currentGunIndex]->Update();
-	renderer->DrawString("HP:"+ ToString<int>(hp)+"\nBULLET:"+ToString<int>(bulletCount), 10, 10, RED, pixelHeight / 20);
+	renderer->DrawString("HP:"+ ToString<int>(hp)+"\nBULLET:"+ToString<int>(bulletCount), 10, 10, RED, Screen::height / 20);
 
 }
 

@@ -24,13 +24,13 @@ void MainMenuLevel::Awake()
 	startButton = Button::Create(canvas);
 
 	background->SetSprite(& wolfResource->backgroundSprite);
-	background->transform.scale = { pixelWidth,pixelHeight };
+	background->transform.scale = { Screen::width,Screen::height };
 	background->transform.position = { 0,0 };
 
 	startButton->image->color = WHITE;
-	startButton->transform.scale = { (int)(0.2f * pixelWidth),(int)(0.2f* pixelHeight) };
-	startButton->transform.position.x = 0.5 * pixelWidth - 0.5 * startButton->transform.scale.x;
-	startButton->transform.position.y = 0.5 * pixelHeight;
+	startButton->transform.scale = { (int)(0.2f * Screen::width),(int)(0.2f* Screen::height) };
+	startButton->transform.position.x = 0.5 * Screen::width - 0.5 * startButton->transform.scale.x;
+	startButton->transform.position.y = 0.5 * Screen::height;
 	startButton->text->color = BLACK;
 	startButton->text->text = "START";
 	startButton->AddClickEvent([this]() 

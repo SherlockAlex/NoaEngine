@@ -28,7 +28,7 @@ Pistol::Pistol(Player* player, int* bulletCount, FreeCamera* camera):Gun(bulletC
 
 			Enimy* enimy = nullptr;
 
-			for (int i = 0.5 * pixelWidth - 0.01 * pixelWidth; i <= 0.5 * pixelWidth + 0.01 * pixelWidth; i++)
+			for (int i = 0.5 * Screen::width - 0.01 * Screen::width; i <= 0.5 * Screen::width + 0.01 * Screen::width; i++)
 			{
 				enimy = this->camera->GetRayHitInfoAs<Enimy>(i);
 
@@ -48,7 +48,7 @@ Pistol::Pistol(Player* player, int* bulletCount, FreeCamera* camera):Gun(bulletC
 
 	this->sprite = new Sprite(
 		animation->GetCurrentFrameImage()
-		, Vector<int>(0.5 * pixelWidth, 0.5 * pixelWidth));
+		, Vector<int>(0.5 * Screen::width, 0.5 * Screen::width));
 
 	this->spriteGPU = new SpriteGPU(sprite);
 
@@ -66,7 +66,7 @@ void Pistol::Update()
 	const float offsetX = 30 * (sinf((player->rigid->velocity.SqrMagnitude() != 0) * Time::time * 3) + 1);
 	const float offsetY = 15 * (sinf((player->rigid->velocity.SqrMagnitude() != 0) * Time::time * 6) + 1);
 
-	this->spriteGPU->DrawSprite(0.5 * pixelWidth + offsetX, pixelHeight - sprite->scale.y + offsetY, true, 0.0f);
+	this->spriteGPU->DrawSprite(0.5 * Screen::width + offsetX, Screen::height - sprite->scale.y + offsetY, true, 0.0f);
 	//this->sprite->DrawSprite(0.5 * pixelWidth, pixelHeight - 0.5 * pixelWidth + offsetY, true,true);
 }
 

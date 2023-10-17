@@ -127,7 +127,9 @@ void Level00::Update()
 {
 	
 	//camera.Render(*map->mapLayer, false, nullptr, WHITE);
-	wolfResource->mouseGPU.DrawSprite(pixelWidth * 0.5 - 0.5 * wolfResource->mouse.scale.x, pixelHeight * 0.5 - 0.5 * wolfResource->mouse.scale.y);
+	wolfResource->mouseGPU.DrawSprite(
+		Screen::width * 0.5 - 0.5 * wolfResource->mouse.scale.x
+		, Screen::height * 0.5 - 0.5 * wolfResource->mouse.scale.y);
 	
 	
 }
