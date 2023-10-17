@@ -141,6 +141,9 @@
     <ClCompile Include="..\NoaEngine\NoaEngine\Transform.cpp">
       <Filter>头文件\NoaEngine</Filter>
     </ClCompile>
+    <ClCompile Include="..\NoaEngine\NoaEngine\Screen.cpp">
+      <Filter>头文件\NoaEngine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -291,6 +294,9 @@
       <Filter>头文件\NoaEngine</Filter>
     </ClInclude>
     <ClInclude Include="..\NoaEngine\NoaEngine\Queue.h">
+      <Filter>头文件\NoaEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\NoaEngine\NoaEngine\Screen.h">
       <Filter>头文件\NoaEngine</Filter>
     </ClInclude>
   </ItemGroup>

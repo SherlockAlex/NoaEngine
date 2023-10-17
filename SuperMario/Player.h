@@ -19,7 +19,7 @@ public:
 	noa::CircleCollider2D* collider = noa::CircleCollider2D::Create(this, rigid);
 
 private:
-	noa::Sprite sprite = noa::Sprite(noa::resource.LoadSprFile("./Assets/Fly/player.spr"), { noa::pixelWidth / 10,noa::pixelWidth / 10 });
+	noa::Sprite sprite = noa::Sprite(noa::resource.LoadSprFile("./Assets/Fly/player.spr"), { noa::Screen::width / 10,noa::Screen::width / 10 });
 	float delay = 0;
 
 	noa::Audio shootAFX = noa::Audio("./Assets/Fly/Audio/shoot.mp3",noa::AudioType::CHUNK);

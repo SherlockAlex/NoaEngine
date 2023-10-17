@@ -15,13 +15,6 @@ namespace noa {
 
 	std::vector<std::vector<SpriteGPUInstance>> rendererInstanceLayer;
 
-	int pixelHeight = 0;
-	int pixelWidth = 0;
-
-	Vector<int> hardwareScreenPixel;
-
-	uint32_t* pixelBuffer = nullptr;
-
 #pragma region OPENGL
 
 	
@@ -29,11 +22,11 @@ namespace noa {
 	NoaEngine::NoaEngine(int width, int height, WindowMode windowMode, string gameName)
 	{
 
-		pixelWidth = width;
-		pixelHeight = height;
-		pixelBuffer = new uint32_t[width * height];
+		Screen::width = width;
+		Screen::height = height;
+		Screen::pixelBuffer = new uint32_t[width * height];
 
-		renderer->SetRenderer(width, height, pixelBuffer);
+		renderer->SetRenderer(width, height);
 		platform->Create(width,height,windowMode,gameName);
 		window = platform->GetWindow();
 		renderer->SetContext(window);
@@ -42,11 +35,11 @@ namespace noa {
 
 		if (windowMode == WindowMode::WINDOW) 
 		{
-			hardwareScreenPixel.x = width;
-			hardwareScreenPixel.y = height;
+			Screen::hardwareScreenScale.x = width;
+			Screen::hardwareScreenScale.y = height;
 		}
 
-		texture = renderer->CreateTexture(width,height,pixelBuffer);
+		texture = renderer->CreateTexture(width,height,Screen::pixelBuffer);
 
 		if (Mix_OpenAudio(
 			MIX_DEFAULT_FREQUENCY,
@@ -64,7 +57,7 @@ namespace noa {
 
 	NoaEngine::~NoaEngine()
 	{
-		delete pixelBuffer;
+		delete[] Screen::pixelBuffer;
 		Mix_CloseAudio();
 	}
 
@@ -118,8 +111,8 @@ namespace noa {
 			
 			renderer->Clear();
 			int textureIndex = 0;
-			texture->UpdateTexture(pixelBuffer, pixelWidth, pixelHeight);
-			renderer->DrawTexture(this->texture, textureIndex, 0, 0, pixelWidth, pixelHeight,WHITE,0.0f,false);
+			texture->UpdateTexture(Screen::pixelBuffer, Screen::width, Screen::height);
+			renderer->DrawTexture(this->texture, textureIndex, 0, 0, Screen::width, Screen::height,WHITE,0.0f,false);
 			textureIndex++;
 
 			for (auto & layer:rendererInstanceLayer)

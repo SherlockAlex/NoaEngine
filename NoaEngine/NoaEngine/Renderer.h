@@ -22,7 +22,7 @@ namespace noa {
 	protected:
 		int pixelWidth = 0;
 		int pixelHeight = 0;
-		Uint32* pixelBuffer = nullptr;
+		uint32_t* pixelBuffer = nullptr;
 
 		float invPixelWidth = 0;
 		float invPixelHeight = 0;
@@ -32,7 +32,7 @@ namespace noa {
 
 		void InitFontAsset();
 
-		void SetRenderer(int pixelWidth, int pixelHeight, Uint32* pixelBuffer);
+		void SetRenderer(int pixelWidth, int pixelHeight);
 
 		void DrawPixel(const uint32_t x,const uint32_t y,const uint32_t color) const;
 		void DrawLine(int x1, int y1, int x2, int y2, Uint32 color) const;

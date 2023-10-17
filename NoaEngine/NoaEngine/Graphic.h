@@ -79,11 +79,6 @@ namespace noa {
 	#define BRIGHTER(color, brightnessIncrease) (noa::RGB(min(255, noa::GetRValue(color) + brightnessIncrease), min(255, noa::GetGValue(color) + brightnessIncrease), min(255, noa::GetBValue(color) + brightnessIncrease)))
 	#define DARKER(color, darknessIncrease) (noa::RGB(max(0, noa::GetRValue(color) - darknessIncrease), max(0, noa::GetGValue(color) - darknessIncrease), max(0, noa::GetBValue(color) - darknessIncrease)))
 
-	extern unsigned int* pixelBuffer;
-	extern int pixelWidth;
-	extern int pixelHeight;
-	#define DRAWPIXEL(x,y,color) ((x < 0 || y < 0 || x >= pixelWidth || y >= pixelHeight)?( - 1):(((unsigned int*)pixelBuffer)[y * pixelWidth + x] = color))
-
 
 }
 

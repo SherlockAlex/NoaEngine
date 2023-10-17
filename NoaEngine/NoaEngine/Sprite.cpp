@@ -2,6 +2,7 @@
 #include "Texture.h"
 #include "Renderer.h"
 #include "Graphic.h"
+#include "Screen.h"
 
 using namespace std;
 
@@ -107,7 +108,7 @@ namespace noa {
 				{
 					continue;
 				}
-				DRAWPIXEL(x,y,color);
+				renderer->DrawPixel(x,y,color);
 				//renderer.DrawPixel(x, y, color);
 			}
 		}
@@ -215,12 +216,12 @@ namespace noa {
 	void Sprite::DrawSpriteFull()
 	{
 		//È«ÆÁ»æÖÆÍ¼Æ¬
-		const float dx = 1.0f / pixelWidth;
-		const float dy = 1.0f / pixelHeight;
+		const float dx = 1.0f / Screen::width;
+		const float dy = 1.0f / Screen::height;
 		
-		for (int x = 0;x < pixelWidth;x++) 
+		for (int x = 0;x < Screen::width;x++)
 		{
-			for (int y = 0;y < pixelHeight;y++) 
+			for (int y = 0;y < Screen::height;y++)
 			{
 				const Uint32 color = GetColor(x*dx, y*dy);
 				renderer->DrawPixel(x,y,color);

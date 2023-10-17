@@ -4,6 +4,7 @@
 #include "NoaGUI.h"
 #include "NoaMath.h"
 #include "Debug.h"
+#include "Screen.h"
 
 #include <algorithm>
 
@@ -24,10 +25,10 @@ namespace noa {
 		fontAsset = make_shared<FontAsset>("./Assets/font/font.ttf",64);
 	}
 
-	void Renderer::SetRenderer(int pixelWidth, int pixelHeight, Uint32* pixelBuffer) {
+	void Renderer::SetRenderer(int pixelWidth, int pixelHeight) {
 		this->pixelWidth = pixelWidth;
 		this->pixelHeight = pixelHeight;
-		this->pixelBuffer = (Uint32*)pixelBuffer;
+		this->pixelBuffer = Screen::pixelBuffer;
 
 		this->invPixelWidth = 1.0f / pixelWidth;
 		this->invPixelHeight = 1.0f / pixelHeight;
@@ -56,7 +57,7 @@ namespace noa {
 		while (true)
 		{
 
-			DRAWPIXEL(x1, y1, color);
+			DrawPixel(x1, y1, color);
 
 			if (x1 == x2 && y1 == y2)
 			{
@@ -100,7 +101,7 @@ namespace noa {
 		while (true)
 		{
 			//DrawPixel(x1, y1, color);
-			DRAWPIXEL(x1, y1, color);
+			DrawPixel(x1, y1, color);
 			if (x1 == x2 && y1 == y2)
 			{
 				break;
@@ -139,7 +140,7 @@ namespace noa {
 
 		for (int x = minX; x <= maxX; x++) {
 			for (int y = minY; y <= maxY; y++) {
-				DRAWPIXEL(x, y, color);
+				DrawPixel(x, y, color);
 			}
 		}
 	}
@@ -166,7 +167,7 @@ namespace noa {
 					(float)(y - y1) / (y2 - y1)
 				);
 				const uint32_t color = sprite.GetColor(simple.x, simple.y);
-				DRAWPIXEL(x, y, color);
+				DrawPixel(x, y, color);
 			}
 		}
 	}
@@ -198,7 +199,7 @@ namespace noa {
 					continue;
 				}
 
-				DRAWPIXEL(x, y, mutiColor);
+				DrawPixel(x, y, mutiColor);
 			}
 		}
 	}
@@ -238,7 +239,7 @@ namespace noa {
 					, static_cast<unsigned char>(GetAValue(color))
 				);
 
-				DRAWPIXEL(x, y, color);
+				DrawPixel(x, y, color);
 			}
 		}
 	}

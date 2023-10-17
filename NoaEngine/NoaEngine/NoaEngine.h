@@ -132,6 +132,7 @@
 
 #include "SDLHelper.h"
 
+#include "Screen.h"
 #include "Platform.h"
 #include "Transform.h"
 #include "Debug.h"
@@ -178,14 +179,6 @@
 //¥∞ø⁄ Ù–‘
 
 namespace noa {
-
-	
-
-	extern int pixelHeight;
-	extern int pixelWidth;
-
-	extern Vector<int> hardwareScreenPixel;
-
 
 #pragma region OPENGL
 

@@ -24,12 +24,12 @@ public:
 
 	void Awake() override
 	{
-		PhysicsSystem::SetGrid(10, 10 * pixelHeight / (pixelWidth));
+		PhysicsSystem::SetGrid(10, 10 * Screen::height / (Screen::width));
 		
 		//初始化Camera
 		camera = NObject<StaticCamera>::Create<Scene*>(this);
 		camera->SetBackground(&background);
-		camera->SetTileScale({ pixelWidth / 10,pixelWidth / 10 });
+		camera->SetTileScale({ Screen::width / 10,Screen::width / 10 });
 
 		player = NObject<Player>::Create<Scene*>(this);
 		player->transform.position = { 4.5f,4.5f };
@@ -40,7 +40,7 @@ public:
 	}
 
 private:
-	Sprite background = Sprite(resource.LoadSprFile("./Assets/Fly/background.spr"), { pixelWidth,pixelHeight });
+	Sprite background = Sprite(resource.LoadSprFile("./Assets/Fly/background.spr"), { Screen::width,Screen::height });
 
 	StaticCamera* camera = nullptr;
 	Player* player = nullptr;

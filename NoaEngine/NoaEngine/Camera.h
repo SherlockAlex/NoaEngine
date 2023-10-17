@@ -4,15 +4,13 @@
 #include "NoaMath.h"
 #include "Scene.h"
 #include "NObject.h"
+#include "Screen.h"
 
 /*
 * Ïà»úÄ£¿é:
 */
 
 namespace noa {
-	
-	extern int pixelWidth;
-	extern int pixelHeight;
 
 	typedef struct Ray {
 		float angle = 0.0;
@@ -87,7 +85,7 @@ namespace noa {
 		Vector<float> offset;
 		Vector<int> followPositionOnScreen = Vector<int>(0, 0);
 		
-		std::vector<void*> objectBufferWithRay = std::vector<void*>(pixelWidth*pixelHeight, nullptr);
+		std::vector<void*> objectBufferWithRay = std::vector<void*>(Screen::width*Screen::height, nullptr);
 
 		TileMapCamera(Scene * scene);
 
@@ -113,8 +111,8 @@ namespace noa {
 		NOBJECT(FreeCamera)
 	protected:
 		std::vector<float> wallDistanceBuffer;
-		std::vector<NOAObject*> objectBufferWithRay = std::vector<NOAObject*>(pixelWidth, nullptr);
-		std::vector<Ray> rayResult = std::vector<Ray>(pixelWidth, Ray());
+		std::vector<NOAObject*> objectBufferWithRay = std::vector<NOAObject*>(Screen::width, nullptr);
+		std::vector<Ray> rayResult = std::vector<Ray>(Screen::width, Ray());
 
 	private:
 		TileMap* map = nullptr;

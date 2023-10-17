@@ -2,14 +2,15 @@
 
 #include "Platform_Windows.h"
 #include "Debug.h"
+#include "Screen.h"
 
-namespace noa {
-	extern Vector<int> hardwareScreenPixel;
+noa::Platform_Windows::Platform_Windows():noa::Platform()
+{
+
 }
 
+noa::Platform_Windows::~Platform_Windows() {
 
-noa::Platform_Windows::Platform_Windows():Platform()
-{
 }
 
 int noa::Platform_Windows::Create(int width, int height, WindowMode windowMode, std::string gameName)
@@ -36,8 +37,8 @@ int noa::Platform_Windows::Create(int width, int height, WindowMode windowMode, 
 		exit(-1);
 	}
 
-	hardwareScreenPixel.x = displayMode.w;
-	hardwareScreenPixel.y = displayMode.h;
+	Screen::hardwareScreenScale.x = displayMode.w;
+	Screen::hardwareScreenScale.y = displayMode.h;
 
 	return 0;
 }

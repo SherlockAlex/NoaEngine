@@ -11,9 +11,6 @@
 namespace noa {
 	extern std::shared_ptr<Renderer> renderer;
 
-	extern int pixelWidth;
-	extern int pixelHeight;
-
 	SpriteFile CreateSpriteFromBitmap(FT_Bitmap * bitmap,int size) 
 	{
 		SpriteFile sprite;

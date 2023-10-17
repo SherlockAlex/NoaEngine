@@ -11,6 +11,7 @@ namespace noa {
 	public:
 
 		Platform_Windows();
+		~Platform_Windows();
 
 		//´´½¨´°¿Ú
 		int Create(int width, int height,

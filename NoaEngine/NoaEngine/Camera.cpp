@@ -50,7 +50,7 @@ namespace noa {
 	void TileMapCamera::SetTileScale(Vector<int> tileScale)
 	{
 		this->tileScale = tileScale;
-		visibleTiles = Vector<float>(static_cast<float>(int(pixelWidth / tileScale.x)), static_cast<float>(int(pixelHeight / tileScale.y)));
+		visibleTiles = Vector<float>(static_cast<float>(int(Screen::width / tileScale.x)), static_cast<float>(int(Screen::height / tileScale.y)));
 	}
 
 	Vector<float> tileOffset;
@@ -136,10 +136,10 @@ namespace noa {
 				static_cast<int>((instance.actor->transform.position.y - offset.y) * tileScale.y)
 				);
 			instance.spriteGPU->DrawSprite(static_cast<float>(objPos.x), static_cast<float>(objPos.y), true);
-			if (objPos.y<pixelHeight&&objPos.y>=0
-				&&objPos.x < pixelWidth && objPos.x >= 0
+			if (objPos.y<Screen::height&&objPos.y>=0
+				&&objPos.x < Screen::width && objPos.x >= 0
 				) {
-				objectBufferWithRay[objPos.y * pixelWidth + objPos.x] = instance.actor;
+				objectBufferWithRay[objPos.y * Screen::width + objPos.x] = instance.actor;
 			}
 
 		}
@@ -162,8 +162,8 @@ namespace noa {
 
 	FreeCamera::FreeCamera(Scene* scene):Camera(scene)
 	{
-		wallDistanceBuffer = std::vector<float>(pixelWidth, 0.0);
-		objectBufferWithRay = std::vector<NOAObject*>(pixelWidth, nullptr);
+		wallDistanceBuffer = std::vector<float>(Screen::width, 0.0);
+		objectBufferWithRay = std::vector<NOAObject*>(Screen::width, nullptr);
 	}
 
 	
@@ -189,17 +189,17 @@ namespace noa {
 		const float rayDirX1 = dirX + planeX;
 		const float rayDirY1 = dirY + planeY;
 
-		for (int y = static_cast<int>(pixelHeight * 0.5); y < pixelHeight; y++)
+		for (int y = static_cast<int>(Screen::height * 0.5); y < Screen::height; y++)
 		{
-			const float rowDistance = pixelHeight/(2.0f*y - pixelHeight);
+			const float rowDistance = Screen::height/(2.0f*y - Screen::height);
 
-			const float floorStepX = rowDistance * (2 * planeX) / pixelWidth;
-			const float floorStepY = rowDistance * (2 * planeY) / pixelWidth;
+			const float floorStepX = rowDistance * (2 * planeX) / Screen::width;
+			const float floorStepY = rowDistance * (2 * planeY) / Screen::width;
 
 			float floorX = follow->position.x + rowDistance * rayDirX0 + 0.5f;
 			float floorY = follow->position.y + rowDistance * rayDirY0 + 0.5f;
 
-			for (int x = 0; x < pixelWidth; ++x)
+			for (int x = 0; x < Screen::width; ++x)
 			{
 				const int cellX = (int)(floorX);
 				const int cellY = (int)(floorY);
@@ -214,7 +214,7 @@ namespace noa {
 				const Tile* floorTile = map->GetTile(floorTileID);
 				if (floorTileID == -1 || floorTile == nullptr)
 				{
-					DRAWPIXEL(x, y, LIGHTRED);
+					renderer->DrawPixel(x, y, LIGHTRED);
 					continue;
 				}
 
@@ -222,7 +222,7 @@ namespace noa {
 
 				//color = MULTICOLOR(color, multiColor);
 
-				DRAWPIXEL(x, y, color);
+				renderer->DrawPixel(x, y, color);
 
 			}
 		}
@@ -240,18 +240,18 @@ namespace noa {
 			RenderFloor();
 		}
 
-		for (int x = 0; x < pixelWidth; x++)
+		for (int x = 0; x < Screen::width; x++)
 		{
 			Ray ray = std::move(RaycastHit(x));
 
 			wallDistanceBuffer[x] = std::move(ray.distance);
 			rayResult[x] = std::move(ray);
 
-			const float ceiling = pixelHeight * 0.5f - pixelHeight / ray.distance;
-			const float floor = pixelHeight - ceiling;
+			const float ceiling = Screen::height * 0.5f - Screen::height / ray.distance;
+			const float floor = Screen::height - ceiling;
 			uint32_t color = ERRORCOLOR;
 
-			for (int y = 0; y < pixelHeight; y++)
+			for (int y = 0; y < Screen::height; y++)
 			{
 				if (y <= ceiling)
 				{
@@ -260,15 +260,15 @@ namespace noa {
 					{
 						color = RGBA(63, 63, 63,255);
 						//color = MULTICOLOR(color, multiColor);
-						DRAWPIXEL(x, y, color);
+						renderer->DrawPixel(x, y, color);
 						continue;
 					}
-					const float dx = (x + 200 * follow->eulerAngle) / pixelWidth;
-					const float dy = y / (pixelHeight*2.0f);
+					const float dx = (x + 200 * follow->eulerAngle) / Screen::width;
+					const float dy = y / (Screen::height *2.0f);
 
 					color = skybox->GetColor(dy, dx);
 
-					DRAWPIXEL(x, y, color);
+					renderer->DrawPixel(x, y, color);
 					
 				}
 				else if (y > ceiling && y <= floor )
@@ -289,7 +289,7 @@ namespace noa {
 					
 				}
 
-				DRAWPIXEL(x, y, color);
+				renderer->DrawPixel(x, y, color);
 
 			}
 
@@ -304,7 +304,7 @@ namespace noa {
 	{
 		Ray ray;
 		ray.distance = 0.0f;
-		ray.angle = follow->eulerAngle - FOV * (0.5f - (float)pixelX / pixelWidth);
+		ray.angle = follow->eulerAngle - FOV * (0.5f - (float)pixelX / Screen::width);
 		const float rayForwordStep = 0.05f;
 		const Vector<float> & eye = Vector<float>(sinf(ray.angle), cosf(ray.angle));
 		bool isHitCollisionTile = map->IsCollisionTile(ray.hitTile);
@@ -458,16 +458,16 @@ namespace noa {
 				distanceFromPlayer < viewDepth)
 			{
 
-				const float objectCeiling = pixelHeight * 0.5f
-					- pixelHeight / distanceFromPlayer;
+				const float objectCeiling = Screen::height * 0.5f
+					- Screen::height / distanceFromPlayer;
 
-				const float objectFloor = pixelHeight - objectCeiling;
+				const float objectFloor = Screen::height - objectCeiling;
 
 				const float objectHeight = objectFloor - objectCeiling;
 				const float objectWidth = objectHeight;
 
 				const float middleOfObject = ((objectAngle / FOV + 0.5f))
-					* pixelWidth;
+					* Screen::width;
 
 				const float objectPosZ = 2 * instance.actor->transform.posZ / distanceFromPlayer;
 
@@ -476,7 +476,7 @@ namespace noa {
 					const int objectColumn = static_cast<int>(middleOfObject + lx - objectWidth * 0.5f);
 					const float objSimpleX = lx / objectWidth;
 					if (
-						 objectColumn < 0 || objectColumn >= pixelWidth
+						 objectColumn < 0 || objectColumn >= Screen::width
 						|| wallDistanceBuffer[objectColumn] < distanceFromPlayer
 
 						)
@@ -489,13 +489,13 @@ namespace noa {
 						Uint32 objColor = instance.sprite->GetColor(objSimpleX, objSimpleY);
 						if (
 							GetAValue(objColor) == 0
-							|| (int)(objectCeiling + ly) < 0 || (int)(objectCeiling + ly) >= pixelHeight
+							|| (int)(objectCeiling + ly) < 0 || (int)(objectCeiling + ly) >= Screen::height
 							)
 						{
 							continue;
 						}
 						//objColor = MULTICOLOR(objColor, multiColor);
-						DRAWPIXEL(objectColumn, (int)(objectCeiling + ly + objectPosZ), objColor);
+						renderer->DrawPixel(objectColumn, (int)(objectCeiling + ly + objectPosZ), objColor);
 						if (instance.actor->isRaycasted)
 						{
 							objectBufferWithRay[objectColumn] = instance.actor;
@@ -534,12 +534,12 @@ namespace noa {
 	void StaticCamera::SetTileScale(const Vector<int>& tileScale)
 	{
 		this->tileScale = tileScale;
-		visibleTiles = Vector<float>(static_cast<float>(int(pixelWidth / tileScale.x)), static_cast<float>(int(pixelHeight / tileScale.y)));
+		visibleTiles = Vector<float>(static_cast<float>(int(Screen::width / tileScale.x)), static_cast<float>(int(Screen::height / tileScale.y)));
 	}
 
 	void StaticCamera::Render()
 	{
-		(background != nullptr) ? background->DrawSprite(0.0f, 0.0f, static_cast<float>(pixelWidth), static_cast<float>(pixelHeight), WHITE, false,0.0f) : renderer->FullScreen(BLUE);
+		(background != nullptr) ? background->DrawSprite(0.0f, 0.0f, static_cast<float>(Screen::width), static_cast<float>(Screen::height), WHITE, false,0.0f) : renderer->FullScreen(BLUE);
 
 		for (const auto & instance:spriteRendererInstances) 
 		{
