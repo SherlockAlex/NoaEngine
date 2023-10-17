@@ -1,66 +1,100 @@
 #include <iostream>
-#include <fstream>
 #include <vector>
+#include <string>
 
-typedef struct Node {
-	int value = -1;
-	Node* left = nullptr;
-	Node* right = nullptr;
-}Node;
+template<typename Key,typename Value>
+struct Node
+{
 
-class BinaryTree {
+	Key key;
+	Value value;
+	Node<Key,Value>* left = nullptr;
+	Node<Key, Value>* right = nullptr;
+
+};
+
+template<typename K,typename V>
+class Dictionary {
+private:
+	Node<K, V> * root = nullptr;
+
 public:
-	Node* root = nullptr;
-public:
-	BinaryTree(const std::vector<int> & data) 
+	Dictionary() {}
+
+	void Add(K key,V value) 
 	{
-		//根据data建立Tree
-		int index = 0;
-		CreateSubTree(root,index,data);
-		std::cout << "Create Binary Tree successfully" << std::endl;
+		Insert(root,key,value);
 	}
 
-	void CreateSubTree(Node *& root,int & index, const std::vector<int>& data) {
-		if (index<0||index>=data.size()||data[index] == -1)
+	V Get(K key) 
+	{
+		//返回对应的值
+		V value;
+		FindValueByKey(root,key,value);
+		return value;
+	}
+
+private:
+	void Insert(Node<K,V> *& root,K key,V value)
+	{
+		if (!root) 
 		{
-			root = nullptr;
-			index++;
+			root = new Node<K,V>();
+			root->key = key;
+			root->value = value;
+			root->left = nullptr;
+			root->right = nullptr;
 			return;
 		}
 
-		//采用中序创建的
-		root = new Node();
-		root->value = data[index];
-		root->left = nullptr;
-		root->right = nullptr;
-		index++;
-		CreateSubTree(root->left,index,data);
-		CreateSubTree(root->right, index, data);
-
-	}
-
-	void PreOrder(Node * node) 
-	{
-		if (node == nullptr)
+		if (root->key == key) 
 		{
+			root->value = value;
 			return;
 		}
-		
-		PreOrder(node->left);
-		std::cout << node->value << " ";
-		PreOrder(node->right);
+
+		if (root->key>key) 
+		{
+			Insert(root->left,key,value);
+			return;
+		}
+		Insert(root->right,key,value);
+	}
+
+	bool FindValueByKey(Node<K,V> * root,K key,V & value) 
+	{
+		if (!root)
+		{
+			return false;
+		}
+		if (root->key == key) 
+		{
+			value = root->value;
+			return true;
+		}
+
+		return FindValueByKey(root->left, key, value) || FindValueByKey(root->right, key, value);
 
 	}
 
 };
 
-int main(int argc,char * argv[])
-{
-	//读取TMX文件
 
-	std::vector<int> data = { 0,2,4,3,-1,0,-1,2,5,9,8,4,5,6,-1 };
-	BinaryTree tree = BinaryTree(data);
-	tree.PreOrder(tree.root);
+int main() {
+
+	Dictionary<int, std::string> dict;
+	dict.Add(0,"hello");
+	dict.Add(1, "world");
+	dict.Add(2, "66");
+	dict.Add(3, "77");
+	dict.Add(4, "55");
+	dict.Add(5, "88");
+
+	std::cout << dict.Get(0) << std::endl;
+	std::cout << dict.Get(5) << std::endl;
+	std::cout << dict.Get(4) << std::endl;
+	std::cout << dict.Get(2) << std::endl;
+	std::cout << dict.Get(3) << std::endl;
 
 	return 0;
 }

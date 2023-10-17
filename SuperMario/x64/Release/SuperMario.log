@@ -1,6 +1,7 @@
 ﻿D:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(531,5): warning MSB8028: 中间目录(x64\Release\)包含从另一个项目(SuperMario.vcxproj)共享的文件。   这会导致错误的清除和重新生成行为。
+  Camera.cpp
   NoaEngine.cpp
-  Platform_Windows.cpp
+  Scene.cpp
   Bullet.cpp
   BulletFactory.cpp
   BulletPool.cpp
@@ -9,7 +10,8 @@
   Player.cpp
   main.cpp
   正在生成代码
-  Previous IPDB not found, fall back to full compilation.
-  All 2417 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  0 of 2417 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
   已完成代码的生成
   SuperMario.vcxproj -> D:\Work\NoaEngine\x64\Release\ShootGame.exe
