@@ -33,50 +33,8 @@ namespace noa {
 		GLint tintLocation;
 		GLint eulerAngleLocation;
 
-		const char* vertexShaderSource = R"glsl(
-#version 330 core
-layout (location = 0) in vec2 aPos;
-layout (location = 1) in vec2 aTexCoord;
-
-out vec2 TexCoord;
-
-
-
-void main()
-{
-
-    gl_Position = vec4(aPos, 0.0, 1.0);
-    TexCoord = aTexCoord;
-}
-)glsl";
-
-		const char* fragmentShaderSource = R"glsl(
-// 片段着色器
-#version 330 core
-out vec4 FragColor;		//最终要显示的颜色
-in vec2 TexCoord;
-
-uniform sampler2D picture;	//采样图片
-uniform vec4 tint;
-
-uniform float eulerAngle;//欧拉角
-
-extern vec4 getColor();
-
-void main()
-{
-	vec4 finalColor = getColor();
-    FragColor = finalColor;
-}
-
-vec4 getColor(){
-    vec4 texColor = texture(picture, TexCoord);
-	const float invGrayValue = 1.0f/255;
-	vec4 finalColor = texColor * tint * invGrayValue;
-	return finalColor;
-}
-
-)glsl";
+		std::string vertexSrc;
+		std::string fragmentSrc;
 
 	};
 }

@@ -58,10 +58,5 @@ noa::Actor* noa::ActorComponent::GetActor()
 	return this->actor;
 }
 
-void noa::ActorComponent::DeleteActorEvent()
-{
-	this->actor = nullptr;
-}
-
 
 

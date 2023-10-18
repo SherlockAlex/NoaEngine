@@ -4,6 +4,7 @@
 #include "Debug.h"
 #include "GLRenderer.h"
 #include "GLTexture.h"
+#include "Resource.h"
 
 namespace noa {
     Texture* GLRenderer::CreateTexture(int w, int h, uint32_t* pixelBuffer)
@@ -12,7 +13,12 @@ namespace noa {
         return texture;
     }
     GLRenderer::GLRenderer():Renderer() {
+        this->vertexSrc =
+            resource.ReadSourceFrom("./Assets/shader/vertex_shader.glsl").c_str();
 
+        this->fragmentSrc =
+            resource.ReadSourceFrom("./Assets/shader/fragment_shader.glsl").c_str();
+    
     }
 
     GLRenderer::~GLRenderer() {
@@ -28,14 +34,37 @@ namespace noa {
             exit(-1);
         }
 
-        GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
+        const char * vertexShaderSource =
+            this->vertexSrc.c_str();
 
+        const char * fragmentShaderSource =
+            this->fragmentSrc.c_str();
+
+        
+
+        GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
         glShaderSource(vertexShader, 1, &vertexShaderSource, nullptr);
         glCompileShader(vertexShader);
+        int vertexSuccess;
+        char vertexInfoLog[512];
+        glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &vertexSuccess);
+        if (!vertexSuccess)
+        {
+            glGetShaderInfoLog(vertexShader,512,nullptr, vertexInfoLog);
+            Debug::Error(std::string(vertexInfoLog));
+        }
 
         GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
         glShaderSource(fragmentShader, 1, &fragmentShaderSource, nullptr);
         glCompileShader(fragmentShader);
+        int fragmentSuccess;
+        char fragmentInfoLog[512];
+        glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &fragmentSuccess);
+        if (!fragmentSuccess)
+        {
+            glGetShaderInfoLog(fragmentShader, 512, nullptr, fragmentInfoLog);
+            Debug::Error(std::string(fragmentInfoLog));
+        }
 
         shaderProgram = glCreateProgram();
         glAttachShader(shaderProgram, vertexShader);

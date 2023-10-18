@@ -177,6 +177,20 @@ namespace noa {
 		return result;
 	}
 
+	std::string Resource::ReadSourceFrom(const std::string& filePath)
+	{
+		std::ifstream file(filePath);
+		if (!file.is_open()) 
+		{
+			return std::string();
+		}
+		std::string sourceCode = std::string(
+			std::istreambuf_iterator<char>(file)
+			, (std::istreambuf_iterator<char>())
+		);
+		return sourceCode;
+	}
+
 	Tile::Tile()
 	{
 

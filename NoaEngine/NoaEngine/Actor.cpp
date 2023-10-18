@@ -23,11 +23,6 @@ noa::Actor::Actor(noa::Scene* activeScene)
 noa::Actor::~Actor()
 {
 
-	for (auto & component:components)
-	{
-		component->DeleteActorEvent();
-	}
-
 	for (auto & instance:spriteRendererInstances) 
 	{
 		if (instance.actor == this) 

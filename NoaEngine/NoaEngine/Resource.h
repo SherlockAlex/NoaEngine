@@ -89,6 +89,8 @@ namespace noa {
 
 		std::unordered_map<int, Tile> LoadTileFromTsd(const std::string& fileName) const;
 
+		std::string ReadSourceFrom(const std::string & filePath);
+
 	};
 
 	class BinaryFile 

@@ -34,8 +34,6 @@ namespace noa {
 		virtual void Update() {}
 		virtual void OnDisable() {}
 		virtual void OnDestroy() {}
-
-		void DeleteActorEvent();
 	
 	private:
 		void Delete(ActorComponent*& ptr);
