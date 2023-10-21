@@ -35,8 +35,8 @@ namespace noa {
 			,const std::string& fragmentSourceFile
 		);
 
-		GLint tintLocation;
-		GLint eulerAngleLocation;
+		//GLint tintLocation;
+		//GLint eulerAngleLocation;
 
 	};
 }

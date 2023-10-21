@@ -90,4 +90,34 @@ GLint noa::GLShader::GetUniformLocation(const char* uniformName)
 	return glGetUniformLocation(this->shaderProgram, uniformName);
 }
 
+void noa::GLShader::SetInt(const std::string& name, int value)
+{
+	const GLint location = glGetUniformLocation(this->shaderProgram,name.c_str());
+	glUniform1i(location, value);
+}
+
+void noa::GLShader::SetFloat(const std::string& name, float value)
+{
+	const GLint location = glGetUniformLocation(this->shaderProgram,name.c_str());
+	glUniform1f(location,value);
+}
+
+void noa::GLShader::SetUint(const std::string& name, uint32_t value)
+{
+	const GLint location = glGetUniformLocation(this->shaderProgram,name.c_str());
+	glUniform1ui(location,value);
+}
+
+void noa::GLShader::SetVec2(const std::string& name, float value1, float value2)
+{
+	const GLint location = glGetUniformLocation(this->shaderProgram, name.c_str());
+	glUniform2f(location,value1,value2);
+}
+
+void noa::GLShader::SetVec4(const std::string& name, float value1, float value2, float value3, float value4)
+{
+	const GLint location = glGetUniformLocation(this->shaderProgram, name.c_str());
+	glUniform4f(location,value1,value2,value3,value4);
+}
+
 

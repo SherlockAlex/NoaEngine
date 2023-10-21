@@ -1,11 +1,11 @@
 #ifdef _WIN64
 
-#include "Graphic.h"
 #include "Debug.h"
 #include "Resource.h"
 #include "GLRenderer.h"
 #include "GLTexture.h"
 #include "GLShader.h"
+#include "Graphic.h"
 
 namespace noa {
     Texture* GLRenderer::CreateTexture(int w, int h, uint32_t* pixelBuffer)
@@ -30,18 +30,12 @@ namespace noa {
             Debug::Error("Failed to initialize GLEW");
             exit(-1);
         }
-
         std::string vertexFile 
             = "./Assets/shader/vertex_shader.glsl";
 
         std::string fragmentFile
             = "./Assets/shader/fragment_shader.glsl";
-
         this->defaultShader = this->CreateShader(vertexFile, fragmentFile);
-
-        tintLocation = this->defaultShader->GetUniformLocation("tint");
-        eulerAngleLocation = this->defaultShader->GetUniformLocation("eulerAngle");
-
         this->defaultShader->UseShaderProgram();
     }
 
@@ -62,8 +56,19 @@ namespace noa {
 
         // ShaderÏà¹Ø
         glActiveTexture(GL_TEXTURE + index);
-        glUniform4f(tintLocation, GetRValue(tint), GetGValue(tint), GetBValue(tint), GetAValue(tint));
-        glUniform1f(eulerAngleLocation,eulerAngle);
+
+        this->defaultShader->SetVec4(
+            "tint"
+            ,GetRValue(tint)
+            ,GetGValue(tint)
+            ,GetBValue(tint)
+            ,GetAValue(tint)
+        );
+
+        this->defaultShader->SetFloat(
+            "eulerAngle"
+            ,eulerAngle
+        );
 
         texture->Bind();
         const float left = 2.0f * x * invPixelWidth - 1.0f;
