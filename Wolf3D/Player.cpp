@@ -1,6 +1,7 @@
 #include "Player.h"
 #include "Enimy.h"
 #include "M4A1.h"
+#include "Enter.h"
 
 Player::Player(Scene* scene) :Actor(scene)
 {
@@ -125,13 +126,35 @@ void Player::ActorControl()
 	{
 		const Ray ray = camera->GetRayInfo(Screen::width * 0.5);
 		const float distanceToWall = ray.distance;
-		if (distanceToWall < 1.5)
+		if (distanceToWall < 0.5)
 		{
-			if (ray.hitTile == 98) 
+			Enter* enter = nullptr;
+
+			switch (ray.hitTile)
+			{
+			case 98:
+				this->rigid->GetTileMap()->SetTileID(ray.tilePosition.x, ray.tilePosition.y, 107);
+				interactAFX.Play(false);
+				break;
+			case 102:
+				//执行对应的事件
+				//去搜索这个位置上的trigger
+				enter = sceneManager.FindActorWithType<Enter>();
+				if (enter!=nullptr)
+				{
+					enter->Load();
+				}
+				break;
+			default:
+				break;
+			}
+
+			/*if (ray.hitTile == 98) 
 			{
 				this->rigid->GetTileMap()->SetTileID(ray.tilePosition.x,ray.tilePosition.y,107);
 				interactAFX.Play(false);
 			}
+
 			else if (ray.hitTile == 102&&sceneManager.GetActiveScene()->GetName() == "NewGame")
 			{
 				sceneManager.LoadScene("SecondFloor");
@@ -139,7 +162,7 @@ void Player::ActorControl()
 			else if (ray.hitTile == 102 && sceneManager.GetActiveScene()->GetName() == "SecondFloor")
 			{
 				sceneManager.LoadScene("NewGame");
-			}
+			}*/
 		}
 		
 	}

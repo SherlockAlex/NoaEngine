@@ -3,6 +3,7 @@
 #include "Caco.h"
 #include "Item.h"
 #include "WolfResource.h"
+#include "Enter.h"
 
 Level00::Level00():Scene(
 	"NewGame"
@@ -72,7 +73,8 @@ void Level00::Awake()
 	{
 		for (int j = 0; j < map->objectLayer->h; j++)
 		{
-			if (map->objectLayer->image[j * map->objectLayer->w + i] == 27)
+			const int tile = map->objectLayer->image[j * map->objectLayer->w + i];
+			if (tile == 27)
 			{
 				Item * healthBox = Item::Create(this,&wolfResource->healthBoxSprite);
 				healthBox->rigid->SetTileMap(map->mapLayer.get());
@@ -88,6 +90,14 @@ void Level00::Awake()
 					wolfResource->bulletPickUpSFX->Play(false);
 					};
 
+			}
+			else if (tile == 102) 
+			{
+				Enter* enter = 
+					NObject<Enter>::Create<Scene*,const std::string &>(
+						this,"SecondFloor"
+					);
+				enter->SetPosition(i, j);
 			}
 		}
 	}
@@ -114,6 +124,9 @@ void Level00::Awake()
 	//ÉèÖÃÍæ¼ÒÎ»ÖÃ
 	player->SetPosition(35, *map->objectLayer);
 	player->transform.eulerAngle = PI;
+
+
+
 }
 
 void Level00::Start()

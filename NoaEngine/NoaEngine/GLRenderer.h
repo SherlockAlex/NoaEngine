@@ -5,12 +5,16 @@
 
 #include "GLHelper.h"
 #include "Renderer.h"
+#include "GLShader.h"
 
 namespace noa {
+
+	class GLShader;
 	class GLRenderer :public Renderer
 	{
 	private:
 		bool isInit = false;
+		GLShader* defaultShader = nullptr;
 	public:
 		Texture* CreateTexture(int w, int h, uint32_t* pixelBuffer) override;
 
@@ -26,15 +30,13 @@ namespace noa {
 	private:
 		SDL_GLContext context = nullptr;
 
-		GLuint fragmentShader;
-		GLuint shaderProgram;
-		GLuint vertexShader;
+		GLShader* CreateShader(
+			const std::string& vertexSourceFile
+			,const std::string& fragmentSourceFile
+		);
 
 		GLint tintLocation;
 		GLint eulerAngleLocation;
-
-		std::string vertexSrc;
-		std::string fragmentSrc;
 
 	};
 }

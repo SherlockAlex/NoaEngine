@@ -72,7 +72,7 @@ void Caco::OnPain()
 
 void Caco::OnDeath()
 {
-	Item* bullet = Item::Create(this->activeScene,item);
+	Item* bullet = Item::Create(this->GetActiveScene(), item);
 	bullet->transform.position = transform.position;
 	bullet->transform.posZ = -250;
 	bullet->pickEvent = this->itemPickEvent;

@@ -57,25 +57,6 @@ void noa::Actor::AddComponent(noa::ActorComponent* component)
 
 }
 
-noa::Actor* noa::Actor::FindActorWithTag(const std::string& tag)
-{
-	if (activeScene == nullptr)
-	{
-		return nullptr;
-	}
-
-	return activeScene->FindActorWithTag(tag);
-}
-
-std::vector<noa::Actor*> noa::Actor::FindActorsWithTag(const std::string& tag)
-{
-	if (activeScene == nullptr) 
-	{
-		return std::vector<noa::Actor*>();
-	}
-	return activeScene->FindActorsWithTag(tag);
-}
-
 noa::Actor* noa::Actor::GetActor() {
 	return this;
 }

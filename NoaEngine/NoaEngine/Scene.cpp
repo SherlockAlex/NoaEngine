@@ -252,13 +252,14 @@ namespace noa
 		Actor* buffer = nullptr;
 		for (auto & actor:actors) 
 		{
-			if (actor == nullptr) 
+			if (actor == nullptr||actor->GetActive()||actor->isRemoved) 
 			{
 				continue;
 			}
 			if (actor->tag == tag)
 			{
 				buffer = actor;
+				break;
 			}
 		}
 		return buffer;
@@ -412,6 +413,24 @@ namespace noa
 	{
 		isQuit = true;
 		
+	}
+
+	Actor* SceneManager::FindActorWithTag(const std::string& tag)
+	{
+		if (this->activeScene == nullptr)
+		{
+			return nullptr;
+		}
+		return this->activeScene->FindActorWithTag(tag);
+	}
+
+	std::vector<Actor*> SceneManager::FindActorsWithTag(const std::string& tag)
+	{
+		if (this->activeScene == nullptr)
+		{
+			return std::vector<Actor*>();
+		}
+		return this->activeScene->FindActorsWithTag(tag);
 	}
 
 }

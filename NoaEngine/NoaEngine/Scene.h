@@ -23,7 +23,6 @@ namespace noa {
 
 	typedef unsigned char Uint8;
 
-	class GameObject;
 	class Actor;
 	class Rigidbody;
 	class ScriptableActor;
@@ -84,7 +83,6 @@ namespace noa {
 
 	private:
 		friend class SceneManager;
-
 	private:
 		std::string name = "Scene";
 		std::vector<Actor*> actors;
@@ -106,8 +104,6 @@ namespace noa {
 
 	public:
 		void AddCamera(Camera* camera);
-
-		
 		Camera* GetMainCamera();
 
 		void AddActor(Actor* actor);
@@ -116,6 +112,20 @@ namespace noa {
 
 		Actor* FindActorWithTag(const std::string& tag);
 		std::vector<Actor*> FindActorsWithTag(const std::string& tag);
+
+		template<class T>
+		T* FindActorWithType() {
+			T* actor = nullptr;
+			for (auto& e : this->actors)
+			{
+				actor = dynamic_cast<T*>(e);
+				if (actor!=nullptr)
+				{
+					break;
+				}
+			}
+			return actor;
+		}
 
 		std::string GetName();
 
@@ -140,6 +150,18 @@ namespace noa {
 
 		void Quit();
 
+		template<class T>
+		T* FindActorWithType() {
+			if (this->activeScene == nullptr) 
+			{
+				return nullptr;
+			}
+			return this->activeScene->FindActorWithType<T>();
+		}
+
+		Actor* FindActorWithTag(const std::string& tag);
+
+		std::vector<Actor*> FindActorsWithTag(const std::string& tag);
 
 	public:
 		//保存当前场景的刚体和actors

@@ -171,6 +171,12 @@
     <ClCompile Include="..\NoaEngine\NoaEngine\Screen.cpp">
       <Filter>头文件\NoaEngine</Filter>
     </ClCompile>
+    <ClCompile Include="Enter.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\NoaEngine\NoaEngine\GLShader.cpp">
+      <Filter>头文件\NoaEngine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameEngine.h">
@@ -339,6 +345,12 @@
       <Filter>头文件\NoaEngine</Filter>
     </ClInclude>
     <ClInclude Include="..\NoaEngine\NoaEngine\Screen.h">
+      <Filter>头文件\NoaEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="Enter.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\NoaEngine\NoaEngine\GLShader.h">
       <Filter>头文件\NoaEngine</Filter>
     </ClInclude>
   </ItemGroup>

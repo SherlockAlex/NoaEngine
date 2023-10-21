@@ -2,9 +2,10 @@
 
 #include "Graphic.h"
 #include "Debug.h"
+#include "Resource.h"
 #include "GLRenderer.h"
 #include "GLTexture.h"
-#include "Resource.h"
+#include "GLShader.h"
 
 namespace noa {
     Texture* GLRenderer::CreateTexture(int w, int h, uint32_t* pixelBuffer)
@@ -13,17 +14,13 @@ namespace noa {
         return texture;
     }
     GLRenderer::GLRenderer():Renderer() {
-        this->vertexSrc =
-            resource.ReadSourceFrom("./Assets/shader/vertex_shader.glsl").c_str();
 
-        this->fragmentSrc =
-            resource.ReadSourceFrom("./Assets/shader/fragment_shader.glsl").c_str();
-    
     }
 
     GLRenderer::~GLRenderer() {
 
-        glDeleteProgram(shaderProgram);
+        //glDeleteProgram(shaderProgram);
+        delete this->defaultShader;
     }
 
     void GLRenderer::InitRenderer()
@@ -34,50 +31,18 @@ namespace noa {
             exit(-1);
         }
 
-        const char * vertexShaderSource =
-            this->vertexSrc.c_str();
+        std::string vertexFile 
+            = "./Assets/shader/vertex_shader.glsl";
 
-        const char * fragmentShaderSource =
-            this->fragmentSrc.c_str();
+        std::string fragmentFile
+            = "./Assets/shader/fragment_shader.glsl";
 
-        
+        this->defaultShader = this->CreateShader(vertexFile, fragmentFile);
 
-        GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
-        glShaderSource(vertexShader, 1, &vertexShaderSource, nullptr);
-        glCompileShader(vertexShader);
-        int vertexSuccess;
-        char vertexInfoLog[512];
-        glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &vertexSuccess);
-        if (!vertexSuccess)
-        {
-            glGetShaderInfoLog(vertexShader,512,nullptr, vertexInfoLog);
-            Debug::Error(std::string(vertexInfoLog));
-        }
+        tintLocation = this->defaultShader->GetUniformLocation("tint");
+        eulerAngleLocation = this->defaultShader->GetUniformLocation("eulerAngle");
 
-        GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-        glShaderSource(fragmentShader, 1, &fragmentShaderSource, nullptr);
-        glCompileShader(fragmentShader);
-        int fragmentSuccess;
-        char fragmentInfoLog[512];
-        glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &fragmentSuccess);
-        if (!fragmentSuccess)
-        {
-            glGetShaderInfoLog(fragmentShader, 512, nullptr, fragmentInfoLog);
-            Debug::Error(std::string(fragmentInfoLog));
-        }
-
-        shaderProgram = glCreateProgram();
-        glAttachShader(shaderProgram, vertexShader);
-        glAttachShader(shaderProgram, fragmentShader);
-        glLinkProgram(shaderProgram);
-        glDeleteShader(vertexShader);
-        glDeleteShader(fragmentShader);
-
-        tintLocation = glGetUniformLocation(shaderProgram,"tint");
-        eulerAngleLocation = glGetUniformLocation(shaderProgram,"eulerAngle");
-
-        // 使用OpenGL绘制纹理
-        glUseProgram(shaderProgram);
+        this->defaultShader->UseShaderProgram();
     }
 
     void GLRenderer::Clear() {
@@ -95,6 +60,7 @@ namespace noa {
             return;
         }
 
+        // Shader相关
         glActiveTexture(GL_TEXTURE + index);
         glUniform4f(tintLocation, GetRValue(tint), GetGValue(tint), GetBValue(tint), GetAValue(tint));
         glUniform1f(eulerAngleLocation,eulerAngle);
@@ -143,6 +109,13 @@ namespace noa {
     void GLRenderer::Present(SDL_Window* windows)
     {
         SDL_GL_SwapWindow(windows);
+    }
+
+    GLShader* GLRenderer::CreateShader(const std::string& vertexSourceFile, const std::string& fragmentSourceFile)
+    {
+        GLShader* shader = new GLShader();
+        shader->CreateShaderProgram(vertexSourceFile,fragmentSourceFile);
+        return shader;
     }
 
 }

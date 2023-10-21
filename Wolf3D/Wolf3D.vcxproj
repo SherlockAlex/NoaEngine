@@ -29,6 +29,7 @@
     <ClCompile Include="..\NoaEngine\NoaEngine\Collider2D.cpp" />
     <ClCompile Include="..\NoaEngine\NoaEngine\Debug.cpp" />
     <ClCompile Include="..\NoaEngine\NoaEngine\GLRenderer.cpp" />
+    <ClCompile Include="..\NoaEngine\NoaEngine\GLShader.cpp" />
     <ClCompile Include="..\NoaEngine\NoaEngine\GLTexture.cpp" />
     <ClCompile Include="..\NoaEngine\NoaEngine\Graphic.cpp" />
     <ClCompile Include="..\NoaEngine\NoaEngine\InputSystem.cpp" />
@@ -58,6 +59,7 @@
     <ClCompile Include="Caco.cpp" />
     <ClCompile Include="CacoState.cpp" />
     <ClCompile Include="Enimy.cpp" />
+    <ClCompile Include="Enter.cpp" />
     <ClCompile Include="Gun.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="Level00.cpp" />
@@ -83,6 +85,7 @@
     <ClInclude Include="..\NoaEngine\NoaEngine\Debug.h" />
     <ClInclude Include="..\NoaEngine\NoaEngine\GLHelper.h" />
     <ClInclude Include="..\NoaEngine\NoaEngine\GLRenderer.h" />
+    <ClInclude Include="..\NoaEngine\NoaEngine\GLShader.h" />
     <ClInclude Include="..\NoaEngine\NoaEngine\GLTexture.h" />
     <ClInclude Include="..\NoaEngine\NoaEngine\Graphic.h" />
     <ClInclude Include="..\NoaEngine\NoaEngine\InputSystem.h" />
@@ -116,6 +119,7 @@
     <ClInclude Include="Caco.h" />
     <ClInclude Include="CacoState.h" />
     <ClInclude Include="Enimy.h" />
+    <ClInclude Include="Enter.h" />
     <ClInclude Include="GameEngine.h" />
     <ClInclude Include="Gun.h" />
     <ClInclude Include="Item.h" />

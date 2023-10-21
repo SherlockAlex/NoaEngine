@@ -3,6 +3,7 @@
 #include "Caco.h"
 #include "Item.h"
 #include "WolfResource.h"
+#include "Enter.h"
 
 Level01::Level01() :Scene(
 	"SecondFloor"
@@ -50,7 +51,8 @@ void Level01::Awake()
 	{
 		for (int j = 0; j < map->objectLayer->h; j++)
 		{
-			if (map->objectLayer->image[j * map->objectLayer->w + i] == 18)
+			const int tile = map->objectLayer->image[j * map->objectLayer->w + i];
+			if (tile == 18)
 			{
 				Caco* enimy = Caco::Create(this, new Sprite(), &player->transform, player);
 				enimy->rigid->SetTileMap(map->mapLayer.get());
@@ -64,6 +66,12 @@ void Level01::Awake()
 				enimy->transform.posZ = 0;
 
 			}
+			else if (tile == 102)
+			{
+				Enter* enter = NObject<Enter>::Create<Scene*, const std::string&>(this, "NewGame");
+				enter->SetPosition(i,j);
+			}
+
 		}
 	}
 

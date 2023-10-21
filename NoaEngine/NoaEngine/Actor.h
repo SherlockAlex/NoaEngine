@@ -31,7 +31,7 @@ namespace noa {
 
 	public:
 		std::string tag = "default";
-	protected:
+	private:
 		Scene* activeScene = nullptr;
 	private:
 		bool active = true;
@@ -111,8 +111,7 @@ namespace noa {
 			return buffer;
 		}
 
-		Actor* FindActorWithTag(const std::string& tag);
-		std::vector<Actor*> FindActorsWithTag(const std::string& tag);
+		
 
 		Actor* GetActor();
 
