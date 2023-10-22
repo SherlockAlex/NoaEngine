@@ -23,7 +23,16 @@ namespace noa {
 
 		void InitRenderer() override;
 		void Clear() override;
-		void DrawTexture(Texture* texture, int index, int x, int y, int w, int h, unsigned int tint, float eulerAngle, bool isFlipX) override;
+		void DrawTexture(
+			Texture* texture
+			, int index
+			, int x
+			, int y
+			, int w
+			, int h
+			, unsigned int tint
+			, float eulerAngle
+			, bool isFlipX) override;
 		void SetContext(SDL_Window* windows) override;
 		void Present(SDL_Window* windows) override;
 
@@ -34,9 +43,6 @@ namespace noa {
 			const std::string& vertexSourceFile
 			,const std::string& fragmentSourceFile
 		);
-
-		//GLint tintLocation;
-		//GLint eulerAngleLocation;
 
 	};
 }

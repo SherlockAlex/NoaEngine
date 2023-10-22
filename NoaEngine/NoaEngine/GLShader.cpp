@@ -114,6 +114,18 @@ void noa::GLShader::SetVec2(const std::string& name, float value1, float value2)
 	glUniform2f(location,value1,value2);
 }
 
+void noa::GLShader::SetVec3(const std::string& name, float value1, float value2, float value3)
+{
+	const GLint location = glGetUniformLocation(this->shaderProgram,name.c_str());
+	glUniform3f(location,value1,value2,value3);
+}
+
+void noa::GLShader::SetBool(const std::string& name, bool value)
+{
+	const GLint location = glGetUniformLocation(this->shaderProgram,name.c_str());
+	glUniform1i(location,value);
+}
+
 void noa::GLShader::SetVec4(const std::string& name, float value1, float value2, float value3, float value4)
 {
 	const GLint location = glGetUniformLocation(this->shaderProgram, name.c_str());

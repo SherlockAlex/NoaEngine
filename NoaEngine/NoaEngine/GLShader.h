@@ -35,7 +35,9 @@ namespace noa {
 		void SetInt(const std::string& name, int value);
 		void SetFloat(const std::string& name,float value);
 		void SetUint(const std::string& name,uint32_t value);
+		void SetBool(const std::string& name, bool value);
 		void SetVec2(const std::string& name,float value1,float value2);
+		void SetVec3(const std::string& name,float value1,float value2,float value3);
 		void SetVec4(const std::string& name,float value1,float value2,float value3,float value4);
 	};
 }
