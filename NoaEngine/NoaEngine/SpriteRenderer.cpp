@@ -63,7 +63,7 @@ void noa::SpriteRenderer::Update()
 	}
 
 	SpriteRendererInstance instance;
-	instance.actor = this->actor;
+	instance.actor = this->GetActor();
 	instance.sprite = this->sprite;
 	instance.spriteGPU = this->spriteGPU;
 

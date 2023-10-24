@@ -252,7 +252,7 @@ namespace noa
 		Actor* buffer = nullptr;
 		for (auto & actor:actors) 
 		{
-			if (actor == nullptr||actor->GetActive()||actor->isRemoved) 
+			if (actor == nullptr||!actor->GetActive()||actor->isRemoved) 
 			{
 				continue;
 			}
@@ -271,7 +271,7 @@ namespace noa
 
 		for (auto & actor:this->actors)
 		{
-			if (actor == nullptr||actor->isRemoved||actor->tag!=tag) 
+			if (actor == nullptr||actor->isRemoved||!actor->GetActive()||actor->tag!=tag) 
 			{
 				continue;
 			}

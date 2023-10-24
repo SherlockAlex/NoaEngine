@@ -115,16 +115,20 @@ namespace noa {
 
 		template<class T>
 		T* FindActorWithType() {
-			T* actor = nullptr;
-			for (auto& e : this->actors)
+			T* buffer = nullptr;
+			for (auto& actor : actors)
 			{
-				actor = dynamic_cast<T*>(e);
-				if (actor!=nullptr)
+				if (actor == nullptr || !actor->GetActive() || actor->isRemoved)
+				{
+					continue;
+				}
+				buffer = dynamic_cast<T*>(actor);
+				if (buffer != nullptr) 
 				{
 					break;
 				}
 			}
-			return actor;
+			return buffer;
 		}
 
 		std::string GetName();

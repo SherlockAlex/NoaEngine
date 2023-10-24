@@ -161,8 +161,8 @@ void noa::PhysicsSystem::CheckCellsCollisions(Cell& cell1, Cell& cell2)
 					{
 						continue;
 					}
-					collider1->rigidbody->collision.actor = collider2->actor;
-					collider2->rigidbody->collision.actor = collider1->actor;
+					collider1->rigidbody->collision.actor = collider2->GetActor();
+					collider2->rigidbody->collision.actor = collider1->GetActor();
 					SolveCollision(collider1, collider2);
 					collider1->ApplyTrigger();
 					collider2->ApplyTrigger();

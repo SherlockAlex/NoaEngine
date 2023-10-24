@@ -75,24 +75,6 @@ namespace noa {
 	public:
 
 		template<class T>
-		T* GetActorAs() {
-			return dynamic_cast<T*>(this);
-		}
-
-		template<class T>
-		bool TryGetActorAs(T *& outBuffer)
-		{
-			T* buffer = dynamic_cast<T*>(this);
-			if (buffer == nullptr)
-			{
-				outBuffer = nullptr;
-				return false;
-			}
-			outBuffer = buffer;
-			return true;
-		}
-
-		template<class T>
 		T* GetComponent() {
 			T* buffer = nullptr;
 			for (auto & component:components) 
@@ -111,9 +93,25 @@ namespace noa {
 			return buffer;
 		}
 
-		
-
 		Actor* GetActor();
+
+		template<class T>
+		T* GetActorAs() {
+			return dynamic_cast<T*>(this);
+		}
+
+		template<class T>
+		bool TryGetActorAs(T*& outBuffer)
+		{
+			T* buffer = dynamic_cast<T*>(this);
+			if (buffer == nullptr)
+			{
+				outBuffer = nullptr;
+				return false;
+			}
+			outBuffer = buffer;
+			return true;
+		}
 
 	private:
 

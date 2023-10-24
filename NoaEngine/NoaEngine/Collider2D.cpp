@@ -35,16 +35,16 @@ void noa::Collider2D::ApplyTrigger()
 		&& GetActive()
 		&& isTrigger
 		&& rigidbody->collision.actor != nullptr
-		&& actor != nullptr;
+		&& this->GetActor() != nullptr;
 	if (canApplyTrigger)
 	{
-		actor->OnTrigger(rigidbody->collision);
+		this->GetActor()->OnTrigger(rigidbody->collision);
 	}
 	rigidbody->collision.actor = nullptr;
 
 	if (isHitCollisionTile)
 	{
-		this->actor->OnHitTile();
+		this->GetActor()->OnHitTile();
 		isHitCollisionTile = false;
 	}
 
@@ -56,8 +56,8 @@ void noa::Collider2D::Update()
 	{
 		return;
 	}
-	const int x = static_cast<int>(actor->transform.position.x);
-	const int y = static_cast<int>(actor->transform.position.y);
+	const int x = static_cast<int>(this->GetActor()->transform.position.x);
+	const int y = static_cast<int>(this->GetActor()->transform.position.y);
 
 	const int w = PhysicsSystem::grid.width;
 	const int h = PhysicsSystem::grid.height;

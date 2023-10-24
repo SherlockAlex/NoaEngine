@@ -18,8 +18,8 @@ namespace noa {
 		friend void InitNObject(NOAObject* obj);
 		friend class Actor;
 
-		Actor* actor = nullptr;
 	private:
+		Actor* actor = nullptr;
 		bool active = true;
 
 	protected:
