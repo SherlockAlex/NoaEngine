@@ -48,9 +48,14 @@ namespace noa {
 			4096
 		) == -1)
 		{
+			//在一些没有声卡的设备中，将会初始化失败
 			Debug::Error("Init audio device failed");
-			exit(-1);
+			Audio::isInitSuccessful = false;
 		}
+		else {
+			Audio::isInitSuccessful = true;
+		}
+		
 
 		
 	}

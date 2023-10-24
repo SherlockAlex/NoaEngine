@@ -9,7 +9,11 @@ namespace noa {
 		CHUNK
 	};
 
-	class Audio {
+	class Audio 
+	{
+	public:
+		static bool isInitSuccessful;
+
 	private:
 		AudioType type = AudioType::MUSIC;
 		Mix_Music* music = nullptr;

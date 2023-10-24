@@ -27,7 +27,7 @@ void noa::GLShader::CompileVertextShader(const std::string& filePath)
 	if (!success)
 	{
 		glGetShaderInfoLog(this->vertexShader, 512, nullptr, infoLog);
-		Debug::Error(std::string(infoLog));
+		Debug::Error("Compile vertex shader:" + std::string(infoLog));
 	}
 }
 
@@ -46,7 +46,7 @@ void noa::GLShader::CompileFragmentShader(const std::string& filePath)
 	if (!success) 
 	{
 		glGetShaderInfoLog(this->fragmentShader,512,nullptr,infoLog);
-		Debug::Error(std::string(infoLog));
+		Debug::Error("Compile fragment shader:" + std::string(infoLog));
 	}
 }
 
@@ -65,7 +65,7 @@ void noa::GLShader::LinkShaderToProgram()
 	if (!success)
 	{
 		glGetProgramInfoLog(this->shaderProgram,512,nullptr,info);
-		Debug::Error(std::string(info));
+		Debug::Error("Link shader:" + std::string(info));
 	}
 
 }

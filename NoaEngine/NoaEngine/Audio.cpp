@@ -1,6 +1,13 @@
 #include "Audio.h"
 
+bool noa::Audio::isInitSuccessful = false;
+
 noa::Audio::Audio(const char* filePath, noa::AudioType type) {
+	
+	if (!isInitSuccessful) 
+	{
+		return;
+	}
 
 	this->type = type;
 
@@ -21,6 +28,11 @@ noa::Audio::Audio(const char* filePath, noa::AudioType type) {
 }
 
 noa::Audio::~Audio() {
+	if (!isInitSuccessful)
+	{
+		return;
+	}
+
 	if (chunk != nullptr)
 	{
 		Mix_FreeChunk(chunk);
@@ -34,6 +46,11 @@ noa::Audio::~Audio() {
 
 void noa::Audio::Play(bool loop) const
 {
+	if (!isInitSuccessful)
+	{
+		return;
+	}
+
 	if (type == noa::AudioType::MUSIC)
 	{
 		if (loop)
@@ -61,6 +78,11 @@ void noa::Audio::Play(bool loop) const
 
 void noa::Audio::Stop() const
 {
+
+	if (!isInitSuccessful)
+	{
+		return;
+	}
 
 	switch (type)
 	{

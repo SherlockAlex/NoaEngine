@@ -229,7 +229,7 @@ void noa::Actor::SetActiveScene(noa::Scene* scene)
 
 void noa::Actor::OnTrigger(const noa::Collision & collision)
 {
-	// 由子类覆写，当Actor绑定一个Collider组件的时候就可以调用
+	
 }
 
 
