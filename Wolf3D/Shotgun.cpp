@@ -49,6 +49,8 @@ Shotgun::Shotgun(Player* player, int* bulletCount,FreeCamera * camera):Gun(bulle
 		animation->GetCurrentFrameImage()
 		, Vector<int>(0.5 * Screen::width, 0.5 * Screen::width));
 
+	animation->SetAnimatedSprite(this->sprite);
+
 	this->spriteGPU = new SpriteGPU(sprite);
 
 }

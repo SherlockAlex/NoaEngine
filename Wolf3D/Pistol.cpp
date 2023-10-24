@@ -50,6 +50,8 @@ Pistol::Pistol(Player* player, int* bulletCount, FreeCamera* camera):Gun(bulletC
 		animation->GetCurrentFrameImage()
 		, Vector<int>(0.5 * Screen::width, 0.5 * Screen::width));
 
+	this->animation->SetAnimatedSprite(this->sprite);
+
 	this->spriteGPU = new SpriteGPU(sprite);
 
 }

@@ -123,7 +123,7 @@ namespace noa {
 		void Update() override;
 
 	};
-
+	
 	class Image :public UIComponent {
 	public:
 		uint32_t color = WHITE;

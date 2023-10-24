@@ -45,6 +45,8 @@ M4A1::M4A1(Player* player, int* bulletCount, FreeCamera* camera) :Gun(bulletCoun
 		animation->GetCurrentFrameImage()
 		, Vector<int>(0.5 * Screen::width, 0.5 * Screen::width));
 
+	this->animation->SetAnimatedSprite(this->sprite);
+
 	this->spriteGPU = new SpriteGPU(sprite);
 
 }
@@ -57,7 +59,9 @@ M4A1* M4A1::Create(Player* player, int* bulletCount, FreeCamera* camera)
 void M4A1::Update()
 {
 	Gun::Update();
-	//显示图片
+	//显示图片到屏幕上
+	//一种是使用SpriteRenderer
+	//还有一种是使用Image
 	const float offsetX = 30 * (sinf((player->rigid->velocity.SqrMagnitude() != 0) * Time::time * 3) + 1);
 	const float offsetY =15*(sinf((player->rigid->velocity.SqrMagnitude() != 0)* Time::time *6)+1);
 

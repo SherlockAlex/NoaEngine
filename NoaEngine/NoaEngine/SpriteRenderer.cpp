@@ -1,9 +1,16 @@
 #include "Actor.h"
 #include "Sprite.h"
 #include "SpriteRenderer.h"
-#include "Animator.h"
 #include "Debug.h"
 #include "Transform.h"
+
+/**
+* SpriteRenderer组件
+* 负责将Sprite绘制到屏幕上
+* 但是其绘制必须依赖相机
+* 一个使用方式就是使用UI空间Image
+* 而SpriteRenderer是专门为2D游戏开发准备的
+*/
 
 namespace noa {
 	std::vector<noa::SpriteRendererInstance> spriteRendererInstances;
@@ -56,27 +63,12 @@ void noa::SpriteRenderer::SetSprite(Sprite* sprite)
 	
 }
 
-void noa::SpriteRenderer::SetAnimation(Animation* animation)
-{
-	if (animation == nullptr) 
-	{
-		return;
-	}
-	animationComponent = animation;
-
-}
-
 void noa::SpriteRenderer::Update()
 {
 	if (sprite == nullptr) 
 	{
 		noa::Debug::Warring("The sprite of SpriteRenderer is null");
 		return;
-	}
-
-	if (animationComponent) 
-	{
-		this->sprite->UpdateImage(animationComponent->GetCurrentFrameImage());
 	}
 
 	SpriteRendererInstance instance;

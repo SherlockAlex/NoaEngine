@@ -42,6 +42,8 @@ namespace noa {
 		bool loop = false;
 		int previousFrameIndex = -1;
 
+		Sprite* animatedSprite = nullptr;
+
 	protected:
 		Animation(Actor * actor);
 		Animation(Actor* actor,float speed,bool loop);
@@ -66,6 +68,8 @@ namespace noa {
 
 		void SetLoop(bool value);
 		void SetSpeed(float value);
+
+		void SetAnimatedSprite(Sprite * sprite);
 
 	};
 

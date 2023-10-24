@@ -356,7 +356,6 @@ void noa::Image::SetSprite(Sprite* sprite)
 	spriteGPU->SetLayer(InstanceLayer::UI_LAYER);
 }
 
-
 void noa::Image::Start()
 {
 
@@ -369,7 +368,8 @@ void noa::Image::Update()
 	{
 		renderer->DrawRect(transform.position, transform.position + transform.scale, color);
 	}
-	else {
+	else 
+	{
 		spriteGPU->DrawSprite(
 			static_cast<float>(transform.position.x)
 			, static_cast<float>(transform.position.y)

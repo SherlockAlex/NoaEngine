@@ -18,11 +18,7 @@ void Gun::Delete()
 
 void Gun::Update()
 {
-	//下面的内容交给SpriteRenderer
-	if (sprite!=nullptr&&animation!=nullptr) 
-	{
-		sprite->UpdateImage(animation->GetCurrentFrameImage());
-	}
+	
 }
 
 void Gun::Shoot()

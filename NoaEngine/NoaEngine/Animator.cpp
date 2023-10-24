@@ -162,6 +162,11 @@ void noa::Animation::Update()
 
 	this->Play(static_cast<int>(i));
 
+	if (animatedSprite) 
+	{
+		animatedSprite->UpdateImage(this->currentFrame);
+	}
+
 	//当前帧事件只执行一次
 	const bool isFrameStart = (previousFrameIndex != int(i));
 
@@ -181,6 +186,11 @@ void noa::Animation::SetLoop(bool value)
 void noa::Animation::SetSpeed(float value)
 {
 	this->speed = value;
+}
+
+void noa::Animation::SetAnimatedSprite(Sprite* sprite)
+{
+	this->animatedSprite = sprite;
 }
 
 noa::AnimationClip::AnimationClip(

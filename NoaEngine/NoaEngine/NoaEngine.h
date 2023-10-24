@@ -63,9 +63,10 @@
 * (g) 点击编译运行你自己的游戏
 * 
 * 不足:
-* 游戏引擎缺少一种有效管理Sprite,Animation,Audio的手段
-* 同时Animation和Sprite的关联性是采用命令模式来更新画面的，因此Sprite这个资源文件会和Actor产生直接依赖
-* 应当将Sprite和Animation的依赖关系转为Animation和SpriteRenderer的依赖关系
+* 关于将Sprite自动绘制到屏幕上的解决方案不统一
+* Image:作为UI控件使用,需要与UICanvas并存使用，位置由玩家设置
+* SpriteRenderer:作为ActorComponent存在，需要相机自动绘制，位置由相机和Actor的位置关系决定
+* 
 * 
 */
 
@@ -83,7 +84,7 @@
 	class ExampleGame :public NoeEngine {
 	public:
 		ExampleGame(int width, int height,
-			WINDOWMODE windowMode,
+			WindowMode windowMode,
 			string gameName) :NoeEngine(width,height,windowMode,gameName) 
 		{
 			//game inintialize
@@ -106,7 +107,7 @@
 
 	int main(int argc, char* argv[])
 	{
-		ExampleGame game(1920,1080,WINDOWMODE::WINDOW,"ExampleGame");
+		ExampleGame game(1920,1080,WindowMode::WINDOW,"ExampleGame");
 		return game.Run();
 	}
 

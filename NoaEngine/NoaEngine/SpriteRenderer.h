@@ -15,17 +15,12 @@ namespace noa {
 
 	}SpriteRendererInstance;
 
-	class Animation;
 	class UITransform;
 	class SpriteRenderer:public ActorComponent
 	{
 	private:
 		Sprite* sprite = nullptr;
 		SpriteGPU* spriteGPU = nullptr;
-		Animation* animationComponent = nullptr;
-
-	public:
-		UITransform transform;
 
 	private:
 		SpriteRenderer(Actor* actor);
@@ -36,7 +31,6 @@ namespace noa {
 
 		void UpdateSprite(const SpriteFile & spriteFile);
 		void SetSprite(Sprite * sprite);
-		void SetAnimation(Animation* animation);
 
 		void Update() override;
 

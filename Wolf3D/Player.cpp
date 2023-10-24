@@ -210,7 +210,10 @@ void Player::Update()
 	ActorControl();
 
 	float vel = rigid->velocity.SqrMagnitude();
+	
+	//guns也进行更新
 	guns[currentGunIndex]->Update();
+
 	renderer->DrawString("HP:"+ ToString<int>(hp)+"\nBULLET:"+ToString<int>(bulletCount), 10, 10, RED, Screen::height / 20);
 
 }
