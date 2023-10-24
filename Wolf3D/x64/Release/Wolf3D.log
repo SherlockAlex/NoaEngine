@@ -1,5 +1,8 @@
-﻿  Audio.cpp
+﻿  Actor.cpp
+  Camera.cpp
   NoaEngine.cpp
+  Physics.cpp
+  Scene.cpp
   Bullet.cpp
   Caco.cpp
   CacoState.cpp
@@ -15,12 +18,13 @@
   Pistol.cpp
   Player.cpp
   Shotgun.cpp
+  正在编译...
   WolfResource.cpp
   main.cpp
 LINK : warning LNK4098: 默认库“MSVCRT”与其他库的使用冲突；请使用 /NODEFAULTLIB:library
   正在生成代码
-  102 of 3694 functions ( 2.8%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    2 functions had inline decision re-evaluated but remain unchanged
+  11 of 3694 functions ( 0.3%) were compiled, the rest were copied from previous compilation.
+    4 functions were new in current compilation
+    6 functions had inline decision re-evaluated but remain unchanged
   已完成代码的生成
   Wolf3D.vcxproj -> D:\GitHub\NoaEngine\x64\Release\Wolf3D.exe

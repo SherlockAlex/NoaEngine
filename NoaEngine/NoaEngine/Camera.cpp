@@ -10,8 +10,6 @@
 
 namespace noa {
 
-
-
 	Camera::Camera(Scene* scene)
 	{
 		scene->AddCamera(this);
@@ -135,6 +133,9 @@ namespace noa {
 				static_cast<int>((instance.actor->transform.position.x - offset.x) * tileScale.x),
 				static_cast<int>((instance.actor->transform.position.y - offset.y) * tileScale.y)
 				);
+
+
+
 			instance.spriteGPU->DrawSprite(static_cast<float>(objPos.x), static_cast<float>(objPos.y), true);
 			if (objPos.y<Screen::height&&objPos.y>=0
 				&&objPos.x < Screen::width && objPos.x >= 0

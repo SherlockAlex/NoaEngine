@@ -5,7 +5,6 @@
 #include "Physics.h"
 #include "SpriteRenderer.h"
 
-
 using namespace std;
 
 noa::Actor::Actor(noa::Scene* activeScene)

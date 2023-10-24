@@ -96,21 +96,21 @@ namespace noa {
 #endif // _WIN64
 	};
 
-	typedef struct MouseEvent {
+	typedef struct MouseContext
+	{
 		Vector<double> position;
 		Vector<double> delta;
 		Vector<double> wheel;
-
 		bool motion = false;
 
-	}MouseEvent;
+	}MouseContext;
 
 	class InputSystem final
 	{
 	public:
 		SDL_Event e = {};
 	private:
-		MouseEvent mouseEvent;
+		MouseContext mouseContext;
 	public:
 		void Update();
 		InputSystem();
@@ -129,6 +129,8 @@ namespace noa {
 		bool GetMouseButton(MouseButton mouseButton);
 
 	};
+
+	//目标是这样的，一个按钮绑定一个事件，这个事件的返回值可以是Vector<double>,也可以是bool,最后使用ReadValue<>()开发者便可以读取到数据
 
 	extern InputSystem inputSystem;
 }

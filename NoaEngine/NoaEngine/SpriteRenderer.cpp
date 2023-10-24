@@ -1,6 +1,7 @@
 #include "Actor.h"
 #include "Sprite.h"
 #include "SpriteRenderer.h"
+#include "Animator.h"
 #include "Debug.h"
 
 namespace noa {
@@ -54,12 +55,27 @@ void noa::SpriteRenderer::SetSprite(Sprite* sprite)
 	
 }
 
+void noa::SpriteRenderer::SetAnimation(Animation* animation)
+{
+	if (animation == nullptr) 
+	{
+		return;
+	}
+	animationComponent = animation;
+
+}
+
 void noa::SpriteRenderer::Update()
 {
 	if (sprite == nullptr) 
 	{
 		noa::Debug::Warring("The sprite of SpriteRenderer is null");
 		return;
+	}
+
+	if (animationComponent) 
+	{
+		this->sprite->UpdateImage(animationComponent->GetCurrentFrameImage());
 	}
 
 	SpriteRendererInstance instance;

@@ -41,9 +41,9 @@
 * 
 * Scene Manager：
 * SceneManager:管理Scene的生成，切换，以及运行，卸载
-* Scene:管理场景下的每个Actor，PhysicsSystem物理世界的建立，负责每个Actor的内存释放问题
+* Scene:管理场景下的每个Actor和Camera，PhysicsSystem物理世界的建立，负责每个Actor和Camera的内存释放问题
 * Actor:负责所有ActorComponent的内存释放问题
-* 内存释放的顺序，先是Actor释放底下的ActorComponent，然后由Scene释放所有注册的Actor，然后由SceneManager释放所有的Scene
+* 内存释放的顺序，先是Actor释放底下的ActorComponent，然后由Scene释放所有注册的Actor以及Camera，然后由SceneManager释放所有的Scene
 * 
 * 期间Rigidbody虽然是一个单独的类，但是地位和ActorComponent一样，由Actor进行内存的释放
 * 由Actor在执行UpdateComponent()之前会先执行Rigidbody.Update()，将Rigidbody发送给Scene
@@ -61,6 +61,11 @@
 * (e) 选择你想要的Camera或着自己编写一个Camera
 * (f) 在游戏主类实例化你的场景对象到堆上，并使用sceneManager.LoadScene("Your scene")
 * (g) 点击编译运行你自己的游戏
+* 
+* 不足:
+* 游戏引擎缺少一种有效管理Sprite,Animation,Audio的手段
+* 同时Animation和Sprite的关联性是采用命令模式来更新画面的，因此Sprite这个资源文件会和Actor产生直接依赖
+* 应当将Sprite和Animation的依赖关系转为Animation和SpriteRenderer的依赖关系
 * 
 */
 

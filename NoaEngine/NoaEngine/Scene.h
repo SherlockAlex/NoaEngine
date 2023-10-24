@@ -96,7 +96,8 @@ namespace noa {
 
 	public:
 		void SetTileMap(TileMap * map);
-		void Delete() { delete this; };
+		
+	protected:
 		virtual void Awake() {}
 		virtual void Start() {}
 		virtual void Update() {}
@@ -107,8 +108,6 @@ namespace noa {
 		Camera* GetMainCamera();
 
 		void AddActor(Actor* actor);
-		void ActorUpdate();
-		void DestoyScene();
 
 		Actor* FindActorWithTag(const std::string& tag);
 		std::vector<Actor*> FindActorsWithTag(const std::string& tag);
@@ -136,19 +135,23 @@ namespace noa {
 	private:
 		void ApplyCamera();
 
+		void ActorUpdate();
+		void DestoyScene();
+
+		void Delete();
+
 	};
 
 	class SceneManager 
 	{
+
+	private:
+		friend class NoaEngine;
+		friend class Scene;
+
 	public:
 		Scene * GetActiveScene();
 		void LoadScene(const std::string & sceneName);
-		void AddScene(Scene* scene);
-
-		void Awake();
-		void Destroy();
-		void Start();
-		void Update();
 
 		~SceneManager();
 
@@ -166,10 +169,14 @@ namespace noa {
 		Actor* FindActorWithTag(const std::string& tag);
 
 		std::vector<Actor*> FindActorsWithTag(const std::string& tag);
-
-	public:
-		//保存当前场景的刚体和actors
 		
+	private:
+		void Awake();
+		void Destroy();
+		void Start();
+		void Update();
+
+		void AddScene(Scene* scene);
 
 	private:
 		Scene* oldScene = nullptr;

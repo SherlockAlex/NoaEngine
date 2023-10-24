@@ -16,421 +16,428 @@ namespace noa
 
 	SceneManager sceneManager;
 
-	LevelMap::LevelMap() {
+	
 
+}
+
+noa::LevelMap::LevelMap() {
+
+}
+
+noa::LevelMap::LevelMap(const MapFile& map)
+{
+	this->w = map.w;
+	this->h = map.h;
+
+	level = map.image;
+
+}
+
+void noa::LevelMap::Construct(const MapFile& map)
+{
+	this->w = map.w;
+	this->h = map.h;
+
+	level = map.image;
+
+}
+
+void noa::LevelMap::ConstructLayer(const std::vector<std::vector<int>>& layer)
+{
+	levelLayer = layer;
+}
+
+noa::TileMap::TileMap()
+{
+}
+
+noa::TileMap::TileMap(const std::unordered_map<int, Tile>& tileSet, const MapFile& map) :LevelMap(map)
+{
+	this->tileSet = tileSet;
+}
+
+noa::TileMap::TileMap(const std::unordered_map<int, Tile>& tileSet, const std::vector<MapFile>& mapLayer)
+{
+	this->tileSet = tileSet;
+	MapFile map;
+	map.image = mapLayer[0].image;
+	map.w = mapLayer[0].w;
+	map.h = mapLayer[0].h;
+
+	std::vector<vector<int>> layer;
+
+	for (int i = 0; i < mapLayer.size(); i++)
+	{
+		layer.push_back(mapLayer[i].image);
 	}
 
-	LevelMap::LevelMap(const MapFile & map)
+	for (int i = 1; i < mapLayer.size(); i++)
 	{
-		this->w = map.w;
-		this->h = map.h;
-
-		level = map.image;
-
-	}
-
-	void LevelMap::Construct(const MapFile& map)
-	{
-		this->w = map.w;
-		this->h = map.h;
-
-		level = map.image;
-
-	}
-
-	void LevelMap::ConstructLayer(const std::vector<std::vector<int>> & layer)
-	{
-		levelLayer = layer;
-	}
-
-	TileMap::TileMap()
-	{
-	}
-
-	TileMap::TileMap(const std::unordered_map<int, Tile> & tileSet,const MapFile & map) :LevelMap(map)
-	{
-		this->tileSet = tileSet;
-	}
-
-	TileMap::TileMap(const std::unordered_map<int, Tile> & tileSet,const std::vector<MapFile> & mapLayer)
-	{
-		this->tileSet = tileSet;
-		MapFile map;
-		map.image = mapLayer[0].image;
-		map.w = mapLayer[0].w;
-		map.h = mapLayer[0].h;
-
-		std::vector<vector<int>> layer;
-
-		for (int i = 0;i<mapLayer.size();i++) 
+		for (int j = 0; j < mapLayer[i].image.size(); j++)
 		{
-			layer.push_back(mapLayer[i].image);
-		}
-
-		for (int i=1;i<mapLayer.size();i++) 
-		{
-			for (int j = 0;j<mapLayer[i].image.size();j++)
+			if (mapLayer[i].image[j] == -1)
 			{
-				if (mapLayer[i].image[j] == -1)
-				{
-					continue;
-				}
-				map.image[j] = mapLayer[i].image[j];
+				continue;
 			}
+			map.image[j] = mapLayer[i].image[j];
 		}
-
-		this->Construct(map);
-		this->ConstructLayer(layer);
 	}
 
-	TileMap::~TileMap()
-	{
+	this->Construct(map);
+	this->ConstructLayer(layer);
+}
 
+noa::TileMap::~TileMap()
+{
+
+}
+
+int noa::TileMap::GetTileID(const int x, const int y) const
+{
+	if (x < 0 || x >= w || y < 0 || y >= h)
+	{
+		return -1;
+	}
+	return level[y * w + x];
+}
+
+void noa::TileMap::SetTileID(const int x, const int y, const int tileID)
+{
+	if (x < 0 || x >= w || y < 0 || y >= h)
+	{
+		return;
+	}
+	level[y * w + x] = tileID;
+}
+
+bool noa::TileMap::IsTile(const int code) const
+{
+	return tileSet.count(code) > 0;
+}
+
+bool noa::TileMap::IsCollisionTile(int tileID) const
+{
+	return collisionTiles.count(tileID) > 0;
+}
+
+bool noa::TileMap::IsCollisionTile(const int x, const int y) const
+{
+	if (x < 0 || x >= w || y < 0 || y >= h)
+	{
+		return true;
+	}
+	return collisionTiles.count(level[y * w + x]) > 0;
+}
+
+void noa::TileMap::SetCollisionTileID(const std::vector<int>& collisionTileIDs)
+{
+	//设置Collision Tiles
+	const int collisionTilesCount = static_cast<int>(collisionTileIDs.size());
+	for (int i = 0; i < collisionTilesCount; i++)
+	{
+		collisionTiles[collisionTileIDs[i]] = true;
+	}
+}
+
+noa::Tile* noa::TileMap::GetTile(const int id)
+{
+	const bool isTile = tileSet.count(id) > 0;
+	if (!isTile)
+	{
+		return nullptr;
+	}
+	return &tileSet[id];
+}
+
+noa::Scene::Scene(const std::string& name)
+{
+	this->name = name;
+	sceneManager.AddScene(this);
+	actors.reserve(1024 * 10);
+}
+
+noa::Scene::~Scene()
+{
+	DestoyScene();
+}
+
+void noa::Scene::SetTileMap(TileMap* map)
+{
+	PhysicsSystem::SetGrid(map->w, map->h);
+}
+
+void noa::Scene::AddCamera(Camera* camera)
+{
+	if (camera == nullptr)
+	{
+		return;
+	}
+	this->cameras.push_back(camera);
+	if (mainCamera == -1)
+	{
+		mainCamera = 0;
+	}
+}
+
+noa::Camera* noa::Scene::GetMainCamera()
+{
+	if (mainCamera < 0 || mainCamera >= cameras.size())
+	{
+		return nullptr;
+	}
+	return cameras[mainCamera];
+}
+
+void noa::Scene::AddActor(Actor* actor)
+{
+	if (actor == nullptr)
+	{
+		return;
 	}
 
-	int TileMap::GetTileID(const int x,const int y) const
+	actors.push_back(actor);
+
+}
+
+void noa::Scene::ActorUpdate()
+{
+
+	for (const auto& actor : actors)
 	{
-		if (x<0||x>=w||y<0||y>=h)
+		if (actor == nullptr || !actor->GetActive() || actor->isRemoved)
 		{
-			return -1;
+			continue;
 		}
-		return level[y*w+x];
+		actor->ComponentUpdate();
+		actor->Update();
 	}
 
-	void TileMap::SetTileID(const int x, const int y, const int tileID)
-	{
-		if (x < 0 || x >= w || y < 0 || y >= h)
-		{
-			return ;
-		}
-		level[y * w + x] = tileID;
-	}
+	PhysicsSystem::Update(3);
 
-	bool TileMap::IsTile(const int code) const
-	{
-		return tileSet.count(code) > 0;
-	}
+}
 
-	bool TileMap::IsCollisionTile(int tileID) const
-	{
-		return collisionTiles.count(tileID) > 0;
-	}
+void noa::Scene::DestoyScene()
+{
+	std::sort(actors.begin(), actors.end());
+	auto actorLast = std::unique(actors.begin(), actors.end());
+	actors.erase(actorLast, actors.end());
 
-	bool TileMap::IsCollisionTile(const int x, const int y) const
-	{
-		if (x < 0 || x >= w || y < 0 || y >= h)
-		{
-			return true;
-		}
-		return collisionTiles.count(level[y * w + x]) > 0;
-	}
+	std::sort(cameras.begin(), cameras.end());
+	auto cameraLast = std::unique(cameras.begin(), cameras.end());
+	cameras.erase(cameraLast, cameras.end());
 
-	void TileMap::SetCollisionTileID(const std::vector<int> & collisionTileIDs)
-	{
-		//设置Collision Tiles
-		const int collisionTilesCount = static_cast<int>(collisionTileIDs.size());
-		for (int i = 0; i < collisionTilesCount; i++)
-		{
-			collisionTiles[collisionTileIDs[i]] = true;
-		}
-	}
-
-	Tile* TileMap::GetTile(const int id)
-	{
-		const bool isTile = tileSet.count(id) > 0;
-		if (!isTile)
-		{
-			return nullptr;
-		}
-		return &tileSet[id];
-	}
-
-	Scene::Scene(const std::string & name)
-	{
-		this->name = name;
-		sceneManager.AddScene(this);
-		actors.reserve(1024*10);
-	}
-
-	Scene::~Scene()
-	{
-		DestoyScene();
-	}
-
-	void Scene::SetTileMap(TileMap* map)
-	{
-		PhysicsSystem::SetGrid(map->w, map->h);
-	}
-
-	void Scene::AddCamera(Camera* camera)
-	{
-		if (camera == nullptr) 
-		{
-			return;
-		}
-		this->cameras.push_back(camera);
-		if (mainCamera == -1)
-		{
-			mainCamera = 0;
-		}
-	}
-
-	Camera* Scene::GetMainCamera()
-	{
-		if (mainCamera<0||mainCamera>=cameras.size())
-		{
-			return nullptr;
-		}
-		return cameras[mainCamera];
-	}
-
-	void Scene::AddActor(Actor* actor)
+	for (auto& actor : actors)
 	{
 		if (actor == nullptr)
 		{
-			return;
+			continue;
 		}
-
-		actors.push_back(actor);
-
+		actor->Delete(actor);
 	}
 
-	void Scene::ActorUpdate()
+	for (auto& camera : cameras)
 	{
-		
-		for (const auto& actor : actors)
+		if (camera == nullptr)
 		{
-			if (actor == nullptr || !actor->GetActive()||actor->isRemoved)
-			{
-				continue;
-			}
-			actor->ComponentUpdate();
-			actor->Update();
+			continue;
 		}
-
-		PhysicsSystem::Update(3);
+		//删除调Camera
+		camera->Delete(camera);
 
 	}
+	mainCamera = -1;
 
-	void Scene::DestoyScene()
+	actors.clear();
+	cameras.clear();
+}
+
+void noa::Scene::Delete()
+{
+	delete this;
+}
+
+noa::Actor* noa::Scene::FindActorWithTag(const string& tag)
+{
+	noa::Actor* buffer = nullptr;
+	for (auto& actor : actors)
 	{
-		std::sort(actors.begin(), actors.end());
-		auto actorLast = std::unique(actors.begin(), actors.end());
-		actors.erase(actorLast, actors.end());
-
-		std::sort(cameras.begin(),cameras.end());
-		auto cameraLast = std::unique(cameras.begin(), cameras.end());
-		cameras.erase(cameraLast,cameras.end());
-
-		for (auto & actor:actors) 
+		if (actor == nullptr || !actor->GetActive() || actor->isRemoved)
 		{
-			if (actor == nullptr)
-			{
-				continue;
-			}
-			actor->Delete(actor);
+			continue;
 		}
-
-		for (auto & camera:cameras) 
+		if (actor->tag == tag)
 		{
-			if (camera == nullptr)
-			{
-				continue;
-			}
-			//删除调Camera
-			camera->Delete(camera);
-
+			buffer = actor;
+			break;
 		}
-		mainCamera = -1;
+	}
+	return buffer;
+}
 
-		actors.clear();
-		cameras.clear();
+std::vector<noa::Actor*> noa::Scene::FindActorsWithTag(const std::string& tag)
+{
+	std::vector<Actor*> target;
+
+	for (auto& actor : this->actors)
+	{
+		if (actor == nullptr || actor->isRemoved || !actor->GetActive() || actor->tag != tag)
+		{
+			continue;
+		}
+		target.push_back(actor);
 	}
 
-	Actor* Scene::FindActorWithTag(const string& tag)
+	return target;
+}
+
+std::string noa::Scene::GetName()
+{
+	return this->name;
+}
+
+void noa::Scene::ApplyCamera()
+{
+	if (mainCamera < 0 || mainCamera >= cameras.size())
 	{
-		Actor* buffer = nullptr;
-		for (auto & actor:actors) 
-		{
-			if (actor == nullptr||!actor->GetActive()||actor->isRemoved) 
-			{
-				continue;
-			}
-			if (actor->tag == tag)
-			{
-				buffer = actor;
-				break;
-			}
-		}
-		return buffer;
+		return;
+	}
+	cameras[mainCamera]->Render();
+}
+
+noa::Scene* noa::SceneManager::GetActiveScene()
+{
+	return activeScene;
+}
+
+void noa::SceneManager::LoadScene(const std::string& sceneName)
+{
+
+	if (isLoading)
+	{
+		return;
 	}
 
-	std::vector<Actor*> Scene::FindActorsWithTag(const std::string& tag)
+	if (this->sceneList.count(sceneName) <= 0)
 	{
-		std::vector<Actor*> target;
-
-		for (auto & actor:this->actors)
-		{
-			if (actor == nullptr||actor->isRemoved||!actor->GetActive()||actor->tag!=tag) 
-			{
-				continue;
-			}
-			target.push_back(actor);
-		}
-
-		return target;
+		Debug::Error("Load scene:" + sceneName + "failed");
+		return;
 	}
 
-	std::string Scene::GetName()
+	nextScene = sceneList[sceneName];
+	done = false;
+	isLoading = true;
+
+	oldScene = activeScene;
+	activeScene = nextScene;
+	nextScene = nullptr;
+
+	Awake();
+	Start();
+
+}
+
+void noa::SceneManager::AddScene(Scene* scene)
+{
+	if (scene == nullptr)
 	{
-		return this->name;
+		return;
+	}
+	if (activeScene == nullptr)
+	{
+		activeScene = scene;
 	}
 
-	void Scene::ApplyCamera()
+	sceneList[scene->name] = scene;
+
+}
+
+void noa::SceneManager::Awake()
+{
+	if (activeScene != nullptr)
 	{
-		if (mainCamera < 0|| mainCamera >=cameras.size())
-		{
-			return;
-		}
-		cameras[mainCamera]->Render();
+		activeScene->Awake();
 	}
+}
 
-	Scene * SceneManager::GetActiveScene()
+void noa::SceneManager::Destroy()
+{
+	if (activeScene != nullptr)
 	{
-		return activeScene;
-	}
-
-	void SceneManager::LoadScene(const std::string & sceneName)
-	{
-		
-		if (isLoading) 
-		{
-			return;
-		}
-
-		if (this->sceneList.count(sceneName)<=0) 
-		{
-			Debug::Error("Load scene:" + sceneName + "failed");
-			return;
-		}
-
-		nextScene = sceneList[sceneName];
-		done = false;
-		isLoading = true;
-
 		oldScene = activeScene;
-		activeScene = nextScene;
-		nextScene = nullptr;
-		
-		Awake();
-		Start();
+		activeScene = nullptr;
+	}
+}
 
+void noa::SceneManager::Start()
+{
+	if (activeScene != nullptr)
+	{
+		activeScene->Start();
 	}
 
-	void SceneManager::AddScene(Scene* scene)
+}
+
+void noa::SceneManager::Update()
+{
+	if (activeScene == nullptr)
 	{
-		if (scene == nullptr)
-		{
-			return;
-		}
-		if (activeScene==nullptr) 
-		{
-			activeScene = scene;
-		}
-
-		sceneList[scene->name] = scene;
-
+		return;
 	}
 
-	void SceneManager::Awake()
+	activeScene->ActorUpdate();
+	activeScene->ApplyCamera();
+	activeScene->Update();
+
+	if (!done && oldScene != nullptr && oldScene != activeScene)
 	{
-		if (activeScene != nullptr)
-		{
-			activeScene->Awake();
-		}
+		oldScene->DestoyScene();
+		oldScene->Unload();
+		oldScene = nullptr;
 	}
 
-	void SceneManager::Destroy()
+	if (!done)
 	{
-		if (activeScene != nullptr)
-		{
-			oldScene = activeScene;
-			activeScene = nullptr;
-		}
+		done = true;
+		isLoading = false;
 	}
 
-	void SceneManager::Start()
+}
+
+noa::SceneManager::~SceneManager()
+{
+	if (!sceneList.empty())
 	{
-		if (activeScene != nullptr)
+		for (auto& scene : sceneList)
 		{
-			activeScene->Start();
-		}
-		
-	}
-
-	void SceneManager::Update()
-	{
-		if (activeScene == nullptr)
-		{
-			return;
-		}
-		
-		activeScene->ActorUpdate();
-		activeScene->ApplyCamera();
-		activeScene->Update();
-		
-		if (!done&&oldScene != nullptr && oldScene != activeScene)
-		{
-			oldScene->DestoyScene();
-			oldScene->Unload();
-			oldScene = nullptr;
-		}
-
-		if (!done)
-		{
-			done = true;
-			isLoading = false;	
-		}
-
-	}
-
-	SceneManager::~SceneManager()
-	{
-		if (!sceneList.empty()) 
-		{
-			for (auto & scene:sceneList)
+			if (scene.second == nullptr)
 			{
-				if (scene.second == nullptr) 
-				{
-					scene.second->Delete();
-				}
+				scene.second->Delete();
 			}
 		}
-		sceneList.clear();
 	}
+	sceneList.clear();
+}
 
-	void SceneManager::Quit()
+void noa::SceneManager::Quit()
+{
+	isQuit = true;
+
+}
+
+noa::Actor* noa::SceneManager::FindActorWithTag(const std::string& tag)
+{
+	if (this->activeScene == nullptr)
 	{
-		isQuit = true;
-		
+		return nullptr;
 	}
+	return this->activeScene->FindActorWithTag(tag);
+}
 
-	Actor* SceneManager::FindActorWithTag(const std::string& tag)
+std::vector<noa::Actor*> noa::SceneManager::FindActorsWithTag(const std::string& tag)
+{
+	if (this->activeScene == nullptr)
 	{
-		if (this->activeScene == nullptr)
-		{
-			return nullptr;
-		}
-		return this->activeScene->FindActorWithTag(tag);
+		return std::vector<Actor*>();
 	}
-
-	std::vector<Actor*> SceneManager::FindActorsWithTag(const std::string& tag)
-	{
-		if (this->activeScene == nullptr)
-		{
-			return std::vector<Actor*>();
-		}
-		return this->activeScene->FindActorsWithTag(tag);
-	}
-
+	return this->activeScene->FindActorsWithTag(tag);
 }

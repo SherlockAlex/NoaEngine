@@ -15,11 +15,13 @@ namespace noa {
 
 	}SpriteRendererInstance;
 
+	class Animation;
 	class SpriteRenderer:public ActorComponent
 	{
 	private:
 		Sprite* sprite = nullptr;
 		SpriteGPU* spriteGPU = nullptr;
+		Animation* animationComponent = nullptr;
 	private:
 		SpriteRenderer(Actor* actor);
 		~SpriteRenderer();
@@ -29,6 +31,7 @@ namespace noa {
 
 		void UpdateSprite(const SpriteFile & spriteFile);
 		void SetSprite(Sprite * sprite);
+		void SetAnimation(Animation* animation);
 
 		void Update() override;
 

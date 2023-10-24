@@ -41,12 +41,11 @@ namespace noa {
 	enum class InstanceLayer {
 		MAIN_LAYER = 0,		//默认图层
 		GAME_LAYER = 1,		//游戏图层
-		UI_LAYER = 2			//UI图层
+		UI_LAYER = 2		//UI图层
 	};
 
 	typedef unsigned int Uint32;
 
-	//精灵贴图，由CPU进行绘图显示
 	class Sprite final {
 
 	public:
@@ -57,7 +56,6 @@ namespace noa {
 		int h = 1024;
 		Vector<int> scale = Vector<int>(32, 32);
 		bool isEmpty = false;
-		//int sizeForSurface = 3;
 
 	private:
 		std::vector<Uint32> image;

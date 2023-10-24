@@ -9,7 +9,6 @@ namespace noa {
 
 
 
-
 #ifdef __linux
 
 Display* display = nullptr;
@@ -21,28 +20,27 @@ void noa::InputSystem::Update()
 
 	if (e.type == SDL_MOUSEMOTION)
 	{
-		mouseEvent.delta.x += static_cast<double>(e.motion.xrel);
-		mouseEvent.delta.y += static_cast<double>(e.motion.yrel);
+		mouseContext.delta.x += static_cast<double>(e.motion.xrel);
+		mouseContext.delta.y += static_cast<double>(e.motion.yrel);
 	}
 	else {
-		mouseEvent.delta = { 0,0 };
+		mouseContext.delta = { 0,0 };
 	}
 
-
-	mouseEvent.motion = (e.type == SDL_MOUSEMOTION);
+	mouseContext.motion = (e.type == SDL_MOUSEMOTION);
 
 	if (e.type != SDL_MOUSEWHEEL)
 	{
-		mouseEvent.wheel = { 0,0 };
+		mouseContext.wheel = { 0,0 };
 	}
 	else {
-		mouseEvent.wheel.x = e.wheel.x;
-		mouseEvent.wheel.y = e.wheel.y;
+		mouseContext.wheel.x = e.wheel.x;
+		mouseContext.wheel.y = e.wheel.y;
 	}
 
 
-	mouseEvent.position.x = e.motion.x;
-	mouseEvent.position.y = e.motion.y;
+	mouseContext.position.x = e.motion.x;
+	mouseContext.position.y = e.motion.y;
 
 
 
@@ -135,15 +133,15 @@ noa::Vector<double> delta;
 noa::Vector<double>& noa::InputSystem::GetMouseMoveDelta()
 {
 
-	delta = mouseEvent.delta;
-	mouseEvent.delta = { 0,0 };
+	delta = mouseContext.delta;
+	mouseContext.delta = { 0,0 };
 	return delta;
 
 }
 
 noa::Vector<double>& noa::InputSystem::GetMousePosition()
 {
-	return mouseEvent.position;
+	return mouseContext.position;
 }
 
 
@@ -151,8 +149,8 @@ noa::Vector<double> wheel;
 noa::Vector<double>& noa::InputSystem::GetMouseWheel()
 {
 
-	wheel = mouseEvent.wheel;
-	mouseEvent.wheel = { 0,0 };
+	wheel = mouseContext.wheel;
+	mouseContext.wheel = { 0,0 };
 	return wheel;
 }
 

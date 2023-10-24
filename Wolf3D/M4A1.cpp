@@ -62,7 +62,7 @@ void M4A1::Update()
 	const float offsetY =15*(sinf((player->rigid->velocity.SqrMagnitude() != 0)* Time::time *6)+1);
 
 	this->spriteGPU->DrawSprite(0.5 * Screen::width + offsetX, Screen::height - sprite->scale.y + offsetY,true,0.0f);
-	//this->sprite->DrawSprite(0.5 * pixelWidth + offsetX, pixelHeight - 0.5 * pixelWidth + offsetY, true,true);
+	
 }
 
 void M4A1::Delete()
