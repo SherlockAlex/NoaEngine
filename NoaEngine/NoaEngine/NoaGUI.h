@@ -6,6 +6,7 @@
 #include "NoaAction.h"
 #include "Graphic.h"
 #include "Actor.h"
+#include "ActorComponent.h"
 #include "Transform.h"
 
 namespace noa {
@@ -80,6 +81,7 @@ namespace noa {
 		bool GetActive();
 	};
 
+	//Canvas作为独立的Actor存在
 	class UICanvas final : Actor
 	{
 	private:
@@ -90,6 +92,25 @@ namespace noa {
 		~UICanvas() override;
 	public:
 		static UICanvas* Create(Scene* scene);
+
+		void AddUIComponent(UIComponent* component);
+		void SetActive(bool active) override;
+
+		void Start() override;
+		void Update() override;
+
+	};
+
+	//Canvas作为ActorComponent存在
+	class UICanvasComponent final : ActorComponent
+	{
+	private:
+		std::vector<UIComponent*> uiComponent;
+	private:
+		UICanvasComponent(Actor* actor);
+		~UICanvasComponent() override;
+	public:
+		static UICanvasComponent* Create(Actor* actor);
 
 		void AddUIComponent(UIComponent* component);
 		void SetActive(bool active) override;
