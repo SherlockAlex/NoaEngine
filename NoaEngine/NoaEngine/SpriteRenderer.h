@@ -16,12 +16,17 @@ namespace noa {
 	}SpriteRendererInstance;
 
 	class Animation;
+	class UITransform;
 	class SpriteRenderer:public ActorComponent
 	{
 	private:
 		Sprite* sprite = nullptr;
 		SpriteGPU* spriteGPU = nullptr;
 		Animation* animationComponent = nullptr;
+
+	public:
+		UITransform transform;
+
 	private:
 		SpriteRenderer(Actor* actor);
 		~SpriteRenderer();

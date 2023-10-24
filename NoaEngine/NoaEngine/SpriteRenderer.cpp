@@ -3,6 +3,7 @@
 #include "SpriteRenderer.h"
 #include "Animator.h"
 #include "Debug.h"
+#include "Transform.h"
 
 namespace noa {
 	std::vector<noa::SpriteRendererInstance> spriteRendererInstances;
