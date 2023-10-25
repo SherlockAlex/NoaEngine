@@ -49,6 +49,10 @@ M4A1::M4A1(Player* player, int* bulletCount, FreeCamera* camera) :Gun(bulletCoun
 
 	this->spriteGPU = new SpriteGPU(sprite);
 
+	UICanvasComponent* canvas = UICanvasComponent::Create(player);
+	image = Image::Create(canvas);
+	image->transform.scale = Vector<int>(0.5 * Screen::width, 0.5 * Screen::width);
+	image->SetSprite(this->sprite);
 }
 
 M4A1* M4A1::Create(Player* player, int* bulletCount, FreeCamera* camera)
@@ -65,7 +69,12 @@ void M4A1::Update()
 	const float offsetX = 30 * (sinf((player->rigid->velocity.SqrMagnitude() != 0) * Time::time * 3) + 1);
 	const float offsetY =15*(sinf((player->rigid->velocity.SqrMagnitude() != 0)* Time::time *6)+1);
 
-	this->spriteGPU->DrawSprite(0.5 * Screen::width + offsetX, Screen::height - sprite->scale.y + offsetY,true,0.0f);
+	image->transform.position = { 
+		static_cast<int>(0.5 * Screen::width + offsetX)
+		, static_cast<int>(Screen::height - sprite->scale.y + offsetY)
+	};
+	
+	//this->spriteGPU->DrawSprite(0.5 * Screen::width + offsetX, Screen::height - sprite->scale.y + offsetY,true,0.0f);
 	
 }
 

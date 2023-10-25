@@ -57,25 +57,32 @@ namespace noa {
 
 	};
 
+	class UICanvas;
+	class UICanvasComponent;
+
 	class UIComponent
 	{
 	protected:
 		bool active = false;
 		friend class UICanvas;
+		friend class UICanvasComponent;
 	public:
-		//屏幕位置
 		UITransform transform;
 	protected:
 
-		UIComponent();
+		UIComponent(UICanvas * canvas);
+		UIComponent(UICanvasComponent* canvas);
 		virtual ~UIComponent();
 
+	private:
 		void Delete(UIComponent *& ptr);
 
-	public:
+	protected:
 
 		virtual void Start() = 0;
 		virtual void Update() = 0;
+
+	public:
 
 		void SetActive(bool active);
 		bool GetActive();
@@ -84,6 +91,8 @@ namespace noa {
 	//Canvas作为独立的Actor存在
 	class UICanvas final : Actor
 	{
+	private:
+		NOBJECT(UICanvas)
 	private:
 		std::vector<UIComponent*> uiComponent;
 
@@ -104,6 +113,8 @@ namespace noa {
 	//Canvas作为ActorComponent存在
 	class UICanvasComponent final : ActorComponent
 	{
+	private:
+		NOBJECT(UICanvasComponent)
 	private:
 		std::vector<UIComponent*> uiComponent;
 	private:
@@ -134,11 +145,13 @@ namespace noa {
 
 	protected:
 		Text(UICanvas* canvas);
+		Text(UICanvasComponent* canvas);
 		~Text();
 
 	public:
 
 		static Text* Create(UICanvas * canvas);
+		static Text* Create(UICanvasComponent* canvas);
 
 		void Start() override;
 		void Update() override;
@@ -148,17 +161,19 @@ namespace noa {
 	class Image :public UIComponent {
 	public:
 		uint32_t color = WHITE;
-
+		bool isFilpX = false;//进行图片翻转
 	private:
 		Sprite* sprite = nullptr;
 		SpriteGPU* spriteGPU = nullptr;
 	private:
 		Image(UICanvas * canvas);
+		Image(UICanvasComponent* canvas);
 		~Image();
 
 	public:
 
 		static Image* Create(UICanvas * canvas);
+		static Image* Create(UICanvasComponent * canvas);
 
 		void SetSprite(Sprite * sprite);
 
@@ -185,10 +200,12 @@ namespace noa {
 
 	private:
 		Button(UICanvas* canvas);
+		Button(UICanvasComponent* canvas);
 		~Button();
 
 	public:
 		static Button* Create(UICanvas * canvas);
+		static Button* Create(UICanvasComponent* canvas);
 
 		void SwapState();
 

@@ -4,7 +4,8 @@
 /**************************
 * 
 * NObject 模块
-* 作用:用于将Actor和ActorComponent分配到堆上
+* 用于将Actor和ActorComponent分配到堆上
+* 同时规定一套定式，规范Actor和ActorComponent的构造参数
 * 
 **************************/
 

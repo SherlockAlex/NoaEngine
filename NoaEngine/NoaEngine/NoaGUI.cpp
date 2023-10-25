@@ -83,7 +83,7 @@ noa::FontAsset::FontAsset(const char* ttfPath, int size)
 
 noa::Font* noa::FontAsset::GetFont(char c)
 {
-	if (!ContainKey<char, Font*>(this->fonts, c))
+	if (this->fonts.count(c)<=0) 
 	{
 		return nullptr;
 	}
@@ -99,6 +99,8 @@ noa::UICanvas::~UICanvas()
 {
 	if (!this->uiComponent.empty())
 	{
+		//¶Ôcomponent½øÐÐÅÅÐò
+		std::sort(uiComponent.begin(), uiComponent.end());
 		auto last = std::unique(uiComponent.begin(), uiComponent.end());
 		uiComponent.erase(last, uiComponent.end());
 
@@ -115,7 +117,7 @@ noa::UICanvas::~UICanvas()
 
 noa::UICanvas* noa::UICanvas::Create(Scene* scene)
 {
-	return new UICanvas(scene);
+	return noa::NObject<UICanvas>::Create<Scene*>(scene);
 }
 
 void noa::UICanvas::AddUIComponent(UIComponent* component)
@@ -131,27 +133,35 @@ void noa::UICanvas::AddUIComponent(UIComponent* component)
 void noa::UICanvas::SetActive(bool active)
 {
 	Actor::SetActive(active);
-	for (int i = 0; i < uiComponent.size(); i++)
+
+	for (auto & component:uiComponent) 
 	{
-		uiComponent[i]->SetActive(active);
+		if (component!=nullptr) 
+		{
+			component->SetActive(active);
+		}
+
 	}
 }
 
 void noa::UICanvas::Start()
 {
-	for (int i = 0; i < static_cast<int>(uiComponent.size()); i++)
+
+	for (auto & component:uiComponent) 
 	{
-		uiComponent[i]->Start();
+		if (component!=nullptr) 
+		{
+			component->Start();
+		}
 	}
+
 }
 
 void noa::UICanvas::Update()
 {
-	const int uiComponentCount = static_cast<int>(uiComponent.size());
-
 	for (auto& component : uiComponent)
 	{
-		if (!component->GetActive())
+		if (component == nullptr||!component->GetActive())
 		{
 			continue;
 		}
@@ -159,12 +169,92 @@ void noa::UICanvas::Update()
 	}
 }
 
-noa::Button::Button(UICanvas* canvas) :UIComponent()
+noa::UICanvasComponent::UICanvasComponent(Actor* actor) :ActorComponent(actor)
 {
-	if (canvas)
+
+}
+
+noa::UICanvasComponent::~UICanvasComponent() {
+	if (!uiComponent.empty()) 
 	{
-		canvas->AddUIComponent(this);
+		std::sort(uiComponent.begin(),uiComponent.end());
+		auto last = std::unique(uiComponent.begin(), uiComponent.end());
+		uiComponent.erase(last,uiComponent.end());
+
+		for (auto & component:uiComponent) 
+		{
+			if (component!=nullptr)
+			{
+				component->Delete(component);
+			}
+		}
+
 	}
+}
+
+noa::UICanvasComponent* noa::UICanvasComponent::Create(Actor * actor) 
+{
+	return noa::NObject<UICanvasComponent>::Create<Actor*>(actor);
+}
+
+void noa::UICanvasComponent::AddUIComponent(UIComponent* component) 
+{
+	if (component == nullptr)
+	{
+		return;
+	}
+	component->SetActive(true);
+	uiComponent.push_back(component);
+}
+
+void noa::UICanvasComponent::SetActive(bool active)
+{
+	ActorComponent::SetActive(active);
+
+	for (auto & component:uiComponent)
+	{
+		if (component!=nullptr)
+		{
+			component->SetActive(active);
+		}
+	}
+}
+
+void noa::UICanvasComponent::Start() {
+
+	for (auto & component:uiComponent) 
+	{
+		if (component!=nullptr) 
+		{
+			component->Start();
+		}
+	}
+
+}
+
+void noa::UICanvasComponent::Update() {
+	for (auto & component:uiComponent) 
+	{
+		if (component == nullptr||!component->GetActive()) 
+		{
+			continue;
+		}
+		component->Update();
+	}
+}
+
+
+noa::Button::Button(UICanvas* canvas) :UIComponent(canvas)
+{
+	image = Image::Create(canvas);
+	text = Text::Create(canvas);
+
+	this->transform.scale = { 320,160 };
+
+}
+
+noa::Button::Button(UICanvasComponent* canvas) :UIComponent(canvas)
+{
 	image = Image::Create(canvas);
 	text = Text::Create(canvas);
 
@@ -178,6 +268,12 @@ noa::Button::~Button()
 }
 
 noa::Button* noa::Button::Create(UICanvas* canvas)
+{
+	Button* button = new Button(canvas);
+	return button;
+}
+
+noa::Button* noa::Button::Create(UICanvasComponent* canvas)
 {
 	Button* button = new Button(canvas);
 	return button;
@@ -258,9 +354,20 @@ void noa::Button::AddClickEvent(std::function<void()> func)
 	this->clickEvent += func;
 }
 
-noa::UIComponent::UIComponent()
+noa::UIComponent::UIComponent(noa::UICanvas* canvas)
 {
+	if (canvas)
+	{
+		canvas->AddUIComponent(this);
+	}
+}
 
+noa::UIComponent::UIComponent(noa::UICanvasComponent* canvas)
+{
+	if (canvas) 
+	{
+		canvas->AddUIComponent(this);
+	}
 }
 
 noa::UIComponent::~UIComponent()
@@ -284,12 +391,13 @@ bool noa::UIComponent::GetActive()
 	return active;
 }
 
-noa::Text::Text(UICanvas* canvas) :UIComponent()
+noa::Text::Text(UICanvas* canvas) :UIComponent(canvas)
 {
-	if (canvas)
-	{
-		canvas->AddUIComponent(this);
-	}
+
+}
+
+noa::Text::Text(UICanvasComponent* canvas) :UIComponent(canvas)
+{
 }
 
 noa::Text::~Text()
@@ -298,6 +406,12 @@ noa::Text::~Text()
 }
 
 noa::Text* noa::Text::Create(UICanvas* canvas)
+{
+	Text* text = new Text(canvas);
+	return text;
+}
+
+noa::Text* noa::Text::Create(UICanvasComponent* canvas)
 {
 	Text* text = new Text(canvas);
 	return text;
@@ -316,12 +430,13 @@ void noa::Text::Update()
 
 
 
-noa::Image::Image(UICanvas* canvas) :UIComponent()
+noa::Image::Image(UICanvas* canvas) :UIComponent(canvas)
 {
-	if (canvas)
-	{
-		canvas->AddUIComponent(this);
-	}
+
+}
+
+noa::Image::Image(UICanvasComponent* canvas) :UIComponent(canvas) {
+
 }
 
 noa::Image::~Image()
@@ -334,6 +449,12 @@ noa::Image::~Image()
 }
 
 noa::Image* noa::Image::Create(UICanvas* canvas)
+{
+	Image* image = new Image(canvas);
+	return image;
+}
+
+noa::Image* noa::Image::Create(UICanvasComponent* canvas)
 {
 	Image* image = new Image(canvas);
 	return image;
@@ -376,9 +497,10 @@ void noa::Image::Update()
 			, static_cast<float>(transform.scale.x)
 			, static_cast<float>(transform.scale.y)
 			, color
-			, false
+			, isFilpX
 			, 0.0f
 		);
+
 	}
 
 
