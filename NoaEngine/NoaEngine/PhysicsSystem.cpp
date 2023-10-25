@@ -180,11 +180,11 @@ bool noa::PhysicsSystem::CircleCollide(CircleCollider2D* obj1, CircleCollider2D*
 		return false;
 	}
 
-	const float deltaX = obj1->rigidbody->actor->transform.position.x
-		- obj2->rigidbody->actor->transform.position.x;
+	const float deltaX = obj1->rigidbody->GetActor()->transform.position.x
+		- obj2->rigidbody->GetActor()->transform.position.x;
 
-	const float deltaY = obj1->rigidbody->actor->transform.position.y
-		- obj2->rigidbody->actor->transform.position.y;
+	const float deltaY = obj1->rigidbody->GetActor()->transform.position.y
+		- obj2->rigidbody->GetActor()->transform.position.y;
 
 	const float deltaR = obj1->radius + obj2->radius;
 
@@ -200,13 +200,13 @@ bool noa::PhysicsSystem::BoxCollide(BoxCollider2D* obj1, BoxCollider2D* obj2)
 		return false;
 	}
 
-	float obj1X = obj1->rigidbody->actor->transform.position.x;
-	float obj1Y = obj1->rigidbody->actor->transform.position.y;
+	float obj1X = obj1->rigidbody->GetActor()->transform.position.x;
+	float obj1Y = obj1->rigidbody->GetActor()->transform.position.y;
 	float obj1Width = obj1->scale.x;
 	float obj1Height = obj1->scale.y;
 
-	float obj2X = obj2->rigidbody->actor->transform.position.x;
-	float obj2Y = obj2->rigidbody->actor->transform.position.y;
+	float obj2X = obj2->rigidbody->GetActor()->transform.position.x;
+	float obj2Y = obj2->rigidbody->GetActor()->transform.position.y;
 	float obj2Width = obj2->scale.x;
 	float obj2Height = obj2->scale.y;
 
@@ -233,13 +233,13 @@ bool noa::PhysicsSystem::BoxAndCircleCollide(BoxCollider2D* obj1, CircleCollider
 		return false;
 	}
 
-	float rectX = obj1->rigidbody->actor->transform.position.x;
-	float rectY = obj1->rigidbody->actor->transform.position.y;
+	float rectX = obj1->rigidbody->GetActor()->transform.position.x;
+	float rectY = obj1->rigidbody->GetActor()->transform.position.y;
 	float rectWidth = obj1->scale.x;
 	float rectHeight = obj1->scale.y;
 
-	float circleX = obj2->rigidbody->actor->transform.position.x;
-	float circleY = obj2->rigidbody->actor->transform.position.y;
+	float circleX = obj2->rigidbody->GetActor()->transform.position.x;
+	float circleY = obj2->rigidbody->GetActor()->transform.position.y;
 	float circleRadius = obj2->radius;
 
 	float rectHalfWidth = rectWidth / 2;

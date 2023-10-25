@@ -56,7 +56,6 @@ namespace noa {
 
 		Vector<float> newPosition;
 		Vector<float> force = Vector<float>(0.0, 0.0);
-		Actor* actor = nullptr;
 		TileMap* tileMap = nullptr;
 		std::vector<Collider2D*> colliders;
 		Collision collision;

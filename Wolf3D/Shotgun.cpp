@@ -49,8 +49,6 @@ Shotgun::Shotgun(Player* player, int* bulletCount,FreeCamera * camera):Gun(bulle
 
 	animation->SetAnimatedSprite(this->sprite);
 
-	this->spriteGPU = new SpriteGPU(sprite);
-
 	canvas = UICanvasComponent::Create(player);
 	image = Image::Create(canvas);
 	image->transform.scale = Vector<int>(0.5 * Screen::width, 0.5 * Screen::width);
@@ -83,8 +81,7 @@ void Shotgun::Update()
 		, static_cast<int>(Screen::height - sprite->scale.y + offsetY)
 	};
 
-	//this->spriteGPU->DrawSprite(0.5 * Screen::width + offsetX, Screen::height - sprite->scale.y + offsetY, true, 0.0f);
-	//this->sprite->DrawSprite(0.5 * pixelWidth, pixelHeight - 0.5 * pixelWidth + offsetY, true,true);
+	
 }
 
 void Shotgun::OnExit()
@@ -97,7 +94,6 @@ void Shotgun::OnExit()
 
 void Shotgun::Delete()
 {
-	delete this->spriteGPU;
 	delete this->sprite;
 	delete this->audio;
 	delete this;

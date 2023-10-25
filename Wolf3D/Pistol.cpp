@@ -52,8 +52,6 @@ Pistol::Pistol(Player* player, int* bulletCount, FreeCamera* camera):Gun(bulletC
 
 	this->animation->SetAnimatedSprite(this->sprite);
 
-	this->spriteGPU = new SpriteGPU(sprite);
-
 	canvas = UICanvasComponent::Create(player);
 	image = Image::Create(canvas);
 	image->SetSprite(this->sprite);
@@ -87,8 +85,6 @@ void Pistol::Update()
 		, static_cast<int>(Screen::height - sprite->scale.y + offsetY)
 	};
 
-	//this->spriteGPU->DrawSprite(0.5 * Screen::width + offsetX, Screen::height - sprite->scale.y + offsetY, true, 0.0f);
-	//this->sprite->DrawSprite(0.5 * pixelWidth, pixelHeight - 0.5 * pixelWidth + offsetY, true,true);
 }
 
 void Pistol::OnExit()
@@ -101,7 +97,6 @@ void Pistol::OnExit()
 
 void Pistol::Delete()
 {
-	delete this->spriteGPU;
 	delete this->sprite;
 	delete this->audio;
 	delete this;

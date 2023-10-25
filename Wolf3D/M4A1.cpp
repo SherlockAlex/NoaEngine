@@ -46,8 +46,6 @@ M4A1::M4A1(Player* player, int* bulletCount, FreeCamera* camera) :Gun(bulletCoun
 
 	this->animation->SetAnimatedSprite(this->sprite);
 
-	this->spriteGPU = new SpriteGPU(sprite);
-
 	canvas = UICanvasComponent::Create(player);
 	image = Image::Create(canvas);
 	image->transform.scale = Vector<int>(0.5 * Screen::width, 0.5 * Screen::width);
@@ -91,7 +89,6 @@ void M4A1::OnExit()
 
 void M4A1::Delete()
 {
-	delete this->spriteGPU;
 	delete this->sprite;
 	delete this->audio;
 	delete this;

@@ -26,7 +26,6 @@ noa::Rigidbody::Rigidbody(Actor* actor) :ActorComponent(actor)
 {
 
 	collision.actor = nullptr;
-	this->actor = actor;
 	this->velocity = { 0,0 };
 	invMass = 1.0f / mass;
 	colliders.reserve(10);
@@ -71,7 +70,7 @@ void noa::Rigidbody::UpdateVelocity(float deltaTime)
 	if (useMotion)
 	{
 		velocity = (velocity * (1 - damping)) + (this->force * (deltaTime * invMass));
-		newPosition = (this->actor->transform.position) + (velocity * deltaTime);
+		newPosition = (GetActor()->transform.position) + (velocity * deltaTime);
 
 		this->ApplyTileCollision();
 
@@ -94,10 +93,10 @@ void noa::Rigidbody::UpdatePosition(float deltaTime)
 
 
 
-	if (useMotion && (!isFrozen) && actor != nullptr)
+	if (useMotion && (!isFrozen) && GetActor() != nullptr)
 	{
 		isGrounded = false;
-		actor->transform.position = newPosition;
+		GetActor()->transform.position = newPosition;
 	}
 }
 
@@ -168,10 +167,10 @@ void noa::Rigidbody::ApplyTileCollision()
 
 	if (tileMap->IsCollisionTile(
 		static_cast<int>(newPosition.x - scaleX)
-		, static_cast<int>(this->actor->transform.position.y - scaleY))
+		, static_cast<int>(GetActor()->transform.position.y - scaleY))
 		|| tileMap->IsCollisionTile(
 			static_cast<int>(newPosition.x - scaleX)
-			, static_cast<int>(this->actor->transform.position.y + 0.999 + scaleY))
+			, static_cast<int>(GetActor()->transform.position.y + 0.999 + scaleY))
 	)
 	{
 		for (auto& collider : colliders)
@@ -187,10 +186,10 @@ void noa::Rigidbody::ApplyTileCollision()
 
 	if (tileMap->IsCollisionTile(
 		static_cast<int>(newPosition.x + 0.999 + scaleX)
-		, static_cast<int>(this->actor->transform.position.y - scaleY))
+		, static_cast<int>(GetActor()->transform.position.y - scaleY))
 		|| tileMap->IsCollisionTile(
 			static_cast<int>(newPosition.x + 0.999 + scaleX)
-			, static_cast<int>(this->actor->transform.position.y + 0.999 + scaleY))
+			, static_cast<int>(GetActor()->transform.position.y + 0.999 + scaleY))
 	)
 	{
 		for (auto& collider : colliders)
