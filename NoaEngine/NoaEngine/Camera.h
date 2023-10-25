@@ -55,7 +55,7 @@ namespace noa {
 
 	private:
 		//±³¾°Í¼Æ¬
-		SpriteGPU * background = nullptr;
+		std::shared_ptr<SpriteGPU> background = nullptr;
 
 		Vector<int> tileScale = Vector<int>(64, 64);
 

@@ -29,7 +29,7 @@ public:
 	Sprite mouse = Sprite(resource.LoadSprFile("./Assets/Wolf/mouse.spr"), Vector<int>(0.02 * Screen::width, 0.02 * Screen::width));
 
 	//SpriteGPU需要在初始化游戏引擎之后才能进行创建
-	SpriteGPU mouseGPU = SpriteGPU(&mouse);
+	//SpriteGPU mouseGPU = SpriteGPU(&mouse);
 
 	Sprite cacoSprite = Sprite(Vector<int>(32, 32));
 

@@ -2,6 +2,7 @@
 #include "Enimy.h"
 #include "M4A1.h"
 #include "Enter.h"
+#include "WolfResource.h"
 
 Player::Player(Scene* scene) :Actor(scene)
 {
@@ -13,6 +14,14 @@ Player::Player(Scene* scene) :Actor(scene)
 	rigid->damping = 0;
 
 	MakeGun();
+
+	UICanvasComponent* canvas = UICanvasComponent::Create(this);
+	Image* image = Image::Create(canvas);
+	image->SetSprite(&wolfResource->mouse);
+	image->transform.scale = wolfResource->mouse.scale;
+	image->transform.position = Vector<int>(Screen::width * 0.5 - 0.5 * wolfResource->mouse.scale.x
+		, Screen::height * 0.5 - 0.5 * wolfResource->mouse.scale.y);
+
 
 }
 

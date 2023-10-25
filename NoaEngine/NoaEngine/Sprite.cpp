@@ -303,6 +303,11 @@ noa::SpriteGPU::~SpriteGPU()
 	}
 }
 
+std::shared_ptr<noa::SpriteGPU> noa::SpriteGPU::Create(Sprite* sprite)
+{
+	return std::make_shared<SpriteGPU>(sprite);
+}
+
 void noa::SpriteGPU::SetLayer(InstanceLayer layer)
 {
 	this->layer = layer;

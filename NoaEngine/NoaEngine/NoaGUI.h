@@ -26,7 +26,7 @@ namespace noa {
 			this->sprite = sprite;
 			if (sprite) 
 			{
-				spriteGPU = std::make_shared<SpriteGPU>(sprite.get());
+				spriteGPU = SpriteGPU::Create(sprite.get());
 				spriteGPU->SetLayer(InstanceLayer::UI_LAYER);
 			}
 		}
@@ -36,7 +36,7 @@ namespace noa {
 			this->sprite = std::make_shared<Sprite>(spriteFile, Vector<int>(64, 64));
 			if (sprite) 
 			{
-				spriteGPU = std::make_shared<SpriteGPU>(sprite.get());
+				spriteGPU = SpriteGPU::Create(sprite.get());
 				spriteGPU->SetLayer(InstanceLayer::UI_LAYER);
 			}
 		}
@@ -164,7 +164,7 @@ namespace noa {
 		bool isFilpX = false;//½øÐÐÍ¼Æ¬·­×ª
 	private:
 		Sprite* sprite = nullptr;
-		SpriteGPU* spriteGPU = nullptr;
+		std::shared_ptr<SpriteGPU> spriteGPU = nullptr;
 	private:
 		Image(UICanvas * canvas);
 		Image(UICanvasComponent* canvas);

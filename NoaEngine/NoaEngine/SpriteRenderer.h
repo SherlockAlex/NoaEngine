@@ -19,8 +19,10 @@ namespace noa {
 	class SpriteRenderer:public ActorComponent
 	{
 	private:
+		NOBJECT(SpriteRenderer)
+	private:
 		Sprite* sprite = nullptr;
-		SpriteGPU* spriteGPU = nullptr;
+		std::shared_ptr<SpriteGPU> spriteGPU = nullptr;
 
 	private:
 		SpriteRenderer(Actor* actor);

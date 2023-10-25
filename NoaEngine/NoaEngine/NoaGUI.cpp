@@ -441,11 +441,7 @@ noa::Image::Image(UICanvasComponent* canvas) :UIComponent(canvas) {
 
 noa::Image::~Image()
 {
-	if (spriteGPU)
-	{
-		delete spriteGPU;
-		spriteGPU = nullptr;
-	}
+	
 }
 
 noa::Image* noa::Image::Create(UICanvas* canvas)
@@ -473,7 +469,7 @@ void noa::Image::SetSprite(Sprite* sprite)
 		spriteGPU->SetLayer(InstanceLayer::UI_LAYER);
 		return;
 	}
-	spriteGPU = new SpriteGPU(sprite);
+	spriteGPU = SpriteGPU::Create(sprite);
 	spriteGPU->SetLayer(InstanceLayer::UI_LAYER);
 }
 

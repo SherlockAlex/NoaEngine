@@ -59,7 +59,6 @@ namespace noa {
 
 	private:
 		std::vector<Uint32> image;
-		//Uint32* image = nullptr;
 
 		int sw = 2;
 		int sh = 2;
@@ -91,8 +90,15 @@ namespace noa {
 
 	class Texture;
 
-	// 使用GPU渲染图片，强制要求必须创建在NoaEngine之后
-	class SpriteGPU final {
+	class SpriteGPU final
+	{
+	private:
+		friend class Image;
+		friend class SpriteRenderer;
+		friend class StaticCamera;
+		friend struct Font;
+		friend struct Tile;
+
 	private:
 		Sprite* sprite = nullptr;
 
@@ -102,8 +108,11 @@ namespace noa {
 
 	public:
 		SpriteGPU(Sprite * sprite);
-
 		~SpriteGPU();
+	private:
+		static std::shared_ptr<SpriteGPU> Create(Sprite * sprite);
+
+	public:
 
 		void SetLayer(InstanceLayer layer);
 

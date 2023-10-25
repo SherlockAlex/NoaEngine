@@ -529,7 +529,7 @@ namespace noa {
 		{
 			return;
 		}
-		background = new SpriteGPU(sprite);
+		background = SpriteGPU::Create(sprite);
 	}
 
 	void StaticCamera::SetTileScale(const Vector<int>& tileScale)

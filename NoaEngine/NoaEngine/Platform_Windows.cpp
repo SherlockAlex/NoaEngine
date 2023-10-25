@@ -21,7 +21,7 @@ int noa::Platform_Windows::Create(int width, int height, WindowMode windowMode, 
 			SDL_WINDOWPOS_CENTERED,
 			width,
 			height,
-			((uint32_t)windowMode)|SDL_WINDOW_OPENGL
+			static_cast<uint32_t>(windowMode)|SDL_WINDOW_OPENGL
 	);
 
 	if (windows == nullptr)

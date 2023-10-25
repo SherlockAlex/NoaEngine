@@ -12,8 +12,6 @@ Pistol::Pistol(Player* player, int* bulletCount, FreeCamera* camera):Gun(bulletC
 	this->animation = Animation::Create(player,30, false);
 	this->player = player;
 	
-
-	//animation->LoadFromAnimationFile("./Assets/Wolf/lgun-shot.amt");
 	animation->SetFrame(&wolfResource->pistolFrame);
 
 	animation->SetFrameEvent(1, [this]()

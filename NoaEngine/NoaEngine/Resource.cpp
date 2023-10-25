@@ -206,7 +206,7 @@ noa::Tile::Tile(shared_ptr<Sprite> sprite, bool isCollision)
 	this->isCollision = isCollision;
 	if (sprite)
 	{
-		spriteGPU = make_shared<SpriteGPU>(sprite.get());
+		spriteGPU = SpriteGPU::Create(sprite.get());
 	}
 }
 

@@ -131,10 +131,10 @@ void Level01::Start()
 
 void Level01::Update()
 {
-	wolfResource->mouseGPU.DrawSprite(
+	/*wolfResource->mouseGPU.DrawSprite(
 		Screen::width * 0.5 - 0.5 * wolfResource->mouse.scale.x
 		, Screen::height * 0.5 - 0.5 * wolfResource->mouse.scale.y
-		, true);
+		, true);*/
 
 }
 

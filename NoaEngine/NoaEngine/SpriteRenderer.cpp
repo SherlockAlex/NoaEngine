@@ -24,16 +24,12 @@ noa::SpriteRenderer::SpriteRenderer(Actor* actor):ActorComponent(actor)
 
 noa::SpriteRenderer::~SpriteRenderer()
 {
-	if (spriteGPU!=nullptr) 
-	{
-		delete spriteGPU;
-		spriteGPU = nullptr;
-	}
+	
 }
 
 noa::SpriteRenderer* noa::SpriteRenderer::Create(Actor* actor)
 {
-	return new SpriteRenderer(actor);
+	return NObject<SpriteRenderer>::Create<Actor*>(actor);
 }
 
 void noa::SpriteRenderer::UpdateSprite(const SpriteFile& spriteFile)
@@ -55,7 +51,7 @@ void noa::SpriteRenderer::SetSprite(Sprite* sprite)
 
 	if (spriteGPU == nullptr) 
 	{
-		spriteGPU = new SpriteGPU(sprite);
+		spriteGPU = SpriteGPU::Create(sprite);
 		return;
 	}
 
@@ -74,7 +70,7 @@ void noa::SpriteRenderer::Update()
 	SpriteRendererInstance instance;
 	instance.actor = this->GetActor();
 	instance.sprite = this->sprite;
-	instance.spriteGPU = this->spriteGPU;
+	instance.spriteGPU = this->spriteGPU.get();
 
 	spriteRendererInstances.push_back(instance);
 
