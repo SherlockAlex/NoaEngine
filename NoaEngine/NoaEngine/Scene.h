@@ -17,6 +17,7 @@
 
 #include "NoaMath.h"
 #include "Resource.h"
+#include "Debug.h"
 
 namespace noa {
 
@@ -124,8 +125,13 @@ namespace noa {
 				buffer = dynamic_cast<T*>(actor);
 				if (buffer != nullptr) 
 				{
+					Debug::Log("’“µΩActor");
 					break;
 				}
+			}
+			if (buffer == nullptr) 
+			{
+				Debug::Log("Œ¥’“µΩActor");
 			}
 			return buffer;
 		}

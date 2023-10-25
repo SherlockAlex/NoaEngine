@@ -247,8 +247,6 @@ Uint32 noa::Sprite::GetColor(const float normalizedX, const float normalizedY) c
 		return ERRORCOLOR;
 	}
 
-
-
 	const int sx = static_cast<int>(std::abs(normalizedX * (w - 1))) % w;
 	const int sy = static_cast<int>(std::abs(normalizedY * (h - 1))) % h;
 

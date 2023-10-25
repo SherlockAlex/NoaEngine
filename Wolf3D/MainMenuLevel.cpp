@@ -35,7 +35,7 @@ void MainMenuLevel::Awake()
 	startButton->text->text = "START";
 	startButton->AddClickEvent([this]() 
 		{
-			sceneManager.LoadScene("NewGame");
+			sceneManager.LoadScene("SecondFloor");
 		}
 	);
 
