@@ -139,30 +139,25 @@ void Player::ActorControl()
 			case 102:
 				//执行对应的事件
 				//去搜索这个位置上的trigger
-				enter = sceneManager.FindActorWithType<Enter>();
+				/*enter = sceneManager.FindActorWithType<Enter>();
 				if (enter!=nullptr)
 				{
 					enter->Load();
+				}*/
+
+				if (sceneManager.GetActiveScene()->GetName() == "NewGame")
+				{
+					sceneManager.LoadScene("SecondFloor");
 				}
+				else if (sceneManager.GetActiveScene()->GetName() == "SecondFloor")
+				{
+					sceneManager.LoadScene("NewGame");
+				}
+
 				break;
 			default:
 				break;
 			}
-
-			/*if (ray.hitTile == 98) 
-			{
-				this->rigid->GetTileMap()->SetTileID(ray.tilePosition.x,ray.tilePosition.y,107);
-				interactAFX.Play(false);
-			}
-
-			else if (ray.hitTile == 102&&sceneManager.GetActiveScene()->GetName() == "NewGame")
-			{
-				sceneManager.LoadScene("SecondFloor");
-			}
-			else if (ray.hitTile == 102 && sceneManager.GetActiveScene()->GetName() == "SecondFloor")
-			{
-				sceneManager.LoadScene("NewGame");
-			}*/
 		}
 		
 	}

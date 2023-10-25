@@ -66,6 +66,9 @@
     <ClCompile Include="MainMenuLevel.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Enter.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
     <ClCompile Include="..\NoaEngine\NoaEngine\Actor.cpp">
       <Filter>头文件\NoaEngine</Filter>
     </ClCompile>
@@ -94,6 +97,9 @@
       <Filter>头文件\NoaEngine</Filter>
     </ClCompile>
     <ClCompile Include="..\NoaEngine\NoaEngine\GLRenderer.cpp">
+      <Filter>头文件\NoaEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\NoaEngine\NoaEngine\GLShader.cpp">
       <Filter>头文件\NoaEngine</Filter>
     </ClCompile>
     <ClCompile Include="..\NoaEngine\NoaEngine\GLTexture.cpp">
@@ -144,6 +150,9 @@
     <ClCompile Include="..\NoaEngine\NoaEngine\Scene.cpp">
       <Filter>头文件\NoaEngine</Filter>
     </ClCompile>
+    <ClCompile Include="..\NoaEngine\NoaEngine\Screen.cpp">
+      <Filter>头文件\NoaEngine</Filter>
+    </ClCompile>
     <ClCompile Include="..\NoaEngine\NoaEngine\SDLRenderer.cpp">
       <Filter>头文件\NoaEngine</Filter>
     </ClCompile>
@@ -166,15 +175,6 @@
       <Filter>头文件\NoaEngine</Filter>
     </ClCompile>
     <ClCompile Include="..\NoaEngine\NoaEngine\Transform.cpp">
-      <Filter>头文件\NoaEngine</Filter>
-    </ClCompile>
-    <ClCompile Include="..\NoaEngine\NoaEngine\Screen.cpp">
-      <Filter>头文件\NoaEngine</Filter>
-    </ClCompile>
-    <ClCompile Include="Enter.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="..\NoaEngine\NoaEngine\GLShader.cpp">
       <Filter>头文件\NoaEngine</Filter>
     </ClCompile>
   </ItemGroup>
@@ -227,6 +227,9 @@
     <ClInclude Include="MainMenuLevel.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="Enter.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
     <ClInclude Include="..\NoaEngine\NoaEngine\Actor.h">
       <Filter>头文件\NoaEngine</Filter>
     </ClInclude>
@@ -260,6 +263,9 @@
     <ClInclude Include="..\NoaEngine\NoaEngine\GLRenderer.h">
       <Filter>头文件\NoaEngine</Filter>
     </ClInclude>
+    <ClInclude Include="..\NoaEngine\NoaEngine\GLShader.h">
+      <Filter>头文件\NoaEngine</Filter>
+    </ClInclude>
     <ClInclude Include="..\NoaEngine\NoaEngine\GLTexture.h">
       <Filter>头文件\NoaEngine</Filter>
     </ClInclude>
@@ -273,6 +279,9 @@
       <Filter>头文件\NoaEngine</Filter>
     </ClInclude>
     <ClInclude Include="..\NoaEngine\NoaEngine\IPoolObjectFactroy.h">
+      <Filter>头文件\NoaEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\NoaEngine\NoaEngine\List.h">
       <Filter>头文件\NoaEngine</Filter>
     </ClInclude>
     <ClInclude Include="..\NoaEngine\NoaEngine\NoaAction.h">
@@ -305,6 +314,9 @@
     <ClInclude Include="..\NoaEngine\NoaEngine\Platform_Windows.h">
       <Filter>头文件\NoaEngine</Filter>
     </ClInclude>
+    <ClInclude Include="..\NoaEngine\NoaEngine\Queue.h">
+      <Filter>头文件\NoaEngine</Filter>
+    </ClInclude>
     <ClInclude Include="..\NoaEngine\NoaEngine\Renderer.h">
       <Filter>头文件\NoaEngine</Filter>
     </ClInclude>
@@ -312,6 +324,9 @@
       <Filter>头文件\NoaEngine</Filter>
     </ClInclude>
     <ClInclude Include="..\NoaEngine\NoaEngine\Scene.h">
+      <Filter>头文件\NoaEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\NoaEngine\NoaEngine\Screen.h">
       <Filter>头文件\NoaEngine</Filter>
     </ClInclude>
     <ClInclude Include="..\NoaEngine\NoaEngine\ScriptableActor.h">
@@ -332,6 +347,9 @@
     <ClInclude Include="..\NoaEngine\NoaEngine\SpriteRenderer.h">
       <Filter>头文件\NoaEngine</Filter>
     </ClInclude>
+    <ClInclude Include="..\NoaEngine\NoaEngine\Stack.h">
+      <Filter>头文件\NoaEngine</Filter>
+    </ClInclude>
     <ClInclude Include="..\NoaEngine\NoaEngine\StateMachine.h">
       <Filter>头文件\NoaEngine</Filter>
     </ClInclude>
@@ -342,15 +360,6 @@
       <Filter>头文件\NoaEngine</Filter>
     </ClInclude>
     <ClInclude Include="..\NoaEngine\NoaEngine\Transform.h">
-      <Filter>头文件\NoaEngine</Filter>
-    </ClInclude>
-    <ClInclude Include="..\NoaEngine\NoaEngine\Screen.h">
-      <Filter>头文件\NoaEngine</Filter>
-    </ClInclude>
-    <ClInclude Include="Enter.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\NoaEngine\NoaEngine\GLShader.h">
       <Filter>头文件\NoaEngine</Filter>
     </ClInclude>
   </ItemGroup>
