@@ -19,6 +19,7 @@ noa::StateMachine::~StateMachine()
 {
 	currentState = nullptr;
 
+	std::sort(stateList.begin(),stateList.end());
 	auto last = std::unique(stateList.begin(), stateList.end());
 	stateList.erase(last, stateList.end());
 
@@ -42,7 +43,7 @@ noa::StateMachine* noa::StateMachine::Create(noa::Actor* actor)
 void noa::StateMachine::PerformTransition(int transition)
 {
 	const bool checkNextStateError = currentState == nullptr
-		|| !ContainKey<int, noa::State*>(currentState->nextStates, transition)
+		|| currentState->nextStates.count(transition)<=0
 		|| currentState->nextStates[transition] == nullptr;
 	if (checkNextStateError)
 	{

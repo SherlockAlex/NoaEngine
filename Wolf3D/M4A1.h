@@ -9,7 +9,11 @@ protected:
 public:
 	static M4A1* Create(Player* player, int* bulletCount, FreeCamera* camera);
 
+	void OnEnter() override;
 	void Update() override;
+	void OnExit() override;
+	
+	
 	void Delete() override;
 };
 

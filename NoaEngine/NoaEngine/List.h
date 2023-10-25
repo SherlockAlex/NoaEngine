@@ -91,6 +91,40 @@ namespace noa{
 			count = 0;
 		}
 
+		void Unique() 
+		{
+			//假设 elements[0...i]的子数组没有任何重复项
+			//判断位置i的元素应该保留还是删除
+			for (size_t i = 0;i<count;) 
+			{
+				bool flag = false;
+				for (size_t j = 0;) 
+				{
+					if (this->elements[i] == this->elements[j])
+					{
+						flag = true;
+						break;
+					}
+				}
+
+				if (!flag) 
+				{
+					i++;
+					continue;
+				}
+
+				//删除掉要插入的元素
+				for (size_t k = i;k<count-1;k++) 
+				{
+					this->elements[k] = this->elements[k + 1];
+				}
+				this->count--;
+				flag = false;
+
+			}
+		}
+
+
 	public:
 
 		T operator[] (size_t index)

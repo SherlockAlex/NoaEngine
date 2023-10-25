@@ -1,8 +1,16 @@
-﻿  M4A1.cpp
+﻿  Bullet.cpp
+  Caco.cpp
+  Level00.cpp
+  Level01.cpp
+  M4A1.cpp
+  Pistol.cpp
+  Player.cpp
+  Shotgun.cpp
+  main.cpp
 LINK : warning LNK4098: 默认库“MSVCRT”与其他库的使用冲突；请使用 /NODEFAULTLIB:library
   正在生成代码
-  4 of 3728 functions ( 0.1%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    1 functions had inline decision re-evaluated but remain unchanged
+  8 of 3757 functions ( 0.2%) were compiled, the rest were copied from previous compilation.
+    2 functions were new in current compilation
+    9 functions had inline decision re-evaluated but remain unchanged
   已完成代码的生成
   Wolf3D.vcxproj -> D:\GitHub\NoaEngine\x64\Release\Wolf3D.exe

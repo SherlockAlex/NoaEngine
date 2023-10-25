@@ -12,8 +12,6 @@ Shotgun::Shotgun(Player* player, int* bulletCount,FreeCamera * camera):Gun(bulle
 	this->animation = Animation::Create(player,12, false);
 	this->player = player;
 	
-
-	//animation->LoadFromAnimationFile("./Assets/Wolf/gun-shot.amt");
 	animation->SetFrame(&wolfResource->shotgunFrame);
 
 	animation->SetFrameEvent(1, [this]()
@@ -53,6 +51,12 @@ Shotgun::Shotgun(Player* player, int* bulletCount,FreeCamera * camera):Gun(bulle
 
 	this->spriteGPU = new SpriteGPU(sprite);
 
+	canvas = UICanvasComponent::Create(player);
+	image = Image::Create(canvas);
+	image->transform.scale = Vector<int>(0.5 * Screen::width, 0.5 * Screen::width);
+	image->SetSprite(this->sprite);
+	image->isFilpX = true;
+
 }
 
 Shotgun* Shotgun::Create(Player* player, int* bulletCount, FreeCamera* camera)
@@ -60,15 +64,35 @@ Shotgun* Shotgun::Create(Player* player, int* bulletCount, FreeCamera* camera)
 	return new Shotgun(player,bulletCount,camera);
 }
 
+void Shotgun::OnEnter()
+{
+	if (canvas)
+	{
+		canvas->SetActive(true);
+	}
+}
+
 void Shotgun::Update()
 {
-	Gun::Update();
 	//ÏÔÊ¾Í¼Æ¬
 	const float offsetX = 30 * (sinf((player->rigid->velocity.SqrMagnitude() != 0) * Time::time * 3) + 1);
 	const float offsetY = 15 * (sinf((player->rigid->velocity.SqrMagnitude() != 0) * Time::time * 6) + 1);
 
-	this->spriteGPU->DrawSprite(0.5 * Screen::width + offsetX, Screen::height - sprite->scale.y + offsetY, true, 0.0f);
+	image->transform.position = { 
+		static_cast<int>(0.5 * Screen::width + offsetX)
+		, static_cast<int>(Screen::height - sprite->scale.y + offsetY)
+	};
+
+	//this->spriteGPU->DrawSprite(0.5 * Screen::width + offsetX, Screen::height - sprite->scale.y + offsetY, true, 0.0f);
 	//this->sprite->DrawSprite(0.5 * pixelWidth, pixelHeight - 0.5 * pixelWidth + offsetY, true,true);
+}
+
+void Shotgun::OnExit()
+{
+	if (canvas)
+	{
+		canvas->SetActive(false);
+	}
 }
 
 void Shotgun::Delete()

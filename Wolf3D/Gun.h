@@ -28,7 +28,10 @@ protected:
 public:
 	virtual void Delete();
 
+	virtual void OnEnter();
 	virtual void Update();
+	virtual void OnExit();
+	
 	virtual void Shoot();
 };
 

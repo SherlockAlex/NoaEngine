@@ -182,19 +182,23 @@ void Player::RotateControl()
 
 	if (deltaIndex<0)
 	{
+		guns[currentGunIndex]->OnExit();
 		currentGunIndex--;
 		if (currentGunIndex<0) 
 		{
 			currentGunIndex = guns.size() - 1;
 		}
+		guns[currentGunIndex]->OnEnter();
 	}
 
 	else if (deltaIndex > 0) {
+		guns[currentGunIndex]->OnExit();
 		currentGunIndex++;
 		if (currentGunIndex >= guns.size())
 		{
 			currentGunIndex = 0;
 		}
+		guns[currentGunIndex]->OnEnter();
 	}
 
 }
@@ -229,18 +233,24 @@ void Player::MakeGun()
 	shotgun = Shotgun::Create(this,&bulletCount, this->camera);
 	shotgun->damage = 110;
 	shotgun->takeBullet = 7;
+	shotgun->OnExit();
 
 	pistol = Pistol::Create(this,&bulletCount, this->camera);
 	pistol->damage = 18;
 	pistol->takeBullet = 0;
+	pistol->OnExit();
 
 	m4a1 = M4A1::Create(this,&bulletCount, this->camera);
 	m4a1->damage = 25;
 	m4a1->takeBullet = 1;
+	m4a1->OnExit();
+
 
 	guns.push_back(pistol);
 	guns.push_back(shotgun);
 	guns.push_back(m4a1);
+
+	guns[currentGunIndex]->OnEnter();
 
 }
 

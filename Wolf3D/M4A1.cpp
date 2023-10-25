@@ -10,7 +10,6 @@ M4A1::M4A1(Player* player, int* bulletCount, FreeCamera* camera) :Gun(bulletCoun
 
 	this->animation = Animation::Create(player,45, false);
 	this->player = player;
-	//animation->LoadFromAnimationFile("./Assets/Wolf/lgun-shot.amt");
 	animation->SetFrame(&wolfResource->m4a1Frame);
 	animation->SetFrameEvent(2, [this]()
 		{
@@ -61,12 +60,17 @@ M4A1* M4A1::Create(Player* player, int* bulletCount, FreeCamera* camera)
 	return new M4A1(player,bulletCount,camera);
 }
 
+void M4A1::OnEnter()
+{
+	if (canvas)
+	{
+		canvas->SetActive(true);
+	}
+}
+
 void M4A1::Update()
 {
-	Gun::Update();
-	//显示图片到屏幕上
-	//一种是使用SpriteRenderer
-	//还有一种是使用Image
+
 	const float offsetX = 30 * (sinf((player->rigid->velocity.SqrMagnitude() != 0) * Time::time * 3) + 1);
 	const float offsetY =15*(sinf((player->rigid->velocity.SqrMagnitude() != 0)* Time::time *6)+1);
 
@@ -75,8 +79,14 @@ void M4A1::Update()
 		, static_cast<int>(Screen::height - sprite->scale.y + offsetY)
 	};
 	
-	//this->spriteGPU->DrawSprite(0.5 * Screen::width + offsetX, Screen::height - sprite->scale.y + offsetY,true,0.0f);
-	
+}
+
+void M4A1::OnExit()
+{
+	if (canvas) 
+	{
+		canvas->SetActive(false);
+	}
 }
 
 void M4A1::Delete()
