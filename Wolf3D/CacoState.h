@@ -27,13 +27,13 @@ private:
 	CacoIdleState(
 		StateMachine* stateMachine,
 		Enimy* enimy, Transform* target,
-		AnimationFrame * frameData
+		AnimationClip* frameData
 	);
 
 public:
 	static CacoIdleState* Create(StateMachine* stateMachine,
 		Enimy* enimy, Transform* target,
-		AnimationFrame* frameData) {
+		AnimationClip* frameData) {
 		return new CacoIdleState(stateMachine,enimy,target,frameData);
 	}
 
@@ -57,13 +57,13 @@ private:
 	CacoMoveState(
 		StateMachine* stateMachine,
 		Enimy* enimy, Transform* target,
-		AnimationFrame* frameData
+		AnimationClip* frameData
 	);
 
 public:
 	static CacoMoveState* Create(StateMachine* stateMachine,
 		Enimy* enimy, Transform* target,
-		AnimationFrame* frameData) {
+		AnimationClip* frameData) {
 		return new CacoMoveState(stateMachine, enimy, target, frameData);
 	}
 
@@ -87,13 +87,13 @@ private:
 	CacoAttackState(
 		StateMachine* stateMachine,
 		Enimy* enimy, Transform* target,
-		AnimationFrame* frameData
+		AnimationClip* frameData
 	);
 
 public:
 	static CacoAttackState* Create(StateMachine* stateMachine,
 		Enimy* enimy, Transform* target,
-		AnimationFrame* frameData) {
+		AnimationClip* frameData) {
 		return new CacoAttackState(stateMachine, enimy, target, frameData);
 	}
 
@@ -118,13 +118,13 @@ private:
 	CacoDieState(
 		StateMachine* stateMachine,
 		Enimy* enimy, Transform* target,
-		AnimationFrame* frameData
+		AnimationClip* frameData
 	);
 
 public:
 	static CacoDieState* Create(StateMachine* stateMachine,
 		Enimy* enimy, Transform* target,
-		AnimationFrame* frameData) {
+		AnimationClip* frameData) {
 		return new CacoDieState(stateMachine, enimy, target, frameData);
 	}
 
@@ -150,13 +150,13 @@ private:
 	CacoPainState(
 		StateMachine* stateMachine,
 		Enimy* enimy, Transform* target,
-		AnimationFrame* frameData
+		AnimationClip* frameData
 	);
 
 public:
 	static CacoPainState* Create(StateMachine* stateMachine,
 		Enimy* enimy, Transform* target,
-		AnimationFrame* frameData) {
+		AnimationClip* frameData) {
 		return new CacoPainState(stateMachine, enimy, target, frameData);
 	}
 

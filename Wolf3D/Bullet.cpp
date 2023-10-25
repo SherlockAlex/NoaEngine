@@ -4,7 +4,7 @@
 
 Bullet::Bullet(Scene * scene,Sprite* sprite) :Actor(scene)
 {
-	animation->SetFrame(&wolfResource->bulletDestroyFrame);
+	animation->SetClip(&wolfResource->bulletDestroyFrame);
 
 	rigid->SetTileColliderScale(0.7,0.7);
 	collider->radius = 0.2;

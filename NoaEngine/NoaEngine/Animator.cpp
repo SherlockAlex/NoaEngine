@@ -8,7 +8,7 @@ namespace noa {
 
 }
 
-noa::AnimationFrame::AnimationFrame(const char* filePath)
+noa::AnimationClip::AnimationClip(const char* filePath)
 {
 	const AnimationFile animatorFile = std::move(resource.LoadAnimationFile(filePath));
 	for (const SpriteFile& frame : animatorFile.data)
@@ -28,9 +28,9 @@ noa::Animation::Animation(noa::Actor* actor, float speed, bool loop) :noa::Actor
 	this->loop = loop;
 
 
-	if (this->frameData != nullptr && !this->frameData->framesImage.empty())
+	if (this->clip != nullptr && !this->clip->framesImage.empty())
 	{
-		currentFrame = move(frameData->framesImage[0]);
+		currentFrame = move(clip->framesImage[0]);
 	}
 
 }
@@ -39,35 +39,35 @@ noa::Animation::Animation(
 	noa::Actor* actor
 	, float speed
 	, bool loop
-	, noa::AnimationFrame* frame
+	, noa::AnimationClip* frame
 ) 
 	:noa::ActorComponent(actor)
 {
 	this->speed = speed;
 	this->loop = loop;
 
-	this->SetFrame(frame);
+	this->SetClip(frame);
 
 }
 
 noa::Animation* noa::Animation::Create(Actor* actor)
 {
-	return new noa::Animation(actor);
+	return NObject<Animation>::Create<Actor*>(actor);
 }
 
 noa::Animation* noa::Animation::Create(
 	noa::Actor* actor
 	, float speed, bool loop)
 {
-	return new noa::Animation(actor, speed, loop);
+	return NObject<Animation>::Create<Actor*, float, bool>(actor,speed,loop);
 }
 
 noa::Animation* noa::Animation::Create(
 	noa::Actor* actor
 	, float speed, bool loop
-	, noa::AnimationFrame* frame)
+	, noa::AnimationClip* clip)
 {
-	return new noa::Animation(actor, speed, loop, frame);
+	return NObject<Animation>::Create<Actor*, float, bool, AnimationClip*>(actor, speed, loop, clip);
 }
 
 noa::Animation::~Animation()
@@ -75,16 +75,16 @@ noa::Animation::~Animation()
 
 }
 
-void noa::Animation::SetFrame(noa::AnimationFrame* frame)
+void noa::Animation::SetClip(noa::AnimationClip* clip)
 {
-	if (frame == nullptr)
+	if (clip == nullptr)
 	{
 		return;
 	}
-	this->frameData = frame;
-	if (!frameData->framesImage.empty())
+	this->clip = clip;
+	if (!clip->framesImage.empty())
 	{
-		currentFrame = frameData->framesImage[0];
+		currentFrame = clip->framesImage[0];
 	}
 
 }
@@ -96,13 +96,13 @@ noa::SpriteFile& noa::Animation::GetCurrentFrameImage()
 
 noa::SpriteFile& noa::Animation::GetFrameImage(int frame)
 {
-	if (frameData == nullptr)
+	if (clip == nullptr)
 	{
 		noa::Debug::Error("this frame is empty");
 		exit(-1);
 	}
-	frame = frame % frameData->framesImage.size();
-	return frameData->framesImage[frame];
+	frame = frame % clip->framesImage.size();
+	return clip->framesImage[frame];
 }
 
 void noa::Animation::SetFrameEvent(int frame, function<void()> e)
@@ -112,8 +112,8 @@ void noa::Animation::SetFrameEvent(int frame, function<void()> e)
 
 void noa::Animation::Play(int frame)
 {
-	if (this->frameData == nullptr 
-		|| this->frameData->framesImage.empty())
+	if (this->clip == nullptr
+		|| this->clip->framesImage.empty())
 	{
 		return;
 	}
@@ -144,13 +144,13 @@ void noa::Animation::Start()
 void noa::Animation::Update() 
 {
 
-	if (!isPlaying || this->frameData == nullptr)
+	if (!isPlaying || this->clip == nullptr)
 	{
 		return;
 	}
 
 	i += ((1.0f / Time::deltaTime) < 60 ? 0.0167f: Time::deltaTime) * speed;
-	if (i >= this->frameData->framesImage.size())
+	if (i >= this->clip->framesImage.size())
 	{
 		i = 0;
 		previousFrameIndex = -1;
@@ -193,7 +193,7 @@ void noa::Animation::SetAnimatedSprite(Sprite* sprite)
 	this->animatedSprite = sprite;
 }
 
-noa::AnimationClip::AnimationClip(
+noa::AnimationState::AnimationState(
 	noa::Animator* animator
 	, noa::Animation* animation) 
 	:noa::State(animator)
@@ -207,12 +207,12 @@ noa::AnimationClip::AnimationClip(
 	sprite = animator->sprite;
 }
 
-void noa::AnimationClip::OnEnter()
+void noa::AnimationState::OnEnter()
 {
 	animtion->Reset();
 }
 
-void noa::AnimationClip::OnUpdate()
+void noa::AnimationState::OnUpdate()
 {
 	if (sprite == nullptr)
 	{
@@ -222,13 +222,13 @@ void noa::AnimationClip::OnUpdate()
 
 }
 
-void noa::AnimationClip::Reason()
+void noa::AnimationState::Reason()
 {
 	//¶¯»­×´Ì¬ÇÐ»»
 	//¶¯»­ÇÐ»»ÊÂ¼þ
 }
 
-void noa::AnimationClip::OnExit()
+void noa::AnimationState::OnExit()
 {
 	animtion->Reset();
 }

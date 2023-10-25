@@ -11,17 +11,17 @@ class WolfResource
 public:
 	Sprite firebomb = Sprite(resource.LoadSprFile("./Assets/Wolf/firebomb.spr"), Vector<int>(32, 32));
 
-	AnimationFrame pistolFrame = AnimationFrame("./Assets/Wolf/lgun-shot.amt");
-	AnimationFrame shotgunFrame = AnimationFrame("./Assets/Wolf/gun-shot.amt");
-	AnimationFrame m4a1Frame = AnimationFrame("./Assets/Wolf/mgun-shot.amt");
+	AnimationClip pistolFrame = AnimationClip("./Assets/Wolf/lgun-shot.amt");
+	AnimationClip shotgunFrame = AnimationClip("./Assets/Wolf/gun-shot.amt");
+	AnimationClip m4a1Frame = AnimationClip("./Assets/Wolf/mgun-shot.amt");
 
-	AnimationFrame cacoIdleFrame = AnimationFrame("./Assets/Wolf/soldier-idle.amt");
-	AnimationFrame cacoMoveFrame = AnimationFrame("./Assets/Wolf/soldier-walk.amt");
-	AnimationFrame cacoAttckFrame = AnimationFrame("./Assets/Wolf/soldier-attack.amt");
-	AnimationFrame cacoPainFrame = AnimationFrame("./Assets/Wolf/soldier-pain.amt");
-	AnimationFrame cacoDieFrame = AnimationFrame("./Assets/Wolf/soldier-die.amt");
+	AnimationClip cacoIdleFrame = AnimationClip("./Assets/Wolf/soldier-idle.amt");
+	AnimationClip cacoMoveFrame = AnimationClip("./Assets/Wolf/soldier-walk.amt");
+	AnimationClip cacoAttckFrame = AnimationClip("./Assets/Wolf/soldier-attack.amt");
+	AnimationClip cacoPainFrame = AnimationClip("./Assets/Wolf/soldier-pain.amt");
+	AnimationClip cacoDieFrame = AnimationClip("./Assets/Wolf/soldier-die.amt");
 
-	AnimationFrame bulletDestroyFrame = AnimationFrame("./Assets/Wolf/firebomb-destroy.amt");
+	AnimationClip bulletDestroyFrame = AnimationClip("./Assets/Wolf/firebomb-destroy.amt");
 
 	Sprite sky = Sprite(resource.LoadSprFile("./Assets/Wolf/sky-sun.spr"), Vector<int>(1, 1));
 

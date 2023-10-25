@@ -24,16 +24,16 @@ namespace noa {
 
 	class Actor;
 
-	typedef struct AnimationFrame {
+	typedef struct AnimationClip {
 		std::vector<SpriteFile> framesImage;
-		AnimationFrame(const char* filePath);
-	}AnimationFrame;
+		AnimationClip(const char* filePath);
+	}AnimationClip;
 
 	class Animation:public ActorComponent
 	{
 		friend class NObject<Animation>;
 	private:
-		AnimationFrame* frameData = nullptr;
+		AnimationClip* clip = nullptr;
 		std::unordered_map<Uint32, NoaEvent<void>> framesEvent;
 		SpriteFile currentFrame;
 		bool isPlaying = false;
@@ -47,15 +47,15 @@ namespace noa {
 	protected:
 		Animation(Actor * actor);
 		Animation(Actor* actor,float speed,bool loop);
-		Animation(Actor* actor,float speed,bool loop, AnimationFrame* frame);
+		Animation(Actor* actor,float speed,bool loop, AnimationClip* frame);
 		~Animation();
 
 	public:
 		static Animation* Create(Actor* actor);
 		static Animation* Create(Actor* actor, float speed, bool loop);
-		static Animation* Create(Actor* actor, float speed, bool loop, AnimationFrame* frame);
+		static Animation* Create(Actor* actor, float speed, bool loop, AnimationClip* frame);
 		
-		void SetFrame(AnimationFrame * frame);
+		void SetClip(AnimationClip* frame);
 		SpriteFile& GetCurrentFrameImage();
 		SpriteFile& GetFrameImage(int frame);
 		void SetFrameEvent(int frame, std::function<void()> e);
@@ -75,13 +75,13 @@ namespace noa {
 
 	class Animator;
 
-	class AnimationClip:public State
+	class AnimationState:public State
 	{
 	private:
 		Animation* animtion = nullptr;
 		Sprite* sprite = nullptr;
 	public:
-		AnimationClip(Animator* animator,Animation* animation);
+		AnimationState(Animator* animator,Animation* animation);
 		void OnEnter() override;
 		void OnUpdate() override;
 		void Reason() override;

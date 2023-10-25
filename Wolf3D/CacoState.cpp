@@ -11,12 +11,12 @@ extern Enimy* attackingEnimy;
 CacoIdleState::CacoIdleState(
 	StateMachine* stateMachine,
 	Enimy* enimy, Transform* target,
-	AnimationFrame* frameData
+	AnimationClip* frameData
 ) :
 	State(stateMachine)
 {
 	animation = Animation::Create(enimy, 5, false);
-	animation->SetFrame(frameData);
+	animation->SetClip(frameData);
 	//animation.LoadFromAnimationFile(animationPath);
 	this->enimy = enimy;
 	this->target = target;
@@ -66,12 +66,12 @@ void CacoIdleState::Reason()
 CacoMoveState::CacoMoveState(
 	StateMachine* stateMachine,
 	Enimy* enimy, Transform* target,
-	AnimationFrame* frameData
+	AnimationClip* frameData
 ) :
 	State(stateMachine)
 {
 	animation = Animation::Create(enimy,5, false);
-	animation->SetFrame(frameData);
+	animation->SetClip(frameData);
 	//animation.LoadFromAnimationFile(animationPath);
 	this->enimy = enimy;
 	this->target = target;
@@ -128,12 +128,12 @@ void CacoMoveState::Reason()
 CacoAttackState::CacoAttackState(
 	StateMachine* stateMachine,
 	Enimy* enimy, Transform* target,
-	AnimationFrame* frameData
+	AnimationClip* frameData
 ) :
 	State(stateMachine)
 {
 	animation = Animation::Create(enimy,5, false);
-	animation->SetFrame(frameData);
+	animation->SetClip(frameData);
 	this->enimy = enimy;
 	this->target = target;
 
@@ -197,12 +197,12 @@ void CacoAttackState::Reason()
 CacoDieState::CacoDieState(
 	StateMachine* stateMachine,
 	Enimy* enimy, Transform* target,
-	AnimationFrame* frameData
+	AnimationClip* frameData
 ):
 	State(stateMachine)
 {
 	animation = Animation::Create(enimy,12, false);
-	animation->SetFrame(frameData);
+	animation->SetClip(frameData);
 	this->enimy = enimy;
 	this->target = target;
 
@@ -258,12 +258,12 @@ void CacoDieState::Reason()
 CacoPainState::CacoPainState(
 	StateMachine* stateMachine,
 	Enimy* enimy, Transform* target,
-	AnimationFrame* frameData
+	AnimationClip* frameData
 ) :
 	State(stateMachine)
 {
 	animation = Animation::Create(enimy,5, false);
-	animation->SetFrame(frameData);
+	animation->SetClip(frameData);
 	this->enimy = enimy;
 	this->target = target;
 

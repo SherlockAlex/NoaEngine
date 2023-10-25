@@ -12,7 +12,7 @@ Shotgun::Shotgun(Player* player, int* bulletCount,FreeCamera * camera):Gun(bulle
 	this->animation = Animation::Create(player,12, false);
 	this->player = player;
 	
-	animation->SetFrame(&wolfResource->shotgunFrame);
+	animation->SetClip(&wolfResource->shotgunFrame);
 
 	animation->SetFrameEvent(1, [this]()
 		{

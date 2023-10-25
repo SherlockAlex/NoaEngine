@@ -110,7 +110,6 @@ namespace noa {
 
 	};
 
-	//Canvas×÷ÎªActorComponent´æÔÚ
 	class UICanvasComponent final : ActorComponent
 	{
 	private:
