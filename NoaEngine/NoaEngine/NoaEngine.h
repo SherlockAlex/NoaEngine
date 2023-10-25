@@ -62,10 +62,6 @@
 * (f) 在游戏主类实例化你的场景对象到堆上，并使用sceneManager.LoadScene("Your scene")
 * (g) 点击编译运行你自己的游戏
 * 
-* 不足:
-* 关于将Sprite自动绘制到屏幕上的解决方案不统一
-* Image:作为UI控件使用,需要与UICanvas或者UICanvasComponent并存使用，位置由玩家设置
-* SpriteRenderer:作为ActorComponent存在，需要相机自动绘制，位置由相机和Actor的位置关系决定
 * 
 * 渲染Sprite到屏幕上的解决方案有两种
 * Image:必须先创造UICanvas或者UICanvasComponent，由他通过GPU绘制
