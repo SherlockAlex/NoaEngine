@@ -49,10 +49,11 @@ M4A1::M4A1(Player* player, int* bulletCount, FreeCamera* camera) :Gun(bulletCoun
 
 	this->spriteGPU = new SpriteGPU(sprite);
 
-	UICanvasComponent* canvas = UICanvasComponent::Create(player);
+	canvas = UICanvasComponent::Create(player);
 	image = Image::Create(canvas);
 	image->transform.scale = Vector<int>(0.5 * Screen::width, 0.5 * Screen::width);
 	image->SetSprite(this->sprite);
+	image->isFilpX = true;
 }
 
 M4A1* M4A1::Create(Player* player, int* bulletCount, FreeCamera* camera)

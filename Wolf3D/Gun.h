@@ -19,6 +19,8 @@ public:
 
 	int* bulletCount = nullptr;
 
+	UICanvasComponent* canvas = nullptr;
+
 public:
 	Gun(int * bulletCount,FreeCamera * camera);
 protected:
