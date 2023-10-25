@@ -10,7 +10,6 @@ Caco::Caco(Scene* scene, Sprite* sprite, Transform* player, LiveEntity* enimy) :
 {
 	if (player == nullptr) 
 	{
-		
 		exit(-1);
 	}
 	

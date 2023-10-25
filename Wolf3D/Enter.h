@@ -20,7 +20,6 @@ public:
 
 	void Load() 
 	{
-		noa::Debug::Log(nextScene);
 		noa::sceneManager.LoadScene(nextScene);
 	}
 

@@ -93,14 +93,15 @@ void Level00::Awake()
 			}
 			else if (tile == 102) 
 			{
-				Enter* enter = 
-					NObject<Enter>::Create<Scene*,const std::string &>(
-						this,"SecondFloor"
-					);
-				enter->SetPosition(i, j);
+				
 			}
 		}
 	}
+
+	Enter* enter =
+		NObject<Enter>::Create<Scene*, const std::string&>(
+			this, "SecondFloor"
+		);
 
 	//设置场景的碰撞区域
 	std::vector<int> collisionTileID;

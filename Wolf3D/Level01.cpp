@@ -68,12 +68,16 @@ void Level01::Awake()
 			}
 			else if (tile == 102)
 			{
-				Enter* enter = NObject<Enter>::Create<Scene*, const std::string&>(this, "NewGame");
-				enter->SetPosition(i,j);
+
 			}
 
 		}
 	}
+
+	Enter* enter =
+		NObject<Enter>::Create<Scene*, const std::string&>(
+			this, "NewGame"
+		);
 
 	//场景生成物品
 	for (int i = 0; i < map->objectLayer->w; i++)
