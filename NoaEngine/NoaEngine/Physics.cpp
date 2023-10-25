@@ -12,16 +12,6 @@
 
 using namespace std;
 
-namespace noa 
-{
-	float gravityAcceration = 9.81f;
-
-	Vector<float> gravity = { 0,gravityAcceration };
-	
-	unordered_map<size_t, bool> isCheckCollision;
-
-}
-
 noa::Rigidbody::Rigidbody(Actor* actor) :ActorComponent(actor)
 {
 
@@ -64,7 +54,7 @@ void noa::Rigidbody::UpdateVelocity(float deltaTime)
 
 	if (useMotion && useGravity && (!isGrounded))
 	{
-		this->force += (gravity * gravityWeight);
+		this->force += (PhysicsSystem::gravity * gravityWeight);
 	}
 
 	if (useMotion)

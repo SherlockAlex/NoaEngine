@@ -98,7 +98,7 @@ namespace noa{
 			for (size_t i = 0;i<count;) 
 			{
 				bool flag = false;
-				for (size_t j = 0;) 
+				for (size_t j = 0;j<i;j++) 
 				{
 					if (this->elements[i] == this->elements[j])
 					{

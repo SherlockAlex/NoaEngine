@@ -8,7 +8,9 @@ Sprite enimySprite(noa::resource.LoadSprFile("./Assets/Fly/enimy.spr"), { 32,32 
 
 Enimy::Enimy(noa::Scene* scene) :LiveEntity(scene)
 {
-	rigid->useGravity = false;
+	rigid->useGravity = true;
+	rigid->gravityWeight = 3.5f;
+	rigid->damping = 0.0f;
 	this->spriteRenderer->SetSprite(&enimySprite);
 }
 
@@ -30,16 +32,22 @@ void Enimy::SetPosition(const Vector<float>& position)
 void Enimy::Update() 
 {
 	
-	rigid->velocity.y = 0.1f;
+	//rigid->velocity.y = 0.1f;
 
 	delay = delay + Time::deltaTime;
 	if (delay > 0.5)
 	{
 		Bullet* bullet = bulletPool->Request();
-		bullet->SetDirection(FindActorWithTag("Player")->transform.position - transform.position);
+		bullet->SetDirection(sceneManager.FindActorWithTag("Player")->transform.position - transform.position);
 		bullet->ownTag = tag;
 		bullet->SetPostion(this->transform.position);
 		delay = 0;
+	}
+
+	if (rigid->velocity.y>0&&this->transform.position.y>2.5f) 
+	{
+		rigid->velocity.y = 0;
+		this->transform.position.y = 2.5f;
 	}
 
 }

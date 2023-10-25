@@ -6,6 +6,7 @@
 
 noa::Grid noa::PhysicsSystem::grid;
 std::vector<noa::Rigidbody*> noa::PhysicsSystem::rigidbodys;
+noa::Vector<float> noa::PhysicsSystem::gravity = { 0,9.82f };
 
 void noa::PhysicsSystem::SetGrid(int width, int height)
 {

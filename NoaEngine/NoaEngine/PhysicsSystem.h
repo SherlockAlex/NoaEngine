@@ -16,6 +16,7 @@ namespace noa
 	public:
 		static Grid grid;
 		static std::vector<Rigidbody*> rigidbodys;
+		static Vector<float> gravity;
 	public:
 		static void SetGrid(int width,int height);
 		static void Update(int step);

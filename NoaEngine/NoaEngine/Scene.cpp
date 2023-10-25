@@ -16,8 +16,6 @@ namespace noa
 
 	SceneManager sceneManager;
 
-	
-
 }
 
 noa::LevelMap::LevelMap() {
