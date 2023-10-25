@@ -251,6 +251,35 @@ Uint32 noa::Sprite::GetColor(const float normalizedX, const float normalizedY) c
 	const int sy = static_cast<int>(std::abs(normalizedY * (h - 1))) % h;
 
 	return image[sy * w + sx];
+
+	/*if (isEmpty)
+	{
+		return ERRORCOLOR;
+	}
+
+	const float x = normalizedX * (w - 1);
+	const float y = normalizedY * (h - 1);
+
+	const int x0 = static_cast<int>(std::floor(x));
+	const int y0 = static_cast<int>(std::floor(y));
+	const int x1 = x0 + 1;
+	const int y1 = y0 + 1;
+
+	const float dx = x - x0;
+	const float dy = y - y0;
+
+	const Uint32 c00 = image[y0 * w + x0];
+	const Uint32 c01 = image[y0 * w + x1];
+	const Uint32 c10 = image[y1 * w + x0];
+	const Uint32 c11 = image[y1 * w + x1];
+
+	const Uint8 r = static_cast<Uint8>((1 - dx) * (1 - dy) * GetRValue(c00) + dx * (1 - dy) * GetRValue(c01) + (1 - dx) * dy * GetRValue(c10) + dx * dy * GetRValue(c11));
+	const Uint8 g = static_cast<Uint8>((1 - dx) * (1 - dy) * GetGValue(c00) + dx * (1 - dy) * GetGValue(c01) + (1 - dx) * dy * GetGValue(c10) + dx * dy * GetGValue(c11));
+	const Uint8 b = static_cast<Uint8>((1 - dx) * (1 - dy) * GetBValue(c00) + dx * (1 - dy) * GetBValue(c01) + (1 - dx) * dy * GetBValue(c10) + dx * dy * GetBValue(c11));
+	const Uint8 a = static_cast<Uint8>((1 - dx) * (1 - dy) * GetAValue(c00) + dx * (1 - dy) * GetAValue(c01) + (1 - dx) * dy * GetAValue(c10) + dx * dy * GetAValue(c11));
+
+	return RGBA(r, g, b, a);*/
+
 }
 
 Uint32 noa::Sprite::GetTransposeColor(const float normalizedX, const float normalizedY) const

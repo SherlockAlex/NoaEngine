@@ -110,28 +110,12 @@ namespace noa {
 
 		void AddActor(Actor* actor);
 
+		std::string GetName();
+
+	private:
+
 		Actor* FindActorWithTag(const std::string& tag);
 		std::vector<Actor*> FindActorsWithTag(const std::string& tag);
-
-		template<class T>
-		T* FindActorWithType() {
-			T* buffer = nullptr;
-			for (auto& actor : actors)
-			{
-				if (actor == nullptr || !actor->GetActive() || actor->isRemoved)
-				{
-					continue;
-				}
-				buffer = dynamic_cast<T*>(actor);
-				if (buffer != nullptr) 
-				{
-					break;
-				}
-			}
-			return buffer;
-		}
-
-		std::string GetName();
 
 	private:
 		void ApplyCamera();
@@ -159,12 +143,54 @@ namespace noa {
 		void Quit();
 
 		template<class T>
+		std::vector<T*> FindActorsWithType() {
+			std::vector<T*> results;
+			if (this->activeScene == nullptr)
+			{
+				return results;
+			}
+
+			for (auto & actor:this->activeScene->actors) 
+			{
+				if (actor == nullptr
+					||!actor->GetActive()
+					||actor->isRemoved
+					)
+				{
+					continue;
+				}
+				T* buffer = dynamic_cast<T*>(actor);
+				if (buffer!=nullptr)
+				{
+					results.push_back(buffer);
+				}
+			}
+			return results;
+
+		}
+
+		template<class T>
 		T* FindActorWithType() {
 			if (this->activeScene == nullptr) 
 			{
 				return nullptr;
 			}
-			return this->activeScene->FindActorWithType<T>();
+			T* buffer = nullptr;
+			for (auto& actor : this->activeScene->actors)
+			{
+				if (actor == nullptr
+					|| !actor->GetActive()
+					|| actor->isRemoved)
+				{
+					continue;
+				}
+				buffer = dynamic_cast<T*>(actor);
+				if (buffer != nullptr)
+				{
+					break;
+				}
+			}
+			return buffer;
 		}
 
 		Actor* FindActorWithTag(const std::string& tag);
