@@ -1,3 +1,5 @@
+#if defined(_WIN64)||defined(__WIN32)||defined(__linux__)
+
 #include "GLShader.h"
 #include "Resource.h"
 #include "Debug.h"
@@ -131,5 +133,7 @@ void noa::GLShader::SetVec4(const std::string& name, float value1, float value2,
 	const GLint location = glGetUniformLocation(this->shaderProgram, name.c_str());
 	glUniform4f(location,value1,value2,value3,value4);
 }
+
+#endif
 
 

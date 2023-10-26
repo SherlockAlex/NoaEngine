@@ -1,4 +1,4 @@
-#ifdef _WIN64
+#if defined(_WIN64)||defined(__WIN32)||defined(__linux__)
 
 #include "GLTexture.h"
 #include "Debug.h"

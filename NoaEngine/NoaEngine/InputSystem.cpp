@@ -10,22 +10,6 @@ namespace noa {
 	InputSystem inputSystem;
 }
 
-#ifdef __linux
-
-Display* display = nullptr;
-
-#endif // __linux
-
-noa::InputSystem::InputSystem()
-{
-#ifdef __linux
-
-	display = XOpenDisplay(nullptr);
-
-#endif // __linux
-
-}
-
 void noa::InputSystem::InitInputSystem(std::shared_ptr<noa::InputEvent> e)
 {
 	//≥ı ºªØInputSystem
@@ -39,50 +23,23 @@ void noa::InputSystem::InitInputSystem(std::shared_ptr<noa::InputEvent> e)
 
 }
 
+noa::InputSystem::InputSystem() {
+
+}
+
 noa::InputSystem::~InputSystem()
 {
-#ifdef __linux
-	XCloseDisplay(display);
-#endif // __linux
+
 }
 
 bool noa::InputSystem::GetKeyHold(noa::KeyCode key) {
 
-#if defined(_WIN64) || defined(_WIN32)
 	return this->e->GetKeyHold(key);
-
-#else 
-
-#ifdef __linux__
-
-	KeyCode keyCode = XKeysymToKeycode(display, (key));
-	char keys_return[32] = { 0 };
-	XQueryKeymap(display, keys_return);
-	return !!(keys_return[keyCode / 8] & (1 << (keyCode % 8)));
-
-#endif // LINUX
-
-#endif // _WIN64 || _WIN32
-	return false;
 }
 
 bool noa::InputSystem::GetKeyDown(noa::KeyCode key)
 {
-#if defined(_WIN64) || defined(_WIN32)
 	return this->e->GetKeyDown(key);
-
-#else
-#ifdef __linux__
-	KeyCode keyCode = XKeysymToKeycode(display, (key));
-	char keys_return[32] = { 0 };
-	XQueryKeymap(display, keys_return);
-	return !!(keys_return[keyCode / 8] & (1 << (keyCode % 8)));
-
-#endif // _LINUX
-
-#endif // _WIN64 || _WIN32
-
-	return false;
 
 }
 

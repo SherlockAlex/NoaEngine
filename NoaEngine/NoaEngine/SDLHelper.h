@@ -3,7 +3,7 @@
 
 #define SDL_MAIN_HANDLED
 
-#if defined(_WIN64)
+#if defined(_WIN64) || defined(_WIN32)
 
 #include <SDL.h>
 #include <SDL_render.h>

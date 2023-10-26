@@ -1,3 +1,5 @@
+#if defined(_WIN64)||defined(__WIN32)||defined(__linux__)
+
 #ifndef NOAENGINE_GLSHADER_H
 #define NOAENGINE_GLSHADER_H
 
@@ -43,6 +45,8 @@ namespace noa {
 }
 
 #endif // !NOAENGINE_GLSHADER_H
+
+#endif
 
 
 

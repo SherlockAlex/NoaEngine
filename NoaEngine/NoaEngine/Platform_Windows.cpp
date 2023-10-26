@@ -87,11 +87,9 @@ bool noa::Platform_Windows::CheckWindowClose()
 	return !isRun;
 }
 
-#endif //_WIN64
-
-noa::InputEvent_Windows::InputEvent_Windows():InputEvent()
+noa::InputEvent_Windows::InputEvent_Windows() :InputEvent()
 {
-	
+
 }
 
 noa::InputEvent_Windows::~InputEvent_Windows()
@@ -169,3 +167,7 @@ void noa::InputEvent_Windows::SetRelativeMouseMode(bool mode)
 {
 	SDL_SetRelativeMouseMode(static_cast<SDL_bool>(mode));
 }
+
+
+#endif //_WIN64
+

@@ -138,6 +138,9 @@
     <ClCompile Include="..\NoaEngine\NoaEngine\Platform.cpp">
       <Filter>头文件\NoaEngine</Filter>
     </ClCompile>
+    <ClCompile Include="..\NoaEngine\NoaEngine\Platform_Linux.cpp">
+      <Filter>头文件\NoaEngine</Filter>
+    </ClCompile>
     <ClCompile Include="..\NoaEngine\NoaEngine\Platform_Windows.cpp">
       <Filter>头文件\NoaEngine</Filter>
     </ClCompile>
@@ -309,6 +312,9 @@
       <Filter>头文件\NoaEngine</Filter>
     </ClInclude>
     <ClInclude Include="..\NoaEngine\NoaEngine\Platform.h">
+      <Filter>头文件\NoaEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\NoaEngine\NoaEngine\Platform_Linux.h">
       <Filter>头文件\NoaEngine</Filter>
     </ClInclude>
     <ClInclude Include="..\NoaEngine\NoaEngine\Platform_Windows.h">

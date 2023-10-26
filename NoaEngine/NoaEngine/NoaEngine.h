@@ -181,6 +181,8 @@
 
 #ifdef _WIN64
 #include "Platform_Windows.h"
+#elif defined(__linux__)
+#include "Platform_Linux.h"
 #endif
 
 //¥∞ø⁄ Ù–‘

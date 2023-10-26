@@ -1,4 +1,4 @@
-#ifdef _WIN64
+#if defined(_WIN64)||defined(__WIN32)||defined(__linux__)
 
 #ifndef NOAENGINE_GLTEXTURE_H
 #define NOAENGINE_GLTEXTURE_H

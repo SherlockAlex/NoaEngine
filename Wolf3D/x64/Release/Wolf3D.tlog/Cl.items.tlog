@@ -21,6 +21,7 @@ D:\Work\NoaEngine\NoaEngine\NoaEngine\NObject.cpp;D:\Work\NoaEngine\Wolf3D\x64\R
 D:\Work\NoaEngine\NoaEngine\NoaEngine\Physics.cpp;D:\Work\NoaEngine\Wolf3D\x64\Release\Physics.obj
 D:\Work\NoaEngine\NoaEngine\NoaEngine\PhysicsSystem.cpp;D:\Work\NoaEngine\Wolf3D\x64\Release\PhysicsSystem.obj
 D:\Work\NoaEngine\NoaEngine\NoaEngine\Platform.cpp;D:\Work\NoaEngine\Wolf3D\x64\Release\Platform.obj
+D:\Work\NoaEngine\NoaEngine\NoaEngine\Platform_Linux.cpp;D:\Work\NoaEngine\Wolf3D\x64\Release\Platform_Linux.obj
 D:\Work\NoaEngine\NoaEngine\NoaEngine\Platform_Windows.cpp;D:\Work\NoaEngine\Wolf3D\x64\Release\Platform_Windows.obj
 D:\Work\NoaEngine\NoaEngine\NoaEngine\Renderer.cpp;D:\Work\NoaEngine\Wolf3D\x64\Release\Renderer.obj
 D:\Work\NoaEngine\NoaEngine\NoaEngine\Resource.cpp;D:\Work\NoaEngine\Wolf3D\x64\Release\Resource.obj

@@ -8,8 +8,11 @@ using namespace std;
 
 namespace noa {
 
-#if defined(_WIN64) || defined(_WIN32)||defined(__linux__)
+#if defined(_WIN64) || defined(_WIN32)
 	static shared_ptr<Platform> platform = make_shared<Platform_Windows>();
+	shared_ptr<Renderer> renderer = make_shared<GLRenderer>();
+#elif defined(__linux__)
+	static shared_ptr<Platform> platform = make_shared<Platform_Linux>();
 	shared_ptr<Renderer> renderer = make_shared<GLRenderer>();
 #endif
 

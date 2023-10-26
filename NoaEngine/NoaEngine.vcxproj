@@ -202,6 +202,7 @@
     <ClInclude Include="NoaEngine\SDLRenderer.h" />
     <ClInclude Include="NoaEngine\SDLTexture.h" />
     <ClInclude Include="NoaEngine\Screen.h" />
+    <ClInclude Include="NoaEngine\Platform_Linux.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="NoaEngine\GLShader.cpp" />
@@ -240,6 +241,7 @@
     <ClCompile Include="NoaEngine\SDLRenderer.cpp" />
     <ClCompile Include="NoaEngine\SDLTexture.cpp" />
     <ClCompile Include="NoaEngine\Screen.cpp" />
+    <ClCompile Include="NoaEngine\Platform_Linux.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
