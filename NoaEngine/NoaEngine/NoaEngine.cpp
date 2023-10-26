@@ -29,6 +29,7 @@ noa::NoaEngine::NoaEngine(int width, int height, WindowMode windowMode, string g
 	renderer->SetContext(windowID);
 	renderer->InitRenderer();
 	renderer->InitFontAsset();
+	inputSystem.InitInputSystem(platform->GetPlatformEvent());
 
 	if (windowMode == WindowMode::WINDOW)
 	{

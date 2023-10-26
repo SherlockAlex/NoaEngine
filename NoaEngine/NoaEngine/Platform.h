@@ -26,6 +26,7 @@ namespace noa {
 		WINDOW = 2048
 	};
 
+	class InputEvent;
 	//平台抽象类
 	class Platform {
 	protected:
@@ -34,6 +35,8 @@ namespace noa {
 		uint32_t windowID = 0;
 
 		bool isRun = true;
+
+		std::shared_ptr<InputEvent> e = nullptr;
 
 	public:
 
@@ -45,6 +48,8 @@ namespace noa {
 				WindowMode windowMode,
 				std::string gameName) = 0;
 
+		std::shared_ptr<InputEvent> GetPlatformEvent();
+
 		//确定窗口关闭
 		virtual bool CheckWindowClose() = 0;
 
@@ -55,6 +60,27 @@ namespace noa {
 		uint32_t GetWindowID();
 
 
+	};
+
+	enum class KeyCode; // 前置声明
+	struct MouseContext;
+	// 平台输入事件类的抽象
+	class InputEvent
+	{
+	private:
+		friend class InputSystem;
+	protected:
+		std::shared_ptr<MouseContext> mouseContext = nullptr;
+	public:
+		InputEvent();
+		virtual ~InputEvent();
+
+		virtual bool GetKeyHold(noa::KeyCode key) = 0;
+		virtual bool GetKeyDown(noa::KeyCode key) = 0;
+
+		virtual void PollEvent(const std::function<void()> & quitCallback) = 0;
+		virtual void Update() = 0;
+		virtual void SetRelativeMouseMode(bool mode) = 0;
 	};
 
 }

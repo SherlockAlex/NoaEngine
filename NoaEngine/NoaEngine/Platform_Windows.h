@@ -5,15 +5,12 @@
 
 #include "Platform.h"
 
+
 namespace noa {
 	class Platform_Windows:public Platform
 	{
 	private:
 		SDL_Window* window = nullptr;
-		SDL_Event e = {};
-
-	private:
-		void UpdateInputSystem();
 
 	public:
 
@@ -31,6 +28,21 @@ namespace noa {
 		bool CheckWindowClose() override;
 
 	};
+
+	class InputEvent_Windows :public InputEvent {
+	private:
+		SDL_Event e = {};
+	public:
+		InputEvent_Windows();
+		~InputEvent_Windows();
+
+		bool GetKeyHold(KeyCode key) override;
+		bool GetKeyDown(KeyCode key) override;
+		void PollEvent(const std::function<void()>& quitCallback) override;
+		void Update() override;
+		void SetRelativeMouseMode(bool mode) override;
+	};
+
 }
 
 #endif // !NOAENGINE_PLATFORM_WINDOWS_H

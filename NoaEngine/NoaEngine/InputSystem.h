@@ -6,6 +6,7 @@
 #include "Graphic.h"
 
 #include <unordered_map>
+#include <memory>
 
 //Windows System
 #ifdef _WIN64
@@ -103,7 +104,7 @@ namespace noa {
 		bool down = false;
 		bool hold = false;
 		bool up = false;
-	};
+	}KeyState;
 
 	typedef struct MouseContext
 	{
@@ -120,13 +121,14 @@ namespace noa {
 
 	}MouseContext;
 
+	class InputEvent;
 	class InputSystem final
 	{
 	private:
-		MouseContext mouseContext;
+		std::shared_ptr<InputEvent> e = nullptr;
 	public:
-		void Update(SDL_Event & e);
 		InputSystem();
+		void InitInputSystem(std::shared_ptr<InputEvent> e);
 		~InputSystem();
 	public:
 
