@@ -149,13 +149,14 @@ void noa::InputEvent_Windows::Update()
 
 	mouseContext->motion = (e.type == SDL_MOUSEMOTION);
 
-	if (e.type != SDL_MOUSEWHEEL)
+	if (e.type == SDL_MOUSEWHEEL)
 	{
-		mouseContext->wheel = { 0,0 };
-	}
-	else {
 		mouseContext->wheel.x = e.wheel.x;
 		mouseContext->wheel.y = e.wheel.y;
+	}
+	else {
+		
+		mouseContext->wheel = { 0,0 };
 	}
 
 	mouseContext->position.x = e.motion.x;
