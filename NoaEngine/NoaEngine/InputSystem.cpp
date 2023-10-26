@@ -7,15 +7,13 @@ namespace noa {
 	InputSystem inputSystem;
 }
 
-
-
 #ifdef __linux
 
 Display* display = nullptr;
 
 #endif // __linux
 
-void noa::InputSystem::Update()
+void noa::InputSystem::Update(SDL_Event& e)
 {
 
 	mouseContext.mouseKey[static_cast<noa::MouseButton>(e.button.button)].down = (e.type == SDL_MOUSEBUTTONDOWN);
@@ -50,17 +48,15 @@ void noa::InputSystem::Update()
 		mouseContext.wheel.y = e.wheel.y;
 	}
 
-
 	mouseContext.position.x = e.motion.x;
 	mouseContext.position.y = e.motion.y;
 
-
+	
 
 }
 
 noa::InputSystem::InputSystem()
 {
-	SDL_PollEvent(&e);
 #ifdef __linux
 
 	display = XOpenDisplay(nullptr);
@@ -78,17 +74,12 @@ noa::InputSystem::~InputSystem()
 
 bool noa::InputSystem::GetKeyHold(noa::KeyCode key) {
 
-#ifdef _WIN64
+#if defined(_WIN64) || defined(_WIN32)
 	if (GetAsyncKeyState((unsigned short)key) & 0x8000) {
 		return true;
 	}
 
 #else 
-#ifdef _WIN32
-	if (GetAsyncKeyState((unsigned short)key) & 0x8000) {
-		return true;
-	}
-#endif // _WIN32
 
 #ifdef __linux__
 
@@ -99,23 +90,18 @@ bool noa::InputSystem::GetKeyHold(noa::KeyCode key) {
 
 #endif // LINUX
 
-#endif
+#endif // _WIN64 || _WIN32
 	return false;
 }
 
 bool noa::InputSystem::GetKeyDown(noa::KeyCode key)
 {
-#ifdef _WIN64
+#if defined(_WIN64) || defined(_WIN32)
 	if (GetAsyncKeyState((unsigned short)key) & 1) {
 		return true;
 	}
 
 #else
-#ifdef _WIN32
-	if (GetAsyncKeyState((unsigned short)key) & 1) {
-		return true;
-	}
-#endif // _WIN32
 #ifdef __linux__
 	KeyCode keyCode = XKeysymToKeycode(display, (key));
 	char keys_return[32] = { 0 };
@@ -124,7 +110,7 @@ bool noa::InputSystem::GetKeyDown(noa::KeyCode key)
 
 #endif // _LINUX
 
-#endif // _WIN64
+#endif // _WIN64 || _WIN32
 
 	return false;
 
@@ -132,11 +118,12 @@ bool noa::InputSystem::GetKeyDown(noa::KeyCode key)
 
 bool noa::InputSystem::GetMouseMoveState()
 {
-	return e.type == SDL_MOUSEMOTION;
+	return this->mouseContext.motion;
 }
 
 void noa::InputSystem::SetRelativeMouseMode(bool mode)
 {
+	//设置鼠标相对模式
 	SDL_SetRelativeMouseMode(static_cast<SDL_bool>(mode));
 }
 

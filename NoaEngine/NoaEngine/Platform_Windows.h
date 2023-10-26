@@ -9,7 +9,11 @@ namespace noa {
 	class Platform_Windows:public Platform
 	{
 	private:
-		SDL_Window* windows = nullptr;
+		SDL_Window* window = nullptr;
+		SDL_Event e = {};
+
+	private:
+		void UpdateInputSystem();
 
 	public:
 
@@ -20,6 +24,8 @@ namespace noa {
 		int Create(int width, int height,
 				WindowMode windowMode,
 				std::string gameName) override;
+
+		void EventLoop() override;
 
 		//确定窗口关闭
 		bool CheckWindowClose() override;

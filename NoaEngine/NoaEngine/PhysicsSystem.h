@@ -1,6 +1,9 @@
 #ifndef NOAENGINE_PHYSICSSYSTEM_H
 #define NOAENGINE_PHYSICSSYSTEM_H
 
+#include <vector>
+#include "NoaMath.h"
+
 namespace noa 
 {
 	struct Grid;

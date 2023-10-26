@@ -9,12 +9,7 @@ namespace noa {
 
 noa::Platform::Platform()
 {
-	int init = SDL_Init(SDL_INIT_EVERYTHING);
-	if (init != 0)
-	{
-		Debug::Error("Game init failed");
-		exit(-1);
-	}
+	
 }
 
 noa::Platform::~Platform() {

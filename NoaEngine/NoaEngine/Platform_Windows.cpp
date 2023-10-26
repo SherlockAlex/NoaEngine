@@ -3,19 +3,51 @@
 #include "Platform_Windows.h"
 #include "Debug.h"
 #include "Screen.h"
+#include "InputSystem.h"
+#include "Audio.h"
+
+void noa::Platform_Windows::UpdateInputSystem()
+{
+	
+
+}
 
 noa::Platform_Windows::Platform_Windows():noa::Platform()
 {
+	const int init = SDL_Init(SDL_INIT_EVERYTHING);
+	if (init != 0)
+	{
+		Debug::Error("Game init failed");
+		exit(-1);
+	}
+
+	//初始化声音子系统
+	if (Mix_OpenAudio(
+		MIX_DEFAULT_FREQUENCY,
+		MIX_DEFAULT_FORMAT,
+		MIX_CHANNELS,
+		4096
+	) == -1)
+	{
+		//在一些没有声卡的设备中，将会初始化失败
+		Debug::Error("Init audio device failed");
+		Audio::isInitSuccessful = false;
+	}
+	else {
+		Audio::isInitSuccessful = true;
+	}
+
+	SDL_PollEvent(&e);
 
 }
 
 noa::Platform_Windows::~Platform_Windows() {
-	SDL_DestroyWindow(this->windows);
+	SDL_DestroyWindow(this->window);
 }
 
 int noa::Platform_Windows::Create(int width, int height, WindowMode windowMode, std::string gameName)
 {
-	windows = SDL_CreateWindow(
+	window = SDL_CreateWindow(
 			gameName.c_str(),
 			SDL_WINDOWPOS_CENTERED,
 			SDL_WINDOWPOS_CENTERED,
@@ -24,7 +56,7 @@ int noa::Platform_Windows::Create(int width, int height, WindowMode windowMode, 
 			static_cast<uint32_t>(windowMode)|SDL_WINDOW_OPENGL
 	);
 
-	if (windows == nullptr)
+	if (window == nullptr)
 	{
 		noa::Debug::Error("Create window failed");
 		exit(-1);
@@ -41,9 +73,29 @@ int noa::Platform_Windows::Create(int width, int height, WindowMode windowMode, 
 	Screen::hardwareScreenScale.y = displayMode.h;
 
 	//设置WindowID
-	this->windowID = SDL_GetWindowID(windows);
+	this->windowID = SDL_GetWindowID(window);
 
 	return 0;
+}
+
+void noa::Platform_Windows::EventLoop()
+{
+
+	//实现Windows系统写的事件循环
+	// 下面对于SDL事件的封装要进行，不然没有办法跨平台
+	while (SDL_PollEvent(&e))
+	{
+		switch (e.type)
+		{
+		case SDL_QUIT:
+			//退出
+			Quit();
+			break;
+		default:
+			inputSystem.Update(e);
+			break;
+		}
+	}
 }
 
 bool noa::Platform_Windows::CheckWindowClose()

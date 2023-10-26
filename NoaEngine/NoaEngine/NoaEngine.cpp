@@ -38,23 +38,6 @@ noa::NoaEngine::NoaEngine(int width, int height, WindowMode windowMode, string g
 
 	texture = renderer->CreateTexture(width, height, Screen::pixelBuffer);
 
-	if (Mix_OpenAudio(
-		MIX_DEFAULT_FREQUENCY,
-		MIX_DEFAULT_FORMAT,
-		MIX_CHANNELS,
-		4096
-	) == -1)
-	{
-		//在一些没有声卡的设备中，将会初始化失败
-		Debug::Error("Init audio device failed");
-		Audio::isInitSuccessful = false;
-	}
-	else {
-		Audio::isInitSuccessful = true;
-	}
-
-
-
 }
 
 noa::NoaEngine::~NoaEngine()
@@ -93,19 +76,7 @@ void noa::NoaEngine::EngineThread()
 			Time::time = 0;
 		}
 
-		// 下面对于SDL事件的封装要进行，不然没有办法跨平台
-		while (SDL_PollEvent(&inputSystem.e))
-		{
-			switch (inputSystem.e.type)
-			{
-			case SDL_QUIT:
-				Quit();
-				break;
-			default:
-				inputSystem.Update();
-				break;
-			}
-		}
+		platform->EventLoop();
 
 		sceneManager.Update();
 		Update();
@@ -141,11 +112,6 @@ void noa::NoaEngine::EngineThread()
 		tp1 = tp2;
 
 	}
-}
-
-void noa::NoaEngine::EventLoop()
-{
-
 }
 
 int noa::NoaEngine::Quit()

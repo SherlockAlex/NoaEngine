@@ -107,9 +107,6 @@ namespace noa {
 
 	typedef struct MouseContext
 	{
-	private:
-		friend class InputSystem;
-	private:
 		Vector<double> position;
 		Vector<double> delta;
 		Vector<double> wheel;
@@ -125,12 +122,10 @@ namespace noa {
 
 	class InputSystem final
 	{
-	public:
-		SDL_Event e = {};
 	private:
 		MouseContext mouseContext;
 	public:
-		void Update();
+		void Update(SDL_Event & e);
 		InputSystem();
 		~InputSystem();
 	public:
@@ -147,8 +142,6 @@ namespace noa {
 		Vector<double> & GetMouseMoveDelta();
 		Vector<double> & GetMousePosition();
 		Vector<double> & GetMouseWheel();
-
-		
 
 	};
 

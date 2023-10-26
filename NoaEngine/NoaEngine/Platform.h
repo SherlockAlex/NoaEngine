@@ -48,6 +48,8 @@ namespace noa {
 		//确定窗口关闭
 		virtual bool CheckWindowClose() = 0;
 
+		virtual void EventLoop() = 0;
+
 		void Quit();
 
 		uint32_t GetWindowID();

@@ -221,7 +221,6 @@ namespace noa {
 		int Run();
 
 		void EngineThread();
-		void EventLoop();
 
 		int Quit();
 
