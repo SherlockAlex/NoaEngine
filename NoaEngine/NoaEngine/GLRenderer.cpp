@@ -106,9 +106,15 @@ void noa::GLRenderer::DrawTexture(
 
 }
 
-void noa::GLRenderer::SetContext(SDL_Window* windows)
+void noa::GLRenderer::SetContext(uint32_t windowID)
 {
-    this->context = SDL_GL_CreateContext(windows);
+    SDL_Window* window = SDL_GetWindowFromID(windowID);
+    if (window == nullptr) 
+    {
+        Debug::Error("Get SDL Window from id error");
+        exit(-1);
+    }
+    this->context = SDL_GL_CreateContext(window);
     if (context == nullptr)
     {
         Debug::Error("Create GL Context failed");
@@ -117,9 +123,15 @@ void noa::GLRenderer::SetContext(SDL_Window* windows)
     SDL_GL_SetSwapInterval(0);
 }
 
-void noa::GLRenderer::Present(SDL_Window* windows)
+void noa::GLRenderer::Present(uint32_t windowID)
 {
-    SDL_GL_SwapWindow(windows);
+    SDL_Window* window = SDL_GetWindowFromID(windowID);
+    if (window == nullptr)
+    {
+        Debug::Error("Get SDL Window from id error");
+        exit(-1);
+    }
+    SDL_GL_SwapWindow(window);
 }
 
 noa::GLShader* noa::GLRenderer::CreateShader(

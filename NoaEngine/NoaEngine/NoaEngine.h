@@ -203,7 +203,7 @@ namespace noa {
 		std::chrono::duration<float> elapsedTime = tp1 - tp2;
 
 		Texture* texture = nullptr;
-		SDL_Window* window = nullptr;
+		uint32_t windowID = 0;
 
 	public:
 		NoaEngine(

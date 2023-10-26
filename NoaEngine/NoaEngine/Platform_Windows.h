@@ -8,6 +8,9 @@
 namespace noa {
 	class Platform_Windows:public Platform
 	{
+	private:
+		SDL_Window* windows = nullptr;
+
 	public:
 
 		Platform_Windows();

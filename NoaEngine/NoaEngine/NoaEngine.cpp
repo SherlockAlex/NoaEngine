@@ -25,8 +25,8 @@ noa::NoaEngine::NoaEngine(int width, int height, WindowMode windowMode, string g
 
 	renderer->SetRenderer(width, height);
 	platform->Create(width, height, windowMode, gameName);
-	window = platform->GetWindow();
-	renderer->SetContext(window);
+	windowID = platform->GetWindowID();
+	renderer->SetContext(windowID);
 	renderer->InitRenderer();
 	renderer->InitFontAsset();
 
@@ -93,6 +93,7 @@ void noa::NoaEngine::EngineThread()
 			Time::time = 0;
 		}
 
+		// 下面对于SDL事件的封装要进行，不然没有办法跨平台
 		while (SDL_PollEvent(&inputSystem.e))
 		{
 			switch (inputSystem.e.type)
@@ -135,7 +136,7 @@ void noa::NoaEngine::EngineThread()
 			layer.clear();
 		}
 
-		renderer->Present(window);
+		renderer->Present(windowID);
 
 		tp1 = tp2;
 

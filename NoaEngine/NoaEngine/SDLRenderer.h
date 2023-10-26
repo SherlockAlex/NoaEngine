@@ -23,8 +23,8 @@ namespace noa {
 			, float eulerAngle
 			, bool isFlipX) override;
 		void Clear() override;
-		void SetContext(SDL_Window* windows) override;
-		void Present(SDL_Window* windows) override;
+		void SetContext(uint32_t windowID) override;
+		void Present(uint32_t windows) override;
 
 	private:
 		SDL_Renderer* sdlRenderer = nullptr;

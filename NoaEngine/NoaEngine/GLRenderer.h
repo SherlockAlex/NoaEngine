@@ -33,8 +33,8 @@ namespace noa {
 			, unsigned int tint
 			, float eulerAngle
 			, bool isFlipX) override;
-		void SetContext(SDL_Window* windows) override;
-		void Present(SDL_Window* windows) override;
+		void SetContext(uint32_t windows) override;
+		void Present(uint32_t windows) override;
 
 	private:
 		SDL_GLContext context = nullptr;

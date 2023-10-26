@@ -1,5 +1,6 @@
 #include "SDLRenderer.h"
 #include "SDLTexture.h"
+#include "Debug.h"
 
 noa::SDLRenderer::~SDLRenderer()
 {
@@ -66,14 +67,20 @@ void noa::SDLRenderer::Clear()
 
 }
 
-void noa::SDLRenderer::SetContext(SDL_Window* windows)
+void noa::SDLRenderer::SetContext(uint32_t windowID)
 {
+	SDL_Window* window = SDL_GetWindowFromID(windowID);
+	if (window == nullptr)
+	{
+		Debug::Error("Get SDL Window from id error");
+		exit(-1);
+	}
 	//创建一个SDLRenderer
-	sdlRenderer = SDL_CreateRenderer(windows,-1,SDL_RENDERER_ACCELERATED);
+	sdlRenderer = SDL_CreateRenderer(window,-1,SDL_RENDERER_ACCELERATED);
 	SDL_SetRenderDrawBlendMode(sdlRenderer, SDL_BLENDMODE_BLEND);
 }
 
-void noa::SDLRenderer::Present(SDL_Window* windows)
+void noa::SDLRenderer::Present(uint32_t windowID)
 {
 	SDL_RenderPresent(sdlRenderer);
 }

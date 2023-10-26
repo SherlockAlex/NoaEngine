@@ -18,7 +18,7 @@ noa::Platform::Platform()
 }
 
 noa::Platform::~Platform() {
-	SDL_DestroyWindow(windows);
+	
 }
 
 void noa::Platform::Quit()
@@ -26,9 +26,9 @@ void noa::Platform::Quit()
 	isRun = false;
 }
 
-SDL_Window* noa::Platform::GetWindow()
+uint32_t noa::Platform::GetWindowID()
 {
-	return this->windows;
+	return this->windowID;
 }
 
 

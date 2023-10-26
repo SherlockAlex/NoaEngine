@@ -29,10 +29,9 @@ namespace noa {
 	//平台抽象类
 	class Platform {
 	protected:
-
-		SDL_Window* windows = nullptr;
-
 		//系统时钟
+
+		uint32_t windowID = 0;
 
 		bool isRun = true;
 
@@ -51,7 +50,7 @@ namespace noa {
 
 		void Quit();
 
-		SDL_Window* GetWindow();
+		uint32_t GetWindowID();
 
 
 	};

@@ -40,6 +40,9 @@ int noa::Platform_Windows::Create(int width, int height, WindowMode windowMode, 
 	Screen::hardwareScreenScale.x = displayMode.w;
 	Screen::hardwareScreenScale.y = displayMode.h;
 
+	//ÉèÖÃWindowID
+	this->windowID = SDL_GetWindowID(windows);
+
 	return 0;
 }
 
