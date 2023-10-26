@@ -135,12 +135,9 @@ bool noa::InputSystem::GetMouseMoveState()
 	return e.type == SDL_MOUSEMOTION;
 }
 
-
-
 void noa::InputSystem::SetRelativeMouseMode(bool mode)
 {
 	SDL_SetRelativeMouseMode(static_cast<SDL_bool>(mode));
-
 }
 
 noa::Vector<double> delta;
