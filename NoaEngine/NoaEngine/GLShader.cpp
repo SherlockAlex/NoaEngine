@@ -13,7 +13,7 @@ noa::GLShader::~GLShader()
 
 void noa::GLShader::CompileVertextShader(const std::string& filePath)
 {
-	std::string source = std::move(noa::resource.ReadSourceFrom(filePath));
+	std::string source = std::move(noa::Resource::ReadTextFrom(filePath));
 	const char* src = source.c_str();
 
 	this->vertexShader = glCreateShader(GL_VERTEX_SHADER);
@@ -33,7 +33,7 @@ void noa::GLShader::CompileVertextShader(const std::string& filePath)
 
 void noa::GLShader::CompileFragmentShader(const std::string& filePath)
 {
-	std::string source = std::move(noa::resource.ReadSourceFrom(filePath));
+	std::string source = std::move(noa::Resource::ReadTextFrom(filePath));
 	const char* src = source.c_str();
 	this->fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
 	glShaderSource(this->fragmentShader,1,&src,nullptr);

@@ -10,7 +10,7 @@ namespace noa {
 
 noa::AnimationClip::AnimationClip(const char* filePath)
 {
-	const AnimationFile animatorFile = std::move(resource.LoadAnimationFile(filePath));
+	const AnimationFile animatorFile = std::move(Resource::LoadAnimationClip(filePath));
 	for (const SpriteFile& frame : animatorFile.data)
 	{
 		framesImage.push_back(frame);

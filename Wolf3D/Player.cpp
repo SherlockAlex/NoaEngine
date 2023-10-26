@@ -126,7 +126,7 @@ void Player::ActorControl()
 		}
 	}
 
-	if (inputSystem.GetMouseButton(MouseButton::LEFT_BUTTON)&&bulletCount>0)
+	if (inputSystem.GetMouseKeyHold(MouseButton::LEFT_BUTTON)&&bulletCount>0)
 	{
 		guns[currentGunIndex]->Shoot();
 	}

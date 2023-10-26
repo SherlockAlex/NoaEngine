@@ -18,6 +18,18 @@ Display* display = nullptr;
 void noa::InputSystem::Update()
 {
 
+	mouseContext.mouseKey[static_cast<noa::MouseButton>(e.button.button)].down = (e.type == SDL_MOUSEBUTTONDOWN);
+	mouseContext.mouseKey[static_cast<noa::MouseButton>(e.button.button)].up = (e.type == SDL_MOUSEBUTTONUP);
+	{
+		int mouseX, mouseY;
+		const Uint32 mouseState = SDL_GetMouseState(&mouseX, &mouseY);
+
+		mouseContext.mouseKey[MouseButton::LEFT_BUTTON].hold = mouseState & SDL_BUTTON((static_cast<int>(MouseButton::LEFT_BUTTON)));
+		mouseContext.mouseKey[MouseButton::RIGHT_BUTTON].hold = mouseState & SDL_BUTTON((static_cast<int>(MouseButton::RIGHT_BUTTON)));
+		mouseContext.mouseKey[MouseButton::MIDDLE_BUTTON].hold = mouseState & SDL_BUTTON((static_cast<int>(MouseButton::MIDDLE_BUTTON)));
+	}
+	
+
 	if (e.type == SDL_MOUSEMOTION)
 	{
 		mouseContext.delta.x += static_cast<double>(e.motion.xrel);
@@ -123,6 +135,8 @@ bool noa::InputSystem::GetMouseMoveState()
 	return e.type == SDL_MOUSEMOTION;
 }
 
+
+
 void noa::InputSystem::SetRelativeMouseMode(bool mode)
 {
 	SDL_SetRelativeMouseMode(static_cast<SDL_bool>(mode));
@@ -154,11 +168,19 @@ noa::Vector<double>& noa::InputSystem::GetMouseWheel()
 	return wheel;
 }
 
-bool noa::InputSystem::GetMouseButton(noa::MouseButton mouseButton)
+bool noa::InputSystem::GetMouseKeyDown(MouseButton mouseButton)
 {
-	int mouseX, mouseY;
-	const Uint32 mouseState = SDL_GetMouseState(&mouseX, &mouseY);
-	return mouseState & SDL_BUTTON((static_cast<int>(mouseButton)));
+	return this->mouseContext.mouseKey[mouseButton].down;
+}
+
+bool noa::InputSystem::GetMouseKeyHold(noa::MouseButton mouseButton)
+{
+	return this->mouseContext.mouseKey[mouseButton].hold;
+}
+
+bool noa::InputSystem::GetMouseKeyUp(MouseButton mouseButton)
+{
+	return this->mouseContext.mouseKey[mouseButton].up;
 }
 
 

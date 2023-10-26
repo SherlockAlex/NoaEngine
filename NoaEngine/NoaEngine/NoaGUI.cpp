@@ -301,7 +301,7 @@ void noa::Button::SwapState()
 	{
 		isSelect = true;
 
-		if (inputSystem.GetMouseButton(MouseButton::LEFT_BUTTON))
+		if (inputSystem.GetMouseKeyUp(MouseButton::LEFT_BUTTON))
 		{
 			this->clickEvent.Invoke();
 		}

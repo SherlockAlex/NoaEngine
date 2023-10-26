@@ -2,7 +2,7 @@
 <Project>
   <ProjectOutputs>
     <ProjectOutput>
-      <FullPath>D:\Work\NoaEngine\x64\Release\Wolf3D.exe</FullPath>
+      <FullPath>D:\GitHub\NoaEngine\x64\Release\Wolf3D.exe</FullPath>
     </ProjectOutput>
   </ProjectOutputs>
   <ContentFiles />

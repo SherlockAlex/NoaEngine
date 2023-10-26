@@ -81,45 +81,17 @@ namespace noa {
 
 	class Resource {
 	public:
-		SpriteFile LoadSprFile(const char* file) const;
+		static SpriteFile LoadSprite(const char* file);
 
-		AnimationFile LoadAnimationFile(const char* file) const;
+		static AnimationFile LoadAnimationClip(const char* file);
 
-		MapFile LoadMapFromCSV(const std::string filename) const;
+		static MapFile LoadTileMap(const std::string filename);
 
-		std::unordered_map<int, Tile> LoadTileFromTsd(const std::string& fileName) const;
+		static std::unordered_map<int, Tile> LoadTileSet(const std::string& fileName);
 
-		std::string ReadSourceFrom(const std::string & filePath);
-
-	};
-
-	class BinaryFile 
-	{
-	public:
-		enum Mode {
-			READ = 0,
-			WRITE = 1
-		};
-
-	private:
-		std::ifstream ifile;
-		std::ofstream ofile;
-	public:
-		BinaryFile(const char * fileName,Mode mode);
-		~BinaryFile();
-
-		//读取文件数据
-		template<class T>
-		T Read();
-
-		//将数据写入二进制文件
-		template<class T>
-		bool Write(T value);
+		static std::string ReadTextFrom(const std::string & filePath);
 
 	};
-
-	//资源读取器，读取本地游戏引擎资源
-	extern Resource resource;
 
 }
 

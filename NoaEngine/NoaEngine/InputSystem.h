@@ -5,6 +5,8 @@
 #include "NoaMath.h"
 #include "Graphic.h"
 
+#include <unordered_map>
+
 //Windows System
 #ifdef _WIN64
 #include <Windows.h>
@@ -96,12 +98,28 @@ namespace noa {
 #endif // _WIN64
 	};
 
+	typedef struct KeyState 
+	{
+		bool down = false;
+		bool hold = false;
+		bool up = false;
+	};
+
 	typedef struct MouseContext
 	{
+	private:
+		friend class InputSystem;
+	private:
 		Vector<double> position;
 		Vector<double> delta;
 		Vector<double> wheel;
 		bool motion = false;
+		std::unordered_map<noa::MouseButton, noa::KeyState> mouseKey =
+		{
+			{noa::MouseButton::LEFT_BUTTON,{false,false,false}},
+			{noa::MouseButton::MIDDLE_BUTTON,{false,false,false}},
+			{noa::MouseButton::RIGHT_BUTTON,{false,false,false}},
+		};
 
 	}MouseContext;
 
@@ -121,12 +139,16 @@ namespace noa {
 		bool GetKeyDown(KeyCode key);
 		bool GetMouseMoveState();
 
+		bool GetMouseKeyDown(MouseButton mouseButton);
+		bool GetMouseKeyHold(MouseButton mouseButton);
+		bool GetMouseKeyUp(MouseButton mouseButton);
+
 		void SetRelativeMouseMode(bool mode);
 		Vector<double> & GetMouseMoveDelta();
 		Vector<double> & GetMousePosition();
 		Vector<double> & GetMouseWheel();
 
-		bool GetMouseButton(MouseButton mouseButton);
+		
 
 	};
 

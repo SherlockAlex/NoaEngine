@@ -27,10 +27,10 @@ void Level00::Awake()
 
 	map = std::make_shared<MapInfo>();
 	map->mapLayer =std::make_shared<TileMap>(
-		resource.LoadTileFromTsd("./Assets/Wolf/Map/tileSet.tsd"),
-		resource.LoadMapFromCSV("./Assets/Wolf/Map/新手关_图块层 1.csv")
+		Resource::LoadTileSet("./Assets/Wolf/Map/tileSet.tsd"),
+		Resource::LoadTileMap("./Assets/Wolf/Map/新手关_图块层 1.csv")
 	);
-	map->objectLayer = std::make_shared<MapFile>(resource.LoadMapFromCSV("./Assets/Wolf/Map/新手关_对象层.csv"));
+	map->objectLayer = std::make_shared<MapFile>(Resource::LoadTileMap("./Assets/Wolf/Map/新手关_对象层.csv"));
 
 	SetTileMap(map->mapLayer.get());
 

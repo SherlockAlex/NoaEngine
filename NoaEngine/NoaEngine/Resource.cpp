@@ -4,15 +4,7 @@
 
 using namespace std;
 
-namespace noa {
-
-	Resource resource;
-
-	
-
-}
-
-noa::SpriteFile noa::Resource::LoadSprFile(const char* file) const
+noa::SpriteFile noa::Resource::LoadSprite(const char* file)
 {
 	SpriteFile spriteFile;
 
@@ -44,7 +36,7 @@ noa::SpriteFile noa::Resource::LoadSprFile(const char* file) const
 	return spriteFile;
 }
 
-noa::AnimationFile noa::Resource::LoadAnimationFile(const char* file) const
+noa::AnimationFile noa::Resource::LoadAnimationClip(const char* file)
 {
 	AnimationFile animator;
 
@@ -85,7 +77,7 @@ noa::AnimationFile noa::Resource::LoadAnimationFile(const char* file) const
 	return animator;
 }
 
-noa::MapFile noa::Resource::LoadMapFromCSV(const std::string filename) const
+noa::MapFile noa::Resource::LoadTileMap(const std::string filename)
 {
 	Map map;
 
@@ -133,7 +125,7 @@ noa::MapFile noa::Resource::LoadMapFromCSV(const std::string filename) const
 	return map;
 }
 
-unordered_map<int, noa::Tile> noa::Resource::LoadTileFromTsd(const std::string& fileName) const
+unordered_map<int, noa::Tile> noa::Resource::LoadTileSet(const std::string& fileName)
 {
 	//º”‘ÿ”Œœ∑µƒtileSet
 
@@ -181,7 +173,7 @@ unordered_map<int, noa::Tile> noa::Resource::LoadTileFromTsd(const std::string& 
 	return result;
 }
 
-std::string noa::Resource::ReadSourceFrom(const std::string& filePath)
+std::string noa::Resource::ReadTextFrom(const std::string& filePath)
 {
 	std::ifstream file(filePath);
 	if (!file.is_open())
@@ -222,53 +214,5 @@ noa::Tile::Tile(SpriteFile spriteFile, bool isCollision)
 
 noa::Tile::~Tile()
 {
-
-}
-
-noa::BinaryFile::BinaryFile(const char* fileName, Mode mode)
-{
-	if (mode == READ)
-	{
-		ifile = ifstream(fileName, ios::binary);
-	}
-	if (mode == WRITE)
-	{
-		ofile = ofstream(fileName, ios::binary | ios::out);
-	}
-
-
-}
-
-noa::BinaryFile::~BinaryFile()
-{
-	if (ifile)
-	{
-		ifile.close();
-	}
-}
-
-template<class T>
-inline T noa::BinaryFile::Read()
-{
-	if (ifile)
-	{
-		Debug::Error("read data from file failed");
-		exit(-1);
-	}
-	T value;
-	ifile.read(reinterpret_cast<char*>(&value), sizeof(T));
-	return value;
-}
-
-template<class T>
-bool noa::BinaryFile::Write(T value)
-{
-	if (ofile)
-	{
-		Debug::Log("write data to file failed");
-		return false;
-	}
-	T data = value;
-	ofile.write(reinterpret_cast<const char*>(data), sizeof(T));
 
 }
