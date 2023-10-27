@@ -1,13 +1,14 @@
-function createEngineInstance()
-{
-    let engineInstance = new Object();
-    
-    engineInstance.run = function(){
-        console.log("hello engine");
-    };
+function NoaEngineWeb(){
+    this.run = function(){
+        console.log("Hello Engine");
+    }
 
-    return engineInstance;
-};
+    this.start() = function(){
 
-var engine = createEngineInstance();
-engine.run();
+    }
+
+    this.update() = function(){
+
+    }
+
+}
