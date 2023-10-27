@@ -69,6 +69,10 @@
 * Font:创建字体图片时，会使用SpriteGPU
 * Tile:单个Tile时会使用SpriteGPU
 * 
+* 开发模式：
+* 每一个场景，都拥有一个主脚本，及GameManager，主脚本负责管理整个个场景，游戏规则，以及Actor，每个GameManager都是一个大单例
+* Actor管理ActorComponent
+* 
 */
 
 /*
@@ -173,17 +177,6 @@
 #include "ActorPool.h"
 #include "ActorPoolFactory.h"
 
-#include "GLRenderer.h"
-#include "GLTexture.h"
-
-#include "SDLRenderer.h"
-#include "SDLTexture.h"
-
-#ifdef _WIN64
-#include "Platform_Windows.h"
-#elif defined(__linux__)
-#include "Platform_Linux.h"
-#endif
 
 //窗口属性
 

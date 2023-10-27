@@ -1,4 +1,18 @@
 #include "NoaEngine.h"
+
+
+
+#ifdef _WIN64
+#include "GLRenderer.h"
+#include "GLTexture.h"
+#include "Platform_Windows.h"
+#elif defined(__linux__)
+#include "GLRenderer.h"
+#include "GLTexture.h"
+#include "Platform_Linux.h"
+#endif
+
+
 #include <ctime>
 #include <thread>
 #include <mutex>
