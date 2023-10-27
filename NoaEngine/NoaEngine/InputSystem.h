@@ -8,23 +8,6 @@
 #include <unordered_map>
 #include <memory>
 
-//Windows System
-#ifdef _WIN64
-#include <Windows.h>
-#endif
-
-#ifdef _WIN32
-
-#include <windows.h>
-
-#endif // _WIN32
-
-#ifdef __linux
-
-#endif // __linux
-
-
-
 namespace noa {
 	enum class MouseButton {
 		LEFT_BUTTON = 1,
