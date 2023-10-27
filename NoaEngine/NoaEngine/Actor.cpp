@@ -113,6 +113,18 @@ void noa::Actor::ComponentUpdate()
 
 }
 
+void noa::Actor::ComponentLateUpdate()
+{
+	for (auto& component : components)
+	{
+		if (component == nullptr || !component->GetActive())
+		{
+			continue;
+		}
+		component->LateUpdate();
+	}
+}
+
 void noa::Actor::ComponentOnDisable()
 {
 	for (auto& component : components)
@@ -193,6 +205,12 @@ void noa::Actor::SetActive(bool value)
 	
 	if (active)
 	{	
+		if (!start)
+		{
+			ComponentStart();
+			Start();
+			start = true;
+		}
 		OnEnable();
 		return;
 	}

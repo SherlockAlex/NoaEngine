@@ -32,6 +32,7 @@ namespace noa {
 		virtual void OnEnable() {};
 		virtual void Start() {};
 		virtual void Update() {};
+		virtual void LateUpdate() {};
 		virtual void OnDisable() {};
 		virtual void OnDestroy() {};
 	

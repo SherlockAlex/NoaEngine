@@ -14,9 +14,11 @@ void noa::InitNObject(noa::NOAObject* obj)
 		{
 			actor->ComponentOnEnable();
 			actor->OnEnable();
+
+			actor->ComponentStart();
+			actor->Start();
+
 		}
 
-		actor->ComponentStart();
-		actor->Start();
 	}
 }

@@ -210,6 +210,17 @@ void noa::Scene::ActorUpdate()
 		actor->Update();
 	}
 
+	for (const auto& actor : actors)
+	{
+		if (actor == nullptr || !actor->GetActive() || actor->isRemoved)
+		{
+			continue;
+		}
+		actor->ComponentLateUpdate();
+		actor->LateUpdate();
+	}
+
+	//更新物理系统
 	PhysicsSystem::Update(3);
 
 }

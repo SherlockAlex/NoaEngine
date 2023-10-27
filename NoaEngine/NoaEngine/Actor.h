@@ -35,6 +35,7 @@ namespace noa {
 		Scene* activeScene = nullptr;
 	private:
 		bool active = true;
+		bool start = false;
 
 		std::vector<ActorComponent*> components;
 	public:
@@ -48,11 +49,12 @@ namespace noa {
 	protected:
 		
 		virtual void Awake() {};
-		virtual void OnEnable() {}
-		virtual void Start() {}
-		virtual void Update() {}
-		virtual void OnDisable() {}
-		virtual void OnDestroy() {}
+		virtual void OnEnable() {};
+		virtual void Start() {};
+		virtual void Update() {};
+		virtual void LateUpdate() {};
+		virtual void OnDisable() {};
+		virtual void OnDestroy() {};
 
 		virtual void OnTrigger(const Collision& collision);
 		virtual void OnHitTile() {}
@@ -119,6 +121,7 @@ namespace noa {
 		void ComponentOnEnable();
 		void ComponentStart();
 		void ComponentUpdate();
+		void ComponentLateUpdate();
 		void ComponentOnDisable();
 		void ComponentOnDestroy();
 		void DestroyComponent();

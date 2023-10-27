@@ -66,12 +66,6 @@ namespace noa {
 		void SetCollisionTileID(const std::vector<int> & collisionTileIDs);
 	};
 
-	typedef struct SceneInfo
-	{
-		std::string mapPath = "";
-		std::string mapObjectPath = "";
-		std::string mapTileSetPath = "";
-	}SceneInfo;
 
 	typedef struct MapInfo {
 		std::shared_ptr<TileMap> mapLayer;

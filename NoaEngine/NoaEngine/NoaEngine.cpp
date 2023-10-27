@@ -71,7 +71,8 @@ noa::NoaEngine::~NoaEngine()
 
 int noa::NoaEngine::Run()
 {
-
+	
+	//≥ı ºªØ”Œœ∑Õº≤„
 	rendererInstanceLayer.push_back(std::vector<SpriteGPUInstance>());
 	rendererInstanceLayer.push_back(std::vector<SpriteGPUInstance>());
 	rendererInstanceLayer.push_back(std::vector<SpriteGPUInstance>());

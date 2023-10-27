@@ -1,0 +1,29 @@
+#pragma once
+#include "GameEngine.h"
+#include "LiveEntity.h"
+class Player :public LiveEntity
+{
+	NOBJECT(Player)
+private:
+	Player(noa::Scene* scene);
+
+public:
+
+	void Awake() override;
+	void Start() override;
+	void Update() override;
+
+	void TakeDamage(int damage) override;
+
+public:
+	noa::SpriteRenderer* spriteRenderer = noa::SpriteRenderer::Create(this);
+	noa::Rigidbody* rigid = noa::Rigidbody::Create(this);
+	noa::CircleCollider2D* collider = noa::CircleCollider2D::Create(this, rigid);
+
+private:
+	noa::Sprite sprite = noa::Sprite(noa::Resource::LoadSprite("./Assets/Fly/player.spr"), { noa::Screen::width / 10,noa::Screen::width / 10 });
+	float delay = 0;
+
+	noa::Audio shootAFX = noa::Audio("./Assets/Fly/Audio/shoot.mp3",noa::AudioType::CHUNK);
+};
+

@@ -131,47 +131,58 @@ void noa::InputEvent_Windows::PollEvent(const std::function<void()>& quitCallbac
 
 void noa::InputEvent_Windows::Update()
 {
-	mouseContext->mouseKey[static_cast<noa::MouseButton>(e.button.button)].down = (e.type == SDL_MOUSEBUTTONDOWN);
-	mouseContext->mouseKey[static_cast<noa::MouseButton>(e.button.button)].up = (e.type == SDL_MOUSEBUTTONUP);
-	{
-		int mouseX, mouseY;
-		const Uint32 mouseState = SDL_GetMouseState(&mouseX, &mouseY);
 
-		mouseContext->mouseKey[MouseButton::LEFT_BUTTON].hold = mouseState & SDL_BUTTON((static_cast<int>(MouseButton::LEFT_BUTTON)));
-		mouseContext->mouseKey[MouseButton::RIGHT_BUTTON].hold = mouseState & SDL_BUTTON((static_cast<int>(MouseButton::RIGHT_BUTTON)));
-		mouseContext->mouseKey[MouseButton::MIDDLE_BUTTON].hold = mouseState & SDL_BUTTON((static_cast<int>(MouseButton::MIDDLE_BUTTON)));
-	}
+	//int mouseX, mouseY;
+	const Uint32 mouseState = SDL_GetMouseState(nullptr, nullptr);
 
+	mouseContext->mouseKey[noa::MouseButton::LEFT_BUTTON].down = false;
+	mouseContext->mouseKey[noa::MouseButton::LEFT_BUTTON].hold = false;
+	mouseContext->mouseKey[noa::MouseButton::LEFT_BUTTON].up = false;
 
-	if (e.type == SDL_MOUSEMOTION)
-	{
-		mouseContext->delta.x += static_cast<double>(e.motion.xrel);
-		mouseContext->delta.y += static_cast<double>(e.motion.yrel);
-	}
-	else {
-		mouseContext->delta = { 0,0 };
-	}
+	mouseContext->mouseKey[noa::MouseButton::MIDDLE_BUTTON].down = false;
+	mouseContext->mouseKey[noa::MouseButton::MIDDLE_BUTTON].hold = false;
+	mouseContext->mouseKey[noa::MouseButton::MIDDLE_BUTTON].up = false;
 
-	if (e.type == SDL_MOUSEMOTION) 
-	{
-		mouseContext->motion = true;
-	}
-	else {
-		mouseContext->motion = false;
-	}
-
-	if (e.type == SDL_MOUSEWHEEL)
-	{
-		mouseContext->wheel.x = e.wheel.x;
-		mouseContext->wheel.y = e.wheel.y;
-	}
-	else {
-		
-		mouseContext->wheel = { 0,0 };
-	}
+	mouseContext->mouseKey[noa::MouseButton::RIGHT_BUTTON].down = false;
+	mouseContext->mouseKey[noa::MouseButton::RIGHT_BUTTON].hold = false;
+	mouseContext->mouseKey[noa::MouseButton::RIGHT_BUTTON].up = false;
+	mouseContext->motion = false;
 
 	mouseContext->position.x = e.motion.x;
 	mouseContext->position.y = e.motion.y;
+
+	mouseContext->mouseKey[MouseButton::LEFT_BUTTON].hold
+		= mouseState & SDL_BUTTON((static_cast<int>(MouseButton::LEFT_BUTTON)));
+	mouseContext->mouseKey[MouseButton::RIGHT_BUTTON].hold
+		= mouseState & SDL_BUTTON((static_cast<int>(MouseButton::RIGHT_BUTTON)));
+	mouseContext->mouseKey[MouseButton::MIDDLE_BUTTON].hold
+		= mouseState & SDL_BUTTON((static_cast<int>(MouseButton::MIDDLE_BUTTON)));
+
+	switch (e.type)
+	{
+	case SDL_MOUSEBUTTONDOWN:
+		mouseContext->mouseKey[static_cast<noa::MouseButton>(e.button.button)].down 
+			= true;
+		break;
+	case SDL_MOUSEBUTTONUP:
+		mouseContext->mouseKey[static_cast<noa::MouseButton>(e.button.button)].up 
+			= true;
+		break;
+	case SDL_MOUSEMOTION:
+		mouseContext->motion = true;
+		mouseContext->delta.x += static_cast<double>(e.motion.xrel);
+		mouseContext->delta.y += static_cast<double>(e.motion.yrel);
+		break;
+	case SDL_MOUSEWHEEL:
+		mouseContext->wheel.x = e.wheel.x;
+		mouseContext->wheel.y = e.wheel.y;
+		break;
+	default:
+		
+		mouseContext->delta = { 0,0 };
+		mouseContext->wheel = { 0,0 };
+		break;
+	}
 
 }
 
