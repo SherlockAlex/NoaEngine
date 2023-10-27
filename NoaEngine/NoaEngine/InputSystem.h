@@ -77,7 +77,7 @@ namespace noa {
 		KEY_Y = 'Y',
 		KEY_Z = 'Z',
 		KEY_SPACE = ' ',
-		KEY_ESC = VK_ESCAPE
+		KEY_ESC = 0x1B
 #endif // _WIN64
 	};
 

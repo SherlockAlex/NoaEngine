@@ -1,10 +1,11 @@
-#ifdef _WIN64
+#if defined(_WIN64)||defined(_WIN32)
 
 #include "Platform_Windows.h"
 #include "Debug.h"
 #include "Screen.h"
 #include "InputSystem.h"
 #include "Audio.h"
+#include <windows.h>
 
 noa::Platform_Windows::Platform_Windows():noa::Platform()
 {
@@ -34,7 +35,7 @@ noa::Platform_Windows::Platform_Windows():noa::Platform()
 }
 
 noa::Platform_Windows::~Platform_Windows() {
-	SDL_DestroyWindow(this->window);
+	SDL_DestroyWindow(window);
 }
 
 int noa::Platform_Windows::Create(

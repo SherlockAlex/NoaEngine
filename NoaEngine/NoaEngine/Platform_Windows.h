@@ -1,9 +1,10 @@
-#ifdef _WIN64
+#if defined(_WIN64)||defined(_WIN32)
 
 #ifndef NOAENGINE_PLATFORM_WINDOWS_H
 #define NOAENGINE_PLATFORM_WINDOWS_H
 
 #include "Platform.h"
+#include "SDLHelper.h"
 
 
 namespace noa {

@@ -5,16 +5,7 @@
 #include <string>
 #include <functional>
 #include <chrono>
-
-#include "SDLHelper.h"
-
-#ifdef _WIN64
-
-#include "GLTexture.h"
-#include "GLRenderer.h"
-
-#endif // _WIN64
-
+#include <memory>
 
 
 namespace noa {

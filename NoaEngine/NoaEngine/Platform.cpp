@@ -2,6 +2,8 @@
 #include "Debug.h"
 #include "InputSystem.h"
 
+#include "Renderer.h"
+
 namespace noa {
 
 	extern std::shared_ptr<Renderer> renderer;
