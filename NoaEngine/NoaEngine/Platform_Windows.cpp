@@ -152,7 +152,13 @@ void noa::InputEvent_Windows::Update()
 		mouseContext->delta = { 0,0 };
 	}
 
-	mouseContext->motion = (e.type == SDL_MOUSEMOTION);
+	if (e.type == SDL_MOUSEMOTION) 
+	{
+		mouseContext->motion = true;
+	}
+	else {
+		mouseContext->motion = false;
+	}
 
 	if (e.type == SDL_MOUSEWHEEL)
 	{
