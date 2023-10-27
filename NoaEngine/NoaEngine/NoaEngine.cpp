@@ -19,7 +19,11 @@ namespace noa {
 	std::vector<std::vector<SpriteGPUInstance>> rendererInstanceLayer;
 }
 
-noa::NoaEngine::NoaEngine(int width, int height, WindowMode windowMode, string gameName)
+noa::NoaEngine::NoaEngine(
+	int width, int height
+	, WindowMode windowMode
+	, const std::string& gameName
+)
 {
 
 	Screen::width = width;

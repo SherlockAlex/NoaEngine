@@ -20,7 +20,7 @@ namespace noa {
 		//´´½¨´°¿Ú
 		int Create(int width, int height,
 				WindowMode windowMode,
-				std::string gameName) override;
+				const std::string& gameName) override;
 
 		void EventLoop() override;
 

@@ -46,7 +46,7 @@ namespace noa {
 		//´´½¨´°¿Ú
 		virtual int Create(int width, int height,
 				WindowMode windowMode,
-				std::string gameName) = 0;
+				const std::string & gameName) = 0;
 
 		std::shared_ptr<InputEvent> GetPlatformEvent();
 

@@ -211,7 +211,7 @@ namespace noa {
 		NoaEngine(
 			int width, int height,
 			WindowMode windowMode,
-			std::string gameName
+			const std::string& gameName
 		);
 
 		virtual ~NoaEngine();

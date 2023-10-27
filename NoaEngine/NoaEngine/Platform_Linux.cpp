@@ -40,7 +40,10 @@ noa::Platform_Linux::~Platform_Linux() {
 	SDL_DestroyWindow(this->window);
 }
 
-int noa::Platform_Linux::Create(int width, int height, WindowMode windowMode, std::string gameName)
+int noa::Platform_Linux::Create(
+	int width, int height
+	, WindowMode windowMode
+	, const std::string& gameName)
 {
 	window = SDL_CreateWindow(
 			gameName.c_str(),
