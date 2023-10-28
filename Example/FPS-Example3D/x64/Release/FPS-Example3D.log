@@ -1,0 +1,70 @@
+﻿  Level00.cpp
+D:\Work\NoaEngine\Example\FPS-Example3D\WolfResource.h(29,98): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\NoaEngine\Example\FPS-Example3D\WolfResource.h(29,76): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\NoaEngine\Example\FPS-Example3D\Level00.cpp(63,35): warning C4244: “=”: 从“int”转换到“T”，可能丢失数据
+          with
+          [
+              T=float
+          ]
+D:\Work\NoaEngine\Example\FPS-Example3D\Level00.cpp(64,35): warning C4244: “=”: 从“int”转换到“T”，可能丢失数据
+          with
+          [
+              T=float
+          ]
+D:\Work\NoaEngine\Example\FPS-Example3D\Level00.cpp(81,39): warning C4244: “=”: 从“int”转换到“T”，可能丢失数据
+          with
+          [
+              T=float
+          ]
+D:\Work\NoaEngine\Example\FPS-Example3D\Level00.cpp(82,39): warning C4244: “=”: 从“int”转换到“T”，可能丢失数据
+          with
+          [
+              T=float
+          ]
+D:\Work\NoaEngine\Example\FPS-Example3D\Level00.cpp(135,30): warning C4305: “=”: 从“double”到“float”截断
+  Level01.cpp
+D:\Work\NoaEngine\Example\FPS-Example3D\WolfResource.h(29,98): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\NoaEngine\Example\FPS-Example3D\WolfResource.h(29,76): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\NoaEngine\Example\FPS-Example3D\Level01.cpp(64,35): warning C4244: “=”: 从“int”转换到“T”，可能丢失数据
+          with
+          [
+              T=float
+          ]
+D:\Work\NoaEngine\Example\FPS-Example3D\Level01.cpp(65,35): warning C4244: “=”: 从“int”转换到“T”，可能丢失数据
+          with
+          [
+              T=float
+          ]
+D:\Work\NoaEngine\Example\FPS-Example3D\Level01.cpp(91,39): warning C4244: “=”: 从“int”转换到“T”，可能丢失数据
+          with
+          [
+              T=float
+          ]
+D:\Work\NoaEngine\Example\FPS-Example3D\Level01.cpp(92,39): warning C4244: “=”: 从“int”转换到“T”，可能丢失数据
+          with
+          [
+              T=float
+          ]
+D:\Work\NoaEngine\Example\FPS-Example3D\Level01.cpp(131,30): warning C4305: “=”: 从“double”到“float”截断
+  正在生成代码
+  2 of 3885 functions (<0.1%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
+  已完成代码的生成
+  FPS-Example3D.vcxproj -> D:\Work\NoaEngine\x64\Release\FPS-Example3D.exe

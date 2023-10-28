@@ -4,11 +4,19 @@
 
 using namespace std;
 
-noa::SpriteFile noa::Resource::LoadSprite(const char* file)
+//path = ./Data/Resource/assets
+
+namespace noa {
+	const std::string Resource::path = "./Data/Resource/assets/";
+}
+
+noa::SpriteFile noa::Resource::LoadSprite(const std::string& filename)
 {
 	SpriteFile spriteFile;
 
-	std::ifstream input(file, std::ios::binary);
+	const std::string filePath = Resource::path + filename;
+
+	std::ifstream input(filePath, std::ios::binary);
 	if (input)
 	{
 		uint32_t imagesCount;
@@ -30,19 +38,19 @@ noa::SpriteFile noa::Resource::LoadSprite(const char* file)
 	}
 	else
 	{
-		Debug::Warring("∂¡»° ß∞‹£∫" + string(file));
+		Debug::Warring("∂¡»° ß∞‹£∫" + string(filename));
 	}
 
 	return spriteFile;
 }
 
-noa::AnimationFile noa::Resource::LoadAnimationClip(const char* file)
+noa::AnimationFile noa::Resource::LoadAnimationClip(const std::string& filename)
 {
 	AnimationFile animator;
-
-	std::ifstream inputFile(file, std::ios::binary);
+	const std::string filePath = Resource::path + filename;
+	std::ifstream inputFile(filePath, std::ios::binary);
 	if (!inputFile) {
-		Debug::Error("Opening file: " + string(file) + " error");
+		Debug::Error("Opening file: " + string(filename) + " error");
 		exit(-1);
 	}
 
@@ -77,11 +85,11 @@ noa::AnimationFile noa::Resource::LoadAnimationClip(const char* file)
 	return animator;
 }
 
-noa::MapFile noa::Resource::LoadTileMap(const std::string filename)
+noa::MapFile noa::Resource::LoadTileMap(const std::string& filename)
 {
 	Map map;
-
-	std::ifstream file(filename);
+	const std::string filePath = Resource::path + filename;
+	std::ifstream file(filePath);
 	if (!file.is_open())
 	{
 		Debug::Warring("Failed to open file: " + filename);
@@ -125,14 +133,14 @@ noa::MapFile noa::Resource::LoadTileMap(const std::string filename)
 	return map;
 }
 
-unordered_map<int, noa::Tile> noa::Resource::LoadTileSet(const std::string& fileName)
+unordered_map<int, noa::Tile> noa::Resource::LoadTileSet(const std::string& filename)
 {
 	//º”‘ÿ”Œœ∑µƒtileSet
 
 	unordered_map<int, Tile> result;
 	std::vector<TileData> resultData;
-
-	std::ifstream inputFile(fileName, std::ios::binary);
+	const std::string filePath = Resource::path + filename;
+	std::ifstream inputFile(filePath, std::ios::binary);
 	if (inputFile)
 	{
 		int tileCount;
@@ -173,8 +181,9 @@ unordered_map<int, noa::Tile> noa::Resource::LoadTileSet(const std::string& file
 	return result;
 }
 
-std::string noa::Resource::ReadTextFrom(const std::string& filePath)
+std::string noa::Resource::ReadTextFrom(const std::string& filename)
 {
+	const std::string filePath = Resource::path + filename;
 	std::ifstream file(filePath);
 	if (!file.is_open())
 	{

@@ -30,10 +30,10 @@ void noa::GLRenderer::InitRenderer()
         exit(-1);
     }
     std::string vertexFile
-        = "./Assets/shader/vertex_shader.glsl";
+        = "../shader/vertex_shader.glsl";
 
     std::string fragmentFile
-        = "./Assets/shader/fragment_shader.glsl";
+        = "../shader/fragment_shader.glsl";
     this->defaultShader = this->CreateShader(vertexFile, fragmentFile);
     this->defaultShader->UseShaderProgram();
 }

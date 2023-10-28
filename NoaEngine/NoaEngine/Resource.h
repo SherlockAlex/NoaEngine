@@ -81,15 +81,17 @@ namespace noa {
 
 	class Resource {
 	public:
-		static SpriteFile LoadSprite(const char* file);
+		static const std::string path;
+	public:
+		static SpriteFile LoadSprite(const std::string & filename);
 
-		static AnimationFile LoadAnimationClip(const char* file);
+		static AnimationFile LoadAnimationClip(const std::string & filename);
 
-		static MapFile LoadTileMap(const std::string filename);
+		static MapFile LoadTileMap(const std::string & filename);
 
-		static std::unordered_map<int, Tile> LoadTileSet(const std::string& fileName);
+		static std::unordered_map<int, Tile> LoadTileSet(const std::string& filename);
 
-		static std::string ReadTextFrom(const std::string & filePath);
+		static std::string ReadTextFrom(const std::string & filename);
 
 	};
 

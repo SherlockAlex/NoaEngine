@@ -1,1 +1,0 @@
-﻿D:\Work\NoaEngine\Example\Wolf3D\Wolf3D.vcxproj(285,5): error : 这台计算机上缺少此项目引用的 NuGet 程序包。使用“NuGet 程序包还原”可下载这些程序包。有关更多信息，请参见 http://go.microsoft.com/fwlink/?LinkID=322105。缺少的文件是 ..\packages\nupengl.core.redist.0.1.0.1\build\native\nupengl.core.redist.targets。
