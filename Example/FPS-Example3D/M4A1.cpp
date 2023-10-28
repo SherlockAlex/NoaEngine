@@ -6,7 +6,8 @@
 M4A1::M4A1(Player* player, int* bulletCount, FreeCamera* camera) :Gun(bulletCount, camera)
 {
 
-	this->audio = new Audio("./Assets/Wolf/Music/m4a1.wav", AudioType::CHUNK);
+	this->audio = AudioSource::Create(player);
+	this->audio->SetAudioClip(wolfResource->m4a1ShotSFX);
 
 	this->animation = Animation::Create(player,45, false);
 	this->player = player;
@@ -90,6 +91,5 @@ void M4A1::OnExit()
 void M4A1::Delete()
 {
 	delete this->sprite;
-	delete this->audio;
 	delete this;
 }

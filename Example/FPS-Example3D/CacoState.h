@@ -21,7 +21,7 @@ private:
 
 public:
 	Animation * animation = nullptr;
-
+	AudioSource* audio = nullptr;
 private:
 
 	CacoIdleState(
@@ -51,7 +51,7 @@ private:
 
 public:
 	Animation* animation = nullptr;
-
+	AudioSource* audio = nullptr;
 private:
 
 	CacoMoveState(
@@ -81,7 +81,7 @@ public:
 
 public:
 	Animation* animation = nullptr;
-
+	AudioSource* audio = nullptr;
 private:
 
 	CacoAttackState(
@@ -112,7 +112,7 @@ public:
 
 public:
 	Animation* animation = nullptr;
-
+	AudioSource* audio = nullptr;
 private:
 
 	CacoDieState(
@@ -144,7 +144,7 @@ public:
 
 public:
 	Animation* animation = nullptr;
-
+	AudioSource* audio = nullptr;
 private:
 
 	CacoPainState(

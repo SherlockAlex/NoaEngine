@@ -1,27 +1,44 @@
 function NoaEngineWeb()
 {
-    this.run = function()
+    this.width = 800;
+    this.height = 600;
+    this.run = (nowFrame)=>
     {
+        //获取到画布
+        this.canvas = document.getElementById('canvas');
+        this.ctx = this.canvas.getContext('2d');
+        //给画布上
+        this.ctx.fillStyle = 'green';
+        this.ctx.fillRect(0,0,this.width,this.height);
+
+        this.lastTick = 0;
+        this.deltaTime = 0;
         this.start();
-        this.engineLoop();
+        this.engineLoop(nowFrame);
         this.onDisable();
     }
 
-    this.start = function(){
+    this.start = ()=>{
 
     }
 
-    this.update = function(){
+    this.update = ()=>{
         
     }
 
-    this.onDisable = function(){
+    this.onDisable = ()=>{
 
     }
 
-    this.engineLoop = function(){
+    this.engineLoop = (nowFrame)=>{
+
+        this.deltaTime = (nowFrame - this.lastTick)*0.001;
+
+        //执行所有Actor的update
         this.update();
-        requestAnimationFrame(this.engineLoop());
+        requestAnimationFrame(this.engineLoop);
+        //renderer
+        this.lastTick = nowFrame;
     }
 
 
@@ -29,7 +46,7 @@ function NoaEngineWeb()
 
 function main(){
     let game = new NoaEngineWeb();
-    game.run();
+    game.run(performance.now());
 }
 
 main();

@@ -4,7 +4,6 @@
 #include "Debug.h"
 #include "Screen.h"
 #include "InputSystem.h"
-#include "Audio.h"
 #include <windows.h>
 
 noa::Platform_Windows::Platform_Windows():noa::Platform()
@@ -14,22 +13,6 @@ noa::Platform_Windows::Platform_Windows():noa::Platform()
 	{
 		Debug::Error("Game init failed");
 		exit(-1);
-	}
-
-	//初始化声音子系统
-	if (Mix_OpenAudio(
-		MIX_DEFAULT_FREQUENCY,
-		MIX_DEFAULT_FORMAT,
-		MIX_CHANNELS,
-		4096
-	) == -1)
-	{
-		//在一些没有声卡的设备中，将会初始化失败
-		Debug::Error("Init audio device failed");
-		Audio::isInitSuccessful = false;
-	}
-	else {
-		Audio::isInitSuccessful = true;
 	}
 
 }

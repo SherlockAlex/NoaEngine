@@ -21,7 +21,7 @@
     <ClInclude Include="NoaEngine\Animator.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="NoaEngine\Audio.h">
+    <ClInclude Include="NoaEngine\AudioSource.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="NoaEngine\Actor.h">
@@ -153,12 +153,18 @@
     <ClInclude Include="NoaEngine\Platform_Linux.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="NoaEngine\AudioSystem.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="NoaEngine\AudioSystem_Windows.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="NoaEngine\Animator.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="NoaEngine\Audio.cpp">
+    <ClCompile Include="NoaEngine\AudioSource.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="NoaEngine\Actor.cpp">
@@ -264,6 +270,12 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="NoaEngine\Platform_Linux.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="NoaEngine\AudioSystem.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="NoaEngine\AudioSystem_Windows.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

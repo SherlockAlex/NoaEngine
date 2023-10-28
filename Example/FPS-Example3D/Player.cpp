@@ -23,6 +23,9 @@ Player::Player(Scene* scene) :Actor(scene)
 		, Screen::height * 0.5 - 0.5 * wolfResource->mouse.scale.y);
 
 
+	this->painAFX->SetAudioClip(wolfResource->playerPainSFX);
+	this->interactAFX->SetAudioClip(wolfResource->playerInteractAFX);
+
 }
 
 Player* Player::Create(Scene* scene)
@@ -143,7 +146,7 @@ void Player::ActorControl()
 			{
 			case 98:
 				this->rigid->GetTileMap()->SetTileID(ray.tilePosition.x, ray.tilePosition.y, 107);
-				interactAFX.Play(false);
+				interactAFX->Play(false);
 				break;
 			case 102:
 				//执行对应的事件
@@ -222,14 +225,16 @@ void Player::Update()
 	//guns也进行更新
 	guns[currentGunIndex]->Update();
 
-	renderer->DrawString("HP:"+ ToString<int>(hp)+"\nBULLET:"+ToString<int>(bulletCount), 10, 10, RED, Screen::height / 20);
+	renderer->DrawString("FPS:"+ToString<int>(1.0/Time::deltaTime),10,10,RED, Screen::height / 20);
+
+	//renderer->DrawString("HP:"+ ToString<int>(hp)+"\nBULLET:"+ToString<int>(bulletCount), 10, 10, RED, Screen::height / 20);
 
 }
 
 void Player::TakeDamage(int damage)
 {
 	LiveEntity::TakeDamage(damage);
-	painAFX.Play(false);
+	painAFX->Play(false);
 }
 
 void Player::MakeGun()

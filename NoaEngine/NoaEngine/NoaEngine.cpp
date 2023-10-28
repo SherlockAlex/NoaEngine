@@ -6,6 +6,7 @@
 #include "GLRenderer.h"
 #include "GLTexture.h"
 #include "Platform_Windows.h"
+#include "AudioSystem_Windows.h"
 #elif defined(__linux__)
 #include "GLRenderer.h"
 #include "GLTexture.h"
@@ -24,6 +25,7 @@ namespace noa {
 
 #if defined(_WIN64) || defined(_WIN32)
 	static shared_ptr<Platform> platform = make_shared<Platform_Windows>();
+	shared_ptr<AudioSystem> audioSystem = make_shared<AudioSystem_Windows>();
 	shared_ptr<Renderer> renderer = make_shared<GLRenderer>();
 #elif defined(__linux__)
 	static shared_ptr<Platform> platform = make_shared<Platform_Linux>();
@@ -51,6 +53,7 @@ noa::NoaEngine::NoaEngine(
 	renderer->InitRenderer();
 	renderer->InitFontAsset();
 	inputSystem.InitInputSystem(platform->GetPlatformEvent());
+	audioSystem->InitAudioSubSystem();
 
 	if (windowMode == WindowMode::WINDOW)
 	{
@@ -59,6 +62,8 @@ noa::NoaEngine::NoaEngine(
 	}
 
 	texture = renderer->CreateTexture(width, height, Screen::pixelBuffer);
+	
+	
 
 }
 

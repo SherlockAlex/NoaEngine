@@ -64,6 +64,6 @@ private:
 
 int main(int argc,char * argv[])
 {
-	Wolf3D wolf3D(1920/2, 1080/2, WindowMode::WINDOW, "Wolf-3D");
+	Wolf3D wolf3D(1920, 1080, WindowMode::FULLSCREEN, "Wolf-3D");
 	return wolf3D.Run();
 }

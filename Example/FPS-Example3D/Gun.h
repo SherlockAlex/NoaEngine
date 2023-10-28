@@ -13,7 +13,7 @@ public:
 	Sprite * sprite = nullptr;
 
 	Animation * animation = nullptr;
-	Audio* audio = nullptr;
+	AudioSource* audio = nullptr;
 
 	int* bulletCount = nullptr;
 

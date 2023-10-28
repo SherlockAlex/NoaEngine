@@ -33,8 +33,8 @@ noa::Sprite::Sprite(const Vector<int>& scale)
 	this->isEmpty = this->image.empty();
 }
 
-noa::Sprite::Sprite(const char* file, const Vector<int>& scale) {
-	SpriteFile sprFile = Resource::LoadSprite(file);
+noa::Sprite::Sprite(const std::string& filename, const Vector<int>& scale) {
+	SpriteFile sprFile = Resource::LoadSprite(filename);
 	this->posx = sprFile.x;
 	this->posy = sprFile.y;
 	this->w = sprFile.width;
@@ -48,9 +48,9 @@ noa::Sprite::Sprite(const char* file, const Vector<int>& scale) {
 
 }
 
-noa::Sprite::Sprite(const char* file, int scaleX, int scaleY)
+noa::Sprite::Sprite(const std::string& filename, int scaleX, int scaleY)
 {
-	SpriteFile sprFile = Resource::LoadSprite(file);
+	SpriteFile sprFile = Resource::LoadSprite(filename);
 	this->posx = sprFile.x;
 	this->posy = sprFile.y;
 	this->w = sprFile.width;

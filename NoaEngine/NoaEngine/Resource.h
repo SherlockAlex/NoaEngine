@@ -18,6 +18,7 @@
 #include <fstream>
 #include <sstream>
 #include <vector>
+#include <memory>
 
 namespace noa {
 	//资源管理系统
@@ -50,6 +51,7 @@ namespace noa {
 		std::vector<int> image;
 	}Map;
 
+	
 	class Sprite;
 	class SpriteGPU;
 	//瓦片
@@ -79,10 +81,13 @@ namespace noa {
 		SpriteFile sprites;
 	}TileData;
 
+	class AudioClip;
 	class Resource {
 	public:
 		static const std::string path;
 	public:
+		static std::shared_ptr<AudioClip> LoadAudioClip(const std::string & filename);
+
 		static SpriteFile LoadSprite(const std::string & filename);
 
 		static AnimationFile LoadAnimationClip(const std::string & filename);

@@ -35,9 +35,9 @@ public:
 	float speed = 7;
 	float mouseSpeed = 0.03f;
 
-	Audio painAFX = Audio("./Assets/Wolf/Music/player_pain.wav",AudioType::CHUNK);
+	AudioSource * painAFX = AudioSource::Create(this);
 
-	Audio interactAFX = Audio("./Assets/Wolf/Music/switch.wav", AudioType::CHUNK);
+	AudioSource * interactAFX = AudioSource::Create(this);
 
 	int bulletCount = 100;
 

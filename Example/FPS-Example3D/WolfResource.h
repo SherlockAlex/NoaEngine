@@ -33,20 +33,28 @@ public:
 
 	Sprite cacoSprite = Sprite(Vector<int>(32, 32));
 
-	Sprite bulletSprite = Sprite(Resource::LoadSprite("bullet.spr"), Vector<int>(64, 64));
-	Sprite healthBoxSprite = Sprite(Resource::LoadSprite("health-box.spr"), Vector<int>(64, 64));
+	Sprite bulletSprite = Sprite("bullet.spr",64, 64);
+	Sprite healthBoxSprite = Sprite("health-box.spr",64, 64);
 
-	Sprite backgroundSprite = Sprite(Resource::LoadSprite("background.spr"), {Screen::width,Screen::height});
+	Sprite backgroundSprite = Sprite("background.spr", Screen::width,Screen::height);
 
-	std::shared_ptr<Audio> bulletPickUpSFX = std::make_shared<Audio>("Music/pickUpBullet.mp3", AudioType::CHUNK);
+	std::shared_ptr<AudioClip> playerPainSFX = Resource::LoadAudioClip("Music/player_pain.wav");
+	std::shared_ptr<AudioClip> playerInteractAFX = Resource::LoadAudioClip("Music/switch.wav");
 
-	std::shared_ptr<Audio> BGM = std::make_shared<Audio>("/Music/theme.mp3", AudioType::MUSIC);
 
-	std::shared_ptr<Audio> npcAttack = std::make_shared<Audio>("Music/npc_attack.wav", AudioType::CHUNK);
+	std::shared_ptr<AudioClip> pistolShotSFX = Resource::LoadAudioClip("Music/p228-1.wav");
+	std::shared_ptr<AudioClip> shotgunShotSFX = Resource::LoadAudioClip("Music/sg552-2.wav");
+	std::shared_ptr<AudioClip> m4a1ShotSFX = Resource::LoadAudioClip("Music/m4a1.wav");
 
-	std::shared_ptr<Audio> npcDeath = std::make_shared<Audio>("Music/npc_death.wav", AudioType::CHUNK);
+	std::shared_ptr<AudioClip> bulletPickUpSFX = Resource::LoadAudioClip("Music/pickUpBullet.mp3");
 
-	std::shared_ptr<Audio> npcPain = std::make_shared<Audio>("Music/npc_pain.wav", AudioType::CHUNK);
+	std::shared_ptr<AudioClip> BGM = Resource::LoadAudioClip("/Music/theme.mp3");
+
+	std::shared_ptr<AudioClip> npcAttack = Resource::LoadAudioClip("Music/npc_attack.wav");
+
+	std::shared_ptr<AudioClip > npcDeath = Resource::LoadAudioClip("Music/npc_death.wav");
+
+	std::shared_ptr<AudioClip> npcPain = Resource::LoadAudioClip("Music/npc_pain.wav");
 
 };
 

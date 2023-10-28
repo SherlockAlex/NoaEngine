@@ -59,7 +59,7 @@ void Level01::Awake()
 				enimy->item = &wolfResource->bulletSprite;
 				enimy->itemPickEvent += [this]() {
 					player->bulletCount += 10;
-					wolfResource->bulletPickUpSFX->Play(false);
+					//wolfResource->bulletPickUpSFX->Play(false);
 					};
 				enimy->transform.position.x = i;
 				enimy->transform.position.y = j;
@@ -97,7 +97,7 @@ void Level01::Awake()
 					{
 						player->hp = player->maxHp;
 					}
-					wolfResource->bulletPickUpSFX->Play(false);
+					//wolfResource->bulletPickUpSFX->Play(false);
 					};
 
 			}
@@ -128,14 +128,13 @@ void Level01::Awake()
 
 void Level01::Start()
 {
-	wolfResource->BGM->volume = 0.4;
-	wolfResource->BGM->Play(true);
+	//wolfResource->BGM->volume = 0.4;
+	//wolfResource->BGM->Play(true);
 	inputSystem.SetRelativeMouseMode(true);
 }
 
 void Level01::Update()
 {
-	
 
 }
 

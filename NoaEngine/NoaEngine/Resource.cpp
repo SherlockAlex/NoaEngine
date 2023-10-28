@@ -1,6 +1,7 @@
 #include "Resource.h"
 #include "Sprite.h"
 #include "Debug.h"
+#include "AudioSystem.h"
 
 using namespace std;
 
@@ -8,6 +9,12 @@ using namespace std;
 
 namespace noa {
 	const std::string Resource::path = "./Data/Resource/assets/";
+}
+
+std::shared_ptr<noa::AudioClip> noa::Resource::LoadAudioClip(const std::string & filename) 
+{
+	const std::string filePath = Resource::path + filename;
+	return noa::audioSystem->LoadAudioClip(filePath);
 }
 
 noa::SpriteFile noa::Resource::LoadSprite(const std::string& filename)

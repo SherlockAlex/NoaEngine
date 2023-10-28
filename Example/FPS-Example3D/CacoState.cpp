@@ -134,6 +134,10 @@ CacoAttackState::CacoAttackState(
 {
 	animation = Animation::Create(enimy,5, false);
 	animation->SetClip(frameData);
+
+	audio = AudioSource::Create(enimy);
+	audio->SetAudioClip(wolfResource->npcAttack);
+
 	this->enimy = enimy;
 	this->target = target;
 
@@ -149,8 +153,8 @@ CacoAttackState::CacoAttackState(
 				bullet->transform.position = this->enimy->transform.position;
 				bullet->dir = distanceVector.Normalize();
 
-				wolfResource->npcAttack->volume = 10.0/(distance*distance);
-				wolfResource->npcAttack->Play(false);
+				audio->SetVolume(10.0/(distance*distance));
+				audio->Play(false);
 			}
 			
 		});
@@ -206,10 +210,13 @@ CacoDieState::CacoDieState(
 	this->enimy = enimy;
 	this->target = target;
 
+	audio = AudioSource::Create(enimy);
+	audio->SetAudioClip(wolfResource->npcAttack);
+
 	animation->SetFrameEvent(1, [this]() {
 		float distance = (this->enimy->transform.position - this->target->position).Magnitude();
-		wolfResource->npcDeath->volume = 10.0/(distance* distance);
-		wolfResource->npcDeath->Play(false);
+		audio->SetVolume(10.0/(distance* distance));
+		audio->Play(false);
 		this->enimy->collider->isTrigger = true;
 		Caco* e = this->enimy->GetActorAs<Caco>();
 		if (e != nullptr) {
@@ -267,10 +274,13 @@ CacoPainState::CacoPainState(
 	this->enimy = enimy;
 	this->target = target;
 
+	audio = AudioSource::Create(enimy);
+	audio->SetAudioClip(wolfResource->npcAttack);
+
 	animation->SetFrameEvent(1, [this]() {
 		float distance = (this->enimy->transform.position - this->target->position).Magnitude();
-		wolfResource->npcPain->volume = 10.0/(distance* distance);
-		wolfResource->npcPain->Play(false);
+		audio->SetVolume(10.0/(distance* distance));
+		audio->Play(false);
 	});
 
 	animation->SetFrameEvent(1, [this]()

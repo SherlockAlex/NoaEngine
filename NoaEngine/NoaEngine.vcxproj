@@ -158,6 +158,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="NoaEngine\AudioSystem_Windows.h" />
+    <ClInclude Include="NoaEngine\AudioSystem.h" />
     <ClInclude Include="NoaEngine\GLShader.h" />
     <ClInclude Include="NoaEngine\ActorPoolFactory.h" />
     <ClInclude Include="NoaEngine\ActorPool.h" />
@@ -165,7 +167,7 @@
     <ClInclude Include="NoaEngine\Collider2D.h" />
     <ClInclude Include="NoaEngine\ActorComponent.h" />
     <ClInclude Include="NoaEngine\Animator.h" />
-    <ClInclude Include="NoaEngine\Audio.h" />
+    <ClInclude Include="NoaEngine\AudioSource.h" />
     <ClInclude Include="NoaEngine\Actor.h" />
     <ClInclude Include="NoaEngine\Camera.h" />
     <ClInclude Include="NoaEngine\Graphic.h" />
@@ -205,6 +207,8 @@
     <ClInclude Include="NoaEngine\Platform_Linux.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="NoaEngine\AudioSystem_Windows.cpp" />
+    <ClCompile Include="NoaEngine\AudioSystem.cpp" />
     <ClCompile Include="NoaEngine\GLShader.cpp" />
     <ClCompile Include="NoaEngine\ActorPoolFactory.cpp" />
     <ClCompile Include="NoaEngine\ActorPool.cpp" />
@@ -212,7 +216,7 @@
     <ClCompile Include="NoaEngine\Collider2D.cpp" />
     <ClCompile Include="NoaEngine\ActorComponent.cpp" />
     <ClCompile Include="NoaEngine\Animator.cpp" />
-    <ClCompile Include="NoaEngine\Audio.cpp" />
+    <ClCompile Include="NoaEngine\AudioSource.cpp" />
     <ClCompile Include="NoaEngine\Actor.cpp" />
     <ClCompile Include="NoaEngine\Camera.cpp" />
     <ClCompile Include="NoaEngine\Graphic.cpp" />

@@ -149,7 +149,9 @@
 #include "Debug.h"
 #include "NoaMath.h"
 #include "Scene.h"
-#include "Audio.h"
+
+#include "AudioSource.h"
+
 #include "InputSystem.h"
 #include "Actor.h"
 #include "Animator.h"

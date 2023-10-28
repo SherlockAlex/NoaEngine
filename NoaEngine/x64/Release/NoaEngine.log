@@ -1,14 +1,4 @@
-﻿  Audio.cpp
-  Camera.cpp
-  GLRenderer.cpp
-  InputSystem.cpp
-  NoaEngine.cpp
-  NoaGUI.cpp
-  Platform.cpp
+﻿  AudioSystem_Windows.cpp
   Platform_Windows.cpp
-  Renderer.cpp
-  SDLRenderer.cpp
-  SDLTexture.cpp
-  Sprite.cpp
 SDL2main.lib(SDL_windows_main.obj) : error LNK2001: 无法解析的外部符号 SDL_main
 D:\Work\NoaEngine\x64\Release\NoaEngine.exe : fatal error LNK1120: 1 个无法解析的外部命令

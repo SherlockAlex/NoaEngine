@@ -7,7 +7,8 @@ Pistol::Pistol(Player* player, int* bulletCount, FreeCamera* camera):Gun(bulletC
 {
 	
 
-	this->audio = new Audio("./Assets/Wolf/Music/p228-1.wav", AudioType::CHUNK);
+	this->audio = AudioSource::Create(player);
+	this->audio->SetAudioClip(wolfResource->pistolShotSFX);
 
 	this->animation = Animation::Create(player,30, false);
 	this->player = player;
@@ -96,6 +97,5 @@ void Pistol::OnExit()
 void Pistol::Delete()
 {
 	delete this->sprite;
-	delete this->audio;
 	delete this;
 }

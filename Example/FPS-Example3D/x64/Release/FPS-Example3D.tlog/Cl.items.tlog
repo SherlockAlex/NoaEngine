@@ -3,7 +3,9 @@ D:\Work\NoaEngine\NoaEngine\NoaEngine\ActorComponent.cpp;D:\Work\NoaEngine\Examp
 D:\Work\NoaEngine\NoaEngine\NoaEngine\ActorPool.cpp;D:\Work\NoaEngine\Example\FPS-Example3D\x64\Release\ActorPool.obj
 D:\Work\NoaEngine\NoaEngine\NoaEngine\ActorPoolFactory.cpp;D:\Work\NoaEngine\Example\FPS-Example3D\x64\Release\ActorPoolFactory.obj
 D:\Work\NoaEngine\NoaEngine\NoaEngine\Animator.cpp;D:\Work\NoaEngine\Example\FPS-Example3D\x64\Release\Animator.obj
-D:\Work\NoaEngine\NoaEngine\NoaEngine\Audio.cpp;D:\Work\NoaEngine\Example\FPS-Example3D\x64\Release\Audio.obj
+D:\Work\NoaEngine\NoaEngine\NoaEngine\AudioSource.cpp;D:\Work\NoaEngine\Example\FPS-Example3D\x64\Release\AudioSource.obj
+D:\Work\NoaEngine\NoaEngine\NoaEngine\AudioSystem.cpp;D:\Work\NoaEngine\Example\FPS-Example3D\x64\Release\AudioSystem.obj
+D:\Work\NoaEngine\NoaEngine\NoaEngine\AudioSystem_Windows.cpp;D:\Work\NoaEngine\Example\FPS-Example3D\x64\Release\AudioSystem_Windows.obj
 D:\Work\NoaEngine\NoaEngine\NoaEngine\Camera.cpp;D:\Work\NoaEngine\Example\FPS-Example3D\x64\Release\Camera.obj
 D:\Work\NoaEngine\NoaEngine\NoaEngine\Collider2D.cpp;D:\Work\NoaEngine\Example\FPS-Example3D\x64\Release\Collider2D.obj
 D:\Work\NoaEngine\NoaEngine\NoaEngine\Debug.cpp;D:\Work\NoaEngine\Example\FPS-Example3D\x64\Release\Debug.obj
