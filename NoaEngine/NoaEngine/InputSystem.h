@@ -88,6 +88,7 @@ namespace noa {
 		bool up = false;
 	}KeyState;
 
+	//鼠标输入事件上下文
 	typedef struct MouseContext
 	{
 		Vector<double> position;

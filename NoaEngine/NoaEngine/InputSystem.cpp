@@ -40,7 +40,6 @@ bool noa::InputSystem::GetKeyHold(noa::KeyCode key) {
 bool noa::InputSystem::GetKeyDown(noa::KeyCode key)
 {
 	return this->e->GetKeyDown(key);
-
 }
 
 bool noa::InputSystem::GetMouseMoveState()

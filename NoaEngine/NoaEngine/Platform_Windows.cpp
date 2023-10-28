@@ -123,16 +123,15 @@ void noa::InputEvent_Windows::PollEvent(const std::function<void()>& quitCallbac
 			quitCallback();
 			break;
 		default:
-			this->Update();
+			this->UpdateMouseContext();
 			break;
 		}
 	}
 }
 
-void noa::InputEvent_Windows::Update()
+void noa::InputEvent_Windows::UpdateMouseContext()
 {
 
-	//int mouseX, mouseY;
 	const Uint32 mouseState = SDL_GetMouseState(nullptr, nullptr);
 
 	mouseContext->mouseKey[noa::MouseButton::LEFT_BUTTON].down = false;
