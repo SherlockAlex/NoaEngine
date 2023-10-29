@@ -34,6 +34,15 @@ namespace noa {
 		this->follow = follow;
 	}
 
+	void Camera::SetFollow(Actor* actor)
+	{
+		if (actor == nullptr)
+		{
+			return;
+		}
+		this->follow = &actor->transform;
+	}
+
 
 	TileMapCamera::TileMapCamera(Scene * scene):Camera(scene)
 	{
@@ -87,38 +96,34 @@ namespace noa {
 		{
 			for (int y = -2; y < visibleTiles.y+2 ; y++)
 			{
-				const int tileID = tileMap->GetTileID(static_cast<int>(x + offset.x), static_cast<int>(y + offset.y));
+
+				const int tileID = tileMap->GetTileID(
+					static_cast<int>(x + offset.x)
+					, static_cast<int>(y + offset.y)
+				);
 				if (tileID == -1)
 				{
-					renderer->DrawRect(
-						Vector<int>(static_cast<int>((x - 0) * tileScale.x - tileOffset.x), static_cast<int>((y - 0) * tileScale.y - tileOffset.y)),
-						Vector<int>(static_cast<int>((x + 1) * tileScale.x - tileOffset.x), static_cast<int>((y + 1) * tileScale.y - tileOffset.y)),
-						BLACK
-					);
 					continue;
 				}
 
 				Tile* tile = tileMap->GetTile(tileID);
 				if (tile == nullptr)
 				{
-					renderer->DrawRect(
-						Vector<int>(static_cast<int>(x * tileScale.x - tileOffset.x), static_cast<int>(y * tileScale.y - tileOffset.y)),
-						Vector<int>(static_cast<int>((x + 1) * tileScale.x - tileOffset.x), static_cast<int>((y + 1) * tileScale.y - tileOffset.y)),
-						LIGHTRED
-					);
 					continue;
 				}
-				renderer->DrawRect(
-					Vector<int>(static_cast<int>(x * tileScale.x - tileOffset.x), static_cast<int>(y * tileScale.y - tileOffset.y)),
-					Vector<int>(static_cast<int>((x + 1) * tileScale.x - tileOffset.x), static_cast<int>((y + 1) * tileScale.y - tileOffset.y)),
-					*tileMap->GetTile(tileID)->sprite
+
+				tileMap->GetTile(tileID)->spriteGPU->DrawSprite(
+					(x * tileScale.x - tileOffset.x)
+					, (y * tileScale.y - tileOffset.y)
+					, (1 * tileScale.x)
+					, (1 * tileScale.y)
+					,WHITE
+					,false
+					,0.0f
 				);
 
 			}
 		}
-
-		//玩家在屏幕上的位置
-		followPositionOnScreen = std::move(Vector<int>(static_cast<int>((follow->position.x - offset.x) * tileScale.x), static_cast<int>((follow->position.y - offset.y) * tileScale.y)));
 		
 		//渲染物品到屏幕上
 		for (const auto& instance:spriteRendererInstances) 
@@ -129,18 +134,22 @@ namespace noa {
 				continue;
 			}
 
-			const Vector<int> & objPos = Vector<int>(
-				static_cast<int>((instance.actor->transform.position.x - offset.x) * tileScale.x),
-				static_cast<int>((instance.actor->transform.position.y - offset.y) * tileScale.y)
-				);
+			const float objPosX = (instance.actor->transform.position.x - offset.x) * tileScale.x;
+			const float objPosY = (instance.actor->transform.position.y - offset.y) * tileScale.y;
 
-
-
-			instance.spriteGPU->DrawSprite(static_cast<float>(objPos.x), static_cast<float>(objPos.y), true);
-			if (objPos.y<Screen::height&&objPos.y>=0
-				&&objPos.x < Screen::width && objPos.x >= 0
+			instance.spriteGPU->DrawSprite(
+				objPosX
+				, objPosY
+				,instance.scale.x*instance.sprite->w
+				,instance.scale.y*instance.sprite->h
+				,WHITE
+				, instance.isFlip.x
+				, 0.0f
+			);
+			if (objPosY <Screen::height&& objPosY >=0
+				&& objPosX < Screen::width && objPosX >= 0
 				) {
-				objectBufferWithRay[objPos.y * Screen::width + objPos.x] = instance.actor;
+				objectBufferWithRay[objPosY * Screen::width + objPosX] = instance.actor;
 			}
 
 		}

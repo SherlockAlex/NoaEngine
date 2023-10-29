@@ -12,6 +12,7 @@ namespace noa {
 		float distanceToPlayer = 0;
 		Vector<float> vecToPlayer = { 0,0 };
 		Vector<bool> isFlip = {false,false};
+		Vector<float> scale = { 1.0f,1.0f };
 
 	}SpriteRendererInstance;
 
@@ -21,6 +22,7 @@ namespace noa {
 	private:
 		NOBJECT(SpriteRenderer)
 	private:
+		
 		Sprite* sprite = nullptr;
 		std::shared_ptr<SpriteGPU> spriteGPU = nullptr;
 
@@ -33,9 +35,13 @@ namespace noa {
 
 		void UpdateSprite(const SpriteFile & spriteFile);
 		void SetSprite(Sprite * sprite);
+		void SetScale(float x,float y);
 
 		void Update() override;
 
+	public:
+		Vector<bool> isFlip = {false,false};
+		Vector<float> scale = {1.0f,1.0f};
 	};
 
 	extern std::vector<SpriteRendererInstance> spriteRendererInstances;

@@ -153,6 +153,9 @@
     <ClCompile Include="ResourceManager.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\NoaEngine\NoaEngine\Actor.h">
@@ -309,6 +312,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="ResourceManager.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

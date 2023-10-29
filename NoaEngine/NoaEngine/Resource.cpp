@@ -224,7 +224,7 @@ noa::Tile::Tile(SpriteFile spriteFile, bool isCollision)
 	this->isCollision = isCollision;
 	if (sprite)
 	{
-
+		spriteGPU = SpriteGPU::Create(sprite.get());
 	}
 }
 

@@ -23,6 +23,7 @@ namespace noa {
 		Vector<float> simple = { 0,0 };
 	}Ray;
 
+	class Actor;
 	class Scene;
 	class Transform;
 	class Camera:public NOAObject
@@ -30,8 +31,9 @@ namespace noa {
 	protected:
 		friend class Scene;
 		friend class SceneManager;	
-	public:
 		Transform* follow = nullptr;
+	public:
+		
 		Vector<float> position;
 
 	protected:
@@ -41,6 +43,7 @@ namespace noa {
 		void Delete(Camera*& ptr);
 	public:
 		void SetFollow(Transform* follow);
+		void SetFollow(Actor * actor);
 	protected:
 
 		// 用户可以覆写自己的相机类
@@ -84,7 +87,6 @@ namespace noa {
 		Vector<int> tileScale = Vector<int>(64, 64);
 		Vector<float> visibleTiles;
 		Vector<float> offset;
-		Vector<int> followPositionOnScreen = Vector<int>(0, 0);
 		
 		std::vector<void*> objectBufferWithRay = std::vector<void*>(Screen::width*Screen::height, nullptr);
 

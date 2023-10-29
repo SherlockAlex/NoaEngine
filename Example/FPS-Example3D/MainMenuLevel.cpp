@@ -18,6 +18,7 @@ void MainMenuDelegate::OnLoad(noa::Scene * scene)
 	background->transform.position = { 0,0 };
 
 	startButton->image->color = WHITE;
+	startButton->image->SetSprite(&wolfResource->defaultButtonImage);
 	startButton->transform.scale = { (int)(0.2f * Screen::width),(int)(0.2f* Screen::height) };
 	startButton->transform.position.x = 0.5 * Screen::width - 0.5 * startButton->transform.scale.x;
 	startButton->transform.position.y = 0.5 * Screen::height;

@@ -52,6 +52,12 @@ void noa::SpriteRenderer::SetSprite(Sprite* sprite)
 	
 }
 
+void noa::SpriteRenderer::SetScale(float x, float y)
+{
+	this->scale.x = x;
+	this->scale.y = y;
+}
+
 void noa::SpriteRenderer::Update()
 {
 	if (sprite == nullptr) 
@@ -64,6 +70,8 @@ void noa::SpriteRenderer::Update()
 	instance.actor = this->GetActor();
 	instance.sprite = this->sprite;
 	instance.spriteGPU = this->spriteGPU.get();
+	instance.scale = this->scale;
+	instance.isFlip = this->isFlip;
 
 	spriteRendererInstances.push_back(instance);
 

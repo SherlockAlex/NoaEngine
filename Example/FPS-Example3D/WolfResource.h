@@ -23,6 +23,8 @@ public:
 
 	AnimationClip bulletDestroyFrame = AnimationClip("firebomb-destroy.amt");
 
+	Sprite defaultButtonImage = Sprite("btn-white.spr",310,310);
+
 	Sprite sky = Sprite(Resource::LoadSprite("sky-sun.spr"), Vector<int>(1, 1));
 
 	//资源相关
