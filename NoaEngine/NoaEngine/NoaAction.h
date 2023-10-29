@@ -34,7 +34,7 @@ namespace noa
 			const int functionCount = static_cast<int>(functions.size());
 			for (int i = 0; i < functionCount; i++)
 			{
-				functions[i](args);
+				functions[i](args...);
 			}
 		}
 

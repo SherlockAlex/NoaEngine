@@ -44,6 +44,10 @@ class Renderer{
 
 }
 
+class Renderable{
+    //绘制体
+}
+
 class Time{
     static deltaTime = 0.0;
     static lastTick = 0.0;
@@ -113,7 +117,6 @@ class Actor{
 
 }
 
-//游戏主类
 class NoaEngine{
     constructor(){
         Renderer.init();
@@ -130,6 +133,14 @@ class NoaEngine{
     render=()=>{
         Renderer.clear()
         // 渲染所有的renderable
+        for(renderable in this.renderables)
+        {
+            if(renderable == null)
+            {
+                continue;
+            }
+            //绘制物体
+        }
         //Renderer.drawRect(this.position,this.scale,'green');
     }
 
@@ -149,6 +160,10 @@ class NoaEngine{
     }
 
 }
+
+
+//编写你自己的游戏
+
 
 class Game extends NoaEngine
 {

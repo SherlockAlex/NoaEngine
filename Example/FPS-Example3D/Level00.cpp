@@ -126,25 +126,17 @@ void Level00::Awake()
 	player->SetPosition(35, *map->objectLayer);
 	player->transform.eulerAngle = PI;
 
-
+	inputSystem.SetRelativeMouseMode(true);
 
 }
 
 void Level00::Start()
 {
-	//wolfResource->BGM->volume = 0.4;
-	//wolfResource->BGM->Play(true);
-	inputSystem.SetRelativeMouseMode(true);
+	
 }
 
 void Level00::Update()
 {
-	
-	////camera.Render(*map->mapLayer, false, nullptr, WHITE);
-	//wolfResource->mouseGPU.DrawSprite(
-	//	Screen::width * 0.5 - 0.5 * wolfResource->mouse.scale.x
-	//	, Screen::height * 0.5 - 0.5 * wolfResource->mouse.scale.y);
-	
 	
 }
 

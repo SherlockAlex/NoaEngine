@@ -313,6 +313,11 @@ void noa::Scene::ApplyCamera()
 	cameras[mainCamera]->Render();
 }
 
+noa::Scene* noa::SceneManager::CreateScene(const std::string& name)
+{
+	return new Scene(name);
+}
+
 noa::Scene* noa::SceneManager::GetActiveScene()
 {
 	return activeScene;
@@ -364,7 +369,7 @@ void noa::SceneManager::Awake()
 {
 	if (activeScene != nullptr)
 	{
-		activeScene->Awake();
+		activeScene->onLoad.Invoke(activeScene);
 	}
 }
 
@@ -381,7 +386,7 @@ void noa::SceneManager::Start()
 {
 	if (activeScene != nullptr)
 	{
-		activeScene->Start();
+		activeScene->onStart.Invoke(activeScene);
 	}
 
 }
@@ -395,12 +400,12 @@ void noa::SceneManager::Update()
 
 	activeScene->ActorUpdate();
 	activeScene->ApplyCamera();
-	activeScene->Update();
+	activeScene->onUpdate.Invoke(activeScene);
 
 	if (!done && oldScene != nullptr && oldScene != activeScene)
 	{
 		oldScene->DestoyScene();
-		oldScene->Unload();
+		oldScene->onUnload.Invoke(activeScene);
 		oldScene = nullptr;
 	}
 

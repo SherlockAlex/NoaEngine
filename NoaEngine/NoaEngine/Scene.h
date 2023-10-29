@@ -16,6 +16,7 @@
 #include <string>
 
 #include "NoaMath.h"
+#include "NoaAction.h"
 #include "Resource.h"
 #include "Debug.h"
 
@@ -90,15 +91,13 @@ namespace noa {
 		virtual ~Scene();
 
 	public:
-		void SetTileMap(TileMap * map);
-		
-	protected:
-		virtual void Awake() {}
-		virtual void Start() {}
-		virtual void Update() {}
-		virtual void Unload() {}
+		NoaEvent<Scene*> onLoad;
+		NoaEvent<Scene*> onStart;
+		NoaEvent<Scene*> onUpdate;
+		NoaEvent<Scene*> onUnload;
 
 	public:
+		void SetTileMap(TileMap* map);
 		void AddCamera(Camera* camera);
 		Camera* GetMainCamera();
 
@@ -121,6 +120,7 @@ namespace noa {
 
 	};
 
+
 	class SceneManager 
 	{
 
@@ -129,6 +129,8 @@ namespace noa {
 		friend class Scene;
 
 	public:
+		static Scene* CreateScene(const std::string & name);
+
 		Scene * GetActiveScene();
 		void LoadScene(const std::string & sceneName);
 
