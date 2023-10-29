@@ -483,11 +483,10 @@ void noa::Image::Update()
 
 	if (sprite == nullptr)
 	{
-		renderer->DrawRect(transform.position, transform.position + transform.scale, color);
+		return;
 	}
-	else 
-	{
-		spriteGPU->DrawSprite(
+	
+	spriteGPU->DrawSprite(
 			static_cast<float>(transform.position.x)
 			, static_cast<float>(transform.position.y)
 			, static_cast<float>(transform.scale.x)
@@ -495,11 +494,7 @@ void noa::Image::Update()
 			, color
 			, isFilpX
 			, 0.0f
-		);
-
-	}
-
-
+	);
 
 }
 

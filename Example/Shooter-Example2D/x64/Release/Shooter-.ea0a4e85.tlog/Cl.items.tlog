@@ -38,5 +38,7 @@ D:\Work\NoaEngine\NoaEngine\NoaEngine\Texture.cpp;D:\Work\NoaEngine\Example\Shoo
 D:\Work\NoaEngine\NoaEngine\NoaEngine\Time.cpp;D:\Work\NoaEngine\Example\Shooter-Example2D\x64\Release\Time.obj
 D:\Work\NoaEngine\NoaEngine\NoaEngine\Transform.cpp;D:\Work\NoaEngine\Example\Shooter-Example2D\x64\Release\Transform.obj
 D:\Work\NoaEngine\Example\Shooter-Example2D\Engine.cpp;D:\Work\NoaEngine\Example\Shooter-Example2D\x64\Release\Engine.obj
-D:\Work\NoaEngine\Example\Shooter-Example2D\MainMenu.cpp;D:\Work\NoaEngine\Example\Shooter-Example2D\x64\Release\MainMenu.obj
+D:\Work\NoaEngine\Example\Shooter-Example2D\GameDelegate.cpp;D:\Work\NoaEngine\Example\Shooter-Example2D\x64\Release\GameDelegate.obj
+D:\Work\NoaEngine\Example\Shooter-Example2D\MainMenuDelegate.cpp;D:\Work\NoaEngine\Example\Shooter-Example2D\x64\Release\MainMenuDelegate.obj
+D:\Work\NoaEngine\Example\Shooter-Example2D\ResourceManager.cpp;D:\Work\NoaEngine\Example\Shooter-Example2D\x64\Release\ResourceManager.obj
 D:\Work\NoaEngine\Example\Shooter-Example2D\Shooter.cpp;D:\Work\NoaEngine\Example\Shooter-Example2D\x64\Release\Shooter.obj

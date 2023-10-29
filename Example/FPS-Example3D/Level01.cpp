@@ -47,7 +47,6 @@ void Level01Delegate::OnLoad(Scene * scene)
 				enimy->item = &wolfResource->bulletSprite;
 				enimy->itemPickEvent += [scene]() {
 					player->bulletCount += 10;
-					//wolfResource->bulletPickUpSFX->Play(false);
 					};
 				enimy->transform.position.x = i;
 				enimy->transform.position.y = j;
@@ -85,7 +84,6 @@ void Level01Delegate::OnLoad(Scene * scene)
 					{
 						player->hp = player->maxHp;
 					}
-					//wolfResource->bulletPickUpSFX->Play(false);
 					};
 
 			}
