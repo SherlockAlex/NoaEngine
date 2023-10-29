@@ -5,25 +5,15 @@
 #include "WolfResource.h"
 #include "Enter.h"
 
-Level00::Level00():Scene(
-	"NewGame"
-)
+static Player* player = nullptr;
+static FreeCamera* camera = nullptr;
+static TileMapCamera* mapCamera = nullptr;
+static std::shared_ptr<MapInfo> map = nullptr;
+
+void Level00Delegate::OnLoad(noa::Scene * scene)
 {
+
 	
-}
-
-Level00::~Level00()
-{
-	
-}
-
-Level00* Level00::Create()
-{
-	return new Level00();
-}
-
-void Level00::Awake()
-{
 
 	map = std::make_shared<MapInfo>();
 	map->mapLayer =std::make_shared<TileMap>(
@@ -32,12 +22,12 @@ void Level00::Awake()
 	);
 	map->objectLayer = std::make_shared<MapFile>(Resource::LoadTileMap("Map/新手关_对象层.csv"));
 
-	SetTileMap(map->mapLayer.get());
+	scene->SetTileMap(map->mapLayer.get());
 
-	player = Player::Create(this);
+	player = Player::Create(scene);
 
-	camera = NObject<FreeCamera>::Create<Scene*>(this);
-	mapCamera = NObject<TileMapCamera>::Create<Scene*>(this);
+	camera = NObject<FreeCamera>::Create<Scene*>(scene);
+	mapCamera = NObject<TileMapCamera>::Create<Scene*>(scene);
 
 	camera->SetFollow(&player->transform);
 	camera->SetTileMap(map->mapLayer.get());
@@ -53,10 +43,10 @@ void Level00::Awake()
 		{
 			if (map->objectLayer->image[j * map->objectLayer->w + i] == 18)
 			{
-				Caco * enimy = Caco::Create(this,new Sprite(), &player->transform, player);
+				Caco * enimy = Caco::Create(scene,new Sprite(), &player->transform, player);
 				enimy->rigid->SetTileMap(map->mapLayer.get());
 				enimy->item = &wolfResource->bulletSprite;
-				enimy->itemPickEvent += [this]() {
+				enimy->itemPickEvent += [scene]() {
 					player->bulletCount += 10;
 					//wolfResource->bulletPickUpSFX->Play(false);
 					};
@@ -76,12 +66,12 @@ void Level00::Awake()
 			const int tile = map->objectLayer->image[j * map->objectLayer->w + i];
 			if (tile == 27)
 			{
-				Item * healthBox = Item::Create(this,&wolfResource->healthBoxSprite);
+				Item * healthBox = Item::Create(scene,&wolfResource->healthBoxSprite);
 				healthBox->rigid->SetTileMap(map->mapLayer.get());
 				healthBox->transform.position.x = i;
 				healthBox->transform.position.y = j;
 				healthBox->SetInteractAudioClip(wolfResource->bulletPickUpSFX);
-				healthBox->pickEvent += [this]() 
+				healthBox->pickEvent += [scene]()
 				{
 					player->hp += 5;
 					if (player->hp > player->maxHp)
@@ -100,7 +90,7 @@ void Level00::Awake()
 
 	Enter* enter =
 		NObject<Enter>::Create<Scene*, const std::string&>(
-			this, "SecondFloor"
+			scene, "SecondFloor"
 		);
 
 	//设置场景的碰撞区域
@@ -127,20 +117,5 @@ void Level00::Awake()
 	player->transform.eulerAngle = PI;
 
 	inputSystem.SetRelativeMouseMode(true);
-
-}
-
-void Level00::Start()
-{
-	
-}
-
-void Level00::Update()
-{
-	
-}
-
-void Level00::Unload()
-{
 
 }

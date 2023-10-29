@@ -30,20 +30,19 @@ public:
 	{
 		wolfResource = std::make_shared<WolfResource>();
 
-		this->mainMenu = MainMenuLevel::Create();
-		this->level00 = Level00::Create();
-		this->level01 = Level01::Create();
+		this->mainMenu = sceneManager.CreateScene("MainMenu");
+		this->mainMenu->onLoad += MainMenuDelegate::OnLoad;
+
+		this->level00 = sceneManager.CreateScene("NewGame");
+		this->level00->onLoad += Level00Delegate::OnLoad;
+
+		this->level01 = sceneManager.CreateScene("SecondFloor");
+		this->level01->onLoad += Level01Delegate::OnLoad;
 
 		//加载第一个场景
 		sceneManager.LoadScene("MainMenu");
 
 	}
-
-	void Start() override
-	{
-		
-	}
-
 	
 	void Update() override 
 	{
@@ -56,9 +55,9 @@ public:
 
 private:
 
-	MainMenuLevel* mainMenu = nullptr;
-	Level00 * level00 = nullptr;
-	Level01 * level01 = nullptr;
+	Scene* mainMenu = nullptr;
+	Scene* level00 = nullptr;
+	Scene* level01 = nullptr;
 
 };
 

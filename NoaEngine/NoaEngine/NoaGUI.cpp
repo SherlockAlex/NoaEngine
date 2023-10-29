@@ -247,7 +247,7 @@ void noa::UICanvasComponent::Update() {
 noa::Button::Button(UICanvas* canvas) :UIComponent(canvas)
 {
 	image = Image::Create(canvas);
-	text = Text::Create(canvas);
+	label = Text::Create(canvas);
 
 	this->transform.scale = { 320,160 };
 
@@ -256,7 +256,7 @@ noa::Button::Button(UICanvas* canvas) :UIComponent(canvas)
 noa::Button::Button(UICanvasComponent* canvas) :UIComponent(canvas)
 {
 	image = Image::Create(canvas);
-	text = Text::Create(canvas);
+	label = Text::Create(canvas);
 
 	this->transform.scale = { 320,160 };
 
@@ -337,16 +337,16 @@ void noa::Button::Update()
 	image->color = currentColor;
 
 
-	text->transform.position.x =
+	label->transform.position.x =
 		static_cast<int>(
 			transform.position.x
 			+ 0.5 * transform.scale.x
-			- text->text.length() * 0.5 * text->size * text->narrow);
-	text->transform.position.y =
+			- label->text.length() * 0.5 * label->size * label->narrow);
+	label->transform.position.y =
 		static_cast<int>(
 			transform.position.y
 			+ 0.5 * transform.scale.y
-			- 0.5 * text->size * text->narrow);
+			- 0.5 * label->size * label->narrow);
 }
 
 void noa::Button::AddClickEvent(std::function<void()> func)

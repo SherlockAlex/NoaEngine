@@ -3,25 +3,10 @@
 #include "Player.h"
 using namespace noa;
 
-class Level01 : public Scene
+class Level01Delegate
 {
-private:
-	Level01();
-	~Level01();
 public:
-	static Level01* Create();
-
-	void Awake() override;
-	void Start() override;
-	void Update() override;
-	void Unload() override;
-
-public:
-	Player* player = nullptr;
-	FreeCamera* camera = nullptr;
-	TileMapCamera* mapCamera = nullptr;
-
-	std::shared_ptr<MapInfo> map = nullptr;
+	static void OnLoad(noa::Scene * scene);
 
 };
 

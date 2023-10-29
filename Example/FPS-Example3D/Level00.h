@@ -4,27 +4,15 @@
 using namespace noa;
 
 
-class Level00 :public Scene
+class Level00Delegate
 {
-
-private:
-	Level00();
-	~Level00();
 public:
-	static Level00* Create();
 
-	void Awake() override;
-	void Start() override;
-	void Update() override;
-	void Unload() override;
+	static void OnLoad(noa::Scene * scene);
 
 public:
 
-	Player* player = nullptr;
-	FreeCamera* camera = nullptr;
-	TileMapCamera* mapCamera = nullptr;
-
-	std::shared_ptr<MapInfo> map = nullptr;
+	
 
 };
 

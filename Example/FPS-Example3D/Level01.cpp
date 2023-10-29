@@ -5,24 +5,12 @@
 #include "WolfResource.h"
 #include "Enter.h"
 
-Level01::Level01() :Scene(
-	"SecondFloor"
-)
-{
-	
-}
+static Player* player = nullptr;
+static FreeCamera* camera = nullptr;
+static TileMapCamera* mapCamera = nullptr;
+static std::shared_ptr<MapInfo> map = nullptr;
 
-Level01::~Level01()
-{
-	
-}
-
-Level01* Level01::Create()
-{
-	return new Level01();
-}
-
-void Level01::Awake()
+void Level01Delegate::OnLoad(Scene * scene)
 {
 
 	map = std::make_shared<MapInfo>();
@@ -32,12 +20,12 @@ void Level01::Awake()
 	);
 	map->objectLayer = std::make_shared<MapFile>(Resource::LoadTileMap("Map/第二关_对象层.csv"));
 
-	SetTileMap(map->mapLayer.get());
+	scene->SetTileMap(map->mapLayer.get());
 
-	player = Player::Create(this);
+	player = Player::Create(scene);
 
-	camera = NObject<FreeCamera>::Create<Scene*>(this);
-	mapCamera = NObject<TileMapCamera>::Create<Scene*>(this);
+	camera = NObject<FreeCamera>::Create<Scene*>(scene);
+	mapCamera = NObject<TileMapCamera>::Create<Scene*>(scene);
 
 	camera->SetFollow(&player->transform);
 	camera->SetTileMap(map->mapLayer.get());
@@ -54,10 +42,10 @@ void Level01::Awake()
 			const int tile = map->objectLayer->image[j * map->objectLayer->w + i];
 			if (tile == 18)
 			{
-				Caco* enimy = Caco::Create(this, new Sprite(), &player->transform, player);
+				Caco* enimy = Caco::Create(scene, new Sprite(), &player->transform, player);
 				enimy->rigid->SetTileMap(map->mapLayer.get());
 				enimy->item = &wolfResource->bulletSprite;
-				enimy->itemPickEvent += [this]() {
+				enimy->itemPickEvent += [scene]() {
 					player->bulletCount += 10;
 					//wolfResource->bulletPickUpSFX->Play(false);
 					};
@@ -76,7 +64,7 @@ void Level01::Awake()
 
 	Enter* enter =
 		NObject<Enter>::Create<Scene*, const std::string&>(
-			this, "NewGame"
+			scene, "NewGame"
 		);
 
 	//场景生成物品
@@ -86,12 +74,12 @@ void Level01::Awake()
 		{
 			if (map->objectLayer->image[j * map->objectLayer->w + i] == 27)
 			{
-				Item* healthBox = Item::Create(this, &wolfResource->healthBoxSprite);
+				Item* healthBox = Item::Create(scene, &wolfResource->healthBoxSprite);
 				healthBox->rigid->SetTileMap(map->mapLayer.get());
 				healthBox->transform.position.x = i;
 				healthBox->transform.position.y = j;
 				healthBox->SetInteractAudioClip(wolfResource->bulletPickUpSFX);
-				healthBox->pickEvent += [this]() {
+				healthBox->pickEvent += [scene]() {
 					player->hp += 5;
 					if (player->hp > player->maxHp)
 					{
@@ -124,21 +112,7 @@ void Level01::Awake()
 	//设置玩家位置
 	player->SetPosition(35, *map->objectLayer);
 	player->transform.eulerAngle = PI;
-}
 
-void Level01::Start()
-{
-	//wolfResource->BGM->volume = 0.4;
-	//wolfResource->BGM->Play(true);
 	inputSystem.SetRelativeMouseMode(true);
 }
 
-void Level01::Update()
-{
-
-}
-
-void Level01::Unload()
-{
-
-}

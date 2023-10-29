@@ -184,7 +184,7 @@ namespace noa {
 	class Button :public UIComponent
 	{
 	public:
-		Text* text = nullptr;
+		Text* label = nullptr;
 		Image* image = nullptr;
 
 		//°´¼ü³£ÁÁÑÕÉ«

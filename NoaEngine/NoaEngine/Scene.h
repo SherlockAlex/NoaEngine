@@ -74,7 +74,7 @@ namespace noa {
 
 	}MapInfo;
 
-	class Scene 
+	class Scene final
 	{
 
 	private:
@@ -86,7 +86,7 @@ namespace noa {
 
 		int mainCamera = -1;
 
-	protected:
+	private:
 		Scene(const std::string & name);
 		virtual ~Scene();
 

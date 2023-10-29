@@ -1,25 +1,15 @@
 #include "MainMenuLevel.h"
 #include "WolfResource.h"
 
-MainMenuLevel::MainMenuLevel():Scene("MainMenu")
+static UICanvas* canvas = nullptr;
+static Image* background = nullptr;
+static Button* startButton = nullptr;
+
+
+void MainMenuDelegate::OnLoad(noa::Scene * scene)
 {
 
-}
-
-MainMenuLevel::~MainMenuLevel()
-{
-	
-}
-
-MainMenuLevel* MainMenuLevel::Create()
-{
-	return new MainMenuLevel;
-}
-
-void MainMenuLevel::Awake()
-{
-
-	canvas = UICanvas::Create(this);
+	canvas = UICanvas::Create(scene);
 	background = Image::Create(canvas);
 	startButton = Button::Create(canvas);
 
@@ -31,9 +21,9 @@ void MainMenuLevel::Awake()
 	startButton->transform.scale = { (int)(0.2f * Screen::width),(int)(0.2f* Screen::height) };
 	startButton->transform.position.x = 0.5 * Screen::width - 0.5 * startButton->transform.scale.x;
 	startButton->transform.position.y = 0.5 * Screen::height;
-	startButton->text->color = BLACK;
-	startButton->text->text = "START";
-	startButton->AddClickEvent([this]() 
+	startButton->label->color = BLACK;
+	startButton->label->text = "START";
+	startButton->AddClickEvent([scene]()
 		{
 			sceneManager.LoadScene("SecondFloor");
 		}
@@ -43,12 +33,3 @@ void MainMenuLevel::Awake()
 
 }
 
-void MainMenuLevel::Update()
-{
-
-}
-
-void MainMenuLevel::Unload()
-{
-
-}
