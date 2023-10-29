@@ -9,19 +9,19 @@
 
 namespace noa {
 
-	class AudioClip_Windows:public AudioClip {
+	class AudioClip_SDL:public AudioClip {
 		//平台声音资源抽象
 	private:
 		Mix_Music* music = nullptr;
 	public:
-		~AudioClip_Windows();
+		~AudioClip_SDL();
 		void Play(bool isLoop) override;
 		void Stop() override;
 		void LoadAudioSource(const std::string& filename) override;
 
 	};
 
-	class AudioSystem_Windows :
+	class AudioSystem_SDL :
 		public AudioSystem
 	{
 	public:

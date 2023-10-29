@@ -19,6 +19,9 @@ namespace noa
 
 	extern void InitNObject(NOAObject* obj);
 
+	class Actor;
+	class Scene;
+
 	template<typename T>
 	class NObject final
 	{
@@ -27,6 +30,20 @@ namespace noa
 		template<typename ...Args>
 		static T* Create(Args... args) {
 			T* obj = new T(args...);
+			InitNObject(obj);
+			return obj;
+		}
+
+		static T* Create(Scene * scene) 
+		{
+			T* obj = new T(scene);
+			InitNObject(obj);
+			return obj;
+		}
+
+		static T* Create(Actor * actor) 
+		{
+			T* obj = new T(actor);
 			InitNObject(obj);
 			return obj;
 		}

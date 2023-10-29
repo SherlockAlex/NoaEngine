@@ -156,7 +156,7 @@
     <ClInclude Include="NoaEngine\AudioSystem.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="NoaEngine\AudioSystem_Windows.h">
+    <ClInclude Include="NoaEngine\AudioSystem_SDL.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
@@ -275,7 +275,7 @@
     <ClCompile Include="NoaEngine\AudioSystem.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="NoaEngine\AudioSystem_Windows.cpp">
+    <ClCompile Include="NoaEngine\AudioSystem_SDL.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

@@ -10,7 +10,9 @@ Shotgun::Shotgun(Player* player, int* bulletCount,FreeCamera * camera):Gun(bulle
 	this->audio =AudioSource::Create(player);
 	this->audio->SetAudioClip(wolfResource->shotgunShotSFX);
 
-	this->animation = Animation::Create(player,12, false);
+	this->animation = Animation::Create(player);
+	this->animation->SetSpeed(12);
+	this->animation->SetLoop(false);
 	this->player = player;
 	
 	animation->SetClip(&wolfResource->shotgunFrame);

@@ -9,7 +9,9 @@ M4A1::M4A1(Player* player, int* bulletCount, FreeCamera* camera) :Gun(bulletCoun
 	this->audio = AudioSource::Create(player);
 	this->audio->SetAudioClip(wolfResource->m4a1ShotSFX);
 
-	this->animation = Animation::Create(player,45, false);
+	this->animation = Animation::Create(player);
+	this->animation->SetSpeed(45);
+	this->animation->SetLoop(false);
 	this->player = player;
 	animation->SetClip(&wolfResource->m4a1Frame);
 	animation->SetFrameEvent(2, [this]()

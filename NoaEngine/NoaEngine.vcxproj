@@ -158,8 +158,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="NoaEngine\AudioSystem_Windows.h" />
     <ClInclude Include="NoaEngine\AudioSystem.h" />
+    <ClInclude Include="NoaEngine\AudioSystem_SDL.h" />
     <ClInclude Include="NoaEngine\GLShader.h" />
     <ClInclude Include="NoaEngine\ActorPoolFactory.h" />
     <ClInclude Include="NoaEngine\ActorPool.h" />
@@ -207,8 +207,8 @@
     <ClInclude Include="NoaEngine\Platform_Linux.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="NoaEngine\AudioSystem_Windows.cpp" />
     <ClCompile Include="NoaEngine\AudioSystem.cpp" />
+    <ClCompile Include="NoaEngine\AudioSystem_SDL.cpp" />
     <ClCompile Include="NoaEngine\GLShader.cpp" />
     <ClCompile Include="NoaEngine\ActorPoolFactory.cpp" />
     <ClCompile Include="NoaEngine\ActorPool.cpp" />

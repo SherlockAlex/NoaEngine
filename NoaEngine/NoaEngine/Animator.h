@@ -46,14 +46,10 @@ namespace noa {
 
 	protected:
 		Animation(Actor * actor);
-		Animation(Actor* actor,float speed,bool loop);
-		Animation(Actor* actor,float speed,bool loop, AnimationClip* frame);
 		~Animation();
 
 	public:
 		static Animation* Create(Actor* actor);
-		static Animation* Create(Actor* actor, float speed, bool loop);
-		static Animation* Create(Actor* actor, float speed, bool loop, AnimationClip* frame);
 		
 		void SetClip(AnimationClip* frame);
 		SpriteFile& GetCurrentFrameImage();

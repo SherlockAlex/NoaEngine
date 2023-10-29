@@ -8,7 +8,7 @@ public:
 	Rigidbody* rigid = Rigidbody::Create(this);
 	CircleCollider2D* collider = CircleCollider2D::Create(this, rigid);
 
-	Animation* animation = Animation::Create(this, 20, false);
+	Animation* animation = Animation::Create(this);
 	Vector<float> dir = {0,0};
 	float speed = 9;
 	

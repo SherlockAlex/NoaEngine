@@ -22,52 +22,9 @@ noa::Animation::Animation(noa::Actor* actor) :noa::ActorComponent(actor)
 
 }
 
-noa::Animation::Animation(noa::Actor* actor, float speed, bool loop) :noa::ActorComponent(actor)
-{
-	this->speed = speed;
-	this->loop = loop;
-
-
-	if (this->clip != nullptr && !this->clip->framesImage.empty())
-	{
-		currentFrame = move(clip->framesImage[0]);
-	}
-
-}
-
-noa::Animation::Animation(
-	noa::Actor* actor
-	, float speed
-	, bool loop
-	, noa::AnimationClip* frame
-) 
-	:noa::ActorComponent(actor)
-{
-	this->speed = speed;
-	this->loop = loop;
-
-	this->SetClip(frame);
-
-}
-
 noa::Animation* noa::Animation::Create(Actor* actor)
 {
 	return NObject<Animation>::Create<Actor*>(actor);
-}
-
-noa::Animation* noa::Animation::Create(
-	noa::Actor* actor
-	, float speed, bool loop)
-{
-	return NObject<Animation>::Create<Actor*, float, bool>(actor,speed,loop);
-}
-
-noa::Animation* noa::Animation::Create(
-	noa::Actor* actor
-	, float speed, bool loop
-	, noa::AnimationClip* clip)
-{
-	return NObject<Animation>::Create<Actor*, float, bool, AnimationClip*>(actor, speed, loop, clip);
 }
 
 noa::Animation::~Animation()

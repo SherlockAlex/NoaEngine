@@ -80,15 +80,15 @@ void Level00::Awake()
 				healthBox->rigid->SetTileMap(map->mapLayer.get());
 				healthBox->transform.position.x = i;
 				healthBox->transform.position.y = j;
-
-				healthBox->pickEvent += [this]() {
+				healthBox->SetInteractAudioClip(wolfResource->bulletPickUpSFX);
+				healthBox->pickEvent += [this]() 
+				{
 					player->hp += 5;
 					if (player->hp > player->maxHp)
 					{
 						player->hp = player->maxHp;
 					}
-					//wolfResource->bulletPickUpSFX->Play(false);
-					};
+				};
 
 			}
 			else if (tile == 102) 

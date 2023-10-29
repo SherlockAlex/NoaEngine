@@ -1,4 +1,5 @@
 #include "Item.h"
+#include "WolfResource.h"
 
 Item::Item(Scene* scene, Sprite* sprite) :Actor(scene)
 {
@@ -8,7 +9,8 @@ Item::Item(Scene* scene, Sprite* sprite) :Actor(scene)
 
 	sprite->scale = { 32,32 };
 	spriteRenderer->SetSprite(sprite);
-
+	
+	
 }
 
 Item::~Item()
@@ -18,7 +20,12 @@ Item::~Item()
 
 Item* Item::Create(Scene* scene, Sprite* sprite)
 {
-	return new Item(scene, sprite);
+	return NObject<Item>::Create<Scene*,Sprite*>(scene, sprite);
+}
+
+void Item::SetInteractAudioClip(std::shared_ptr<AudioClip> audioClip)
+{
+	audioSource->SetAudioClip(audioClip);
 }
 
 void Item::OnTrigger(const Collision & other)
@@ -27,6 +34,7 @@ void Item::OnTrigger(const Collision & other)
 	{
 		//这个地方有问题
 		pickEvent.Invoke();
+		audioSource->Play(false);
 		Destroy();
 		
 	}

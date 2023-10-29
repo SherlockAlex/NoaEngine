@@ -53,7 +53,6 @@ void noa::Actor::AddComponent(noa::ActorComponent* component)
 		return;
 	}
 	components.push_back(component);
-
 }
 
 noa::Actor* noa::Actor::GetActor() {

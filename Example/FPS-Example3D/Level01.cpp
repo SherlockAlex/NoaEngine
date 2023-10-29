@@ -90,7 +90,7 @@ void Level01::Awake()
 				healthBox->rigid->SetTileMap(map->mapLayer.get());
 				healthBox->transform.position.x = i;
 				healthBox->transform.position.y = j;
-
+				healthBox->SetInteractAudioClip(wolfResource->bulletPickUpSFX);
 				healthBox->pickEvent += [this]() {
 					player->hp += 5;
 					if (player->hp > player->maxHp)

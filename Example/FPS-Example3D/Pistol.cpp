@@ -10,7 +10,9 @@ Pistol::Pistol(Player* player, int* bulletCount, FreeCamera* camera):Gun(bulletC
 	this->audio = AudioSource::Create(player);
 	this->audio->SetAudioClip(wolfResource->pistolShotSFX);
 
-	this->animation = Animation::Create(player,30, false);
+	this->animation = Animation::Create(player);
+	this->animation->SetSpeed(30);
+	this->animation->SetLoop(false);
 	this->player = player;
 	
 	animation->SetClip(&wolfResource->pistolFrame);

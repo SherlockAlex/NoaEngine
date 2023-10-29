@@ -6,7 +6,7 @@
 #include "GLRenderer.h"
 #include "GLTexture.h"
 #include "Platform_Windows.h"
-#include "AudioSystem_Windows.h"
+#include "AudioSystem_SDL.h"
 #elif defined(__linux__)
 #include "GLRenderer.h"
 #include "GLTexture.h"
@@ -25,10 +25,11 @@ namespace noa {
 
 #if defined(_WIN64) || defined(_WIN32)
 	static shared_ptr<Platform> platform = make_shared<Platform_Windows>();
-	shared_ptr<AudioSystem> audioSystem = make_shared<AudioSystem_Windows>();
+	shared_ptr<AudioSystem> audioSystem = make_shared<AudioSystem_SDL>();
 	shared_ptr<Renderer> renderer = make_shared<GLRenderer>();
 #elif defined(__linux__)
 	static shared_ptr<Platform> platform = make_shared<Platform_Linux>();
+	shared_ptr<AudioSystem> audioSystem = make_shared<AudioSystem_SDL>();
 	shared_ptr<Renderer> renderer = make_shared<GLRenderer>();
 #endif
 

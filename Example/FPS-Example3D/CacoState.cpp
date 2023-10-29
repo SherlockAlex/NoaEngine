@@ -15,7 +15,9 @@ CacoIdleState::CacoIdleState(
 ) :
 	State(stateMachine)
 {
-	animation = Animation::Create(enimy, 5, false);
+	animation = Animation::Create(enimy);
+	animation->SetSpeed(5);
+	animation->SetLoop(false);
 	animation->SetClip(frameData);
 	//animation.LoadFromAnimationFile(animationPath);
 	this->enimy = enimy;
@@ -70,7 +72,9 @@ CacoMoveState::CacoMoveState(
 ) :
 	State(stateMachine)
 {
-	animation = Animation::Create(enimy,5, false);
+	animation = Animation::Create(enimy);
+	animation->SetSpeed(5);
+	animation->SetLoop(false);
 	animation->SetClip(frameData);
 	//animation.LoadFromAnimationFile(animationPath);
 	this->enimy = enimy;
@@ -132,7 +136,9 @@ CacoAttackState::CacoAttackState(
 ) :
 	State(stateMachine)
 {
-	animation = Animation::Create(enimy,5, false);
+	animation = Animation::Create(enimy);
+	animation->SetSpeed(5);
+	animation->SetLoop(false);
 	animation->SetClip(frameData);
 
 	audio = AudioSource::Create(enimy);
@@ -205,7 +211,9 @@ CacoDieState::CacoDieState(
 ):
 	State(stateMachine)
 {
-	animation = Animation::Create(enimy,12, false);
+	animation = Animation::Create(enimy);
+	animation->SetSpeed(12);
+	animation->SetLoop(false);
 	animation->SetClip(frameData);
 	this->enimy = enimy;
 	this->target = target;
@@ -269,7 +277,9 @@ CacoPainState::CacoPainState(
 ) :
 	State(stateMachine)
 {
-	animation = Animation::Create(enimy,5, false);
+	animation = Animation::Create(enimy);
+	animation->SetSpeed(5);
+	animation->SetLoop(false);
 	animation->SetClip(frameData);
 	this->enimy = enimy;
 	this->target = target;

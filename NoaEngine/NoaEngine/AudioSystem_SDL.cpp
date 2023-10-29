@@ -4,10 +4,10 @@
 * 初始化Windows平台的声音系统
 */
 
-#include "AudioSystem_Windows.h"
+#include "AudioSystem_SDL.h"
 #include "Debug.h"
 
-void noa::AudioSystem_Windows::InitAudioSubSystem()
+void noa::AudioSystem_SDL::InitAudioSubSystem()
 {
 	if (Mix_OpenAudio(
 		MIX_DEFAULT_FREQUENCY,
@@ -21,14 +21,14 @@ void noa::AudioSystem_Windows::InitAudioSubSystem()
 	AudioSystem::init = true;
 }
 
-std::shared_ptr<noa::AudioClip> noa::AudioSystem_Windows::LoadAudioClip(const std::string& filename)
+std::shared_ptr<noa::AudioClip> noa::AudioSystem_SDL::LoadAudioClip(const std::string& filename)
 {
-	std::shared_ptr<noa::AudioClip> clip = std::make_shared<noa::AudioClip_Windows>();
+	std::shared_ptr<noa::AudioClip> clip = std::make_shared<noa::AudioClip_SDL>();
 	clip->LoadAudioSource(filename);
 	return clip;
 }
 
-noa::AudioClip_Windows::~AudioClip_Windows()
+noa::AudioClip_SDL::~AudioClip_SDL()
 {
 	if (!AudioSystem::init)
 	{
@@ -38,7 +38,7 @@ noa::AudioClip_Windows::~AudioClip_Windows()
 	Mix_FreeMusic(music);
 }
 
-void noa::AudioClip_Windows::LoadAudioSource(const std::string& filename)
+void noa::AudioClip_SDL::LoadAudioSource(const std::string& filename)
 {
 	this->music = Mix_LoadMUS(filename.c_str());
 	if (this->music == nullptr)
@@ -49,7 +49,7 @@ void noa::AudioClip_Windows::LoadAudioSource(const std::string& filename)
 	
 }
 
-void noa::AudioClip_Windows::Play(bool isLoop)
+void noa::AudioClip_SDL::Play(bool isLoop)
 {
 	if (this->music == nullptr)
 	{
@@ -62,10 +62,10 @@ void noa::AudioClip_Windows::Play(bool isLoop)
 	else {
 		Mix_PlayMusic(music, 0);
 	}
-	//Mix_VolumeMusic(static_cast<int>(MIX_MAX_VOLUME * volume));
+	
 }
 
-void noa::AudioClip_Windows::Stop()
+void noa::AudioClip_SDL::Stop()
 {
 	Mix_PauseMusic();
 }
