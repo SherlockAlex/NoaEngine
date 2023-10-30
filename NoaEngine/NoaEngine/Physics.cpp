@@ -19,6 +19,10 @@ noa::Rigidbody::Rigidbody(Actor* actor) :ActorComponent(actor)
 	this->velocity = { 0,0 };
 	invMass = 1.0f / mass;
 	colliders.reserve(10);
+	if (actor&& actor->GetActiveScene()&& actor->GetActiveScene()->GetTileMap())
+	{
+		this->SetTileMap(actor->GetActiveScene()->GetTileMap()->GetLevelAs<TileMap>());
+	}
 
 }
 

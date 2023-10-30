@@ -15,7 +15,10 @@ noa::Collider2D::Collider2D(Actor* actor, Rigidbody* rigidbody) :ActorComponent(
 	if (rigidbody!=nullptr)
 	{
 		rigidbody->BindCollider(this);
+		this->SetTileMap(rigidbody->GetTileMap());
 	}
+
+	
 	
 }
 

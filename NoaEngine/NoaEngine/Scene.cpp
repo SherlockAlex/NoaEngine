@@ -3,6 +3,7 @@
 #include <sstream>
 #include <vector>
 
+#include "Resource.h"
 #include "Actor.h"
 #include "Scene.h"
 #include "PhysicsSystem.h"
@@ -29,7 +30,7 @@ noa::MapLayer::~MapLayer()
 
 }
 
-int noa::MapLayer::Find(int x, int y) const
+int noa::MapLayer::GetTileID(int x, int y) const
 {
 	if (x<0||x>=this->w
 		||y<0||y>=this->h) 
@@ -39,7 +40,7 @@ int noa::MapLayer::Find(int x, int y) const
 	return this->layer[y * this->w + x];
 }
 
-void noa::MapLayer::Set(int x, int y, int value)
+void noa::MapLayer::SetTileID(int x, int y, int value)
 {
 	if (x < 0 || x >= this->w
 		|| y < 0 || y >= this->h)
@@ -49,7 +50,7 @@ void noa::MapLayer::Set(int x, int y, int value)
 	this->layer[y * this->w + x] = value;
 }
 
-noa::LevelMap::LevelMap(const std::vector<noa::MapLayer>& mapLayers)
+noa::Level::Level(const std::vector<noa::MapLayer>& mapLayers)
 {
 	this->layers = mapLayers;
 	//返回地图的最大尺寸
@@ -66,17 +67,74 @@ noa::LevelMap::LevelMap(const std::vector<noa::MapLayer>& mapLayers)
 	}
 }
 
+noa::Level::Level(const std::vector<std::string>& layerPath)
+{
+	//读取本地文件
+	std::vector<MapLayer> mapLayers;
+	for (const auto& file:layerPath) 
+	{
+		MapLayer mapLayer(Resource::LoadMapLayer(file));
+		mapLayers.push_back(mapLayer);
+	}
+
+	this->Construct(mapLayers);
+
+}
+
+noa::Level::~Level()
+{
+}
+
+void noa::Level::Delete(Level*& level)
+{
+	delete level;
+	level = nullptr;
+}
+
+void noa::Level::Construct(const std::vector<MapLayer>& mapLayers)
+{
+	this->layers = mapLayers;
+	//返回地图的最大尺寸
+	for (auto& layer : layers)
+	{
+		if (this->w < layer.w)
+		{
+			this->w = layer.w;
+		}
+		if (this->h < layer.h)
+		{
+			this->h = layer.h;
+		}
+	}
+}
+
 noa::TileMap::TileMap(
 	const std::unordered_map<int, Tile>& tileSet
 	, const std::vector<noa::MapLayer>& mapLayer
-):noa::LevelMap(mapLayer)
+):noa::Level(mapLayer)
 {
 	this->tileSet = tileSet;
+}
+
+noa::TileMap::TileMap(const std::string& tileSetFile, const std::vector<std::string>& layerFile)
+:noa::Level(layerFile)
+{
+	this->tileSet = Resource::LoadTileSet(tileSetFile);
 }
 
 noa::TileMap::~TileMap()
 {
 
+}
+
+noa::TileMap* noa::TileMap::Create(
+	const std::string& tileSetFile
+	, const std::vector<std::string>& layerFile
+	, Scene* scene)
+{
+	noa::TileMap* map = new TileMap(tileSetFile,layerFile);
+	scene->SetTileMap(map);
+	return map;
 }
 
 int noa::TileMap::GetLayerTileID(const int layerIndex, const int x, const int y) const
@@ -85,7 +143,7 @@ int noa::TileMap::GetLayerTileID(const int layerIndex, const int x, const int y)
 	{
 		return -1;
 	}
-	return layers[layerIndex].Find(x,y);
+	return layers[layerIndex].GetTileID(x,y);
 }
 
 void noa::TileMap::SetLayerTileID(const int layerIndex,const int x, const int y, const int tileID)
@@ -94,7 +152,7 @@ void noa::TileMap::SetLayerTileID(const int layerIndex,const int x, const int y,
 	{
 		return;
 	}
-	layers[layerIndex].Set(x,y,tileID);
+	layers[layerIndex].SetTileID(x,y,tileID);
 }
 
 bool noa::TileMap::IsTile(const int code) const
@@ -120,7 +178,7 @@ bool noa::TileMap::IsCollisionTile(const int x, const int y) const
 		{
 			continue;
 		}
-		isCollision = collisionTiles.count(layer.Find(x,y)) > 0;
+		isCollision = collisionTiles.count(layer.GetTileID(x,y)) > 0;
 		if (isCollision)
 		{
 			return true;
@@ -162,12 +220,12 @@ noa::Scene::~Scene()
 	DestoyScene();
 }
 
-noa::TileMap * noa::Scene::GetTileMap()
+noa::Level* noa::Scene::GetTileMap()
 {
 	return this->tileMap;
 }
 
-void noa::Scene::SetTileMap(TileMap* map)
+void noa::Scene::SetTileMap(Level* map)
 {
 	PhysicsSystem::SetGrid(map->w, map->h);
 	this->tileMap = map;
@@ -415,6 +473,7 @@ void noa::SceneManager::Update()
 	{
 		oldScene->DestoyScene();
 		oldScene->onUnload.Invoke(activeScene);
+		oldScene->tileMap->Delete(oldScene->tileMap);
 		oldScene = nullptr;
 	}
 

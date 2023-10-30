@@ -47,6 +47,10 @@ namespace noa {
 	TileMapCamera::TileMapCamera(Scene * scene):Camera(scene)
 	{
 
+		if (scene&& scene->GetTileMap())
+		{
+			this->SetTileMap(scene->GetTileMap()->GetLevelAs<TileMap>());
+		}
 	}
 
 	TileMapCamera* TileMapCamera::Create(Scene* scene)
@@ -92,12 +96,15 @@ namespace noa {
 		tileOffset.x = (offset.x - (int)offset.x) * tileScale.x;
 		tileOffset.y = (offset.y - (int)offset.y) * tileScale.y;
 
-		for (int x = -2; x < visibleTiles.x+2; x++)
+		for (int x = -2; x < visibleTiles.x + 2; x++)
 		{
-			for (int y = -2; y < visibleTiles.y+2 ; y++)
+			for (int y = -2; y < visibleTiles.y + 2; y++)
 			{
-
-				const int tileID = tileMap->GetTileID(
+				if (tileMap->layers.empty())
+				{
+					continue;
+				}
+				const int tileID = tileMap->layers[tileMap->layers.size()-1].GetTileID(
 					static_cast<int>(x + offset.x)
 					, static_cast<int>(y + offset.y)
 				);
@@ -117,13 +124,20 @@ namespace noa {
 					, (y * tileScale.y - tileOffset.y)
 					, (1 * tileScale.x)
 					, (1 * tileScale.y)
-					,WHITE
-					,false
-					,0.0f
+					, WHITE
+					, false
+					, 0.0f
 				);
 
 			}
 		}
+
+		for (auto & layer:tileMap->layers) 
+		{
+			
+		}
+
+		
 		
 		//渲染物品到屏幕上
 		for (const auto& instance:spriteRendererInstances) 
@@ -195,57 +209,57 @@ namespace noa {
 	void FreeCamera::RenderFloor()
 	{
 		
-		const float angle = follow->eulerAngle - halfFOV;
-		const float dirX = sinf(follow->eulerAngle);
-		const float dirY = cosf(follow->eulerAngle);
-		
-		const float eyeRayX = normalEyeRay * sinf(angle);
-		const float eyeRayY = normalEyeRay * cosf(angle);
-		const float planeX = -eyeRayX + dirX;
-		const float planeY = -eyeRayY + dirY;
+		//const float angle = follow->eulerAngle - halfFOV;
+		//const float dirX = sinf(follow->eulerAngle);
+		//const float dirY = cosf(follow->eulerAngle);
+		//
+		//const float eyeRayX = normalEyeRay * sinf(angle);
+		//const float eyeRayY = normalEyeRay * cosf(angle);
+		//const float planeX = -eyeRayX + dirX;
+		//const float planeY = -eyeRayY + dirY;
 
-		const float rayDirX0 = eyeRayX;
-		const float rayDirY0 = eyeRayY;
-		const float rayDirX1 = dirX + planeX;
-		const float rayDirY1 = dirY + planeY;
+		//const float rayDirX0 = eyeRayX;
+		//const float rayDirY0 = eyeRayY;
+		//const float rayDirX1 = dirX + planeX;
+		//const float rayDirY1 = dirY + planeY;
 
-		for (int y = static_cast<int>(Screen::height * 0.5); y < Screen::height; y++)
-		{
-			const float rowDistance = Screen::height/(2.0f*y - Screen::height);
+		//for (int y = static_cast<int>(Screen::height * 0.5); y < Screen::height; y++)
+		//{
+		//	const float rowDistance = Screen::height/(2.0f*y - Screen::height);
 
-			const float floorStepX = rowDistance * (2 * planeX) / Screen::width;
-			const float floorStepY = rowDistance * (2 * planeY) / Screen::width;
+		//	const float floorStepX = rowDistance * (2 * planeX) / Screen::width;
+		//	const float floorStepY = rowDistance * (2 * planeY) / Screen::width;
 
-			float floorX = follow->position.x + rowDistance * rayDirX0 + 0.5f;
-			float floorY = follow->position.y + rowDistance * rayDirY0 + 0.5f;
+		//	float floorX = follow->position.x + rowDistance * rayDirX0 + 0.5f;
+		//	float floorY = follow->position.y + rowDistance * rayDirY0 + 0.5f;
 
-			for (int x = 0; x < Screen::width; ++x)
-			{
-				const int cellX = (int)(floorX);
-				const int cellY = (int)(floorY);
+		//	for (int x = 0; x < Screen::width; ++x)
+		//	{
+		//		const int cellX = (int)(floorX);
+		//		const int cellY = (int)(floorY);
 
-				const float simpleX = floorX - cellX;
-				const float simpleY = floorY - cellY;
+		//		const float simpleX = floorX - cellX;
+		//		const float simpleY = floorY - cellY;
 
-				floorX += floorStepX;
-				floorY += floorStepY;
+		//		floorX += floorStepX;
+		//		floorY += floorStepY;
 
-				const int floorTileID = map->GetTileID(cellX, cellY);
-				const Tile* floorTile = map->GetTile(floorTileID);
-				if (floorTileID == -1 || floorTile == nullptr)
-				{
-					renderer->DrawPixel(x, y, LIGHTRED);
-					continue;
-				}
+		//		const int floorTileID = map->GetTileID(cellX, cellY);
+		//		const Tile* floorTile = map->GetTile(floorTileID);
+		//		if (floorTileID == -1 || floorTile == nullptr)
+		//		{
+		//			renderer->DrawPixel(x, y, LIGHTRED);
+		//			continue;
+		//		}
 
-				Uint32 color = floorTile->sprite->GetColor(simpleX, simpleY);
+		//		Uint32 color = floorTile->sprite->GetColor(simpleX, simpleY);
 
-				//color = MULTICOLOR(color, multiColor);
+		//		//color = MULTICOLOR(color, multiColor);
 
-				renderer->DrawPixel(x, y, color);
+		//		renderer->DrawPixel(x, y, color);
 
-			}
-		}
+		//	}
+		//}
 	}
 
 	void FreeCamera::Render()
@@ -341,8 +355,11 @@ namespace noa {
 				ray.distance = viewDepth;
 				continue;
 			}
-
-			ray.hitTile = map->GetTileID(intHitPoint.x, intHitPoint.y);
+			if (map->layers.empty()) 
+			{
+				continue;
+			}
+			ray.hitTile = map->layers[map->layers.size()-1].GetTileID(intHitPoint.x, intHitPoint.y);
 			ray.tilePosition = { intHitPoint.x,intHitPoint.y };
 
 			isHitCollisionTile = map->IsCollisionTile(ray.hitTile);

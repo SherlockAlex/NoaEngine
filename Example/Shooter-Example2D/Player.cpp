@@ -28,20 +28,20 @@ void Player::Update()
 	rigid->velocity = {};
 	if (noa::inputSystem.GetKeyHold(noa::KeyCode::KEY_W))
 	{
-		rigid->velocity.y = -10;
+		rigid->velocity.y = -15;
 	}
 	if(noa::inputSystem.GetKeyHold(noa::KeyCode::KEY_S))
 	{
-		rigid->velocity.y = 10;
+		rigid->velocity.y = 15;
 	}
 	if (noa::inputSystem.GetKeyHold(noa::KeyCode::KEY_A))
 	{
-		rigid->velocity.x = -10;
+		rigid->velocity.x = -15;
 		spriteRenderer->isFlip.x = true;
 	}
 	if (noa::inputSystem.GetKeyHold(noa::KeyCode::KEY_D))
 	{
-		rigid->velocity.x = 10;
+		rigid->velocity.x = 15;
 		spriteRenderer->isFlip.x = false;
 	}
 

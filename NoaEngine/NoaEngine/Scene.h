@@ -41,21 +41,33 @@ namespace noa {
 		virtual ~MapLayer();
 
 	public:
-		int Find(int x, int y) const;
-		void Set(int x,int y,int value);
+		int GetTileID(int x, int y) const;
+		void SetTileID(int x,int y,int value);
 		
 	};
 
 	//关卡地图
 	//一张地图是由许多的地图层组成的
-	class LevelMap {
+	class Level {
 	public:
 		std::vector<MapLayer> layers;
 		int w = 0;
 		int h = 0;
 	protected:
-		LevelMap(const std::vector<MapLayer> & layer);
+		Level(const std::vector<MapLayer> & layer);
+		Level(const std::vector<std::string> & layerPath);
+		virtual ~Level();
+
+	public:
+		void Delete(Level *& level);
 		
+		template<class T>
+		T* GetLevelAs() {
+			return dynamic_cast<T*>(this);
+		}
+
+		void Construct(const std::vector<MapLayer>& layer);
+
 	};
 
 	//一张合格的tilemap
@@ -71,17 +83,31 @@ namespace noa {
 	//Collider
 	//Scene
 	
-
+	class Scene;
 	//瓦片地图
-	class TileMap:public LevelMap
+	class TileMap:public Level
 	{
 	public:
 		std::unordered_map<int, Tile> tileSet;
 		std::unordered_map<int, bool> collisionTiles;
-	public:
+	
+
+	private:
+
 		TileMap(const std::unordered_map<int,Tile> & tileSet
 			,const std::vector<MapLayer> & mapLayer);
+
+		TileMap(const std::string& tileSetFile
+			, const std::vector<std::string>& layerFile);
+
 		virtual ~TileMap();
+
+	public:
+
+		static TileMap* Create(const std::string& tileSetFile
+			, const std::vector<std::string>& layerFile
+			, Scene * scene
+		);
 
 		int GetLayerTileID(const int layerIndex,const int x,const int y) const;
 		void SetLayerTileID(const int layerIndex,const int x, const int y,const int tileID);
@@ -111,7 +137,7 @@ namespace noa {
 
 		int mainCamera = -1;
 
-		noa::TileMap* tileMap = nullptr;
+		noa::Level* tileMap = nullptr;
 
 	private:
 		Scene(const std::string & name);
@@ -124,8 +150,8 @@ namespace noa {
 		NoaEvent<Scene*> onUnload;
 
 	public:
-		TileMap* GetTileMap();
-		void SetTileMap(TileMap* map);
+		Level* GetTileMap();
+		void SetTileMap(Level* map);
 		void AddCamera(Camera* camera);
 		Camera* GetMainCamera();
 		void AddActor(Actor* actor);
