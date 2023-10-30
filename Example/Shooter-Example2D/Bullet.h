@@ -29,6 +29,6 @@ private:
 
 	float timer = 0;
 
-	float speed = 40;
+	float speed = 50;
 };
 

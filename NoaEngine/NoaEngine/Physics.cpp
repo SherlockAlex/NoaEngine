@@ -62,11 +62,9 @@ void noa::Rigidbody::UpdateVelocity(float deltaTime)
 		velocity = (velocity * (1 - damping)) + (this->force * (deltaTime * invMass));
 		newPosition = (GetActor()->transform.position) + (velocity * deltaTime);
 
-		this->ApplyTileCollision();
-
 	}
 
-
+	this->ApplyTileCollision();
 
 	this->force = {};
 

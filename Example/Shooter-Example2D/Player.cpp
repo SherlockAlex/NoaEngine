@@ -22,6 +22,7 @@ void Player::Start()
 
 }
 
+static float timer = 0;
 void Player::Update() 
 {
 	rigid->velocity = {};
@@ -44,19 +45,28 @@ void Player::Update()
 		spriteRenderer->isFlip.x = false;
 	}
 
+	timer = timer + noa::Time::deltaTime;
 	if (noa::inputSystem.GetMouseKeyHold(noa::MouseButton::LEFT_BUTTON))
 	{
-		//Éä»÷
-		const noa::Vector<double>& screenPos = noa::inputSystem.GetMousePosition();
-		const noa::Vector<float>& worldPos = camera->ScreenPointToWorld(screenPos.x, screenPos.y);
-		const noa::Vector<float> & dir = worldPos - this->transform.position;
 
-		Bullet* bullet = bulletPool->Request();
-		bullet->transform.position = transform.position;
-		bullet->SetDirection(dir.x,dir.y);
+		if (timer>0.08f)
+		{
 
-		noa::Debug::Log(noa::ToString<double>(screenPos));
+			//Éä»÷
+			const noa::Vector<double>& screenPos = noa::inputSystem.GetMousePosition();
+			const noa::Vector<float>& worldPos = camera->ScreenPointToWorld(screenPos.x, screenPos.y);
+			const noa::Vector<float>& dir = worldPos - this->transform.position;
 
+			Bullet* bullet = bulletPool->Request();
+			bullet->transform.position = transform.position;
+			bullet->SetDirection(dir.x, dir.y);
+
+			noa::Debug::Log(noa::ToString<double>(screenPos));
+
+
+			timer = 0;
+		}
+		
 	}
 
 	
