@@ -5,11 +5,9 @@
 Bullet::Bullet(noa::Scene* scene) :noa::Actor(scene) {
 	this->rigid->useGravity = false;
 	this->rigid->damping = 0;
-
 	this->collider->isTrigger = true;
-	
 	this->spriteRenderer->SetSprite(&ResourceManager::bulletImage);
-
+	this->rigid->SetTileMap(scene->GetTileMap());
 }
 
 Bullet::~Bullet() {
@@ -41,6 +39,7 @@ void Bullet::OnDisable()
 }
 
 void Bullet::OnHitTile() {
+	noa::Debug::Log("666");
 	bulletPool->Return(this);
 }
 

@@ -13,76 +13,65 @@ using namespace std;
 
 namespace noa 
 {
-
 	SceneManager sceneManager;
-
 }
 
-noa::LevelMap::LevelMap() {
-
-}
-
-noa::LevelMap::LevelMap(const MapFile& map)
+noa::MapLayer::MapLayer(const MapFile& layer)
 {
-	this->w = map.w;
-	this->h = map.h;
+	//层级
+	this->layer = layer.image;
+	this->w = layer.w;
+	this->h = layer.h;
+}
 
-	level = map.image;
+noa::MapLayer::~MapLayer()
+{
 
 }
 
-void noa::LevelMap::Construct(const MapFile& map)
+int noa::MapLayer::Find(int x, int y) const
 {
-	this->w = map.w;
-	this->h = map.h;
-
-	level = map.image;
-
-}
-
-void noa::LevelMap::ConstructLayer(const std::vector<std::vector<int>>& layer)
-{
-	levelLayer = layer;
-}
-
-noa::TileMap::TileMap()
-{
-}
-
-noa::TileMap::TileMap(const std::unordered_map<int, Tile>& tileSet, const MapFile& map) :LevelMap(map)
-{
-	this->tileSet = tileSet;
-}
-
-noa::TileMap::TileMap(const std::unordered_map<int, Tile>& tileSet, const std::vector<MapFile>& mapLayer)
-{
-	this->tileSet = tileSet;
-	MapFile map;
-	map.image = mapLayer[0].image;
-	map.w = mapLayer[0].w;
-	map.h = mapLayer[0].h;
-
-	std::vector<vector<int>> layer;
-
-	for (int i = 0; i < mapLayer.size(); i++)
+	if (x<0||x>=this->w
+		||y<0||y>=this->h) 
 	{
-		layer.push_back(mapLayer[i].image);
+		return -1;
 	}
+	return this->layer[y * this->w + x];
+}
 
-	for (int i = 1; i < mapLayer.size(); i++)
+void noa::MapLayer::Set(int x, int y, int value)
+{
+	if (x < 0 || x >= this->w
+		|| y < 0 || y >= this->h)
 	{
-		for (int j = 0; j < mapLayer[i].image.size(); j++)
+		return;
+	}
+	this->layer[y * this->w + x] = value;
+}
+
+noa::LevelMap::LevelMap(const std::vector<noa::MapLayer>& mapLayers)
+{
+	this->layers = mapLayers;
+	//返回地图的最大尺寸
+	for (auto & layer:layers) 
+	{
+		if (this->w<layer.w)
 		{
-			if (mapLayer[i].image[j] == -1)
-			{
-				continue;
-			}
-			map.image[j] = mapLayer[i].image[j];
+			this->w = layer.w;
+		}
+		if (this->h < layer.h)
+		{
+			this->h = layer.h;
 		}
 	}
+}
 
-	this->Construct(map);
-	this->ConstructLayer(layer);
+noa::TileMap::TileMap(
+	const std::unordered_map<int, Tile>& tileSet
+	, const std::vector<noa::MapLayer>& mapLayer
+):noa::LevelMap(mapLayer)
+{
+	this->tileSet = tileSet;
 }
 
 noa::TileMap::~TileMap()
@@ -90,22 +79,22 @@ noa::TileMap::~TileMap()
 
 }
 
-int noa::TileMap::GetTileID(const int x, const int y) const
+int noa::TileMap::GetLayerTileID(const int layerIndex, const int x, const int y) const
 {
-	if (x < 0 || x >= w || y < 0 || y >= h)
+	if (layerIndex<0||layerIndex>=this->layers.size())
 	{
 		return -1;
 	}
-	return level[y * w + x];
+	return layers[layerIndex].Find(x,y);
 }
 
-void noa::TileMap::SetTileID(const int x, const int y, const int tileID)
+void noa::TileMap::SetLayerTileID(const int layerIndex,const int x, const int y, const int tileID)
 {
-	if (x < 0 || x >= w || y < 0 || y >= h)
+	if (layerIndex < 0 || layerIndex >= this->layers.size())
 	{
 		return;
 	}
-	level[y * w + x] = tileID;
+	layers[layerIndex].Set(x,y,tileID);
 }
 
 bool noa::TileMap::IsTile(const int code) const
@@ -120,11 +109,25 @@ bool noa::TileMap::IsCollisionTile(int tileID) const
 
 bool noa::TileMap::IsCollisionTile(const int x, const int y) const
 {
-	if (x < 0 || x >= w || y < 0 || y >= h)
+	
+
+	//会去遍历所有的layer
+	//只要有一个layer是，那么就是
+	bool isCollision = false;
+	for (const auto & layer:this->layers)
 	{
-		return true;
+		if (x < 0 || x >= layer.w || y < 0 || y >= layer.h)
+		{
+			continue;
+		}
+		isCollision = collisionTiles.count(layer.Find(x,y)) > 0;
+		if (isCollision)
+		{
+			return true;
+		}
 	}
-	return collisionTiles.count(level[y * w + x]) > 0;
+	return isCollision;
+
 }
 
 void noa::TileMap::SetCollisionTileID(const std::vector<int>& collisionTileIDs)
@@ -159,9 +162,15 @@ noa::Scene::~Scene()
 	DestoyScene();
 }
 
+noa::TileMap * noa::Scene::GetTileMap()
+{
+	return this->tileMap;
+}
+
 void noa::Scene::SetTileMap(TileMap* map)
 {
 	PhysicsSystem::SetGrid(map->w, map->h);
+	this->tileMap = map;
 }
 
 void noa::Scene::AddCamera(Camera* camera)

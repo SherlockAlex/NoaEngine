@@ -63,12 +63,13 @@ void noa::Collider2D::Update()
 		return;
 	}
 	PhysicsSystem::grid.GetCell(x, y)->colliders.push_back(this);
-
+	
 	if (isHitCollisionTile)
 	{
 		this->GetActor()->OnHitTile();
 		isHitCollisionTile = false;
 	}
+	
 }
 
 void noa::Collider2D::SetTileMap(TileMap* tileMap)

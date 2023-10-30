@@ -30,21 +30,40 @@ namespace noa {
 	class ScriptableActor;
 	class Camera;
 
-	//关卡地图
-	//注意图层的概念
-	class LevelMap {
+	//地图的层级
+	class MapLayer {
 	public:
-		std::vector<int> level;
-		std::vector<std::vector<int>> levelLayer;
-		int w = 0;
-		int h = 0;
+		std::vector<int> layer;
+		uint32_t w = 0;
+		uint32_t h = 0;
 	public:
-		LevelMap();
-		LevelMap(const MapFile & map);
-		void Construct(const MapFile& map);
-		void ConstructLayer(const std::vector<std::vector<int>> & layer);
+		MapLayer(const MapFile & layer);
+		virtual ~MapLayer();
+
+	public:
+		int Find(int x, int y) const;
+		void Set(int x,int y,int value);
 		
 	};
+
+	//关卡地图
+	//一张地图是由许多的地图层组成的
+	class LevelMap {
+	public:
+		std::vector<MapLayer> layers;
+		int w = 0;
+		int h = 0;
+	protected:
+		LevelMap(const std::vector<MapLayer> & layer);
+		
+	};
+
+	//一张合格的tilemap
+	//tile set
+	//collisionTiles
+	//
+	//mapLayer
+	//objectLayer
 
 	//瓦片地图
 	class TileMap:public LevelMap
@@ -53,13 +72,12 @@ namespace noa {
 		std::unordered_map<int, Tile> tileSet;
 		std::unordered_map<int, bool> collisionTiles;
 	public:
-		TileMap();
-		TileMap(const std::unordered_map<int,Tile> & tileSet,const MapFile & map);
-		TileMap(const std::unordered_map<int,Tile> & tileSet,const std::vector<MapFile> & mapLayer);
+		TileMap(const std::unordered_map<int,Tile> & tileSet
+			,const std::vector<MapLayer> & mapLayer);
 		virtual ~TileMap();
 
-		int GetTileID(const int x,const int y) const;
-		void SetTileID(const int x, const int y,const int tileID);
+		int GetLayerTileID(const int layerIndex,const int x,const int y) const;
+		void SetLayerTileID(const int layerIndex,const int x, const int y,const int tileID);
 		Tile* GetTile(const int id);
 		bool IsTile(const int code) const;
 		bool IsCollisionTile(int tileID) const;
@@ -68,11 +86,11 @@ namespace noa {
 	};
 
 
-	typedef struct MapInfo {
+	/*typedef struct MapInfo {
 		std::shared_ptr<TileMap> mapLayer;
 		std::shared_ptr<MapFile> objectLayer;
 
-	}MapInfo;
+	}MapInfo;*/
 
 	class Scene final
 	{
@@ -86,6 +104,8 @@ namespace noa {
 
 		int mainCamera = -1;
 
+		noa::TileMap* tileMap = nullptr;
+
 	private:
 		Scene(const std::string & name);
 		virtual ~Scene();
@@ -97,12 +117,11 @@ namespace noa {
 		NoaEvent<Scene*> onUnload;
 
 	public:
+		TileMap* GetTileMap();
 		void SetTileMap(TileMap* map);
 		void AddCamera(Camera* camera);
 		Camera* GetMainCamera();
-
 		void AddActor(Actor* actor);
-
 		std::string GetName();
 
 	private:
