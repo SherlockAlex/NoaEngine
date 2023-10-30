@@ -16,7 +16,7 @@ namespace noa
 	SceneManager sceneManager;
 }
 
-noa::MapLayer::MapLayer(const MapFile& layer)
+noa::MapLayer::MapLayer(const LayerFile& layer)
 {
 	//²ã¼¶
 	this->layer = layer.image;

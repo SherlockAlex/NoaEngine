@@ -43,13 +43,13 @@ namespace noa {
 	}AnimationFile;
 
 	//本地地图文件
-	typedef struct MapFile
+	typedef struct LayerFile
 	{
 		//地图文件
 		int w = 0;
 		int h = 0;
 		std::vector<int> image;
-	}Map;
+	}LayerFile;
 
 	
 	class Sprite;
@@ -92,7 +92,7 @@ namespace noa {
 
 		static AnimationFile LoadAnimationClip(const std::string & filename);
 
-		static MapFile LoadTileMap(const std::string & filename);
+		static LayerFile LoadMapLayer(const std::string & filename);
 
 		static std::unordered_map<int, Tile> LoadTileSet(const std::string& filename);
 

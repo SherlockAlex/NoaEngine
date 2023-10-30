@@ -92,9 +92,9 @@ noa::AnimationFile noa::Resource::LoadAnimationClip(const std::string& filename)
 	return animator;
 }
 
-noa::MapFile noa::Resource::LoadTileMap(const std::string& filename)
+noa::LayerFile noa::Resource::LoadMapLayer(const std::string& filename)
 {
-	Map map;
+	LayerFile map;
 	const std::string filePath = Resource::path + filename;
 	std::ifstream file(filePath);
 	if (!file.is_open())

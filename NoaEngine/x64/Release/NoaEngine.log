@@ -1,20 +1,55 @@
-﻿  AudioSystem_SDL.cpp
-  ActorPoolFactory.cpp
+﻿  Actor.cpp
   ActorPool.cpp
-  Collider2D.cpp
-  ActorComponent.cpp
   Animator.cpp
-  AudioSource.cpp
-  Actor.cpp
   Camera.cpp
+D:\Work\NoaEngine\NoaEngine\NoaEngine\Camera.cpp(100,33): error C2039: "GetTileID": 不是 "noa::TileMap" 的成员
+D:\Work\NoaEngine\NoaEngine\NoaEngine\Scene.h(69,8): message : 参见“noa::TileMap”的声明
+D:\Work\NoaEngine\NoaEngine\NoaEngine\Camera.cpp(100,15): error C2737: “tileID”: 必须初始化 const 对象
+D:\Work\NoaEngine\NoaEngine\NoaEngine\Camera.cpp(119,11): warning C4244: “参数”: 从“T”转换到“float”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\NoaEngine\NoaEngine\NoaEngine\Camera.cpp(118,11): warning C4244: “参数”: 从“T”转换到“float”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\NoaEngine\NoaEngine\NoaEngine\Camera.cpp(233,34): error C2039: "GetTileID": 不是 "noa::TileMap" 的成员
+D:\Work\NoaEngine\NoaEngine\NoaEngine\Scene.h(69,8): message : 参见“noa::TileMap”的声明
+D:\Work\NoaEngine\NoaEngine\NoaEngine\Camera.cpp(233,15): error C2737: “floorTileID”: 必须初始化 const 对象
+D:\Work\NoaEngine\NoaEngine\NoaEngine\Camera.cpp(345,23): error C2039: "GetTileID": 不是 "noa::TileMap" 的成员
+D:\Work\NoaEngine\NoaEngine\NoaEngine\Scene.h(69,8): message : 参见“noa::TileMap”的声明
+  Collider2D.cpp
+  GLRenderer.cpp
+  GLShader.cpp
+  NoaAction.cpp
   NoaEngine.cpp
   NoaGUI.cpp
   Physics.cpp
-  Renderer.cpp
-  Scene.cpp
-  StateMachine.cpp
-  NObject.cpp
-  SpriteRenderer.cpp
+D:\Work\NoaEngine\NoaEngine\NoaEngine\Physics.cpp(168,43): warning C4244: “参数”: 从“float”转换到“const int”，可能丢失数据
+D:\Work\NoaEngine\NoaEngine\NoaEngine\Physics.cpp(181,18): warning C4244: “=”: 从“int”转换到“float”，可能丢失数据
+D:\Work\NoaEngine\NoaEngine\NoaEngine\Physics.cpp(185,35): warning C4244: “参数”: 从“float”转换到“const int”，可能丢失数据
+D:\Work\NoaEngine\NoaEngine\NoaEngine\Physics.cpp(186,47): warning C4244: “参数”: 从“float”转换到“const int”，可能丢失数据
+D:\Work\NoaEngine\NoaEngine\NoaEngine\Physics.cpp(186,34): warning C4244: “参数”: 从“float”转换到“const int”，可能丢失数据
+D:\Work\NoaEngine\NoaEngine\NoaEngine\Physics.cpp(203,34): warning C4244: “参数”: 从“float”转换到“const int”，可能丢失数据
+D:\Work\NoaEngine\NoaEngine\NoaEngine\Physics.cpp(215,18): warning C4244: “=”: 从“int”转换到“float”，可能丢失数据
+D:\Work\NoaEngine\NoaEngine\NoaEngine\Physics.cpp(220,45): warning C4244: “参数”: 从“float”转换到“const int”，可能丢失数据
+D:\Work\NoaEngine\NoaEngine\NoaEngine\Physics.cpp(221,51): warning C4244: “参数”: 从“float”转换到“const int”，可能丢失数据
+D:\Work\NoaEngine\NoaEngine\NoaEngine\Physics.cpp(221,36): warning C4244: “参数”: 从“float”转换到“const int”，可能丢失数据
   PhysicsSystem.cpp
-SDL2main.lib(SDL_windows_main.obj) : error LNK2001: 无法解析的外部符号 SDL_main
-D:\Work\NoaEngine\x64\Release\NoaEngine.exe : fatal error LNK1120: 1 个无法解析的外部命令
+  Platform_Windows.cpp
+  Renderer.cpp
+  Resource.cpp
+  Scene.cpp
+D:\Work\NoaEngine\NoaEngine\NoaEngine\Scene.cpp(34,12): warning C4018: “>=”: 有符号/无符号不匹配
+D:\Work\NoaEngine\NoaEngine\NoaEngine\Scene.cpp(35,11): warning C4018: “>=”: 有符号/无符号不匹配
+D:\Work\NoaEngine\NoaEngine\NoaEngine\Scene.cpp(44,17): warning C4018: “>=”: 有符号/无符号不匹配
+D:\Work\NoaEngine\NoaEngine\NoaEngine\Scene.cpp(45,17): warning C4018: “>=”: 有符号/无符号不匹配
+D:\Work\NoaEngine\NoaEngine\NoaEngine\Scene.cpp(58,14): warning C4018: “<”: 有符号/无符号不匹配
+D:\Work\NoaEngine\NoaEngine\NoaEngine\Scene.cpp(62,15): warning C4018: “<”: 有符号/无符号不匹配
+D:\Work\NoaEngine\NoaEngine\NoaEngine\Scene.cpp(119,18): warning C4018: “>=”: 有符号/无符号不匹配
+D:\Work\NoaEngine\NoaEngine\NoaEngine\Scene.cpp(119,43): warning C4018: “>=”: 有符号/无符号不匹配
+  Sprite.cpp
+  SpriteRenderer.cpp
+  Texture.cpp

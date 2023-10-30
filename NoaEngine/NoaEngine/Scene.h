@@ -37,7 +37,7 @@ namespace noa {
 		uint32_t w = 0;
 		uint32_t h = 0;
 	public:
-		MapLayer(const MapFile & layer);
+		MapLayer(const LayerFile & layer);
 		virtual ~MapLayer();
 
 	public:
@@ -64,6 +64,13 @@ namespace noa {
 	//
 	//mapLayer
 	//objectLayer
+
+	//TileMap的耦合程度过高
+	//Camera
+	//Rigidbody
+	//Collider
+	//Scene
+	
 
 	//瓦片地图
 	class TileMap:public LevelMap
