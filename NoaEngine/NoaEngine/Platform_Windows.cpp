@@ -115,7 +115,12 @@ void noa::InputEvent_Windows::PollEvent(const std::function<void()>& quitCallbac
 void noa::InputEvent_Windows::UpdateMouseContext()
 {
 
-	const Uint32 mouseState = SDL_GetMouseState(nullptr, nullptr);
+	int mouseX, mouseY;
+
+	const Uint32 mouseState = SDL_GetMouseState(&mouseX, &mouseY);
+
+	mouseContext->position.x = mouseX;
+	mouseContext->position.y = mouseY;
 
 	mouseContext->mouseKey[noa::MouseButton::LEFT_BUTTON].down = false;
 	mouseContext->mouseKey[noa::MouseButton::LEFT_BUTTON].hold = false;
@@ -129,9 +134,6 @@ void noa::InputEvent_Windows::UpdateMouseContext()
 	mouseContext->mouseKey[noa::MouseButton::RIGHT_BUTTON].hold = false;
 	mouseContext->mouseKey[noa::MouseButton::RIGHT_BUTTON].up = false;
 	mouseContext->motion = false;
-
-	mouseContext->position.x = e.motion.x;
-	mouseContext->position.y = e.motion.y;
 
 	mouseContext->mouseKey[MouseButton::LEFT_BUTTON].hold
 		= mouseState & SDL_BUTTON((static_cast<int>(MouseButton::LEFT_BUTTON)));

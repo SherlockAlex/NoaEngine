@@ -40,6 +40,10 @@ void Bullet::OnDisable()
 	this->timer = 0;
 }
 
+void Bullet::OnHitTile() {
+	bulletPool->Return(this);
+}
+
 void Bullet::SetDirection(float x,float y)
 {
 	this->direction.x = x;

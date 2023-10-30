@@ -17,6 +17,8 @@ private:
 	void Update() override;
 	void OnDisable() override;
 	
+	void OnHitTile() override;
+
 public:
 	void SetDirection(float x,float y);
 private:
@@ -27,6 +29,6 @@ private:
 
 	float timer = 0;
 
-	float speed = 20;
+	float speed = 40;
 };
 

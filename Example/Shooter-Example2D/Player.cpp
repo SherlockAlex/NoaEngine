@@ -44,7 +44,7 @@ void Player::Update()
 		spriteRenderer->isFlip.x = false;
 	}
 
-	if (noa::inputSystem.GetMouseKeyDown(noa::MouseButton::LEFT_BUTTON))
+	if (noa::inputSystem.GetMouseKeyHold(noa::MouseButton::LEFT_BUTTON))
 	{
 		//Éä»÷
 		const noa::Vector<double>& screenPos = noa::inputSystem.GetMousePosition();
@@ -54,6 +54,8 @@ void Player::Update()
 		Bullet* bullet = bulletPool->Request();
 		bullet->transform.position = transform.position;
 		bullet->SetDirection(dir.x,dir.y);
+
+		noa::Debug::Log(noa::ToString<double>(screenPos));
 
 	}
 
