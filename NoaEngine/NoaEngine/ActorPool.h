@@ -20,6 +20,11 @@ namespace noa {
 
 	public:
 
+		virtual void Prewarm(int number) override 
+		{
+			ObjectPool<T>::Prewarm(number);
+		}
+
 		virtual T* Request() override {
 			T* member = ObjectPool<T>::Request();
 			Actor* actor = Actor::HandleActor((NOAObject*)member);

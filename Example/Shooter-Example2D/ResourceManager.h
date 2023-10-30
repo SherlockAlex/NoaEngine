@@ -5,5 +5,6 @@ class ResourceManager
 public:
 	static noa::Sprite defaultImage;
 	static noa::Sprite playerImage;
+	static noa::Sprite bulletImage;
 };
 

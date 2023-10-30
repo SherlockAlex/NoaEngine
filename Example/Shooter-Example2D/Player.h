@@ -14,5 +14,6 @@ public:
 	noa::SpriteRenderer* spriteRenderer = noa::SpriteRenderer::Create(this);
 	noa::Rigidbody* rigid = noa::Rigidbody::Create(this);
 	noa::CircleCollider2D* collider = noa::CircleCollider2D::Create(this,rigid);
+	noa::TileMapCamera* camera = nullptr;
 };
 

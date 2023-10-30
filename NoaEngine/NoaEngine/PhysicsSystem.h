@@ -14,6 +14,12 @@ namespace noa
 	class CircleCollider2D;
 	class BoxCollider2D;
 
+	// 定义AABB结构体
+	struct AABB {
+		float minX, maxX;
+		float minY, maxY;
+	};
+
 	class PhysicsSystem
 	{
 	public:
@@ -24,7 +30,7 @@ namespace noa
 		static void SetGrid(int width,int height);
 		static void Update(int step);
 
-	private:
+	public:
 
 		static void FindCollisionsGrid();
 
@@ -37,6 +43,8 @@ namespace noa
 		static bool BoxAndCircleCollide(BoxCollider2D* obj1, CircleCollider2D* obj2);
 
 		static bool Collide(Collider2D* obj1, Collider2D* obj2);
+
+		static bool Collide(const AABB& box1, const AABB& box2);
 
 		static void SolveCollision(Collider2D* obj1, Collider2D* obj2);
 	};

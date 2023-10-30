@@ -88,7 +88,7 @@ namespace noa {
 		Vector<float> visibleTiles;
 		Vector<float> offset;
 		
-		std::vector<void*> objectBufferWithRay = std::vector<void*>(Screen::width*Screen::height, nullptr);
+		std::vector<NOAObject*> objectBufferWithRay = std::vector<NOAObject*>(Screen::width*Screen::height, nullptr);
 
 		TileMapCamera(Scene * scene);
 
@@ -99,6 +99,8 @@ namespace noa {
 		void SetTileScale(Vector<int> tileScale);
 		void SetTileMap(TileMap * tileMap);
 		void SetDelta(const Vector<float> & frontDelta,const Vector<float> & endDelta);
+
+		Vector<float> ScreenPointToWorld(float x,float y);
 
 		template<class T>
 		T GetRayHitInfoAs(int index) {

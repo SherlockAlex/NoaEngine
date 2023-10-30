@@ -1,5 +1,6 @@
 #include "Player.h"
 #include "ResourceManager.h"
+#include "BulletPool.h"
 
 Player::Player(noa::Scene * scene):noa::Actor(scene) 
 {
@@ -8,7 +9,8 @@ Player::Player(noa::Scene * scene):noa::Actor(scene)
 	this->rigid->useCollision = true;
 	this->rigid->useGravity = false;
 	this->rigid->damping = 0;
-	this->rigid->SetTileColliderScale(1,1);
+	this->rigid->SetTileColliderScale(1.5,1.7);
+	this->transform.position = { 3,3 };
 }
 
 Player::~Player() {
@@ -42,6 +44,21 @@ void Player::Update()
 		spriteRenderer->isFlip.x = false;
 	}
 
-	noa::renderer->DrawString(noa::ToString<float>(1.0f/noa::Time::deltaTime),10,10,noa::RED,50);
+	if (noa::inputSystem.GetMouseKeyDown(noa::MouseButton::LEFT_BUTTON))
+	{
+		//Éä»÷
+		const noa::Vector<double>& screenPos = noa::inputSystem.GetMousePosition();
+		const noa::Vector<float>& worldPos = camera->ScreenPointToWorld(screenPos.x, screenPos.y);
+		const noa::Vector<float> & dir = worldPos - this->transform.position;
+
+		Bullet* bullet = bulletPool->Request();
+		bullet->transform.position = transform.position;
+		bullet->SetDirection(dir.x,dir.y);
+
+	}
+
+	
+
+	//noa::renderer->DrawString(noa::ToString<float>(1.0f/noa::Time::deltaTime),10,10,noa::RED,50);
 
 }

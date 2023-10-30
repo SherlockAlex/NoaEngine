@@ -37,6 +37,9 @@ D:\Work\NoaEngine\NoaEngine\NoaEngine\StateMachine.cpp;D:\Work\NoaEngine\Example
 D:\Work\NoaEngine\NoaEngine\NoaEngine\Texture.cpp;D:\Work\NoaEngine\Example\Shooter-Example2D\x64\Release\Texture.obj
 D:\Work\NoaEngine\NoaEngine\NoaEngine\Time.cpp;D:\Work\NoaEngine\Example\Shooter-Example2D\x64\Release\Time.obj
 D:\Work\NoaEngine\NoaEngine\NoaEngine\Transform.cpp;D:\Work\NoaEngine\Example\Shooter-Example2D\x64\Release\Transform.obj
+D:\Work\NoaEngine\Example\Shooter-Example2D\Bullet.cpp;D:\Work\NoaEngine\Example\Shooter-Example2D\x64\Release\Bullet.obj
+D:\Work\NoaEngine\Example\Shooter-Example2D\BulletFactory.cpp;D:\Work\NoaEngine\Example\Shooter-Example2D\x64\Release\BulletFactory.obj
+D:\Work\NoaEngine\Example\Shooter-Example2D\BulletPool.cpp;D:\Work\NoaEngine\Example\Shooter-Example2D\x64\Release\BulletPool.obj
 D:\Work\NoaEngine\Example\Shooter-Example2D\Engine.cpp;D:\Work\NoaEngine\Example\Shooter-Example2D\x64\Release\Engine.obj
 D:\Work\NoaEngine\Example\Shooter-Example2D\GameDelegate.cpp;D:\Work\NoaEngine\Example\Shooter-Example2D\x64\Release\GameDelegate.obj
 D:\Work\NoaEngine\Example\Shooter-Example2D\MainMenuDelegate.cpp;D:\Work\NoaEngine\Example\Shooter-Example2D\x64\Release\MainMenuDelegate.obj

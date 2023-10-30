@@ -114,6 +114,17 @@ bool noa::PhysicsSystem::Collide(Collider2D* obj1, Collider2D* obj2)
 	
 }
 
+bool noa::PhysicsSystem::Collide(const AABB& box1, const AABB& box2)
+{
+	if (box1.maxX < box2.minX || box1.minX > box2.maxX) {
+		return false;
+	}
+	if (box1.maxY < box2.minY || box1.minY > box2.maxY) {
+		return false;
+	}
+	return true;
+}
+
 void noa::PhysicsSystem::SolveCollision(Collider2D* obj1, Collider2D* obj2)
 {
 	if (obj1->isTrigger||obj2->isTrigger)

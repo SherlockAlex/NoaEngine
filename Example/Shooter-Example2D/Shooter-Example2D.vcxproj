@@ -169,6 +169,9 @@
     <ClCompile Include="..\..\NoaEngine\NoaEngine\Texture.cpp" />
     <ClCompile Include="..\..\NoaEngine\NoaEngine\Time.cpp" />
     <ClCompile Include="..\..\NoaEngine\NoaEngine\Transform.cpp" />
+    <ClCompile Include="Bullet.cpp" />
+    <ClCompile Include="BulletFactory.cpp" />
+    <ClCompile Include="BulletPool.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="GameDelegate.cpp" />
     <ClCompile Include="MainMenuDelegate.cpp" />
@@ -224,6 +227,9 @@
     <ClInclude Include="..\..\NoaEngine\NoaEngine\Texture.h" />
     <ClInclude Include="..\..\NoaEngine\NoaEngine\Time.h" />
     <ClInclude Include="..\..\NoaEngine\NoaEngine\Transform.h" />
+    <ClInclude Include="Bullet.h" />
+    <ClInclude Include="BulletFactory.h" />
+    <ClInclude Include="BulletPool.h" />
     <ClInclude Include="Engine.h" />
     <ClInclude Include="GameDelegate.h" />
     <ClInclude Include="MainMenuDelegate.h" />

@@ -1,5 +1,11 @@
 #include "GameDelegate.h"
 #include "Player.h"
+#include "BulletFactory.h"
+#include "BulletPool.h"
+
+/**
+* 关于TileMap的类和结构体太多了
+*/
 
 std::shared_ptr<noa::MapInfo> map = nullptr;
 void GameDelegate::OnLoad(noa::Scene* scene)
@@ -24,5 +30,10 @@ void GameDelegate::OnLoad(noa::Scene* scene)
 	camera->SetFollow(player);
 	camera->SetTileMap(map->mapLayer.get());
 	camera->SetTileScale({32,32});
+
+	player->camera = camera;
+
+	bulletPool->SetFactory(bulletFactory.get());
+	bulletPool->Prewarm(10);
 
 }

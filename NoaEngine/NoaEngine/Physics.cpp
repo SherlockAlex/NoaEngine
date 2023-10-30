@@ -152,36 +152,43 @@ void noa::Rigidbody::ApplyTileCollision()
 		return;
 	}
 
-	const float scaleX = tileColliderSacle.x - 1;
-	const float scaleY = tileColliderSacle.y - 1;
+	float newX = newPosition.x;
+	float newY = newPosition.y;
+	float posX = GetActor()->transform.position.x;
+	float posY = GetActor()->transform.position.y;
 
-	if (tileMap->IsCollisionTile(
-		static_cast<int>(newPosition.x - scaleX)
-		, static_cast<int>(GetActor()->transform.position.y - scaleY))
-		|| tileMap->IsCollisionTile(
-			static_cast<int>(newPosition.x - scaleX)
-			, static_cast<int>(GetActor()->transform.position.y + 0.999 + scaleY))
-	)
+	int intNewX = static_cast<int>(newX);
+	int intNewY = static_cast<int>(newY);
+	int intPosX = static_cast<int>(posX);
+	int intPosY = static_cast<int>(posY);
+
+	float deltaStep = 0.999f;
+	float scaleX = deltaStep *std::abs(this->tileColliderSacle.x);
+	float scaleY = deltaStep *std::abs(this->tileColliderSacle.y);
+
+	if (tileMap->IsCollisionTile(intNewX,intPosY)
+		||tileMap->IsCollisionTile(intNewX,posY + scaleY)
+		) 
 	{
-		for (auto& collider : colliders)
+		//вС
+		for (auto & collider:colliders)
 		{
 			if (collider)
 			{
 				collider->isHitCollisionTile = true;
 			}
 		}
-		newPosition.x = (int)newPosition.x + 1 + scaleX;
+
 		velocity.x = 0;
+		newX = intNewX + 1;
+		intNewX = static_cast<int>(newX);
 	}
 
-	if (tileMap->IsCollisionTile(
-		static_cast<int>(newPosition.x + 0.999 + scaleX)
-		, static_cast<int>(GetActor()->transform.position.y - scaleY))
-		|| tileMap->IsCollisionTile(
-			static_cast<int>(newPosition.x + 0.999 + scaleX)
-			, static_cast<int>(GetActor()->transform.position.y + 0.999 + scaleY))
-	)
+	if (tileMap->IsCollisionTile(newX+ scaleX,intPosY)
+		||tileMap->IsCollisionTile(newX+ scaleX,posY+ scaleY)
+		) 
 	{
+		//ср
 		for (auto& collider : colliders)
 		{
 			if (collider)
@@ -189,19 +196,15 @@ void noa::Rigidbody::ApplyTileCollision()
 				collider->isHitCollisionTile = true;
 			}
 		}
-		newPosition.x = (int)newPosition.x - scaleX;
 		velocity.x = 0;
-
+		newX = static_cast<int>(newX+scaleX) - tileColliderSacle.x;
+		intNewX = static_cast<int>(newX);
 	}
 
-	if (tileMap->IsCollisionTile(
-		static_cast<int>(newPosition.x - scaleX)
-		, static_cast<int>(newPosition.y - scaleY))
-		|| tileMap->IsCollisionTile(
-			static_cast<int>(newPosition.x + 0.999 + scaleX)
-			, static_cast<int>(newPosition.y - scaleY))
-	)
+	if (tileMap->IsCollisionTile(intNewX,intNewY)
+		||tileMap->IsCollisionTile(newX+ scaleX,intNewY))
 	{
+		//ио
 		for (auto& collider : colliders)
 		{
 			if (collider)
@@ -209,18 +212,17 @@ void noa::Rigidbody::ApplyTileCollision()
 				collider->isHitCollisionTile = true;
 			}
 		}
-		newPosition.y = (int)newPosition.y + 1 + scaleY;
+
 		velocity.y = 0;
+		newY = intNewY + 1;
+		intNewY = static_cast<int>(newY);
+
 	}
 
-	if (tileMap->IsCollisionTile(
-		static_cast<int>(newPosition.x - scaleX)
-		, static_cast<int>(newPosition.y + 0.999 + scaleY))
-		|| tileMap->IsCollisionTile(
-			static_cast<int>(newPosition.x + 0.999 + scaleX)
-			, static_cast<int>(newPosition.y + 0.999 + scaleY))
-	)
+	if (tileMap->IsCollisionTile(intNewX, newY + scaleY)
+		|| tileMap->IsCollisionTile(newX + scaleX, newY + scaleY))
 	{
+		//об
 		for (auto& collider : colliders)
 		{
 			if (collider)
@@ -228,11 +230,16 @@ void noa::Rigidbody::ApplyTileCollision()
 				collider->isHitCollisionTile = true;
 			}
 		}
+
 		isGrounded = true;
-
-		newPosition.y = (int)newPosition.y - scaleY;
 		velocity.y = 0;
+		newY = static_cast<int>(newY + scaleY) - tileColliderSacle.y;
+		intNewY = static_cast<int>(newY);
+
 	}
+
+	newPosition.x = newX;
+	newPosition.y = newY;
 
 }
 
@@ -249,7 +256,7 @@ noa::TileMap* noa::Rigidbody::GetTileMap()
 
 noa::Rigidbody* noa::Rigidbody::Create(Actor* actor)
 {
-	return new Rigidbody(actor);
+	return noa::NObject<Rigidbody>::Create(actor);
 }
 
 bool noa::Collision::CompareTag(const std::string& tag) const

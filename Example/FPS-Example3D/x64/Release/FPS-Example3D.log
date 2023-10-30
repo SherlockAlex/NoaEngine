@@ -1,4 +1,33 @@
-﻿  NoaGUI.cpp
+﻿  Actor.cpp
+  Camera.cpp
+D:\Work\NoaEngine\NoaEngine\NoaEngine\Camera.cpp(119,11): warning C4244: “参数”: 从“T”转换到“float”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\NoaEngine\NoaEngine\NoaEngine\Camera.cpp(118,11): warning C4244: “参数”: 从“T”转换到“float”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\NoaEngine\NoaEngine\NoaEngine\Camera.cpp(152,49): warning C4244: “参数”: 从“float”转换到“const unsigned __int64”，可能丢失数据
+  Collider2D.cpp
+  NoaEngine.cpp
+  Physics.cpp
+D:\Work\NoaEngine\NoaEngine\NoaEngine\Physics.cpp(170,43): warning C4244: “参数”: 从“float”转换到“const int”，可能丢失数据
+D:\Work\NoaEngine\NoaEngine\NoaEngine\Physics.cpp(183,18): warning C4244: “=”: 从“int”转换到“float”，可能丢失数据
+D:\Work\NoaEngine\NoaEngine\NoaEngine\Physics.cpp(187,35): warning C4244: “参数”: 从“float”转换到“const int”，可能丢失数据
+D:\Work\NoaEngine\NoaEngine\NoaEngine\Physics.cpp(188,47): warning C4244: “参数”: 从“float”转换到“const int”，可能丢失数据
+D:\Work\NoaEngine\NoaEngine\NoaEngine\Physics.cpp(188,34): warning C4244: “参数”: 从“float”转换到“const int”，可能丢失数据
+D:\Work\NoaEngine\NoaEngine\NoaEngine\Physics.cpp(205,34): warning C4244: “参数”: 从“float”转换到“const int”，可能丢失数据
+D:\Work\NoaEngine\NoaEngine\NoaEngine\Physics.cpp(217,18): warning C4244: “=”: 从“int”转换到“float”，可能丢失数据
+D:\Work\NoaEngine\NoaEngine\NoaEngine\Physics.cpp(222,45): warning C4244: “参数”: 从“float”转换到“const int”，可能丢失数据
+D:\Work\NoaEngine\NoaEngine\NoaEngine\Physics.cpp(223,51): warning C4244: “参数”: 从“float”转换到“const int”，可能丢失数据
+D:\Work\NoaEngine\NoaEngine\NoaEngine\Physics.cpp(223,36): warning C4244: “参数”: 从“float”转换到“const int”，可能丢失数据
+  PhysicsSystem.cpp
+  Resource.cpp
+  Scene.cpp
+  SpriteRenderer.cpp
   Bullet.cpp
 D:\Work\NoaEngine\Example\FPS-Example3D\WolfResource.h(31,98): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
           with
@@ -40,6 +69,9 @@ D:\Work\NoaEngine\Example\FPS-Example3D\CacoState.cpp(226,24): warning C4244: �
 D:\Work\NoaEngine\Example\FPS-Example3D\CacoState.cpp(260,30): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
 D:\Work\NoaEngine\Example\FPS-Example3D\CacoState.cpp(292,24): warning C4244: “参数”: 从“double”转换到“float”，可能丢失数据
 D:\Work\NoaEngine\Example\FPS-Example3D\CacoState.cpp(316,30): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+  Enimy.cpp
+  Enter.cpp
+  Gun.cpp
   Item.cpp
 D:\Work\NoaEngine\Example\FPS-Example3D\WolfResource.h(31,98): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
           with
@@ -114,6 +146,7 @@ D:\Work\NoaEngine\Example\FPS-Example3D\Level01.cpp(79,39): warning C4244: “=�
           [
               T=float
           ]
+  LiveEntity.cpp
   M4A1.cpp
 D:\Work\NoaEngine\Example\FPS-Example3D\WolfResource.h(31,98): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
           with
@@ -146,6 +179,7 @@ D:\Work\NoaEngine\Example\FPS-Example3D\M4A1.cpp(54,43): warning C4244: “参�
           [
               T=int
           ]
+  正在编译...
   MainMenuLevel.cpp
 D:\Work\NoaEngine\Example\FPS-Example3D\WolfResource.h(31,98): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
           with
@@ -299,8 +333,8 @@ D:\Work\NoaEngine\Example\FPS-Example3D\WolfResource.h(31,76): warning C4244: �
               T=int
           ]
   正在生成代码
-  31 of 3984 functions ( 0.8%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    23 functions had inline decision re-evaluated but remain unchanged
+  115 of 3980 functions ( 2.9%) were compiled, the rest were copied from previous compilation.
+    8 functions were new in current compilation
+    122 functions had inline decision re-evaluated but remain unchanged
   已完成代码的生成
   FPS-Example3D.vcxproj -> D:\Work\NoaEngine\x64\Release\FPS-Example3D.exe

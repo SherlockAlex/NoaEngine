@@ -37,6 +37,7 @@ namespace noa {
 	class Rigidbody final:public ActorComponent
 	{
 	private:
+		NOBJECT(Rigidbody)
 		friend class PhysicsSystem;
 		friend class Collider2D;
 	public:

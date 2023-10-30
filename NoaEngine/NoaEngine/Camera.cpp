@@ -134,6 +134,8 @@ namespace noa {
 				continue;
 			}
 
+			//屏幕坐标 = (actor世界坐标 - offset) * tileScale
+
 			const float objPosX = (instance.actor->transform.position.x - offset.x) * tileScale.x;
 			const float objPosY = (instance.actor->transform.position.y - offset.y) * tileScale.y;
 
@@ -146,12 +148,12 @@ namespace noa {
 				, instance.isFlip.x
 				, 0.0f
 			);
-			if (objPosY <Screen::height&& objPosY >=0
-				&& objPosX < Screen::width && objPosX >= 0
-				) {
-				objectBufferWithRay[objPosY * Screen::width + objPosX] = instance.actor;
+			const int index = static_cast<int>(objPosY * Screen::width + objPosX);
+			if (index<0||index>=objectBufferWithRay.size())
+			{
+				continue;
 			}
-
+			objectBufferWithRay[index] = instance.actor;
 		}
 		spriteRendererInstances.clear();
 
@@ -160,6 +162,14 @@ namespace noa {
 	void TileMapCamera::SetTileMap(TileMap* tileMap)
 	{
 		this->tileMap = tileMap;
+	}
+
+	Vector<float> TileMapCamera::ScreenPointToWorld(float x, float y)
+	{
+		Vector<float> result = { 0.0f,0.0f };
+		result.x = offset.x + (x / tileScale.x);
+		result.y = offset.y + (y / tileScale.y);
+		return result;
 	}
 
 	void TileMapCamera::SetDelta(const Vector<float>& frontDelta, const Vector<float>& endDelta)
