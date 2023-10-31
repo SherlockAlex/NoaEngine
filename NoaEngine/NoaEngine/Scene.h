@@ -51,8 +51,8 @@ namespace noa {
 	class Level {
 	public:
 		std::vector<MapLayer> layers;
-		int w = 0;
-		int h = 0;
+		uint32_t w = 0;
+		uint32_t h = 0;
 	protected:
 		Level(const std::vector<MapLayer> & layer);
 		Level(const std::vector<std::string> & layerPath);
@@ -137,7 +137,7 @@ namespace noa {
 
 		int mainCamera = -1;
 
-		noa::Level* tileMap = nullptr;
+		noa::Level* level = nullptr;
 
 	private:
 		Scene(const std::string & name);
@@ -150,12 +150,17 @@ namespace noa {
 		NoaEvent<Scene*> onUnload;
 
 	public:
-		Level* GetTileMap();
-		void SetTileMap(Level* map);
+		Level* GetLevel();
+		void SetLevel(Level* map);
 		void AddCamera(Camera* camera);
 		Camera* GetMainCamera();
 		void AddActor(Actor* actor);
 		std::string GetName();
+
+		template<class T>
+		T* GetLevelAs() {
+			return dynamic_cast<T*>(this->level);
+		}
 
 	private:
 

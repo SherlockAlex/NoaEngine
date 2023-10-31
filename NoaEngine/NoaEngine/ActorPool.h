@@ -14,7 +14,7 @@ namespace noa {
 	template<class T>
 	class ActorPool:public ObjectPool<T>
 	{
-	protected:
+	public:
 		ActorPool() {}
 		virtual ~ActorPool() {}
 

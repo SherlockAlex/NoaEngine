@@ -27,7 +27,6 @@ namespace noa {
 		virtual ~ActorComponent();
 
 	protected:
-
 		virtual void Awake() {};
 		virtual void OnEnable() {};
 		virtual void Start() {};

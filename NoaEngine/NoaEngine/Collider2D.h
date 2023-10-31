@@ -9,6 +9,7 @@ namespace noa
 {
 	class TileMap;
 	enum class ColliderType {
+		TILE_COLLIDER,
 		CIRCLE_COLLIDER,
 		BOX_COLLIDER
 	};
@@ -20,9 +21,6 @@ namespace noa
 		friend class PhysicsSystem;
 		friend class Rigidbody;
 		ColliderType colliderType;
-	private:
-		TileMap* tileMap = nullptr;
-		bool isHitCollisionTile = false;
 	public:
 		Rigidbody* rigidbody = nullptr;
 		bool isTrigger = false;
@@ -33,10 +31,12 @@ namespace noa
 		void ApplyTrigger();
 	public:
 		virtual void Update() override;
-		void SetTileMap(TileMap * tileMap);
+		
 	};
 
-	class BoxCollider2D :public Collider2D {
+	class BoxCollider2D final:public Collider2D {
+	private:
+		NOBJECT(BoxCollider2D)
 	public:
 		Vector<float> scale = {1,1};
 	private:
@@ -48,8 +48,10 @@ namespace noa
 
 	};
 
-	class CircleCollider2D :public Collider2D
+	class CircleCollider2D final:public Collider2D
 	{
+	private:
+		NOBJECT(CircleCollider2D)
 	public:
 		float radius = 0.5f;
 	private:
@@ -57,6 +59,30 @@ namespace noa
 		~CircleCollider2D() override;
 	public:
 		static CircleCollider2D* Create(Actor* actor, Rigidbody* rigidbody);
+
+	};
+
+	class TileCollider2D final:public Collider2D 
+	{
+	private:
+		NOBJECT(TileCollider2D)
+		friend class Rigidbody;
+	private:
+		TileCollider2D(Actor* actor, Rigidbody* rigidbody);
+		~TileCollider2D();
+	public:
+		static TileCollider2D* Create(Actor* actor, Rigidbody* rigidbody);
+		void Update() override;
+		void LateUpdate() override;
+		void SetTileMap(TileMap* tileMap);
+		void ApplyTileCollision();
+		void SetScale(float x,float y);
+	private:
+		TileMap* tileMap = nullptr;
+		bool isHitCollisionTile = false;
+	public:
+		Vector<float> scale = {1,1};
+		bool isGrounded = false;
 
 	};
 

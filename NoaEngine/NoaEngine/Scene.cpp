@@ -32,8 +32,8 @@ noa::MapLayer::~MapLayer()
 
 int noa::MapLayer::GetTileID(int x, int y) const
 {
-	if (x<0||x>=this->w
-		||y<0||y>=this->h) 
+	if (x < 0 || x >= static_cast<int>(this->w)
+		|| y < 0 || y >= static_cast<int>(this->h))
 	{
 		return -1;
 	}
@@ -42,8 +42,8 @@ int noa::MapLayer::GetTileID(int x, int y) const
 
 void noa::MapLayer::SetTileID(int x, int y, int value)
 {
-	if (x < 0 || x >= this->w
-		|| y < 0 || y >= this->h)
+	if (x < 0 || x >= static_cast<int>(this->w)
+		|| y < 0 || y >= static_cast<int>(this->h))
 	{
 		return;
 	}
@@ -133,7 +133,7 @@ noa::TileMap* noa::TileMap::Create(
 	, Scene* scene)
 {
 	noa::TileMap* map = new TileMap(tileSetFile,layerFile);
-	scene->SetTileMap(map);
+	scene->SetLevel(map);
 	return map;
 }
 
@@ -174,7 +174,7 @@ bool noa::TileMap::IsCollisionTile(const int x, const int y) const
 	bool isCollision = false;
 	for (const auto & layer:this->layers)
 	{
-		if (x < 0 || x >= layer.w || y < 0 || y >= layer.h)
+		if (x < 0 || x >= static_cast<int>(layer.w) || y < 0 || y >= static_cast<int>(layer.h))
 		{
 			continue;
 		}
@@ -220,15 +220,15 @@ noa::Scene::~Scene()
 	DestoyScene();
 }
 
-noa::Level* noa::Scene::GetTileMap()
+noa::Level* noa::Scene::GetLevel()
 {
-	return this->tileMap;
+	return this->level;
 }
 
-void noa::Scene::SetTileMap(Level* map)
+void noa::Scene::SetLevel(Level* map)
 {
 	PhysicsSystem::SetGrid(map->w, map->h);
-	this->tileMap = map;
+	this->level = map;
 }
 
 void noa::Scene::AddCamera(Camera* camera)
@@ -283,8 +283,8 @@ void noa::Scene::ActorUpdate()
 		{
 			continue;
 		}
-		actor->ComponentLateUpdate();
 		actor->LateUpdate();
+		actor->ComponentLateUpdate();
 	}
 
 	//更新物理系统
@@ -473,7 +473,7 @@ void noa::SceneManager::Update()
 	{
 		oldScene->DestoyScene();
 		oldScene->onUnload.Invoke(activeScene);
-		oldScene->tileMap->Delete(oldScene->tileMap);
+		oldScene->level->Delete(oldScene->level);
 		oldScene = nullptr;
 	}
 

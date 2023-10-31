@@ -27,6 +27,7 @@ namespace noa {
 		friend class Scene;
 		friend class SceneManager;
 		friend class Collider2D;
+		friend class TileCollider2D;
 		friend void InitNObject(NOAObject* obj);
 
 	public:

@@ -88,7 +88,9 @@ namespace noa {
 		Vector<float> visibleTiles;
 		Vector<float> offset;
 		
-		std::vector<NOAObject*> objectBufferWithRay = std::vector<NOAObject*>(Screen::width*Screen::height, nullptr);
+		std::vector<NOAObject*> objectBufferWithRay = std::vector<NOAObject*>(
+			Screen::width*Screen::height, nullptr
+		);
 
 		TileMapCamera(Scene * scene);
 

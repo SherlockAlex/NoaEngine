@@ -19,10 +19,6 @@ noa::Rigidbody::Rigidbody(Actor* actor) :ActorComponent(actor)
 	this->velocity = { 0,0 };
 	invMass = 1.0f / mass;
 	colliders.reserve(10);
-	if (actor&& actor->GetActiveScene()&& actor->GetActiveScene()->GetTileMap())
-	{
-		this->SetTileMap(actor->GetActiveScene()->GetTileMap()->GetLevelAs<TileMap>());
-	}
 
 }
 
@@ -56,8 +52,11 @@ void noa::Rigidbody::UpdateVelocity(float deltaTime)
 		return;
 	}
 
-	if (useMotion && useGravity && (!isGrounded))
+	const bool canApplyGravity =
+		useMotion && useGravity && (tileCollider2D == nullptr || !tileCollider2D->isGrounded);
+	if (canApplyGravity)
 	{
+		// ÅÐ¶ÏÊÇ·ñisGrounded
 		this->force += (PhysicsSystem::gravity * gravityWeight);
 	}
 
@@ -83,11 +82,8 @@ void noa::Rigidbody::UpdatePosition(float deltaTime)
 
 	this->ApplyTileCollision();
 
-
-
 	if (useMotion && (!isFrozen) && GetActor() != nullptr)
 	{
-		isGrounded = false;
 		GetActor()->transform.position = newPosition;
 	}
 }
@@ -112,148 +108,27 @@ void noa::Rigidbody::AddForce(const Vector<float>& force, ForceType forceType)
 
 }
 
-void noa::Rigidbody::SetTileMap(TileMap* map)
-{
-	this->tileMap = map;
-	for (auto& collider : colliders)
-	{
-		if (collider)
-		{
-			collider->SetTileMap(map);
-		}
-	}
-	if (this->tileMap == nullptr)
-	{
-		Debug::Error("Load tile map failed");
-		exit(-1);
-	}
-}
-
 void noa::Rigidbody::SetMass(float value)
 {
 	this->mass = value;
 	this->invMass = 1.0f / value;
 }
 
-void noa::Rigidbody::SetTileColliderScale(float x, float y)
-{
-	this->tileColliderSacle.x = x;
-	this->tileColliderSacle.y = y;
-}
-
 noa::Vector<float> pos(0.0, 0.0);
 void noa::Rigidbody::ApplyTileCollision()
 {
-	if (!GetActive() || !useCollision || tileMap == nullptr)
+
+	if (this->tileCollider2D == nullptr)
 	{
 		return;
 	}
-
-	if (tileColliderSacle.x == 0 || tileColliderSacle.y == 0)
-	{
-		return;
-	}
-
-	float newX = newPosition.x;
-	float newY = newPosition.y;
-	float posX = GetActor()->transform.position.x;
-	float posY = GetActor()->transform.position.y;
-
-	int intNewX = static_cast<int>(newX);
-	int intNewY = static_cast<int>(newY);
-	int intPosX = static_cast<int>(posX);
-	int intPosY = static_cast<int>(posY);
-
-	float deltaStep = 0.999f;
-	float scaleX = deltaStep *std::abs(this->tileColliderSacle.x);
-	float scaleY = deltaStep *std::abs(this->tileColliderSacle.y);
-
-	if (tileMap->IsCollisionTile(intNewX,intPosY)
-		||tileMap->IsCollisionTile(intNewX,posY + scaleY)
-		) 
-	{
-		//×ó
-		for (auto & collider:colliders)
-		{
-			if (collider)
-			{
-				collider->isHitCollisionTile = true;
-			}
-		}
-
-		velocity.x = 0;
-		newX = intNewX + 1;
-		intNewX = static_cast<int>(newX);
-	}
-
-	if (tileMap->IsCollisionTile(newX+ scaleX,intPosY)
-		||tileMap->IsCollisionTile(newX+ scaleX,posY+ scaleY)
-		) 
-	{
-		//ÓÒ
-		for (auto& collider : colliders)
-		{
-			if (collider)
-			{
-				collider->isHitCollisionTile = true;
-			}
-		}
-		velocity.x = 0;
-		newX = static_cast<int>(newX+scaleX) - tileColliderSacle.x;
-		intNewX = static_cast<int>(newX);
-	}
-
-	if (tileMap->IsCollisionTile(intNewX,intNewY)
-		||tileMap->IsCollisionTile(newX+ scaleX,intNewY))
-	{
-		//ÉÏ
-		for (auto& collider : colliders)
-		{
-			if (collider)
-			{
-				collider->isHitCollisionTile = true;
-			}
-		}
-
-		velocity.y = 0;
-		newY = intNewY + 1;
-		intNewY = static_cast<int>(newY);
-
-	}
-
-	if (tileMap->IsCollisionTile(intNewX, newY + scaleY)
-		|| tileMap->IsCollisionTile(newX + scaleX, newY + scaleY))
-	{
-		//ÏÂ
-		for (auto& collider : colliders)
-		{
-			if (collider)
-			{
-				collider->isHitCollisionTile = true;
-			}
-		}
-
-		isGrounded = true;
-		velocity.y = 0;
-		newY = static_cast<int>(newY + scaleY) - tileColliderSacle.y;
-		intNewY = static_cast<int>(newY);
-
-	}
-
-	newPosition.x = newX;
-	newPosition.y = newY;
+	this->tileCollider2D->ApplyTileCollision();
 
 }
 
 void noa::Rigidbody::BindCollider(Collider2D* collider)
 {
-	collider->SetTileMap(this->tileMap);
 	colliders.push_back(collider);
-}
-
-noa::TileMap* noa::Rigidbody::GetTileMap()
-{
-	return this->tileMap;
 }
 
 noa::Rigidbody* noa::Rigidbody::Create(Actor* actor)

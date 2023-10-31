@@ -1,11 +1,3 @@
 #include "BulletPool.h"
 
-BulletPool::BulletPool() :ActorPool<Bullet>() {
-
-}
-
-BulletPool::~BulletPool() {
-
-}
-
-std::shared_ptr<BulletPool> bulletPool = std::make_shared<BulletPool>();
+std::shared_ptr<noa::ActorPool<Bullet>> bulletPool = std::make_shared<noa::ActorPool<Bullet>>();

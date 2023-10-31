@@ -37,9 +37,17 @@ void Bullet::OnDisable()
 	this->timer = 0;
 }
 
-void Bullet::OnHitTile() {
-	noa::Debug::Log("666");
+void Bullet::OnHitTile() 
+{
 	bulletPool->Return(this);
+}
+
+void Bullet::OnTrigger(const noa::Collision & collision) 
+{
+	if (collision.actor!=nullptr)
+	{
+		noa::Debug::Log(collision.actor->tag);
+	}
 }
 
 void Bullet::SetDirection(float x,float y)

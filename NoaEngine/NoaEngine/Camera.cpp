@@ -47,9 +47,9 @@ namespace noa {
 	TileMapCamera::TileMapCamera(Scene * scene):Camera(scene)
 	{
 
-		if (scene&& scene->GetTileMap())
+		if (scene)
 		{
-			this->SetTileMap(scene->GetTileMap()->GetLevelAs<TileMap>());
+			this->SetTileMap(scene->GetLevelAs<TileMap>());
 		}
 	}
 
@@ -122,8 +122,8 @@ namespace noa {
 				tileMap->GetTile(tileID)->spriteGPU->DrawSprite(
 					(x * tileScale.x - tileOffset.x)
 					, (y * tileScale.y - tileOffset.y)
-					, (1 * tileScale.x)
-					, (1 * tileScale.y)
+					, static_cast<float>(tileScale.x)
+					, static_cast<float>(tileScale.y)
 					, WHITE
 					, false
 					, 0.0f
@@ -330,9 +330,7 @@ namespace noa {
 		}
 
 		RenderGameObject();
-
 	}
-	
 
 	Ray FreeCamera::RaycastHit(int pixelX)
 	{
@@ -349,7 +347,8 @@ namespace noa {
 			const Vector<float> & floatHitPoint = follow->position + eye * ray.distance+Vector<float>(0.5f,0.5f);
 			const Vector<int> & intHitPoint = Vector<int>(static_cast<int>(floatHitPoint.x), static_cast<int>(floatHitPoint.y));
 
-			if (intHitPoint.x < 0||intHitPoint.x >= map->w || intHitPoint.y < 0|| intHitPoint.y >= map->h)
+			if (intHitPoint.x < 0 || intHitPoint.x >= static_cast<int>(map->w)
+				|| intHitPoint.y < 0 || intHitPoint.y >= static_cast<int>(map->h))
 			{
 				ray.hitTile = -1;
 				ray.distance = viewDepth;

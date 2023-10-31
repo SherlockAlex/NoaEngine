@@ -19,6 +19,8 @@ private:
 	
 	void OnHitTile() override;
 
+	void OnTrigger(const noa::Collision & collision) override;
+
 public:
 	void SetDirection(float x,float y);
 private:
@@ -26,6 +28,7 @@ private:
 	noa::Rigidbody* rigid = noa::Rigidbody::Create(this);
 	noa::SpriteRenderer* spriteRenderer = noa::SpriteRenderer::Create(this);
 	noa::CircleCollider2D* collider = noa::CircleCollider2D::Create(this,rigid);
+	noa::TileCollider2D* tileCollider = noa::TileCollider2D::Create(this,rigid);
 
 	float timer = 0;
 

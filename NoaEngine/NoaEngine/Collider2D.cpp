@@ -3,6 +3,7 @@
 #include "Collider2D.h"
 #include "Physics.h"
 #include "PhysicsSystem.h"
+#include "Scene.h"
 
 noa::Cell* noa::Grid::GetCell(int x, int y)
 {
@@ -11,14 +12,12 @@ noa::Cell* noa::Grid::GetCell(int x, int y)
 
 noa::Collider2D::Collider2D(Actor* actor, Rigidbody* rigidbody) :ActorComponent(actor)
 {
+	this->colliderType = ColliderType::TILE_COLLIDER;
 	this->rigidbody = rigidbody;
 	if (rigidbody!=nullptr)
 	{
 		rigidbody->BindCollider(this);
-		this->SetTileMap(rigidbody->GetTileMap());
 	}
-
-	
 	
 }
 
@@ -67,17 +66,8 @@ void noa::Collider2D::Update()
 	}
 	PhysicsSystem::grid.GetCell(x, y)->colliders.push_back(this);
 	
-	if (isHitCollisionTile)
-	{
-		this->GetActor()->OnHitTile();
-		isHitCollisionTile = false;
-	}
 	
-}
-
-void noa::Collider2D::SetTileMap(TileMap* tileMap)
-{
-	this->tileMap = tileMap;
+	
 }
 
 noa::CircleCollider2D::CircleCollider2D(Actor* actor, Rigidbody* rigidbody):noa::Collider2D(actor,rigidbody)
@@ -92,7 +82,7 @@ noa::CircleCollider2D::~CircleCollider2D()
 
 noa::CircleCollider2D* noa::CircleCollider2D::Create(Actor* actor, Rigidbody* rigidbody)
 {
-	return new CircleCollider2D(actor, rigidbody);
+	return NObject<CircleCollider2D>::Create<Actor*, Rigidbody*>(actor, rigidbody);
 }
 
 noa::BoxCollider2D::BoxCollider2D(noa::Actor* actor, noa::Rigidbody* rigidbody) :Collider2D(actor,rigidbody)
@@ -107,5 +97,133 @@ noa::BoxCollider2D::~BoxCollider2D()
 
 noa::BoxCollider2D* noa::BoxCollider2D::Create(Actor * actor, Rigidbody * rigidbody)
 {
-	return new BoxCollider2D(actor,rigidbody);
+	return NObject<BoxCollider2D>::Create<Actor*, Rigidbody*>(actor, rigidbody);
+}
+
+noa::TileCollider2D::TileCollider2D(Actor* actor,Rigidbody * rigidbody)
+	:noa::Collider2D(actor,rigidbody)
+{
+	this->colliderType = ColliderType::TILE_COLLIDER;
+	if (actor)
+	{
+		this->SetTileMap(actor->GetActiveScene()->GetLevelAs<TileMap>());
+	}
+}
+
+noa::TileCollider2D::~TileCollider2D()
+{
+
+}
+
+noa::TileCollider2D* noa::TileCollider2D::Create(noa::Actor* actor, noa::Rigidbody* rigidbody)
+{
+	TileCollider2D * collider = 
+		noa::NObject<TileCollider2D>::Create<noa::Actor*, noa::Rigidbody*>(actor, rigidbody);
+	
+	collider->SetTileMap(actor->GetActiveScene()->GetLevelAs<noa::TileMap>());
+	rigidbody->tileCollider2D = collider;
+
+	return collider;
+}
+
+void noa::TileCollider2D::Update()
+{
+	//他只会检测Rigidbody是否和TileMap发生了碰撞
+	//不会去检测其他
+	if (isHitCollisionTile)
+	{
+		this->GetActor()->OnHitTile();
+		isHitCollisionTile = false;
+	}
+}
+
+void noa::TileCollider2D::LateUpdate()
+{
+	this->isGrounded = false;
+}
+
+void noa::TileCollider2D::SetTileMap(TileMap* tileMap)
+{
+	this->tileMap = tileMap;
+}
+
+void noa::TileCollider2D::ApplyTileCollision()
+{
+	if (!GetActive()|| tileMap == nullptr||rigidbody == nullptr)
+	{
+		return;
+	}
+
+	if (scale.x == 0 || scale.y == 0)
+	{
+		return;
+	}
+
+	float newX = rigidbody->newPosition.x;
+	float newY = rigidbody->newPosition.y;
+	float posX = GetActor()->transform.position.x;
+	float posY = GetActor()->transform.position.y;
+
+	int intNewX = static_cast<int>(newX);
+	int intNewY = static_cast<int>(newY);
+	int intPosX = static_cast<int>(posX);
+	int intPosY = static_cast<int>(posY);
+
+	float deltaStep = 0.999f;
+	float scaleX = deltaStep * std::abs(this->scale.x);
+	float scaleY = deltaStep * std::abs(this->scale.y);
+
+	if (tileMap->IsCollisionTile(intNewX, intPosY)
+		|| tileMap->IsCollisionTile(intNewX, static_cast<int>(posY + scaleY))
+		)
+	{
+		//左
+		this->isHitCollisionTile = true;
+		rigidbody->velocity.x = 0;
+		newX = intNewX + 1.0f;
+		intNewX = static_cast<int>(newX);
+	}
+
+	if (tileMap->IsCollisionTile(static_cast<int>(newX + scaleX), intPosY)
+		|| tileMap->IsCollisionTile(static_cast<int>(newX + scaleX), static_cast<int>(posY + scaleY))
+		)
+	{
+		//右
+		this->isHitCollisionTile = true;
+		rigidbody->velocity.x = 0;
+		newX = static_cast<int>(newX + scaleX) - scale.x;
+		intNewX = static_cast<int>(newX);
+	}
+
+	if (tileMap->IsCollisionTile(intNewX, intNewY)
+		|| tileMap->IsCollisionTile(static_cast<int>(newX + scaleX), intNewY))
+	{
+		//上
+		this->isHitCollisionTile = true;
+		rigidbody->velocity.y = 0;
+		newY = intNewY + 1.0f;
+		intNewY = static_cast<int>(newY);
+
+	}
+
+	if (tileMap->IsCollisionTile(intNewX, static_cast<int>(newY + scaleY))
+		|| tileMap->IsCollisionTile(static_cast<int>(newX + scaleX), static_cast<int>(newY + scaleY)))
+	{
+		//下
+		this->isHitCollisionTile = true;
+		isGrounded = true;
+		rigidbody->velocity.y = 0;
+		newY = static_cast<int>(newY + scaleY) - scale.y;
+		intNewY = static_cast<int>(newY);
+
+	}
+
+	rigidbody->newPosition.x = newX;
+	rigidbody->newPosition.y = newY;
+}
+
+void noa::TileCollider2D::SetScale(float x, float y)
+{
+	this->scale.x = x;
+	this->scale.y = y;
 }

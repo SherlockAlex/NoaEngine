@@ -27,7 +27,8 @@ namespace noa {
 	class Transform;
 	class Collider2D;
 	class ActorComponent;
-	
+	class TileCollider2D;
+
 	enum class ForceType
 	{
 		CONTINUOUS_FORCE = 1 << 0,
@@ -40,15 +41,15 @@ namespace noa {
 		NOBJECT(Rigidbody)
 		friend class PhysicsSystem;
 		friend class Collider2D;
+		friend class TileCollider2D;
 	public:
 		float damping = 0.02f;
-		float gravityWeight = 3.5;
+		float gravityWeight = 3.5f;
 		bool useMotion = true;
 		bool isFrozen = false;
 		bool useGravity = true;
 		bool useCollision = true;
-		bool isGrounded = false;
-		Vector<float> velocity = Vector<float>(0.0, 0.0);
+		Vector<float> velocity = Vector<float>(0.0f, 0.0f);
 		
 
 	private:
@@ -56,11 +57,11 @@ namespace noa {
 		float invMass = 1;
 
 		Vector<float> newPosition;
-		Vector<float> force = Vector<float>(0.0, 0.0);
-		TileMap* tileMap = nullptr;
+		Vector<float> force = Vector<float>(0.0f, 0.0f);
 		std::vector<Collider2D*> colliders;
 		Collision collision;
-		Vector<float> tileColliderSacle = Vector<float>(1.0f, 1.0f);
+
+		noa::TileCollider2D* tileCollider2D = nullptr;
 
 	private:
 		Rigidbody(Actor* actor);
@@ -79,12 +80,7 @@ namespace noa {
 
 	public:
 		void AddForce(const Vector<float> & force, ForceType forceType);
-		void SetTileMap(TileMap * map);
 		void SetMass(float value);
-		void SetTileColliderScale(float x,float y);
-
-		TileMap* GetTileMap();
-		
 
 	};
 
