@@ -3,7 +3,13 @@
 NoaEngine是游戏引擎的主类，使用引擎，必须编写你自己的游戏主类，然后继承自NoaEngine这个基类，基类会帮你自动初始化系统，同时对平台的抽象，你需要注意的是NoaEngine拥有如何方法
 
 ### 成员
-#### NoaEngine(int width,int height,WindowMode windowMode,const string& name)
+#### NoaEngine(
+    int width
+    ,int height
+    ,WindowMode windowMode
+    ,const string& name
+)
+
 * 游戏引擎构造函数，初始化游戏引擎
 * width:游戏窗口及分辨率宽度(W)大小
 * height:游戏窗口及分辨率高度(H)大小
