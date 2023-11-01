@@ -165,6 +165,9 @@
     <ClCompile Include="BulletFactory.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Test.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\NoaEngine\NoaEngine\Actor.h">
@@ -333,6 +336,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="BulletFactory.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Test.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

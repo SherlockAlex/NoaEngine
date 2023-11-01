@@ -1,13 +1,4 @@
-﻿  Camera.cpp
-D:\Work\NoaEngine\NoaEngine\NoaEngine\Camera.cpp(126,11): warning C4244: “参数”: 从“T”转换到“float”，可能丢失数据
-          with
-          [
-              T=int
-          ]
-D:\Work\NoaEngine\NoaEngine\NoaEngine\Camera.cpp(125,11): warning C4244: “参数”: 从“T”转换到“float”，可能丢失数据
-          with
-          [
-              T=int
-          ]
+﻿  GLRenderer.cpp
+  GLTexture.cpp
 SDL2main.lib(SDL_windows_main.obj) : error LNK2001: 无法解析的外部符号 SDL_main
 D:\Work\NoaEngine\x64\Release\NoaEngine.exe : fatal error LNK1120: 1 个无法解析的外部命令

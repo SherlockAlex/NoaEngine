@@ -1,21 +1,12 @@
 #version 330 core
-out vec4 fragColor;		//最终要显示的颜色
-in vec2 texCoord;
+in vec2 TexCoords;
+out vec4 color;
 
-uniform sampler2D picture;	//采样图片
+uniform sampler2D image;
 uniform vec4 tint;
-
-uniform float eulerAngle;//欧拉角
-
-vec4 getColor(){
-    vec4 texColor = texture(picture, texCoord);
-	const float invGrayValue = 1.0f/255;
-	vec4 finalColor = texColor * tint * invGrayValue;
-	return finalColor;
-}
 
 void main()
 {
-	vec4 finalColor = getColor();
-    fragColor = finalColor;
+    float invGray = 1.0f/255;
+    color = invGray * vec4(tint, 1.0) * texture(image, TexCoords);
 }

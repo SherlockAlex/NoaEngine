@@ -1,20 +1,8 @@
-﻿  Actor.cpp
-  Collider2D.cpp
-  NoaEngine.cpp
-  Physics.cpp
-  PhysicsSystem.cpp
-  Bullet.cpp
-  BulletFactory.cpp
-  BulletPool.cpp
-  Engine.cpp
-  GameDelegate.cpp
-  MainMenuDelegate.cpp
-  Player.cpp
-  ResourceManager.cpp
-  Shooter.cpp
+﻿  SDLRenderer.cpp
+  SDLTexture.cpp
   正在生成代码
-  3 of 3425 functions (<0.1%) were compiled, the rest were copied from previous compilation.
+  2 of 3395 functions (<0.1%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    1 functions had inline decision re-evaluated but remain unchanged
+    0 functions had inline decision re-evaluated but remain unchanged
   已完成代码的生成
   Shooter-Example2D.vcxproj -> D:\Work\NoaEngine\x64\Release\Shooter-Example2D.exe

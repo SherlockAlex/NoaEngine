@@ -36,5 +36,5 @@ void noa::SDLTexture::UpdateTexture(const uint32_t* pixelBuffer, const int width
 
 void noa::SDLTexture::EnableAlpha()
 {
-	
+	SDL_SetTextureBlendMode(this->sdlTexture, SDL_BLENDMODE_BLEND);
 }

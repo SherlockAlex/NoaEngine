@@ -37,12 +37,17 @@ namespace noa {
 		void Present(uint32_t windows) override;
 
 	private:
+
 		SDL_GLContext context = nullptr;
+
+		glm::mat4 projection;
 
 		GLShader* CreateShader(
 			const std::string& vertexSourceFile
 			,const std::string& fragmentSourceFile
 		);
+
+
 
 	};
 }

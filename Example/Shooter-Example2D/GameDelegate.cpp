@@ -2,6 +2,7 @@
 #include "Player.h"
 #include "BulletFactory.h"
 #include "BulletPool.h"
+#include "Test.h"
 
 /**
 * 关于TileMap的类和结构体太多了
@@ -14,6 +15,7 @@ void GameDelegate::OnLoad(noa::Scene* scene)
 	map->SetCollisionTileID({ 40 });
 	noa::TileMapCamera* camera = noa::TileMapCamera::Create(scene);
 	Player* player = noa::NObject<Player>::Create(scene);
+	//Test* test = noa::NObject<Test>::Create(scene);
 
 	camera->SetFollow(player);
 	camera->SetTileScale({32,32});

@@ -60,6 +60,7 @@ void noa::SpriteRenderer::SetScale(float x, float y)
 
 void noa::SpriteRenderer::Update()
 {
+	
 	if (sprite == nullptr) 
 	{
 		noa::Debug::Warring("The sprite of SpriteRenderer is null");

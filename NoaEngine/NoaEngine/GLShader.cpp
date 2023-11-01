@@ -134,6 +134,15 @@ void noa::GLShader::SetVec4(const std::string& name, float value1, float value2,
 	glUniform4f(location,value1,value2,value3,value4);
 }
 
+void noa::GLShader::SetMat4(const std::string& name,const glm::mat4& mat)
+{
+	const GLint location = glGetUniformLocation(this->shaderProgram, name.c_str());
+	glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(mat));
+
+	//Debug::Log(ToString<float>(mat[3][3]));
+
+}
+
 #endif
 
 

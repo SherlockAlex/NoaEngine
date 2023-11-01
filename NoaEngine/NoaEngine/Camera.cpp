@@ -160,7 +160,7 @@ namespace noa {
 				,instance.scale.y*instance.sprite->h
 				,WHITE
 				, instance.isFlip.x
-				, 0.0f
+				, (instance.actor == nullptr)?0.0f:instance.actor->transform.eulerAngle
 			);
 			const int index = static_cast<int>(objPosY * Screen::width + objPosX);
 			if (index<0||index>=objectBufferWithRay.size())

@@ -22,8 +22,12 @@ namespace noa {
 		GLuint GetVAO();
 
 	private:
+
+		GLuint VBO = 0;
+		GLuint VAO = 0;
+
 		GLuint textureID;
-		GLuint VAO,VBO,EBO;
+		
 	};
 }
 
