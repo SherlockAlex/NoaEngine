@@ -14,6 +14,9 @@
 * glfw (NupenGL)
 * freetype2
 
+## 重大BUG
+* 使用OpenGL渲染时候，无法正确渲染出图片
+
 ## 引擎内容
 * Platform:抽象类，一个平台对应一个Platform派生类，比如引擎已经实现的Platform_Windows类，利用SDL_Window创建图形化窗口。
 

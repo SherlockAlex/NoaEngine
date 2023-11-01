@@ -217,9 +217,11 @@ namespace noa {
 
 		int Run();
 
+		int Quit();
+
+	private:
 		void EngineThread();
 
-		int Quit();
 
 	};
 
