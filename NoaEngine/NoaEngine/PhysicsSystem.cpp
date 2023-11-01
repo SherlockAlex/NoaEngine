@@ -139,16 +139,16 @@ void noa::PhysicsSystem::SolveCollision(Collider2D* obj1, Collider2D* obj2)
 
 	const float invSumMass = 1.0f/(m1 + m2);
 
-	const noa::Vector<float> & v1 = obj1->rigidbody->velocity;
-	const noa::Vector<float> & v2 = obj2->rigidbody->velocity;
+	const noa::Vector<float> v1 = obj1->rigidbody->velocity;
+	const noa::Vector<float> v2 = obj2->rigidbody->velocity;
 
-	const noa::Vector<float> & p1 = v1 * m1;
-	const noa::Vector<float> & p2 = v2 * m2;
+	const noa::Vector<float> p1 = v1 * m1;
+	const noa::Vector<float> p2 = v2 * m2;
 
-	const noa::Vector<float> & p = p1 + p2;
+	const noa::Vector<float> p = p1 + p2;
 
-	const noa::Vector<float> & f1 = ((p * m1 * invSumMass - p1) * (2.0f / noa::Time::deltaTime))*3.0f;
-	const noa::Vector<float> & f2 = {-f1.x,-f1.y};
+	const noa::Vector<float> f1 = ((p * m1 * invSumMass - p1) * (2.0f / noa::Time::deltaTime))*3.0f;
+	const noa::Vector<float> f2 = {-f1.x,-f1.y};
 
 	obj1->rigidbody->AddForce(f1, noa::ForceType::CONTINUOUS_FORCE);
 	obj2->rigidbody->AddForce(f2, noa::ForceType::CONTINUOUS_FORCE);

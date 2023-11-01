@@ -20,6 +20,8 @@ noa::Rigidbody::Rigidbody(Actor* actor) :ActorComponent(actor)
 	invMass = 1.0f / mass;
 	colliders.reserve(10);
 
+	this->transform = &actor->transform;
+
 }
 
 noa::Rigidbody::~Rigidbody()
@@ -41,30 +43,29 @@ void noa::Rigidbody::Start()
 
 void noa::Rigidbody::Update()
 {
+	if (!GetActive())
+	{
+		return;
+	}
+
 	PhysicsSystem::rigidbodys.push_back(this);
 }
 
 void noa::Rigidbody::UpdateVelocity(float deltaTime)
 {
 
-	if (!GetActive())
-	{
-		return;
-	}
-
 	const bool canApplyGravity =
-		useMotion && useGravity && (tileCollider2D == nullptr || !tileCollider2D->isGrounded);
+		 useGravity && (tileCollider2D == nullptr || !tileCollider2D->isGrounded);
 	if (canApplyGravity)
 	{
 		// 判断是否isGrounded
-		this->force += (PhysicsSystem::gravity * gravityWeight);
+		this->AddForce(PhysicsSystem::gravity*gravityWeight,ForceType::CONTINUOUS_FORCE);
 	}
 
-	if (useMotion)
+	if (transform&& this->bodyType != BodyType::STATIC)
 	{
 		velocity = (velocity * (1 - damping)) + (this->force * (deltaTime * invMass));
-		newPosition = (GetActor()->transform.position) + (velocity * deltaTime);
-
+		newPosition = (transform->position) + (velocity * deltaTime);
 	}
 
 	this->ApplyTileCollision();
@@ -74,32 +75,27 @@ void noa::Rigidbody::UpdateVelocity(float deltaTime)
 }
 
 void noa::Rigidbody::UpdatePosition(float deltaTime)
-{
-	if (!GetActive())
-	{
-		return;
-	}
+{	
 
 	this->ApplyTileCollision();
 
-	if (useMotion && (!isFrozen) && GetActor() != nullptr)
-	{
-		GetActor()->transform.position = newPosition;
-	}
+	transform->position = newPosition;
 }
 
 void noa::Rigidbody::AddForce(const Vector<float>& force, ForceType forceType)
 {
-	//添加力到物体上
+
+	if (this->bodyType!=BodyType::DYNAMIC) 
+	{
+		return;
+	}
 
 	switch (forceType)
 	{
 	case ForceType::CONTINUOUS_FORCE:
-		//添加恒力到物体上
 		this->force = this->force + force;
 		break;
 	case ForceType::IMPULSE_FORCE:
-		//添加一个冲量到物体上，作用完马上就消失
 		velocity += force * invMass;
 		break;
 	default:

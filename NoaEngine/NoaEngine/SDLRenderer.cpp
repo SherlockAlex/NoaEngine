@@ -1,6 +1,7 @@
 #include "SDLRenderer.h"
 #include "SDLTexture.h"
 #include "Debug.h"
+#include "Graphic.h"
 
 noa::SDLRenderer::~SDLRenderer()
 {
@@ -50,6 +51,22 @@ void noa::SDLRenderer::DrawTexture(
 	dstRect.y = y;
 	dstRect.w = w;
 	dstRect.h = h;
+
+	const uint8_t r = GetRValue(tint);
+	const uint8_t g = GetGValue(tint);
+	const uint8_t b = GetBValue(tint);
+	const uint8_t a = GetAValue(tint);
+
+	//SDL_GetTextureColorMod(texture->sdlTexture,&r,&g,&b);
+	//SDL_GetTextureAlphaMod(texture->sdlTexture,&a);
+
+	//r = static_cast<uint8_t>(r * (static_cast<float>(GetRValue(tint)) / 255.0f));
+	//g = static_cast<uint8_t>(g * (static_cast<float>(GetGValue(tint)) / 255.0f));
+	//b = static_cast<uint8_t>(b * (static_cast<float>(GetBValue(tint)) / 255.0f));
+	//a = static_cast<uint8_t>(a * (static_cast<float>(GetAValue(tint)) / 255.0f));
+
+	SDL_SetTextureColorMod(texture->sdlTexture,r,g,b);
+	SDL_SetTextureAlphaMod(texture->sdlTexture, a);
 
 	SDL_RenderCopyEx(
 		sdlRenderer

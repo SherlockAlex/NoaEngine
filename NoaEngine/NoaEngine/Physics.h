@@ -29,6 +29,12 @@ namespace noa {
 	class ActorComponent;
 	class TileCollider2D;
 
+	enum class BodyType {
+		STATIC = 0,			//静态物体
+		DYNAMIC = 1,		//动态物体
+		KINEMATIC = 2		//运动学物体
+	};
+
 	enum class ForceType
 	{
 		CONTINUOUS_FORCE = 1 << 0,
@@ -43,9 +49,11 @@ namespace noa {
 		friend class Collider2D;
 		friend class TileCollider2D;
 	public:
+		BodyType bodyType = BodyType::DYNAMIC;
+		
 		float damping = 0.02f;
 		float gravityWeight = 3.5f;
-		bool useMotion = true;
+		//bool useMotion = true;
 		bool isFrozen = false;
 		bool useGravity = true;
 		bool useCollision = true;
@@ -62,6 +70,8 @@ namespace noa {
 		Collision collision;
 
 		noa::TileCollider2D* tileCollider2D = nullptr;
+
+		Transform* transform = nullptr;
 
 	private:
 		Rigidbody(Actor* actor);
