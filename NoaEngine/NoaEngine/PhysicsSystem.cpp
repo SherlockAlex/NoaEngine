@@ -34,18 +34,15 @@ void noa::PhysicsSystem::Update(int step)
 	for (int i{step};i--;)
 	{
 
-		InitVelocity(subDeltaTime);
-		//ApplyTileCollision(subDeltaTime);
-		//ApplyTileConstraint(subDeltaTime);
-		ApplyVelocity(subDeltaTime);
-		InitPosition(subDeltaTime);
-		//对位置进行修正
-		ApplyTileCollision(subDeltaTime);
-		ApplyTileConstraint(subDeltaTime);
-		FindCollisionsGrid();
-		ApplyTileCollision(subDeltaTime);
-		ApplyTileConstraint(subDeltaTime);
-		ApplyPosition(subDeltaTime);
+		InitVelocity(subDeltaTime);			//计算速度
+		ApplyVelocity(subDeltaTime);		//应用速度
+		InitPosition(subDeltaTime);			//通过速度，计算新的位置
+		ApplyTileCollision(subDeltaTime);	//通过新位置判断位置合不合理，不合理修改新位置还有修改速度
+		ApplyTileConstraint(subDeltaTime);	//计算刚体是否处于约束
+		FindCollisionsGrid();				//刚体之间的碰撞，新位置处理和新速度处理
+		ApplyTileCollision(subDeltaTime);	//刚体和TileMap的碰撞处理
+		ApplyTileConstraint(subDeltaTime);	//刚体的位置约束情况
+		ApplyPosition(subDeltaTime);		//将处理后合理的新位置应用到刚体身上
 		
 	}
 	
