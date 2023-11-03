@@ -67,10 +67,9 @@ namespace noa
 		static void InitVelocity(float deltaTime);
 		static void ApplyVelocity(float deltaTime);
 		static void InitPosition(float deltaTime);
-		static void FixTileCollisionVelocity(float deltaTime);
-		static void FixTileCollisionPosition(float deltaTime);
+		static void ApplyTileCollision(float deltaTime);
+		static void ApplyTileConstraint(float deltaTime);
 		static void ApplyPosition(float deltaTime);
-		//static void ApplyMomentum(float deltaTime);
 	};
 
 }

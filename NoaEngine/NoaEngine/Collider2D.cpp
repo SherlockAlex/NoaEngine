@@ -178,14 +178,13 @@ void noa::TileCollider2D::ApplyTileCollision(float deltaTime)
 		)
 	{
 		//左
-		this->isHitCollisionTile = true;
+		//this->isHitCollisionTile = true;
 		
-		//const float oldMementumX = rigidbody->momentum.x;
 		rigidbody->velocity.x = -rigidbody->velocity.x * std::abs(1-friction);
 		if (static_cast<int>(rigidbody->velocity.x*10.0f) == 0)
 		{
 			rigidbody->velocity.x = 0;
-			rigidbody->constraint.x = true;
+			//rigidbody->constraint.x = true;
 		}
 
 		newX = intNewX + 1.0f;
@@ -198,14 +197,13 @@ void noa::TileCollider2D::ApplyTileCollision(float deltaTime)
 		)
 	{
 		//右
-		this->isHitCollisionTile = true;
+		//this->isHitCollisionTile = true;
 
-		//const float oldMementumX = rigidbody->momentum.x;
 		rigidbody->velocity.x = -rigidbody->velocity.x * std::abs(1 - friction);
 		if (static_cast<int>(rigidbody->velocity.x * 10.0f) == 0)
 		{
 			rigidbody->velocity.x = 0;
-			rigidbody->constraint.x = true;
+			//rigidbody->constraint.x = true;
 		}
 
 		newX = static_cast<int>(newX + scaleX) - scale.x;
@@ -217,14 +215,13 @@ void noa::TileCollider2D::ApplyTileCollision(float deltaTime)
 		|| tileMap->IsCollisionTile(static_cast<int>(newX + scaleX), intNewY))
 	{
 		//上
-		this->isHitCollisionTile = true;
+		//this->isHitCollisionTile = true;
 		
-		//const float oldMomentumY = rigidbody->momentum.y;
 		rigidbody->velocity.y = -rigidbody->velocity.y * std::abs(1 - bounce);
 		if (static_cast<int>(rigidbody->velocity.y * 10.0f) == 0)
 		{
 			rigidbody->velocity.y = 0;
-			rigidbody->constraint.y = true;
+			//rigidbody->constraint.y = true;
 		}
 
 		newY = intNewY + 1.0f;
@@ -243,193 +240,115 @@ void noa::TileCollider2D::ApplyTileCollision(float deltaTime)
 		if (static_cast<int>(rigidbody->velocity.y * 10.0f) == 0)
 		{
 			rigidbody->velocity.y = 0;
-			rigidbody->constraint.y = true;
-			this->isGrounded = true;
+			//rigidbody->constraint.y = true;
+			//this->isGrounded = true;
 		}
 
-		//const float impulseY = rigidbody->velocity.y * rigidbody->mass
-		//	- oldMomentumY;
-		//rigidbody->AddForce({ 0.0f,impulseY }, ForceType::IMPULSE_FORCE);
 		newY = static_cast<int>(newY + scaleY) - scale.y;
-		
 		intNewY = static_cast<int>(newY);
 
 	}
 
 	rigidbody->newPosition.x = newX;
 	rigidbody->newPosition.y = newY;
+}
+
+void noa::TileCollider2D::ApplyConstraint(float deltaTime)
+{
+	if (!GetActive() || tileMap == nullptr || rigidbody == nullptr)
+	{
+		return;
+	}
+
+	if (scale.x == 0 || scale.y == 0)
+	{
+		return;
+	}
+
+	float newX = rigidbody->newPosition.x;
+	float newY = rigidbody->newPosition.y;
+	float posX = GetActor()->transform.position.x;
+	float posY = GetActor()->transform.position.y;
+
+	int intNewX = static_cast<int>(newX);
+	int intNewY = static_cast<int>(newY);
+	int intPosX = static_cast<int>(posX);
+	int intPosY = static_cast<int>(posY);
+
+	float deltaStep = 1.01f;
+	float scaleX = deltaStep * std::abs(this->scale.x);
+	float scaleY = deltaStep * std::abs(this->scale.y);
+
+	if (tileMap->IsCollisionTile(intNewX, intPosY)
+		|| tileMap->IsCollisionTile(intNewX, static_cast<int>(posY + scaleY))
+		)
+	{
+		//左
+		this->isHitCollisionTile = true;
+
+		if (static_cast<int>(rigidbody->velocity.x * 10.0f) == 0)
+		{
+			rigidbody->constraint.x = true;
+		}
+
+		newX = intNewX + 1.0f;
+
+		intNewX = static_cast<int>(newX);
+	}
+
+	if (tileMap->IsCollisionTile(static_cast<int>(newX + scaleX), intPosY)
+		|| tileMap->IsCollisionTile(static_cast<int>(newX + scaleX), static_cast<int>(posY + scaleY))
+		)
+	{
+		//右
+		this->isHitCollisionTile = true;
+
+		if (static_cast<int>(rigidbody->velocity.x * 10.0f) == 0)
+		{
+			rigidbody->constraint.x = true;
+		}
+
+		newX = static_cast<int>(newX + scaleX) - scale.x;
+
+		intNewX = static_cast<int>(newX);
+	}
+
+	if (tileMap->IsCollisionTile(intNewX, intNewY)
+		|| tileMap->IsCollisionTile(static_cast<int>(newX + scaleX), intNewY))
+	{
+		//上
+		this->isHitCollisionTile = true;
+
+		if (static_cast<int>(rigidbody->velocity.y * 10.0f) == 0)
+		{
+			rigidbody->constraint.y = true;
+		}
+
+		newY = intNewY + 1.0f;
+
+		intNewY = static_cast<int>(newY);
+
+	}
+
+	if (tileMap->IsCollisionTile(intNewX, static_cast<int>(newY + scaleY))
+		|| tileMap->IsCollisionTile(static_cast<int>(newX + scaleX), static_cast<int>(newY + scaleY)))
+	{
+		//下
+		if (static_cast<int>(rigidbody->velocity.y * 10.0f) == 0)
+		{
+			rigidbody->constraint.y = true;
+			this->isGrounded = true;
+		}
+
+		newY = static_cast<int>(newY + scaleY) - scale.y;
+		intNewY = static_cast<int>(newY);
+
+	}
+
 }
 
 void noa::TileCollider2D::SetScale(float x, float y)
 {
 	this->scale.x = x;
 	this->scale.y = y;
-}
-
-void noa::TileCollider2D::FixBodyPosition()
-{
-	if (!GetActive() || tileMap == nullptr || rigidbody == nullptr)
-	{
-		return;
-	}
-
-	if (scale.x == 0 || scale.y == 0)
-	{
-		return;
-	}
-
-	float newX = rigidbody->newPosition.x;
-	float newY = rigidbody->newPosition.y;
-	float posX = GetActor()->transform.position.x;
-	float posY = GetActor()->transform.position.y;
-
-	int intNewX = static_cast<int>(newX);
-	int intNewY = static_cast<int>(newY);
-	int intPosX = static_cast<int>(posX);
-	int intPosY = static_cast<int>(posY);
-
-	float deltaStep = 0.999f;
-	float scaleX = deltaStep * std::abs(this->scale.x);
-	float scaleY = deltaStep * std::abs(this->scale.y);
-
-	if (tileMap->IsCollisionTile(intNewX, intPosY)
-		|| tileMap->IsCollisionTile(intNewX, static_cast<int>(posY + scaleY))
-		)
-	{
-		//左
-		this->isHitCollisionTile = true;
-		newX = intNewX + 1.0f;
-		intNewX = static_cast<int>(newX);
-	}
-
-	if (tileMap->IsCollisionTile(static_cast<int>(newX + scaleX), intPosY)
-		|| tileMap->IsCollisionTile(static_cast<int>(newX + scaleX), static_cast<int>(posY + scaleY))
-		)
-	{
-		//右
-		this->isHitCollisionTile = true;
-		newX = static_cast<int>(newX + scaleX) - scale.x;
-		intNewX = static_cast<int>(newX);
-	}
-
-	if (tileMap->IsCollisionTile(intNewX, intNewY)
-		|| tileMap->IsCollisionTile(static_cast<int>(newX + scaleX), intNewY))
-	{
-		//上
-		this->isHitCollisionTile = true;
-		newY = intNewY + 1.0f;
-		intNewY = static_cast<int>(newY);
-
-	}
-
-	if (tileMap->IsCollisionTile(intNewX, static_cast<int>(newY + scaleY))
-		|| tileMap->IsCollisionTile(static_cast<int>(newX + scaleX), static_cast<int>(newY + scaleY)))
-	{
-		//下
-		this->isHitCollisionTile = true;
-		isGrounded = true;
-		newY = static_cast<int>(newY + scaleY) - scale.y;
-		intNewY = static_cast<int>(newY);
-
-	}
-
-	rigidbody->newPosition.x = newX;
-	rigidbody->newPosition.y = newY;
-}
-
-void noa::TileCollider2D::FixBodyVelocity()
-{
-	if (!GetActive() || tileMap == nullptr || rigidbody == nullptr)
-	{
-		return;
-	}
-
-	if (scale.x == 0 || scale.y == 0)
-	{
-		return;
-	}
-
-	float newX = rigidbody->newPosition.x;
-	float newY = rigidbody->newPosition.y;
-	float posX = GetActor()->transform.position.x;
-	float posY = GetActor()->transform.position.y;
-
-	int intNewX = static_cast<int>(newX);
-	int intNewY = static_cast<int>(newY);
-	int intPosX = static_cast<int>(posX);
-	int intPosY = static_cast<int>(posY);
-
-	float deltaStep = 0.999f;
-	float scaleX = deltaStep * std::abs(this->scale.x);
-	float scaleY = deltaStep * std::abs(this->scale.y);
-
-	if (tileMap->IsCollisionTile(intNewX, intPosY)
-		|| tileMap->IsCollisionTile(intNewX, static_cast<int>(posY + scaleY))
-		)
-	{
-		//左
-		//this->isHitCollisionTile = true;
-		rigidbody->velocity.x = -rigidbody->velocity.x * std::abs(1 - friction);
-
-		if (static_cast<int>(std::abs(rigidbody->velocity.x)) == 0)
-		{
-			rigidbody->velocity.x = 0;
-		}
-
-		//rigidbody->newVelocity.x = -rigidbody->newVelocity.x;
-		newX = intNewX + 1.0f;
-		intNewX = static_cast<int>(newX);
-	}
-
-	if (tileMap->IsCollisionTile(static_cast<int>(newX + scaleX), intPosY)
-		|| tileMap->IsCollisionTile(static_cast<int>(newX + scaleX), static_cast<int>(posY + scaleY))
-		)
-	{
-		//右
-		//this->isHitCollisionTile = true;
-		rigidbody->velocity.x = -rigidbody->velocity.x * std::abs(1 - friction);
-		if (static_cast<int>(std::abs(rigidbody->velocity.x)) == 0)
-		{
-			rigidbody->velocity.x = 0;
-		}
-		//rigidbody->newVelocity.x = -rigidbody->newVelocity.x;
-		newX = static_cast<int>(newX + scaleX) - scale.x;
-		intNewX = static_cast<int>(newX);
-	}
-
-	if (tileMap->IsCollisionTile(intNewX, intNewY)
-		|| tileMap->IsCollisionTile(static_cast<int>(newX + scaleX), intNewY))
-	{
-		//上
-		//this->isHitCollisionTile = true;
-		rigidbody->velocity.y = -rigidbody->velocity.y * std::abs(1 - bounce);
-		if (static_cast<int>(std::abs(rigidbody->velocity.y)) == 0)
-		{
-			rigidbody->velocity.y = 0;
-		}
-		//rigidbody->newVelocity.y = -rigidbody->newVelocity.y;
-		newY = intNewY + 1.0f;
-		intNewY = static_cast<int>(newY);
-
-	}
-
-	if (tileMap->IsCollisionTile(intNewX, static_cast<int>(newY + scaleY))
-		|| tileMap->IsCollisionTile(static_cast<int>(newX + scaleX), static_cast<int>(newY + scaleY)))
-	{
-		//下
-		//this->isHitCollisionTile = true;
-		//isGrounded = true;
-		rigidbody->velocity.y = -rigidbody->velocity.y * std::abs(1 - bounce);
-		if (static_cast<int>(std::abs(rigidbody->velocity.y)) == 0)
-		{
-			rigidbody->velocity.y = 0;
-		}
-		//rigidbody->newVelocity.y = -rigidbody->newVelocity.y;
-		newY = static_cast<int>(newY + scaleY) - scale.y;
-		intNewY = static_cast<int>(newY);
-
-	}
-
-	//rigidbody->newPosition.x = newX;
-	//rigidbody->newPosition.y = newY;
 }

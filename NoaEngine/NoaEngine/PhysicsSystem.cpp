@@ -8,7 +8,7 @@ noa::Grid noa::PhysicsSystem::grid;
 std::vector<noa::Rigidbody*> noa::PhysicsSystem::rigidbodys;
 noa::Vector<float> noa::PhysicsSystem::gravity = { 0,9.82f };
 
-int noa::PhysicsSystem::step = 20;
+int noa::PhysicsSystem::step = 5;
 
 void noa::PhysicsSystem::SetGrid(int width, int height)
 {
@@ -35,12 +35,16 @@ void noa::PhysicsSystem::Update(int step)
 	{
 
 		InitVelocity(subDeltaTime);
+		//ApplyTileCollision(subDeltaTime);
+		ApplyTileConstraint(subDeltaTime);
 		ApplyVelocity(subDeltaTime);
 		InitPosition(subDeltaTime);
 		//对位置进行修正
-		FixTileCollisionPosition(subDeltaTime);
+		ApplyTileCollision(subDeltaTime);
+		//ApplyTileConstraint(subDeltaTime);
 		FindCollisionsGrid();
-		FixTileCollisionPosition(subDeltaTime);
+		ApplyTileCollision(subDeltaTime);
+		//ApplyTileConstraint(subDeltaTime);
 		ApplyPosition(subDeltaTime);
 		
 	}
@@ -155,8 +159,8 @@ void noa::PhysicsSystem::SolveCollision(Collider2D* obj1, Collider2D* obj2)
 
 		const float deltaR = std::abs(distance - sumRadius);
 
-		const float fixX = deltaR * cosf(angle);
-		const float fixY = deltaR * sinf(angle);
+		const float fixX = deltaR * normal.x;
+		const float fixY = deltaR * normal.y;
 
 		
 		
@@ -180,7 +184,7 @@ void noa::PhysicsSystem::SolveCollision(Collider2D* obj1, Collider2D* obj2)
 		const bool constraintX1 = obj1->rigidbody->constraint.x;
 		const bool constraintY1 = obj1->rigidbody->constraint.y;
 		const bool constraintX2 = obj2->rigidbody->constraint.x;
-		const bool constraintY2 = obj2->rigidbody->constraint.x;
+		const bool constraintY2 = obj2->rigidbody->constraint.y;
 
 		//假设x和y方向上没有任何约束
 		//双方都没有任何约束
@@ -199,8 +203,8 @@ void noa::PhysicsSystem::SolveCollision(Collider2D* obj1, Collider2D* obj2)
 
 		//判断自己可以进入约束状态的条件是自己和对方的圆形是否处于水平和竖直方向
 
-		const float approximateX = std::abs(1 - std::abs(normal.x));
-		const float approximateY = std::abs(1 - std::abs(normal.y));
+		//const float approximateX = std::abs(1 - std::abs(normal.x));
+		//const float approximateY = std::abs(1 - std::abs(normal.y));
 
 		//x方向的约束一方有约束
 		if (constraintX1 || constraintX2)
@@ -212,15 +216,13 @@ void noa::PhysicsSystem::SolveCollision(Collider2D* obj1, Collider2D* obj2)
 				finalVel1.x = 0;
 
 				finalVel2.x = -obj2->rigidbody->velocity.x * bounce;
-				if (static_cast<int>(obj2->rigidbody->velocity.x * 100.0f) == 0)
+				if (static_cast<int>(finalVel2.x * 100.0f) == 0)
 				{
 					finalVel2.x = 0;
-					if (approximateX<0.01f)
-					{
-						obj2->rigidbody->constraint.x = true;
-					}
+					obj2->rigidbody->constraint.x = true;
 					
 				}
+				
 
 				obj2->rigidbody->newPosition.x = x2 - fixX;
 
@@ -231,15 +233,13 @@ void noa::PhysicsSystem::SolveCollision(Collider2D* obj1, Collider2D* obj2)
 				finalVel2.x = 0;
 
 				finalVel1.x = -obj1->rigidbody->velocity.x * bounce;
-				if (static_cast<int>(obj1->rigidbody->velocity.x * 100.0f) == 0)
+				if (static_cast<int>(finalVel1.x * 100.0f) == 0)
 				{
 					finalVel1.x = 0;
-					if (approximateX < 0.01f)
-					{
-						obj1->rigidbody->constraint.x = true;
-					}
+					obj1->rigidbody->constraint.x = true;
 					
 				}
+				
 
 				obj1->rigidbody->newPosition.x = x1 + fixX;
 
@@ -256,15 +256,13 @@ void noa::PhysicsSystem::SolveCollision(Collider2D* obj1, Collider2D* obj2)
 				finalVel1.y = 0;
 
 				finalVel2.y = -obj2->rigidbody->velocity.y * bounce;
-				if (static_cast<int>(obj2->rigidbody->velocity.y * 100.0f) == 0)
+				if (static_cast<int>(finalVel2.y * 100.0f) == 0)
 				{
 					finalVel2.y = 0;
-					if (approximateY < 0.01f)
-					{
-						obj2->rigidbody->constraint.y = true;
-					}
+					obj2->rigidbody->constraint.y = true;
 					
 				}
+				
 
 				obj2->rigidbody->newPosition.y = y2 - fixY;
 			}
@@ -275,16 +273,13 @@ void noa::PhysicsSystem::SolveCollision(Collider2D* obj1, Collider2D* obj2)
 				finalVel2.y = 0;
 
 				finalVel1.y = -obj1->rigidbody->velocity.y * bounce;
-				if (static_cast<int>(obj1->rigidbody->velocity.y * 100.0f) == 0)
+				if (static_cast<int>(finalVel1.y * 100.0f) == 0)
 				{
 					finalVel1.y = 0;
-					if (approximateY < 0.01f)
-					{
-						obj1->rigidbody->constraint.y = true;
-					}
+					obj1->rigidbody->constraint.y = true;
 					
 				}
-
+				
 				obj1->rigidbody->newPosition.y = y1 + fixY;
 
 			}
@@ -293,7 +288,7 @@ void noa::PhysicsSystem::SolveCollision(Collider2D* obj1, Collider2D* obj2)
 		obj1->rigidbody->velocity = finalVel1;
 		obj2->rigidbody->velocity = finalVel2;
 
-		
+
 
 	}
 
@@ -386,7 +381,7 @@ void noa::PhysicsSystem::InitPosition(float deltaTime)
 	}
 }
 
-void noa::PhysicsSystem::FixTileCollisionVelocity(float deltaTime)
+void noa::PhysicsSystem::ApplyTileCollision(float deltaTime)
 {
 #pragma omp parallel for
 	for (auto& rigidbody : rigidbodys)
@@ -396,41 +391,26 @@ void noa::PhysicsSystem::FixTileCollisionVelocity(float deltaTime)
 			continue;
 		}
 
-		rigidbody->ApplyTileFixVelocity();
-
-	}
-}
-
-void noa::PhysicsSystem::FixTileCollisionPosition(float deltaTime)
-{
-#pragma omp parallel for
-	for (auto& rigidbody : rigidbodys)
-	{
-		if (rigidbody == nullptr)
-		{
-			continue;
-		}
-
-		//rigidbody->ApplyTileFixPosition();
 		rigidbody->ApplyTileCollision(deltaTime);
 
 	}
 }
 
-//void noa::PhysicsSystem::CaculateTileCollision(float deltaTime)
-//{
-//#pragma omp parallel for
-//	for (auto& rigidbody : rigidbodys)
-//	{
-//		if (rigidbody == nullptr)
-//		{
-//			continue;
-//		}
-//
-//		rigidbody->ApplyTileCollision();
-//
-//	}
-//}
+void noa::PhysicsSystem::ApplyTileConstraint(float deltaTime)
+{
+#pragma omp parallel for
+	for (auto& rigidbody : rigidbodys)
+	{
+		if (rigidbody == nullptr)
+		{
+			continue;
+		}
+
+		rigidbody->ApplyTileConstraint(deltaTime);
+
+	}
+}
+
 
 void noa::PhysicsSystem::ApplyPosition(float deltaTime)
 {

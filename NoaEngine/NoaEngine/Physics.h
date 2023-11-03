@@ -112,10 +112,9 @@ namespace noa {
 		//º∆À„Œª÷√‘º ¯
 		void ApplyPositon(float deltaTime);
 
-		void ApplyTileFixVelocity();
-		void ApplyTileFixPosition();
-
 		void ApplyTileCollision(float deltaTime);
+
+		void ApplyTileConstraint(float deltaTime);
 
 		void BindCollider(Collider2D* collider);
 

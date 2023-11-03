@@ -1,28 +1,8 @@
-﻿  PhysicsSystem.cpp
-  GameDelegate.cpp
-D:\Work\NoaEngine\Example\Shooter-Example2D\GameDelegate.cpp(80,59): warning C4244: “参数”: 从“T”转换到“int”，可能丢失数据
-          with
-          [
-              T=double
-          ]
-D:\Work\NoaEngine\Example\Shooter-Example2D\GameDelegate.cpp(80,52): warning C4244: “参数”: 从“T”转换到“int”，可能丢失数据
-          with
-          [
-              T=double
-          ]
-D:\Work\NoaEngine\Example\Shooter-Example2D\GameDelegate.cpp(99,68): warning C4244: “参数”: 从“T”转换到“float”，可能丢失数据
-          with
-          [
-              T=double
-          ]
-D:\Work\NoaEngine\Example\Shooter-Example2D\GameDelegate.cpp(99,61): warning C4244: “参数”: 从“T”转换到“float”，可能丢失数据
-          with
-          [
-              T=double
-          ]
+﻿  Physics.cpp
+  PhysicsSystem.cpp
   正在生成代码
-  2 of 3430 functions (<0.1%) were compiled, the rest were copied from previous compilation.
+  5 of 3432 functions ( 0.1%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    2 functions had inline decision re-evaluated but remain unchanged
+    1 functions had inline decision re-evaluated but remain unchanged
   已完成代码的生成
   Shooter-Example2D.vcxproj -> D:\Work\NoaEngine\x64\Release\Shooter-Example2D.exe

@@ -80,9 +80,8 @@ namespace noa
 		void Update() override;
 		void LateUpdate() override;
 		void SetTileMap(TileMap* tileMap);
-		void FixBodyPosition();
-		void FixBodyVelocity();
 		void ApplyTileCollision(float deltaTime);
+		void ApplyConstraint(float deltaTime);
 		void SetScale(float x,float y);
 	private:
 		TileMap* tileMap = nullptr;

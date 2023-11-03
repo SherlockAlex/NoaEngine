@@ -47,9 +47,7 @@ void noa::Rigidbody::Update()
 	{
 		return;
 	}
-	this->constraint.x = false;
-	this->constraint.y = false;
-
+	
 	PhysicsSystem::rigidbodys.push_back(this);
 }
 
@@ -76,14 +74,8 @@ void noa::Rigidbody::InitVelocity(float deltaTime)
 	force = {};
 	impuls = {};
 
-	if (this->constraint.x) 
-	{
-		this->velocity.x = 0;
-	}
-	if (this->constraint.y) 
-	{
-		this->velocity.y = 0;
-	}
+	constraint.x = false;
+	constraint.y = false;
 
 }
 
@@ -196,24 +188,6 @@ void noa::Rigidbody::AddAntiGravity()
 	this->AddForce(PhysicsSystem::gravity * gravityWeight * this->mass*(-1.0f), ForceType::CONTINUOUS_FORCE);
 }
 
-noa::Vector<float> pos(0.0, 0.0);
-void noa::Rigidbody::ApplyTileFixVelocity()
-{
-	if (this->tileCollider2D == nullptr)
-	{
-		return;
-	}
-	this->tileCollider2D->FixBodyVelocity();
-}
-void noa::Rigidbody::ApplyTileFixPosition()
-{
-	if (this->tileCollider2D == nullptr)
-	{
-		return;
-	}
-	this->tileCollider2D->FixBodyPosition();
-}
-
 void noa::Rigidbody::ApplyTileCollision(float deltaTime)
 {
 
@@ -223,6 +197,15 @@ void noa::Rigidbody::ApplyTileCollision(float deltaTime)
 	}
 	this->tileCollider2D->ApplyTileCollision(deltaTime);
 
+}
+
+void noa::Rigidbody::ApplyTileConstraint(float deltaTime)
+{
+	if (this->tileCollider2D == nullptr)
+	{
+		return;
+	}
+	this->tileCollider2D->ApplyConstraint(deltaTime);
 }
 
 void noa::Rigidbody::BindCollider(Collider2D* collider)
