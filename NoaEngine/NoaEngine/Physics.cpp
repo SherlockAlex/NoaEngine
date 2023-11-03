@@ -47,6 +47,8 @@ void noa::Rigidbody::Update()
 	{
 		return;
 	}
+	this->constraint.x = false;
+	this->constraint.y = false;
 
 	PhysicsSystem::rigidbodys.push_back(this);
 }
@@ -70,11 +72,19 @@ void noa::Rigidbody::InitVelocity(float deltaTime)
 
 	this->newVelocity = (this->velocity + this->force * invMass * deltaTime + impuls * invMass);
 	
-	this->constraint.x = false;
-	this->constraint.y = false;
-
+	
 	force = {};
 	impuls = {};
+
+	if (this->constraint.x) 
+	{
+		this->velocity.x = 0;
+	}
+	if (this->constraint.y) 
+	{
+		this->velocity.y = 0;
+	}
+
 }
 
 void noa::Rigidbody::ApplyVelocity(float deltaTime)

@@ -41,7 +41,7 @@ Test* hold = nullptr;
 int i = 0;
 void GameDelegate::OnUpdate(noa::Scene* scene)
 {
-	if (i<10) 
+	if (i<100) 
 	{
 		Test* test = noa::NObject<Test>::Create(scene);
 		test->transform.position = { 2,3 };

@@ -182,14 +182,14 @@ void noa::TileCollider2D::ApplyTileCollision(float deltaTime)
 		
 		//const float oldMementumX = rigidbody->momentum.x;
 		rigidbody->velocity.x = -rigidbody->velocity.x * std::abs(1-friction);
-		if (static_cast<int>(rigidbody->velocity.x) == 0)
+		if (static_cast<int>(rigidbody->velocity.x*10.0f) == 0)
 		{
 			rigidbody->velocity.x = 0;
-			
+			rigidbody->constraint.x = true;
 		}
 
 		newX = intNewX + 1.0f;
-		rigidbody->constraint.x = true;
+		
 		intNewX = static_cast<int>(newX);
 	}
 
@@ -202,14 +202,14 @@ void noa::TileCollider2D::ApplyTileCollision(float deltaTime)
 
 		//const float oldMementumX = rigidbody->momentum.x;
 		rigidbody->velocity.x = -rigidbody->velocity.x * std::abs(1 - friction);
-		if (static_cast<int>(rigidbody->velocity.x) == 0)
+		if (static_cast<int>(rigidbody->velocity.x * 10.0f) == 0)
 		{
 			rigidbody->velocity.x = 0;
-
+			rigidbody->constraint.x = true;
 		}
 
 		newX = static_cast<int>(newX + scaleX) - scale.x;
-		rigidbody->constraint.x = true;
+		
 		intNewX = static_cast<int>(newX);
 	}
 
@@ -221,13 +221,14 @@ void noa::TileCollider2D::ApplyTileCollision(float deltaTime)
 		
 		//const float oldMomentumY = rigidbody->momentum.y;
 		rigidbody->velocity.y = -rigidbody->velocity.y * std::abs(1 - bounce);
-		if (static_cast<int>(rigidbody->velocity.y) == 0)
+		if (static_cast<int>(rigidbody->velocity.y * 10.0f) == 0)
 		{
 			rigidbody->velocity.y = 0;
+			rigidbody->constraint.y = true;
 		}
 
 		newY = intNewY + 1.0f;
-		rigidbody->constraint.y = true;
+		
 		intNewY = static_cast<int>(newY);
 
 	}
@@ -236,19 +237,21 @@ void noa::TileCollider2D::ApplyTileCollision(float deltaTime)
 		|| tileMap->IsCollisionTile(static_cast<int>(newX + scaleX), static_cast<int>(newY + scaleY)))
 	{
 		//об
-		this->isGrounded = true;
+		
 		//const float oldMomentumY = rigidbody->momentum.y;
 		rigidbody->velocity.y = -rigidbody->velocity.y * std::abs(1 - bounce);
-		if (static_cast<int>(rigidbody->velocity.y) == 0)
+		if (static_cast<int>(rigidbody->velocity.y * 10.0f) == 0)
 		{
 			rigidbody->velocity.y = 0;
+			rigidbody->constraint.y = true;
+			this->isGrounded = true;
 		}
 
 		//const float impulseY = rigidbody->velocity.y * rigidbody->mass
 		//	- oldMomentumY;
 		//rigidbody->AddForce({ 0.0f,impulseY }, ForceType::IMPULSE_FORCE);
 		newY = static_cast<int>(newY + scaleY) - scale.y;
-		rigidbody->constraint.y = true;
+		
 		intNewY = static_cast<int>(newY);
 
 	}
