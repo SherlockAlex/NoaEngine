@@ -132,10 +132,10 @@ namespace noa {
 			}
 		}
 
-		for (auto & layer:tileMap->layers) 
+		/*for (auto & layer:tileMap->layers) 
 		{
 			
-		}
+		}*/
 
 		
 		
@@ -162,12 +162,23 @@ namespace noa {
 				, instance.isFlip.x
 				, (instance.actor == nullptr)?0.0f:instance.actor->transform.eulerAngle
 			);
-			const int index = static_cast<int>(objPosY * Screen::width + objPosX);
-			if (index<0||index>=objectBufferWithRay.size())
+			
+			
+			for (int i = static_cast<int>(objPosX);i< static_cast<int>(objPosX+ instance.scale.x * instance.sprite->w);i++)
 			{
-				continue;
+				for (int j = static_cast<int>(objPosY); j < static_cast<int>(objPosY + instance.scale.y * instance.sprite->h); j++)
+				{
+					const int index = static_cast<int>(j * Screen::width + i);
+
+					if (index < 0 || index >= objectBufferWithRay.size())
+					{
+						continue;
+					}
+					objectBufferWithRay[index] = instance.actor;
+
+				}
 			}
-			objectBufferWithRay[index] = instance.actor;
+			
 		}
 		spriteRendererInstances.clear();
 

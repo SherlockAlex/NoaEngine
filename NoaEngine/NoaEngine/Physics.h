@@ -49,7 +49,6 @@ namespace noa {
 		friend class Collider2D;
 		friend class TileCollider2D;
 	public:
-		BodyType bodyType = BodyType::DYNAMIC;
 		
 		float damping = 0.02f;
 		float gravityWeight = 3.5f;
@@ -58,13 +57,28 @@ namespace noa {
 		bool useGravity = true;
 		bool useCollision = true;
 		Vector<float> velocity = Vector<float>(0.0f, 0.0f);
-		
+		float angleVelocity = 0.0f;
 
 	private:
+
+		BodyType bodyType = BodyType::DYNAMIC;
+
 		float mass = 1;
 		float invMass = 1;
 
+		//线性速度
 		Vector<float> newPosition;
+		Vector<float> oldPosition;
+		Vector<float> newVelocity;
+
+		//角速度
+		
+		float newAngleVelocity = 0.0f;
+
+		//动量 = 动量 + 外部冲量 + 玩家输入速度动量
+		Vector<float> momentum;
+		Vector<float> impuls;
+
 		Vector<float> force = Vector<float>(0.0f, 0.0f);
 		std::vector<Collider2D*> colliders;
 		Collision collision;
@@ -81,16 +95,32 @@ namespace noa {
 	private:
 		void Start() override;
 		void Update() override;
-		void UpdateVelocity(float deltaTime);
-		void UpdatePosition(float deltaTime);
-		//碰撞检测线程
-		void ApplyTileCollision();
+
+		void InitVelocity(float deltaTime);
+		//用户添加速度速度操作
+		void ApplyVelocity(float deltaTime);
+		//添加动量添加
+		void InitAngleVelocity(float deltaTime);
+
+		void InitPosition(float deltaTime);
+		//计算位置约束
+		void ApplyPositon(float deltaTime);
+
+		void ApplyTileFixVelocity();
+		void ApplyTileFixPosition();
+
+		void ApplyTileCollision(float deltaTime);
 
 		void BindCollider(Collider2D* collider);
 
 	public:
+		Vector<float> GetSumForce();
+		Vector<float> GetMomentum();
 		void AddForce(const Vector<float> & force, ForceType forceType);
 		void SetMass(float value);
+		void SetBodyType(BodyType bodyType);
+
+		void AddAntiGravity();
 
 	};
 

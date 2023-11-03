@@ -105,8 +105,22 @@ namespace noa {
 		Vector<float> ScreenPointToWorld(float x,float y);
 
 		template<class T>
-		T GetRayHitInfoAs(int index) {
-			return (T)objectBufferWithRay[index];
+		T* GetRayHitInfoAs(int index) {
+			if (index<0||index>=objectBufferWithRay.size()) 
+			{
+				return nullptr;
+			}
+			return dynamic_cast<T*>(objectBufferWithRay[index]);
+		}
+
+		template<class T>
+		T* GetRayHitInfoAs(int x,int y) {
+			if (x<0||x>=static_cast<int>(noa::Screen::width)
+				||y<0||y>=static_cast<int>(noa::Screen::height)) 
+			{
+				return nullptr;
+			}
+			return dynamic_cast<T*>(objectBufferWithRay[y*noa::Screen::width + x]);
 		}
 
 	private:

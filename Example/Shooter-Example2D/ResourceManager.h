@@ -6,5 +6,6 @@ public:
 	static noa::Sprite defaultImage;
 	static noa::Sprite playerImage;
 	static noa::Sprite bulletImage;
+	static noa::Sprite circleImage;
 };
 

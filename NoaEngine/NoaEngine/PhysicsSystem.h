@@ -4,6 +4,17 @@
 #include <vector>
 #include "NoaMath.h"
 
+/**
+* 物理系统
+* 一个物理系统应该是若干个刚体质点的集合
+* 一个大的物理系统包含若干个子物理系统
+* 
+* 对于游戏世界而言，一切改变都应该服从牛顿定律，及一般不去改变速度，而是去修正力
+* 
+*/
+
+
+
 namespace noa 
 {
 	struct Grid;
@@ -23,6 +34,8 @@ namespace noa
 	class PhysicsSystem
 	{
 	public:
+		static int step;
+
 		static Grid grid;
 		static std::vector<Rigidbody*> rigidbodys;
 		static Vector<float> gravity;
@@ -47,7 +60,19 @@ namespace noa
 		static bool Collide(const AABB& box1, const AABB& box2);
 
 		static void SolveCollision(Collider2D* obj1, Collider2D* obj2);
+
+		static noa::Vector<float> CaculateCollideForce(Collider2D * obj1,Collider2D * obj2);
+
+	private:
+		static void InitVelocity(float deltaTime);
+		static void ApplyVelocity(float deltaTime);
+		static void InitPosition(float deltaTime);
+		static void FixTileCollisionVelocity(float deltaTime);
+		static void FixTileCollisionPosition(float deltaTime);
+		static void ApplyPosition(float deltaTime);
+		//static void ApplyMomentum(float deltaTime);
 	};
+
 }
 
 #endif // !NOAENGINE_PHYSICSSYSTEM_H

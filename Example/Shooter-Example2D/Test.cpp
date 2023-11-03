@@ -5,16 +5,19 @@ Test::Test(noa::Scene * scene):noa::Actor(scene)
 {
 	this->tag = "Test";
 
-	this->spriteRenderer->SetSprite(&ResourceManager::playerImage);
-	this->spriteRenderer->SetScale(2, 2);
+	this->spriteRenderer->SetSprite(&ResourceManager::circleImage);
+	this->spriteRenderer->SetScale(32.0f/256, 32.0f/256);
 	this->rigid->useCollision = true;
 	this->rigid->useGravity = true;
-	this->transform.position = { 5,3 };
-	this->tileCollider->SetScale(1.5f, 1.7f);
-	this->collider->radius = 0.7f;
-	this->rigid->gravityWeight = 5.5f;
 	
-	this->rigid->bodyType = noa::BodyType::DYNAMIC;
+	this->tileCollider->SetScale(1.0f, 1.0f);
+	this->collider->radius = 0.5f;
+	this->rigid->gravityWeight = 5.5f;
+	this->rigid->damping = 0.0f;
+	this->rigid->SetBodyType(noa::BodyType::DYNAMIC);
+
+	this->tileCollider->bounce = 0.5f;
+	this->tileCollider->friction = 0.8f;
 
 }
 
@@ -31,6 +34,4 @@ void Test::Start()
 void Test::Update()
 {
 	
-	noa::Debug::Log(std::to_string(static_cast<int>(this->rigid->bodyType)));
-	//rigid->velocity = {};
 }

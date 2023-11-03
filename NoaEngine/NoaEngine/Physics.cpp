@@ -51,35 +51,95 @@ void noa::Rigidbody::Update()
 	PhysicsSystem::rigidbodys.push_back(this);
 }
 
-void noa::Rigidbody::UpdateVelocity(float deltaTime)
+void noa::Rigidbody::InitVelocity(float deltaTime)
 {
-
-	const bool canApplyGravity =
-		 useGravity && (tileCollider2D == nullptr || !tileCollider2D->isGrounded);
-	if (canApplyGravity)
+	if (transform == nullptr || this->bodyType == BodyType::STATIC)
 	{
-		// 判断是否isGrounded
-		this->AddForce(PhysicsSystem::gravity*gravityWeight,ForceType::CONTINUOUS_FORCE);
+		return;
 	}
 
-	if (transform&& this->bodyType != BodyType::STATIC)
+	if (useGravity)
 	{
-		velocity = (velocity * (1 - damping)) + (this->force * (deltaTime * invMass));
-		newPosition = (transform->position) + (velocity * deltaTime);
+		Vector<float> gravity = PhysicsSystem::gravity * this->gravityWeight;
+		if (tileCollider2D!=nullptr&&tileCollider2D->isGrounded) 
+		{
+			gravity = {};
+		}
+		AddForce(gravity, ForceType::CONTINUOUS_FORCE);
 	}
 
-	this->ApplyTileCollision();
-
-	this->force = {};
-
+	this->newVelocity = (this->velocity + this->force * invMass * deltaTime + impuls * invMass);
+	
+	force = {};
+	impuls = {};
 }
 
-void noa::Rigidbody::UpdatePosition(float deltaTime)
-{	
+void noa::Rigidbody::ApplyVelocity(float deltaTime)
+{
+	if (transform == nullptr || this->bodyType == BodyType::STATIC)
+	{
+		return;
+	}
 
-	this->ApplyTileCollision();
+	if (this->newVelocity.x > 100.0f)
+	{
+		this->newVelocity.x = 100.0f;
+	}
+	else if(this->newVelocity.x < -100.0f){
+		this->newVelocity.x = -100.0f;
+	}
+
+
+	if (this->newVelocity.y > 100.0f)
+	{
+		this->newVelocity.y = 100.0f;
+	}
+	else if (this->newVelocity.y < -100.0f) {
+		this->newVelocity.y = -100.0f;
+	}
+
+	this->velocity = this->newVelocity;
+	this->momentum = this->velocity * this->mass;
+}
+
+void noa::Rigidbody::InitAngleVelocity(float deltaTime)
+{
+	if (this->bodyType==BodyType::STATIC) 
+	{
+		return;
+	}
+	// 角速度 = 角加速度 + 角动量*invMath
+	this->newAngleVelocity = this->angleVelocity + 0;
+}
+
+void noa::Rigidbody::InitPosition(float deltaTime)
+{
+	if (!this->transform) {
+		return;
+	}
+	this->newPosition = this->transform->position + this->velocity * deltaTime;
+	
+}
+
+void noa::Rigidbody::ApplyPositon(float deltaTime)
+{
+	if (!this->transform) 
+	{
+		return;
+	}
 
 	transform->position = newPosition;
+}
+
+noa::Vector<float> noa::Rigidbody::GetSumForce()
+{
+	return this->force;
+}
+
+noa::Vector<float> noa::Rigidbody::GetMomentum()
+{
+
+	return this->momentum;
 }
 
 void noa::Rigidbody::AddForce(const Vector<float>& force, ForceType forceType)
@@ -96,7 +156,7 @@ void noa::Rigidbody::AddForce(const Vector<float>& force, ForceType forceType)
 		this->force = this->force + force;
 		break;
 	case ForceType::IMPULSE_FORCE:
-		velocity += force * invMass;
+		this->impuls = this->impuls + force;
 		break;
 	default:
 		break;
@@ -110,15 +170,42 @@ void noa::Rigidbody::SetMass(float value)
 	this->invMass = 1.0f / value;
 }
 
+void noa::Rigidbody::SetBodyType(BodyType bodyType)
+{
+	this->bodyType = bodyType;
+}
+
+void noa::Rigidbody::AddAntiGravity()
+{
+	this->AddForce(PhysicsSystem::gravity * gravityWeight * this->mass*(-1.0f), ForceType::CONTINUOUS_FORCE);
+}
+
 noa::Vector<float> pos(0.0, 0.0);
-void noa::Rigidbody::ApplyTileCollision()
+void noa::Rigidbody::ApplyTileFixVelocity()
+{
+	if (this->tileCollider2D == nullptr)
+	{
+		return;
+	}
+	this->tileCollider2D->FixBodyVelocity();
+}
+void noa::Rigidbody::ApplyTileFixPosition()
+{
+	if (this->tileCollider2D == nullptr)
+	{
+		return;
+	}
+	this->tileCollider2D->FixBodyPosition();
+}
+
+void noa::Rigidbody::ApplyTileCollision(float deltaTime)
 {
 
 	if (this->tileCollider2D == nullptr)
 	{
 		return;
 	}
-	this->tileCollider2D->ApplyTileCollision();
+	this->tileCollider2D->ApplyTileCollision(deltaTime);
 
 }
 

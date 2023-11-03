@@ -288,7 +288,7 @@ void noa::Scene::ActorUpdate()
 	}
 
 	//更新物理系统
-	PhysicsSystem::Update(3);
+	PhysicsSystem::Update(PhysicsSystem::step);
 
 }
 

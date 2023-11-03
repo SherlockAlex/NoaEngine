@@ -31,6 +31,11 @@ namespace noa
 		void ApplyTrigger();
 	public:
 		virtual void Update() override;
+
+		template<class T>
+		T* GetCollider2DAs() {
+			return dynamic_cast<T*>(this);
+		}
 		
 	};
 
@@ -75,14 +80,21 @@ namespace noa
 		void Update() override;
 		void LateUpdate() override;
 		void SetTileMap(TileMap* tileMap);
-		void ApplyTileCollision();
+		void FixBodyPosition();
+		void FixBodyVelocity();
+		void ApplyTileCollision(float deltaTime);
 		void SetScale(float x,float y);
 	private:
 		TileMap* tileMap = nullptr;
 		bool isHitCollisionTile = false;
 	public:
+		
 		Vector<float> scale = {1,1};
 		bool isGrounded = false;
+		float bounce = 1.0f;
+		float friction = 1.0f;
+	private:
+		
 
 	};
 
