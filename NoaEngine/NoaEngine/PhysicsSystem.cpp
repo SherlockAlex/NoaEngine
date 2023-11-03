@@ -36,15 +36,15 @@ void noa::PhysicsSystem::Update(int step)
 
 		InitVelocity(subDeltaTime);
 		//ApplyTileCollision(subDeltaTime);
-		ApplyTileConstraint(subDeltaTime);
+		//ApplyTileConstraint(subDeltaTime);
 		ApplyVelocity(subDeltaTime);
 		InitPosition(subDeltaTime);
 		//对位置进行修正
 		ApplyTileCollision(subDeltaTime);
-		//ApplyTileConstraint(subDeltaTime);
+		ApplyTileConstraint(subDeltaTime);
 		FindCollisionsGrid();
 		ApplyTileCollision(subDeltaTime);
-		//ApplyTileConstraint(subDeltaTime);
+		ApplyTileConstraint(subDeltaTime);
 		ApplyPosition(subDeltaTime);
 		
 	}
@@ -189,6 +189,9 @@ void noa::PhysicsSystem::SolveCollision(Collider2D* obj1, Collider2D* obj2)
 		//假设x和y方向上没有任何约束
 		//双方都没有任何约束
 
+		const noa::Vector<float> impulse1 = (p * m1 * invSumMass - p1) * 2.0f;
+		const noa::Vector<float> impulse2 = (p * m2 * invSumMass - p2) * 2.0f;
+
 		const noa::Vector<float> newP1 = (p * m1 * invSumMass * 2.0f - p1);
 		const noa::Vector<float> newP2 = (p * m2 * invSumMass * 2.0f - p2);
 
@@ -201,141 +204,43 @@ void noa::PhysicsSystem::SolveCollision(Collider2D* obj1, Collider2D* obj2)
 		obj2->rigidbody->newPosition.x = x2 - 0.5f * fixX;
 		obj2->rigidbody->newPosition.y = y2 - 0.5f * fixY;
 
-		//判断自己可以进入约束状态的条件是自己和对方的圆形是否处于水平和竖直方向
+		//会出现卡住的问题，其实本质上是对方可能以及处于一个约束的情况
+		//因为质量相同的情况，会出现一个速度交换的问题
 
-		//const float approximateX = std::abs(1 - std::abs(normal.x));
-		//const float approximateY = std::abs(1 - std::abs(normal.y));
-
-		//x方向的约束一方有约束
-		if (constraintX1 || constraintX2)
+		if (constraintX1) 
 		{
-			//如果双方有一方的x是有约束的
-			if (constraintX1
-				&& !constraintX2)
-			{
-				finalVel1.x = 0;
-
-				finalVel2.x = -obj2->rigidbody->velocity.x * bounce;
-				if (static_cast<int>(finalVel2.x * 100.0f) == 0)
-				{
-					finalVel2.x = 0;
-					obj2->rigidbody->constraint.x = true;
-					
-				}
-				
-
-				obj2->rigidbody->newPosition.x = x2 - fixX;
-
-			}
-			else if(constraintX2
-				&&!constraintX1)
-			{
-				finalVel2.x = 0;
-
-				finalVel1.x = -obj1->rigidbody->velocity.x * bounce;
-				if (static_cast<int>(finalVel1.x * 100.0f) == 0)
-				{
-					finalVel1.x = 0;
-					obj1->rigidbody->constraint.x = true;
-					
-				}
-				
-
-				obj1->rigidbody->newPosition.x = x1 + fixX;
-
-			}
+			finalVel2.x = - obj2->rigidbody->velocity.x;
+			obj2->rigidbody->constraint.x = true;
 		}
 
-		//y方向上一方有约束
-		if (constraintY1 || constraintY2)
+		if (constraintX2)
 		{
-			//如果双方有一方的x是有约束的
-			if (constraintY1
-				&& !constraintY2)
-			{
-				finalVel1.y = 0;
+			finalVel1.x = -obj1->rigidbody->velocity.x;
+			obj1->rigidbody->constraint.x = true;
+		}
 
-				finalVel2.y = -obj2->rigidbody->velocity.y * bounce;
-				if (static_cast<int>(finalVel2.y * 100.0f) == 0)
-				{
-					finalVel2.y = 0;
-					obj2->rigidbody->constraint.y = true;
-					
-				}
-				
+		if (constraintY1)
+		{
+			finalVel2.y = -obj2->rigidbody->velocity.y;
+			obj2->rigidbody->constraint.y = true;
+		}
 
-				obj2->rigidbody->newPosition.y = y2 - fixY;
-			}
-			else if (constraintY2
-				&& !constraintY1)
-			{
-
-				finalVel2.y = 0;
-
-				finalVel1.y = -obj1->rigidbody->velocity.y * bounce;
-				if (static_cast<int>(finalVel1.y * 100.0f) == 0)
-				{
-					finalVel1.y = 0;
-					obj1->rigidbody->constraint.y = true;
-					
-				}
-				
-				obj1->rigidbody->newPosition.y = y1 + fixY;
-
-			}
+		if (constraintY2)
+		{
+			finalVel1.y = -obj1->rigidbody->velocity.y;
+			obj1->rigidbody->constraint.y = true;
 		}
 
 		obj1->rigidbody->velocity = finalVel1;
 		obj2->rigidbody->velocity = finalVel2;
 
-
+		//obj1->rigidbody->AddForce(impulse1,ForceType::IMPULSE_FORCE);
+		//obj2->rigidbody->AddForce(impulse2,ForceType::IMPULSE_FORCE);
 
 	}
 
 	
 
-}
-
-noa::Vector<float> noa::PhysicsSystem::CaculateCollideForce(Collider2D* obj1, Collider2D* obj2)
-{
-	if (obj1->colliderType == ColliderType::CIRCLE_COLLIDER
-		&& obj2->colliderType == ColliderType::CIRCLE_COLLIDER)
-	{
-		CircleCollider2D* collider1 = obj1->GetCollider2DAs<CircleCollider2D>();
-		CircleCollider2D* collider2 = obj2->GetCollider2DAs<CircleCollider2D>();
-
-		Vector<float> force;
-
-		const float relativeX = obj1->rigidbody->newPosition.x 
-			- obj2->rigidbody->newPosition.x;
-		const float relativeY = obj1->rigidbody->newPosition.y
-			- obj2->rigidbody->newPosition.y;
-
-		const float distance = std::sqrtf(relativeX * relativeX 
-			+ relativeY * relativeY);
-
-		const float angle = atan2(relativeY,relativeX);
-
-		const float normalX = distance * cosf(angle);
-		const float normalY = distance * sinf(angle);
-
-		const float relativeVelocityX = obj1->rigidbody->velocity.x
-			- obj2->rigidbody->velocity.x;
-		const float relativeVelocityY = obj1->rigidbody->velocity.y
-			- obj2->rigidbody->velocity.y;
-
-		const float m1 = obj1->rigidbody->mass;
-		const float m2 = obj2->rigidbody->mass;
-
-		float impulse = (2.0f * (m1 * m2) * (relativeVelocityX * normalX + relativeVelocityY * normalY))
-			/ ((m1 + m2) * distance);
-
-		force.x = impulse * normalX;
-		force.y = impulse * normalY;
-		return force;
-
-	}
-	return noa::Vector<float>();
 }
 
 void noa::PhysicsSystem::InitVelocity(float deltaTime)

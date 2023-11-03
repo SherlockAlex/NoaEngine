@@ -173,18 +173,16 @@ void noa::TileCollider2D::ApplyTileCollision(float deltaTime)
 	float scaleX = deltaStep * std::abs(this->scale.x);
 	float scaleY = deltaStep * std::abs(this->scale.y);
 
+	//先应用冲量
+
 	if (tileMap->IsCollisionTile(intNewX, intPosY)
 		|| tileMap->IsCollisionTile(intNewX, static_cast<int>(posY + scaleY))
 		)
 	{
-		//左
-		//this->isHitCollisionTile = true;
-		
 		rigidbody->velocity.x = -rigidbody->velocity.x * std::abs(1-friction);
 		if (static_cast<int>(rigidbody->velocity.x*10.0f) == 0)
 		{
 			rigidbody->velocity.x = 0;
-			//rigidbody->constraint.x = true;
 		}
 
 		newX = intNewX + 1.0f;
@@ -196,14 +194,11 @@ void noa::TileCollider2D::ApplyTileCollision(float deltaTime)
 		|| tileMap->IsCollisionTile(static_cast<int>(newX + scaleX), static_cast<int>(posY + scaleY))
 		)
 	{
-		//右
-		//this->isHitCollisionTile = true;
 
 		rigidbody->velocity.x = -rigidbody->velocity.x * std::abs(1 - friction);
 		if (static_cast<int>(rigidbody->velocity.x * 10.0f) == 0)
 		{
 			rigidbody->velocity.x = 0;
-			//rigidbody->constraint.x = true;
 		}
 
 		newX = static_cast<int>(newX + scaleX) - scale.x;
@@ -214,14 +209,11 @@ void noa::TileCollider2D::ApplyTileCollision(float deltaTime)
 	if (tileMap->IsCollisionTile(intNewX, intNewY)
 		|| tileMap->IsCollisionTile(static_cast<int>(newX + scaleX), intNewY))
 	{
-		//上
-		//this->isHitCollisionTile = true;
 		
 		rigidbody->velocity.y = -rigidbody->velocity.y * std::abs(1 - bounce);
 		if (static_cast<int>(rigidbody->velocity.y * 10.0f) == 0)
 		{
 			rigidbody->velocity.y = 0;
-			//rigidbody->constraint.y = true;
 		}
 
 		newY = intNewY + 1.0f;
@@ -235,13 +227,10 @@ void noa::TileCollider2D::ApplyTileCollision(float deltaTime)
 	{
 		//下
 		
-		//const float oldMomentumY = rigidbody->momentum.y;
 		rigidbody->velocity.y = -rigidbody->velocity.y * std::abs(1 - bounce);
 		if (static_cast<int>(rigidbody->velocity.y * 10.0f) == 0)
 		{
 			rigidbody->velocity.y = 0;
-			//rigidbody->constraint.y = true;
-			//this->isGrounded = true;
 		}
 
 		newY = static_cast<int>(newY + scaleY) - scale.y;

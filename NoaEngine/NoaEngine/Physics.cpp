@@ -61,7 +61,7 @@ void noa::Rigidbody::InitVelocity(float deltaTime)
 	if (useGravity)
 	{
 		Vector<float> gravity = PhysicsSystem::gravity * this->gravityWeight;
-		if (tileCollider2D!=nullptr&&tileCollider2D->isGrounded) 
+		if (tileCollider2D != nullptr && tileCollider2D->isGrounded)
 		{
 			gravity = {};
 		}
@@ -69,7 +69,6 @@ void noa::Rigidbody::InitVelocity(float deltaTime)
 	}
 
 	this->newVelocity = (this->velocity + this->force * invMass * deltaTime + impuls * invMass);
-	
 	
 	force = {};
 	impuls = {};
@@ -133,6 +132,7 @@ void noa::Rigidbody::ApplyPositon(float deltaTime)
 	}
 
 	transform->position = newPosition;
+	
 }
 
 noa::Vector<float> noa::Rigidbody::GetSumForce()

@@ -61,7 +61,7 @@ namespace noa
 
 		static void SolveCollision(Collider2D* obj1, Collider2D* obj2);
 
-		static noa::Vector<float> CaculateCollideForce(Collider2D * obj1,Collider2D * obj2);
+		//static noa::Vector<float> CaculateCollideForce(Collider2D * obj1,Collider2D * obj2);
 
 	private:
 		static void InitVelocity(float deltaTime);
