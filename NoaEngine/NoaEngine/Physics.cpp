@@ -70,6 +70,9 @@ void noa::Rigidbody::InitVelocity(float deltaTime)
 
 	this->newVelocity = (this->velocity + this->force * invMass * deltaTime + impuls * invMass);
 	
+	this->constraint.x = false;
+	this->constraint.y = false;
+
 	force = {};
 	impuls = {};
 }
@@ -99,7 +102,6 @@ void noa::Rigidbody::ApplyVelocity(float deltaTime)
 	}
 
 	this->velocity = this->newVelocity;
-	this->momentum = this->velocity * this->mass;
 }
 
 void noa::Rigidbody::InitAngleVelocity(float deltaTime)
@@ -138,8 +140,7 @@ noa::Vector<float> noa::Rigidbody::GetSumForce()
 
 noa::Vector<float> noa::Rigidbody::GetMomentum()
 {
-
-	return this->momentum;
+	return this->velocity * this->mass;
 }
 
 void noa::Rigidbody::AddForce(const Vector<float>& force, ForceType forceType)
@@ -173,6 +174,11 @@ void noa::Rigidbody::SetMass(float value)
 void noa::Rigidbody::SetBodyType(BodyType bodyType)
 {
 	this->bodyType = bodyType;
+}
+
+noa::Vector<bool> noa::Rigidbody::GetConstraint()
+{
+	return this->constraint;
 }
 
 void noa::Rigidbody::AddAntiGravity()

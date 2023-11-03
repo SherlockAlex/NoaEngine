@@ -177,28 +177,77 @@ void noa::PhysicsSystem::SolveCollision(Collider2D* obj1, Collider2D* obj2)
 		const noa::Vector<float> p = p1 + p2;
 
 		//弹性碰撞
-		const noa::Vector<float> deltaP1 = (p * m1 * invSumMass - p1) * 2.0f;
-		const noa::Vector<float> deltaP2 = { -deltaP1.x,-deltaP1.y };
+		const float bounce = 1.0f;
 
-		//计算损失
+		const bool constraintX1 = obj1->rigidbody->constraint.x;
+		const bool constraintY1 = obj1->rigidbody->constraint.y;
+		const bool constraintX2 = obj2->rigidbody->constraint.x;
+		const bool constraintY2 = obj2->rigidbody->constraint.x;
 
-		const float currentX1 = obj1->GetActor()->transform.position.x;
-		const float currentY1 = obj1->GetActor()->transform.position.y;
-		const float currentX2 = obj2->GetActor()->transform.position.x;
-		const float currentY2 = obj2->GetActor()->transform.position.y;
+		//x方向的约束
+		if (constraintX1 || constraintX2)
+		{
+			//如果双方有一方的x是有约束的
+			if (constraintX1
+				&& !constraintX2)
+			{
+				obj2->rigidbody->velocity.x = -obj2->rigidbody->velocity.x * bounce;
+				if (static_cast<int>(obj2->rigidbody->velocity.x * 10.0f) == 0)
+				{
+					obj2->rigidbody->velocity.x = 0;
+					obj2->rigidbody->constraint.x = true;
+				}
+			}
+			else if(constraintX2
+				&&!constraintX1)
+			{
+				obj1->rigidbody->velocity.x = -obj1->rigidbody->velocity.x * bounce;
+				if (static_cast<int>(obj1->rigidbody->velocity.x * 10.0f) == 0)
+				{
+					obj1->rigidbody->velocity.x = 0;
+					obj1->rigidbody->constraint.x = true;
+				}
+			}
+		}
 
-		const float currentDeltaX = currentX1 - currentX2;
-		const float currentDeltaY = currentY1 - currentY2;
+		if (constraintY1 || constraintY2)
+		{
+			//如果双方有一方的x是有约束的
+			if (constraintY1
+				&& !constraintY2)
+			{
+				obj2->rigidbody->velocity.y = -obj2->rigidbody->velocity.y * bounce;
+				if (static_cast<int>(obj2->rigidbody->velocity.y * 10.0f) == 0)
+				{
+					obj2->rigidbody->velocity.y = 0;
+					obj2->rigidbody->constraint.y = true;
+				}
+			}
+			else if (constraintY2
+				&& !constraintY1)
+			{
+				obj1->rigidbody->velocity.y = -obj1->rigidbody->velocity.y * bounce;
+				if (static_cast<int>(obj1->rigidbody->velocity.y * 10.0f) == 0)
+				{
+					obj1->rigidbody->velocity.y = 0;
+					obj1->rigidbody->constraint.y = true;
+				}
+			}
+		}
 
-		const float currentDistance = std::sqrtf(currentDeltaX * currentDeltaX 
-			+ currentDeltaY * currentDeltaY);
+		if (!constraintX1&&!constraintX2&&!constraintY1&&!constraintY2)
+		{
+			//双方都没有任何约束
+			const noa::Vector<float> deltaP1 = (p * m1 * invSumMass - p1) * 2.0f;
+			const noa::Vector<float> deltaP2 = (p * m2 * invSumMass - p2) * 2.0f;
 
-		const float overlap = (currentDistance > sumRadius) ?0.8f : (currentDistance / sumRadius);
+			const noa::Vector<float> newP1 = (p * m1 * invSumMass * 2.0f - p1);
+			const noa::Vector<float> newP2 = (p * m2 * invSumMass * 2.0f - p2);
 
-		const noa::Vector<float> impulse = deltaP1*overlap;
-
-		obj1->rigidbody->AddForce(impulse, ForceType::IMPULSE_FORCE);
-		obj2->rigidbody->AddForce(impulse*(-1.0f), ForceType::IMPULSE_FORCE);
+			obj1->rigidbody->velocity = newP1 * obj1->rigidbody->invMass;
+			obj2->rigidbody->velocity = newP2 * obj2->rigidbody->invMass;
+		}
+		
 
 	}
 

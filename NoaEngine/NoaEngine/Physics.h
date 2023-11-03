@@ -87,6 +87,12 @@ namespace noa {
 
 		Transform* transform = nullptr;
 
+		//约束
+		//一个物体进入约束状态条件
+		//和运动边界发生碰撞时
+		//和已经进入约束状态的物体发生碰撞，同时自身的动量分量趋近0
+		Vector<bool> constraint;
+
 	private:
 		Rigidbody(Actor* actor);
 		~Rigidbody();
@@ -119,7 +125,7 @@ namespace noa {
 		void AddForce(const Vector<float> & force, ForceType forceType);
 		void SetMass(float value);
 		void SetBodyType(BodyType bodyType);
-
+		Vector<bool> GetConstraint();
 		void AddAntiGravity();
 
 	};

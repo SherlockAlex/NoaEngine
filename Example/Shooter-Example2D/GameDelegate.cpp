@@ -41,7 +41,7 @@ Test* hold = nullptr;
 int i = 0;
 void GameDelegate::OnUpdate(noa::Scene* scene)
 {
-	if (i<2) 
+	if (i<10) 
 	{
 		Test* test = noa::NObject<Test>::Create(scene);
 		test->transform.position = { 2,3 };
@@ -65,7 +65,7 @@ void GameDelegate::OnUpdate(noa::Scene* scene)
 	{
 		//noa::Debug::Log("速度:" + noa::ToString<float>(hold->rigid->velocity));
 		//noa::Debug::Log("受力:" + noa::ToString<float>(hold->rigid->GetSumForce()));
-		noa::Debug::Log("动量:" + noa::ToString<float>(hold->rigid->GetMomentum()));
+		noa::Debug::Log("约束:" + noa::ToString<bool>(hold->rigid->GetConstraint()));
 	}
 
 	

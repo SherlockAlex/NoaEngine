@@ -180,6 +180,7 @@ void noa::TileCollider2D::ApplyTileCollision(float deltaTime)
 		//вС
 		this->isHitCollisionTile = true;
 		
+		//const float oldMementumX = rigidbody->momentum.x;
 		rigidbody->velocity.x = -rigidbody->velocity.x * std::abs(1-friction);
 		if (static_cast<int>(rigidbody->velocity.x) == 0)
 		{
@@ -187,10 +188,8 @@ void noa::TileCollider2D::ApplyTileCollision(float deltaTime)
 			
 		}
 
-		this->rigidbody->momentum.x = this->rigidbody->velocity.x * this->rigidbody->mass;
-
-
 		newX = intNewX + 1.0f;
+		rigidbody->constraint.x = true;
 		intNewX = static_cast<int>(newX);
 	}
 
@@ -201,16 +200,16 @@ void noa::TileCollider2D::ApplyTileCollision(float deltaTime)
 		//ср
 		this->isHitCollisionTile = true;
 
-		rigidbody->velocity.x = -rigidbody->velocity.x * std::abs(1-friction);
+		//const float oldMementumX = rigidbody->momentum.x;
+		rigidbody->velocity.x = -rigidbody->velocity.x * std::abs(1 - friction);
 		if (static_cast<int>(rigidbody->velocity.x) == 0)
 		{
 			rigidbody->velocity.x = 0;
-			
+
 		}
 
-		this->rigidbody->momentum.x = this->rigidbody->velocity.x * this->rigidbody->mass;
-
 		newX = static_cast<int>(newX + scaleX) - scale.x;
+		rigidbody->constraint.x = true;
 		intNewX = static_cast<int>(newX);
 	}
 
@@ -220,15 +219,15 @@ void noa::TileCollider2D::ApplyTileCollision(float deltaTime)
 		//ио
 		this->isHitCollisionTile = true;
 		
+		//const float oldMomentumY = rigidbody->momentum.y;
 		rigidbody->velocity.y = -rigidbody->velocity.y * std::abs(1 - bounce);
 		if (static_cast<int>(rigidbody->velocity.y) == 0)
 		{
 			rigidbody->velocity.y = 0;
 		}
 
-		this->rigidbody->momentum.y = this->rigidbody->velocity.y * this->rigidbody->mass;
-		
 		newY = intNewY + 1.0f;
+		rigidbody->constraint.y = true;
 		intNewY = static_cast<int>(newY);
 
 	}
@@ -238,16 +237,18 @@ void noa::TileCollider2D::ApplyTileCollision(float deltaTime)
 	{
 		//об
 		this->isGrounded = true;
+		//const float oldMomentumY = rigidbody->momentum.y;
 		rigidbody->velocity.y = -rigidbody->velocity.y * std::abs(1 - bounce);
 		if (static_cast<int>(rigidbody->velocity.y) == 0)
 		{
 			rigidbody->velocity.y = 0;
-			
 		}
 
-		this->rigidbody->momentum.y = this->rigidbody->velocity.y * this->rigidbody->mass;
-		
+		//const float impulseY = rigidbody->velocity.y * rigidbody->mass
+		//	- oldMomentumY;
+		//rigidbody->AddForce({ 0.0f,impulseY }, ForceType::IMPULSE_FORCE);
 		newY = static_cast<int>(newY + scaleY) - scale.y;
+		rigidbody->constraint.y = true;
 		intNewY = static_cast<int>(newY);
 
 	}
