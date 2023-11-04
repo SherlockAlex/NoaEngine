@@ -34,8 +34,11 @@ namespace noa {
 		static SpriteRenderer* Create(Actor * actor);
 
 		void UpdateSprite(const SpriteFile & spriteFile);
-		void SetSprite(Sprite * sprite);
-		void SetScale(float x,float y);
+
+		SpriteRenderer& SetSprite(Sprite * sprite);
+		SpriteRenderer& SetScale(float x,float y);
+
+		SpriteRenderer* Apply();
 
 		void Update() override;
 

@@ -6,16 +6,11 @@ Player::Player(noa::Scene * scene):noa::Actor(scene)
 {
 	this->tag = "Player";
 
-	this->spriteRenderer->SetSprite(&ResourceManager::playerImage);
-	this->spriteRenderer->SetScale(2,2);
 	this->rigid->useCollision = true;
 	this->rigid->useGravity = false;
 	this->rigid->damping = 0.0f;
 	this->transform.position = { 3,3 };
-	this->tileCollider->SetScale(1.5f,1.7f);
 	this->rigid->gravityWeight = 5.5f;
-	this->collider->radius = 1.0f;
-
 	this->rigid->SetBodyType(noa::BodyType::DYNAMIC);
 
 }

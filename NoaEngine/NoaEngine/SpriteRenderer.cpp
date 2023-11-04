@@ -34,28 +34,36 @@ void noa::SpriteRenderer::UpdateSprite(const SpriteFile& spriteFile)
 	sprite->UpdateImage(spriteFile);
 }
 
-void noa::SpriteRenderer::SetSprite(Sprite* sprite)
+noa::SpriteRenderer& noa::SpriteRenderer::SetSprite(Sprite* sprite)
 {
 	if (sprite == nullptr) 
 	{
-		return;
+		return *this;
 	}
 	this->sprite = sprite;
 
 	if (spriteGPU == nullptr) 
 	{
 		spriteGPU = SpriteGPU::Create(sprite);
-		return;
+		return *this;
 	}
 
 	spriteGPU->Update(sprite);
 	
+	return *this;
+
 }
 
-void noa::SpriteRenderer::SetScale(float x, float y)
+noa::SpriteRenderer& noa::SpriteRenderer::SetScale(float x, float y)
 {
 	this->scale.x = x;
 	this->scale.y = y;
+	return *this;
+}
+
+noa::SpriteRenderer* noa::SpriteRenderer::Apply()
+{
+	return this;
 }
 
 void noa::SpriteRenderer::Update()

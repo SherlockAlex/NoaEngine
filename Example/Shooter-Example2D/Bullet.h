@@ -1,5 +1,6 @@
 #pragma once
 #include "Engine.h"
+#include "ResourceManager.h"
 class Bullet:public noa::Actor
 {
 private:
@@ -26,9 +27,18 @@ public:
 private:
 
 	noa::Rigidbody* rigid = noa::Rigidbody::Create(this);
-	noa::SpriteRenderer* spriteRenderer = noa::SpriteRenderer::Create(this);
-	noa::CircleCollider2D* collider = noa::CircleCollider2D::Create(this,rigid);
-	noa::TileCollider2D* tileCollider = noa::TileCollider2D::Create(this,rigid);
+	noa::SpriteRenderer* spriteRenderer = noa::SpriteRenderer::Create(this)
+		->SetSprite(&ResourceManager::bulletImage)
+		.Apply();
+
+	noa::CircleCollider2D* collider = noa::CircleCollider2D::Create(this)
+		->SetRigidbody(rigid)
+		.SetIsTrigger(true)
+		.Apply();
+
+	noa::TileCollider2D* tileCollider = noa::TileCollider2D::Create(this)
+		->SetRigidbody(rigid)
+		.Apply();
 
 	float timer = 0;
 

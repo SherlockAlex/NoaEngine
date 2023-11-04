@@ -26,7 +26,7 @@ namespace noa
 		bool isTrigger = false;
 
 	protected:
-		Collider2D(Actor* actor, Rigidbody* rigidbody);
+		Collider2D(Actor* actor);
 		virtual ~Collider2D() override;
 		void ApplyTrigger();
 	public:
@@ -36,6 +36,9 @@ namespace noa
 		T* GetCollider2DAs() {
 			return dynamic_cast<T*>(this);
 		}
+
+	protected:
+		void SetRigidbody(Rigidbody * rigidbody);
 		
 	};
 
@@ -45,12 +48,15 @@ namespace noa
 	public:
 		Vector<float> scale = {1,1};
 	private:
-		BoxCollider2D(Actor * actor,Rigidbody* rigidbody);
+		BoxCollider2D(Actor * actor);
 		~BoxCollider2D() override;
 
 	public:
-		static BoxCollider2D* Create(Actor * actor,Rigidbody * rigidbody);
-
+		static BoxCollider2D* Create(Actor * actor);
+		BoxCollider2D& SetScale(int x, int y);
+		BoxCollider2D& SetRigidbody(Rigidbody * rigidbody);
+		BoxCollider2D& SetIsTrigger(bool isTrigger);
+		BoxCollider2D* Apply();
 	};
 
 	class CircleCollider2D final:public Collider2D
@@ -60,10 +66,14 @@ namespace noa
 	public:
 		float radius = 0.5f;
 	private:
-		CircleCollider2D(Actor* actor, Rigidbody* rigidbody);
+		CircleCollider2D(Actor* actor);
 		~CircleCollider2D() override;
 	public:
-		static CircleCollider2D* Create(Actor* actor, Rigidbody* rigidbody);
+		static CircleCollider2D* Create(Actor* actor);
+		CircleCollider2D & SetRigidbody(Rigidbody* rigidbody);
+		CircleCollider2D & SetRadius(float radius);
+		CircleCollider2D& SetIsTrigger(bool isTrigger);
+		CircleCollider2D* Apply();
 
 	};
 
@@ -73,16 +83,21 @@ namespace noa
 		NOBJECT(TileCollider2D)
 		friend class Rigidbody;
 	private:
-		TileCollider2D(Actor* actor, Rigidbody* rigidbody);
+		TileCollider2D(Actor* actor);
 		~TileCollider2D();
 	public:
-		static TileCollider2D* Create(Actor* actor, Rigidbody* rigidbody);
+		static TileCollider2D* Create(Actor* actor);
 		void Update() override;
 		void LateUpdate() override;
-		void SetTileMap(TileMap* tileMap);
+		
 		void ApplyTileCollision(float deltaTime);
 		void ApplyConstraint(float deltaTime);
-		void SetScale(float x,float y);
+
+		TileCollider2D& SetTileMap(TileMap* tileMap);
+		TileCollider2D& SetScale(float x,float y);
+		TileCollider2D& SetRigidbody(Rigidbody * rigidbody);
+		TileCollider2D* Apply();
+
 	private:
 		TileMap* tileMap = nullptr;
 		bool isHitCollisionTile = false;

@@ -5,8 +5,6 @@
 Bullet::Bullet(noa::Scene* scene) :noa::Actor(scene) {
 	this->rigid->useGravity = false;
 	this->rigid->damping = 0;
-	this->collider->isTrigger = true;
-	this->spriteRenderer->SetSprite(&ResourceManager::bulletImage);
 }
 
 Bullet::~Bullet() {
