@@ -16,8 +16,8 @@ Test::Test(noa::Scene * scene):noa::Actor(scene)
 	this->rigid->damping = 0.0f;
 	this->rigid->SetBodyType(noa::BodyType::DYNAMIC);
 
-	this->tileCollider->bounce = 0.5f;
-	this->tileCollider->friction = 0.8f;
+	this->rigid->bounce = 0.5f;
+	this->rigid->friction = 0.8f;
 
 }
 

@@ -8,7 +8,7 @@ Bullet::Bullet(Scene * scene,Sprite* sprite) :Actor(scene)
 	this->animation->SetSpeed(20);
 	this->animation->SetLoop(false);
 
-	rigid->SetTileColliderScale(0.7,0.7);
+	tileCollider->SetScale(0.7f, 0.7f);
 	collider->radius = 0.2;
 	collider->isTrigger = true;
 	rigid->useGravity = false;

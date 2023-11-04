@@ -75,6 +75,14 @@ void noa::Rigidbody::InitVelocity(float deltaTime)
 
 	constraint.x = false;
 	constraint.y = false;
+	if (constraint.x)
+	{
+		newVelocity.x = 0;
+	}
+	if (constraint.y) 
+	{
+		newVelocity.y = 0;
+	}
 
 }
 

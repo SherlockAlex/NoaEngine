@@ -1,34 +1,45 @@
 ﻿  Actor.cpp
+  ActorComponent.cpp
+  ActorPool.cpp
+  ActorPoolFactory.cpp
+  Animator.cpp
+  AudioSource.cpp
+  AudioSystem.cpp
+  AudioSystem_SDL.cpp
   Camera.cpp
-D:\Work\NoaEngine\NoaEngine\NoaEngine\Camera.cpp(119,11): warning C4244: “参数”: 从“T”转换到“float”，可能丢失数据
-          with
-          [
-              T=int
-          ]
-D:\Work\NoaEngine\NoaEngine\NoaEngine\Camera.cpp(118,11): warning C4244: “参数”: 从“T”转换到“float”，可能丢失数据
-          with
-          [
-              T=int
-          ]
-D:\Work\NoaEngine\NoaEngine\NoaEngine\Camera.cpp(152,49): warning C4244: “参数”: 从“float”转换到“const unsigned __int64”，可能丢失数据
   Collider2D.cpp
+  Debug.cpp
+  GLRenderer.cpp
+  GLShader.cpp
+  GLTexture.cpp
+  Graphic.cpp
+  InputSystem.cpp
+  IPoolObjectFactroy.cpp
+  NoaAction.cpp
   NoaEngine.cpp
+  NoaGUI.cpp
+  正在编译...
+  NoaMath.cpp
+  NObject.cpp
   Physics.cpp
-D:\Work\NoaEngine\NoaEngine\NoaEngine\Physics.cpp(170,43): warning C4244: “参数”: 从“float”转换到“const int”，可能丢失数据
-D:\Work\NoaEngine\NoaEngine\NoaEngine\Physics.cpp(183,18): warning C4244: “=”: 从“int”转换到“float”，可能丢失数据
-D:\Work\NoaEngine\NoaEngine\NoaEngine\Physics.cpp(187,35): warning C4244: “参数”: 从“float”转换到“const int”，可能丢失数据
-D:\Work\NoaEngine\NoaEngine\NoaEngine\Physics.cpp(188,47): warning C4244: “参数”: 从“float”转换到“const int”，可能丢失数据
-D:\Work\NoaEngine\NoaEngine\NoaEngine\Physics.cpp(188,34): warning C4244: “参数”: 从“float”转换到“const int”，可能丢失数据
-D:\Work\NoaEngine\NoaEngine\NoaEngine\Physics.cpp(205,34): warning C4244: “参数”: 从“float”转换到“const int”，可能丢失数据
-D:\Work\NoaEngine\NoaEngine\NoaEngine\Physics.cpp(217,18): warning C4244: “=”: 从“int”转换到“float”，可能丢失数据
-D:\Work\NoaEngine\NoaEngine\NoaEngine\Physics.cpp(222,45): warning C4244: “参数”: 从“float”转换到“const int”，可能丢失数据
-D:\Work\NoaEngine\NoaEngine\NoaEngine\Physics.cpp(223,51): warning C4244: “参数”: 从“float”转换到“const int”，可能丢失数据
-D:\Work\NoaEngine\NoaEngine\NoaEngine\Physics.cpp(223,36): warning C4244: “参数”: 从“float”转换到“const int”，可能丢失数据
   PhysicsSystem.cpp
+  Platform.cpp
+  Platform_Linux.cpp
+  Platform_Windows.cpp
+  Renderer.cpp
   Resource.cpp
   Scene.cpp
+  Screen.cpp
+  SDLRenderer.cpp
+  SDLTexture.cpp
+  Sprite.cpp
   SpriteRenderer.cpp
+  StateMachine.cpp
+  Texture.cpp
+  Time.cpp
+  Transform.cpp
   Bullet.cpp
+D:\Work\NoaEngine\Example\FPS-Example3D\Player.h(18,31): error C2061: 语法错误: 标识符“MapFile”
 D:\Work\NoaEngine\Example\FPS-Example3D\WolfResource.h(31,98): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
           with
           [
@@ -39,10 +50,12 @@ D:\Work\NoaEngine\Example\FPS-Example3D\WolfResource.h(31,76): warning C4244: �
           [
               T=int
           ]
-D:\Work\NoaEngine\Example\FPS-Example3D\Bullet.cpp(11,34): warning C4305: “参数”: 从“double”到“float”截断
-D:\Work\NoaEngine\Example\FPS-Example3D\Bullet.cpp(11,30): warning C4305: “参数”: 从“double”到“float”截断
+D:\Work\NoaEngine\Example\FPS-Example3D\Bullet.cpp(11,9): error C2039: "SetTileColliderScale": 不是 "noa::Rigidbody" 的成员
+D:\Work\NoaEngine\NoaEngine\NoaEngine\PhysicsSystem.h(23,8): message : 参见“noa::Rigidbody”的声明
 D:\Work\NoaEngine\Example\FPS-Example3D\Bullet.cpp(12,21): warning C4305: “=”: 从“double”到“float”截断
+  正在编译...
   Caco.cpp
+D:\Work\NoaEngine\Example\FPS-Example3D\Player.h(18,31): error C2061: 语法错误: 标识符“MapFile”
 D:\Work\NoaEngine\Example\FPS-Example3D\WolfResource.h(31,98): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
           with
           [
@@ -64,10 +77,34 @@ D:\Work\NoaEngine\Example\FPS-Example3D\WolfResource.h(31,76): warning C4244: �
           [
               T=int
           ]
+D:\Work\NoaEngine\Example\FPS-Example3D\CacoState.cpp(31,16): error C2039: "useMotion": 不是 "noa::Rigidbody" 的成员
+D:\Work\NoaEngine\NoaEngine\NoaEngine\PhysicsSystem.h(23,8): message : 参见“noa::Rigidbody”的声明
+D:\Work\NoaEngine\Example\FPS-Example3D\CacoState.cpp(46,17): error C2039: "useMotion": 不是 "noa::Rigidbody" 的成员
+D:\Work\NoaEngine\NoaEngine\NoaEngine\PhysicsSystem.h(23,8): message : 参见“noa::Rigidbody”的声明
+D:\Work\NoaEngine\Example\FPS-Example3D\CacoState.cpp(54,17): error C2039: "useMotion": 不是 "noa::Rigidbody" 的成员
+D:\Work\NoaEngine\NoaEngine\NoaEngine\PhysicsSystem.h(23,8): message : 参见“noa::Rigidbody”的声明
+D:\Work\NoaEngine\Example\FPS-Example3D\CacoState.cpp(92,16): error C2039: "useMotion": 不是 "noa::Rigidbody" 的成员
+D:\Work\NoaEngine\NoaEngine\NoaEngine\PhysicsSystem.h(23,8): message : 参见“noa::Rigidbody”的声明
+D:\Work\NoaEngine\Example\FPS-Example3D\CacoState.cpp(102,17): error C2039: "useMotion": 不是 "noa::Rigidbody" 的成员
+D:\Work\NoaEngine\NoaEngine\NoaEngine\PhysicsSystem.h(23,8): message : 参见“noa::Rigidbody”的声明
+D:\Work\NoaEngine\Example\FPS-Example3D\CacoState.cpp(113,17): error C2039: "useMotion": 不是 "noa::Rigidbody" 的成员
+D:\Work\NoaEngine\NoaEngine\NoaEngine\PhysicsSystem.h(23,8): message : 参见“noa::Rigidbody”的声明
+D:\Work\NoaEngine\Example\FPS-Example3D\CacoState.cpp(158,20): error C2039: "SetTileMap": 不是 "noa::Rigidbody" 的成员
+D:\Work\NoaEngine\NoaEngine\NoaEngine\PhysicsSystem.h(23,8): message : 参见“noa::Rigidbody”的声明
+D:\Work\NoaEngine\Example\FPS-Example3D\CacoState.cpp(158,51): error C2039: "GetTileMap": 不是 "noa::Rigidbody" 的成员
+D:\Work\NoaEngine\NoaEngine\NoaEngine\PhysicsSystem.h(23,8): message : 参见“noa::Rigidbody”的声明
 D:\Work\NoaEngine\Example\FPS-Example3D\CacoState.cpp(162,26): warning C4244: “参数”: 从“double”转换到“float”，可能丢失数据
+D:\Work\NoaEngine\Example\FPS-Example3D\CacoState.cpp(175,16): error C2039: "useMotion": 不是 "noa::Rigidbody" 的成员
+D:\Work\NoaEngine\NoaEngine\NoaEngine\PhysicsSystem.h(23,8): message : 参见“noa::Rigidbody”的声明
+D:\Work\NoaEngine\Example\FPS-Example3D\CacoState.cpp(188,17): error C2039: "useMotion": 不是 "noa::Rigidbody" 的成员
+D:\Work\NoaEngine\NoaEngine\NoaEngine\PhysicsSystem.h(23,8): message : 参见“noa::Rigidbody”的声明
 D:\Work\NoaEngine\Example\FPS-Example3D\CacoState.cpp(226,24): warning C4244: “参数”: 从“double”转换到“float”，可能丢失数据
+D:\Work\NoaEngine\Example\FPS-Example3D\CacoState.cpp(258,16): error C2039: "useMotion": 不是 "noa::Rigidbody" 的成员
+D:\Work\NoaEngine\NoaEngine\NoaEngine\PhysicsSystem.h(23,8): message : 参见“noa::Rigidbody”的声明
 D:\Work\NoaEngine\Example\FPS-Example3D\CacoState.cpp(260,30): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
 D:\Work\NoaEngine\Example\FPS-Example3D\CacoState.cpp(292,24): warning C4244: “参数”: 从“double”转换到“float”，可能丢失数据
+D:\Work\NoaEngine\Example\FPS-Example3D\CacoState.cpp(314,16): error C2039: "useMotion": 不是 "noa::Rigidbody" 的成员
+D:\Work\NoaEngine\NoaEngine\NoaEngine\PhysicsSystem.h(23,8): message : 参见“noa::Rigidbody”的声明
 D:\Work\NoaEngine\Example\FPS-Example3D\CacoState.cpp(316,30): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
   Enimy.cpp
   Enter.cpp
@@ -85,6 +122,7 @@ D:\Work\NoaEngine\Example\FPS-Example3D\WolfResource.h(31,76): warning C4244: �
           ]
 D:\Work\NoaEngine\Example\FPS-Example3D\Item.cpp(45,30): warning C4305: “*=”: 从“double”到“float”截断
   Level00.cpp
+D:\Work\NoaEngine\Example\FPS-Example3D\Player.h(18,31): error C2061: 语法错误: 标识符“MapFile”
 D:\Work\NoaEngine\Example\FPS-Example3D\WolfResource.h(31,98): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
           with
           [
@@ -95,6 +133,71 @@ D:\Work\NoaEngine\Example\FPS-Example3D\WolfResource.h(31,76): warning C4244: �
           [
               T=int
           ]
+D:\Work\NoaEngine\Example\FPS-Example3D\Level00.cpp(11,24): error C2065: “MapInfo”: 未声明的标识符
+D:\Work\NoaEngine\Example\FPS-Example3D\Level00.cpp(11,13): error C2923: "std::shared_ptr": "MapInfo" 不是参数 "_Ty" 的有效 模板 类型参数
+D:\Work\NoaEngine\Example\FPS-Example3D\Level00.cpp(11,24): message : 参见“MapInfo”的声明
+D:\Work\NoaEngine\Example\FPS-Example3D\Level00.cpp(11,46): error C2514: “std::shared_ptr”: 无法构建类模板
+D:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\memory(1555,1): message : 参见“std::shared_ptr”的声明
+D:\Work\NoaEngine\Example\FPS-Example3D\Level00.cpp(18,25): error C2065: “MapInfo”: 未声明的标识符
+D:\Work\NoaEngine\Example\FPS-Example3D\Level00.cpp(18,13): error C2672: “std::make_shared”: 未找到匹配的重载函数
+D:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\memory(2764,5): message : 可能是“std::shared_ptr<_Ty> std::make_shared(_Types &&...)”
+D:\Work\NoaEngine\Example\FPS-Example3D\Level00.cpp(18,25): message : “std::make_shared”:“_Ty”的 模板 参数无效，应为类型
+D:\Work\NoaEngine\Example\FPS-Example3D\Level00.cpp(19,2): error C2675: 一元“->”:“std::shared_ptr”不定义该运算符或到预定义运算符可接收类型的转换
+D:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\memory(1762,22): message : 可能是“_Ty2 *std::shared_ptr<_Ty>::operator ->(void) noexcept const”
+D:\Work\NoaEngine\Example\FPS-Example3D\Level00.cpp(19,5): message : “_Ty2 *std::shared_ptr<_Ty>::operator ->(void) noexcept const”: 无法推导“__formal”的 模板 参数
+D:\Work\NoaEngine\Example\FPS-Example3D\Level00.cpp(19,7): error C2039: "mapLayer": 不是 "std::shared_ptr" 的成员
+D:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\memory(1555,1): message : 参见“std::shared_ptr”的声明
+D:\Work\NoaEngine\Example\FPS-Example3D\Level00.cpp(21,13): error C2039: "LoadTileMap": 不是 "noa::Resource" 的成员
+D:\Work\NoaEngine\NoaEngine\NoaEngine\Resource.h(85,8): message : 参见“noa::Resource”的声明
+D:\Work\NoaEngine\Example\FPS-Example3D\Level00.cpp(21,24): error C3861: “LoadTileMap”: 找不到标识符
+D:\Work\NoaEngine\Example\FPS-Example3D\Level00.cpp(23,2): error C2675: 一元“->”:“std::shared_ptr”不定义该运算符或到预定义运算符可接收类型的转换
+D:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\memory(1762,22): message : 可能是“_Ty2 *std::shared_ptr<_Ty>::operator ->(void) noexcept const”
+D:\Work\NoaEngine\Example\FPS-Example3D\Level00.cpp(23,5): message : “_Ty2 *std::shared_ptr<_Ty>::operator ->(void) noexcept const”: 无法推导“__formal”的 模板 参数
+D:\Work\NoaEngine\Example\FPS-Example3D\Level00.cpp(23,7): error C2039: "objectLayer": 不是 "std::shared_ptr" 的成员
+D:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\memory(1555,1): message : 参见“std::shared_ptr”的声明
+D:\Work\NoaEngine\Example\FPS-Example3D\Level00.cpp(23,38): error C2065: “MapFile”: 未声明的标识符
+D:\Work\NoaEngine\Example\FPS-Example3D\Level00.cpp(23,57): error C2039: "LoadTileMap": 不是 "noa::Resource" 的成员
+D:\Work\NoaEngine\NoaEngine\NoaEngine\Resource.h(85,8): message : 参见“noa::Resource”的声明
+D:\Work\NoaEngine\Example\FPS-Example3D\Level00.cpp(23,68): error C3861: “LoadTileMap”: 找不到标识符
+D:\Work\NoaEngine\Example\FPS-Example3D\Level00.cpp(25,9): error C2039: "SetTileMap": 不是 "noa::Scene" 的成员
+D:\Work\NoaEngine\NoaEngine\NoaEngine\Camera.h(27,8): message : 参见“noa::Scene”的声明
+D:\Work\NoaEngine\Example\FPS-Example3D\Level00.cpp(25,20): error C2675: 一元“->”:“std::shared_ptr”不定义该运算符或到预定义运算符可接收类型的转换
+D:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\memory(1762,22): message : 可能是“_Ty2 *std::shared_ptr<_Ty>::operator ->(void) noexcept const”
+D:\Work\NoaEngine\Example\FPS-Example3D\Level00.cpp(25,23): message : “_Ty2 *std::shared_ptr<_Ty>::operator ->(void) noexcept const”: 无法推导“__formal”的 模板 参数
+D:\Work\NoaEngine\Example\FPS-Example3D\Level00.cpp(25,25): error C2039: "mapLayer": 不是 "std::shared_ptr" 的成员
+D:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\memory(1555,1): message : 参见“std::shared_ptr”的声明
+D:\Work\NoaEngine\Example\FPS-Example3D\Level00.cpp(33,21): error C2675: 一元“->”:“std::shared_ptr”不定义该运算符或到预定义运算符可接收类型的转换
+D:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\memory(1762,22): message : 可能是“_Ty2 *std::shared_ptr<_Ty>::operator ->(void) noexcept const”
+D:\Work\NoaEngine\Example\FPS-Example3D\Level00.cpp(33,24): message : “_Ty2 *std::shared_ptr<_Ty>::operator ->(void) noexcept const”: 无法推导“__formal”的 模板 参数
+D:\Work\NoaEngine\Example\FPS-Example3D\Level00.cpp(33,26): error C2039: "mapLayer": 不是 "std::shared_ptr" 的成员
+D:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\memory(1555,1): message : 参见“std::shared_ptr”的声明
+D:\Work\NoaEngine\Example\FPS-Example3D\Level00.cpp(40,22): error C2675: 一元“->”:“std::shared_ptr”不定义该运算符或到预定义运算符可接收类型的转换
+D:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\memory(1762,22): message : 可能是“_Ty2 *std::shared_ptr<_Ty>::operator ->(void) noexcept const”
+D:\Work\NoaEngine\Example\FPS-Example3D\Level00.cpp(40,25): message : “_Ty2 *std::shared_ptr<_Ty>::operator ->(void) noexcept const”: 无法推导“__formal”的 模板 参数
+D:\Work\NoaEngine\Example\FPS-Example3D\Level00.cpp(40,27): error C2039: "objectLayer": 不是 "std::shared_ptr" 的成员
+D:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\memory(1555,1): message : 参见“std::shared_ptr”的声明
+D:\Work\NoaEngine\Example\FPS-Example3D\Level00.cpp(42,23): error C2675: 一元“->”:“std::shared_ptr”不定义该运算符或到预定义运算符可接收类型的转换
+D:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\memory(1762,22): message : 可能是“_Ty2 *std::shared_ptr<_Ty>::operator ->(void) noexcept const”
+D:\Work\NoaEngine\Example\FPS-Example3D\Level00.cpp(42,26): message : “_Ty2 *std::shared_ptr<_Ty>::operator ->(void) noexcept const”: 无法推导“__formal”的 模板 参数
+D:\Work\NoaEngine\Example\FPS-Example3D\Level00.cpp(42,28): error C2039: "objectLayer": 不是 "std::shared_ptr" 的成员
+D:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\memory(1555,1): message : 参见“std::shared_ptr”的声明
+D:\Work\NoaEngine\Example\FPS-Example3D\Level00.cpp(44,8): error C2675: 一元“->”:“std::shared_ptr”不定义该运算符或到预定义运算符可接收类型的转换
+D:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\memory(1762,22): message : 可能是“_Ty2 *std::shared_ptr<_Ty>::operator ->(void) noexcept const”
+D:\Work\NoaEngine\Example\FPS-Example3D\Level00.cpp(44): message : “_Ty2 *std::shared_ptr<_Ty>::operator ->(void) noexcept const”: 无法推导“__formal”的 模板 参数
+D:\Work\NoaEngine\Example\FPS-Example3D\Level00.cpp(44,13): error C2039: "objectLayer": 不是 "std::shared_ptr" 的成员
+D:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\memory(1555,1): message : 参见“std::shared_ptr”的声明
+D:\Work\NoaEngine\Example\FPS-Example3D\Level00.cpp(44,36): error C2675: 一元“->”:“std::shared_ptr”不定义该运算符或到预定义运算符可接收类型的转换
+D:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\memory(1762,22): message : 可能是“_Ty2 *std::shared_ptr<_Ty>::operator ->(void) noexcept const”
+D:\Work\NoaEngine\Example\FPS-Example3D\Level00.cpp(44): message : “_Ty2 *std::shared_ptr<_Ty>::operator ->(void) noexcept const”: 无法推导“__formal”的 模板 参数
+D:\Work\NoaEngine\Example\FPS-Example3D\Level00.cpp(44,41): error C2039: "objectLayer": 不是 "std::shared_ptr" 的成员
+D:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\memory(1555,1): message : 参见“std::shared_ptr”的声明
+D:\Work\NoaEngine\Example\FPS-Example3D\Level00.cpp(47,19): error C2039: "SetTileMap": 不是 "noa::Rigidbody" 的成员
+D:\Work\NoaEngine\NoaEngine\NoaEngine\PhysicsSystem.h(23,8): message : 参见“noa::Rigidbody”的声明
+D:\Work\NoaEngine\Example\FPS-Example3D\Level00.cpp(47,30): error C2675: 一元“->”:“std::shared_ptr”不定义该运算符或到预定义运算符可接收类型的转换
+D:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\memory(1762,22): message : 可能是“_Ty2 *std::shared_ptr<_Ty>::operator ->(void) noexcept const”
+D:\Work\NoaEngine\Example\FPS-Example3D\Level00.cpp(47,33): message : “_Ty2 *std::shared_ptr<_Ty>::operator ->(void) noexcept const”: 无法推导“__formal”的 模板 参数
+D:\Work\NoaEngine\Example\FPS-Example3D\Level00.cpp(47,35): error C2039: "mapLayer": 不是 "std::shared_ptr" 的成员
+D:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\memory(1555,1): message : 参见“std::shared_ptr”的声明
 D:\Work\NoaEngine\Example\FPS-Example3D\Level00.cpp(53,35): warning C4244: “=”: 从“int”转换到“T”，可能丢失数据
           with
           [
@@ -105,6 +208,34 @@ D:\Work\NoaEngine\Example\FPS-Example3D\Level00.cpp(54,35): warning C4244: “=�
           [
               T=float
           ]
+D:\Work\NoaEngine\Example\FPS-Example3D\Level00.cpp(62,22): error C2675: 一元“->”:“std::shared_ptr”不定义该运算符或到预定义运算符可接收类型的转换
+D:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\memory(1762,22): message : 可能是“_Ty2 *std::shared_ptr<_Ty>::operator ->(void) noexcept const”
+D:\Work\NoaEngine\Example\FPS-Example3D\Level00.cpp(62,25): message : “_Ty2 *std::shared_ptr<_Ty>::operator ->(void) noexcept const”: 无法推导“__formal”的 模板 参数
+D:\Work\NoaEngine\Example\FPS-Example3D\Level00.cpp(62,27): error C2039: "objectLayer": 不是 "std::shared_ptr" 的成员
+D:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\memory(1555,1): message : 参见“std::shared_ptr”的声明
+D:\Work\NoaEngine\Example\FPS-Example3D\Level00.cpp(64,23): error C2675: 一元“->”:“std::shared_ptr”不定义该运算符或到预定义运算符可接收类型的转换
+D:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\memory(1762,22): message : 可能是“_Ty2 *std::shared_ptr<_Ty>::operator ->(void) noexcept const”
+D:\Work\NoaEngine\Example\FPS-Example3D\Level00.cpp(64,26): message : “_Ty2 *std::shared_ptr<_Ty>::operator ->(void) noexcept const”: 无法推导“__formal”的 模板 参数
+D:\Work\NoaEngine\Example\FPS-Example3D\Level00.cpp(64,28): error C2039: "objectLayer": 不是 "std::shared_ptr" 的成员
+D:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\memory(1555,1): message : 参见“std::shared_ptr”的声明
+D:\Work\NoaEngine\Example\FPS-Example3D\Level00.cpp(66,21): error C2675: 一元“->”:“std::shared_ptr”不定义该运算符或到预定义运算符可接收类型的转换
+D:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\memory(1762,22): message : 可能是“_Ty2 *std::shared_ptr<_Ty>::operator ->(void) noexcept const”
+D:\Work\NoaEngine\Example\FPS-Example3D\Level00.cpp(66,24): message : “_Ty2 *std::shared_ptr<_Ty>::operator ->(void) noexcept const”: 无法推导“__formal”的 模板 参数
+D:\Work\NoaEngine\Example\FPS-Example3D\Level00.cpp(66,26): error C2039: "objectLayer": 不是 "std::shared_ptr" 的成员
+D:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\memory(1555,1): message : 参见“std::shared_ptr”的声明
+D:\Work\NoaEngine\Example\FPS-Example3D\Level00.cpp(66,49): error C2675: 一元“->”:“std::shared_ptr”不定义该运算符或到预定义运算符可接收类型的转换
+D:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\memory(1762,22): message : 可能是“_Ty2 *std::shared_ptr<_Ty>::operator ->(void) noexcept const”
+D:\Work\NoaEngine\Example\FPS-Example3D\Level00.cpp(66,52): message : “_Ty2 *std::shared_ptr<_Ty>::operator ->(void) noexcept const”: 无法推导“__formal”的 模板 参数
+D:\Work\NoaEngine\Example\FPS-Example3D\Level00.cpp(66,54): error C2039: "objectLayer": 不是 "std::shared_ptr" 的成员
+D:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\memory(1555,1): message : 参见“std::shared_ptr”的声明
+D:\Work\NoaEngine\Example\FPS-Example3D\Level00.cpp(66,14): error C2737: “tile”: 必须初始化 const 对象
+D:\Work\NoaEngine\Example\FPS-Example3D\Level00.cpp(70,23): error C2039: "SetTileMap": 不是 "noa::Rigidbody" 的成员
+D:\Work\NoaEngine\NoaEngine\NoaEngine\PhysicsSystem.h(23,8): message : 参见“noa::Rigidbody”的声明
+D:\Work\NoaEngine\Example\FPS-Example3D\Level00.cpp(70,34): error C2675: 一元“->”:“std::shared_ptr”不定义该运算符或到预定义运算符可接收类型的转换
+D:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\memory(1762,22): message : 可能是“_Ty2 *std::shared_ptr<_Ty>::operator ->(void) noexcept const”
+D:\Work\NoaEngine\Example\FPS-Example3D\Level00.cpp(70,37): message : “_Ty2 *std::shared_ptr<_Ty>::operator ->(void) noexcept const”: 无法推导“__formal”的 模板 参数
+D:\Work\NoaEngine\Example\FPS-Example3D\Level00.cpp(70,39): error C2039: "mapLayer": 不是 "std::shared_ptr" 的成员
+D:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\memory(1555,1): message : 参见“std::shared_ptr”的声明
 D:\Work\NoaEngine\Example\FPS-Example3D\Level00.cpp(71,39): warning C4244: “=”: 从“int”转换到“T”，可能丢失数据
           with
           [
@@ -115,7 +246,25 @@ D:\Work\NoaEngine\Example\FPS-Example3D\Level00.cpp(72,39): warning C4244: “=�
           [
               T=float
           ]
+D:\Work\NoaEngine\Example\FPS-Example3D\Level00.cpp(109,2): error C2675: 一元“->”:“std::shared_ptr”不定义该运算符或到预定义运算符可接收类型的转换
+D:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\memory(1762,22): message : 可能是“_Ty2 *std::shared_ptr<_Ty>::operator ->(void) noexcept const”
+D:\Work\NoaEngine\Example\FPS-Example3D\Level00.cpp(109,5): message : “_Ty2 *std::shared_ptr<_Ty>::operator ->(void) noexcept const”: 无法推导“__formal”的 模板 参数
+D:\Work\NoaEngine\Example\FPS-Example3D\Level00.cpp(109,7): error C2039: "mapLayer": 不是 "std::shared_ptr" 的成员
+D:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\memory(1555,1): message : 参见“std::shared_ptr”的声明
+D:\Work\NoaEngine\Example\FPS-Example3D\Level00.cpp(114,17): error C2039: "SetTileMap": 不是 "noa::Rigidbody" 的成员
+D:\Work\NoaEngine\NoaEngine\NoaEngine\PhysicsSystem.h(23,8): message : 参见“noa::Rigidbody”的声明
+D:\Work\NoaEngine\Example\FPS-Example3D\Level00.cpp(114,28): error C2675: 一元“->”:“std::shared_ptr”不定义该运算符或到预定义运算符可接收类型的转换
+D:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\memory(1762,22): message : 可能是“_Ty2 *std::shared_ptr<_Ty>::operator ->(void) noexcept const”
+D:\Work\NoaEngine\Example\FPS-Example3D\Level00.cpp(114,31): message : “_Ty2 *std::shared_ptr<_Ty>::operator ->(void) noexcept const”: 无法推导“__formal”的 模板 参数
+D:\Work\NoaEngine\Example\FPS-Example3D\Level00.cpp(114,33): error C2039: "mapLayer": 不是 "std::shared_ptr" 的成员
+D:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\memory(1555,1): message : 参见“std::shared_ptr”的声明
+D:\Work\NoaEngine\Example\FPS-Example3D\Level00.cpp(116,27): error C2675: 一元“->”:“std::shared_ptr”不定义该运算符或到预定义运算符可接收类型的转换
+D:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\memory(1762,22): message : 可能是“_Ty2 *std::shared_ptr<_Ty>::operator ->(void) noexcept const”
+D:\Work\NoaEngine\Example\FPS-Example3D\Level00.cpp(116,30): message : “_Ty2 *std::shared_ptr<_Ty>::operator ->(void) noexcept const”: 无法推导“__formal”的 模板 参数
+D:\Work\NoaEngine\Example\FPS-Example3D\Level00.cpp(116,32): error C2039: "objectLayer": 不是 "std::shared_ptr" 的成员
+D:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\memory(1555,1): message : 参见“std::shared_ptr”的声明
   Level01.cpp
+D:\Work\NoaEngine\Example\FPS-Example3D\Player.h(18,31): error C2061: 语法错误: 标识符“MapFile”
 D:\Work\NoaEngine\Example\FPS-Example3D\WolfResource.h(31,98): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
           with
           [
@@ -126,6 +275,72 @@ D:\Work\NoaEngine\Example\FPS-Example3D\WolfResource.h(31,76): warning C4244: �
           [
               T=int
           ]
+D:\Work\NoaEngine\Example\FPS-Example3D\Level01.cpp(11,24): error C2065: “MapInfo”: 未声明的标识符
+D:\Work\NoaEngine\Example\FPS-Example3D\Level01.cpp(11,13): error C2923: "std::shared_ptr": "MapInfo" 不是参数 "_Ty" 的有效 模板 类型参数
+D:\Work\NoaEngine\Example\FPS-Example3D\Level01.cpp(11,24): message : 参见“MapInfo”的声明
+D:\Work\NoaEngine\Example\FPS-Example3D\Level01.cpp(11,46): error C2514: “std::shared_ptr”: 无法构建类模板
+D:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\memory(1555,1): message : 参见“std::shared_ptr”的声明
+D:\Work\NoaEngine\Example\FPS-Example3D\Level01.cpp(16,25): error C2065: “MapInfo”: 未声明的标识符
+D:\Work\NoaEngine\Example\FPS-Example3D\Level01.cpp(16,13): error C2672: “std::make_shared”: 未找到匹配的重载函数
+D:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\memory(2764,5): message : 可能是“std::shared_ptr<_Ty> std::make_shared(_Types &&...)”
+D:\Work\NoaEngine\Example\FPS-Example3D\Level01.cpp(16,25): message : “std::make_shared”:“_Ty”的 模板 参数无效，应为类型
+D:\Work\NoaEngine\Example\FPS-Example3D\Level01.cpp(17,2): error C2675: 一元“->”:“std::shared_ptr”不定义该运算符或到预定义运算符可接收类型的转换
+D:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\memory(1762,22): message : 可能是“_Ty2 *std::shared_ptr<_Ty>::operator ->(void) noexcept const”
+D:\Work\NoaEngine\Example\FPS-Example3D\Level01.cpp(17,5): message : “_Ty2 *std::shared_ptr<_Ty>::operator ->(void) noexcept const”: 无法推导“__formal”的 模板 参数
+D:\Work\NoaEngine\Example\FPS-Example3D\Level01.cpp(17,7): error C2039: "mapLayer": 不是 "std::shared_ptr" 的成员
+D:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\memory(1555,1): message : 参见“std::shared_ptr”的声明
+D:\Work\NoaEngine\Example\FPS-Example3D\Level01.cpp(19,13): error C2039: "LoadTileMap": 不是 "noa::Resource" 的成员
+D:\Work\NoaEngine\NoaEngine\NoaEngine\Resource.h(85,8): message : 参见“noa::Resource”的声明
+D:\Work\NoaEngine\Example\FPS-Example3D\Level01.cpp(19,24): error C3861: “LoadTileMap”: 找不到标识符
+D:\Work\NoaEngine\Example\FPS-Example3D\Level01.cpp(21,2): error C2675: 一元“->”:“std::shared_ptr”不定义该运算符或到预定义运算符可接收类型的转换
+D:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\memory(1762,22): message : 可能是“_Ty2 *std::shared_ptr<_Ty>::operator ->(void) noexcept const”
+D:\Work\NoaEngine\Example\FPS-Example3D\Level01.cpp(21,5): message : “_Ty2 *std::shared_ptr<_Ty>::operator ->(void) noexcept const”: 无法推导“__formal”的 模板 参数
+D:\Work\NoaEngine\Example\FPS-Example3D\Level01.cpp(21,7): error C2039: "objectLayer": 不是 "std::shared_ptr" 的成员
+D:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\memory(1555,1): message : 参见“std::shared_ptr”的声明
+D:\Work\NoaEngine\Example\FPS-Example3D\Level01.cpp(21,38): error C2065: “MapFile”: 未声明的标识符
+D:\Work\NoaEngine\Example\FPS-Example3D\Level01.cpp(21,57): error C2039: "LoadTileMap": 不是 "noa::Resource" 的成员
+D:\Work\NoaEngine\NoaEngine\NoaEngine\Resource.h(85,8): message : 参见“noa::Resource”的声明
+D:\Work\NoaEngine\Example\FPS-Example3D\Level01.cpp(21,68): error C3861: “LoadTileMap”: 找不到标识符
+D:\Work\NoaEngine\Example\FPS-Example3D\Level01.cpp(23,9): error C2039: "SetTileMap": 不是 "noa::Scene" 的成员
+D:\Work\NoaEngine\NoaEngine\NoaEngine\Camera.h(27,8): message : 参见“noa::Scene”的声明
+D:\Work\NoaEngine\Example\FPS-Example3D\Level01.cpp(23,20): error C2675: 一元“->”:“std::shared_ptr”不定义该运算符或到预定义运算符可接收类型的转换
+D:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\memory(1762,22): message : 可能是“_Ty2 *std::shared_ptr<_Ty>::operator ->(void) noexcept const”
+D:\Work\NoaEngine\Example\FPS-Example3D\Level01.cpp(23,23): message : “_Ty2 *std::shared_ptr<_Ty>::operator ->(void) noexcept const”: 无法推导“__formal”的 模板 参数
+D:\Work\NoaEngine\Example\FPS-Example3D\Level01.cpp(23,25): error C2039: "mapLayer": 不是 "std::shared_ptr" 的成员
+D:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\memory(1555,1): message : 参见“std::shared_ptr”的声明
+D:\Work\NoaEngine\Example\FPS-Example3D\Level01.cpp(31,21): error C2675: 一元“->”:“std::shared_ptr”不定义该运算符或到预定义运算符可接收类型的转换
+D:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\memory(1762,22): message : 可能是“_Ty2 *std::shared_ptr<_Ty>::operator ->(void) noexcept const”
+D:\Work\NoaEngine\Example\FPS-Example3D\Level01.cpp(31,24): message : “_Ty2 *std::shared_ptr<_Ty>::operator ->(void) noexcept const”: 无法推导“__formal”的 模板 参数
+D:\Work\NoaEngine\Example\FPS-Example3D\Level01.cpp(31,26): error C2039: "mapLayer": 不是 "std::shared_ptr" 的成员
+D:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\memory(1555,1): message : 参见“std::shared_ptr”的声明
+D:\Work\NoaEngine\Example\FPS-Example3D\Level01.cpp(38,22): error C2675: 一元“->”:“std::shared_ptr”不定义该运算符或到预定义运算符可接收类型的转换
+D:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\memory(1762,22): message : 可能是“_Ty2 *std::shared_ptr<_Ty>::operator ->(void) noexcept const”
+D:\Work\NoaEngine\Example\FPS-Example3D\Level01.cpp(38,25): message : “_Ty2 *std::shared_ptr<_Ty>::operator ->(void) noexcept const”: 无法推导“__formal”的 模板 参数
+D:\Work\NoaEngine\Example\FPS-Example3D\Level01.cpp(38,27): error C2039: "objectLayer": 不是 "std::shared_ptr" 的成员
+D:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\memory(1555,1): message : 参见“std::shared_ptr”的声明
+D:\Work\NoaEngine\Example\FPS-Example3D\Level01.cpp(40,23): error C2675: 一元“->”:“std::shared_ptr”不定义该运算符或到预定义运算符可接收类型的转换
+D:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\memory(1762,22): message : 可能是“_Ty2 *std::shared_ptr<_Ty>::operator ->(void) noexcept const”
+D:\Work\NoaEngine\Example\FPS-Example3D\Level01.cpp(40,26): message : “_Ty2 *std::shared_ptr<_Ty>::operator ->(void) noexcept const”: 无法推导“__formal”的 模板 参数
+D:\Work\NoaEngine\Example\FPS-Example3D\Level01.cpp(40,28): error C2039: "objectLayer": 不是 "std::shared_ptr" 的成员
+D:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\memory(1555,1): message : 参见“std::shared_ptr”的声明
+D:\Work\NoaEngine\Example\FPS-Example3D\Level01.cpp(42,21): error C2675: 一元“->”:“std::shared_ptr”不定义该运算符或到预定义运算符可接收类型的转换
+D:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\memory(1762,22): message : 可能是“_Ty2 *std::shared_ptr<_Ty>::operator ->(void) noexcept const”
+D:\Work\NoaEngine\Example\FPS-Example3D\Level01.cpp(42,24): message : “_Ty2 *std::shared_ptr<_Ty>::operator ->(void) noexcept const”: 无法推导“__formal”的 模板 参数
+D:\Work\NoaEngine\Example\FPS-Example3D\Level01.cpp(42,26): error C2039: "objectLayer": 不是 "std::shared_ptr" 的成员
+D:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\memory(1555,1): message : 参见“std::shared_ptr”的声明
+D:\Work\NoaEngine\Example\FPS-Example3D\Level01.cpp(42,49): error C2675: 一元“->”:“std::shared_ptr”不定义该运算符或到预定义运算符可接收类型的转换
+D:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\memory(1762,22): message : 可能是“_Ty2 *std::shared_ptr<_Ty>::operator ->(void) noexcept const”
+D:\Work\NoaEngine\Example\FPS-Example3D\Level01.cpp(42,52): message : “_Ty2 *std::shared_ptr<_Ty>::operator ->(void) noexcept const”: 无法推导“__formal”的 模板 参数
+D:\Work\NoaEngine\Example\FPS-Example3D\Level01.cpp(42,54): error C2039: "objectLayer": 不是 "std::shared_ptr" 的成员
+D:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\memory(1555,1): message : 参见“std::shared_ptr”的声明
+D:\Work\NoaEngine\Example\FPS-Example3D\Level01.cpp(42,14): error C2737: “tile”: 必须初始化 const 对象
+D:\Work\NoaEngine\Example\FPS-Example3D\Level01.cpp(46,19): error C2039: "SetTileMap": 不是 "noa::Rigidbody" 的成员
+D:\Work\NoaEngine\NoaEngine\NoaEngine\PhysicsSystem.h(23,8): message : 参见“noa::Rigidbody”的声明
+D:\Work\NoaEngine\Example\FPS-Example3D\Level01.cpp(46,30): error C2675: 一元“->”:“std::shared_ptr”不定义该运算符或到预定义运算符可接收类型的转换
+D:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\memory(1762,22): message : 可能是“_Ty2 *std::shared_ptr<_Ty>::operator ->(void) noexcept const”
+D:\Work\NoaEngine\Example\FPS-Example3D\Level01.cpp(46,33): message : “_Ty2 *std::shared_ptr<_Ty>::operator ->(void) noexcept const”: 无法推导“__formal”的 模板 参数
+D:\Work\NoaEngine\Example\FPS-Example3D\Level01.cpp(46,35): error C2039: "mapLayer": 不是 "std::shared_ptr" 的成员
+D:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\memory(1555,1): message : 参见“std::shared_ptr”的声明
 D:\Work\NoaEngine\Example\FPS-Example3D\Level01.cpp(51,35): warning C4244: “=”: 从“int”转换到“T”，可能丢失数据
           with
           [
@@ -136,6 +351,33 @@ D:\Work\NoaEngine\Example\FPS-Example3D\Level01.cpp(52,35): warning C4244: “=�
           [
               T=float
           ]
+D:\Work\NoaEngine\Example\FPS-Example3D\Level01.cpp(70,22): error C2675: 一元“->”:“std::shared_ptr”不定义该运算符或到预定义运算符可接收类型的转换
+D:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\memory(1762,22): message : 可能是“_Ty2 *std::shared_ptr<_Ty>::operator ->(void) noexcept const”
+D:\Work\NoaEngine\Example\FPS-Example3D\Level01.cpp(70,25): message : “_Ty2 *std::shared_ptr<_Ty>::operator ->(void) noexcept const”: 无法推导“__formal”的 模板 参数
+D:\Work\NoaEngine\Example\FPS-Example3D\Level01.cpp(70,27): error C2039: "objectLayer": 不是 "std::shared_ptr" 的成员
+D:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\memory(1555,1): message : 参见“std::shared_ptr”的声明
+D:\Work\NoaEngine\Example\FPS-Example3D\Level01.cpp(72,23): error C2675: 一元“->”:“std::shared_ptr”不定义该运算符或到预定义运算符可接收类型的转换
+D:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\memory(1762,22): message : 可能是“_Ty2 *std::shared_ptr<_Ty>::operator ->(void) noexcept const”
+D:\Work\NoaEngine\Example\FPS-Example3D\Level01.cpp(72,26): message : “_Ty2 *std::shared_ptr<_Ty>::operator ->(void) noexcept const”: 无法推导“__formal”的 模板 参数
+D:\Work\NoaEngine\Example\FPS-Example3D\Level01.cpp(72,28): error C2039: "objectLayer": 不是 "std::shared_ptr" 的成员
+D:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\memory(1555,1): message : 参见“std::shared_ptr”的声明
+D:\Work\NoaEngine\Example\FPS-Example3D\Level01.cpp(74,8): error C2675: 一元“->”:“std::shared_ptr”不定义该运算符或到预定义运算符可接收类型的转换
+D:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\memory(1762,22): message : 可能是“_Ty2 *std::shared_ptr<_Ty>::operator ->(void) noexcept const”
+D:\Work\NoaEngine\Example\FPS-Example3D\Level01.cpp(74): message : “_Ty2 *std::shared_ptr<_Ty>::operator ->(void) noexcept const”: 无法推导“__formal”的 模板 参数
+D:\Work\NoaEngine\Example\FPS-Example3D\Level01.cpp(74,13): error C2039: "objectLayer": 不是 "std::shared_ptr" 的成员
+D:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\memory(1555,1): message : 参见“std::shared_ptr”的声明
+D:\Work\NoaEngine\Example\FPS-Example3D\Level01.cpp(74,36): error C2675: 一元“->”:“std::shared_ptr”不定义该运算符或到预定义运算符可接收类型的转换
+D:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\memory(1762,22): message : 可能是“_Ty2 *std::shared_ptr<_Ty>::operator ->(void) noexcept const”
+D:\Work\NoaEngine\Example\FPS-Example3D\Level01.cpp(74): message : “_Ty2 *std::shared_ptr<_Ty>::operator ->(void) noexcept const”: 无法推导“__formal”的 模板 参数
+D:\Work\NoaEngine\Example\FPS-Example3D\Level01.cpp(74,41): error C2039: "objectLayer": 不是 "std::shared_ptr" 的成员
+D:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\memory(1555,1): message : 参见“std::shared_ptr”的声明
+D:\Work\NoaEngine\Example\FPS-Example3D\Level01.cpp(77,23): error C2039: "SetTileMap": 不是 "noa::Rigidbody" 的成员
+D:\Work\NoaEngine\NoaEngine\NoaEngine\PhysicsSystem.h(23,8): message : 参见“noa::Rigidbody”的声明
+D:\Work\NoaEngine\Example\FPS-Example3D\Level01.cpp(77,34): error C2675: 一元“->”:“std::shared_ptr”不定义该运算符或到预定义运算符可接收类型的转换
+D:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\memory(1762,22): message : 可能是“_Ty2 *std::shared_ptr<_Ty>::operator ->(void) noexcept const”
+D:\Work\NoaEngine\Example\FPS-Example3D\Level01.cpp(77,37): message : “_Ty2 *std::shared_ptr<_Ty>::operator ->(void) noexcept const”: 无法推导“__formal”的 模板 参数
+D:\Work\NoaEngine\Example\FPS-Example3D\Level01.cpp(77,39): error C2039: "mapLayer": 不是 "std::shared_ptr" 的成员
+D:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\memory(1555,1): message : 参见“std::shared_ptr”的声明
 D:\Work\NoaEngine\Example\FPS-Example3D\Level01.cpp(78,39): warning C4244: “=”: 从“int”转换到“T”，可能丢失数据
           with
           [
@@ -146,6 +388,23 @@ D:\Work\NoaEngine\Example\FPS-Example3D\Level01.cpp(79,39): warning C4244: “=�
           [
               T=float
           ]
+D:\Work\NoaEngine\Example\FPS-Example3D\Level01.cpp(106,2): error C2675: 一元“->”:“std::shared_ptr”不定义该运算符或到预定义运算符可接收类型的转换
+D:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\memory(1762,22): message : 可能是“_Ty2 *std::shared_ptr<_Ty>::operator ->(void) noexcept const”
+D:\Work\NoaEngine\Example\FPS-Example3D\Level01.cpp(106,5): message : “_Ty2 *std::shared_ptr<_Ty>::operator ->(void) noexcept const”: 无法推导“__formal”的 模板 参数
+D:\Work\NoaEngine\Example\FPS-Example3D\Level01.cpp(106,7): error C2039: "mapLayer": 不是 "std::shared_ptr" 的成员
+D:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\memory(1555,1): message : 参见“std::shared_ptr”的声明
+D:\Work\NoaEngine\Example\FPS-Example3D\Level01.cpp(109,17): error C2039: "SetTileMap": 不是 "noa::Rigidbody" 的成员
+D:\Work\NoaEngine\NoaEngine\NoaEngine\PhysicsSystem.h(23,8): message : 参见“noa::Rigidbody”的声明
+D:\Work\NoaEngine\Example\FPS-Example3D\Level01.cpp(109,28): error C2675: 一元“->”:“std::shared_ptr”不定义该运算符或到预定义运算符可接收类型的转换
+D:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\memory(1762,22): message : 可能是“_Ty2 *std::shared_ptr<_Ty>::operator ->(void) noexcept const”
+D:\Work\NoaEngine\Example\FPS-Example3D\Level01.cpp(109,31): message : “_Ty2 *std::shared_ptr<_Ty>::operator ->(void) noexcept const”: 无法推导“__formal”的 模板 参数
+D:\Work\NoaEngine\Example\FPS-Example3D\Level01.cpp(109,33): error C2039: "mapLayer": 不是 "std::shared_ptr" 的成员
+D:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\memory(1555,1): message : 参见“std::shared_ptr”的声明
+D:\Work\NoaEngine\Example\FPS-Example3D\Level01.cpp(111,27): error C2675: 一元“->”:“std::shared_ptr”不定义该运算符或到预定义运算符可接收类型的转换
+D:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\memory(1762,22): message : 可能是“_Ty2 *std::shared_ptr<_Ty>::operator ->(void) noexcept const”
+D:\Work\NoaEngine\Example\FPS-Example3D\Level01.cpp(111,30): message : “_Ty2 *std::shared_ptr<_Ty>::operator ->(void) noexcept const”: 无法推导“__formal”的 模板 参数
+D:\Work\NoaEngine\Example\FPS-Example3D\Level01.cpp(111,32): error C2039: "objectLayer": 不是 "std::shared_ptr" 的成员
+D:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\memory(1555,1): message : 参见“std::shared_ptr”的声明
   LiveEntity.cpp
   M4A1.cpp
 D:\Work\NoaEngine\Example\FPS-Example3D\WolfResource.h(31,98): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
@@ -158,6 +417,7 @@ D:\Work\NoaEngine\Example\FPS-Example3D\WolfResource.h(31,76): warning C4244: �
           [
               T=int
           ]
+D:\Work\NoaEngine\Example\FPS-Example3D\Player.h(18,31): error C2061: 语法错误: 标识符“MapFile”
 D:\Work\NoaEngine\Example\FPS-Example3D\M4A1.cpp(29,15): warning C4244: “初始化”: 从“double”转换到“int”，可能丢失数据
 D:\Work\NoaEngine\Example\FPS-Example3D\M4A1.cpp(48,42): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
           with
@@ -179,7 +439,18 @@ D:\Work\NoaEngine\Example\FPS-Example3D\M4A1.cpp(54,43): warning C4244: “参�
           [
               T=int
           ]
-  正在编译...
+  main.cpp
+D:\Work\NoaEngine\Example\FPS-Example3D\Player.h(18,31): error C2061: 语法错误: 标识符“MapFile”
+D:\Work\NoaEngine\Example\FPS-Example3D\WolfResource.h(31,98): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
+D:\Work\NoaEngine\Example\FPS-Example3D\WolfResource.h(31,76): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=int
+          ]
   MainMenuLevel.cpp
 D:\Work\NoaEngine\Example\FPS-Example3D\WolfResource.h(31,98): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
           with
@@ -212,6 +483,7 @@ D:\Work\NoaEngine\Example\FPS-Example3D\WolfResource.h(31,76): warning C4244: �
           [
               T=int
           ]
+D:\Work\NoaEngine\Example\FPS-Example3D\Player.h(18,31): error C2061: 语法错误: 标识符“MapFile”
 D:\Work\NoaEngine\Example\FPS-Example3D\Pistol.cpp(32,15): warning C4244: “初始化”: 从“double”转换到“int”，可能丢失数据
 D:\Work\NoaEngine\Example\FPS-Example3D\Pistol.cpp(52,42): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
           with
@@ -234,6 +506,7 @@ D:\Work\NoaEngine\Example\FPS-Example3D\Pistol.cpp(59,43): warning C4244: “参
               T=int
           ]
   Player.cpp
+D:\Work\NoaEngine\Example\FPS-Example3D\Player.h(18,31): error C2061: 语法错误: 标识符“MapFile”
 D:\Work\NoaEngine\Example\FPS-Example3D\WolfResource.h(31,98): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
           with
           [
@@ -244,8 +517,8 @@ D:\Work\NoaEngine\Example\FPS-Example3D\WolfResource.h(31,76): warning C4244: �
           [
               T=int
           ]
-D:\Work\NoaEngine\Example\FPS-Example3D\Player.cpp(9,34): warning C4305: “参数”: 从“double”到“float”截断
-D:\Work\NoaEngine\Example\FPS-Example3D\Player.cpp(9,30): warning C4305: “参数”: 从“double”到“float”截断
+D:\Work\NoaEngine\Example\FPS-Example3D\Player.cpp(9,9): error C2039: "SetTileColliderScale": 不是 "noa::Rigidbody" 的成员
+D:\Work\NoaEngine\NoaEngine\NoaEngine\PhysicsSystem.h(23,8): message : 参见“noa::Rigidbody”的声明
 D:\Work\NoaEngine\Example\FPS-Example3D\Player.cpp(23,26): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
           with
           [
@@ -256,6 +529,11 @@ D:\Work\NoaEngine\Example\FPS-Example3D\Player.cpp(22,62): warning C4244: “参
           [
               T=int
           ]
+D:\Work\NoaEngine\Example\FPS-Example3D\Player.cpp(52,38): error C2061: 语法错误: 标识符“MapFile”
+D:\Work\NoaEngine\Example\FPS-Example3D\Player.cpp(54,22): error C2065: “tileMap”: 未声明的标识符
+D:\Work\NoaEngine\Example\FPS-Example3D\Player.cpp(56,23): error C2065: “tileMap”: 未声明的标识符
+D:\Work\NoaEngine\Example\FPS-Example3D\Player.cpp(58,8): error C2065: “tileMap”: 未声明的标识符
+D:\Work\NoaEngine\Example\FPS-Example3D\Player.cpp(58,26): error C2065: “tileMap”: 未声明的标识符
 D:\Work\NoaEngine\Example\FPS-Example3D\Player.cpp(60,28): warning C4244: “=”: 从“int”转换到“T”，可能丢失数据
           with
           [
@@ -267,6 +545,8 @@ D:\Work\NoaEngine\Example\FPS-Example3D\Player.cpp(61,28): warning C4244: “=�
               T=float
           ]
 D:\Work\NoaEngine\Example\FPS-Example3D\Player.cpp(139,52): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+D:\Work\NoaEngine\Example\FPS-Example3D\Player.cpp(148,18): error C2039: "GetTileMap": 不是 "noa::Rigidbody" 的成员
+D:\Work\NoaEngine\NoaEngine\NoaEngine\PhysicsSystem.h(23,8): message : 参见“noa::Rigidbody”的声明
 D:\Work\NoaEngine\Example\FPS-Example3D\Player.cpp(184,52): warning C4244: “+=”: 从“T”转换到“float”，可能丢失数据
           with
           [
@@ -289,6 +569,7 @@ D:\Work\NoaEngine\Example\FPS-Example3D\WolfResource.h(31,76): warning C4244: �
           [
               T=int
           ]
+D:\Work\NoaEngine\Example\FPS-Example3D\Player.h(18,31): error C2061: 语法错误: 标识符“MapFile”
 D:\Work\NoaEngine\Example\FPS-Example3D\Shotgun.cpp(32,15): warning C4244: “初始化”: 从“double”转换到“int”，可能丢失数据
 D:\Work\NoaEngine\Example\FPS-Example3D\Shotgun.cpp(51,42): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
           with
@@ -321,20 +602,3 @@ D:\Work\NoaEngine\Example\FPS-Example3D\WolfResource.h(31,76): warning C4244: �
           [
               T=int
           ]
-  main.cpp
-D:\Work\NoaEngine\Example\FPS-Example3D\WolfResource.h(31,98): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
-          with
-          [
-              T=int
-          ]
-D:\Work\NoaEngine\Example\FPS-Example3D\WolfResource.h(31,76): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
-          with
-          [
-              T=int
-          ]
-  正在生成代码
-  115 of 3980 functions ( 2.9%) were compiled, the rest were copied from previous compilation.
-    8 functions were new in current compilation
-    122 functions had inline decision re-evaluated but remain unchanged
-  已完成代码的生成
-  FPS-Example3D.vcxproj -> D:\Work\NoaEngine\x64\Release\FPS-Example3D.exe

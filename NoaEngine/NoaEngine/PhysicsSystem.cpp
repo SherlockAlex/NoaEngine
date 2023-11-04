@@ -165,6 +165,9 @@ void noa::PhysicsSystem::SolveCollision(Collider2D* obj1, Collider2D* obj2)
 		//刚刚好接触的时候，双方不发生任何受力
 		//及双发的动量很小
 
+		const float bounce1 = obj1->rigidbody->bounce;
+		const float bounce2 = obj2->rigidbody->bounce;
+
 		const float m1 = obj1->rigidbody->mass;
 		const float m2 = obj2->rigidbody->mass;
 
@@ -175,16 +178,12 @@ void noa::PhysicsSystem::SolveCollision(Collider2D* obj1, Collider2D* obj2)
 
 		const noa::Vector<float> p = p1 + p2;
 
-		//弹性碰撞
-		const float bounce = 1.0f;
-
 		const bool constraintX1 = obj1->rigidbody->constraint.x;
 		const bool constraintY1 = obj1->rigidbody->constraint.y;
 		const bool constraintX2 = obj2->rigidbody->constraint.x;
 		const bool constraintY2 = obj2->rigidbody->constraint.y;
 
 		//假设x和y方向上没有任何约束
-		//双方都没有任何约束
 
 		const noa::Vector<float> impulse1 = (p * m1 * invSumMass - p1) * 2.0f;
 		const noa::Vector<float> impulse2 = (p * m2 * invSumMass - p2) * 2.0f;
@@ -204,35 +203,47 @@ void noa::PhysicsSystem::SolveCollision(Collider2D* obj1, Collider2D* obj2)
 		//会出现卡住的问题，其实本质上是对方可能以及处于一个约束的情况
 		//因为质量相同的情况，会出现一个速度交换的问题
 
+		
 		if (constraintX1) 
 		{
-			finalVel2.x = - obj2->rigidbody->velocity.x;
-			obj2->rigidbody->constraint.x = true;
+			finalVel2.x = -obj2->rigidbody->velocity.x* bounce2;
+			if (std::abs(finalVel2.x)<0.1f) 
+			{
+				obj2->rigidbody->constraint.x = true;
+			}
+			
 		}
 
 		if (constraintX2)
 		{
-			finalVel1.x = -obj1->rigidbody->velocity.x;
-			obj1->rigidbody->constraint.x = true;
+			finalVel1.x = -obj1->rigidbody->velocity.x* bounce1;
+			if (std::abs(finalVel1.x) < 0.1f)
+			{
+				obj1->rigidbody->constraint.x = true;
+			}
 		}
 
 		if (constraintY1)
 		{
-			finalVel2.y = -obj2->rigidbody->velocity.y;
-			obj2->rigidbody->constraint.y = true;
+			finalVel2.y = -obj2->rigidbody->velocity.y* bounce2;
+			if (std::abs(finalVel2.y) < 0.1f)
+			{
+				obj2->rigidbody->constraint.y = true;
+			}
 		}
 
 		if (constraintY2)
 		{
-			finalVel1.y = -obj1->rigidbody->velocity.y;
-			obj1->rigidbody->constraint.y = true;
+			finalVel1.y = -obj1->rigidbody->velocity.y* bounce1;
+			if (std::abs(finalVel1.y) < 0.1f)
+			{
+				obj1->rigidbody->constraint.y = true;
+			}
+			
 		}
 
 		obj1->rigidbody->velocity = finalVel1;
 		obj2->rigidbody->velocity = finalVel2;
-
-		//obj1->rigidbody->AddForce(impulse1,ForceType::IMPULSE_FORCE);
-		//obj2->rigidbody->AddForce(impulse2,ForceType::IMPULSE_FORCE);
 
 	}
 

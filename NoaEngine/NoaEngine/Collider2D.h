@@ -90,8 +90,6 @@ namespace noa
 		
 		Vector<float> scale = {1,1};
 		bool isGrounded = false;
-		float bounce = 1.0f;
-		float friction = 1.0f;
 	private:
 		
 

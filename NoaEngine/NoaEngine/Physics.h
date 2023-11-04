@@ -50,9 +50,15 @@ namespace noa {
 		friend class TileCollider2D;
 	public:
 		
+		//反弹系数
+		float bounce = 0.0f;
+		//摩擦系数
+		float friction = 0.0f;
+		//空气阻尼系数
 		float damping = 0.02f;
+		//重力权重
 		float gravityWeight = 3.5f;
-		//bool useMotion = true;
+
 		bool isFrozen = false;
 		bool useGravity = true;
 		bool useCollision = true;

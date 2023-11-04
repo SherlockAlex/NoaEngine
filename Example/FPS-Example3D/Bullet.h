@@ -6,6 +6,7 @@ class Bullet:public Actor
 public:
 	SpriteRenderer* spriteRenderer = SpriteRenderer::Create(this);
 	Rigidbody* rigid = Rigidbody::Create(this);
+	TileCollider2D* tileCollider = TileCollider2D::Create(this,rigid);
 	CircleCollider2D* collider = CircleCollider2D::Create(this, rigid);
 
 	Animation* animation = Animation::Create(this);
