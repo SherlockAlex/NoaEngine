@@ -202,18 +202,19 @@ void noa::Actor::SetActive(bool value)
 	}
 	active = value;
 	
-	if (active)
+	if (!active)
 	{	
-		if (!start)
-		{
-			ComponentStart();
-			Start();
-			start = true;
-		}
-		OnEnable();
+		OnDisable();
 		return;
 	}
-	OnDisable();
+
+	OnEnable();
+	if (!start)
+	{
+		ComponentStart();
+		Start();
+		start = true;
+	}
 
 }
 

@@ -97,7 +97,8 @@ namespace noa {
 		//一个物体进入约束状态条件
 		//和运动边界发生碰撞时
 		//和已经进入约束状态的物体发生碰撞，同时自身的动量分量趋近0
-		Vector<bool> constraint;
+		Vector<bool> constraint = {false,false};
+		Vector<bool> nextConstraint = {false,false};
 
 	private:
 		Rigidbody(Actor* actor);

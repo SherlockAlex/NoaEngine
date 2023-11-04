@@ -2,6 +2,8 @@
 #define NOAENGINE_ACTORCOMPONENT_H
 
 #include <string>
+#include <functional>
+#include "Actor.h"
 #include "NObject.h"
 /*
 * ActorPool
@@ -53,15 +55,14 @@ namespace noa {
 		}
 
 		template<class T>
-		bool TryGetActorAs(T* & out) 
+		bool TryGetActorAs(std::function<void(T&)> callback) 
 		{
 			T* buffer = dynamic_cast<T*>(actor);
-			if (buffer == nullptr)
+			if (buffer)
 			{
-				out = nullptr;
 				return false;
 			}
-			out = buffer;
+			callback(*buffer);
 			return true;
 		}
 
@@ -71,16 +72,34 @@ namespace noa {
 		}
 
 		template<class T>
-		bool TryGetComponentAs(T* & out) 
+		bool TryGetComponentAs(std::function<void(T&)> callback)
 		{
 			T* buffer = dynamic_cast<T*>(this);
-			if (buffer==nullptr)
+			if (!buffer)
 			{
-				out = nullptr;
 				return false;
 			}
-			out = buffer;
+			callback(*buffer);
 			return true;
+		}
+
+		template<class T>
+		T* GetComponent() {
+			if (!actor) 
+			{
+				return nullptr;
+			}
+			return actor->GetComponent<T>();
+		}
+
+		template<class T>
+		bool TryGetComponent(std::function<void(T&)> callback)
+		{
+			if (!actor)
+			{
+				return false;
+			}
+			return actor->TryGetComponent<T>(callback);
 		}
 
 

@@ -3,6 +3,8 @@
 
 #include <vector>
 
+#include <functional>
+
 #include "Transform.h"
 #include "NObject.h"
 
@@ -82,18 +84,42 @@ namespace noa {
 			T* buffer = nullptr;
 			for (auto & component:components) 
 			{
-				if (component==nullptr) 
-				{
-					continue;
-				}
 				buffer = dynamic_cast<T*>(component);
-				if (buffer == nullptr)
+				if (buffer != nullptr)
 				{
-					continue;
+					break;
 				}
-				break;
+				
 			}
 			return buffer;
+		}
+
+		template<class T>
+		bool TryGetComponent(std::function<void(T&)> callback)
+		{
+			//尝试获取T类型的组件
+			//如果没有获取到返回false
+			//否则返回True，并执行回调函数
+			T* buffer = nullptr;
+			for (auto & component:components) 
+			{
+				buffer = dynamic_cast<T*>(component);
+				if (buffer!=nullptr) 
+				{
+					break;
+				}
+			}
+
+			if (!buffer)
+			{
+				return false;
+			}
+
+			callback(*buffer);
+			return true;
+
+
+
 		}
 
 		Actor* GetActor();
@@ -104,15 +130,14 @@ namespace noa {
 		}
 
 		template<class T>
-		bool TryGetActorAs(T*& outBuffer)
+		bool TryGetActorAs(std::function<void(T&)> callback)
 		{
 			T* buffer = dynamic_cast<T*>(this);
-			if (buffer == nullptr)
+			if (!buffer)
 			{
-				outBuffer = nullptr;
 				return false;
 			}
-			outBuffer = buffer;
+			callback(*buffer);
 			return true;
 		}
 

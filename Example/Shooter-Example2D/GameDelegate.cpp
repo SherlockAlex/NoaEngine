@@ -13,11 +13,9 @@ noa::TileMapCamera* camera = nullptr;
 Player* player = nullptr;
 void GameDelegate::OnLoad(noa::Scene* scene)
 {
-
 	noa::TileMap* map = noa::TileMap::Create("tileSet.tsd", { "map.csv" }, scene);
 	map->SetCollisionTileID({ 40 });
 	camera = noa::TileMapCamera::Create(scene);
-	//player = noa::NObject<Player>::Create(scene);
 
 	Test* test1 = noa::NObject<Test>::Create(scene);
 
@@ -26,8 +24,6 @@ void GameDelegate::OnLoad(noa::Scene* scene)
 
 	camera->SetFollow(test1);
 	camera->SetTileScale({32,32});
-
-	//player->camera = camera;
 
 	bulletPool->SetFactory(bulletFactory.get());
 	bulletPool->Prewarm(10);
@@ -41,7 +37,7 @@ Test* hold = nullptr;
 int i = 0;
 void GameDelegate::OnUpdate(noa::Scene* scene)
 {
-	if (i<5) 
+	if (i<100) 
 	{
 		Test* test = noa::NObject<Test>::Create(scene);
 		test->transform.position = { 2,3 };
@@ -63,13 +59,13 @@ void GameDelegate::OnUpdate(noa::Scene* scene)
 
 	if (hold) 
 	{
-		//noa::Debug::Log("速度:" + noa::ToString<float>(hold->rigid->velocity));
-		//noa::Debug::Log("受力:" + noa::ToString<float>(hold->rigid->GetSumForce()));
-		noa::Debug::Log("约束:" + noa::ToString<bool>(hold->rigid->GetConstraint()));
+		//noa::Debug::Log("动量:" + noa::ToString<float>(hold->rigid->GetMomentum()));
+		noa::Debug::Log(
+			"动量:" + noa::ToString<float>(hold->rigid->GetMomentum())
+			+",速度:" + noa::ToString<float>(hold->rigid->velocity)
+			+",约束:" + noa::ToString<bool>(hold->rigid->GetConstraint())
+		);
 	}
-
-	
-
 
 	//选择鼠标点击到的Test
 	noa::Vector<double> pos = noa::inputSystem.GetMousePosition();
@@ -79,15 +75,11 @@ void GameDelegate::OnUpdate(noa::Scene* scene)
 	{
 		currentSelect = camera->GetRayHitInfoAs<Test>(pos.x, pos.y);
 	}
-
-	
 	
 	if (currentSelect!=nullptr&&hold == nullptr) 
 	{
 		hold = currentSelect;
 	}
-
-	//noa::Actor * follow = (hold == nullptr ? player->GetActor() : hold->GetActor());
 
 	camera->SetFollow(hold);
 

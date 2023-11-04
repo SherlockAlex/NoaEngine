@@ -35,6 +35,8 @@ void noa::PhysicsSystem::Update(int step)
 	{
 
 		InitVelocity(subDeltaTime);			//计算速度
+		ApplyTileCollision(subDeltaTime);	//通过新位置判断位置合不合理，不合理修改新位置还有修改速度
+		ApplyTileConstraint(subDeltaTime);	//计算刚体是否处于约束
 		ApplyVelocity(subDeltaTime);		//应用速度
 		InitPosition(subDeltaTime);			//通过速度，计算新的位置
 		ApplyTileCollision(subDeltaTime);	//通过新位置判断位置合不合理，不合理修改新位置还有修改速度
@@ -150,14 +152,15 @@ void noa::PhysicsSystem::SolveCollision(Collider2D* obj1, Collider2D* obj2)
 
 		const float angle = atan2(deltaY, deltaX);
 
-		const Vector<float> normal = Vector<float>(cosf(angle), sinf(angle));
+		const Vector<float> direction = Vector<float>(cosf(angle), sinf(angle));
+		const Vector<float> normal = Vector<float>(cosf(angle + 2*PI), sinf(angle + 2 * PI));
 
 		const float distance = std::sqrtf(deltaX * deltaX + deltaY * deltaY);
 
 		const float deltaR = std::abs(distance - sumRadius);
 
-		const float fixX = deltaR * normal.x;
-		const float fixY = deltaR * normal.y;
+		const float fixX = deltaR * direction.x;
+		const float fixY = deltaR * direction.y;
 
 		
 		
@@ -202,14 +205,13 @@ void noa::PhysicsSystem::SolveCollision(Collider2D* obj1, Collider2D* obj2)
 
 		//会出现卡住的问题，其实本质上是对方可能以及处于一个约束的情况
 		//因为质量相同的情况，会出现一个速度交换的问题
-
 		
 		if (constraintX1) 
 		{
 			finalVel2.x = -obj2->rigidbody->velocity.x* bounce2;
-			if (std::abs(finalVel2.x)<0.1f) 
+			if (std::abs(finalVel2.x)<0.01f) 
 			{
-				obj2->rigidbody->constraint.x = true;
+				obj2->rigidbody->nextConstraint.x = true;
 			}
 			
 		}
@@ -217,30 +219,32 @@ void noa::PhysicsSystem::SolveCollision(Collider2D* obj1, Collider2D* obj2)
 		if (constraintX2)
 		{
 			finalVel1.x = -obj1->rigidbody->velocity.x* bounce1;
-			if (std::abs(finalVel1.x) < 0.1f)
+			if (std::abs(finalVel1.x) < 0.01f)
 			{
-				obj1->rigidbody->constraint.x = true;
+				obj1->rigidbody->nextConstraint.x = true;
 			}
 		}
 
 		if (constraintY1)
 		{
 			finalVel2.y = -obj2->rigidbody->velocity.y* bounce2;
-			if (std::abs(finalVel2.y) < 0.1f)
+			if (std::abs(finalVel2.y) < 0.01f)
 			{
-				obj2->rigidbody->constraint.y = true;
+				obj2->rigidbody->nextConstraint.y = true;
 			}
 		}
 
 		if (constraintY2)
 		{
 			finalVel1.y = -obj1->rigidbody->velocity.y* bounce1;
-			if (std::abs(finalVel1.y) < 0.1f)
+			if (std::abs(finalVel1.y) < 0.01f)
 			{
-				obj1->rigidbody->constraint.y = true;
+				obj1->rigidbody->nextConstraint.y = true;
 			}
 			
 		}
+
+		//同时给两个物体的接触面的切线方向添加一个速度
 
 		obj1->rigidbody->velocity = finalVel1;
 		obj2->rigidbody->velocity = finalVel2;
@@ -388,7 +392,7 @@ bool noa::PhysicsSystem::CircleCollide(CircleCollider2D* obj1, CircleCollider2D*
 	const float distanceSquared = deltaX * deltaX + deltaY * deltaY;
 	const float radiusSumSquared = deltaR * deltaR;
 
-	return distanceSquared <= radiusSumSquared;
+	return distanceSquared < radiusSumSquared;
 }
 
 bool noa::PhysicsSystem::BoxCollide(BoxCollider2D* obj1, BoxCollider2D* obj2)

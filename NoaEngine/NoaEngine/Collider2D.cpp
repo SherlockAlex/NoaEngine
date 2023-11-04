@@ -277,6 +277,7 @@ void noa::TileCollider2D::ApplyConstraint(float deltaTime)
 
 		if (static_cast<int>(rigidbody->velocity.x * 10.0f) == 0)
 		{
+			rigidbody->nextConstraint.x = true;
 			rigidbody->constraint.x = true;
 		}
 
@@ -294,6 +295,7 @@ void noa::TileCollider2D::ApplyConstraint(float deltaTime)
 
 		if (static_cast<int>(rigidbody->velocity.x * 10.0f) == 0)
 		{
+			rigidbody->nextConstraint.x = true;
 			rigidbody->constraint.x = true;
 		}
 
@@ -310,6 +312,7 @@ void noa::TileCollider2D::ApplyConstraint(float deltaTime)
 
 		if (static_cast<int>(rigidbody->velocity.y * 10.0f) == 0)
 		{
+			rigidbody->nextConstraint.y = true;
 			rigidbody->constraint.y = true;
 		}
 
@@ -325,6 +328,7 @@ void noa::TileCollider2D::ApplyConstraint(float deltaTime)
 		//об
 		if (static_cast<int>(rigidbody->velocity.y * 10.0f) == 0)
 		{
+			rigidbody->nextConstraint.y = true;
 			rigidbody->constraint.y = true;
 			this->isGrounded = true;
 		}

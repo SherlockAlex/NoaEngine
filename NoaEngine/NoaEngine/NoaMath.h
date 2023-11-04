@@ -131,6 +131,11 @@ namespace noa {
 			return this->x == a.x && this->y == a.y;
 		}
 
+		float GetEulerAngle() const
+		{
+			return std::atan2f(this->y, this->x);
+		}
+
 	};
 }
 
