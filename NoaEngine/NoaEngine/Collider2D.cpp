@@ -88,22 +88,22 @@ noa::CircleCollider2D* noa::CircleCollider2D::Create(Actor* actor)
 	return NObject<CircleCollider2D>::Create<Actor*>(actor);
 }
 
-noa::CircleCollider2D& noa::CircleCollider2D::SetRadius(float radius)
+noa::CircleCollider2D* noa::CircleCollider2D::SetRadius(float radius)
 {
 	this->radius = radius;
-	return *this;
+	return this;
 }
 
-noa::CircleCollider2D& noa::CircleCollider2D::SetRigidbody(noa::Rigidbody * rigidbody)
+noa::CircleCollider2D* noa::CircleCollider2D::SetRigidbody(noa::Rigidbody * rigidbody)
 {
 	Collider2D::SetRigidbody(rigidbody);
-	return *this;
+	return this;
 }
 
-noa::CircleCollider2D& noa::CircleCollider2D::SetIsTrigger(bool isTrigger)
+noa::CircleCollider2D* noa::CircleCollider2D::SetIsTrigger(bool isTrigger)
 {
 	this->isTrigger = isTrigger;
-	return *this;
+	return this;
 }
 
 noa::CircleCollider2D* noa::CircleCollider2D::Apply()
@@ -126,23 +126,23 @@ noa::BoxCollider2D* noa::BoxCollider2D::Create(Actor * actor)
 	return NObject<BoxCollider2D>::Create<Actor*>(actor);
 }
 
-noa::BoxCollider2D& noa::BoxCollider2D::SetScale(int x, int y)
+noa::BoxCollider2D* noa::BoxCollider2D::SetScale(int x, int y)
 {
 	this->scale.x = x;
 	this->scale.y = y;
-	return *this;
+	return this;
 }
 
-noa::BoxCollider2D& noa::BoxCollider2D::SetIsTrigger(bool isTrigger)
+noa::BoxCollider2D* noa::BoxCollider2D::SetIsTrigger(bool isTrigger)
 {
 	this->isTrigger = isTrigger;
-	return *this;
+	return this;
 }
 
-noa::BoxCollider2D& noa::BoxCollider2D::SetRigidbody(Rigidbody* rigidbody)
+noa::BoxCollider2D* noa::BoxCollider2D::SetRigidbody(Rigidbody* rigidbody)
 {
 	Collider2D::SetRigidbody(rigidbody);
-	return *this;
+	return this;
 }
 
 noa::BoxCollider2D* noa::BoxCollider2D::Apply()
@@ -188,20 +188,20 @@ void noa::TileCollider2D::LateUpdate()
 	this->isGrounded = false;
 }
 
-noa::TileCollider2D& noa::TileCollider2D::SetTileMap(TileMap* tileMap)
+noa::TileCollider2D* noa::TileCollider2D::SetTileMap(TileMap* tileMap)
 {
 	this->tileMap = tileMap;
-	return *this;
+	return this;
 }
 
-noa::TileCollider2D& noa::TileCollider2D::SetRigidbody(Rigidbody * rigidbody) 
+noa::TileCollider2D* noa::TileCollider2D::SetRigidbody(Rigidbody * rigidbody) 
 {
 	Collider2D::SetRigidbody(rigidbody);
 	if (rigidbody)
 	{
 		rigidbody->tileCollider2D = this;
 	}
-	return *this;
+	return this;
 }
 
 noa::TileCollider2D* noa::TileCollider2D::Apply()
@@ -402,9 +402,9 @@ void noa::TileCollider2D::ApplyConstraint(float deltaTime)
 
 }
 
-noa::TileCollider2D& noa::TileCollider2D::SetScale(float x, float y)
+noa::TileCollider2D * noa::TileCollider2D::SetScale(float x, float y)
 {
 	this->scale.x = x;
 	this->scale.y = y;
-	return *this;
+	return this;
 }

@@ -53,9 +53,9 @@ namespace noa
 
 	public:
 		static BoxCollider2D* Create(Actor * actor);
-		BoxCollider2D& SetScale(int x, int y);
-		BoxCollider2D& SetRigidbody(Rigidbody * rigidbody);
-		BoxCollider2D& SetIsTrigger(bool isTrigger);
+		BoxCollider2D* SetScale(int x, int y);
+		BoxCollider2D* SetRigidbody(Rigidbody * rigidbody);
+		BoxCollider2D* SetIsTrigger(bool isTrigger);
 		BoxCollider2D* Apply();
 	};
 
@@ -70,10 +70,10 @@ namespace noa
 		~CircleCollider2D() override;
 	public:
 		static CircleCollider2D* Create(Actor* actor);
-		CircleCollider2D & SetRigidbody(Rigidbody* rigidbody);
-		CircleCollider2D & SetRadius(float radius);
-		CircleCollider2D& SetIsTrigger(bool isTrigger);
-		CircleCollider2D* Apply();
+		CircleCollider2D * SetRigidbody(Rigidbody* rigidbody);
+		CircleCollider2D * SetRadius(float radius);
+		CircleCollider2D * SetIsTrigger(bool isTrigger);
+		CircleCollider2D * Apply();
 
 	};
 
@@ -93,9 +93,9 @@ namespace noa
 		void ApplyTileCollision(float deltaTime);
 		void ApplyConstraint(float deltaTime);
 
-		TileCollider2D& SetTileMap(TileMap* tileMap);
-		TileCollider2D& SetScale(float x,float y);
-		TileCollider2D& SetRigidbody(Rigidbody * rigidbody);
+		TileCollider2D* SetTileMap(TileMap* tileMap);
+		TileCollider2D* SetScale(float x,float y);
+		TileCollider2D* SetRigidbody(Rigidbody * rigidbody);
 		TileCollider2D* Apply();
 
 	private:

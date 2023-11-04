@@ -35,8 +35,8 @@ namespace noa {
 
 		void UpdateSprite(const SpriteFile & spriteFile);
 
-		SpriteRenderer& SetSprite(Sprite * sprite);
-		SpriteRenderer& SetScale(float x,float y);
+		SpriteRenderer* SetSprite(Sprite * sprite);
+		SpriteRenderer* SetScale(float x,float y);
 
 		SpriteRenderer* Apply();
 

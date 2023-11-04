@@ -29,16 +29,17 @@ private:
 	noa::Rigidbody* rigid = noa::Rigidbody::Create(this);
 	noa::SpriteRenderer* spriteRenderer = noa::SpriteRenderer::Create(this)
 		->SetSprite(&ResourceManager::bulletImage)
-		.Apply();
+		->Apply();
 
-	noa::CircleCollider2D* collider = noa::CircleCollider2D::Create(this)
+	noa::CircleCollider2D* collider = 
+		noa::CircleCollider2D::Create(this)
 		->SetRigidbody(rigid)
-		.SetIsTrigger(true)
-		.Apply();
+		->SetIsTrigger(true)
+		->Apply();
 
 	noa::TileCollider2D* tileCollider = noa::TileCollider2D::Create(this)
 		->SetRigidbody(rigid)
-		.Apply();
+		->Apply();
 
 	float timer = 0;
 
