@@ -358,7 +358,7 @@ void noa::PhysicsSystem::CheckCellsCollisions(Cell& cell1, Cell& cell2)
 				{
 					const bool isAllTrigger = collider1->isTrigger
 						&& collider2->isTrigger;
-					if (isAllTrigger) 
+					if (isAllTrigger)
 					{
 						continue;
 					}

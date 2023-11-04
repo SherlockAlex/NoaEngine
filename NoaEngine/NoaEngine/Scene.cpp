@@ -128,9 +128,9 @@ noa::TileMap::~TileMap()
 }
 
 noa::TileMap* noa::TileMap::Create(
+	Scene* scene,
 	const std::string& tileSetFile
-	, const std::vector<std::string>& layerFile
-	, Scene* scene)
+	, const std::vector<std::string>& layerFile)
 {
 	noa::TileMap* map = new TileMap(tileSetFile,layerFile);
 	scene->SetLevel(map);
@@ -196,6 +196,11 @@ void noa::TileMap::SetCollisionTileID(const std::vector<int>& collisionTileIDs)
 	{
 		collisionTiles[collisionTileIDs[i]] = true;
 	}
+}
+
+void noa::TileMap::SetCollisionTileID(const int tileID)
+{
+	this->collisionTiles[tileID] = true;
 }
 
 noa::Tile* noa::TileMap::GetTile(const int id)

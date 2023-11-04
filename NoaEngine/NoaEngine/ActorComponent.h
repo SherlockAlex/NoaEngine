@@ -102,6 +102,25 @@ namespace noa {
 			return actor->TryGetComponent<T>(callback);
 		}
 
+		Actor* FindActorWithTag(const std::string & tag)
+		{
+			return sceneManager.FindActorWithTag(tag);
+		}
+
+		std::vector<Actor*> FindActorsWithTag(const std::string & tag)
+		{
+			return sceneManager.FindActorsWithTag(tag);
+		}
+
+		template<class T>
+		T* FindActorWithType() {
+			return sceneManager.FindActorWithType<T>();
+		}
+
+		template<class T>
+		std::vector<T*> FindActorsWithType() {
+			return sceneManager.FindActorsWithType<T>();
+		}
 
 	};
 }

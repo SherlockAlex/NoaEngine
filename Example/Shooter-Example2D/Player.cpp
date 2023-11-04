@@ -33,7 +33,6 @@ static float timer = 0;
 void Player::Update() 
 {
 	rigid->velocity = {};
-	//rigid->velocity.x = 0;
 	if (noa::inputSystem.GetKeyHold(noa::KeyCode::KEY_W))
 	{
 		rigid->velocity.y = -15;

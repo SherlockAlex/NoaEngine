@@ -139,21 +139,6 @@ namespace noa {
 	};
 }
 
-///返回的是T的绝对值，注意T只能是数值类型，否则报错
-template<class T>
-inline T NoaAbs(T value) 
-{
-	return (value > 0) ? value : (-value);
-}
-
-inline int NoaFastAbs(const int x)
-{
-	// 检查输入值的符号位
-	// 获取符号位，正数为0，负数为-1
-
-	return ((x ^ (x >> (sizeof(int) * 8 - 1))) - (x >> (sizeof(int) * 8 - 1)));
-}
-
 #define NOAABS(x) ((x ^ (x >> (sizeof(int) * 8 - 1))) - (x >> (sizeof(int) * 8 - 1)))
 
 template <typename KeyType, typename ValueType>
@@ -167,6 +152,22 @@ inline bool ContainKey(const std::map<KeyType, ValueType>& myMap, const KeyType&
 {
 	return myMap.count(keyToCheck) > 0;
 }
+
+namespace noa
+{
+	class Math
+	{
+	public:
+		static const float Pi;
+		static const float halfPi;
+		static const float doublePi;
+
+		static float LinearLerp(float currentValue,float targetValue,float stepSpeed);
+
+	};
+}
+
+
 
 
 #endif

@@ -2,11 +2,11 @@
 #define NOAENGINE_ACTOR_H
 
 #include <vector>
-
 #include <functional>
 
 #include "Transform.h"
 #include "NObject.h"
+#include "Scene.h"
 
 /*
 * ActorÄ£¿é
@@ -139,6 +139,25 @@ namespace noa {
 			}
 			callback(*buffer);
 			return true;
+		}
+
+		Actor * FindActorWithTag(const std::string & tag)
+		{
+			return sceneManager.FindActorWithTag(tag);
+		}
+
+		std::vector<Actor*> FindActorsWithTag(const std::string& tag) {
+			return sceneManager.FindActorsWithTag(tag);
+		}
+
+		template<class T>
+		T* FindActorWithType() {
+			return sceneManager.FindActorWithType<T>();
+		}
+
+		template<class T>
+		std::vector<T*> FindActorsWithType() {
+			return sceneManager.FindActorsWithType<T>();
 		}
 
 	private:

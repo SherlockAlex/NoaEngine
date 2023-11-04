@@ -104,9 +104,10 @@ namespace noa {
 
 	public:
 
-		static TileMap* Create(const std::string& tileSetFile
+		static TileMap* Create(
+			Scene* scene
+			,const std::string& tileSetFile
 			, const std::vector<std::string>& layerFile
-			, Scene * scene
 		);
 
 		int GetLayerTileID(const int layerIndex,const int x,const int y) const;
@@ -116,14 +117,8 @@ namespace noa {
 		bool IsCollisionTile(int tileID) const;
 		bool IsCollisionTile(const int x,const int y) const;
 		void SetCollisionTileID(const std::vector<int> & collisionTileIDs);
+		void SetCollisionTileID(const int tileID);
 	};
-
-
-	/*typedef struct MapInfo {
-		std::shared_ptr<TileMap> mapLayer;
-		std::shared_ptr<MapFile> objectLayer;
-
-	}MapInfo;*/
 
 	class Scene final
 	{

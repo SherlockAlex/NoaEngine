@@ -49,8 +49,8 @@ void noa::Renderer::DrawPixel(const uint32_t x, const uint32_t y, const uint32_t
 
 void noa::Renderer::DrawLine(int x1, int y1, int x2, int y2, Uint32 color) const
 {
-	const int dx = NoaFastAbs(x2 - x1);
-	const int dy = NoaFastAbs(y2 - y1);
+	const int dx = static_cast<int>(std::abs(x2 - x1));
+	const int dy = static_cast<int>(std::abs(y2 - y1));
 	const int sx = (x1 < x2) ? 1 : -1;
 	const int sy = (y1 < y2) ? 1 : -1;
 

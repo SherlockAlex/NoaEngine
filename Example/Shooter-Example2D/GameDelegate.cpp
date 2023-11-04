@@ -13,8 +13,8 @@ noa::TileMapCamera* camera = nullptr;
 Player* player = nullptr;
 void GameDelegate::OnLoad(noa::Scene* scene)
 {
-	noa::TileMap* map = noa::TileMap::Create("tileSet.tsd", { "map.csv" }, scene);
-	map->SetCollisionTileID({ 40 });
+	noa::TileMap* map = noa::TileMap::Create(scene,"tileSet.tsd", { "map.csv" });
+	map->SetCollisionTileID(40);
 	camera = noa::TileMapCamera::Create(scene);
 
 	Test* test1 = noa::NObject<Test>::Create(scene);
