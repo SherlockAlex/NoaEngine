@@ -31,10 +31,10 @@ void noa::Collider2D::ApplyTrigger()
 		&& GetActive()
 		&& isTrigger
 		&& rigidbody->collision.actor != nullptr
-		&& this->GetActor() != nullptr;
+		&& GetActor() != nullptr;
 	if (canApplyTrigger)
 	{
-		this->GetActor()->OnTrigger(rigidbody->collision);
+		GetActor()->OnTrigger(rigidbody->collision);
 	}
 	rigidbody->collision.actor = nullptr;
 
@@ -249,6 +249,7 @@ void noa::TileCollider2D::ApplyTileCollision(float deltaTime)
 		|| tileMap->IsCollisionTile(intNewX, static_cast<int>(posY + scaleY))
 		)
 	{
+		this->isHitCollisionTile = true;
 		rigidbody->velocity.x = -rigidbody->velocity.x * std::abs(rigidbody->friction);
 		if (static_cast<int>(rigidbody->velocity.x*10.0f) == 0)
 		{
@@ -264,7 +265,7 @@ void noa::TileCollider2D::ApplyTileCollision(float deltaTime)
 		|| tileMap->IsCollisionTile(static_cast<int>(newX + scaleX), static_cast<int>(posY + scaleY))
 		)
 	{
-
+		this->isHitCollisionTile = true;
 		rigidbody->velocity.x = -rigidbody->velocity.x * std::abs(rigidbody->friction);
 		if (static_cast<int>(rigidbody->velocity.x * 10.0f) == 0)
 		{
@@ -279,7 +280,7 @@ void noa::TileCollider2D::ApplyTileCollision(float deltaTime)
 	if (tileMap->IsCollisionTile(intNewX, intNewY)
 		|| tileMap->IsCollisionTile(static_cast<int>(newX + scaleX), intNewY))
 	{
-		
+		this->isHitCollisionTile = true;
 		rigidbody->velocity.y = -rigidbody->velocity.y * std::abs(rigidbody->bounce);
 		if (static_cast<int>(rigidbody->velocity.y * 10.0f) == 0)
 		{
@@ -296,7 +297,7 @@ void noa::TileCollider2D::ApplyTileCollision(float deltaTime)
 		|| tileMap->IsCollisionTile(static_cast<int>(newX + scaleX), static_cast<int>(newY + scaleY)))
 	{
 		//об
-		
+		this->isHitCollisionTile = true;
 		rigidbody->velocity.y = -rigidbody->velocity.y * std::abs(rigidbody->bounce);
 		if (static_cast<int>(rigidbody->velocity.y * 10.0f) == 0)
 		{

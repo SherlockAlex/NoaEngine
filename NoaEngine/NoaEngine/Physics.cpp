@@ -235,7 +235,7 @@ void noa::Rigidbody::AddAntiGravity()
 void noa::Rigidbody::ApplyTileCollision(float deltaTime)
 {
 
-	if (this->tileCollider2D == nullptr)
+	if (!this->tileCollider2D)
 	{
 		return;
 	}
@@ -245,7 +245,7 @@ void noa::Rigidbody::ApplyTileCollision(float deltaTime)
 
 void noa::Rigidbody::ApplyTileConstraint(float deltaTime)
 {
-	if (this->tileCollider2D == nullptr)
+	if (!this->tileCollider2D)
 	{
 		return;
 	}

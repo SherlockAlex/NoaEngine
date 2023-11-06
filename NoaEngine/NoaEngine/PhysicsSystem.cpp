@@ -364,7 +364,10 @@ void noa::PhysicsSystem::CheckCellsCollisions(Cell& cell1, Cell& cell2)
 					}
 					collider1->rigidbody->collision.actor = collider2->GetActor();
 					collider2->rigidbody->collision.actor = collider1->GetActor();
-					SolveCollision(collider1, collider2);
+					if (!collider1->isTrigger&&!collider2->isTrigger)
+					{
+						SolveCollision(collider1, collider2);
+					}
 					collider1->ApplyTrigger();
 					collider2->ApplyTrigger();
 

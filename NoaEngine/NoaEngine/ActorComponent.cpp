@@ -50,6 +50,10 @@ std::string& noa::ActorComponent::GetActorTag()
 
 bool noa::ActorComponent::CompareTag(const std::string& tag)
 {
+	if (!actor)
+	{
+		return false;
+	}
 	return actor->tag == tag;
 }
 

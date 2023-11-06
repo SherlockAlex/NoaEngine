@@ -41,7 +41,7 @@ void Bullet::OnHitTile()
 
 void Bullet::OnTrigger(const noa::Collision & collision) 
 {
-	if (collision.actor!=nullptr)
+	if (!collision.CompareTag("Player"))
 	{
 		noa::Debug::Log(collision.actor->tag);
 	}
