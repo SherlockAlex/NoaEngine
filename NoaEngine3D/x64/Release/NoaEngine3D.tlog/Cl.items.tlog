@@ -1,5 +1,6 @@
-D:\Work\NoaEngine\NoaEngine3D\Game.cpp;D:\Work\NoaEngine\NoaEngine3D\x64\Release\Game.obj
-D:\Work\NoaEngine\NoaEngine3D\ResourceManager.cpp;D:\Work\NoaEngine\NoaEngine3D\x64\Release\ResourceManager.obj
-D:\Work\NoaEngine\NoaEngine3D\Shader.cpp;D:\Work\NoaEngine\NoaEngine3D\x64\Release\Shader.obj
-D:\Work\NoaEngine\NoaEngine3D\SpriteRenderer.cpp;D:\Work\NoaEngine\NoaEngine3D\x64\Release\SpriteRenderer.obj
-D:\Work\NoaEngine\NoaEngine3D\Texture.cpp;D:\Work\NoaEngine\NoaEngine3D\x64\Release\Texture.obj
+D:\Work\NoaEngine\NoaEngine3D\Debug.cpp;D:\Work\NoaEngine\NoaEngine3D\x64\Release\Debug.obj
+D:\Work\NoaEngine\NoaEngine3D\Engine3D.cpp;D:\Work\NoaEngine\NoaEngine3D\x64\Release\Engine3D.obj
+D:\Work\NoaEngine\NoaEngine3D\Platform.cpp;D:\Work\NoaEngine\NoaEngine3D\x64\Release\Platform.obj
+D:\Work\NoaEngine\NoaEngine3D\main.cpp;D:\Work\NoaEngine\NoaEngine3D\x64\Release\main.obj
+D:\Work\NoaEngine\NoaEngine3D\RenderTriangle.cpp;D:\Work\NoaEngine\NoaEngine3D\x64\Release\RenderTriangle.obj
+D:\Work\NoaEngine\NoaEngine3D\Time.cpp;D:\Work\NoaEngine\NoaEngine3D\x64\Release\Time.obj

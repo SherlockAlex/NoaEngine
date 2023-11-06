@@ -44,7 +44,7 @@ namespace noa {
 	class Rigidbody final:public ActorComponent
 	{
 	private:
-		NOBJECT(Rigidbody)
+		ACTOR_COMPONENT(Rigidbody)
 		friend class PhysicsSystem;
 		friend class Collider2D;
 		friend class TileCollider2D;
@@ -61,13 +61,13 @@ namespace noa {
 
 		bool isFrozen = false;
 		bool useGravity = true;
-		bool useCollision = true;
+
 		Vector<float> velocity = Vector<float>(0.0f, 0.0f);
 		float angleVelocity = 0.0f;
 
-	private:
-
 		BodyType bodyType = BodyType::DYNAMIC;
+
+	private:
 
 		float mass = 1;
 		float invMass = 1;
@@ -129,10 +129,21 @@ namespace noa {
 		Vector<float> GetSumForce();
 		Vector<float> GetMomentum();
 		void AddForce(const Vector<float> & force, ForceType forceType);
-		void SetMass(float value);
-		void SetBodyType(BodyType bodyType);
 		Vector<bool> GetConstraint();
 		void AddAntiGravity();
+
+		//建造者模式
+		Rigidbody* SetMass(float value);
+		Rigidbody* SetBodyType(BodyType bodyType);
+		Rigidbody* SetBounce(float value);
+		Rigidbody* SetFriction(float value);
+		Rigidbody* SetDamping(float value);
+		Rigidbody* SetGravityWeight(float value);
+
+		Rigidbody* SetIsFrozen(bool value);
+		Rigidbody* SetUseGravity(bool value);
+		Rigidbody* Apply();
+
 
 	};
 

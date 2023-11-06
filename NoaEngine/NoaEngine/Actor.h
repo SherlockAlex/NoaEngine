@@ -22,6 +22,8 @@ namespace noa {
 	class Scene;
 	class ActorComponent;
 
+#define ACTOR(T) template<class T> friend class noa::NObject;
+
 	class Actor:public NOAObject
 	{
 	private:

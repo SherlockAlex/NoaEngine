@@ -1,4 +1,37 @@
-﻿  GLRenderer.cpp
+﻿  Actor.cpp
+  ActorComponent.cpp
+  ActorPool.cpp
+  ActorPoolFactory.cpp
+  Animator.cpp
+  AudioSource.cpp
+  AudioSystem_SDL.cpp
+  Camera.cpp
+  Collider2D.cpp
+  Debug.cpp
+  GLRenderer.cpp
+  GLShader.cpp
   GLTexture.cpp
+  Graphic.cpp
+  InputSystem.cpp
+  NObject.cpp
+  NoaEngine.cpp
+  NoaGUI.cpp
+  NoaMath.cpp
+  Physics.cpp
+  正在编译...
+  PhysicsSystem.cpp
+  Platform.cpp
+  Platform_Windows.cpp
+  Renderer.cpp
+  Resource.cpp
+  SDLRenderer.cpp
+  SDLTexture.cpp
+  Scene.cpp
+  Screen.cpp
+  Sprite.cpp
+  SpriteRenderer.cpp
+  StateMachine.cpp
+  Texture.cpp
+  Transform.cpp
 SDL2main.lib(SDL_windows_main.obj) : error LNK2001: 无法解析的外部符号 SDL_main
 D:\Work\NoaEngine\x64\Release\NoaEngine.exe : fatal error LNK1120: 1 个无法解析的外部命令

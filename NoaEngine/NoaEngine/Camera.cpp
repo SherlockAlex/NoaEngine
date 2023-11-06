@@ -55,7 +55,7 @@ namespace noa {
 
 	TileMapCamera* TileMapCamera::Create(Scene* scene)
 	{
-		return new TileMapCamera(scene);
+		return NObject<TileMapCamera>::Create(scene);
 	}
 
 	void TileMapCamera::SetTileScale(Vector<int> tileScale)
@@ -214,7 +214,7 @@ namespace noa {
 	
 	FreeCamera* FreeCamera::Create(Scene* scene)
 	{
-		return new FreeCamera(scene);
+		return NObject<FreeCamera>::Create(scene);
 	}
 
 	void FreeCamera::RenderFloor()
@@ -566,7 +566,7 @@ namespace noa {
 
 	StaticCamera* StaticCamera::Create(Scene* scene)
 	{
-		return new StaticCamera(scene);
+		return NObject<StaticCamera>::Create(scene);
 	}
 
 	void StaticCamera::SetBackground(Sprite* sprite)

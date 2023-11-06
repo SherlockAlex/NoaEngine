@@ -3,8 +3,7 @@
 #include "ResourceManager.h"
 
 Bullet::Bullet(noa::Scene* scene) :noa::Actor(scene) {
-	this->rigid->useGravity = false;
-	this->rigid->damping = 0;
+
 }
 
 Bullet::~Bullet() {

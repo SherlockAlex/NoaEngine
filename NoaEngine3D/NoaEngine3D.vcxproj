@@ -1,6 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\SOIL2.1.20.0.8\build\native\SOIL2.props" Condition="Exists('..\packages\SOIL2.1.20.0.8\build\native\SOIL2.props')" />
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -131,28 +130,31 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Game.h" />
-    <ClInclude Include="resource.h" />
-    <ClInclude Include="ResourceManager.h" />
-    <ClInclude Include="Shader.h" />
-    <ClInclude Include="SpriteRenderer.h" />
-    <ClInclude Include="Texture.h" />
+    <ClInclude Include="Debug.h" />
+    <ClInclude Include="Engine3D.h" />
+    <ClInclude Include="GLHelper.h" />
+    <ClInclude Include="GLShader.h" />
+    <ClInclude Include="Platform.h" />
+    <ClInclude Include="RenderTriangle.h" />
+    <ClInclude Include="SDLHelper.h" />
+    <ClInclude Include="Time.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Game.cpp" />
-    <ClCompile Include="ResourceManager.cpp" />
-    <ClCompile Include="Shader.cpp" />
-    <ClCompile Include="SpriteRenderer.cpp" />
-    <ClCompile Include="Texture.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="NoaEngine3D.rc" />
+    <ClCompile Include="Debug.cpp" />
+    <ClCompile Include="Engine3D.cpp" />
+    <ClCompile Include="GLShader.cpp" />
+    <ClCompile Include="Platform.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="RenderTriangle.cpp" />
+    <ClCompile Include="Time.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
     <Import Project="..\packages\glm.0.9.9.800\build\native\glm.targets" Condition="Exists('..\packages\glm.0.9.9.800\build\native\glm.targets')" />
     <Import Project="..\packages\nupengl.core.redist.0.1.0.1\build\native\nupengl.core.redist.targets" Condition="Exists('..\packages\nupengl.core.redist.0.1.0.1\build\native\nupengl.core.redist.targets')" />
     <Import Project="..\packages\nupengl.core.0.1.0.1\build\native\nupengl.core.targets" Condition="Exists('..\packages\nupengl.core.0.1.0.1\build\native\nupengl.core.targets')" />
+    <Import Project="..\packages\sdl2.nuget.redist.2.28.4\build\native\sdl2.nuget.redist.targets" Condition="Exists('..\packages\sdl2.nuget.redist.2.28.4\build\native\sdl2.nuget.redist.targets')" />
+    <Import Project="..\packages\sdl2.nuget.2.28.4\build\native\sdl2.nuget.targets" Condition="Exists('..\packages\sdl2.nuget.2.28.4\build\native\sdl2.nuget.targets')" />
   </ImportGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
@@ -161,6 +163,7 @@
     <Error Condition="!Exists('..\packages\glm.0.9.9.800\build\native\glm.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\glm.0.9.9.800\build\native\glm.targets'))" />
     <Error Condition="!Exists('..\packages\nupengl.core.redist.0.1.0.1\build\native\nupengl.core.redist.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\nupengl.core.redist.0.1.0.1\build\native\nupengl.core.redist.targets'))" />
     <Error Condition="!Exists('..\packages\nupengl.core.0.1.0.1\build\native\nupengl.core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\nupengl.core.0.1.0.1\build\native\nupengl.core.targets'))" />
-    <Error Condition="!Exists('..\packages\SOIL2.1.20.0.8\build\native\SOIL2.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\SOIL2.1.20.0.8\build\native\SOIL2.props'))" />
+    <Error Condition="!Exists('..\packages\sdl2.nuget.redist.2.28.4\build\native\sdl2.nuget.redist.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\sdl2.nuget.redist.2.28.4\build\native\sdl2.nuget.redist.targets'))" />
+    <Error Condition="!Exists('..\packages\sdl2.nuget.2.28.4\build\native\sdl2.nuget.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\sdl2.nuget.2.28.4\build\native\sdl2.nuget.targets'))" />
   </Target>
 </Project>

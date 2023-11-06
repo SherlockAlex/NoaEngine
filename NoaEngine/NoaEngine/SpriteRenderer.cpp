@@ -22,7 +22,7 @@ noa::SpriteRenderer::~SpriteRenderer()
 
 noa::SpriteRenderer* noa::SpriteRenderer::Create(Actor* actor)
 {
-	return NObject<SpriteRenderer>::Create<Actor*>(actor);
+	return NObject<SpriteRenderer>::Create(actor);
 }
 
 void noa::SpriteRenderer::UpdateSprite(const SpriteFile& spriteFile)

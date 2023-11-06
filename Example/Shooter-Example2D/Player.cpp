@@ -6,7 +6,6 @@ Player::Player(noa::Scene * scene):noa::Actor(scene)
 {
 	this->tag = "Player";
 
-	this->rigid->useCollision = true;
 	this->rigid->useGravity = false;
 	this->rigid->damping = 0.0f;
 	this->transform.position = { 3,3 };
@@ -50,6 +49,23 @@ void Player::Update()
 	if (noa::inputSystem.GetMouseKeyHold(noa::MouseButton::RIGHT_BUTTON)) 
 	{
 		this->transform.eulerAngle += 100*noa::Time::deltaTime;
+	}
+
+	if (noa::inputSystem.GetMouseKeyHold(noa::MouseButton::LEFT_BUTTON)) 
+	{
+		Bullet* bullet = bulletPool->Request();
+		bullet->transform.position = this->transform.position;
+
+		noa::Vector<double> & mousePos = noa::inputSystem.GetMousePosition();
+
+		noa::Vector<float> worldPos = camera->ScreenPointToWorld(mousePos.x, mousePos.y);
+
+		noa::Vector<float> direction = (worldPos - this->transform.position).Normalize();
+		
+		bullet->SetDirection(direction.x,direction.y);
+
+
+
 	}
 
 }

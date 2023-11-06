@@ -12,7 +12,7 @@ namespace noa {
 	class AudioSource final :public ActorComponent
 	{
 	private:
-		NOBJECT(AudioSource)
+		ACTOR_COMPONENT(AudioSource)
 	private:
 		std::shared_ptr<AudioClip> clip = nullptr;
 
@@ -24,8 +24,10 @@ namespace noa {
 
 		static AudioSource* Create(Actor * actor);
 
-		void SetVolume(float volume);
-		void SetAudioClip(std::shared_ptr<AudioClip> clip);
+		AudioSource* SetVolume(float volume);
+		AudioSource* SetAudioClip(std::shared_ptr<AudioClip> clip);
+		AudioSource* Apply();
+
 		void Play(bool loop) const;
 		void Stop() const;
 	};

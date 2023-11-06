@@ -31,7 +31,7 @@ namespace noa {
 
 	class Animation:public ActorComponent
 	{
-		friend class NObject<Animation>;
+		ACTOR_COMPONENT(Animation)
 	private:
 		AnimationClip* clip = nullptr;
 		std::unordered_map<Uint32, NoaEvent<void>> framesEvent;
@@ -51,10 +51,10 @@ namespace noa {
 	public:
 		static Animation* Create(Actor* actor);
 		
-		void SetClip(AnimationClip* frame);
+		
 		SpriteFile& GetCurrentFrameImage();
 		SpriteFile& GetFrameImage(int frame);
-		void SetFrameEvent(int frame, std::function<void()> e);
+		
 		void Play(int frame);
 		void Play();
 		void Reset();
@@ -62,11 +62,12 @@ namespace noa {
 		void Start() override;
 		void Update() override;//¸üÐÂ¶¯»­Ö¡
 
-		void SetLoop(bool value);
-		void SetSpeed(float value);
-
-		void SetAnimatedSprite(Sprite * sprite);
-
+		Animation * SetLoop(bool value);
+		Animation* SetSpeed(float value);
+		Animation* SetFrameEvent(int frame, std::function<void()> e);
+		Animation* SetAnimatedSprite(Sprite * sprite);
+		Animation* SetClip(AnimationClip* frame);
+		Animation* Apply();
 	};
 
 	class Animator;

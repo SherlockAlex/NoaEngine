@@ -168,15 +168,58 @@ void noa::Rigidbody::AddForce(const Vector<float>& force, ForceType forceType)
 
 }
 
-void noa::Rigidbody::SetMass(float value)
+noa::Rigidbody * noa::Rigidbody::SetMass(float value)
 {
 	this->mass = value;
 	this->invMass = 1.0f / value;
+	return this;
 }
 
-void noa::Rigidbody::SetBodyType(BodyType bodyType)
+noa::Rigidbody * noa::Rigidbody::SetBodyType(BodyType bodyType)
 {
 	this->bodyType = bodyType;
+	return this;
+}
+
+noa::Rigidbody* noa::Rigidbody::SetBounce(float value)
+{
+	this->bounce = value;
+	return this;
+}
+
+noa::Rigidbody* noa::Rigidbody::SetFriction(float value)
+{
+	this->friction = value;
+	return this;
+}
+
+noa::Rigidbody* noa::Rigidbody::SetDamping(float value)
+{
+	this->damping = value;
+	return this;
+}
+
+noa::Rigidbody* noa::Rigidbody::SetGravityWeight(float value)
+{
+	this->gravityWeight = value;
+	return this;
+}
+
+noa::Rigidbody* noa::Rigidbody::SetIsFrozen(bool value)
+{
+	this->isFrozen = value;
+	return this;
+}
+
+noa::Rigidbody* noa::Rigidbody::SetUseGravity(bool value)
+{
+	this->useGravity = value;
+	return this;
+}
+
+noa::Rigidbody* noa::Rigidbody::Apply()
+{
+	return this;
 }
 
 noa::Vector<bool> noa::Rigidbody::GetConstraint()

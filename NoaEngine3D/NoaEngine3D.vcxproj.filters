@@ -18,45 +18,52 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Shader.h">
+    <ClInclude Include="Engine3D.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Texture.h">
+    <ClInclude Include="Platform.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="resource.h">
+    <ClInclude Include="SDLHelper.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="ResourceManager.h">
+    <ClInclude Include="Debug.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Game.h">
+    <ClInclude Include="Time.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="SpriteRenderer.h">
+    <ClInclude Include="RenderTriangle.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="GLHelper.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="GLShader.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Shader.cpp">
+    <ClCompile Include="Engine3D.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Texture.cpp">
+    <ClCompile Include="Platform.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="ResourceManager.cpp">
+    <ClCompile Include="Debug.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Game.cpp">
+    <ClCompile Include="main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="SpriteRenderer.cpp">
+    <ClCompile Include="Time.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="NoaEngine3D.rc">
-      <Filter>资源文件</Filter>
-    </ResourceCompile>
+    <ClCompile Include="RenderTriangle.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="GLShader.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

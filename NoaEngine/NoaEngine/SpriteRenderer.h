@@ -20,7 +20,7 @@ namespace noa {
 	class SpriteRenderer:public ActorComponent
 	{
 	private:
-		NOBJECT(SpriteRenderer)
+		ACTOR_COMPONENT(SpriteRenderer)
 	private:
 		
 		Sprite* sprite = nullptr;

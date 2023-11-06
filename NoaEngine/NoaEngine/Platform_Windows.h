@@ -40,6 +40,7 @@ namespace noa {
 		bool GetKeyHold(KeyCode key) override;
 		bool GetKeyDown(KeyCode key) override;
 		void PollEvent(const std::function<void()>& quitCallback) override;
+		void ResetMouseContext() override;
 		void UpdateMouseContext() override;
 		void SetRelativeMouseMode(bool mode) override;
 	};

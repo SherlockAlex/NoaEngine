@@ -13,6 +13,8 @@
 namespace noa {
 	class Actor;
 
+#define ACTOR_COMPONENT(T) template<class T> friend class noa::NObject;
+
 	class ActorComponent:public NOAObject
 	{
 	protected:

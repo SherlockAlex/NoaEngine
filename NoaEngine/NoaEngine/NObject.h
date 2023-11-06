@@ -27,12 +27,12 @@ namespace noa
 	{
 	public:
 
-		template<typename ...Args>
+		/*template<typename ...Args>
 		static T* Create(Args... args) {
 			T* obj = new T(args...);
 			InitNObject(obj);
 			return obj;
-		}
+		}*/
 
 		static T* Create(Scene * scene) 
 		{
@@ -48,11 +48,11 @@ namespace noa
 			return obj;
 		}
 
-		static T* Create() {
+		/*static T* Create() {
 			T* obj = new T();
 			InitNObject(obj);
 			return obj;
-		}
+		}*/
 
 	};
 

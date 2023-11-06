@@ -70,6 +70,7 @@ namespace noa {
 		virtual bool GetKeyDown(noa::KeyCode key) = 0;
 
 		virtual void PollEvent(const std::function<void()> & quitCallback) = 0;
+		virtual void ResetMouseContext() = 0;
 		virtual void UpdateMouseContext() = 0;
 		virtual void SetRelativeMouseMode(bool mode) = 0;
 	};

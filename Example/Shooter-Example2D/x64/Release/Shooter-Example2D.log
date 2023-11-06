@@ -1,53 +1,21 @@
-﻿  Actor.cpp
-  Camera.cpp
-  Collider2D.cpp
-D:\Work\NoaEngine\NoaEngine\NoaEngine\Collider2D.cpp(131,18): warning C4244: “=”: 从“int”转换到“T”，可能丢失数据
-          with
-          [
-              T=float
-          ]
-D:\Work\NoaEngine\NoaEngine\NoaEngine\Collider2D.cpp(132,18): warning C4244: “=”: 从“int”转换到“T”，可能丢失数据
-          with
-          [
-              T=float
-          ]
-  NoaEngine.cpp
-  Physics.cpp
-  PhysicsSystem.cpp
-  SpriteRenderer.cpp
-  Bullet.cpp
+﻿  Bullet.cpp
   BulletFactory.cpp
   BulletPool.cpp
-  Engine.cpp
   GameDelegate.cpp
-D:\Work\NoaEngine\Example\Shooter-Example2D\GameDelegate.cpp(76,59): warning C4244: “参数”: 从“T”转换到“int”，可能丢失数据
-          with
-          [
-              T=double
-          ]
-D:\Work\NoaEngine\Example\Shooter-Example2D\GameDelegate.cpp(76,52): warning C4244: “参数”: 从“T”转换到“int”，可能丢失数据
-          with
-          [
-              T=double
-          ]
-D:\Work\NoaEngine\Example\Shooter-Example2D\GameDelegate.cpp(91,68): warning C4244: “参数”: 从“T”转换到“float”，可能丢失数据
-          with
-          [
-              T=double
-          ]
-D:\Work\NoaEngine\Example\Shooter-Example2D\GameDelegate.cpp(91,61): warning C4244: “参数”: 从“T”转换到“float”，可能丢失数据
-          with
-          [
-              T=double
-          ]
-  MainMenuDelegate.cpp
   Player.cpp
-  ResourceManager.cpp
-  Shooter.cpp
-  Test.cpp
+D:\Work\NoaEngine\Example\Shooter-Example2D\Player.cpp(61,80): warning C4244: “参数”: 从“T”转换到“float”，可能丢失数据
+          with
+          [
+              T=double
+          ]
+D:\Work\NoaEngine\Example\Shooter-Example2D\Player.cpp(61,68): warning C4244: “参数”: 从“T”转换到“float”，可能丢失数据
+          with
+          [
+              T=double
+          ]
   正在生成代码
-  15 of 3436 functions ( 0.4%) were compiled, the rest were copied from previous compilation.
-    8 functions were new in current compilation
-    1 functions had inline decision re-evaluated but remain unchanged
+  8 of 3414 functions ( 0.2%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    4 functions had inline decision re-evaluated but remain unchanged
   已完成代码的生成
   Shooter-Example2D.vcxproj -> D:\Work\NoaEngine\x64\Release\Shooter-Example2D.exe

@@ -26,7 +26,11 @@ public:
 	void SetDirection(float x,float y);
 private:
 
-	noa::Rigidbody* rigid = noa::Rigidbody::Create(this);
+	noa::Rigidbody* rigid = noa::Rigidbody::Create(this)
+		->SetUseGravity(false)
+		->SetDamping(0)
+		->Apply();
+
 	noa::SpriteRenderer* spriteRenderer = noa::SpriteRenderer::Create(this)
 		->SetSprite(&ResourceManager::bulletImage)
 		->Apply();
@@ -39,6 +43,7 @@ private:
 
 	noa::TileCollider2D* tileCollider = noa::TileCollider2D::Create(this)
 		->SetRigidbody(rigid)
+		->SetIsTrigger(true)
 		->Apply();
 
 	float timer = 0;

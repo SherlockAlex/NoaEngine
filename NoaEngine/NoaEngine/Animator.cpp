@@ -24,7 +24,7 @@ noa::Animation::Animation(noa::Actor* actor) :noa::ActorComponent(actor)
 
 noa::Animation* noa::Animation::Create(Actor* actor)
 {
-	return NObject<Animation>::Create<Actor*>(actor);
+	return NObject<Animation>::Create(actor);
 }
 
 noa::Animation::~Animation()
@@ -32,18 +32,25 @@ noa::Animation::~Animation()
 
 }
 
-void noa::Animation::SetClip(noa::AnimationClip* clip)
+noa::Animation* noa::Animation::SetClip(noa::AnimationClip* clip)
 {
 	if (clip == nullptr)
 	{
-		return;
+		return this;
 	}
 	this->clip = clip;
 	if (!clip->framesImage.empty())
 	{
 		currentFrame = clip->framesImage[0];
 	}
+	
+	return this;
 
+}
+
+noa::Animation* noa::Animation::Apply()
+{
+	return this;
 }
 
 noa::SpriteFile& noa::Animation::GetCurrentFrameImage()
@@ -62,9 +69,10 @@ noa::SpriteFile& noa::Animation::GetFrameImage(int frame)
 	return clip->framesImage[frame];
 }
 
-void noa::Animation::SetFrameEvent(int frame, function<void()> e)
+noa::Animation* noa::Animation::SetFrameEvent(int frame, function<void()> e)
 {
 	this->framesEvent[frame] += e;
+	return this;
 }
 
 void noa::Animation::Play(int frame)
@@ -135,19 +143,22 @@ void noa::Animation::Update()
 
 }
 
-void noa::Animation::SetLoop(bool value)
+noa::Animation* noa::Animation::SetLoop(bool value)
 {
 	this->loop = value;
+	return this;
 }
 
-void noa::Animation::SetSpeed(float value)
+noa::Animation* noa::Animation::SetSpeed(float value)
 {
 	this->speed = value;
+	return this;
 }
 
-void noa::Animation::SetAnimatedSprite(Sprite* sprite)
+noa::Animation* noa::Animation::SetAnimatedSprite(Sprite* sprite)
 {
 	this->animatedSprite = sprite;
+	return this;
 }
 
 noa::AnimationState::AnimationState(

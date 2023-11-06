@@ -85,7 +85,7 @@ noa::CircleCollider2D::~CircleCollider2D()
 
 noa::CircleCollider2D* noa::CircleCollider2D::Create(Actor* actor)
 {
-	return NObject<CircleCollider2D>::Create<Actor*>(actor);
+	return NObject<CircleCollider2D>::Create(actor);
 }
 
 noa::CircleCollider2D* noa::CircleCollider2D::SetRadius(float radius)
@@ -123,19 +123,19 @@ noa::BoxCollider2D::~BoxCollider2D()
 
 noa::BoxCollider2D* noa::BoxCollider2D::Create(Actor * actor)
 {
-	return NObject<BoxCollider2D>::Create<Actor*>(actor);
-}
-
-noa::BoxCollider2D* noa::BoxCollider2D::SetScale(int x, int y)
-{
-	this->scale.x = x;
-	this->scale.y = y;
-	return this;
+	return NObject<BoxCollider2D>::Create(actor);
 }
 
 noa::BoxCollider2D* noa::BoxCollider2D::SetIsTrigger(bool isTrigger)
 {
 	this->isTrigger = isTrigger;
+	return this;
+}
+
+noa::BoxCollider2D* noa::BoxCollider2D::SetScale(float x, float y)
+{
+	this->scale.x = x;
+	this->scale.y = y;
 	return this;
 }
 
@@ -168,7 +168,7 @@ noa::TileCollider2D::~TileCollider2D()
 noa::TileCollider2D* noa::TileCollider2D::Create(noa::Actor* actor)
 {
 	TileCollider2D * collider = 
-		noa::NObject<TileCollider2D>::Create<noa::Actor*>(actor);
+		noa::NObject<TileCollider2D>::Create(actor);
 	return collider;
 }
 
@@ -204,10 +204,18 @@ noa::TileCollider2D* noa::TileCollider2D::SetRigidbody(Rigidbody * rigidbody)
 	return this;
 }
 
+noa::TileCollider2D* noa::TileCollider2D::SetIsTrigger(bool value)
+{
+	this->isTrigger = value;
+	return this;
+}
+
 noa::TileCollider2D* noa::TileCollider2D::Apply()
 {
 	return this;
 }
+
+
 
 void noa::TileCollider2D::ApplyTileCollision(float deltaTime)
 {

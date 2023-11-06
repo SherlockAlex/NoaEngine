@@ -97,6 +97,7 @@ bool noa::InputEvent_Windows::GetKeyDown(KeyCode key)
 
 void noa::InputEvent_Windows::PollEvent(const std::function<void()>& quitCallback)
 {
+	this->ResetMouseContext();
 	while (SDL_PollEvent(&e))
 	{
 		switch (e.type)
@@ -112,16 +113,8 @@ void noa::InputEvent_Windows::PollEvent(const std::function<void()>& quitCallbac
 	}
 }
 
-void noa::InputEvent_Windows::UpdateMouseContext()
+void noa::InputEvent_Windows::ResetMouseContext()
 {
-
-	int mouseX, mouseY;
-
-	const Uint32 mouseState = SDL_GetMouseState(&mouseX, &mouseY);
-
-	mouseContext->position.x = mouseX;
-	mouseContext->position.y = mouseY;
-
 	mouseContext->mouseKey[noa::MouseButton::LEFT_BUTTON].down = false;
 	mouseContext->mouseKey[noa::MouseButton::LEFT_BUTTON].hold = false;
 	mouseContext->mouseKey[noa::MouseButton::LEFT_BUTTON].up = false;
@@ -134,6 +127,17 @@ void noa::InputEvent_Windows::UpdateMouseContext()
 	mouseContext->mouseKey[noa::MouseButton::RIGHT_BUTTON].hold = false;
 	mouseContext->mouseKey[noa::MouseButton::RIGHT_BUTTON].up = false;
 	mouseContext->motion = false;
+}
+
+void noa::InputEvent_Windows::UpdateMouseContext()
+{
+
+	int mouseX, mouseY;
+
+	const Uint32 mouseState = SDL_GetMouseState(&mouseX, &mouseY);
+
+	mouseContext->position.x = mouseX;
+	mouseContext->position.y = mouseY;
 
 	mouseContext->mouseKey[MouseButton::LEFT_BUTTON].hold
 		= mouseState & SDL_BUTTON((static_cast<int>(MouseButton::LEFT_BUTTON)));
@@ -141,6 +145,9 @@ void noa::InputEvent_Windows::UpdateMouseContext()
 		= mouseState & SDL_BUTTON((static_cast<int>(MouseButton::RIGHT_BUTTON)));
 	mouseContext->mouseKey[MouseButton::MIDDLE_BUTTON].hold
 		= mouseState & SDL_BUTTON((static_cast<int>(MouseButton::MIDDLE_BUTTON)));
+
+	mouseContext->delta = { 0,0 };
+	mouseContext->wheel = { 0,0 };
 
 	switch (e.type)
 	{
@@ -162,9 +169,6 @@ void noa::InputEvent_Windows::UpdateMouseContext()
 		mouseContext->wheel.y = e.wheel.y;
 		break;
 	default:
-		
-		mouseContext->delta = { 0,0 };
-		mouseContext->wheel = { 0,0 };
 		break;
 	}
 

@@ -117,7 +117,7 @@ noa::UICanvas::~UICanvas()
 
 noa::UICanvas* noa::UICanvas::Create(Scene* scene)
 {
-	return noa::NObject<UICanvas>::Create<Scene*>(scene);
+	return noa::NObject<UICanvas>::Create(scene);
 }
 
 void noa::UICanvas::AddUIComponent(UIComponent* component)
@@ -194,7 +194,7 @@ noa::UICanvasComponent::~UICanvasComponent() {
 
 noa::UICanvasComponent* noa::UICanvasComponent::Create(Actor * actor) 
 {
-	return noa::NObject<UICanvasComponent>::Create<Actor*>(actor);
+	return noa::NObject<UICanvasComponent>::Create(actor);
 }
 
 void noa::UICanvasComponent::AddUIComponent(UIComponent* component) 

@@ -44,7 +44,7 @@ namespace noa
 
 	class BoxCollider2D final:public Collider2D {
 	private:
-		NOBJECT(BoxCollider2D)
+		ACTOR_COMPONENT(BoxCollider2D)
 	public:
 		Vector<float> scale = {1,1};
 	private:
@@ -53,7 +53,7 @@ namespace noa
 
 	public:
 		static BoxCollider2D* Create(Actor * actor);
-		BoxCollider2D* SetScale(int x, int y);
+		BoxCollider2D* SetScale(float x, float y);
 		BoxCollider2D* SetRigidbody(Rigidbody * rigidbody);
 		BoxCollider2D* SetIsTrigger(bool isTrigger);
 		BoxCollider2D* Apply();
@@ -62,7 +62,7 @@ namespace noa
 	class CircleCollider2D final:public Collider2D
 	{
 	private:
-		NOBJECT(CircleCollider2D)
+		ACTOR_COMPONENT(CircleCollider2D)
 	public:
 		float radius = 0.5f;
 	private:
@@ -80,7 +80,7 @@ namespace noa
 	class TileCollider2D final:public Collider2D 
 	{
 	private:
-		NOBJECT(TileCollider2D)
+		ACTOR_COMPONENT(TileCollider2D)
 		friend class Rigidbody;
 	private:
 		TileCollider2D(Actor* actor);
@@ -96,6 +96,7 @@ namespace noa
 		TileCollider2D* SetTileMap(TileMap* tileMap);
 		TileCollider2D* SetScale(float x,float y);
 		TileCollider2D* SetRigidbody(Rigidbody * rigidbody);
+		TileCollider2D* SetIsTrigger(bool value);
 		TileCollider2D* Apply();
 
 	private:
