@@ -59,7 +59,7 @@ namespace noa {
 	class InputEvent
 	{
 	private:
-		friend class InputSystem;
+		friend class Input;
 	protected:
 		std::shared_ptr<MouseContext> mouseContext = nullptr;
 	public:

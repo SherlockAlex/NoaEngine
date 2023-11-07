@@ -55,7 +55,7 @@ noa::NoaEngine::NoaEngine(
 	renderer->SetContext(windowID);
 	renderer->InitRenderer();
 	renderer->InitFontAsset();
-	inputSystem.InitInputSystem(platform->GetPlatformEvent());
+	Input::InitInputSystem(platform->GetPlatformEvent());
 	audioSystem->InitAudioSubSystem();
 
 	if (windowMode == WindowMode::WINDOW)

@@ -290,7 +290,7 @@ void noa::Button::SwapState()
 		return;
 	}
 
-	const Vector<double>& mousePos = inputSystem.GetMousePosition();
+	const Vector<double>& mousePos = Input::GetMousePosition();
 
 	const float posX = (static_cast<float>(mousePos.x));
 	const float posY = (static_cast<float>(mousePos.y));
@@ -301,7 +301,7 @@ void noa::Button::SwapState()
 	{
 		isSelect = true;
 
-		if (inputSystem.GetMouseKeyUp(MouseButton::LEFT_BUTTON))
+		if (Input::GetMouseKeyUp(MouseButton::LEFT_BUTTON))
 		{
 			this->clickEvent.Invoke();
 		}

@@ -105,34 +105,30 @@ namespace noa {
 	}MouseContext;
 
 	class InputEvent;
-	class InputSystem final
+	class Input final
 	{
 	private:
-		std::shared_ptr<InputEvent> e = nullptr;
-	public:
-		InputSystem();
-		void InitInputSystem(std::shared_ptr<InputEvent> e);
-		~InputSystem();
+		static std::shared_ptr<InputEvent> e;
 	public:
 
-		bool GetKeyHold(KeyCode key);
-		bool GetKeyDown(KeyCode key);
-		bool GetMouseMoveState();
+		static void InitInputSystem(std::shared_ptr<InputEvent> e);
 
-		bool GetMouseKeyDown(MouseButton mouseButton);
-		bool GetMouseKeyHold(MouseButton mouseButton);
-		bool GetMouseKeyUp(MouseButton mouseButton);
+		static bool GetKeyHold(KeyCode key);
+		static bool GetKeyDown(KeyCode key);
+		static bool GetMouseMoveState();
 
-		void SetRelativeMouseMode(bool mode);
-		Vector<double> & GetMouseMoveDelta();
-		Vector<double> & GetMousePosition();
-		Vector<double> & GetMouseWheel();
+		static bool GetMouseKeyDown(MouseButton mouseButton);
+		static bool GetMouseKeyHold(MouseButton mouseButton);
+		static bool GetMouseKeyUp(MouseButton mouseButton);
+
+		static void SetRelativeMouseMode(bool mode);
+		static Vector<double> & GetMouseMoveDelta();
+		static Vector<double> & GetMousePosition();
+		static Vector<double> & GetMouseWheel();
 
 	};
 
 	//目标是这样的，一个按钮绑定一个事件，这个事件的返回值可以是Vector<double>,也可以是bool,最后使用ReadValue<>()开发者便可以读取到数据
-
-	extern InputSystem inputSystem;
 }
 
 

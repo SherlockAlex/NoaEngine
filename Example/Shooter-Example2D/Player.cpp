@@ -27,36 +27,36 @@ static float timer = 0;
 void Player::Update() 
 {
 	rigid->velocity = {};
-	if (noa::inputSystem.GetKeyHold(noa::KeyCode::KEY_W))
+	if (noa::Input::GetKeyHold(noa::KeyCode::KEY_W))
 	{
 		rigid->velocity.y = -15;
 	}
-	if(noa::inputSystem.GetKeyHold(noa::KeyCode::KEY_S))
+	if(noa::Input::GetKeyHold(noa::KeyCode::KEY_S))
 	{
 		rigid->velocity.y = 15;
 	}
-	if (noa::inputSystem.GetKeyHold(noa::KeyCode::KEY_A))
+	if (noa::Input::GetKeyHold(noa::KeyCode::KEY_A))
 	{
 		rigid->velocity.x = -15;
 		spriteRenderer->isFlip.x = true;
 	}
-	if (noa::inputSystem.GetKeyHold(noa::KeyCode::KEY_D))
+	if (noa::Input::GetKeyHold(noa::KeyCode::KEY_D))
 	{
 		rigid->velocity.x = 15;
 		spriteRenderer->isFlip.x = false;
 	}
 
-	if (noa::inputSystem.GetMouseKeyHold(noa::MouseButton::RIGHT_BUTTON)) 
+	if (noa::Input::GetMouseKeyHold(noa::MouseButton::RIGHT_BUTTON))
 	{
 		this->transform.eulerAngle += 100*noa::Time::deltaTime;
 	}
 
-	if (noa::inputSystem.GetMouseKeyHold(noa::MouseButton::LEFT_BUTTON)) 
+	if (noa::Input::GetMouseKeyHold(noa::MouseButton::LEFT_BUTTON))
 	{
 		Bullet* bullet = bulletPool->Request();
 		bullet->transform.position = this->transform.position;
 
-		noa::Vector<double> & mousePos = noa::inputSystem.GetMousePosition();
+		noa::Vector<double> & mousePos = noa::Input::GetMousePosition();
 
 		noa::Vector<float> worldPos = camera->ScreenPointToWorld(mousePos.x, mousePos.y);
 

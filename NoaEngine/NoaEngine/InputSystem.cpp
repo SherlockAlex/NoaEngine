@@ -6,11 +6,9 @@
 
 using namespace std;
 
-namespace noa {
-	InputSystem inputSystem;
-}
+std::shared_ptr<noa::InputEvent> noa::Input::e = nullptr;
 
-void noa::InputSystem::InitInputSystem(std::shared_ptr<noa::InputEvent> e)
+void noa::Input::InitInputSystem(std::shared_ptr<noa::InputEvent> e)
 {
 	//初始化InputSystem
 	if (e == nullptr)
@@ -19,78 +17,69 @@ void noa::InputSystem::InitInputSystem(std::shared_ptr<noa::InputEvent> e)
 		Debug::Error("This InputEvent is null");
 		exit(-1);
 	}
-	this->e = e;
+	Input::e = e;
 
 }
 
-noa::InputSystem::InputSystem() {
+bool noa::Input::GetKeyHold(noa::KeyCode key) {
 
+	return e->GetKeyHold(key);
 }
 
-noa::InputSystem::~InputSystem()
+bool noa::Input::GetKeyDown(noa::KeyCode key)
 {
-
+	return e->GetKeyDown(key);
 }
 
-bool noa::InputSystem::GetKeyHold(noa::KeyCode key) {
-
-	return this->e->GetKeyHold(key);
-}
-
-bool noa::InputSystem::GetKeyDown(noa::KeyCode key)
+bool noa::Input::GetMouseMoveState()
 {
-	return this->e->GetKeyDown(key);
+	return e->mouseContext->motion;
 }
 
-bool noa::InputSystem::GetMouseMoveState()
-{
-	return this->e->mouseContext->motion;
-}
-
-void noa::InputSystem::SetRelativeMouseMode(bool mode)
+void noa::Input::SetRelativeMouseMode(bool mode)
 {
 	//设置鼠标相对模式
-	this->e->SetRelativeMouseMode(mode);
+	e->SetRelativeMouseMode(mode);
 }
 
 noa::Vector<double> delta;
-noa::Vector<double>& noa::InputSystem::GetMouseMoveDelta()
+noa::Vector<double>& noa::Input::GetMouseMoveDelta()
 {
 
-	delta = this->e->mouseContext->delta;
-	this->e->mouseContext->delta = { 0,0 };
+	delta = e->mouseContext->delta;
+	e->mouseContext->delta = { 0,0 };
 	return delta;
 
 }
 
-noa::Vector<double>& noa::InputSystem::GetMousePosition()
+noa::Vector<double>& noa::Input::GetMousePosition()
 {
-	return this->e->mouseContext->position;
+	return e->mouseContext->position;
 }
 
 
 noa::Vector<double> wheel;
-noa::Vector<double>& noa::InputSystem::GetMouseWheel()
+noa::Vector<double>& noa::Input::GetMouseWheel()
 {
 
-	wheel = this->e->mouseContext->wheel;
-	this->e->mouseContext->wheel = { 0,0 };
+	wheel = e->mouseContext->wheel;
+	e->mouseContext->wheel = { 0,0 };
 	return wheel;
 }
 
-bool noa::InputSystem::GetMouseKeyDown(MouseButton mouseButton)
+bool noa::Input::GetMouseKeyDown(MouseButton mouseButton)
 {
-	return this->e->mouseContext->mouseKey[mouseButton].down;
+	return e->mouseContext->mouseKey[mouseButton].down;
 }
 
-bool noa::InputSystem::GetMouseKeyHold(noa::MouseButton mouseButton)
+bool noa::Input::GetMouseKeyHold(noa::MouseButton mouseButton)
 {
-	return this->e->mouseContext->mouseKey[mouseButton].hold;
+	return e->mouseContext->mouseKey[mouseButton].hold;
 }
 
-bool noa::InputSystem::GetMouseKeyUp(MouseButton mouseButton)
+bool noa::Input::GetMouseKeyUp(MouseButton mouseButton)
 {
-	return this->e->mouseContext->mouseKey[mouseButton].up;
+	return e->mouseContext->mouseKey[mouseButton].up;
 }
 
 
