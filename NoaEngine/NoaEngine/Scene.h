@@ -69,19 +69,6 @@ namespace noa {
 		void Construct(const std::vector<MapLayer>& layer);
 
 	};
-
-	//一张合格的tilemap
-	//tile set
-	//collisionTiles
-	//
-	//mapLayer
-	//objectLayer
-
-	//TileMap的耦合程度过高
-	//Camera
-	//Rigidbody
-	//Collider
-	//Scene
 	
 	class Scene;
 	//瓦片地图

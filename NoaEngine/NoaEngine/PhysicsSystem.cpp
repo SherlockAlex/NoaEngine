@@ -35,8 +35,6 @@ void noa::PhysicsSystem::Update(int step)
 	{
 
 		InitVelocity(subDeltaTime);			//计算速度
-		ApplyTileCollision(subDeltaTime);	//通过新位置判断位置合不合理，不合理修改新位置还有修改速度
-		ApplyTileConstraint(subDeltaTime);	//计算刚体是否处于约束
 		ApplyVelocity(subDeltaTime);		//应用速度
 		InitPosition(subDeltaTime);			//通过速度，计算新的位置
 		ApplyTileCollision(subDeltaTime);	//通过新位置判断位置合不合理，不合理修改新位置还有修改速度
