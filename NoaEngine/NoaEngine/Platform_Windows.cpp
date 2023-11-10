@@ -119,15 +119,12 @@ void noa::InputEvent_Windows::ResetMouseContext()
 	mouseContext->wheel = { 0,0 };
 
 	mouseContext->mouseKey[noa::MouseButton::LEFT_BUTTON].down = false;
-	//mouseContext->mouseKey[noa::MouseButton::LEFT_BUTTON].hold = false;
 	mouseContext->mouseKey[noa::MouseButton::LEFT_BUTTON].up = false;
 
 	mouseContext->mouseKey[noa::MouseButton::MIDDLE_BUTTON].down = false;
-	//mouseContext->mouseKey[noa::MouseButton::MIDDLE_BUTTON].hold = false;
 	mouseContext->mouseKey[noa::MouseButton::MIDDLE_BUTTON].up = false;
 
 	mouseContext->mouseKey[noa::MouseButton::RIGHT_BUTTON].down = false;
-	//mouseContext->mouseKey[noa::MouseButton::RIGHT_BUTTON].hold = false;
 	mouseContext->mouseKey[noa::MouseButton::RIGHT_BUTTON].up = false;
 	mouseContext->motion = false;
 }

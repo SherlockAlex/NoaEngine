@@ -15,20 +15,20 @@ noa::AudioSource* noa::AudioSource::Create(Actor* actor)
 	return NObject<AudioSource>::Create(actor);
 }
 
-noa::AudioSource* noa::AudioSource::SetVolume(float volume)
+noa::AudioSource& noa::AudioSource::SetVolume(float volume)
 {
 	if (this->clip == nullptr)
 	{
-		return this;
+		return *this;
 	}
 	this->clip->SetVolume(volume);
-	return this;
+	return *this;
 }
 
-noa::AudioSource* noa::AudioSource::SetAudioClip(std::shared_ptr<AudioClip> clip)
+noa::AudioSource& noa::AudioSource::SetAudioClip(std::shared_ptr<AudioClip> clip)
 {
 	this->clip = clip;
-	return this;
+	return *this;
 }
 
 noa::AudioSource * noa::AudioSource::Apply()

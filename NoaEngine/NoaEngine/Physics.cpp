@@ -4,7 +4,12 @@
 #include "Debug.h"
 #include "Physics.h"
 #include "PhysicsSystem.h"
+
+
 #include "Collider2D.h"
+#include "BoxCollider2D.h"
+#include "CircleCollider2D.h"
+#include "TileCollider2D.h"
 
 #include <unordered_map>
 #include <thread>
@@ -168,53 +173,53 @@ void noa::Rigidbody::AddForce(const Vector<float>& force, ForceType forceType)
 
 }
 
-noa::Rigidbody * noa::Rigidbody::SetMass(float value)
+noa::Rigidbody& noa::Rigidbody::SetMass(float value)
 {
 	this->mass = value;
 	this->invMass = 1.0f / value;
-	return this;
+	return *this;
 }
 
-noa::Rigidbody * noa::Rigidbody::SetBodyType(BodyType bodyType)
+noa::Rigidbody& noa::Rigidbody::SetBodyType(BodyType bodyType)
 {
 	this->bodyType = bodyType;
-	return this;
+	return *this;
 }
 
-noa::Rigidbody* noa::Rigidbody::SetBounce(float value)
+noa::Rigidbody& noa::Rigidbody::SetBounce(float value)
 {
 	this->bounce = value;
-	return this;
+	return *this;
 }
 
-noa::Rigidbody* noa::Rigidbody::SetFriction(float value)
+noa::Rigidbody& noa::Rigidbody::SetFriction(float value)
 {
 	this->friction = value;
-	return this;
+	return *this;
 }
 
-noa::Rigidbody* noa::Rigidbody::SetDamping(float value)
+noa::Rigidbody& noa::Rigidbody::SetDamping(float value)
 {
 	this->damping = value;
-	return this;
+	return *this;
 }
 
-noa::Rigidbody* noa::Rigidbody::SetGravityWeight(float value)
+noa::Rigidbody& noa::Rigidbody::SetGravityWeight(float value)
 {
 	this->gravityWeight = value;
-	return this;
+	return *this;
 }
 
-noa::Rigidbody* noa::Rigidbody::SetIsFrozen(bool value)
+noa::Rigidbody& noa::Rigidbody::SetIsFrozen(bool value)
 {
 	this->isFrozen = value;
-	return this;
+	return *this;
 }
 
-noa::Rigidbody* noa::Rigidbody::SetUseGravity(bool value)
+noa::Rigidbody& noa::Rigidbody::SetUseGravity(bool value)
 {
 	this->useGravity = value;
-	return this;
+	return *this;
 }
 
 noa::Rigidbody* noa::Rigidbody::Apply()

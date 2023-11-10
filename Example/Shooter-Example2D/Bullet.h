@@ -4,7 +4,7 @@
 class Bullet:public noa::Actor
 {
 private:
-	NOBJECT(Bullet)
+	ACTOR(Bullet)
 private:
 	Bullet(noa::Scene * scene);
 	~Bullet();
@@ -28,23 +28,23 @@ private:
 
 	noa::Rigidbody* rigid = noa::Rigidbody::Create(this)
 		->SetUseGravity(false)
-		->SetDamping(0)
-		->Apply();
+		.SetDamping(0)
+		.Apply();
 
 	noa::SpriteRenderer* spriteRenderer = noa::SpriteRenderer::Create(this)
 		->SetSprite(&ResourceManager::bulletImage)
-		->Apply();
+		.Apply();
 
 	noa::CircleCollider2D* collider = 
 		noa::CircleCollider2D::Create(this)
 		->SetRigidbody(rigid)
-		->SetIsTrigger(true)
-		->Apply();
+		.SetIsTrigger(true)
+		.Apply();
 
 	noa::TileCollider2D* tileCollider = noa::TileCollider2D::Create(this)
 		->SetRigidbody(rigid)
-		->SetIsTrigger(true)
-		->Apply();
+		.SetIsTrigger(true)
+		.Apply();
 
 	float timer = 0;
 

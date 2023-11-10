@@ -15,11 +15,11 @@ namespace noa {
 
 #define ACTOR_COMPONENT(T) template<class T> friend class noa::NObject;
 
-	class ActorComponent:public NOAObject
+	class ActorComponent:public NoaObject
 	{
 	protected:
 		friend class NObject<ActorComponent>;
-		friend void InitNObject(NOAObject* obj);
+		friend void InitNObject(NoaObject* obj);
 		friend class Actor;
 
 	private:

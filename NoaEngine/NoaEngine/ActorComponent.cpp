@@ -1,8 +1,6 @@
 #include "ActorComponent.h"
 #include "Actor.h"
 
-using namespace std;
-
 noa::ActorComponent::ActorComponent(noa::Actor* actor)
 {
 	actor->AddComponent(this);

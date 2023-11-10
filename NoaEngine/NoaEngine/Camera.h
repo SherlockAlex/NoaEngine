@@ -26,7 +26,7 @@ namespace noa {
 	class Actor;
 	class Scene;
 	class Transform;
-	class Camera:public NOAObject
+	class Camera:public NoaObject
 	{
 	protected:
 		friend class Scene;
@@ -45,9 +45,7 @@ namespace noa {
 		void SetFollow(Transform* follow);
 		void SetFollow(Actor * actor);
 	protected:
-
 		// 用户可以覆写自己的相机类
-
 		virtual void Render() = 0;
 	};
 
@@ -88,7 +86,7 @@ namespace noa {
 		Vector<float> visibleTiles;
 		Vector<float> offset;
 		
-		std::vector<NOAObject*> objectBufferWithRay = std::vector<NOAObject*>(
+		std::vector<NoaObject*> objectBufferWithRay = std::vector<NoaObject*>(
 			Screen::width*Screen::height, nullptr
 		);
 
@@ -132,7 +130,7 @@ namespace noa {
 		NOBJECT(FreeCamera)
 	protected:
 		std::vector<float> wallDistanceBuffer;
-		std::vector<NOAObject*> objectBufferWithRay = std::vector<NOAObject*>(Screen::width, nullptr);
+		std::vector<NoaObject*> objectBufferWithRay = std::vector<NoaObject*>(Screen::width, nullptr);
 		std::vector<Ray> rayResult = std::vector<Ray>(Screen::width, Ray());
 
 	private:

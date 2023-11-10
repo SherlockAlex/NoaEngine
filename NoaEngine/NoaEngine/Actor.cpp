@@ -4,8 +4,6 @@
 #include "Physics.h"
 #include "SpriteRenderer.h"
 
-using namespace std;
-
 noa::Actor::Actor(noa::Scene* activeScene)
 {
 	if (activeScene == nullptr) 
@@ -227,7 +225,7 @@ noa::Scene* noa::Actor::GetActiveScene()
 	return activeScene;
 }
 
-noa::Actor* noa::Actor::HandleActor(NOAObject* object)
+noa::Actor* noa::Actor::HandleActor(NoaObject* object)
 {
 	return dynamic_cast<Actor*>(object);
 }

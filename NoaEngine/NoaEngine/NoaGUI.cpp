@@ -7,6 +7,7 @@
 #include "NoaGUI.h"
 #include "Sprite.h"
 #include "InputSystem.h"
+#include "Screen.h"
 
 namespace noa {
 
@@ -159,6 +160,7 @@ void noa::UICanvas::Start()
 
 void noa::UICanvas::Update()
 {
+	//ÏÔÊ¾±³¾°
 	for (auto& component : uiComponent)
 	{
 		if (component == nullptr||!component->GetActive())
@@ -247,7 +249,7 @@ void noa::UICanvasComponent::Update() {
 noa::Button::Button(UICanvas* canvas) :UIComponent(canvas)
 {
 	image = Image::Create(canvas);
-	label = Text::Create(canvas);
+	label = Label::Create(canvas);
 
 	this->transform.scale = { 320,160 };
 
@@ -256,7 +258,7 @@ noa::Button::Button(UICanvas* canvas) :UIComponent(canvas)
 noa::Button::Button(UICanvasComponent* canvas) :UIComponent(canvas)
 {
 	image = Image::Create(canvas);
-	label = Text::Create(canvas);
+	label = Label::Create(canvas);
 
 	this->transform.scale = { 320,160 };
 
@@ -349,9 +351,45 @@ void noa::Button::Update()
 			- 0.5 * label->size * label->narrow);
 }
 
-void noa::Button::AddClickEvent(std::function<void()> func)
+noa::Button& noa::Button::SetPosition(int x,int y) 
+{
+	this->transform.position.x = x;
+	this->transform.position.y = y;
+	return *this;
+}
+
+noa::Button& noa::Button::SetScale(int w,int h) 
+{
+	this->transform.scale.x = w;
+	this->transform.scale.y = h;
+	return *this;
+}
+
+noa::Button& noa::Button::SetSprite(noa::Sprite* sprite) {
+	this->image->SetSprite(sprite);
+	return *this;
+}
+
+noa::Button& noa::Button::SetText(const std::string& text)
+{
+	this->label->text = text;
+	return *this;
+}
+
+noa::Button& noa::Button::SetFontSize(uint32_t size) 
+{
+	this->label->SetFontSize(size);
+	return *this;
+}
+
+noa::Button& noa::Button::AddClickEvent(std::function<void()> func)
 {
 	this->clickEvent += func;
+	return *this;
+}
+
+noa::Button* noa::Button::Apply() {
+	return this;
 }
 
 noa::UIComponent::UIComponent(noa::UICanvas* canvas)
@@ -391,38 +429,64 @@ bool noa::UIComponent::GetActive()
 	return active;
 }
 
-noa::Text::Text(UICanvas* canvas) :UIComponent(canvas)
+noa::Label::Label(UICanvas* canvas) :UIComponent(canvas)
 {
 
 }
 
-noa::Text::Text(UICanvasComponent* canvas) :UIComponent(canvas)
+noa::Label::Label(UICanvasComponent* canvas) :UIComponent(canvas)
 {
 }
 
-noa::Text::~Text()
+noa::Label::~Label()
 {
 
 }
 
-noa::Text* noa::Text::Create(UICanvas* canvas)
+noa::Label* noa::Label::Create(UICanvas* canvas)
 {
-	Text* text = new Text(canvas);
+	Label* text = new Label(canvas);
 	return text;
 }
 
-noa::Text* noa::Text::Create(UICanvasComponent* canvas)
+noa::Label* noa::Label::Create(UICanvasComponent* canvas)
 {
-	Text* text = new Text(canvas);
+	Label* text = new Label(canvas);
 	return text;
 }
 
-void noa::Text::Start()
+noa::Label& noa::Label::SetFontSize(uint32_t size)
+{
+	this->size = size;
+	return *this;
+}
+
+noa::Label& noa::Label::SetPosition(int x,int y) 
+{
+	this->transform.position.x = x;
+	this->transform.position.y = y;
+	return *this;
+}
+
+noa::Label& noa::Label::SetScale(int w,int h) 
+{
+	this->transform.scale.x = w;
+	this->transform.scale.y = h;
+	return *this;
+}
+
+noa::Label* noa::Label::Apply() 
+{
+	return this;
+}
+
+
+void noa::Label::Start()
 {
 
 }
 
-void noa::Text::Update()
+void noa::Label::Update()
 {
 	//ÏÔÊ¾ÎÄ×Ö
 	renderer->DrawString(text, transform.position.x, transform.position.y, narrow, color, size);
@@ -456,21 +520,32 @@ noa::Image* noa::Image::Create(UICanvasComponent* canvas)
 	return image;
 }
 
-void noa::Image::SetSprite(Sprite* sprite)
+noa::Image& noa::Image::SetStyle(noa::ImageStyle style)
+{
+	this->style = style;
+	return *this;
+}
+
+noa::Image & noa::Image::SetSprite(Sprite* sprite)
 {
 	if (!sprite)
 	{
-		return;
+		return *this;
 	}
 	this->sprite = sprite;
 	if (spriteGPU)
 	{
 		spriteGPU->Update(sprite);
 		spriteGPU->SetLayer(InstanceLayer::UI_LAYER);
-		return;
+		return *this;
 	}
 	spriteGPU = SpriteGPU::Create(sprite);
 	spriteGPU->SetLayer(InstanceLayer::UI_LAYER);
+	return *this;
+}
+
+noa::Image* noa::Image::Apply() {
+	return this;
 }
 
 void noa::Image::Start()
@@ -486,7 +561,21 @@ void noa::Image::Update()
 		return;
 	}
 	
-	spriteGPU->DrawSprite(
+	switch (style)
+	{
+	case noa::ImageStyle::COVER:
+		spriteGPU->DrawSprite(
+			0
+			, 0
+			, static_cast<float>(noa::Screen::width)
+			, static_cast<float>(noa::Screen::height)
+			, color
+			, isFilpX
+			, 0.0f
+		);
+		break;
+	default:
+		spriteGPU->DrawSprite(
 			static_cast<float>(transform.position.x)
 			, static_cast<float>(transform.position.y)
 			, static_cast<float>(transform.scale.x)
@@ -494,7 +583,11 @@ void noa::Image::Update()
 			, color
 			, isFilpX
 			, 0.0f
-	);
+		);
+		break;
+	}
+
+	
 
 }
 

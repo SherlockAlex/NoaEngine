@@ -19,16 +19,19 @@
 #include "StateMachine.h"
 
 
-namespace noa {
+namespace noa 
+{
 	typedef unsigned int Uint32;
 
 	class Actor;
 
-	typedef struct AnimationClip {
+	typedef struct AnimationClip 
+	{
 		std::vector<SpriteFile> framesImage;
 		AnimationClip(const char* filePath);
 	}AnimationClip;
 
+	//可以作为一个组件挂载到角色身上，让角色播放动画
 	class Animation:public ActorComponent
 	{
 		ACTOR_COMPONENT(Animation)
@@ -41,7 +44,6 @@ namespace noa {
 		float i = 0;
 		bool loop = false;
 		int previousFrameIndex = -1;
-
 		Sprite* animatedSprite = nullptr;
 
 	protected:
@@ -62,37 +64,12 @@ namespace noa {
 		void Start() override;
 		void Update() override;//更新动画帧
 
-		Animation * SetLoop(bool value);
-		Animation* SetSpeed(float value);
-		Animation* SetFrameEvent(int frame, std::function<void()> e);
-		Animation* SetAnimatedSprite(Sprite * sprite);
-		Animation* SetClip(AnimationClip* frame);
+		Animation& SetLoop(bool value);
+		Animation& SetSpeed(float value);
+		Animation& SetFrameEvent(int frame, std::function<void()> e);
+		Animation& SetAnimatedSprite(Sprite * sprite);
+		Animation& SetClip(AnimationClip* frame);
 		Animation* Apply();
-	};
-
-	class Animator;
-
-	class AnimationState:public State
-	{
-	private:
-		Animation* animtion = nullptr;
-		Sprite* sprite = nullptr;
-	public:
-		AnimationState(Animator* animator,Animation* animation);
-		void OnEnter() override;
-		void OnUpdate() override;
-		void Reason() override;
-		void OnExit() override;
-	};
-
-	class Animator:public StateMachine
-	{
-	public:
-		Sprite* sprite = nullptr;
-	public:
-		Animator(Actor * actor,Sprite * sprite);
-		Animator(Actor* actor, Sprite, std::vector<State*> stateList);
-
 	};
 
 }

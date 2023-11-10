@@ -4,6 +4,8 @@
 #include "Graphic.h"
 #include "Screen.h"
 
+#include "Debug.h"
+
 using namespace std;
 
 namespace noa {
@@ -405,5 +407,6 @@ void noa::SpriteGPU::DrawSprite(float x, float y, float w, float h, unsigned int
 	instance.tint = tint;
 	instance.flip = mirror;
 	rendererInstanceLayer[static_cast<unsigned int>(layer)].push_back(instance);
+
 }
 

@@ -12,12 +12,13 @@
 namespace noa 
 {
 
-	class NOAObject {
+	class NoaObject 
+	{
 	protected:
-		virtual ~NOAObject() {}
+		virtual ~NoaObject() {}
 	};
 
-	extern void InitNObject(NOAObject* obj);
+	extern void InitNObject(NoaObject* obj);
 
 	class Actor;
 	class Scene;
@@ -27,32 +28,19 @@ namespace noa
 	{
 	public:
 
-		/*template<typename ...Args>
-		static T* Create(Args... args) {
-			T* obj = new T(args...);
-			InitNObject(obj);
-			return obj;
-		}*/
-
-		static T* Create(Scene * scene) 
+		static T * Create(Scene * scene) 
 		{
 			T* obj = new T(scene);
 			InitNObject(obj);
 			return obj;
 		}
 
-		static T* Create(Actor * actor) 
+		static T * Create(Actor * actor) 
 		{
 			T* obj = new T(actor);
 			InitNObject(obj);
 			return obj;
 		}
-
-		/*static T* Create() {
-			T* obj = new T();
-			InitNObject(obj);
-			return obj;
-		}*/
 
 	};
 

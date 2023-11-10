@@ -5,12 +5,7 @@
 Player::Player(noa::Scene * scene):noa::Actor(scene) 
 {
 	this->tag = "Player";
-
-	this->rigid->useGravity = false;
-	this->rigid->damping = 0.0f;
 	this->transform.position = { 3,3 };
-	this->rigid->gravityWeight = 5.5f;
-	this->rigid->SetBodyType(noa::BodyType::DYNAMIC);
 
 }
 
@@ -46,10 +41,10 @@ void Player::Update()
 		spriteRenderer->isFlip.x = false;
 	}
 
-	if (noa::Input::GetMouseKeyHold(noa::MouseButton::RIGHT_BUTTON))
+	/*if (noa::Input::GetMouseKeyHold(noa::MouseButton::RIGHT_BUTTON))
 	{
 		this->transform.eulerAngle += 100*noa::Time::deltaTime;
-	}
+	}*/
 
 	if (noa::Input::GetMouseKeyHold(noa::MouseButton::LEFT_BUTTON))
 	{

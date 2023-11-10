@@ -24,7 +24,7 @@ namespace noa {
 
 #define ACTOR(T) template<class T> friend class noa::NObject;
 
-	class Actor:public NOAObject
+	class Actor:public NoaObject
 	{
 	private:
 		friend class NObject<Actor>;
@@ -32,7 +32,7 @@ namespace noa {
 		friend class SceneManager;
 		friend class Collider2D;
 		friend class TileCollider2D;
-		friend void InitNObject(NOAObject* obj);
+		friend void InitNObject(NoaObject* obj);
 
 	public:
 		std::string tag = "default";
@@ -75,7 +75,7 @@ namespace noa {
 		virtual bool GetActive();
 		Scene* GetActiveScene();
 
-		static Actor* HandleActor(NOAObject* object);
+		static Actor* HandleActor(NoaObject* object);
 		
 		bool CompareTag(const std::string & tag);
 

@@ -24,8 +24,8 @@ namespace noa {
 
 		static AudioSource* Create(Actor * actor);
 
-		AudioSource* SetVolume(float volume);
-		AudioSource* SetAudioClip(std::shared_ptr<AudioClip> clip);
+		AudioSource& SetVolume(float volume);
+		AudioSource& SetAudioClip(std::shared_ptr<AudioClip> clip);
 		AudioSource* Apply();
 
 		void Play(bool loop) const;

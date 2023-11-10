@@ -2,12 +2,6 @@
 #include "Actor.h"
 #include "Time.h"
 
-using namespace std;
-
-namespace noa {
-
-}
-
 noa::AnimationClip::AnimationClip(const char* filePath)
 {
 	const AnimationFile animatorFile = std::move(Resource::LoadAnimationClip(filePath));
@@ -32,11 +26,11 @@ noa::Animation::~Animation()
 
 }
 
-noa::Animation* noa::Animation::SetClip(noa::AnimationClip* clip)
+noa::Animation& noa::Animation::SetClip(noa::AnimationClip* clip)
 {
 	if (clip == nullptr)
 	{
-		return this;
+		return *this;
 	}
 	this->clip = clip;
 	if (!clip->framesImage.empty())
@@ -44,7 +38,7 @@ noa::Animation* noa::Animation::SetClip(noa::AnimationClip* clip)
 		currentFrame = clip->framesImage[0];
 	}
 	
-	return this;
+	return *this;
 
 }
 
@@ -69,10 +63,10 @@ noa::SpriteFile& noa::Animation::GetFrameImage(int frame)
 	return clip->framesImage[frame];
 }
 
-noa::Animation* noa::Animation::SetFrameEvent(int frame, function<void()> e)
+noa::Animation& noa::Animation::SetFrameEvent(int frame, std::function<void()> e)
 {
 	this->framesEvent[frame] += e;
-	return this;
+	return *this;
 }
 
 void noa::Animation::Play(int frame)
@@ -109,7 +103,7 @@ void noa::Animation::Start()
 void noa::Animation::Update() 
 {
 
-	if (!isPlaying || this->clip == nullptr)
+	if (!isPlaying ||clip == nullptr)
 	{
 		return;
 	}
@@ -143,78 +137,20 @@ void noa::Animation::Update()
 
 }
 
-noa::Animation* noa::Animation::SetLoop(bool value)
+noa::Animation& noa::Animation::SetLoop(bool value)
 {
 	this->loop = value;
-	return this;
+	return *this;
 }
 
-noa::Animation* noa::Animation::SetSpeed(float value)
+noa::Animation& noa::Animation::SetSpeed(float value)
 {
 	this->speed = value;
-	return this;
+	return *this;
 }
 
-noa::Animation* noa::Animation::SetAnimatedSprite(Sprite* sprite)
+noa::Animation& noa::Animation::SetAnimatedSprite(Sprite* sprite)
 {
 	this->animatedSprite = sprite;
-	return this;
+	return *this;
 }
-
-noa::AnimationState::AnimationState(
-	noa::Animator* animator
-	, noa::Animation* animation) 
-	:noa::State(animator)
-{
-	if (animator == nullptr)
-	{
-		Debug::Error("init animator failed");
-		exit(-1);
-	}
-	this->animtion = animation;
-	sprite = animator->sprite;
-}
-
-void noa::AnimationState::OnEnter()
-{
-	animtion->Reset();
-}
-
-void noa::AnimationState::OnUpdate()
-{
-	if (sprite == nullptr)
-	{
-		return;
-	}
-	sprite->UpdateImage(animtion->GetCurrentFrameImage());
-
-}
-
-void noa::AnimationState::Reason()
-{
-	//¶¯»­×´Ì¬ÇÐ»»
-	//¶¯»­ÇÐ»»ÊÂ¼þ
-}
-
-void noa::AnimationState::OnExit()
-{
-	animtion->Reset();
-}
-
-noa::Animator::Animator(noa::Actor* actor, noa::Sprite* sprite) 
-	:noa::StateMachine(actor)
-{
-	this->sprite = sprite;
-}
-
-noa::Animator::Animator(
-	noa::Actor* actor
-	, noa::Sprite
-	, std::vector<noa::State*> stateList
-) 
-	:noa::StateMachine(actor)
-{
-	this->sprite = sprite;
-}
-
-

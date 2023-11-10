@@ -171,6 +171,10 @@
 #include "SpriteRenderer.h"
 
 #include "Collider2D.h"
+#include "BoxCollider2D.h"
+#include "CircleCollider2D.h"
+#include "TileCollider2D.h"
+
 #include "PhysicsSystem.h"
 
 #include "ObjectPool.h"

@@ -2,6 +2,7 @@
 #include "SDLHelper.h"
 #include "Debug.h"
 #include "GLHelper.h"
+#include "GLShader.h"
 
 noa::noa3d::Engine3D::Engine3D()
 {
@@ -29,17 +30,6 @@ noa::noa3d::Engine3D::Engine3D()
 	}
 
 	this->windowID = SDL_GetWindowID(window);
-	noa::Debug::Log(noa::ToString<uint32_t>(windowID));
-
-	context = SDL_GL_CreateContext(window);
-	if (!context) 
-	{
-		noa::Debug::Error("创建GL上下文失败");
-		exit(-1);
-	}
-
-	//初始化OpenGL
-	glewInit();
 
 }
 
@@ -52,17 +42,30 @@ int noa::noa3d::Engine3D::Run()
 	SDL_Event e;
 	SDL_Window* window = SDL_GetWindowFromID(this->windowID);
 
+	context = (void*)SDL_GL_CreateContext(window);
+	if (context == nullptr)
+	{
+		noa::Debug::Error("创建GL上下文失败");
+		exit(-1);
+	}
+
+	//初始化OpenGL
+	if (glewInit() != GLEW_OK)
+	{
+		noa::Debug::Error("初始化OpenGL失败");
+		exit(-1);
+	}
+
 	auto t1 = std::chrono::system_clock::now();
 	auto t2 = std::chrono::system_clock::now();
 	std::chrono::duration<float> elapsedTime = t2 - t1;
-
+	
+	defaultShader.Compile();
 	beginAction();
 
 	while (true)
 	{
 		elapsedTime = t2 - t1;
-
-		
 
 		while(SDL_PollEvent(&e))
 		{

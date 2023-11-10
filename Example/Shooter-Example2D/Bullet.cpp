@@ -43,7 +43,7 @@ void Bullet::OnTrigger(const noa::Collision & collision)
 {
 	if (!collision.CompareTag("Player"))
 	{
-		noa::Debug::Log(collision.actor->tag);
+		bulletPool->Return(this);
 	}
 }
 

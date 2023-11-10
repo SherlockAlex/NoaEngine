@@ -14,6 +14,7 @@ void GameDelegate::OnLoad(noa::Scene* scene)
 	camera = noa::TileMapCamera::Create(scene);
 
 	player = noa::NObject<Player>::Create(scene);
+	player->camera = camera;
 
 	Test* test1 = noa::NObject<Test>::Create(scene);
 
@@ -21,9 +22,10 @@ void GameDelegate::OnLoad(noa::Scene* scene)
 
 
 	camera->SetFollow(player);
+	//camera->SetFollow(test1);
 	camera->SetTileScale({32,32});
 
-	player->camera = camera;
+	
 
 	bulletPool->SetFactory(bulletFactory.get());
 	bulletPool->Prewarm(10);
@@ -37,7 +39,7 @@ Test* hold = nullptr;
 int i = 0;
 void GameDelegate::OnUpdate(noa::Scene* scene)
 {
-	//if (i<100) 
+	//if (i<200) 
 	//{
 	//	Test* test = noa::NObject<Test>::Create(scene);
 	//	test->transform.position = { 2,3 };
@@ -51,7 +53,7 @@ void GameDelegate::OnUpdate(noa::Scene* scene)
 	//	return;
 	//}
 
-	//if (noa::inputSystem.GetMouseKeyUp(noa::MouseButton::LEFT_BUTTON))
+	//if (noa::Input::GetMouseKeyUp(noa::MouseButton::LEFT_BUTTON))
 	//{
 	//	hold = nullptr;
 	//	currentSelect = nullptr;
@@ -60,18 +62,18 @@ void GameDelegate::OnUpdate(noa::Scene* scene)
 	//if (hold) 
 	//{
 	//	
-	//	noa::Debug::Log(
+	//	/*noa::Debug::Log(
 	//		"动量:" + noa::ToString<float>(hold->rigid->GetMomentum())
 	//		+",速度:" + noa::ToString<float>(hold->rigid->velocity)
 	//		+",约束:" + noa::ToString<bool>(hold->rigid->GetConstraint())
-	//	);
+	//	);*/
 	//}
 
 	////选择鼠标点击到的Test
-	//noa::Vector<double> pos = noa::inputSystem.GetMousePosition();
+	//noa::Vector<double> pos = noa::Input::GetMousePosition();
 	////通过鼠标位置获取Test
 
-	//if (noa::inputSystem.GetMouseKeyDown(noa::MouseButton::LEFT_BUTTON)) 
+	//if (noa::Input::GetMouseKeyDown(noa::MouseButton::LEFT_BUTTON))
 	//{
 	//	currentSelect = camera->GetRayHitInfoAs<Test>(
 	//		static_cast<int>(pos.x)
@@ -88,7 +90,7 @@ void GameDelegate::OnUpdate(noa::Scene* scene)
 
 	//if (hold != nullptr) 
 	//{
-	//	if (noa::inputSystem.GetMouseKeyHold(noa::MouseButton::LEFT_BUTTON))
+	//	if (noa::Input::GetMouseKeyHold(noa::MouseButton::LEFT_BUTTON))
 	//	{
 	//		//鼠标左键按住
 	//		noa::Vector<float> world = camera->ScreenPointToWorld(
@@ -101,5 +103,12 @@ void GameDelegate::OnUpdate(noa::Scene* scene)
 	//		hold->rigid->velocity = velocity*10.0f;
 	//	}
 	//}
+
+	//noa::renderer->DrawString(
+	//	noa::ToString<float>(1.0f/noa::Time::deltaTime)
+	//	,10
+	//	,10
+	//	,noa::WHITE,50
+	//);
 
 }

@@ -104,7 +104,7 @@ namespace noa {
 		Rigidbody(Actor* actor);
 		~Rigidbody();
 	public:
-		static Rigidbody* Create(Actor* actor);
+		static Rigidbody * Create(Actor* actor);
 	private:
 		void Start() override;
 		void Update() override;
@@ -133,15 +133,15 @@ namespace noa {
 		void AddAntiGravity();
 
 		//建造者模式
-		Rigidbody* SetMass(float value);
-		Rigidbody* SetBodyType(BodyType bodyType);
-		Rigidbody* SetBounce(float value);
-		Rigidbody* SetFriction(float value);
-		Rigidbody* SetDamping(float value);
-		Rigidbody* SetGravityWeight(float value);
-
-		Rigidbody* SetIsFrozen(bool value);
-		Rigidbody* SetUseGravity(bool value);
+		Rigidbody& SetMass(float value);
+		Rigidbody& SetBodyType(BodyType bodyType);
+		Rigidbody& SetBounce(float value);
+		Rigidbody& SetFriction(float value);
+		Rigidbody& SetDamping(float value);
+		Rigidbody& SetGravityWeight(float value);
+				 
+		Rigidbody& SetIsFrozen(bool value);
+		Rigidbody& SetUseGravity(bool value);
 		Rigidbody* Apply();
 
 

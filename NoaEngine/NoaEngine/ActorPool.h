@@ -27,7 +27,7 @@ namespace noa {
 
 		virtual T* Request() override {
 			T* member = ObjectPool<T>::Request();
-			Actor* actor = Actor::HandleActor((NOAObject*)member);
+			Actor* actor = Actor::HandleActor((NoaObject*)member);
 			if (actor !=nullptr)
 			{
 				actor->SetActive(true);
@@ -41,7 +41,7 @@ namespace noa {
 
 		virtual void Return(T* member) override
 		{
-			Actor* actor = Actor::HandleActor((NOAObject*)member);
+			Actor* actor = Actor::HandleActor((NoaObject*)member);
 			if (actor == nullptr)
 			{
 				Debug::Error("This member is't Actor");

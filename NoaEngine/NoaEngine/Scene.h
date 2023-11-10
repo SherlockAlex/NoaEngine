@@ -19,6 +19,7 @@
 #include "NoaAction.h"
 #include "Resource.h"
 #include "Debug.h"
+#include "NObject.h"
 
 namespace noa {
 

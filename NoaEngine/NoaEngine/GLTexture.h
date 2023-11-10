@@ -25,8 +25,9 @@ namespace noa {
 
 		GLuint VBO = 0;
 		GLuint VAO = 0;
+		GLuint EBO = 0;
 
-		GLuint textureID;
+		GLuint textureID = 0;
 		
 	};
 }

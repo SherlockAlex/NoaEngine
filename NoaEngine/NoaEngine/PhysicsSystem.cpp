@@ -1,4 +1,8 @@
 #include "Collider2D.h"
+#include "BoxCollider2D.h"
+#include "CircleCollider2D.h"
+#include "TileCollider2D.h"
+
 #include "PhysicsSystem.h"
 #include "Time.h"
 #include "Physics.h"
@@ -360,12 +364,16 @@ void noa::PhysicsSystem::CheckCellsCollisions(Cell& cell1, Cell& cell2)
 					{
 						continue;
 					}
-					collider1->rigidbody->collision.actor = collider2->GetActor();
-					collider2->rigidbody->collision.actor = collider1->GetActor();
+					
 					if (!collider1->isTrigger&&!collider2->isTrigger)
 					{
 						SolveCollision(collider1, collider2);
 					}
+
+					//两者其中一个是trigger
+
+					collider1->rigidbody->collision.actor = collider2->GetActor();
+					collider2->rigidbody->collision.actor = collider1->GetActor();
 					collider1->ApplyTrigger();
 					collider2->ApplyTrigger();
 

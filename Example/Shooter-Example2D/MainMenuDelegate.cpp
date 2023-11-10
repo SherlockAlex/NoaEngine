@@ -1,22 +1,28 @@
 #include "MainMenuDelegate.h"
 #include "ResourceManager.h"
 
+//从新编写UI系统
+
 void MainMenuDelegate::OnLoad(noa::Scene* scene)
 {
 	noa::UICanvas* canvas = noa::UICanvas::Create(scene);
 	
-	noa::Button* startButton = noa::Button::Create(canvas);
-	startButton->label->text = "START";
-	startButton->image->SetSprite(&ResourceManager::defaultImage);
+	noa::Image* backgroundImage = noa::Image::Create(canvas)
+		->SetSprite(&ResourceManager::backgroundImage)
+		.SetStyle(noa::ImageStyle::COVER)
+		.Apply();
 
-	startButton->transform.position.x = 
-		noa::Screen::width / 2 - startButton->transform.scale.x / 2;
-	startButton->transform.position.y = 
-		noa::Screen::height / 2 - startButton->transform.scale.y/2;
-
-	startButton->clickEvent += []() 
-	{
-		noa::sceneManager.LoadScene("Game");
-	};
+	noa::Button* startButton = noa::Button::Create(canvas)
+		->SetText("START")
+		.SetFontSize(10)
+		.SetSprite(&ResourceManager::defaultImage)
+		.SetPosition(3*noa::Screen::width / 8, 3*noa::Screen::height / 8)
+		.SetScale(noa::Screen::width / 8, noa::Screen::height / 8)
+		.AddClickEvent(
+			[]()
+			{
+				noa::sceneManager.LoadScene("Game");
+			})
+		.Apply();
 
 }

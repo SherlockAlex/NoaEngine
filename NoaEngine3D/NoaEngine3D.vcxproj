@@ -135,7 +135,11 @@
     <ClInclude Include="GLHelper.h" />
     <ClInclude Include="GLShader.h" />
     <ClInclude Include="Platform.h" />
+    <ClInclude Include="RenderColoredRect.h" />
+    <ClInclude Include="RenderRect.h" />
+    <ClInclude Include="RenderTextureRect.h" />
     <ClInclude Include="RenderTriangle.h" />
+    <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="SDLHelper.h" />
     <ClInclude Include="Time.h" />
   </ItemGroup>
@@ -145,7 +149,11 @@
     <ClCompile Include="GLShader.cpp" />
     <ClCompile Include="Platform.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="RenderColoredRect.cpp" />
+    <ClCompile Include="RenderRect.cpp" />
+    <ClCompile Include="RenderTextureRect.cpp" />
     <ClCompile Include="RenderTriangle.cpp" />
+    <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="Time.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

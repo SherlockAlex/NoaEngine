@@ -33,12 +33,9 @@ namespace noa
 		State(StateMachine* stateMachine);
 		virtual ~State();
 	public:
-
 		void AddTransition(int transition,State* nextState);
 		void SetTransition(int transition);
-
 	public:
-
 		virtual void OnEnter() {};
 		virtual void OnUpdate() {};
 		virtual void Reason() {};
@@ -62,13 +59,11 @@ namespace noa
 
 	public:
 		static StateMachine* Create(Actor* actor);
-
 		virtual void PerformTransition(int transition);
-		virtual void AddState(State* state);
 		virtual void Act();
 		virtual void Reason();
-
 		virtual void Update() override;
+		virtual void AddState(State* state);
 
 	};
 }

@@ -88,7 +88,6 @@ namespace noa {
 		bool GetActive();
 	};
 
-	//Canvas作为独立的Actor存在
 	class UICanvas final : Actor
 	{
 	private:
@@ -131,36 +130,48 @@ namespace noa {
 	};
 
 	class Button;
-	class Text;
+	class Label;
 	class Image;
 
-	class Text :public UIComponent 
+	class Label :public UIComponent
 	{
 	public:
 		std::string text = "text";
 		uint32_t color = BLACK;
-		int size = 25;
+		uint32_t size = 25;
 		float narrow = 0.8f;
 
 	protected:
-		Text(UICanvas* canvas);
-		Text(UICanvasComponent* canvas);
-		~Text();
+		Label(UICanvas* canvas);
+		Label(UICanvasComponent* canvas);
+		~Label();
 
 	public:
 
-		static Text* Create(UICanvas * canvas);
-		static Text* Create(UICanvasComponent* canvas);
+		static Label* Create(UICanvas * canvas);
+		static Label* Create(UICanvasComponent* canvas);
+
+		Label& SetFontSize(uint32_t size);
+		Label& SetPosition(int x,int y);
+		Label& SetScale(int w,int h);
+		Label* Apply();
 
 		void Start() override;
 		void Update() override;
 
 	};
 	
+	enum class ImageStyle 
+	{
+		DEFAULT,
+		COVER
+	};
+
 	class Image :public UIComponent {
 	public:
+		ImageStyle style = ImageStyle::DEFAULT;
 		uint32_t color = WHITE;
-		bool isFilpX = false;//进行图片翻转
+		bool isFilpX = false;
 	private:
 		Sprite* sprite = nullptr;
 		std::shared_ptr<SpriteGPU> spriteGPU = nullptr;
@@ -174,7 +185,9 @@ namespace noa {
 		static Image* Create(UICanvas * canvas);
 		static Image* Create(UICanvasComponent * canvas);
 
-		void SetSprite(Sprite * sprite);
+		Image& SetStyle(ImageStyle style);
+		Image & SetSprite(Sprite * sprite);
+		Image* Apply();
 
 		void Start() override;
 		void Update() override;
@@ -184,7 +197,7 @@ namespace noa {
 	class Button :public UIComponent
 	{
 	public:
-		Text* label = nullptr;
+		Label* label = nullptr;
 		Image* image = nullptr;
 
 		//按键常亮颜色
@@ -209,11 +222,15 @@ namespace noa {
 		void SwapState();
 
 		void Start() override;
-
 		void Update() override;
 
-		void AddClickEvent(std::function<void()> func);
-
+		Button& SetPosition(int x,int y);
+		Button& SetScale(int w,int h);
+		Button& SetSprite(Sprite * sprite);
+		Button& SetText(const std::string & text);
+		Button& SetFontSize(uint32_t size);
+		Button& AddClickEvent(std::function<void()> func);
+		Button* Apply();
 	};
 }
 
