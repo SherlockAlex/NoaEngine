@@ -1,6 +1,8 @@
 #ifndef NOAGUI_H
 #define NOAGUI_H
 
+#include <stack>
+
 #include "Sprite.h"
 #include "NoaMath.h"
 #include "NoaAction.h"
@@ -57,21 +59,26 @@ namespace noa {
 
 	};
 
-	class UICanvas;
+	/**
+	* Canvas有一系列的组组成
+	* 而组是有UICamponent
+	*/
+
+	//class UICanvas;
+	class UIGroup;
 	class UICanvasComponent;
 
 	class UIComponent
 	{
 	protected:
 		bool active = false;
-		friend class UICanvas;
+		friend class UIGroup;
 		friend class UICanvasComponent;
 	public:
 		UITransform transform;
 	protected:
 
-		UIComponent(UICanvas * canvas);
-		UIComponent(UICanvasComponent* canvas);
+		UIComponent(UIGroup* canvas);
 		virtual ~UIComponent();
 
 	private:
@@ -88,41 +95,75 @@ namespace noa {
 		bool GetActive();
 	};
 
-	class UICanvas final : Actor
+	class UIGroup;
+	class Canvas 
+	{
+	protected:
+		Canvas();
+		virtual ~Canvas();
+	public:
+		void AddUIGroup(UIGroup * group);
+
+		void OpenGroup(size_t id);
+		void CloseGroup();
+
+	protected:
+		void CanvasStart();
+		void CanvasUpdate();
+	private:
+		std::stack<UIGroup*> groups;
+		std::vector<UIGroup*> groupList;
+	};
+
+	class UIGroup final
 	{
 	private:
-		NOBJECT(UICanvas)
+		friend class Canvas;
 	private:
-		std::vector<UIComponent*> uiComponent;
-
-	private:
-		UICanvas(Scene * scene);
-		~UICanvas() override;
+		UIGroup(Canvas * canvas);
+		~UIGroup();
 	public:
-		static UICanvas* Create(Scene* scene);
+		static UIGroup* Create(Canvas* canvas);
+		void Delete(UIGroup *& ptr);
 
 		void AddUIComponent(UIComponent* component);
-		void SetActive(bool active) override;
+
+		size_t GetGroupID();
+
+	private:
+		void Start();
+		void Update();
+	private:
+		std::vector<UIComponent*> uiComponent;
+		size_t id = 0;
+
+	};
+
+
+	class UICanvasActor final : public Actor,public Canvas
+	{
+	private:
+		NOBJECT(UICanvasActor)
+	private:
+		UICanvasActor(Scene * scene);
+		~UICanvasActor() override;
+	public:
+		static UICanvasActor* Create(Scene* scene);
 
 		void Start() override;
 		void Update() override;
 
 	};
 
-	class UICanvasComponent final : ActorComponent
+	class UICanvasComponent final : public ActorComponent, public Canvas
 	{
 	private:
 		NOBJECT(UICanvasComponent)
-	private:
-		std::vector<UIComponent*> uiComponent;
 	private:
 		UICanvasComponent(Actor* actor);
 		~UICanvasComponent() override;
 	public:
 		static UICanvasComponent* Create(Actor* actor);
-
-		void AddUIComponent(UIComponent* component);
-		void SetActive(bool active) override;
 
 		void Start() override;
 		void Update() override;
@@ -142,14 +183,12 @@ namespace noa {
 		float narrow = 0.8f;
 
 	protected:
-		Label(UICanvas* canvas);
-		Label(UICanvasComponent* canvas);
+		Label(UIGroup* group);
 		~Label();
 
 	public:
 
-		static Label* Create(UICanvas * canvas);
-		static Label* Create(UICanvasComponent* canvas);
+		static Label* Create(UIGroup* group);
 
 		Label& SetFontSize(uint32_t size);
 		Label& SetPosition(int x,int y);
@@ -176,14 +215,12 @@ namespace noa {
 		Sprite* sprite = nullptr;
 		std::shared_ptr<SpriteGPU> spriteGPU = nullptr;
 	private:
-		Image(UICanvas * canvas);
-		Image(UICanvasComponent* canvas);
+		Image(UIGroup* group);
 		~Image();
 
 	public:
 
-		static Image* Create(UICanvas * canvas);
-		static Image* Create(UICanvasComponent * canvas);
+		static Image* Create(UIGroup* group);
 
 		Image& SetStyle(ImageStyle style);
 		Image & SetSprite(Sprite * sprite);
@@ -211,13 +248,11 @@ namespace noa {
 		uint32_t currentColor = normalColor;
 
 	private:
-		Button(UICanvas* canvas);
-		Button(UICanvasComponent* canvas);
+		Button(UIGroup* group);
 		~Button();
 
 	public:
-		static Button* Create(UICanvas * canvas);
-		static Button* Create(UICanvasComponent* canvas);
+		static Button* Create(UIGroup* group);
 
 		void SwapState();
 

@@ -91,13 +91,82 @@ noa::Font* noa::FontAsset::GetFont(char c)
 	return fonts[c];
 }
 
-noa::UICanvas::UICanvas(Scene* scene) :Actor(scene)
-{
+noa::Canvas::Canvas() {
 
 }
 
-noa::UICanvas::~UICanvas()
+noa::Canvas::~Canvas() {
+	while (!groups.empty()) 
+	{
+		groups.pop();
+	}
+	for (auto & group:groupList)
+	{
+		group->Delete(group);
+	}
+}
+
+void noa::Canvas::AddUIGroup(UIGroup * group) 
 {
+	if (group == nullptr) 
+	{
+		return;
+	}
+	group->id = groupList.size();
+	this->groupList.push_back(group);
+	if (groups.empty()) 
+	{
+		OpenGroup(group->id);
+	}
+
+}
+
+void noa::Canvas::OpenGroup(size_t id) 
+{
+	if (id>=groupList.size()
+		||groupList[id] == nullptr)
+	{
+		return;
+	}
+	this->groups.push(groupList[id]);
+}
+
+void noa::Canvas::CloseGroup() {
+	if (groups.size()<=1) 
+	{
+		return;
+	}
+	groups.pop();
+}
+
+void noa::Canvas::CanvasStart() {
+	
+}
+
+void noa::Canvas::CanvasUpdate() 
+{
+	if (groups.empty())
+	{
+		return;
+	}
+	if (groups.top() == nullptr) 
+	{
+		groups.pop();
+	}
+	else {
+		groups.top()->Update();
+	}
+}
+
+noa::UIGroup::UIGroup(Canvas * canvas) 
+{
+	if (canvas)
+	{
+		canvas->AddUIGroup(this);
+	}
+}
+
+noa::UIGroup::~UIGroup() {
 	if (!this->uiComponent.empty())
 	{
 		//对component进行排序
@@ -116,12 +185,25 @@ noa::UICanvas::~UICanvas()
 	}
 }
 
-noa::UICanvas* noa::UICanvas::Create(Scene* scene)
+noa::UIGroup* noa::UIGroup::Create(noa::Canvas* canvas) 
 {
-	return noa::NObject<UICanvas>::Create(scene);
+	if (canvas == nullptr) 
+	{
+		return nullptr;
+	}
+
+	UIGroup* group = new UIGroup(canvas);
+	return group;
+
 }
 
-void noa::UICanvas::AddUIComponent(UIComponent* component)
+void noa::UIGroup::Delete(UIGroup *& ptr) 
+{
+	delete this;
+	ptr = nullptr;
+}
+
+void noa::UIGroup::AddUIComponent(UIComponent* component) 
 {
 	if (component == nullptr)
 	{
@@ -131,44 +213,56 @@ void noa::UICanvas::AddUIComponent(UIComponent* component)
 	uiComponent.push_back(component);
 }
 
-void noa::UICanvas::SetActive(bool active)
-{
-	Actor::SetActive(active);
-
-	for (auto & component:uiComponent) 
-	{
-		if (component!=nullptr) 
-		{
-			component->SetActive(active);
-		}
-
-	}
+size_t noa::UIGroup::GetGroupID() {
+	return this->id;
 }
 
-void noa::UICanvas::Start()
-{
-
-	for (auto & component:uiComponent) 
+void noa::UIGroup::Start() {
+	for (auto& component : uiComponent)
 	{
-		if (component!=nullptr) 
+		if (component != nullptr)
 		{
 			component->Start();
 		}
 	}
-
 }
 
-void noa::UICanvas::Update()
+void noa::UIGroup::Update() 
 {
 	//显示背景
 	for (auto& component : uiComponent)
 	{
-		if (component == nullptr||!component->GetActive())
+		if (component == nullptr || !component->GetActive())
 		{
 			continue;
 		}
 		component->Update();
 	}
+}
+
+noa::UICanvasActor::UICanvasActor(Scene* scene) :Actor(scene), Canvas()
+{
+
+}
+
+noa::UICanvasActor::~UICanvasActor()
+{
+	
+}
+
+noa::UICanvasActor* noa::UICanvasActor::Create(Scene* scene)
+{
+	return noa::NObject<UICanvasActor>::Create(scene);
+}
+
+void noa::UICanvasActor::Start()
+{
+	Canvas::CanvasStart();
+}
+
+void noa::UICanvasActor::Update()
+{
+	Canvas::CanvasUpdate();
 }
 
 noa::UICanvasComponent::UICanvasComponent(Actor* actor) :ActorComponent(actor)
@@ -177,21 +271,7 @@ noa::UICanvasComponent::UICanvasComponent(Actor* actor) :ActorComponent(actor)
 }
 
 noa::UICanvasComponent::~UICanvasComponent() {
-	if (!uiComponent.empty()) 
-	{
-		std::sort(uiComponent.begin(),uiComponent.end());
-		auto last = std::unique(uiComponent.begin(), uiComponent.end());
-		uiComponent.erase(last,uiComponent.end());
-
-		for (auto & component:uiComponent) 
-		{
-			if (component!=nullptr)
-			{
-				component->Delete(component);
-			}
-		}
-
-	}
+	
 }
 
 noa::UICanvasComponent* noa::UICanvasComponent::Create(Actor * actor) 
@@ -199,66 +279,19 @@ noa::UICanvasComponent* noa::UICanvasComponent::Create(Actor * actor)
 	return noa::NObject<UICanvasComponent>::Create(actor);
 }
 
-void noa::UICanvasComponent::AddUIComponent(UIComponent* component) 
-{
-	if (component == nullptr)
-	{
-		return;
-	}
-	component->SetActive(true);
-	uiComponent.push_back(component);
-}
-
-void noa::UICanvasComponent::SetActive(bool active)
-{
-	ActorComponent::SetActive(active);
-
-	for (auto & component:uiComponent)
-	{
-		if (component!=nullptr)
-		{
-			component->SetActive(active);
-		}
-	}
-}
-
 void noa::UICanvasComponent::Start() {
-
-	for (auto & component:uiComponent) 
-	{
-		if (component!=nullptr) 
-		{
-			component->Start();
-		}
-	}
-
+	Canvas::CanvasStart();
 }
 
 void noa::UICanvasComponent::Update() {
-	for (auto & component:uiComponent) 
-	{
-		if (component == nullptr||!component->GetActive()) 
-		{
-			continue;
-		}
-		component->Update();
-	}
+	Canvas::CanvasUpdate();
 }
 
 
-noa::Button::Button(UICanvas* canvas) :UIComponent(canvas)
+noa::Button::Button(UIGroup* group) :UIComponent(group)
 {
-	image = Image::Create(canvas);
-	label = Label::Create(canvas);
-
-	this->transform.scale = { 320,160 };
-
-}
-
-noa::Button::Button(UICanvasComponent* canvas) :UIComponent(canvas)
-{
-	image = Image::Create(canvas);
-	label = Label::Create(canvas);
+	image = Image::Create(group);
+	label = Label::Create(group);
 
 	this->transform.scale = { 320,160 };
 
@@ -269,18 +302,11 @@ noa::Button::~Button()
 
 }
 
-noa::Button* noa::Button::Create(UICanvas* canvas)
+noa::Button* noa::Button::Create(UIGroup* group)
 {
-	Button* button = new Button(canvas);
+	Button* button = new Button(group);
 	return button;
 }
-
-noa::Button* noa::Button::Create(UICanvasComponent* canvas)
-{
-	Button* button = new Button(canvas);
-	return button;
-}
-
 
 void noa::Button::SwapState()
 {
@@ -392,19 +418,11 @@ noa::Button* noa::Button::Apply() {
 	return this;
 }
 
-noa::UIComponent::UIComponent(noa::UICanvas* canvas)
+noa::UIComponent::UIComponent(noa::UIGroup* group)
 {
-	if (canvas)
+	if (group)
 	{
-		canvas->AddUIComponent(this);
-	}
-}
-
-noa::UIComponent::UIComponent(noa::UICanvasComponent* canvas)
-{
-	if (canvas) 
-	{
-		canvas->AddUIComponent(this);
+		group->AddUIComponent(this);
 	}
 }
 
@@ -429,13 +447,9 @@ bool noa::UIComponent::GetActive()
 	return active;
 }
 
-noa::Label::Label(UICanvas* canvas) :UIComponent(canvas)
+noa::Label::Label(UIGroup* group) :UIComponent(group)
 {
 
-}
-
-noa::Label::Label(UICanvasComponent* canvas) :UIComponent(canvas)
-{
 }
 
 noa::Label::~Label()
@@ -443,15 +457,9 @@ noa::Label::~Label()
 
 }
 
-noa::Label* noa::Label::Create(UICanvas* canvas)
+noa::Label* noa::Label::Create(UIGroup* group)
 {
-	Label* text = new Label(canvas);
-	return text;
-}
-
-noa::Label* noa::Label::Create(UICanvasComponent* canvas)
-{
-	Label* text = new Label(canvas);
+	Label* text = new Label(group);
 	return text;
 }
 
@@ -494,12 +502,8 @@ void noa::Label::Update()
 
 
 
-noa::Image::Image(UICanvas* canvas) :UIComponent(canvas)
+noa::Image::Image(UIGroup* group) :UIComponent(group)
 {
-
-}
-
-noa::Image::Image(UICanvasComponent* canvas) :UIComponent(canvas) {
 
 }
 
@@ -508,15 +512,9 @@ noa::Image::~Image()
 	
 }
 
-noa::Image* noa::Image::Create(UICanvas* canvas)
+noa::Image* noa::Image::Create(UIGroup* group)
 {
-	Image* image = new Image(canvas);
-	return image;
-}
-
-noa::Image* noa::Image::Create(UICanvasComponent* canvas)
-{
-	Image* image = new Image(canvas);
+	Image* image = new Image(group);
 	return image;
 }
 

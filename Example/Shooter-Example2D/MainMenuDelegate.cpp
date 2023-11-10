@@ -5,14 +5,16 @@
 
 void MainMenuDelegate::OnLoad(noa::Scene* scene)
 {
-	noa::UICanvas* canvas = noa::UICanvas::Create(scene);
-	
-	noa::Image* backgroundImage = noa::Image::Create(canvas)
+	noa::UICanvasActor* canvas = noa::UICanvasActor::Create(scene);
+
+	noa::UIGroup* mainGroup = noa::UIGroup::Create(canvas);
+
+	noa::Image* backgroundImage = noa::Image::Create(mainGroup)
 		->SetSprite(&ResourceManager::backgroundImage)
 		.SetStyle(noa::ImageStyle::COVER)
 		.Apply();
 
-	noa::Button* startButton = noa::Button::Create(canvas)
+	noa::Button* startButton = noa::Button::Create(mainGroup)
 		->SetText("START")
 		.SetFontSize(10)
 		.SetSprite(&ResourceManager::defaultImage)
@@ -24,5 +26,6 @@ void MainMenuDelegate::OnLoad(noa::Scene* scene)
 				noa::sceneManager.LoadScene("Game");
 			})
 		.Apply();
+
 
 }
