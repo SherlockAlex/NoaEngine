@@ -195,7 +195,7 @@ namespace noa {
 
 		Label& SetFontSize(uint32_t size);
 		Label& SetPosition(int x,int y);
-		Label& SetScale(int w,int h);
+		Label& SetText(const std::string & text);
 		Label* Apply();
 
 		void Start() override;

@@ -300,137 +300,6 @@ void noa::UICanvasComponent::Update() {
 	Canvas::CanvasUpdate();
 }
 
-
-noa::Button::Button(UIGroup* group) :UIComponent(group)
-{
-	image = Image::Create(group);
-	label = Label::Create(group);
-
-	this->transform.scale = { 320,160 };
-
-}
-
-noa::Button::~Button()
-{
-
-}
-
-noa::Button* noa::Button::Create(UIGroup* group)
-{
-	Button* button = new Button(group);
-	return button;
-}
-
-void noa::Button::SwapState()
-{
-
-	//下面函数在全屏时会出现bug，需要解决
-
-	if (!active)
-	{
-		return;
-	}
-
-	const Vector<double>& mousePos = Input::GetMousePosition();
-
-	const float posX = (static_cast<float>(mousePos.x));
-	const float posY = (static_cast<float>(mousePos.y));
-
-	if (posX > transform.position.x && posX<transform.position.x + transform.scale.x
-		&& posY>transform.position.y && posY < transform.position.y + transform.scale.y
-		)
-	{
-		isSelect = true;
-
-		if (Input::GetMouseKeyUp(MouseButton::LEFT_BUTTON))
-		{
-			this->clickEvent.Invoke();
-		}
-
-	}
-	else {
-		isSelect = false;
-	}
-
-	if (isSelect)
-	{
-		currentColor = selectColor;
-	}
-	else {
-		currentColor = normalColor;
-	}
-
-
-
-}
-
-void noa::Button::Start()
-{
-
-}
-
-void noa::Button::Update()
-{
-
-	this->SwapState();
-
-	image->transform = transform;
-	image->color = currentColor;
-
-
-	label->transform.position.x =
-		static_cast<int>(
-			transform.position.x
-			/*+ 0.5f * transform.scale.x
-			- label->text.length() * 0.5f * label->size*/);
-	label->transform.position.y =
-		static_cast<int>(
-			transform.position.y
-			/*+ 0.5 * transform.scale.y
-			- 0.5 * label->size*/);
-}
-
-noa::Button& noa::Button::SetPosition(int x,int y) 
-{
-	this->transform.position.x = x;
-	this->transform.position.y = y;
-	return *this;
-}
-
-noa::Button& noa::Button::SetScale(int w,int h) 
-{
-	this->transform.scale.x = w;
-	this->transform.scale.y = h;
-	return *this;
-}
-
-noa::Button& noa::Button::SetSprite(noa::Sprite* sprite) {
-	this->image->SetSprite(sprite);
-	return *this;
-}
-
-noa::Button& noa::Button::SetText(const std::string& text)
-{
-	this->label->text = text;
-	return *this;
-}
-
-noa::Button& noa::Button::SetFontSize(uint32_t size) 
-{
-	this->label->SetFontSize(size);
-	return *this;
-}
-
-noa::Button& noa::Button::AddClickEvent(std::function<void()> func)
-{
-	this->clickEvent += func;
-	return *this;
-}
-
-noa::Button* noa::Button::Apply() {
-	return this;
-}
-
 noa::UIComponent::UIComponent(noa::UIGroup* group)
 {
 	if (group)
@@ -479,6 +348,7 @@ noa::Label* noa::Label::Create(UIGroup* group)
 noa::Label& noa::Label::SetFontSize(uint32_t size)
 {
 	this->size = size;
+	this->transform.scale = renderer->GetLabelScale(this->text,this->size);
 	return *this;
 }
 
@@ -489,10 +359,10 @@ noa::Label& noa::Label::SetPosition(int x,int y)
 	return *this;
 }
 
-noa::Label& noa::Label::SetScale(int w,int h) 
+noa::Label& noa::Label::SetText(const std::string& text) 
 {
-	this->transform.scale.x = w;
-	this->transform.scale.y = h;
+	this->text = text;
+	this->transform.scale = renderer->GetLabelScale(this->text, this->size);
 	return *this;
 }
 
@@ -605,8 +475,136 @@ void noa::Image::Update()
 		break;
 	}
 
-	
+}
 
+
+noa::Button::Button(UIGroup* group) :UIComponent(group)
+{
+	image = Image::Create(group);
+	label = Label::Create(group);
+
+	this->transform.scale = { 320,160 };
+
+}
+
+noa::Button::~Button()
+{
+
+}
+
+noa::Button* noa::Button::Create(UIGroup* group)
+{
+	Button* button = new Button(group);
+	return button;
+}
+
+void noa::Button::SwapState()
+{
+
+	//下面函数在全屏时会出现bug，需要解决
+
+	if (!active)
+	{
+		return;
+	}
+
+	const Vector<double>& mousePos = Input::GetMousePosition();
+
+	const float posX = (static_cast<float>(mousePos.x));
+	const float posY = (static_cast<float>(mousePos.y));
+
+	if (posX > transform.position.x && posX<transform.position.x + transform.scale.x
+		&& posY>transform.position.y && posY < transform.position.y + transform.scale.y
+		)
+	{
+		isSelect = true;
+
+		if (Input::GetMouseKeyUp(MouseButton::LEFT_BUTTON))
+		{
+			this->clickEvent.Invoke();
+		}
+
+	}
+	else {
+		isSelect = false;
+	}
+
+	if (isSelect)
+	{
+		currentColor = selectColor;
+	}
+	else {
+		currentColor = normalColor;
+	}
+
+
+
+}
+
+void noa::Button::Start()
+{
+	
+}
+
+void noa::Button::Update()
+{
+
+	this->SwapState();
+
+	image->transform = transform;
+	image->color = currentColor;
+
+	label->transform.position.x =
+		static_cast<int>(
+			transform.position.x
+			+ 0.5f * transform.scale.x
+			- 0.5f * label->transform.scale.x);
+	label->transform.position.y =
+		static_cast<int>(
+			transform.position.y
+			+ 0.5f * transform.scale.y
+			- 0.5f * label->transform.scale.y);
+}
+
+noa::Button& noa::Button::SetPosition(int x,int y) 
+{
+	this->transform.position.x = x;
+	this->transform.position.y = y;
+	return *this;
+}
+
+noa::Button& noa::Button::SetScale(int w,int h) 
+{
+	this->transform.scale.x = w;
+	this->transform.scale.y = h;
+	return *this;
+}
+
+noa::Button& noa::Button::SetSprite(noa::Sprite* sprite) {
+	this->image->SetSprite(sprite);
+	return *this;
+}
+
+noa::Button& noa::Button::SetText(const std::string& text)
+{
+	this->label->SetText(text);
+	return *this;
+}
+
+noa::Button& noa::Button::SetFontSize(uint32_t size) 
+{
+	this->label->SetFontSize(size);
+	return *this;
+}
+
+noa::Button& noa::Button::AddClickEvent(std::function<void()> func)
+{
+	this->clickEvent += func;
+	return *this;
+}
+
+noa::Button* noa::Button::Apply() {
+	return this;
 }
 
 
