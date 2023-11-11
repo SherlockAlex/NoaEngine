@@ -246,21 +246,32 @@ void noa::Renderer::DrawRect(const Vector<int>& point1, const Vector<int>& point
 	}
 }
 
-void noa::Renderer::DrawString(const std::string& str, int x, int y, Uint32 color, int size)
+void noa::Renderer::DrawString(
+	const std::string& str
+	, int x
+	, int y
+	, Uint32 color
+	, int size
+)
 {
 	int row = 0;
-	int offset = 0;
 
-	const float narrowx = 0.8f;
 	const int length = static_cast<int>(str.length());
 	const char* c_str = str.c_str();
+
+	const float scale = static_cast<float>(size) / fontAsset->size;
+
+	float tempX = x;
+	float tempY = y;
+
 	for (int i = 0; i < length; i++)
 	{
+
 		const char c = c_str[i];
 		if (c == '\n')
 		{
+			tempX = x;
 			row++;
-			offset = 0;
 			continue;
 		}
 		const Font* font = fontAsset->GetFont(c);
@@ -269,52 +280,22 @@ void noa::Renderer::DrawString(const std::string& str, int x, int y, Uint32 colo
 			continue;
 		}
 
-		const Vector<float>& position = { static_cast<float>(x + (offset * size) * narrowx),static_cast<float>(y + row * size) };
+		float w = font->sprite->w * scale;
+		float h = font->sprite->h * scale;
+
+		float posX = tempX + font->bearing.x * scale;
+		float posY = tempY - font->bearing.y * scale + (row+1)*size;
+
 		font->spriteGPU->DrawSprite(
-			position.x
-			, position.y
-			, static_cast<float>(size)
-			, static_cast<float>(size)
+			posX
+			, posY
+			, w
+			, h
 			, color
 			, false
 			, 0.0f);
 
-		offset++;
-	}
-}
-
-void noa::Renderer::DrawString(const std::string& str, int x, int y, float narrowx, Uint32 color, int size)
-{
-	int row = 0;
-	int offset = 0;
-
-	const int length = static_cast<int>(str.length());
-	const char* c_str = str.c_str();
-	for (int i = 0; i < length; i++)
-	{
-		const char c = c_str[i];
-		if (!(c ^ '\n'))
-		{
-			row++;
-			offset = 0;
-		}
-		const Font* font = fontAsset->GetFont(c);
-		if (font == nullptr)
-		{
-			continue;
-		}
-
-		const Vector<float>& position = { static_cast<float>(x + (offset * size) * narrowx),static_cast<float>(y + row * size) };
-		font->spriteGPU->DrawSprite(
-			position.x
-			, position.y
-			, static_cast<float>(size)
-			, static_cast<float>(size)
-			, color
-			, false
-			, 0.0f);
-
-		offset++;
+		tempX = tempX + (font->advance >> 6) * scale;
 	}
 }
 

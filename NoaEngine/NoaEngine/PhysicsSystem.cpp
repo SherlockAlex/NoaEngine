@@ -61,11 +61,11 @@ void noa::PhysicsSystem::Update(int step)
 void noa::PhysicsSystem::FindCollisionsGrid()
 {
 #pragma omp parallel for
-	for (int x{ 1 }; x < grid.width - 1; x++)
+	for (int x = 1; x < grid.width - 1; x++)
 	{
-		for (int y{ 1 }; y < grid.height - 1; y++)
+		for (int y = 1; y < grid.height - 1; y++)
 		{
-			auto* currentCell = grid.GetCell(x, y);
+			auto * currentCell = grid.GetCell(x, y);
 
 			for (int dx{ -1 }; dx <= 1; dx++)
 			{
@@ -354,7 +354,7 @@ void noa::PhysicsSystem::CheckCellsCollisions(Cell& cell1, Cell& cell2)
 	{
 		for (auto& collider2 : cell2.colliders)
 		{
-			if (collider1 != collider2)
+			if ((&collider1) != (&collider2))
 			{
 				if (Collide(collider1, collider2))
 				{

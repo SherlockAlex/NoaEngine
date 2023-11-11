@@ -31,9 +31,8 @@ namespace noa {
 	protected:
 		friend class Scene;
 		friend class SceneManager;	
-		Transform* follow = nullptr;
-	public:
 		
+	public:
 		Vector<float> position;
 
 	protected:
@@ -41,9 +40,6 @@ namespace noa {
 		virtual ~Camera();
 	private:
 		void Delete(Camera*& ptr);
-	public:
-		void SetFollow(Transform* follow);
-		void SetFollow(Actor * actor);
 	protected:
 		// 用户可以覆写自己的相机类
 		virtual void Render() = 0;
@@ -78,13 +74,14 @@ namespace noa {
 	{
 		NOBJECT(TileMapCamera)
 	private:
-		TileMap* tileMap = nullptr;
-		Vector<float> frontDelta = { 0.0f,0.0f };
-		Vector<float> endDelta = { 0.0f,0.0f };
 
-		Vector<int> tileScale = Vector<int>(64, 64);
-		Vector<float> visibleTiles;
-		Vector<float> offset;
+		Transform* follow = nullptr;
+
+		TileMap* tileMap = nullptr;
+
+		Vector<int> tileScale = Vector<int>(64, 64);	//一个tile由多少个像素显示
+		Vector<float> visibleTiles;						//相机可见的tile数量
+		Vector<float> offset;							//相机偏移量，表示相机左上角表示世界坐标的位置
 		
 		std::vector<NoaObject*> objectBufferWithRay = std::vector<NoaObject*>(
 			Screen::width*Screen::height, nullptr
@@ -96,9 +93,11 @@ namespace noa {
 		
 		static TileMapCamera * Create(Scene * scene);
 
-		void SetTileScale(Vector<int> tileScale);
-		void SetTileMap(TileMap * tileMap);
-		void SetDelta(const Vector<float> & frontDelta,const Vector<float> & endDelta);
+		TileMapCamera& SetTileScale(uint32_t w,uint32_t h);
+		TileMapCamera& SetTileMap(TileMap * tileMap);
+		TileMapCamera& SetFollow(Actor* actor);
+		TileMapCamera* Apply();
+
 
 		Vector<float> ScreenPointToWorld(float x,float y);
 
@@ -136,6 +135,7 @@ namespace noa {
 	private:
 		TileMap* map = nullptr;
 		Sprite* skybox = nullptr;
+		Transform* follow = nullptr;
 
 	public:
 		float FOV = static_cast<float>(0.25 * PI);
@@ -149,8 +149,10 @@ namespace noa {
 	public:
 		static FreeCamera* Create(Scene* scene);
 
-		void SetTileMap(TileMap* map);
-		void SetSkybox(Sprite* skybox);
+		FreeCamera& SetFollow(Actor* actor);
+		FreeCamera& SetTileMap(TileMap* map);
+		FreeCamera& SetSkybox(Sprite* skybox);
+		FreeCamera* Apply();
 
 		Ray RaycastHit(int pixelX);
 

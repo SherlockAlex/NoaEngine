@@ -11,21 +11,17 @@ void GameDelegate::OnLoad(noa::Scene* scene)
 {
 	noa::TileMap* map = noa::TileMap::Create(scene,"tileSet.tsd", { "map.csv" });
 	map->SetCollisionTileID(40);
-	camera = noa::TileMapCamera::Create(scene);
-
-	player = noa::NObject<Player>::Create(scene);
-	player->camera = camera;
 
 	Test* test1 = noa::NObject<Test>::Create(scene);
-
 	test1->transform.position = { 2,3 };
 
-
-	camera->SetFollow(player);
-	//camera->SetFollow(test1);
-	camera->SetTileScale({32,32});
-
+	player = noa::NObject<Player>::Create(scene);
 	
+	camera = noa::TileMapCamera::Create(scene)
+		->SetTileScale(32,32)
+		.SetFollow(player)
+		.Apply();
+	player->camera = camera;
 
 	bulletPool->SetFactory(bulletFactory.get());
 	bulletPool->Prewarm(10);
@@ -104,11 +100,11 @@ void GameDelegate::OnUpdate(noa::Scene* scene)
 	//	}
 	//}
 
-	//noa::renderer->DrawString(
-	//	noa::ToString<float>(1.0f/noa::Time::deltaTime)
-	//	,10
-	//	,10
-	//	,noa::WHITE,50
-	//);
+	noa::renderer->DrawString(
+		("FPS:"+noa::ToString<float>(1.0f / noa::Time::deltaTime))
+		,10
+		,10
+		,noa::WHITE,50
+	);
 
 }

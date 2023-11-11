@@ -132,7 +132,7 @@ void noa::Animation::Update()
 	if (isFrameStart && (!framesEvent.empty()))
 	{
 		previousFrameIndex = static_cast<int>(i);
-		framesEvent[previousFrameIndex].Invoke();
+		framesEvent[previousFrameIndex]();
 	}
 
 }

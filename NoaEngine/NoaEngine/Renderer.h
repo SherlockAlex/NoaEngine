@@ -44,7 +44,6 @@ namespace noa {
 		void DrawRect(const Vector<int>& point1, const Vector<int>& point2, Sprite* sprite, Uint32 mutiColor, bool isAlpha) const;
 
 		void DrawString(const std::string& str, int x, int y, Uint32 color, int size);
-		void DrawString(const std::string& str, int x, int y,float narrow, Uint32 color, int size);
 
 		void FullScreen(Uint32 color) const;
 

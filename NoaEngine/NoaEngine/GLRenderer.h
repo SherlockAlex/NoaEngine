@@ -38,9 +38,7 @@ namespace noa {
 
 	private:
 
-		SDL_GLContext context = nullptr;
-
-		glm::mat4 projection;
+		void* context = nullptr;
 
 		GLShader* CreateShader(
 			const std::string& vertexSourceFile

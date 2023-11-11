@@ -18,6 +18,10 @@ namespace noa {
 	{
 		std::shared_ptr<Sprite> sprite = nullptr;
 		std::shared_ptr<SpriteGPU> spriteGPU = nullptr;
+
+		noa::Vector<int> bearing;	//从基准线到字形左部/顶部的偏移值
+		uint32_t advance = 0;			//原点距下一个字形原点的距离
+
 		Font()
 		{
 
@@ -49,6 +53,9 @@ namespace noa {
 	private:
 		std::unordered_map<char, Font*> fonts;
 	public:
+
+		int size = 0;
+
 		FontAsset(const char* ttfPath,int size);
 		Font* GetFont(char c);
 
@@ -122,14 +129,11 @@ namespace noa {
 	private:
 		UIGroup(Canvas * canvas);
 		~UIGroup();
+		void Delete(UIGroup*& ptr);
 	public:
 		static UIGroup* Create(Canvas* canvas);
-		void Delete(UIGroup *& ptr);
-
 		void AddUIComponent(UIComponent* component);
-
 		size_t GetGroupID();
-
 	private:
 		void Start();
 		void Update();
@@ -180,7 +184,6 @@ namespace noa {
 		std::string text = "text";
 		uint32_t color = BLACK;
 		uint32_t size = 25;
-		float narrow = 0.8f;
 
 	protected:
 		Label(UIGroup* group);

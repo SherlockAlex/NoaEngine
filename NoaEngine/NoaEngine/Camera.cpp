@@ -25,21 +25,6 @@ void noa::Camera::Delete(noa::Camera*& ptr)
 	}
 }
 
-void noa::Camera::SetFollow(noa::Transform* follow)
-{
-	this->follow = follow;
-}
-
-void noa::Camera::SetFollow(noa::Actor* actor)
-{
-	if (actor == nullptr)
-	{
-		return;
-	}
-	this->follow = &actor->transform;
-}
-
-
 noa::TileMapCamera::TileMapCamera(noa::Scene* scene) :noa::Camera(scene)
 {
 
@@ -54,10 +39,15 @@ noa::TileMapCamera* noa::TileMapCamera::Create(noa::Scene* scene)
 	return NObject<TileMapCamera>::Create(scene);
 }
 
-void noa::TileMapCamera::SetTileScale(noa::Vector<int> tileScale)
+noa::TileMapCamera& noa::TileMapCamera::SetTileScale(uint32_t w, uint32_t h)
 {
-	this->tileScale = tileScale;
-	visibleTiles = noa::Vector<float>(static_cast<float>(int(Screen::width / tileScale.x)), static_cast<float>(int(Screen::height / tileScale.y)));
+	this->tileScale.x = w;
+	this->tileScale.y = h;
+	visibleTiles = noa::Vector<float>(
+		static_cast<float>(Screen::width) / tileScale.x
+		, static_cast<float>(Screen::height) / tileScale.y
+	);
+	return *this;
 }
 
 noa::Vector<float> tileOffset;
@@ -67,6 +57,7 @@ void noa::TileMapCamera::Render()
 	{
 		return;
 	}
+
 	for (auto& object : objectBufferWithRay)
 	{
 		object = nullptr;
@@ -74,19 +65,20 @@ void noa::TileMapCamera::Render()
 
 	position = follow->position;
 
-	offset = std::move(position - visibleTiles * 0.5);
-	if (offset.x < frontDelta.x) {
-		offset.x = frontDelta.x;
+	//offset表示屏幕左上角位置位于世界坐标系什么位置
+	offset = std::move(position - visibleTiles*0.5f);
+	if (offset.x <0) {
+		offset.x =0;
 	}
-	else if (offset.x > tileMap->w - visibleTiles.x + endDelta.x) {
-		offset.x = tileMap->w - visibleTiles.x + endDelta.x;
+	else if (offset.x > tileMap->w - visibleTiles.x) {
+		offset.x = tileMap->w - visibleTiles.x;
 	}
 
-	if (offset.y < frontDelta.y) {
-		offset.y = frontDelta.y;
+	if (offset.y < 0) {
+		offset.y = 0;
 	}
-	else if (offset.y > tileMap->h - visibleTiles.y + endDelta.y) {
-		offset.y = tileMap->h - visibleTiles.y + endDelta.y;
+	else if (offset.y > tileMap->h - visibleTiles.y) {
+		offset.y = tileMap->h - visibleTiles.y;
 	}
 
 	tileOffset.x = (offset.x - (int)offset.x) * tileScale.x;
@@ -137,8 +129,6 @@ void noa::TileMapCamera::Render()
 			continue;
 		}
 
-		//屏幕坐标 = (actor世界坐标 - offset) * tileScale
-
 		const float objPosX = (instance.actor->transform.position.x - offset.x) * tileScale.x;
 		const float objPosY = (instance.actor->transform.position.y - offset.y) * tileScale.y;
 
@@ -173,10 +163,26 @@ void noa::TileMapCamera::Render()
 
 }
 
-void noa::TileMapCamera::SetTileMap(noa::TileMap* tileMap)
+noa::TileMapCamera& noa::TileMapCamera::SetTileMap(noa::TileMap* tileMap)
 {
 	this->tileMap = tileMap;
+	return *this;
 }
+
+noa::TileMapCamera& noa::TileMapCamera::SetFollow(noa::Actor* actor)
+{
+	if (actor == nullptr)
+	{
+		return *this;
+	}
+	this->follow = &actor->transform;
+	return *this;
+}
+
+noa::TileMapCamera* noa::TileMapCamera::Apply() {
+	return this;
+}
+
 
 noa::Vector<float> noa::TileMapCamera::ScreenPointToWorld(float x, float y)
 {
@@ -185,14 +191,6 @@ noa::Vector<float> noa::TileMapCamera::ScreenPointToWorld(float x, float y)
 	result.y = offset.y + (y / tileScale.y);
 	return result;
 }
-
-void noa::TileMapCamera::SetDelta(const Vector<float>& frontDelta, const Vector<float>& endDelta)
-{
-	this->frontDelta = frontDelta;
-	this->endDelta = endDelta;
-}
-
-
 
 noa::FreeCamera::FreeCamera(noa::Scene* scene) :Camera(scene)
 {
@@ -396,14 +394,30 @@ noa::Ray noa::FreeCamera::RaycastHit(int pixelX)
 	return ray;
 }
 
-void noa::FreeCamera::SetTileMap(noa::TileMap* map)
+noa::FreeCamera& noa::FreeCamera::SetFollow(noa::Actor * actor) 
 {
-	this->map = map;
+	if (actor == nullptr) 
+	{
+		return *this;
+	}
+	this->follow = &actor->transform;
+	return *this;
 }
 
-void noa::FreeCamera::SetSkybox(noa::Sprite* skybox)
+noa::FreeCamera& noa::FreeCamera::SetTileMap(noa::TileMap* map)
+{
+	this->map = map;
+	return *this;
+}
+
+noa::FreeCamera& noa::FreeCamera::SetSkybox(noa::Sprite* skybox)
 {
 	this->skybox = skybox;
+	return *this;
+}
+
+noa::FreeCamera* noa::FreeCamera::Apply() {
+	return this;
 }
 
 inline int Partition(std::vector<noa::SpriteRendererInstance>& arr, int low, int high) {
@@ -570,7 +584,10 @@ void noa::StaticCamera::SetBackground(noa::Sprite* sprite)
 void noa::StaticCamera::SetTileScale(const Vector<int>& tileScale)
 {
 	this->tileScale = tileScale;
-	visibleTiles = Vector<float>(static_cast<float>(int(Screen::width / tileScale.x)), static_cast<float>(int(Screen::height / tileScale.y)));
+	visibleTiles = Vector<float>(
+		static_cast<float>(Screen::width) / tileScale.x
+		, static_cast<float>(Screen::height) / tileScale.y
+	);
 }
 
 void noa::StaticCamera::Render()

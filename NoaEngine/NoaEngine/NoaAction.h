@@ -43,6 +43,15 @@ namespace noa
 			functions.push_back(func);
 		}
 
+		void operator ()(Args... args)
+		{
+			const int functionCount = static_cast<int>(functions.size());
+			for (int i = 0; i < functionCount; i++)
+			{
+				functions[i](args...);
+			}
+		}
+
 	};
 
 	template<>
@@ -64,6 +73,16 @@ namespace noa
 		void operator += (std::function<void()> func) {
 			functions.push_back(func);
 		}
+
+		void operator ()() 
+		{
+			const int functionCount = static_cast<int>(functions.size());
+			for (int i = 0; i < functionCount; i++)
+			{
+				functions[i]();
+			}
+		}
+
 	};
 
 }

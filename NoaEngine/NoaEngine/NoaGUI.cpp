@@ -19,9 +19,11 @@ noa::SpriteFile CreateSpriteFromBitmap(FT_Bitmap* bitmap, int size)
 {
 	noa::SpriteFile sprite;
 
-	sprite.width = size;
-	sprite.height = size;
-	sprite.images.resize(size * size, ERRORCOLOR);
+	sprite.width = bitmap->width;
+	sprite.height = bitmap->rows;
+	//sprite.width = size;
+	//sprite.height = size;
+	sprite.images.resize(sprite.width * sprite.height, ERRORCOLOR);
 
 	if (bitmap->width == 0 || bitmap->rows == 0) {
 		sprite.x = 0;
@@ -33,6 +35,11 @@ noa::SpriteFile CreateSpriteFromBitmap(FT_Bitmap* bitmap, int size)
 		for (unsigned int x = 0; x < bitmap->width; x++) {
 
 			uint8_t pixelValue = bitmap->buffer[y * (bitmap->pitch) + x];
+			uint32_t pixelColor = (pixelValue >= (256 / 2) ? noa::WHITE : ERRORCOLOR);
+
+			sprite.images[y * sprite.width + x] = pixelColor;
+
+			/*uint8_t pixelValue = bitmap->buffer[y * (bitmap->pitch) + x];
 			uint32_t pixelColor = (pixelValue >= (256 / 2)) ? noa::WHITE : ERRORCOLOR;
 
 
@@ -44,7 +51,7 @@ noa::SpriteFile CreateSpriteFromBitmap(FT_Bitmap* bitmap, int size)
 				continue;
 			}
 
-			sprite.images[destY * size + destX] = pixelColor;
+			sprite.images[destY * size + destX] = pixelColor;*/
 
 		}
 	}
@@ -57,6 +64,9 @@ noa::SpriteFile CreateSpriteFromBitmap(FT_Bitmap* bitmap, int size)
 
 noa::FontAsset::FontAsset(const char* ttfPath, int size)
 {
+
+	this->size = size;
+
 	FT_Library ft;
 	if (FT_Init_FreeType(&ft)) {
 		Debug::Error("Init FreeType failed");
@@ -77,6 +87,9 @@ noa::FontAsset::FontAsset(const char* ttfPath, int size)
 		}
 
 		Font* font = new Font(CreateSpriteFromBitmap(&face->glyph->bitmap, size));
+		font->bearing.x = face->glyph->bitmap_left;
+		font->bearing.y = face->glyph->bitmap_top;
+		font->advance = face->glyph->advance.x;
 		this->fonts[c] = font;
 	}
 
@@ -368,13 +381,13 @@ void noa::Button::Update()
 	label->transform.position.x =
 		static_cast<int>(
 			transform.position.x
-			+ 0.5 * transform.scale.x
-			- label->text.length() * 0.5 * label->size * label->narrow);
+			/*+ 0.5f * transform.scale.x
+			- label->text.length() * 0.5f * label->size*/);
 	label->transform.position.y =
 		static_cast<int>(
 			transform.position.y
-			+ 0.5 * transform.scale.y
-			- 0.5 * label->size * label->narrow);
+			/*+ 0.5 * transform.scale.y
+			- 0.5 * label->size*/);
 }
 
 noa::Button& noa::Button::SetPosition(int x,int y) 
@@ -497,7 +510,14 @@ void noa::Label::Start()
 void noa::Label::Update()
 {
 	//ÏÔÊ¾ÎÄ×Ö
-	renderer->DrawString(text, transform.position.x, transform.position.y, narrow, color, size);
+	renderer->DrawString(
+		text
+		, transform.position.x
+		, transform.position.y
+		, color
+		, size
+	);
+
 }
 
 
