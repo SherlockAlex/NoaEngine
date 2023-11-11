@@ -44,8 +44,6 @@ namespace noa {
 		UI_LAYER = 2		//UIÍ¼²ã
 	};
 
-	typedef unsigned int Uint32;
-
 	class Sprite final {
 
 	public:
@@ -58,7 +56,7 @@ namespace noa {
 		bool isEmpty = false;
 
 	private:
-		std::vector<Uint32> image;
+		std::vector<uint32_t> image;
 
 		int sw = 2;
 		int sh = 2;
@@ -69,7 +67,7 @@ namespace noa {
 		Sprite(const std::string & filename, const Vector<int>& scale);
 		Sprite(const std::string & filename, int scaleX,int scaleY);
 		Sprite();
-		Sprite(int w, int h,const Vector<int> & scale,const std::vector<Uint32> & image);
+		Sprite(int w, int h,const Vector<int> & scale,const std::vector<uint32_t> & image);
 		~Sprite();
 
 	public:
@@ -82,10 +80,10 @@ namespace noa {
 		//È«ÆÁ»æÖÆÍ¼Æ¬
 		void DrawSpriteFull();
 
-		Uint32 GetPixelColor(const int x,const int y) const;
-		Uint32 GetColor(const float normalizedX,const float normalizedY) const;
-		Uint32 GetTransposeColor(const float normalizedX,const float normalizedY) const;
-		Uint32 GetTransposeColor(const Vector<float>& simple) const;
+		uint32_t GetPixelColor(const int x,const int y) const;
+		uint32_t GetColor(const float normalizedX,const float normalizedY) const;
+		uint32_t GetTransposeColor(const float normalizedX,const float normalizedY) const;
+		uint32_t GetTransposeColor(const Vector<float>& simple) const;
 
 	};
 
@@ -101,18 +99,16 @@ namespace noa {
 		friend struct Tile;
 
 	private:
-		Sprite* sprite = nullptr;
-
 		Texture* texture = nullptr;
-
 		InstanceLayer layer = InstanceLayer::MAIN_LAYER;
-
+		noa::Vector<int> scale;
 	public:
 		SpriteGPU(Sprite * sprite);
+		SpriteGPU(const SpriteFile & spriteFile,int scaleX,int scaleY);
 		~SpriteGPU();
 	private:
 		static std::shared_ptr<SpriteGPU> Create(Sprite * sprite);
-
+		static std::shared_ptr<SpriteGPU> Create(const SpriteFile& spriteFile, int scaleX, int scaleY);
 	public:
 
 		void SetLayer(InstanceLayer layer);

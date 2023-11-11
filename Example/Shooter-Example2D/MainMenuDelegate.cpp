@@ -15,7 +15,7 @@ void MainMenuDelegate::OnLoad(noa::Scene* scene)
 		.Apply();
 
 	noa::Button* startButton = noa::Button::Create(mainGroup)
-		->SetText("START")
+		->SetText(L"©╙й╪сно╥")
 		.SetFontSize(50)
 		.SetSprite(&ResourceManager::defaultImage)
 		.SetPosition(3*noa::Screen::width / 8, 3*noa::Screen::height / 8)

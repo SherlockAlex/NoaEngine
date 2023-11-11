@@ -16,7 +16,8 @@ namespace noa {
 	//字体
 	typedef struct Font
 	{
-		std::shared_ptr<Sprite> sprite = nullptr;
+		int w = 0;
+		int h = 0;
 		std::shared_ptr<SpriteGPU> spriteGPU = nullptr;
 
 		noa::Vector<int> bearing;	//从基准线到字形左部/顶部的偏移值
@@ -27,39 +28,27 @@ namespace noa {
 
 		}
 
-		Font(std::shared_ptr<Sprite> sprite)
-		{
-			this->sprite = sprite;
-			if (sprite) 
-			{
-				spriteGPU = SpriteGPU::Create(sprite.get());
-				spriteGPU->SetLayer(InstanceLayer::UI_LAYER);
-			}
-		}
-
 		Font(const SpriteFile & spriteFile)
 		{
-			this->sprite = std::make_shared<Sprite>(spriteFile, Vector<int>(64, 64));
-			if (sprite) 
-			{
-				spriteGPU = SpriteGPU::Create(sprite.get());
-				spriteGPU->SetLayer(InstanceLayer::UI_LAYER);
-			}
+			this->w = spriteFile.width;
+			this->h = spriteFile.height;
+			spriteGPU = SpriteGPU::Create(spriteFile,64,64);
+			spriteGPU->SetLayer(InstanceLayer::UI_LAYER);
 		}
 
 	}Font;
 
 	class FontAsset {
 	private:
-		std::unordered_map<char, Font*> fonts;
+		std::unordered_map<wchar_t, Font*> fonts;
 	public:
 
 		int size = 0;
 
 		FontAsset(const char* ttfPath,int size);
-		Font* GetFont(char c);
+		Font* GetFont(wchar_t c);
 
-		Font* operator [](char c)
+		Font* operator [](wchar_t c)
 		{
 			return GetFont(c);
 		}
@@ -181,7 +170,7 @@ namespace noa {
 	class Label :public UIComponent
 	{
 	public:
-		std::string text = "text";
+		std::wstring text = L"text";
 		uint32_t color = BLACK;
 		uint32_t size = 25;
 
@@ -195,7 +184,7 @@ namespace noa {
 
 		Label& SetFontSize(uint32_t size);
 		Label& SetPosition(int x,int y);
-		Label& SetText(const std::string & text);
+		Label& SetText(const std::wstring & text);
 		Label* Apply();
 
 		void Start() override;
@@ -241,12 +230,14 @@ namespace noa {
 		Image* image = nullptr;
 
 		//按键常亮颜色
-		uint32_t normalColor = WHITE;
-		uint32_t selectColor = LIGHTGRAY;
+		uint32_t normalColor = BLUE;
+		uint32_t selectColor = RED;
+		uint32_t clickColor = GREEN;
 		//按键事件
 		NoaEvent<void> clickEvent;
 
 	private:
+		bool isClickReady = false;
 		bool isSelect = false;
 		uint32_t currentColor = normalColor;
 
@@ -265,7 +256,7 @@ namespace noa {
 		Button& SetPosition(int x,int y);
 		Button& SetScale(int w,int h);
 		Button& SetSprite(Sprite * sprite);
-		Button& SetText(const std::string & text);
+		Button& SetText(const std::wstring & text);
 		Button& SetFontSize(uint32_t size);
 		Button& AddClickEvent(std::function<void()> func);
 		Button* Apply();

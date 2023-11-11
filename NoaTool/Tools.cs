@@ -412,12 +412,13 @@ namespace NoaTool
                         height = height
                     };
 
-                    for (int i = 0; i < width; i++)
+
+                    for (int j = 0; j < height; j++)
                     {
-                        for (int j = 0; j < height; j++)
+                        for (int i = 0; i < width; i++)
                         {
                             Color pixelColor = image.GetPixel(x + i, y + j);
-                            uint pixelValue = (uint)((pixelColor.R) | (pixelColor.G << 8) | pixelColor.B<<16|pixelColor.A<<24);
+                            uint pixelValue = (uint)((pixelColor.R) | (pixelColor.G << 8) | pixelColor.B << 16 | pixelColor.A << 24);
                             spriteFile.images.Add(pixelValue);
                         }
                     }

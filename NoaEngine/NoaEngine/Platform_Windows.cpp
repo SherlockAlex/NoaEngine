@@ -95,9 +95,11 @@ bool noa::InputEvent_Windows::GetKeyDown(KeyCode key)
 	return GetAsyncKeyState((unsigned short)key) & 1;
 }
 
+static SDL_Event e = {};
 void noa::InputEvent_Windows::PollEvent(const std::function<void()>& quitCallback)
 {
 	this->ResetMouseContext();
+	
 	while (SDL_PollEvent(&e))
 	{
 		switch (e.type)
@@ -111,6 +113,7 @@ void noa::InputEvent_Windows::PollEvent(const std::function<void()>& quitCallbac
 			break;
 		}
 	}
+
 }
 
 void noa::InputEvent_Windows::ResetMouseContext()

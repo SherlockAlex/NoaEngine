@@ -32,7 +32,7 @@ namespace noa {
 
 	class InputEvent_Windows :public InputEvent {
 	private:
-		SDL_Event e = {};
+		//SDL_Event e = {};
 	public:
 		InputEvent_Windows();
 		~InputEvent_Windows();

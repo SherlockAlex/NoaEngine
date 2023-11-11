@@ -106,7 +106,6 @@ void noa::NoaEngine::EngineThread()
 		{
 			Time::time = 0;
 		}
-
 		platform->EventLoop();
 
 		sceneManager.Update();

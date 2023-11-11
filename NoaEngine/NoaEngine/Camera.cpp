@@ -92,31 +92,44 @@ void noa::TileMapCamera::Render()
 			{
 				continue;
 			}
-			const int tileID = tileMap->layers[tileMap->layers.size() - 1].GetTileID(
-				static_cast<int>(x + offset.x)
-				, static_cast<int>(y + offset.y)
-			);
-			if (tileID == -1)
+
+			const int tilePosX = static_cast<int>(x + offset.x);
+			const int tilePosY = static_cast<int>(y + offset.y);
+
+			const float tileDrawPosX = (x * tileScale.x - tileOffset.x);
+			const float tileDrawPosY = (y * tileScale.y - tileOffset.y);
+			const float tileDrawWidth = static_cast<float>(tileScale.x);
+			const float tileDrawHeight = static_cast<float>(tileScale.y);
+
+			for (auto & layer:tileMap->layers) 
 			{
-				continue;
+				
+				const int tileID = layer.GetTileID(
+					tilePosX
+					, tilePosY
+				);
+
+				if (tileID == -1)
+				{
+					continue;
+				}
+
+				Tile* tile = tileMap->GetTile(tileID);
+				if (tile == nullptr)
+				{
+					continue;
+				}
+
+				tileMap->GetTile(tileID)->spriteGPU->DrawSprite(
+					tileDrawPosX
+					, tileDrawPosY
+					, tileDrawWidth
+					, tileDrawHeight
+					, WHITE
+					, false
+					, 0.0f
+				);
 			}
-
-			Tile* tile = tileMap->GetTile(tileID);
-			if (tile == nullptr)
-			{
-				continue;
-			}
-
-			tileMap->GetTile(tileID)->spriteGPU->DrawSprite(
-				(x * tileScale.x - tileOffset.x)
-				, (y * tileScale.y - tileOffset.y)
-				, static_cast<float>(tileScale.x)
-				, static_cast<float>(tileScale.y)
-				, WHITE
-				, false
-				, 0.0f
-			);
-
 		}
 	}
 

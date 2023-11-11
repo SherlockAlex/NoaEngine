@@ -9,7 +9,12 @@ noa::TileMapCamera* camera = nullptr;
 Player* player = nullptr;
 void GameDelegate::OnLoad(noa::Scene* scene)
 {
-	noa::TileMap* map = noa::TileMap::Create(scene,"tileSet.tsd", { "map.csv" });
+	noa::TileMap* map = noa::TileMap::Create(scene,"tileSet.tsd", 
+		{ 
+			"map_Layer1.csv"
+			,"map_Layer2.csv"
+		}
+	);
 	map->SetCollisionTileID(40);
 
 	Test* test1 = noa::NObject<Test>::Create(scene);
@@ -101,7 +106,7 @@ void GameDelegate::OnUpdate(noa::Scene* scene)
 	}
 
 	noa::renderer->DrawString(
-		("FPS:"+noa::ToString<float>(1.0f / noa::Time::deltaTime))
+		(L"FPS:"+std::to_wstring(1.0f/noa::Time::deltaTime))
 		,10
 		,10
 		,noa::WHITE,50

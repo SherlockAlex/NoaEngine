@@ -247,7 +247,7 @@ void noa::Renderer::DrawRect(const Vector<int>& point1, const Vector<int>& point
 }
 
 void noa::Renderer::DrawString(
-	const std::string& str
+	const std::wstring& str
 	, int x
 	, int y
 	, Uint32 color
@@ -257,7 +257,7 @@ void noa::Renderer::DrawString(
 	int row = 0;
 
 	const int length = static_cast<int>(str.length());
-	const char* c_str = str.c_str();
+	//const char* c_str = str.c_str();
 
 	const float scale = static_cast<float>(size) / fontAsset->size;
 
@@ -267,10 +267,10 @@ void noa::Renderer::DrawString(
 	for (int i = 0; i < length; i++)
 	{
 
-		const char c = c_str[i];
+		const wchar_t c = str[i];
 		if (c == '\n')
 		{
-			tempX = x;
+			tempX = static_cast<float>(x);
 			row++;
 			continue;
 		}
@@ -280,8 +280,8 @@ void noa::Renderer::DrawString(
 			continue;
 		}
 
-		float w = font->sprite->w * scale;
-		float h = font->sprite->h * scale;
+		float w = font->w * scale;
+		float h = font->h * scale;
 
 		float posX = tempX + font->bearing.x * scale;
 		float posY = tempY - font->bearing.y * scale + (row+1)*size;
@@ -295,17 +295,16 @@ void noa::Renderer::DrawString(
 			, false
 			, 0.0f);
 
-		tempX = tempX + (font->advance >> 6) * scale;
+		tempX = tempX + static_cast<float>(font->advance >> 6) * scale;
 	}
 
 }
 
-noa::Vector<int> noa::Renderer::GetLabelScale(const std::string& str, int size)
+noa::Vector<int> noa::Renderer::GetLabelScale(const std::wstring& str, int size)
 {
 	int row = 0;
 
 	const int length = static_cast<int>(str.length());
-	const char* c_str = str.c_str();
 
 	const float scale = static_cast<float>(size) / fontAsset->size;
 
@@ -317,7 +316,7 @@ noa::Vector<int> noa::Renderer::GetLabelScale(const std::string& str, int size)
 	for (int i = 0; i < length; i++)
 	{
 
-		const char c = c_str[i];
+		const wchar_t c = str[i];
 		if (c == '\n')
 		{
 			tempX = 0;
@@ -330,15 +329,15 @@ noa::Vector<int> noa::Renderer::GetLabelScale(const std::string& str, int size)
 			continue;
 		}
 
-		float w = font->sprite->w * scale;
-		float h = font->sprite->h * scale;
+		float w = font->w * scale;
+		float h = font->h * scale;
 
 		float posX = tempX + font->bearing.x * scale;
 		float posY = tempY - font->bearing.y * scale + (row + 1) * size;
 
 		tempX = tempX + (font->advance >> 6) * scale;
-		float textScaleX = tempX;
-		float textScaleY = (row + 1) * size;
+		int textScaleX = static_cast<int>(tempX);
+		int textScaleY = static_cast<int>(row + 1) * size;
 		if (result.x < textScaleX)
 		{
 			result.x = textScaleX;

@@ -4,7 +4,7 @@
 
 extern std::vector<std::vector<noa::SpriteGPUInstance>> rendererInstanceLayer;
 
-noa::Texture::Texture()
+noa::Texture::Texture():width(0),height(0)
 {
 
 }

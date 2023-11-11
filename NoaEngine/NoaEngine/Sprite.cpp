@@ -71,7 +71,7 @@ noa::Sprite::Sprite() {
 	this->isEmpty = this->image.empty();
 }
 
-noa::Sprite::Sprite(int w, int h, const Vector<int>& scale, const std::vector<Uint32>& image)
+noa::Sprite::Sprite(int w, int h, const Vector<int>& scale, const std::vector<uint32_t>& image)
 {
 	this->w = w;
 	this->h = h;
@@ -150,7 +150,7 @@ void noa::Sprite::DrawSprite(int posX, int posY, bool isRenderAlpha, bool isMirr
 				(float)(x - x1) / (x2 - x1),
 				(float)(y - y1) / (y2 - y1)
 			);
-			Uint32 pixelColor = GetColor(simple.x, simple.y);
+			uint32_t pixelColor = GetColor(simple.x, simple.y);
 
 			if (isMirror)
 			{
@@ -213,7 +213,7 @@ void noa::Sprite::DrawSprite(bool isRenderAlpha, bool isMirror) const
 				(float)(x - x1) / (x2 - x1),
 				(float)(y - y1) / (y2 - y1)
 			);
-			Uint32 pixelColor = GetColor(simple.x, simple.y);
+			uint32_t pixelColor = GetColor(simple.x, simple.y);
 
 			if (isMirror)
 			{
@@ -242,22 +242,23 @@ void noa::Sprite::DrawSpriteFull()
 	{
 		for (int y = 0; y < Screen::height; y++)
 		{
-			const Uint32 color = GetColor(x * dx, y * dy);
+			const uint32_t color = GetColor(x * dx, y * dy);
 			renderer->DrawPixel(x, y, color);
 		}
 	}
 }
 
-Uint32 noa::Sprite::GetPixelColor(const int x, const int y) const
+uint32_t noa::Sprite::GetPixelColor(const int x, const int y) const
 {
 	if (x < 0 || x >= w || y < 0 || y >= h)
 	{
 		return 0;
 	}
-	return image[y * w + x];
+	const int width = static_cast<int>(w);
+	return image[y * width + x];
 }
 
-Uint32 noa::Sprite::GetColor(const float normalizedX, const float normalizedY) const
+uint32_t noa::Sprite::GetColor(const float normalizedX, const float normalizedY) const
 {
 	if (isEmpty)
 	{
@@ -267,7 +268,8 @@ Uint32 noa::Sprite::GetColor(const float normalizedX, const float normalizedY) c
 	const int sx = static_cast<int>(std::abs(normalizedX * (w - 1))) % w;
 	const int sy = static_cast<int>(std::abs(normalizedY * (h - 1))) % h;
 
-	return image[sy * w + sx];
+	const int width = static_cast<int>(w);
+	return image[sy * width + sx];
 
 	/*if (isEmpty)
 	{
@@ -299,7 +301,7 @@ Uint32 noa::Sprite::GetColor(const float normalizedX, const float normalizedY) c
 
 }
 
-Uint32 noa::Sprite::GetTransposeColor(const float normalizedX, const float normalizedY) const
+uint32_t noa::Sprite::GetTransposeColor(const float normalizedX, const float normalizedY) const
 {
 	//从图片中获取像素
 	if (isEmpty)
@@ -310,10 +312,11 @@ Uint32 noa::Sprite::GetTransposeColor(const float normalizedX, const float norma
 	const int sx = NOAABS((int)(normalizedX * (h - 1))) % h;
 	const int sy = NOAABS((int)(normalizedY * (w - 1))) % w;
 
-	return image[sy * h + sx];
+	const int height = static_cast<int>(h);
+	return image[sy * height + sx];
 }
 
-Uint32 noa::Sprite::GetTransposeColor(const Vector<float>& simple) const
+uint32_t noa::Sprite::GetTransposeColor(const Vector<float>& simple) const
 {
 	//从图片中获取像素
 	if (isEmpty)
@@ -324,7 +327,8 @@ Uint32 noa::Sprite::GetTransposeColor(const Vector<float>& simple) const
 	const int sx = NOAABS((int)(simple.x * (h - 1))) % h;
 	const int sy = NOAABS((int)(simple.y * (w - 1))) % w;
 
-	return image[sy * h + sx];
+	const int height = static_cast<int>(h);
+	return image[sy * height + sx];
 }
 
 noa::SpriteGPU::SpriteGPU(Sprite* sprite)
@@ -333,10 +337,20 @@ noa::SpriteGPU::SpriteGPU(Sprite* sprite)
 	{
 		return;
 	}
-	this->sprite = sprite;
 	this->texture = renderer->CreateTexture(sprite->w, sprite->h, sprite->GetImage().data());
+	this->scale = sprite->scale;
 	texture->EnableAlpha();
 
+}
+
+noa::SpriteGPU::SpriteGPU(const SpriteFile& spriteFile, int scaleX, int scaleY) {
+	this->texture = renderer->CreateTexture(
+		spriteFile.width, spriteFile.height
+		, (uint32_t*)spriteFile.images.data()
+	);
+	this->scale.x = scaleX;
+	this->scale.y = scaleY;
+	texture->EnableAlpha();
 }
 
 noa::SpriteGPU::~SpriteGPU()
@@ -352,6 +366,11 @@ std::shared_ptr<noa::SpriteGPU> noa::SpriteGPU::Create(Sprite* sprite)
 	return std::make_shared<SpriteGPU>(sprite);
 }
 
+std::shared_ptr<noa::SpriteGPU> noa::SpriteGPU::Create(const SpriteFile& spriteFile, int scaleX, int scaleY)
+{
+	return std::make_shared<SpriteGPU>(spriteFile,scaleX,scaleY);
+}
+
 void noa::SpriteGPU::SetLayer(InstanceLayer layer)
 {
 	this->layer = layer;
@@ -363,6 +382,7 @@ void noa::SpriteGPU::Update(Sprite* sprite)
 	if (sprite != nullptr)
 	{
 		texture->UpdateTexture(sprite->GetImage().data(), sprite->w, sprite->h);
+		this->scale = sprite->scale;
 	}
 
 }
@@ -370,18 +390,17 @@ void noa::SpriteGPU::Update(Sprite* sprite)
 void noa::SpriteGPU::DrawSprite(float x, float y, bool mirror, float eulerAngle)
 {
 
-	if (texture == nullptr || sprite == nullptr)
+	if (texture == nullptr)
 	{
 		return;
 	}
 
-	texture->UpdateTexture(sprite->GetImage().data(), sprite->w, sprite->h);
 	SpriteGPUInstance instance;
 	instance.texture = texture;
 	instance.position.x = static_cast<int>(x);
 	instance.position.y = static_cast<int>(y);
-	instance.scale.x = sprite->scale.x;
-	instance.scale.y = sprite->scale.y;
+	instance.scale.x = this->scale.x;
+	instance.scale.y = this->scale.y;
 	instance.tint = WHITE;
 	instance.eulerAngle = eulerAngle;
 	instance.flip = mirror;
@@ -391,12 +410,11 @@ void noa::SpriteGPU::DrawSprite(float x, float y, bool mirror, float eulerAngle)
 
 void noa::SpriteGPU::DrawSprite(float x, float y, float w, float h, unsigned int tint, bool mirror, float eulerAngle)
 {
-	if (texture == nullptr || sprite == nullptr)
+	if (texture == nullptr)
 	{
 		return;
 	}
 
-	texture->UpdateTexture(sprite->GetImage().data(), sprite->w, sprite->h);
 	SpriteGPUInstance instance;
 	instance.texture = texture;
 	instance.position.x = static_cast<int>(x);

@@ -9,11 +9,11 @@
     ],
     "fileStates": {
         "C:/Users/zhang/Desktop/map.js": {
-            "scale": 1.5,
-            "selectedLayer": 0,
+            "scale": 2,
+            "selectedLayer": 1,
             "viewCenter": {
-                "x": 250.66666666666666,
-                "y": 174.33333333333337
+                "x": 247.5,
+                "y": 114.25
             }
         },
         "test.tmj": {
@@ -42,9 +42,9 @@
     ],
     "project": "Level.tiled-project",
     "recentFiles": [
-        "test.tmj",
         "tilemap_packed.tsx",
-        "C:/Users/zhang/Desktop/map.js"
+        "C:/Users/zhang/Desktop/map.js",
+        "test.tmj"
     ],
     "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {
