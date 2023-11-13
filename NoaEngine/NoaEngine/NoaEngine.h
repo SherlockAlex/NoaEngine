@@ -195,6 +195,11 @@ namespace noa {
 	||    游戏基类，一个抽象类   ||
 	o--------------------------o
 	*/
+	enum class GraphicsAPI {
+		SDL2,
+		OPENGL
+	};
+
 	class NoaEngine
 	{
 
@@ -208,9 +213,10 @@ namespace noa {
 
 	public:
 		NoaEngine(
-			int width, int height,
-			WindowMode windowMode,
-			const std::string& gameName
+			int width, int height
+			,WindowMode windowMode
+			,GraphicsAPI graphics
+			,const std::string& gameName
 		);
 
 		virtual ~NoaEngine();

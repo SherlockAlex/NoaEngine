@@ -81,6 +81,13 @@ namespace noa {
 		SpriteFile sprites;
 	}TileData;
 
+	typedef struct TileSet {
+		std::unordered_map<int, Tile> set;
+		bool ContainTileID(int id) const;
+		Tile* GetTileByID(int id);
+
+	}TileSet;
+
 	class AudioClip;
 	class Resource {
 	public:
@@ -94,7 +101,7 @@ namespace noa {
 
 		static LayerFile LoadMapLayer(const std::string & filename);
 
-		static std::unordered_map<int, Tile> LoadTileSet(const std::string& filename);
+		static TileSet LoadTileSet(const std::string& filename);
 
 		static std::string ReadTextFrom(const std::string & filename);
 

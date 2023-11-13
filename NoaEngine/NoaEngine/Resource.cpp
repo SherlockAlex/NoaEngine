@@ -11,6 +11,20 @@ namespace noa {
 	const std::string Resource::path = "./Data/Resource/assets/";
 }
 
+bool noa::TileSet::ContainTileID(int id) const
+{
+	return this->set.count(id) > 0;
+}
+
+noa::Tile* noa::TileSet::GetTileByID(int id)
+{
+	if (this->set.count(id)<=0) 
+	{
+		return nullptr;
+	}
+	return &this->set[id];
+}
+
 std::shared_ptr<noa::AudioClip> noa::Resource::LoadAudioClip(const std::string & filename) 
 {
 	const std::string filePath = Resource::path + filename;
@@ -140,11 +154,11 @@ noa::LayerFile noa::Resource::LoadMapLayer(const std::string& filename)
 	return map;
 }
 
-unordered_map<int, noa::Tile> noa::Resource::LoadTileSet(const std::string& filename)
+noa::TileSet noa::Resource::LoadTileSet(const std::string& filename)
 {
 	//º”‘ÿ”Œœ∑µƒtileSet
-
-	unordered_map<int, Tile> result;
+	noa::TileSet tileSet;
+	//unordered_map<int, Tile> result;
 	std::vector<TileData> resultData;
 	const std::string filePath = Resource::path + filename;
 	std::ifstream inputFile(filePath, std::ios::binary);
@@ -181,11 +195,11 @@ unordered_map<int, noa::Tile> noa::Resource::LoadTileSet(const std::string& file
 
 	for (const auto& data : resultData)
 	{
-		Tile tile = Tile(data.sprites);
-		result[data.id] = tile;
+		Tile tile(data.sprites);
+		tileSet.set[data.id] = std::move(tile);
 	}
 
-	return result;
+	return tileSet;
 }
 
 std::string noa::Resource::ReadTextFrom(const std::string& filename)

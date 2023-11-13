@@ -24,7 +24,7 @@ noa::Renderer::Renderer()
 
 void noa::Renderer::InitFontAsset() {
 	// ³õÊ¼»¯×ÖÌå
-	fontAsset = make_shared<FontAsset>("./Data/Resource/font/font.ttf", 128);
+	fontAsset = make_shared<FontAsset>("./Data/Resource/font/font.ttf", 48);
 }
 
 void noa::Renderer::SetRenderer(int pixelWidth, int pixelHeight) {

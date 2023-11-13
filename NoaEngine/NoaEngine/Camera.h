@@ -117,7 +117,10 @@ namespace noa {
 			{
 				return nullptr;
 			}
-			return dynamic_cast<T*>(objectBufferWithRay[y*noa::Screen::width + x]);
+			return dynamic_cast<T*>(objectBufferWithRay[
+				static_cast<std::vector<noa::NoaObject*, std::allocator<noa::NoaObject*>>
+					::size_type>(y) 
+					* noa::Screen::width + x]);
 		}
 
 	private:

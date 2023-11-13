@@ -28,11 +28,11 @@ namespace noa {
 #if defined(_WIN64) || defined(_WIN32)
 	static shared_ptr<Platform> platform = make_shared<Platform_Windows>();
 	shared_ptr<AudioSystem> audioSystem = make_shared<AudioSystem_SDL>();
-	shared_ptr<Renderer> renderer = make_shared<GLRenderer>();
+	shared_ptr<Renderer> renderer = nullptr;
 #elif defined(__linux__)
 	static shared_ptr<Platform> platform = make_shared<Platform_Linux>();
 	shared_ptr<AudioSystem> audioSystem = make_shared<AudioSystem_SDL>();
-	shared_ptr<Renderer> renderer = make_shared<GLRenderer>();
+	shared_ptr<Renderer> renderer = nullptr;
 #endif
 
 	std::vector<std::vector<SpriteGPUInstance>> rendererInstanceLayer;
@@ -41,6 +41,7 @@ namespace noa {
 noa::NoaEngine::NoaEngine(
 	int width, int height
 	, WindowMode windowMode
+	, GraphicsAPI graphics
 	, const std::string& gameName
 )
 {
@@ -48,6 +49,19 @@ noa::NoaEngine::NoaEngine(
 	Screen::width = width;
 	Screen::height = height;
 	Screen::pixelBuffer = new uint32_t[width * height];
+
+	switch (graphics)
+	{
+	case noa::GraphicsAPI::SDL2:
+		renderer = make_shared<SDLRenderer>();
+		break;
+	case noa::GraphicsAPI::OPENGL:
+		renderer = make_shared<GLRenderer>();
+		break;
+	default:
+		renderer = make_shared<SDLRenderer>();
+		break;
+	}
 
 	renderer->SetRenderer(width, height);
 	platform->Create(width, height, windowMode, gameName);

@@ -76,6 +76,7 @@ noa::GLTexture::GLTexture(int w, int h, uint32_t* pixelBuffer)
 noa::GLTexture::~GLTexture() {
     glDeleteVertexArrays(1, &VAO);
     glDeleteBuffers(1, &VBO);
+    glDeleteBuffers(1, &EBO);
     glDeleteTextures(1, &textureID);
 }
 

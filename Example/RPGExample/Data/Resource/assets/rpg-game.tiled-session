@@ -1,0 +1,44 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "game-test.tmx",
+    "expandedProjectPaths": [
+        "."
+    ],
+    "fileStates": {
+        "Tilemap.tsx": {
+            "scaleInDock": 1.5,
+            "scaleInEditor": 5.5
+        },
+        "game-test.tmx": {
+            "scale": 1.5,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 246.66666666666666,
+                "y": 183.66666666666663
+            }
+        }
+    },
+    "last.exportedFilePath": "D:/Work/NoaEngine/Example/RPGExample/Data/Resource/assets",
+    "last.imagePath": "D:/Work/NoaEngine/Example/Resource/Tilemap",
+    "map.lastUsedExportFilter": "CSV 文件 (*.csv)",
+    "map.lastUsedFormat": "tmx",
+    "map.tileHeight": 16,
+    "map.tileWidth": 16,
+    "openFiles": [
+        "Tilemap.tsx",
+        "game-test.tmx"
+    ],
+    "project": "rpg-game.tiled-project",
+    "recentFiles": [
+        "Tilemap.tsx",
+        "game-test.tmx"
+    ],
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.tileSize": {
+        "height": 16,
+        "width": 16
+    }
+}

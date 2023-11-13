@@ -109,7 +109,7 @@ void noa::Level::Construct(const std::vector<MapLayer>& mapLayers)
 }
 
 noa::TileMap::TileMap(
-	const std::unordered_map<int, Tile>& tileSet
+	const TileSet& tileSet
 	, const std::vector<noa::MapLayer>& mapLayer
 ):noa::Level(mapLayer)
 {
@@ -157,7 +157,7 @@ void noa::TileMap::SetLayerTileID(const int layerIndex,const int x, const int y,
 
 bool noa::TileMap::IsTile(const int code) const
 {
-	return tileSet.count(code) > 0;
+	return tileSet.ContainTileID(code);
 }
 
 bool noa::TileMap::IsCollisionTile(int tileID) const
@@ -205,12 +205,7 @@ void noa::TileMap::SetCollisionTileID(const int tileID)
 
 noa::Tile* noa::TileMap::GetTile(const int id)
 {
-	const bool isTile = tileSet.count(id) > 0;
-	if (!isTile)
-	{
-		return nullptr;
-	}
-	return &tileSet[id];
+	return tileSet.GetTileByID(id);
 }
 
 noa::Scene::Scene(const std::string& name)

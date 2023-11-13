@@ -13,6 +13,11 @@
 
 namespace noa {
 
+	class Button;
+	class Label;
+	class Image;
+	class UIGroup;
+
 	//字体
 	typedef struct Font
 	{
@@ -61,7 +66,7 @@ namespace noa {
 	*/
 
 	//class UICanvas;
-	class UIGroup;
+	
 	class UICanvasComponent;
 
 	class UIComponent
@@ -98,10 +103,17 @@ namespace noa {
 		Canvas();
 		virtual ~Canvas();
 	public:
-		void AddUIGroup(UIGroup * group);
+		void AddUIGroup(UIGroup* group);
 
-		void OpenGroup(size_t id);
+		void OpenGroup(size_t index);
+		void OpenGroup(const std::string& id);
+		void OpenGroup(UIGroup* group);
 		void CloseGroup();
+
+		UIGroup* GetGroupByID(const std::string& id);
+		Label* GetLabelByID(const std::string& id);
+		Image* GetImageByID(const std::string& id);
+		Button* GetButtonByID(const std::string& id);
 
 	protected:
 		void CanvasStart();
@@ -121,14 +133,24 @@ namespace noa {
 		void Delete(UIGroup*& ptr);
 	public:
 		static UIGroup* Create(Canvas* canvas);
+
+		UIGroup& SetID(const std::string& id);
+		UIGroup* Apply();
+
+		Label* GetLabelByID(const std::string& id);
+		Image* GetImageByID(const std::string& id);
+		Button* GetButtonByID(const std::string& id);
+
 		void AddUIComponent(UIComponent* component);
-		size_t GetGroupID();
+		size_t GetGroupIndex();
 	private:
 		void Start();
 		void Update();
 	private:
 		std::vector<UIComponent*> uiComponent;
-		size_t id = 0;
+		size_t index = 0;
+	public:
+		std::string id = "group";
 
 	};
 
@@ -163,13 +185,12 @@ namespace noa {
 
 	};
 
-	class Button;
-	class Label;
-	class Image;
+	
 
 	class Label :public UIComponent
 	{
 	public:
+		std::string id = "label";
 		std::wstring text = L"text";
 		uint32_t color = BLACK;
 		uint32_t size = 25;
@@ -178,17 +199,21 @@ namespace noa {
 		Label(UIGroup* group);
 		~Label();
 
+		void Start() override;
+		void Update() override;
+
 	public:
 
 		static Label* Create(UIGroup* group);
 
+		Label& SetID(const std::string & id);
+		Label& SetColor(uint32_t color);
 		Label& SetFontSize(uint32_t size);
 		Label& SetPosition(int x,int y);
 		Label& SetText(const std::wstring & text);
 		Label* Apply();
 
-		void Start() override;
-		void Update() override;
+		
 
 	};
 	
@@ -200,6 +225,7 @@ namespace noa {
 
 	class Image :public UIComponent {
 	public:
+		std::string id = "image";
 		ImageStyle style = ImageStyle::DEFAULT;
 		uint32_t color = WHITE;
 		bool isFilpX = false;
@@ -210,29 +236,36 @@ namespace noa {
 		Image(UIGroup* group);
 		~Image();
 
+		void Start() override;
+		void Update() override;
+
 	public:
 
 		static Image* Create(UIGroup* group);
 
+		Image& SetID(const std::string& id);
+		Image& SetPosition(int x,int y);
+		Image& SetScale(int x,int y);
 		Image& SetStyle(ImageStyle style);
-		Image & SetSprite(Sprite * sprite);
+		Image& SetSprite(Sprite * sprite);
+		Image& SetColor(uint32_t color);
 		Image* Apply();
 
-		void Start() override;
-		void Update() override;
+		
 
 	};
 
 	class Button :public UIComponent
 	{
 	public:
+		std::string id = "button";
 		Label* label = nullptr;
 		Image* image = nullptr;
 
 		//按键常亮颜色
-		uint32_t normalColor = BLUE;
-		uint32_t selectColor = RED;
-		uint32_t clickColor = GREEN;
+		uint32_t normalColor = LIGHTGRAY;
+		uint32_t selectColor = WHITE;
+		uint32_t clickColor = DARKGRAY;
 		//按键事件
 		NoaEvent<void> clickEvent;
 
@@ -245,14 +278,19 @@ namespace noa {
 		Button(UIGroup* group);
 		~Button();
 
-	public:
-		static Button* Create(UIGroup* group);
-
 		void SwapState();
 
 		void Start() override;
 		void Update() override;
 
+	public:
+		static Button* Create(UIGroup* group);
+
+		
+		Button& SetID(const std::string& id);
+		Button& SetNormalColor(uint32_t color);
+		Button& SetHeightLightColor(uint32_t color);
+		Button& SetClickColor(uint32_t color);
 		Button& SetPosition(int x,int y);
 		Button& SetScale(int w,int h);
 		Button& SetSprite(Sprite * sprite);

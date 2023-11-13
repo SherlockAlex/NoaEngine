@@ -76,13 +76,13 @@ namespace noa {
 	class TileMap:public Level
 	{
 	public:
-		std::unordered_map<int, Tile> tileSet;
+		TileSet tileSet;
 		std::unordered_map<int, bool> collisionTiles;
 	
 
 	private:
 
-		TileMap(const std::unordered_map<int,Tile> & tileSet
+		TileMap(const TileSet & tileSet
 			,const std::vector<MapLayer> & mapLayer);
 
 		TileMap(const std::string& tileSetFile

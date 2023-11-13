@@ -15,7 +15,7 @@ namespace noa {
 
 }
 
-noa::SpriteFile CreateSpriteFromBitmap(FT_Bitmap* bitmap, int size)
+noa::SpriteFile CreateSpriteFromBitmap(FT_Bitmap* bitmap)
 {
 	noa::SpriteFile sprite;
 
@@ -32,25 +32,10 @@ noa::SpriteFile CreateSpriteFromBitmap(FT_Bitmap* bitmap, int size)
 	for (unsigned int y = 0; y < bitmap->rows; y++) {
 		for (unsigned int x = 0; x < bitmap->width; x++) {
 
-			uint8_t pixelValue = bitmap->buffer[y * (bitmap->pitch) + x];
+			uint8_t pixelValue = bitmap->buffer[y * (bitmap->width) + x];
 			uint32_t pixelColor = (pixelValue >= (256 / 2) ? noa::WHITE : ERRORCOLOR);
 
 			sprite.images[y * sprite.width + x] = pixelColor;
-
-			/*uint8_t pixelValue = bitmap->buffer[y * (bitmap->pitch) + x];
-			uint32_t pixelColor = (pixelValue >= (256 / 2)) ? noa::WHITE : ERRORCOLOR;
-
-
-			int destX = x;
-			int destY = size - bitmap->rows + y;
-
-			if (destX < 0 || destY < 0 || destX >= size || destY >= size)
-			{
-				continue;
-			}
-
-			sprite.images[destY * size + destX] = pixelColor;*/
-
 		}
 	}
 
@@ -79,17 +64,6 @@ noa::FontAsset::FontAsset(const char* ttfPath, int size)
 
 	FT_Set_Pixel_Sizes(face, 0, size);
 
-	/*for (unsigned char c = 0; c < 128; c++) {
-		if (FT_Load_Char(face, c, FT_LOAD_RENDER)) {
-			continue;
-		}
-
-		Font* font = new Font(CreateSpriteFromBitmap(&face->glyph->bitmap, size));
-		font->bearing.x = face->glyph->bitmap_left;
-		font->bearing.y = face->glyph->bitmap_top;
-		font->advance = face->glyph->advance.x;
-		this->fonts[c] = font;
-	}*/
 
 	std::wstring chineseChar;
 		chineseChar.append(L"一乙二十丁厂七卜人入八九几儿了力乃刀又三于干亏士工土才寸下大丈与万上小口巾山千乞川亿个");
@@ -153,7 +127,7 @@ noa::FontAsset::FontAsset(const char* ttfPath, int size)
 		chineseChar.append(L"蠢霸露囊罐~·！@#￥%……&*（）——++-=、|【{}】；：‘“，《。》/？*");
 
 		chineseChar.append(L"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890");
-		chineseChar.append(L"~!@#$%^&*()-_=+[{}]\\|;:'\",<.>/?*");
+		chineseChar.append(L" ~!@#$%^&*()-_=+[{}]\\|;:'\",<.>/?*");
 
 		//中文字符
 		for (size_t i = 0; i < chineseChar.length(); i++) {
@@ -161,7 +135,7 @@ noa::FontAsset::FontAsset(const char* ttfPath, int size)
 				continue;
 			}
 
-			Font* font = new Font(CreateSpriteFromBitmap(&face->glyph->bitmap, size));
+			Font* font = new Font(CreateSpriteFromBitmap(&face->glyph->bitmap));
 			font->bearing.x = face->glyph->bitmap_left;
 			font->bearing.y = face->glyph->bitmap_top;
 			font->advance = face->glyph->advance.x;
@@ -200,23 +174,42 @@ void noa::Canvas::AddUIGroup(UIGroup * group)
 	{
 		return;
 	}
-	group->id = groupList.size();
+	group->index = groupList.size();
 	this->groupList.push_back(group);
 	if (groups.empty()) 
 	{
-		OpenGroup(group->id);
+		OpenGroup(group->index);
 	}
 
 }
 
-void noa::Canvas::OpenGroup(size_t id) 
+void noa::Canvas::OpenGroup(size_t index) 
 {
-	if (id>=groupList.size()
-		||groupList[id] == nullptr)
+	if (index >=groupList.size()
+		||groupList[index] == nullptr)
 	{
 		return;
 	}
-	this->groups.push(groupList[id]);
+	this->groups.push(groupList[index]);
+}
+
+void noa::Canvas::OpenGroup(const std::string& id) 
+{
+	UIGroup* group = this->GetGroupByID(id);
+	if (!group) 
+	{
+		return;
+	}
+	OpenGroup(group->GetGroupIndex());
+}
+
+void noa::Canvas::OpenGroup(noa::UIGroup* group) 
+{
+	if (!group) 
+	{
+		return;
+	}
+	OpenGroup(group->GetGroupIndex());
 }
 
 void noa::Canvas::CloseGroup() {
@@ -225,6 +218,69 @@ void noa::Canvas::CloseGroup() {
 		return;
 	}
 	groups.pop();
+}
+
+noa::UIGroup* noa::Canvas::GetGroupByID(const std::string& id) 
+{
+	for (auto& group:groupList) 
+	{
+		if (group&&group->id == id) 
+		{
+			return group;
+		}
+	}
+	return nullptr;
+}
+
+noa::Label* noa::Canvas::GetLabelByID(const std::string& id) 
+{
+	for (auto& group:groupList) 
+	{
+		if (!group) 
+		{
+			continue;
+		}
+		noa::Label* temp = group->GetLabelByID(id);
+		if (temp) 
+		{
+			return temp;
+		}
+	}
+	return nullptr;
+}
+
+noa::Image* noa::Canvas::GetImageByID(const std::string& id) 
+{
+	for (auto& group : groupList)
+	{
+		if (!group)
+		{
+			continue;
+		}
+		noa::Image* temp = group->GetImageByID(id);
+		if (temp)
+		{
+			return temp;
+		}
+	}
+	return nullptr;
+}
+
+noa::Button* noa::Canvas::GetButtonByID(const std::string& id) 
+{
+	for (auto& group : groupList)
+	{
+		if (!group)
+		{
+			continue;
+		}
+		noa::Button* temp = group->GetButtonByID(id);
+		if (temp)
+		{
+			return temp;
+		}
+	}
+	return nullptr;
 }
 
 void noa::Canvas::CanvasStart() {
@@ -291,6 +347,55 @@ void noa::UIGroup::Delete(UIGroup *& ptr)
 	ptr = nullptr;
 }
 
+noa::UIGroup& noa::UIGroup::SetID(const std::string& id) 
+{
+	this->id = id;
+	return *this;
+}
+
+noa::UIGroup* noa::UIGroup::Apply() {
+	return this;
+}
+
+noa::Label* noa::UIGroup::GetLabelByID(const std::string& id) 
+{
+	for (auto& component:uiComponent) 
+	{
+		noa::Label* temp = dynamic_cast<noa::Label*>(component);
+		if (temp&&temp->id == id) 
+		{
+			return temp;
+		}
+	}
+	return nullptr;
+}
+
+noa::Image* noa::UIGroup::GetImageByID(const std::string& id) 
+{
+	for (auto& component : uiComponent)
+	{
+		noa::Image* temp = dynamic_cast<noa::Image*>(component);
+		if (temp && temp->id == id)
+		{
+			return temp;
+		}
+	}
+	return nullptr;
+}
+
+noa::Button* noa::UIGroup::GetButtonByID(const std::string& id) 
+{
+	for (auto& component : uiComponent)
+	{
+		noa::Button* temp = dynamic_cast<noa::Button*>(component);
+		if (temp && temp->id == id)
+		{
+			return temp;
+		}
+	}
+	return nullptr;
+}
+
 void noa::UIGroup::AddUIComponent(UIComponent* component) 
 {
 	if (component == nullptr)
@@ -301,8 +406,8 @@ void noa::UIGroup::AddUIComponent(UIComponent* component)
 	uiComponent.push_back(component);
 }
 
-size_t noa::UIGroup::GetGroupID() {
-	return this->id;
+size_t noa::UIGroup::GetGroupIndex() {
+	return this->index;
 }
 
 void noa::UIGroup::Start() {
@@ -420,6 +525,18 @@ noa::Label* noa::Label::Create(UIGroup* group)
 	return text;
 }
 
+noa::Label& noa::Label::SetID(const std::string& id) 
+{
+	this->id = id;
+	return *this;
+}
+
+noa::Label& noa::Label::SetColor(uint32_t color) 
+{
+	this->color = color;
+	return *this;
+}
+
 noa::Label& noa::Label::SetFontSize(uint32_t size)
 {
 	this->size = size;
@@ -483,6 +600,26 @@ noa::Image* noa::Image::Create(UIGroup* group)
 	return image;
 }
 
+noa::Image& noa::Image::SetID(const std::string& id) 
+{
+	this->id = id;
+	return *this;
+}
+
+noa::Image& noa::Image::SetPosition(int x,int y) 
+{
+	this->transform.position.x = x;
+	this->transform.position.y = y;
+	return *this;
+}
+
+noa::Image& noa::Image::SetScale(int x, int y) 
+{
+	this->transform.scale.x = x;
+	this->transform.scale.y = y;
+	return *this;
+}
+
 noa::Image& noa::Image::SetStyle(noa::ImageStyle style)
 {
 	this->style = style;
@@ -504,6 +641,12 @@ noa::Image & noa::Image::SetSprite(Sprite* sprite)
 	}
 	spriteGPU = SpriteGPU::Create(sprite);
 	spriteGPU->SetLayer(InstanceLayer::UI_LAYER);
+	return *this;
+}
+
+noa::Image& noa::Image::SetColor(uint32_t color) 
+{
+	this->color = color;
 	return *this;
 }
 
@@ -558,7 +701,7 @@ noa::Button::Button(UIGroup* group) :UIComponent(group)
 	image = Image::Create(group);
 	label = Label::Create(group);
 
-	this->transform.scale = { 320,160 };
+	this->transform.scale = { 80,40 };
 
 }
 
@@ -649,6 +792,30 @@ void noa::Button::Update()
 			transform.position.y
 			+ 0.5f * transform.scale.y
 			- 0.5f * label->transform.scale.y);
+}
+
+noa::Button& noa::Button::SetID(const std::string& id) 
+{
+	this->id = id;
+	return *this;
+}
+
+noa::Button& noa::Button::SetNormalColor(uint32_t color) 
+{
+	this->normalColor = color;
+	return *this;
+}
+
+noa::Button& noa::Button::SetHeightLightColor(uint32_t color)
+{
+	this->selectColor = color;
+	return *this;
+}
+
+noa::Button& noa::Button::SetClickColor(uint32_t color) 
+{
+	this->clickColor = color;
+	return *this;
 }
 
 noa::Button& noa::Button::SetPosition(int x,int y) 
