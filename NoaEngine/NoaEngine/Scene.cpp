@@ -233,7 +233,7 @@ void noa::Scene::SetLevel(Level* map)
 
 void noa::Scene::AddCamera(Camera* camera)
 {
-	if (camera == nullptr)
+	if (!camera||!camera->GetActive())
 	{
 		return;
 	}
@@ -298,10 +298,6 @@ void noa::Scene::DestoyScene()
 	auto actorLast = std::unique(actors.begin(), actors.end());
 	actors.erase(actorLast, actors.end());
 
-	std::sort(cameras.begin(), cameras.end());
-	auto cameraLast = std::unique(cameras.begin(), cameras.end());
-	cameras.erase(cameraLast, cameras.end());
-
 	for (auto& actor : actors)
 	{
 		if (actor == nullptr)
@@ -310,18 +306,6 @@ void noa::Scene::DestoyScene()
 		}
 		actor->Delete(actor);
 	}
-
-	for (auto& camera : cameras)
-	{
-		if (camera == nullptr)
-		{
-			continue;
-		}
-		//É¾³ýµ÷Camera
-		camera->Delete(camera);
-
-	}
-	mainCamera = -1;
 
 	actors.clear();
 	cameras.clear();
@@ -378,6 +362,8 @@ void noa::Scene::ApplyCamera()
 		return;
 	}
 	cameras[mainCamera]->Render();
+	mainCamera = -1;
+	cameras.clear();
 }
 
 noa::Scene* noa::SceneManager::CreateScene(const std::string& name)

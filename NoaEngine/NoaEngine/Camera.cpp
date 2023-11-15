@@ -6,14 +6,19 @@
 #include "SpriteRenderer.h"
 #include "Graphic.h"
 
-noa::Camera::Camera(Scene* scene)
+noa::Camera::Camera(Scene* scene):Actor(scene)
 {
-	scene->AddCamera(this);
+	
 }
 
 noa::Camera::~Camera()
 {
 
+}
+
+void noa::Camera::Update() {
+	//Ìí¼Ócameraµ½scene
+	this->GetActiveScene()->AddCamera(this);
 }
 
 void noa::Camera::Delete(noa::Camera*& ptr)

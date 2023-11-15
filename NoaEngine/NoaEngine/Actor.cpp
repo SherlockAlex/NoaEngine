@@ -33,7 +33,6 @@ noa::Actor::~Actor()
 
 void noa::Actor::SetComponentActive(bool value)
 {
-
 	for (auto & component:components) 
 	{
 		if (component) 
