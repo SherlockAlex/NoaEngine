@@ -5,6 +5,7 @@ noa::ActorComponent::ActorComponent(noa::Actor* actor)
 {
 	actor->AddComponent(this);
 	this->actor = actor;
+	
 }
 
 noa::ActorComponent::~ActorComponent()
@@ -15,10 +16,11 @@ noa::ActorComponent::~ActorComponent()
 void noa::ActorComponent::Delete(ActorComponent*& ptr)
 {
 	delete this;
-	if (ptr != nullptr) 
+	if (ptr!=nullptr) 
 	{
 		ptr = nullptr;
 	}
+	
 }
 
 void noa::ActorComponent::SetActive(bool value)

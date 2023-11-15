@@ -45,7 +45,7 @@ void noa::Actor::SetComponentActive(bool value)
 
 void noa::Actor::AddComponent(noa::ActorComponent* component)
 {
-	if (component == nullptr)
+	if (!component)
 	{
 		return;
 	}
@@ -97,7 +97,6 @@ void noa::Actor::ComponentStart()
 
 void noa::Actor::ComponentUpdate()
 {
-
 	for (auto& component : components)
 	{
 		if (component == nullptr||!component->GetActive())
@@ -106,7 +105,6 @@ void noa::Actor::ComponentUpdate()
 		}
 		component->Update();
 	}
-
 }
 
 void noa::Actor::ComponentLateUpdate()
@@ -175,11 +173,8 @@ void noa::Actor::DestroyComponent()
 
 void noa::Actor::Delete(Actor *& ptr)
 {
+	ptr = nullptr;
 	delete this;
-	if (ptr !=nullptr)
-	{
-		ptr = nullptr;
-	}
 }
 
 void noa::Actor::Destroy()

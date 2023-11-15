@@ -9,6 +9,7 @@ void noa::EditorSceneDelegate::OnLoad(noa::Scene* scene)
 	noa::UICanvasActor* canvas = noa::UICanvasActor::Create(scene);
 	noa::UIGroup* group = noa::UIGroup::Create(canvas)
 		->SetID("main_group")
+		.SetPosition(100,0)
 		.Apply();
 
 	auto newProjectButtonClick = [](){
@@ -23,6 +24,7 @@ void noa::EditorSceneDelegate::OnLoad(noa::Scene* scene)
 
 	noa::Label* label = noa::Label::Create(group)
 		->SetText(L"Hello World")
+		.SetFontSize(15)
 		.SetID("camera_info")
 		.SetColor(noa::WHITE)
 		.Apply();
@@ -81,8 +83,11 @@ void noa::EditorSceneDelegate::OnUpdate(noa::Scene* scene)
 		return;
 	}
 	noa::Label* label = canvas->GetLabelByID("camera_info");
-	label->SetText(L"camera positon:("
+	/*label->SetText(L"camera positon:("
 		+std::to_wstring(position.x)
 		+L","+std::to_wstring(position.y)+L")"
-	);
+	);*/
+
+	label->SetText(L"新建工程");
+
 }

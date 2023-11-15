@@ -12,7 +12,7 @@ namespace noa {
 
 noa::SpriteRenderer::SpriteRenderer(Actor* actor):ActorComponent(actor)
 {
-
+	
 }
 
 noa::SpriteRenderer::~SpriteRenderer()
@@ -68,12 +68,16 @@ noa::SpriteRenderer* noa::SpriteRenderer::Apply()
 
 void noa::SpriteRenderer::Update()
 {
+
 	
+
 	if (!sprite) 
 	{
 		noa::Debug::Warring("The sprite of SpriteRenderer is null");
 		return;
 	}
+	
+	
 
 	SpriteRendererInstance instance;
 	instance.actor = this->GetActor();

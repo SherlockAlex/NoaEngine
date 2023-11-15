@@ -11,7 +11,10 @@ public:
 	SpriteRenderer* spriteRenderer = SpriteRenderer::Create(this);
 
 	Rigidbody* rigid = Rigidbody::Create(this);
-	Collider2D* collider = CircleCollider2D::Create(this, rigid);
+	Collider2D* collider = CircleCollider2D::Create(this)
+		->SetRigidbody(rigid)
+		.Apply();
+
 	AudioSource* audioSource = AudioSource::Create(this);
 private:
 	Item(Scene * scene,Sprite* sprite);

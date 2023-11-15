@@ -11,7 +11,6 @@ Bullet::Bullet(Scene * scene,Sprite* sprite) :Actor(scene)
 	tileCollider->SetScale(0.7f, 0.7f);
 	collider->radius = 0.2;
 	collider->isTrigger = true;
-	rigid->useGravity = false;
 	tag = "Bullet";
 
 	sprite->scale = { 32,32 };

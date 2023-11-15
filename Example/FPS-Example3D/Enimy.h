@@ -11,8 +11,13 @@ private:
 	Sprite* sprite = nullptr;
 public:
 	SpriteRenderer* spriteRenderer = SpriteRenderer::Create(this);
+	
 	Rigidbody* rigid = Rigidbody::Create(this);
-	CircleCollider2D* collider = CircleCollider2D::Create(this, rigid);
+	
+	CircleCollider2D* collider = CircleCollider2D::Create(this)
+		->SetRigidbody(rigid)
+		.Apply();
+
 	Transform* player = nullptr;
 	StateMachine* fsm = StateMachine::Create(this);
 	NoaEvent<void> deathEvent;

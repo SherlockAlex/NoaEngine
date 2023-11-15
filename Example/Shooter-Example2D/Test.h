@@ -4,7 +4,7 @@
 class Test:public noa::Actor
 {
 private:
-	NOBJECT(Test)
+	ACTOR(Test)
 private:
 	Test(noa::Scene * scene);
 	~Test();

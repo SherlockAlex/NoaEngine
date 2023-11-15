@@ -77,6 +77,7 @@ namespace noa {
 		friend class UICanvasComponent;
 	public:
 		UITransform transform;
+		UITransform fatherTransform;
 	protected:
 
 		UIComponent(UIGroup* canvas);
@@ -135,6 +136,7 @@ namespace noa {
 		static UIGroup* Create(Canvas* canvas);
 
 		UIGroup& SetID(const std::string& id);
+		UIGroup& SetPosition(int x,int y);
 		UIGroup* Apply();
 
 		Label* GetLabelByID(const std::string& id);
@@ -147,6 +149,7 @@ namespace noa {
 		void Start();
 		void Update();
 	private:
+		UITransform transform;
 		std::vector<UIComponent*> uiComponent;
 		size_t index = 0;
 	public:

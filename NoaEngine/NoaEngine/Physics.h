@@ -32,7 +32,7 @@ namespace noa {
 	enum class BodyType {
 		STATIC = 0,			//静态物体
 		DYNAMIC = 1,		//动态物体
-		KINEMATIC = 2		//运动学物体
+		KINEMATIC = 2		//运动学物体,物体碰到它
 	};
 
 	enum class ForceType

@@ -52,7 +52,7 @@ void noa::Rigidbody::Update()
 	{
 		return;
 	}
-	
+
 	PhysicsSystem::rigidbodys.push_back(this);
 }
 

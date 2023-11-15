@@ -33,7 +33,7 @@ noa::SpriteFile CreateSpriteFromBitmap(FT_Bitmap* bitmap)
 		for (unsigned int x = 0; x < bitmap->width; x++) {
 
 			uint8_t pixelValue = bitmap->buffer[y * (bitmap->width) + x];
-			uint32_t pixelColor = (pixelValue >= (256 / 2) ? noa::WHITE : ERRORCOLOR);
+			uint32_t pixelColor = noa::RGBA(255,255,255,pixelValue);
 
 			sprite.images[y * sprite.width + x] = pixelColor;
 		}
@@ -129,7 +129,6 @@ noa::FontAsset::FontAsset(const char* ttfPath, int size)
 		chineseChar.append(L"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890");
 		chineseChar.append(L" ~!@#$%^&*()-_=+[{}]\\|;:'\",<.>/?*");
 
-		//中文字符
 		for (size_t i = 0; i < chineseChar.length(); i++) {
 			if (FT_Load_Char(face, chineseChar[i], FT_LOAD_RENDER)) {
 				continue;
@@ -353,6 +352,13 @@ noa::UIGroup& noa::UIGroup::SetID(const std::string& id)
 	return *this;
 }
 
+noa::UIGroup& noa::UIGroup::SetPosition(int x,int y) 
+{
+	this->transform.position.x = x;
+	this->transform.position.y = y;
+	return *this;
+}
+
 noa::UIGroup* noa::UIGroup::Apply() {
 	return this;
 }
@@ -429,6 +435,7 @@ void noa::UIGroup::Update()
 		{
 			continue;
 		}
+		component->fatherTransform = this->transform;
 		component->Update();
 	}
 }
@@ -572,10 +579,12 @@ void noa::Label::Start()
 void noa::Label::Update()
 {
 	//显示文字
+	const int posX = fatherTransform.position.x + transform.position.x;
+	const int posY = fatherTransform.position.y + transform.position.y;
 	renderer->DrawString(
 		text
-		, transform.position.x
-		, transform.position.y
+		, posX
+		, posY
 		, color
 		, size
 	);
@@ -667,6 +676,9 @@ void noa::Image::Update()
 		return;
 	}
 	
+	const float posX = static_cast<float>(fatherTransform.position.x + transform.position.x);
+	const float posY = static_cast<float>(fatherTransform.position.y + transform.position.y);
+
 	switch (style)
 	{
 	case noa::ImageStyle::COVER:
@@ -682,8 +694,8 @@ void noa::Image::Update()
 		break;
 	default:
 		spriteGPU->DrawSprite(
-			static_cast<float>(transform.position.x)
-			, static_cast<float>(transform.position.y)
+			posX
+			, posY
 			, static_cast<float>(transform.scale.x)
 			, static_cast<float>(transform.scale.y)
 			, color
@@ -728,12 +740,15 @@ void noa::Button::SwapState()
 
 	const Vector<double>& mousePos = Input::GetMousePosition();
 
-	const float posX = (static_cast<float>(mousePos.x));
-	const float posY = (static_cast<float>(mousePos.y));
+	const float mousePosX = (static_cast<float>(mousePos.x));
+	const float mousePosY = (static_cast<float>(mousePos.y));
+
+	const int posX = transform.position.x + fatherTransform.position.x;
+	const int posY = transform.position.y + fatherTransform.position.y;
 
 	isClickReady = false;
-	if (posX > transform.position.x && posX<transform.position.x + transform.scale.x
-		&& posY>transform.position.y && posY < transform.position.y + transform.scale.y
+	if (mousePosX > posX && mousePosX<posX + transform.scale.x
+		&& mousePosY>posY && mousePosY < posY + transform.scale.y
 		)
 	{
 		isSelect = true;

@@ -53,6 +53,8 @@ noa::TileMapCamera& noa::TileMapCamera::SetTileScale(uint32_t w, uint32_t h)
 noa::Vector<float> tileOffset;
 void noa::TileMapCamera::Render()
 {
+
+
 	if (follow == nullptr || tileMap == nullptr)
 	{
 		return;
