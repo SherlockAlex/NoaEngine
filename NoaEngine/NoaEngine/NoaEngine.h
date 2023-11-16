@@ -69,9 +69,15 @@
 * Font:创建字体图片时，会使用SpriteGPU
 * Tile:单个Tile时会使用SpriteGPU
 * 
-* 开发模式：
-* 每一个场景，都拥有一个主脚本，及GameManager，主脚本负责管理整个个场景，游戏规则，以及Actor，每个GameManager都是一个大单例
-* Actor管理ActorComponent
+* 开发设计模式：
+* 
+* 工厂模式:NObject
+* 构建者模式:组件的构建过程
+* 组合模式:Actor和ActorComponent，UIGroup和UIComponent
+* 原型模式:Unity的Object的Instantiate()
+* 适配器模式:游戏引擎架构，Renderer和Platform的选择，作为两个不相容接口的中间态
+*			游戏引擎作为适配器，让游戏可以调用Renderer和Platform
+* 桥接模式:将抽象和实现分离，
 * 
 */
 
