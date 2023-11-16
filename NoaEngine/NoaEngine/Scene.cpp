@@ -50,35 +50,9 @@ void noa::MapLayer::SetTileID(int x, int y, int value)
 	this->layer[y * this->w + x] = value;
 }
 
-noa::Level::Level(const std::vector<noa::MapLayer>& mapLayers)
+noa::Level::Level(noa::Scene* scene) 
 {
-	this->layers = mapLayers;
-	//返回地图的最大尺寸
-	for (auto & layer:layers) 
-	{
-		if (this->w<layer.w)
-		{
-			this->w = layer.w;
-		}
-		if (this->h < layer.h)
-		{
-			this->h = layer.h;
-		}
-	}
-}
-
-noa::Level::Level(const std::vector<std::string>& layerPath)
-{
-	//读取本地文件
-	std::vector<MapLayer> mapLayers;
-	for (const auto& file:layerPath) 
-	{
-		MapLayer mapLayer(Resource::LoadMapLayer(file));
-		mapLayers.push_back(mapLayer);
-	}
-
-	this->Construct(mapLayers);
-
+	this->scene = scene;
 }
 
 noa::Level::~Level()
@@ -89,6 +63,19 @@ void noa::Level::Delete(Level*& level)
 {
 	delete level;
 	level = nullptr;
+}
+
+void noa::Level::LoadLayer(const std::vector<std::string>& layerPath)
+{
+	//读取本地文件
+	std::vector<MapLayer> mapLayers;
+	for (const auto& file : layerPath)
+	{
+		MapLayer mapLayer(Resource::LoadMapLayer(file));
+		mapLayers.push_back(mapLayer);
+	}
+
+	this->Construct(mapLayers);
 }
 
 void noa::Level::Construct(const std::vector<MapLayer>& mapLayers)
@@ -106,20 +93,17 @@ void noa::Level::Construct(const std::vector<MapLayer>& mapLayers)
 			this->h = layer.h;
 		}
 	}
+
+	if (scene) 
+	{
+		scene->SetLevel(this);
+	}
+
 }
 
-noa::TileMap::TileMap(
-	const TileSet& tileSet
-	, const std::vector<noa::MapLayer>& mapLayer
-):noa::Level(mapLayer)
+noa::TileMap::TileMap(noa::Scene* scene):Level(scene)
 {
-	this->tileSet = tileSet;
-}
 
-noa::TileMap::TileMap(const std::string& tileSetFile, const std::vector<std::string>& layerFile)
-:noa::Level(layerFile)
-{
-	this->tileSet = Resource::LoadTileSet(tileSetFile);
 }
 
 noa::TileMap::~TileMap()
@@ -127,14 +111,45 @@ noa::TileMap::~TileMap()
 
 }
 
-noa::TileMap* noa::TileMap::Create(
-	Scene* scene,
-	const std::string& tileSetFile
-	, const std::vector<std::string>& layerFile)
+noa::TileMap* noa::TileMap::Create(Scene* scene)
 {
-	noa::TileMap* map = new TileMap(tileSetFile,layerFile);
-	scene->SetLevel(map);
+	noa::TileMap* map = new TileMap(scene);
 	return map;
+}
+
+noa::TileMap& noa::TileMap::LoadTileSet(const std::string& file) 
+{
+	this->tileSet = Resource::LoadTileSet(file);
+	return *this;
+}
+
+noa::TileMap& noa::TileMap::LoadTileLayer(
+	const std::vector<std::string>& layerFile
+) 
+{
+	this->LoadLayer(layerFile);
+	return *this;
+}
+
+noa::TileMap& noa::TileMap::SetCollisionTileID(const std::vector<int>& collisionTileIDs)
+{
+	//设置Collision Tiles
+	const int collisionTilesCount = static_cast<int>(collisionTileIDs.size());
+	for (int i = 0; i < collisionTilesCount; i++)
+	{
+		collisionTiles[collisionTileIDs[i]] = true;
+	}
+	return *this;
+}
+
+noa::TileMap& noa::TileMap::SetCollisionTileID(const int tileID)
+{
+	this->collisionTiles[tileID] = true;
+	return *this;
+}
+
+noa::TileMap* noa::TileMap::Apply() {
+	return this;
 }
 
 int noa::TileMap::GetLayerTileID(const int layerIndex, const int x, const int y) const
@@ -188,21 +203,6 @@ bool noa::TileMap::IsCollisionTile(const int x, const int y) const
 
 }
 
-void noa::TileMap::SetCollisionTileID(const std::vector<int>& collisionTileIDs)
-{
-	//设置Collision Tiles
-	const int collisionTilesCount = static_cast<int>(collisionTileIDs.size());
-	for (int i = 0; i < collisionTilesCount; i++)
-	{
-		collisionTiles[collisionTileIDs[i]] = true;
-	}
-}
-
-void noa::TileMap::SetCollisionTileID(const int tileID)
-{
-	this->collisionTiles[tileID] = true;
-}
-
 noa::Tile* noa::TileMap::GetTile(const int id)
 {
 	return tileSet.GetTileByID(id);
@@ -228,29 +228,33 @@ noa::Level* noa::Scene::GetLevel()
 void noa::Scene::SetLevel(Level* map)
 {
 	PhysicsSystem::SetGrid(map->w, map->h);
+	if (this->level)
+	{
+		this->level->Delete(this->level);
+	}
 	this->level = map;
 }
 
 void noa::Scene::AddCamera(Camera* camera)
 {
-	if (!camera||!camera->GetActive())
+	if (!camera)
 	{
 		return;
 	}
 	this->cameras.push_back(camera);
-	if (mainCamera == -1)
+	if (mainCameraIndex == -1)
 	{
-		mainCamera = 0;
+		mainCameraIndex = 0;
 	}
 }
 
 noa::Camera* noa::Scene::GetMainCamera()
 {
-	if (mainCamera < 0 || mainCamera >= cameras.size())
+	if (cameras.empty())
 	{
 		return nullptr;
 	}
-	return cameras[mainCamera];
+	return cameras.front();
 }
 
 void noa::Scene::AddActor(Actor* actor)
@@ -309,6 +313,9 @@ void noa::Scene::DestoyScene()
 
 	actors.clear();
 	cameras.clear();
+
+	//删除掉level
+	this->level->Delete(this->level);
 }
 
 void noa::Scene::Delete()
@@ -357,12 +364,13 @@ std::string noa::Scene::GetName()
 
 void noa::Scene::ApplyCamera()
 {
-	if (mainCamera < 0 || mainCamera >= cameras.size())
+	if (mainCameraIndex <0|| mainCameraIndex >=cameras.size())
 	{
 		return;
 	}
-	cameras[mainCamera]->Render();
-	mainCamera = -1;
+	
+	cameras[mainCameraIndex]->Render();
+	mainCameraIndex = -1;
 	cameras.clear();
 }
 
@@ -459,7 +467,6 @@ void noa::SceneManager::Update()
 	{
 		oldScene->DestoyScene();
 		oldScene->onUnload.Invoke(activeScene);
-		oldScene->level->Delete(oldScene->level);
 		oldScene = nullptr;
 	}
 

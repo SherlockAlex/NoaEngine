@@ -69,12 +69,12 @@ namespace noa {
 		}
 
 		template<class T>
-		T* GetComponentAs() {
+		T* GetThisComponentAs() {
 			return dynamic_cast<T*>(this);
 		}
 
 		template<class T>
-		bool TryGetComponentAs(std::function<void(T&)> callback)
+		bool TryGetThisComponentAs(std::function<void(T&)> callback)
 		{
 			T* buffer = dynamic_cast<T*>(this);
 			if (!buffer)

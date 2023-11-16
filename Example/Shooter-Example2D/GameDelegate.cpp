@@ -9,13 +9,11 @@ noa::TileMapCamera* camera = nullptr;
 Player* player = nullptr;
 void GameDelegate::OnLoad(noa::Scene* scene)
 {
-	noa::TileMap* map = noa::TileMap::Create(scene,"tileSet.tsd", 
-		{ 
-			"map_Layer1.csv"
-			,"map_Layer2.csv"
-		}
-	);
-	map->SetCollisionTileID(40);
+	noa::TileMap* map = noa::TileMap::Create(scene)
+		->LoadTileSet("tileSet.tsd")
+		.LoadTileLayer({"map_Layer1.csv","map_Layer2.csv"})
+		.SetCollisionTileID(40)
+		.Apply();
 
 	Test* test1 = noa::NObject<Test>::Create(scene);
 	test1->transform.position = { 2,3 };

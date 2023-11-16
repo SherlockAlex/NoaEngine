@@ -11,6 +11,12 @@
 /*
 * Actor模块
 * 作用:游戏场景Scene中的活动的对象，可挂载组件实现各种各样的游戏行为
+* 类似Unity中的GameObject
+* 
+* Actor时游戏的基本单元，Camera，是Actor
+* 
+* 同时Actor可以根据不同的ActorComponent实现不同的功能
+* 
 */
 
 namespace noa {

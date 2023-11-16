@@ -44,12 +44,15 @@ void noa::Collider2D::ApplyTrigger()
 
 void noa::Collider2D::Update()
 {
+	
 	if (rigidbody == nullptr)
 	{
 		return;
 	}
-	const int x = static_cast<int>(this->GetActor()->transform.position.x);
-	const int y = static_cast<int>(this->GetActor()->transform.position.y);
+
+	const Vector<float> position = this->GetActor()->transform.position;
+	const int x = static_cast<int>(position.x);
+	const int y = static_cast<int>(position.y);
 
 	const int w = PhysicsSystem::grid.width;
 	const int h = PhysicsSystem::grid.height;
