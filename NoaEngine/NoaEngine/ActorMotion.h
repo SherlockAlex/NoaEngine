@@ -30,7 +30,7 @@ namespace noa {
 		ActorMotion& SetRigidbody(Rigidbody* rigidbody);
 		ActorMotion& AddMotion(const Vector<float>& destination
 			,float speed);
-		ActorMotion& AddEvent(size_t index,std::function<void()> action);
+		ActorMotion& SetCallback(size_t index,std::function<void()> action);
 		ActorMotion& SetPrecision(float precision);
 		ActorMotion& SetLoop(bool value);
 		ActorMotion* Apply();

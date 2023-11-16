@@ -30,7 +30,7 @@ public:
 		.AddMotion({ 2,3 },10)
 		.AddMotion({ 2,10 },10)
 		.AddMotion({ 2,3 },10)
-		.AddEvent(5, []() {noa::Debug::Log("finish this motion"); })
+		.SetCallback(5, []() {noa::Debug::Log("finish this motion"); })
 		.SetLoop(false)
 		.Apply();
 

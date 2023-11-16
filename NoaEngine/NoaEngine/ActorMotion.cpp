@@ -36,7 +36,7 @@ noa::ActorMotion& noa::ActorMotion::AddMotion(
 	return *this;
 }
 
-noa::ActorMotion& noa::ActorMotion::AddEvent(
+noa::ActorMotion& noa::ActorMotion::SetCallback(
 	size_t index
 	,std::function<void()> action
 )
