@@ -33,8 +33,11 @@ namespace noa {
 		ActorMotion& SetCallback(size_t index,std::function<void()> action);
 		ActorMotion& SetPrecision(float precision);
 		ActorMotion& SetLoop(bool value);
+		ActorMotion& Act();
+		ActorMotion& Stop();
 		ActorMotion* Apply();
 
+	private:
 		void Start() override;
 		void Update() override;
 
@@ -52,7 +55,7 @@ namespace noa {
 		float precision = 0.1f;
 		bool loop = false;
 
-		bool finished = false;
+		bool finished = true;
 
 	};
 }

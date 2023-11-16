@@ -32,6 +32,7 @@ public:
 		.AddMotion({ 2,3 },10)
 		.SetCallback(5, []() {noa::Debug::Log("finish this motion"); })
 		.SetLoop(false)
+		.Act()
 		.Apply();
 
 	noa::CircleCollider2D* collider = 

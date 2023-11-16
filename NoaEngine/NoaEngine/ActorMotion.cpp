@@ -62,6 +62,16 @@ noa::ActorMotion& noa::ActorMotion::SetLoop(bool value)
 	return *this;
 }
 
+noa::ActorMotion& noa::ActorMotion::Act() {
+	this->finished = false;
+	return *this;
+}
+
+noa::ActorMotion& noa::ActorMotion::Stop() {
+	this->finished = true;
+	return *this;
+}
+
 noa::ActorMotion& noa::ActorMotion::SetRigidbody(noa::Rigidbody* rigid) 
 {
 	this->rigidbodyHandle = rigid;
