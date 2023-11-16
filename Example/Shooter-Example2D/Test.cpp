@@ -5,7 +5,7 @@ Test::Test(noa::Scene * scene):noa::Actor(scene)
 {
 	this->tag = "Test";
 
-	this->rigid->useGravity = true;
+	this->rigid->useGravity = false;
 	
 	this->rigid->gravityWeight = 5.5f;
 	this->rigid->damping = 0.0f;

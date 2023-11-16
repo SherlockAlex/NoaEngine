@@ -77,7 +77,12 @@ namespace noa {
 	};
 	
 	class Scene;
+
 	//瓦片地图
+	//一个相机可以同时绘制多张TileMap
+	//同时TileMap是有自己的Transform
+	//瓦片的坐标是Transform加上每个瓦片的位置
+
 	class TileMap:public Level
 	{
 	public:

@@ -22,6 +22,18 @@ public:
 
 	noa::Rigidbody* rigid = noa::Rigidbody::Create(this);
 
+	noa::ActorMotion* motion = noa::ActorMotion::Create(this)
+		->SetRigidbody(rigid)
+		.AddMotion({ 5,3 },10)
+		.AddMotion({ 2,3 },10)
+		.AddMotion({ 10,3 },10)
+		.AddMotion({ 2,3 },10)
+		.AddMotion({ 2,10 },10)
+		.AddMotion({ 2,3 },10)
+		.AddEvent(5, []() {noa::Debug::Log("finish this motion"); })
+		.SetLoop(false)
+		.Apply();
+
 	noa::CircleCollider2D* collider = 
 		noa::CircleCollider2D::Create(this)
 		->SetRigidbody(rigid)

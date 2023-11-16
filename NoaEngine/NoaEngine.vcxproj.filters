@@ -168,6 +168,9 @@
     <ClInclude Include="NoaEngine\TileCollider2D.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="NoaEngine\ActorMotion.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="NoaEngine\Animator.cpp">
@@ -294,6 +297,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="NoaEngine\TileCollider2D.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="NoaEngine\ActorMotion.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

@@ -54,7 +54,19 @@ noa::SpriteRenderer& noa::SpriteRenderer::SetSprite(Sprite* sprite)
 
 }
 
-noa::SpriteRenderer & noa::SpriteRenderer::SetScale(float x, float y)
+noa::SpriteRenderer& noa::SpriteRenderer::SetFlipX(bool value) 
+{
+	this->isFlip.x = value;
+	return *this;
+}
+
+noa::SpriteRenderer& noa::SpriteRenderer::SetFlipY(bool value) 
+{
+	this->isFlip.y = value;
+	return *this;
+}
+
+noa::SpriteRenderer& noa::SpriteRenderer::SetScale(float x, float y)
 {
 	this->scale.x = x;
 	this->scale.y = y;

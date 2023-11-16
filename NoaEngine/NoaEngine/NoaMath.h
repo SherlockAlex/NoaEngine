@@ -136,6 +136,17 @@ namespace noa {
 			return std::atan2f(this->y, this->x);
 		}
 
+		void Set(T x,T y) 
+		{
+			this->x = x;
+			this->y = y;
+		}
+
+		void Set(const Vector& value) {
+			this->x = value.x;
+			this->y = value.y;
+		}
+
 	};
 }
 

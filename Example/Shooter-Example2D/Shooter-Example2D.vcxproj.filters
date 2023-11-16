@@ -57,6 +57,9 @@
     <ClCompile Include="..\..\NoaEngine\NoaEngine\ActorComponent.cpp">
       <Filter>头文件\Engine</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\NoaEngine\NoaEngine\ActorMotion.cpp">
+      <Filter>头文件\Engine</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\NoaEngine\NoaEngine\ActorPool.cpp">
       <Filter>头文件\Engine</Filter>
     </ClCompile>
@@ -213,6 +216,9 @@
       <Filter>头文件\Engine</Filter>
     </ClInclude>
     <ClInclude Include="..\..\NoaEngine\NoaEngine\ActorComponent.h">
+      <Filter>头文件\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\NoaEngine\NoaEngine\ActorMotion.h">
       <Filter>头文件\Engine</Filter>
     </ClInclude>
     <ClInclude Include="..\..\NoaEngine\NoaEngine\ActorPool.h">

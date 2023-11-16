@@ -158,6 +158,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="NoaEngine\ActorMotion.h" />
     <ClInclude Include="NoaEngine\CircleCollider2D.h" />
     <ClInclude Include="NoaEngine\BoxCollider2D.h" />
     <ClInclude Include="NoaEngine\AudioSystem.h" />
@@ -210,6 +211,7 @@
     <ClInclude Include="NoaEngine\TileCollider2D.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="NoaEngine\ActorMotion.cpp" />
     <ClCompile Include="NoaEngine\CircleCollider2D.cpp" />
     <ClCompile Include="NoaEngine\BoxCollider2D.cpp" />
     <ClCompile Include="NoaEngine\AudioSystem.cpp" />

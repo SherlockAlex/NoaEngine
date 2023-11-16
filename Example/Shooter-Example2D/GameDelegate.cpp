@@ -18,13 +18,13 @@ void GameDelegate::OnLoad(noa::Scene* scene)
 	Test* test1 = noa::NObject<Test>::Create(scene);
 	test1->transform.position = { 2,3 };
 
-	//player = noa::NObject<Player>::Create(scene);
+	player = noa::NObject<Player>::Create(scene);
 	
 	camera = noa::TileMapCamera::Create(scene)
 		->SetTileScale(32,32)
-		.SetFollow(test1)
+		.SetFollow(player)
 		.Apply();
-	//player->camera = camera;
+	player->camera = camera;
 
 	bulletPool->SetFactory(bulletFactory.get());
 	bulletPool->Prewarm(10);
@@ -38,7 +38,7 @@ Test* hold = nullptr;
 int i = 0;
 void GameDelegate::OnUpdate(noa::Scene* scene)
 {
-	if (i<100) 
+	if (i<0) 
 	{
 		Test* test = noa::NObject<Test>::Create(scene);
 		test->transform.position = { 2,3 };

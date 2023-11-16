@@ -69,6 +69,17 @@
 * Font:创建字体图片时，会使用SpriteGPU
 * Tile:单个Tile时会使用SpriteGPU
 * 
+* 游戏引擎的系统有Input、PhysicsSystem
+* 
+* 其中Motion可以控制物理Rigidbody的Velocity
+* 
+* Motion可以控制物理系统
+* 其中Path是一个vector<position,position>，
+	Rigidbody会从current到second，以velocity的方式运行
+	当到达position的一定范围时，进入下一个position
+	同时Motion时一个组件
+* 
+* 
 * 开发设计模式：
 * 
 * 工厂模式:NObject
@@ -182,6 +193,7 @@
 #include "TileCollider2D.h"
 
 #include "PhysicsSystem.h"
+#include "ActorMotion.h"
 
 #include "ObjectPool.h"
 #include "IPoolObjectFactroy.h"
