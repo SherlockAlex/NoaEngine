@@ -65,7 +65,7 @@ void noa::Rigidbody::InitVelocity(float deltaTime)
 
 	if (useGravity)
 	{
-		Vector<float> gravity = PhysicsSystem::gravity * this->gravityWeight;
+		Vector<float> gravity = PhysicsSystem::gravity * this->gravityScale;
 		if (tileCollider2D != nullptr && tileCollider2D->isGrounded)
 		{
 			gravity = {};
@@ -204,9 +204,9 @@ noa::Rigidbody& noa::Rigidbody::SetDamping(float value)
 	return *this;
 }
 
-noa::Rigidbody& noa::Rigidbody::SetGravityWeight(float value)
+noa::Rigidbody& noa::Rigidbody::SetGravityScale(float value)
 {
-	this->gravityWeight = value;
+	this->gravityScale = value;
 	return *this;
 }
 
@@ -234,7 +234,7 @@ noa::Vector<bool> noa::Rigidbody::GetConstraint()
 
 void noa::Rigidbody::AddAntiGravity()
 {
-	this->AddForce(PhysicsSystem::gravity * gravityWeight * this->mass*(-1.0f), ForceType::CONTINUOUS_FORCE);
+	this->AddForce(PhysicsSystem::gravity * gravityScale * this->mass*(-1.0f), ForceType::CONTINUOUS_FORCE);
 }
 
 void noa::Rigidbody::ApplyTileCollision(float deltaTime)

@@ -20,9 +20,15 @@ public:
 		.SetScale(32.0f / 256, 32.0f / 256)
 		.Apply();
 
-	noa::Rigidbody* rigid = noa::Rigidbody::Create(this);
+	noa::Rigidbody* rigid = noa::Rigidbody::Create(this)
+		->SetBounce(0.5f)
+		.SetUseGravity(true)
+		.SetGravityScale(5.5f)
+		.SetDamping(0.0f)
+		.SetBodyType(noa::BodyType::DYNAMIC)
+		.Apply();
 
-	noa::ActorMotion* motion = noa::ActorMotion::Create(this)
+	/*noa::ActorMotion* motion = noa::ActorMotion::Create(this)
 		->SetRigidbody(rigid)
 		.AddMotion({ 5,3 },10)
 		.AddMotion({ 2,3 },10)
@@ -33,7 +39,7 @@ public:
 		.SetCallback(5, []() {noa::Debug::Log("finish this motion"); })
 		.SetLoop(false)
 		.Act()
-		.Apply();
+		.Apply();*/
 
 	noa::CircleCollider2D* collider = 
 		noa::CircleCollider2D::Create(this)

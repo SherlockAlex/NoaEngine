@@ -18,13 +18,13 @@ void GameDelegate::OnLoad(noa::Scene* scene)
 	Test* test1 = noa::NObject<Test>::Create(scene);
 	test1->transform.position = { 2,3 };
 
-	player = noa::NObject<Player>::Create(scene);
+	//player = noa::NObject<Player>::Create(scene);
 	
 	camera = noa::TileMapCamera::Create(scene)
 		->SetTileScale(32,32)
-		.SetFollow(player)
+		.SetFollow(test1)
 		.Apply();
-	player->camera = camera;
+	//player->camera = camera;
 
 	bulletPool->SetFactory(bulletFactory.get());
 	bulletPool->Prewarm(10);
@@ -38,7 +38,7 @@ Test* hold = nullptr;
 int i = 0;
 void GameDelegate::OnUpdate(noa::Scene* scene)
 {
-	if (i<0) 
+	if (i<400) 
 	{
 		Test* test = noa::NObject<Test>::Create(scene);
 		test->transform.position = { 2,3 };
@@ -60,12 +60,11 @@ void GameDelegate::OnUpdate(noa::Scene* scene)
 
 	if (hold) 
 	{
-		
-		/*noa::Debug::Log(
+		noa::Debug::Log(
 			"动量:" + noa::ToString<float>(hold->rigid->GetMomentum())
 			+",速度:" + noa::ToString<float>(hold->rigid->velocity)
 			+",约束:" + noa::ToString<bool>(hold->rigid->GetConstraint())
-		);*/
+		);
 	}
 
 	//选择鼠标点击到的Test

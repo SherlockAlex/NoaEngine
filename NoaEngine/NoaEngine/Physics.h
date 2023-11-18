@@ -57,7 +57,7 @@ namespace noa {
 		//空气阻尼系数
 		float damping = 0.02f;
 		//重力权重
-		float gravityWeight = 3.5f;
+		float gravityScale = 3.5f;
 
 		bool isFrozen = false;
 		bool useGravity = true;
@@ -138,7 +138,7 @@ namespace noa {
 		Rigidbody& SetBounce(float value);
 		Rigidbody& SetFriction(float value);
 		Rigidbody& SetDamping(float value);
-		Rigidbody& SetGravityWeight(float value);
+		Rigidbody& SetGravityScale(float value);
 				 
 		Rigidbody& SetIsFrozen(bool value);
 		Rigidbody& SetUseGravity(bool value);

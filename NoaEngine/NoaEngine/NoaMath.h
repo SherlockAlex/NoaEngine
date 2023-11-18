@@ -147,6 +147,12 @@ namespace noa {
 			this->y = value.y;
 		}
 
+		static T Dot(const Vector& a,const Vector& b) 
+		{
+			T result = static_cast<T>(a.x * b.x + a.y * b.y);
+			return result;
+		}
+
 	};
 }
 

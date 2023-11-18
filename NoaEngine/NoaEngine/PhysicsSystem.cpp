@@ -142,118 +142,78 @@ void noa::PhysicsSystem::SolveCollision(Collider2D* obj1, Collider2D* obj2)
 		CircleCollider2D* collider1 = obj1->GetCollider2DAs<CircleCollider2D>();
 		CircleCollider2D* collider2 = obj2->GetCollider2DAs<CircleCollider2D>();
 
+		Rigidbody* rigid1 = obj1->rigidbody;
+		Rigidbody* rigid2 = obj2->rigidbody;
+
 		const float sumRadius = collider1->radius + collider2->radius;
 
-		const float x1 = collider1->rigidbody->newPosition.x;
-		const float y1 = collider1->rigidbody->newPosition.y;
-		const float x2 = collider2->rigidbody->newPosition.x;
-		const float y2 = collider2->rigidbody->newPosition.y;
+		const float x1 = rigid1->newPosition.x;
+		const float y1 = rigid1->newPosition.y;
+		const float x2 = rigid2->newPosition.x;
+		const float y2 = rigid2->newPosition.y;
 
 		const float deltaX = (x1 - x2);
 		const float deltaY = (y1 - y2);
 
 		const float angle = atan2(deltaY, deltaX);
 
-		const Vector<float> direction = Vector<float>(cosf(angle), sinf(angle));
-		const Vector<float> normal = Vector<float>(cosf(angle + 2*PI), sinf(angle + 2 * PI));
+		const Vector<float> normal = { cosf(angle), sinf(angle) };
 
 		const float distance = std::sqrtf(deltaX * deltaX + deltaY * deltaY);
 
 		const float deltaR = std::abs(distance - sumRadius);
 
-		const float fixX = deltaR * direction.x;
-		const float fixY = deltaR * direction.y;
-
-		
+		const float fixX = deltaR * normal.x;
+		const float fixY = deltaR * normal.y;
 		
 		//计算受力
 		//刚刚好接触的时候，双方不发生任何受力
 		//及双发的动量很小
 
-		const float bounce1 = obj1->rigidbody->bounce;
-		const float bounce2 = obj2->rigidbody->bounce;
+		const float bounce1 = rigid1->bounce;
+		const float bounce2 = rigid2->bounce;
 
-		const float m1 = obj1->rigidbody->mass;
-		const float m2 = obj2->rigidbody->mass;
+		rigid1->newPosition.x = x1 + 0.5f * fixX;
+		rigid1->newPosition.y = y1 + 0.5f * fixY;
 
-		const float invSumMass = 1.0f / (m1 + m2);
-
-		const noa::Vector<float> p1 = obj1->rigidbody->velocity * m1;
-		const noa::Vector<float> p2 = obj2->rigidbody->velocity * m2;
-
-		const noa::Vector<float> p = p1 + p2;
-
-		const bool constraintX1 = obj1->rigidbody->constraint.x;
-		const bool constraintY1 = obj1->rigidbody->constraint.y;
-		const bool constraintX2 = obj2->rigidbody->constraint.x;
-		const bool constraintY2 = obj2->rigidbody->constraint.y;
-
-		//假设x和y方向上没有任何约束
-
-		const noa::Vector<float> impulse1 = (p * m1 * invSumMass - p1) * 2.0f;
-		const noa::Vector<float> impulse2 = (p * m2 * invSumMass - p2) * 2.0f;
-
-		const noa::Vector<float> newP1 = (p * m1 * invSumMass * 2.0f - p1);
-		const noa::Vector<float> newP2 = (p * m2 * invSumMass * 2.0f - p2);
-
-		noa::Vector<float> finalVel1 = newP1 * obj1->rigidbody->invMass;
-		noa::Vector<float> finalVel2 = newP2 * obj2->rigidbody->invMass;
-
-		obj1->rigidbody->newPosition.x = x1 + 0.5f * fixX;
-		obj1->rigidbody->newPosition.y = y1 + 0.5f * fixY;
-
-		obj2->rigidbody->newPosition.x = x2 - 0.5f * fixX;
-		obj2->rigidbody->newPosition.y = y2 - 0.5f * fixY;
-
-		//会出现卡住的问题，其实本质上是对方可能以及处于一个约束的情况
-		//因为质量相同的情况，会出现一个速度交换的问题
+		rigid2->newPosition.x = x2 - 0.5f * fixX;
+		rigid2->newPosition.y = y2 - 0.5f * fixY;
 		
-		if (constraintX1) 
-		{
-			finalVel2.x = -obj2->rigidbody->velocity.x* bounce2;
-			if (std::abs(finalVel2.x)<0.01f) 
-			{
-				obj2->rigidbody->nextConstraint.x = true;
-			}
-			
-		}
+		//计算接触力
 
-		if (constraintX2)
-		{
-			finalVel1.x = -obj1->rigidbody->velocity.x* bounce1;
-			if (std::abs(finalVel1.x) < 0.01f)
-			{
-				obj1->rigidbody->nextConstraint.x = true;
-			}
-		}
+		const Vector<float> velocity1 = rigid1->velocity;
+		const Vector<float> velocity2 = rigid2->velocity;
 
-		if (constraintY1)
-		{
-			finalVel2.y = -obj2->rigidbody->velocity.y* bounce2;
-			if (std::abs(finalVel2.y) < 0.01f)
-			{
-				obj2->rigidbody->nextConstraint.y = true;
-			}
-		}
+		const float mass1 = rigid1->mass;
+		const float mass2 = rigid2->mass;
+		const float invSumMass = 1.0f/(mass1 + mass2);
 
-		if (constraintY2)
-		{
-			finalVel1.y = -obj1->rigidbody->velocity.y* bounce1;
-			if (std::abs(finalVel1.y) < 0.01f)
-			{
-				obj1->rigidbody->nextConstraint.y = true;
-			}
-			
-		}
+		const Vector<float> momentum1 = velocity1 * mass1;
+		const Vector<float> momentum2 = velocity2 * mass2;
 
-		//同时给两个物体的接触面的切线方向添加一个速度
+		const Vector<float> p = momentum1 + momentum2;
 
-		obj1->rigidbody->velocity = finalVel1;
-		obj2->rigidbody->velocity = finalVel2;
+		float beta = 100.0f;
+
+		//const float k = 0.5f;		//胡克系数
+		//float beta = (mass1 + mass2) * k * (fixX * fixX + fixY * fixY)
+		//	/ (2 * (p.x * fixX + p.y * fixY));
+
+		const Vector<float> constraintImpulse1 = {
+			 beta*fixX
+			,beta*fixY
+		};
+		const Vector<float> constraintImpulse2 = {
+			-beta * fixX
+			,-beta * fixY
+		};
+
+		rigid1->AddForce(
+			constraintImpulse1, noa::ForceType::IMPULSE_FORCE);
+		rigid2->AddForce(
+			constraintImpulse2, noa::ForceType::IMPULSE_FORCE);
 
 	}
-
-	
 
 }
 

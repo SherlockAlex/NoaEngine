@@ -88,18 +88,20 @@ void noa::TileCollider2D::ApplyTileCollision(float deltaTime)
 	int intPosX = static_cast<int>(posX);
 	int intPosY = static_cast<int>(posY);
 
-	float deltaStep = 0.999f;
+	float deltaStep = 0.9999f;
 	float scaleX = deltaStep * std::abs(this->scale.x);
 	float scaleY = deltaStep * std::abs(this->scale.y);
 
 	//先应用冲量
+	const float bounce = std::abs(rigidbody->bounce);
+
 
 	if (tileMap->IsCollisionTile(intNewX, intPosY)
 		|| tileMap->IsCollisionTile(intNewX, static_cast<int>(posY + scaleY))
 		)
 	{
 		this->isHitCollisionTile = true;
-		rigidbody->velocity.x = -rigidbody->velocity.x * std::abs(rigidbody->friction);
+		rigidbody->velocity.x = (-rigidbody->velocity.x * bounce);
 		if (static_cast<int>(rigidbody->velocity.x * 10.0f) == 0)
 		{
 			rigidbody->velocity.x = 0;
@@ -115,7 +117,7 @@ void noa::TileCollider2D::ApplyTileCollision(float deltaTime)
 		)
 	{
 		this->isHitCollisionTile = true;
-		rigidbody->velocity.x = -rigidbody->velocity.x * std::abs(rigidbody->friction);
+		rigidbody->velocity.x = (-rigidbody->velocity.x * bounce);
 		if (static_cast<int>(rigidbody->velocity.x * 10.0f) == 0)
 		{
 			rigidbody->velocity.x = 0;
@@ -130,7 +132,7 @@ void noa::TileCollider2D::ApplyTileCollision(float deltaTime)
 		|| tileMap->IsCollisionTile(static_cast<int>(newX + scaleX), intNewY))
 	{
 		this->isHitCollisionTile = true;
-		rigidbody->velocity.y = -rigidbody->velocity.y * std::abs(rigidbody->bounce);
+		rigidbody->velocity.y = (-rigidbody->velocity.y * bounce);
 		if (static_cast<int>(rigidbody->velocity.y * 10.0f) == 0)
 		{
 			rigidbody->velocity.y = 0;
@@ -147,7 +149,7 @@ void noa::TileCollider2D::ApplyTileCollision(float deltaTime)
 	{
 		//下
 		this->isHitCollisionTile = true;
-		rigidbody->velocity.y = -rigidbody->velocity.y * std::abs(rigidbody->bounce);
+		rigidbody->velocity.y = (-rigidbody->velocity.y * bounce);
 		if (static_cast<int>(rigidbody->velocity.y * 10.0f) == 0)
 		{
 			rigidbody->velocity.y = 0;
@@ -197,7 +199,7 @@ void noa::TileCollider2D::ApplyConstraint(float deltaTime)
 
 		if (static_cast<int>(rigidbody->velocity.x * 10.0f) == 0)
 		{
-			rigidbody->velocity.x = 0;
+			//rigidbody->velocity.x = 0;
 			rigidbody->nextConstraint.x = true;
 			rigidbody->constraint.x = true;
 		}
@@ -216,7 +218,7 @@ void noa::TileCollider2D::ApplyConstraint(float deltaTime)
 
 		if (static_cast<int>(rigidbody->velocity.x * 10.0f) == 0)
 		{
-			rigidbody->velocity.x = 0;
+			//rigidbody->velocity.x = 0;
 			rigidbody->nextConstraint.x = true;
 			rigidbody->constraint.x = true;
 		}
@@ -234,7 +236,7 @@ void noa::TileCollider2D::ApplyConstraint(float deltaTime)
 
 		if (static_cast<int>(rigidbody->velocity.y * 10.0f) == 0)
 		{
-			rigidbody->velocity.y = 0;
+			//rigidbody->velocity.y = 0;
 			rigidbody->nextConstraint.y = true;
 			rigidbody->constraint.y = true;
 		}
@@ -251,7 +253,7 @@ void noa::TileCollider2D::ApplyConstraint(float deltaTime)
 		//下
 		if (static_cast<int>(rigidbody->velocity.y * 10.0f) == 0)
 		{
-			rigidbody->velocity.y = 0;
+			//rigidbody->velocity.y = 0;
 			rigidbody->nextConstraint.y = true;
 			rigidbody->constraint.y = true;
 			this->isGrounded = true;
