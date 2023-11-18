@@ -20,17 +20,17 @@ namespace noa
 	protected:
 		friend class PhysicsSystem;
 		friend class Rigidbody;
+
+		Rigidbody* rigidbody = nullptr;
 		ColliderType colliderType;
 	public:
-		Rigidbody* rigidbody = nullptr;
 		bool isTrigger = false;
-
 	protected:
 		Collider2D(Actor* actor);
 		virtual ~Collider2D() override;
-		void ApplyTrigger();
-	public:
+		void ApplyTriggerEnter(Collider2D& other);
 		virtual void Update() override;
+	public:
 
 		template<class T>
 		T* GetCollider2DAs() {

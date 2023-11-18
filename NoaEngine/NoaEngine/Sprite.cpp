@@ -248,6 +248,15 @@ void noa::Sprite::DrawSpriteFull()
 	}
 }
 
+void noa::Sprite::SetPixelColor(int x,int y,uint32_t color) 
+{
+	if (x<0||x>=w||y<0||y>=h)
+	{
+		return;
+	}
+	image[y * w + x] = color;
+}
+
 uint32_t noa::Sprite::GetPixelColor(const int x, const int y) const
 {
 	if (x < 0 || x >= w || y < 0 || y >= h)

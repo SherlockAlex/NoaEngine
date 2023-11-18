@@ -3,6 +3,7 @@
 #include "ActorComponent.h"
 #include "Physics.h"
 #include "SpriteRenderer.h"
+#include "Collider2D.h"
 
 noa::Actor::Actor(noa::Scene* activeScene)
 {
@@ -229,15 +230,15 @@ bool noa::Actor::CompareTag(const std::string& tag)
 	return this->tag == tag;
 }
 
+void noa::Actor::OnTriggerEnter(noa::Collider2D& other) 
+{
+
+}
+
 void noa::Actor::SetActiveScene(noa::Scene* scene)
 {
 	this->activeScene = scene;
 	scene->AddActor(this);
-}
-
-void noa::Actor::OnTrigger(const noa::Collision & collision)
-{
-	
 }
 
 

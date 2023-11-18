@@ -79,6 +79,7 @@ namespace noa {
 		void DrawSprite(bool isRenderAlpha, bool isMirror) const;
 		//È«ÆÁ»æÖÆÍ¼Æ¬
 		void DrawSpriteFull();
+		void SetPixelColor(int x,int y,uint32_t color);
 
 		uint32_t GetPixelColor(const int x,const int y) const;
 		uint32_t GetColor(const float normalizedX,const float normalizedY) const;

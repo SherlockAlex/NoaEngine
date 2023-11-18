@@ -19,8 +19,6 @@ using namespace std;
 
 noa::Rigidbody::Rigidbody(Actor* actor) :ActorComponent(actor)
 {
-
-	collision.actor = nullptr;
 	this->velocity = { 0,0 };
 	invMass = 1.0f / mass;
 	colliders.reserve(10);
@@ -266,14 +264,4 @@ noa::Rigidbody* noa::Rigidbody::Create(Actor* actor)
 {
 	return noa::NObject<Rigidbody>::Create(actor);
 }
-
-bool noa::Collision::CompareTag(const std::string& tag) const
-{
-	if (actor == nullptr)
-	{
-		return false;
-	}
-	return actor->tag == tag;
-}
-
 

@@ -91,6 +91,7 @@ void noa::TileMapCamera::Render()
 	tileOffset.x = (offset.x - (int)offset.x) * tileScale.x;
 	tileOffset.y = (offset.y - (int)offset.y) * tileScale.y;
 
+	//绘制地图到屏幕上
 	for (int x = -2; x < visibleTiles.x + 2; x++)
 	{
 		for (int y = -2; y < visibleTiles.y + 2; y++)
@@ -207,8 +208,8 @@ noa::TileMapCamera* noa::TileMapCamera::Apply() {
 noa::Vector<float> noa::TileMapCamera::ScreenPointToWorld(float x, float y)
 {
 	Vector<float> result = { 0.0f,0.0f };
-	result.x = offset.x + (x / tileScale.x);
-	result.y = offset.y + (y / tileScale.y);
+	result.x = offset.x + (x / tileScale.x) - 0.5f;
+	result.y = offset.y + (y / tileScale.y) - 0.5f;
 	return result;
 }
 

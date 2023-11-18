@@ -6,6 +6,11 @@
 
 #include "ActorComponent.h"
 
+/**
+* ActorMotion:Actor移动系统
+* 基于Rigidbody实现，可以规定刚体的移动路径，用于剧情
+*/
+
 namespace noa {
 
 	typedef struct Motion {

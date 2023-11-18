@@ -644,6 +644,7 @@ noa::Image & noa::Image::SetSprite(Sprite* sprite)
 	this->sprite = sprite;
 	if (spriteGPU)
 	{
+		//如果有了spriteGPU
 		spriteGPU->Update(sprite);
 		spriteGPU->SetLayer(InstanceLayer::UI_LAYER);
 		return *this;
@@ -712,9 +713,10 @@ noa::Button::Button(UIGroup* group) :UIComponent(group)
 {
 	image = Image::Create(group);
 	label = Label::Create(group);
-
-	this->transform.scale = { 80,40 };
-
+	
+	this->SetSize(80, 40);
+	/*this->transform.scale = { 80,40 };*/
+	image->SetSprite(&sprite);
 }
 
 noa::Button::~Button()
@@ -772,14 +774,20 @@ void noa::Button::SwapState()
 	{
 		if (isSelect)
 		{
-			currentColor = selectColor;
+			currentColor = heightLightColor;
+			currentTextColor = textHeightLightColor;
+			currentScale = heightLightScale;
 		}
 		else {
 			currentColor = normalColor;
+			currentTextColor = textNormalColor;
+			currentScale = normalScale;
 		}
 	}
 	else {
 		currentColor = clickColor;
+		currentTextColor = textClickColor;
+		currentScale = clickScale;
 	}
 
 }
@@ -794,19 +802,42 @@ void noa::Button::Update()
 
 	this->SwapState();
 
-	image->transform = transform;
+	currentSize.x = static_cast<int>(transform.scale.x * currentScale);
+	currentSize.y = static_cast<int>(transform.scale.y * currentScale);
+
+	this->label->SetFontSize(static_cast<uint32_t>(fontSize * currentScale));
+
+	image->transform.position = transform.position;
+	image->transform.scale = currentSize;
 	image->color = currentColor;
 
+	label->color = currentTextColor;
 	label->transform.position.x =
 		static_cast<int>(
 			transform.position.x
-			+ 0.5f * transform.scale.x
+			+ 0.5f * currentSize.x
 			- 0.5f * label->transform.scale.x);
 	label->transform.position.y =
 		static_cast<int>(
 			transform.position.y
-			+ 0.5f * transform.scale.y
+			+ 0.5f * currentSize.y
 			- 0.5f * label->transform.scale.y);
+}
+
+noa::Button& noa::Button::Clone(Button* button) {
+	return this->SetNormalColor	(button->normalColor)
+		.SetHeightLightColor		(button->heightLightColor)
+		.SetClickColor			(button->clickColor)
+		.SetSize					(button->transform.scale.x, 
+									button->transform.scale.y)
+		.SetRadius				(button->radius)
+		.SetTextNormalColor		(button->textNormalColor)
+		.SetTextHeightLightColor	(button->textHeightLightColor)
+		.SetTextClickColor		(button->textClickColor)
+		.SetFontSize				(button->fontSize)
+		.SetNormalScale			(button->normalScale)
+		.SetHeightLightScale		(button->heightLightScale)
+		.SetClickScale			(button->clickScale);
 }
 
 noa::Button& noa::Button::SetID(const std::string& id) 
@@ -823,7 +854,7 @@ noa::Button& noa::Button::SetNormalColor(uint32_t color)
 
 noa::Button& noa::Button::SetHeightLightColor(uint32_t color)
 {
-	this->selectColor = color;
+	this->heightLightColor = color;
 	return *this;
 }
 
@@ -840,15 +871,105 @@ noa::Button& noa::Button::SetPosition(int x,int y)
 	return *this;
 }
 
-noa::Button& noa::Button::SetScale(int w,int h) 
+noa::Button& noa::Button::SetSize(int w,int h) 
 {
 	this->transform.scale.x = w;
 	this->transform.scale.y = h;
+
+	this->currentSize = transform.scale;
+
+	SpriteFile spriteFile;
+	spriteFile.width = w;
+	spriteFile.height = h;
+	spriteFile.images.resize(spriteFile.width * spriteFile.height, noa::RGBA(255, 255, 255, 255));
+	
+	this->sprite.scale.x = w;
+	this->sprite.scale.y = h;
+	this->sprite.UpdateImage(spriteFile);
+
+	SetRadius(this->radius);
+
 	return *this;
 }
 
-noa::Button& noa::Button::SetSprite(noa::Sprite* sprite) {
-	this->image->SetSprite(sprite);
+noa::Button& noa::Button::SetRadius(int value)
+{
+	//四个角的半径
+	const int maxValue = (sprite.w < sprite.h) ? (sprite.w/2) : (sprite.h/2);
+	radius = value;
+	if (radius> maxValue)
+	{
+		radius = maxValue;
+	}
+
+	const int x1 = radius;
+	const int x2 = sprite.w - radius;
+	const int y1 = radius;
+	const int y2 = sprite.h - radius;
+
+	const int sqrRadius = (radius) * (radius);
+
+	//左上角
+	for (int x = 0;x<radius;x++) 
+	{
+		for (int y = 0;y<radius;y++) 
+		{
+			const int deltaX = x - x1;
+			const int deltaY = y - y1;
+
+			if (deltaX*deltaX + deltaY*deltaY > sqrRadius) {
+				sprite.SetPixelColor(x, y, RGBA(0, 0, 0, 0));
+			}
+		}
+	}
+
+	//左下角
+	for (int x = 0; x < radius; x++)
+	{
+		for (int y = y2; y < sprite.h; y++)
+		{
+			const int deltaX = x - x1;
+			const int deltaY = y - y2;
+
+			if (deltaX * deltaX + deltaY * deltaY > sqrRadius) {
+				sprite.SetPixelColor(x, y, RGBA(0, 0, 0, 0));
+			}
+		}
+	}
+
+	//右下角
+	for (int x = x2; x < sprite.w; x++)
+	{
+		for (int y = y2; y < sprite.h; y++)
+		{
+			const int deltaX = x - x2;
+			const int deltaY = y - y2;
+
+			if (deltaX * deltaX + deltaY * deltaY > sqrRadius) {
+				sprite.SetPixelColor(x, y, RGBA(0, 0, 0, 0));
+				
+			}
+		}
+	}
+
+	//右上角
+	for (int x = x2; x < sprite.w; x++)
+	{
+		for (int y = 0; y < radius; y++)
+		{
+			const int deltaX = x - x2;
+			const int deltaY = y - y1;
+
+			if (deltaX * deltaX + deltaY * deltaY > sqrRadius) 
+			{
+				
+				sprite.SetPixelColor(x, y, RGBA(0, 0, 0, 0));
+			}
+		}
+	}
+
+	image->SetSprite(&sprite);
+
 	return *this;
 }
 
@@ -858,13 +979,49 @@ noa::Button& noa::Button::SetText(const std::wstring& text)
 	return *this;
 }
 
-noa::Button& noa::Button::SetFontSize(uint32_t size) 
+noa::Button& noa::Button::SetTextNormalColor(uint32_t color) 
 {
-	this->label->SetFontSize(size);
+	this->textNormalColor = color;
 	return *this;
 }
 
-noa::Button& noa::Button::AddClickEvent(std::function<void()> func)
+noa::Button& noa::Button::SetTextHeightLightColor(uint32_t color)
+{
+	this->textHeightLightColor = color;
+	return *this;
+}
+
+noa::Button& noa::Button::SetTextClickColor(uint32_t color)
+{
+	this->textClickColor = color;
+	return *this;
+}
+
+noa::Button& noa::Button::SetFontSize(uint32_t size) 
+{
+	this->fontSize = size;
+	return *this;
+}
+
+noa::Button& noa::Button::SetNormalScale(float value) 
+{
+	this->normalScale = value;
+	return *this;
+}
+
+noa::Button& noa::Button::SetHeightLightScale(float value)
+{
+	this->heightLightScale = value;
+	return *this;
+}
+
+noa::Button& noa::Button::SetClickScale(float value)
+{
+	this->clickScale = value;
+	return *this;
+}
+
+noa::Button& noa::Button::AddClickCallback(std::function<void()> func)
 {
 	this->clickEvent += func;
 	return *this;

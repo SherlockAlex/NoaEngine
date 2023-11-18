@@ -17,10 +17,8 @@ private:
 	void OnEnable() override;
 	void Update() override;
 	void OnDisable() override;
-	
 	void OnHitTile() override;
-
-	void OnTrigger(const noa::Collision & collision) override;
+	void OnTriggerEnter(noa::Collider2D& other) override;
 
 public:
 	void SetDirection(float x,float y);

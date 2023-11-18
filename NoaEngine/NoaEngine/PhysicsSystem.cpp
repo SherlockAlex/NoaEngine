@@ -306,20 +306,20 @@ void noa::PhysicsSystem::CheckCellsCollisions(Cell& cell1, Cell& cell2)
 						&& collider2->isTrigger;
 					if (isAllTrigger)
 					{
+						// 如果说两个都是Trigger，那么不进行碰撞处理
 						continue;
 					}
 					
 					if (!collider1->isTrigger&&!collider2->isTrigger)
 					{
+						// 如果说两个都不是isTrigger，那么两个进行一个碰撞处理
 						SolveCollision(collider1, collider2);
 					}
 
 					//两者其中一个是trigger
 
-					collider1->rigidbody->collision.actor = collider2->GetActor();
-					collider2->rigidbody->collision.actor = collider1->GetActor();
-					collider1->ApplyTrigger();
-					collider2->ApplyTrigger();
+					collider1->ApplyTriggerEnter(*collider2);
+					collider2->ApplyTriggerEnter(*collider1);
 
 				}
 			}

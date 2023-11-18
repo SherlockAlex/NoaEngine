@@ -22,7 +22,7 @@ public:
 
 	noa::Rigidbody* rigid = noa::Rigidbody::Create(this)
 		->SetBounce(0.5f)
-		.SetUseGravity(true)
+		.SetUseGravity(false)
 		.SetGravityScale(5.5f)
 		.SetDamping(0.0f)
 		.SetBodyType(noa::BodyType::DYNAMIC)
@@ -37,7 +37,7 @@ public:
 		.AddMotion({ 2,10 },10)
 		.AddMotion({ 2,3 },10)
 		.SetCallback(5, []() {noa::Debug::Log("finish this motion"); })
-		.SetLoop(false)
+		.SetLoop(true)
 		.Act()
 		.Apply();*/
 

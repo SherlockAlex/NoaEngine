@@ -20,25 +20,17 @@ noa::Collider2D::~Collider2D()
 
 }
 
-void noa::Collider2D::ApplyTrigger()
+void noa::Collider2D::ApplyTriggerEnter(Collider2D& other)
 {
-	if (rigidbody == nullptr)
-	{
-		return;
-	}
 
-	const bool canApplyTrigger =  rigidbody->GetActive()
-		&& GetActive()
+	Actor* actorHandled = GetActor();
+	const bool canApplyTrigger = GetActive()
 		&& isTrigger
-		&& rigidbody->collision.actor != nullptr
-		&& GetActor() != nullptr;
+		&& actorHandled != nullptr;
 	if (canApplyTrigger)
 	{
-		GetActor()->OnTrigger(rigidbody->collision);
+		actorHandled->OnTriggerEnter(other);
 	}
-	rigidbody->collision.actor = nullptr;
-
-	
 
 }
 

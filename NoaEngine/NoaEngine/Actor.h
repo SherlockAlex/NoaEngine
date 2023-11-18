@@ -21,9 +21,7 @@
 
 namespace noa {
 
-	struct Collision;
-	typedef struct Collision Collision;
-
+	class Collider2D;
 	class Transform;
 	class Scene;
 	class ActorComponent;
@@ -67,7 +65,7 @@ namespace noa {
 		virtual void OnDisable() {};
 		virtual void OnDestroy() {};
 
-		virtual void OnTrigger(const Collision& collision);
+		virtual void OnTriggerEnter(noa::Collider2D& other);
 		virtual void OnHitTile() {}
 
 

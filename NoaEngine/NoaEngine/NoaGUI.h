@@ -262,20 +262,43 @@ namespace noa {
 	{
 	public:
 		std::string id = "button";
+
+		//按键背景颜色
+		uint32_t normalColor = LIGHTGRAY;
+		uint32_t heightLightColor = WHITE;
+		uint32_t clickColor = DARKGRAY;
+
+		//按键字体颜色
+		uint32_t textNormalColor = BLACK;
+		uint32_t textHeightLightColor = BLACK;
+		uint32_t textClickColor = BLACK;
+
+		//设置按钮大小
+		float normalScale = 1.0f;
+		float heightLightScale = 1.0f;
+		float clickScale = 1.0f;
+		
+	private:
 		Label* label = nullptr;
 		Image* image = nullptr;
 
-		//按键常亮颜色
-		uint32_t normalColor = LIGHTGRAY;
-		uint32_t selectColor = WHITE;
-		uint32_t clickColor = DARKGRAY;
-		//按键事件
-		NoaEvent<void> clickEvent;
-
-	private:
 		bool isClickReady = false;
 		bool isSelect = false;
 		uint32_t currentColor = normalColor;
+		uint32_t currentTextColor = textNormalColor;
+		float currentScale = normalScale;
+		int radius = 25;
+
+		uint32_t fontSize = 0;
+
+		Vector<int> currentSize;
+
+		//按键事件
+		NoaEvent<void> clickEvent;
+
+		Sprite sprite;
+
+		friend class Button;
 
 	private:
 		Button(UIGroup* group);
@@ -289,17 +312,24 @@ namespace noa {
 	public:
 		static Button* Create(UIGroup* group);
 
-		
+		// 复制按钮属性，但不包括按钮的事件、id、位置
+		Button& Clone(Button* button);
 		Button& SetID(const std::string& id);
 		Button& SetNormalColor(uint32_t color);
 		Button& SetHeightLightColor(uint32_t color);
 		Button& SetClickColor(uint32_t color);
 		Button& SetPosition(int x,int y);
-		Button& SetScale(int w,int h);
-		Button& SetSprite(Sprite * sprite);
+		Button& SetSize(int w,int h);
+		Button& SetRadius(int value);
 		Button& SetText(const std::wstring & text);
+		Button& SetTextNormalColor(uint32_t color);
+		Button& SetTextHeightLightColor(uint32_t color);
+		Button& SetTextClickColor(uint32_t color);
 		Button& SetFontSize(uint32_t size);
-		Button& AddClickEvent(std::function<void()> func);
+		Button& SetNormalScale(float value);
+		Button& SetHeightLightScale(float value);
+		Button& SetClickScale(float value);
+		Button& AddClickCallback(std::function<void()> func);
 		Button* Apply();
 	};
 }

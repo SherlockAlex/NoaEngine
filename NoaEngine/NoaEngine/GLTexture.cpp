@@ -87,9 +87,8 @@ void noa::GLTexture::UpdateTexture(
 {
     this->width = width;
     this->height = height;
-
     glBindTexture(GL_TEXTURE_2D, textureID);
-    glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, width, height, GL_RGBA, GL_UNSIGNED_BYTE, pixelBuffer);
+    glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA,width,height,0,GL_RGBA,GL_UNSIGNED_BYTE,pixelBuffer);
 
 }
 

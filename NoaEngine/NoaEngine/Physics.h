@@ -11,14 +11,6 @@ namespace noa {
 
 	class Rigidbody;
 
-	typedef struct Collision 
-	{
-		//´æ´¢Åö×²ÐÅÏ¢
-		Actor * actor = nullptr;
-		bool CompareTag(const std::string & tag) const;
-
-	}Collision;
-
 	extern float gravityAcceration;
 
 	class Scene;
@@ -87,7 +79,6 @@ namespace noa {
 
 		Vector<float> force = Vector<float>(0.0f, 0.0f);
 		std::vector<Collider2D*> colliders;
-		Collision collision;
 
 		noa::TileCollider2D* tileCollider2D = nullptr;
 

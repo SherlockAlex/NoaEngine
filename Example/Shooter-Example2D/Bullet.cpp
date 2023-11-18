@@ -39,9 +39,9 @@ void Bullet::OnHitTile()
 	bulletPool->Return(this);
 }
 
-void Bullet::OnTrigger(const noa::Collision & collision) 
+void Bullet::OnTriggerEnter(noa::Collider2D& other)
 {
-	if (!collision.CompareTag("Player"))
+	if (!other.CompareTag("Player"))
 	{
 		bulletPool->Return(this);
 	}
