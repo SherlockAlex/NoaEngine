@@ -181,23 +181,7 @@ void noa::PhysicsSystem::SolveCollision(Collider2D* obj1, Collider2D* obj2)
 		
 		//计算接触力
 
-		const Vector<float> velocity1 = rigid1->velocity;
-		const Vector<float> velocity2 = rigid2->velocity;
-
-		const float mass1 = rigid1->mass;
-		const float mass2 = rigid2->mass;
-		const float invSumMass = 1.0f/(mass1 + mass2);
-
-		const Vector<float> momentum1 = velocity1 * mass1;
-		const Vector<float> momentum2 = velocity2 * mass2;
-
-		const Vector<float> p = momentum1 + momentum2;
-
-		float beta = 100.0f;
-
-		//const float k = 0.5f;		//胡克系数
-		//float beta = (mass1 + mass2) * k * (fixX * fixX + fixY * fixY)
-		//	/ (2 * (p.x * fixX + p.y * fixY));
+		float beta = 125.0f;//太小，扰动越明显，太大或剧烈跳动
 
 		const Vector<float> constraintImpulse1 = {
 			 beta*fixX

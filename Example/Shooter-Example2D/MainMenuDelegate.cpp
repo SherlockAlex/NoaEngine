@@ -1,8 +1,6 @@
 #include "MainMenuDelegate.h"
 #include "ResourceManager.h"
 
-//从新编写UI系统
-
 void MainMenuDelegate::OnLoad(noa::Scene* scene)
 {
 	noa::UICanvasActor* canvas = noa::UICanvasActor::Create(scene);
