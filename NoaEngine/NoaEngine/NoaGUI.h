@@ -13,10 +13,13 @@
 
 namespace noa {
 
+	
 	class Button;
 	class Label;
 	class Image;
-	class UIGroup;
+	class UIDocument;
+	class UIContainer;
+	class UIDocumentComponent;
 
 	enum class ImageStyle
 	{
@@ -67,21 +70,21 @@ namespace noa {
 
 	};
 	
-	class UICanvasComponent;
+	
 
 	class UIComponent
 	{
 	protected:
 		bool active = false;
-		friend class UIGroup;
-		friend class UICanvasComponent;
+		friend class UIContainer;
+		friend class UIDocumentComponent;
 	public:
 		UITransform transform;
 		UITransform globalTransform;
 		Vector<float> anchor = {0.5f,0.5f};
 	protected:
 		UITransform fatherTransform;	// 父节点的绝对路径
-		UIComponent(UIGroup* canvas);
+		UIComponent(UIContainer* canvas);
 		virtual ~UIComponent();
 
 	private:
@@ -99,47 +102,46 @@ namespace noa {
 		bool GetActive();
 	};
 
-	class UIGroup;
-	class Canvas 
+	class UIDocument 
 	{
 	protected:
-		Canvas();
-		virtual ~Canvas();
+		UIDocument();
+		virtual ~UIDocument();
 	public:
-		void AddUIGroup(UIGroup* group);
+		void AddUIContainer(UIContainer* container);
 
-		void OpenGroup(size_t index);
-		void OpenGroup(const std::string& id);
-		void OpenGroup(UIGroup* group);
-		void CloseGroup();
+		void Display(size_t index);
+		void Display(const std::string& id);
+		void Display(UIContainer* container);
+		void Close();
 
-		UIGroup* GetGroupByID(const std::string& id);
+		UIContainer* GetContainerByID(const std::string& id);
 		Label* GetLabelByID(const std::string& id);
 		Image* GetImageByID(const std::string& id);
 		Button* GetButtonByID(const std::string& id);
 
 	protected:
-		void CanvasStart();
-		void CanvasUpdate();
+		void UIDocumentStart();
+		void UIDocumentUpdate();
 	private:
-		std::stack<UIGroup*> groups;
-		std::vector<UIGroup*> groupList;
+		std::stack<UIContainer*> containerStack;
+		std::vector<UIContainer*> containerList;
 	};
 
-	class UIGroup final
+	class UIContainer final
 	{
 	private:
-		friend class Canvas;
+		friend class UIDocument;
 	private:
-		UIGroup(Canvas * canvas);
-		~UIGroup();
-		void Delete(UIGroup*& ptr);
+		UIContainer(UIDocument* canvas);
+		~UIContainer();
+		void Delete(UIContainer*& ptr);
 	public:
-		static UIGroup* Create(Canvas* canvas);
+		static UIContainer* Create(UIDocument* canvas);
 
-		UIGroup& SetID(const std::string& id);
-		UIGroup& SetPosition(int x,int y);
-		UIGroup* Apply();
+		UIContainer& SetID(const std::string& id);
+		UIContainer& SetPosition(int x, int y);
+		UIContainer* Apply();
 
 		Label* GetLabelByID(const std::string& id);
 		Image* GetImageByID(const std::string& id);
@@ -162,30 +164,30 @@ namespace noa {
 	};
 
 
-	class UICanvasActor final : public Actor,public Canvas
+	class UIDocumentActor final : public Actor,public UIDocument
 	{
 	private:
-		NOBJECT(UICanvasActor)
+		NOBJECT(UIDocumentActor)
 	private:
-		UICanvasActor(Scene * scene);
-		~UICanvasActor() override;
+		UIDocumentActor(Scene * scene);
+		~UIDocumentActor() override;
 	public:
-		static UICanvasActor* Create(Scene* scene);
+		static UIDocumentActor* Create(Scene* scene);
 
 		void Start() override;
 		void Update() override;
 
 	};
 
-	class UICanvasComponent final : public ActorComponent, public Canvas
+	class UIDocumentComponent final : public ActorComponent, public UIDocument
 	{
 	private:
-		NOBJECT(UICanvasComponent)
+		NOBJECT(UIDocumentComponent)
 	private:
-		UICanvasComponent(Actor* actor);
-		~UICanvasComponent() override;
+		UIDocumentComponent(Actor* actor);
+		~UIDocumentComponent() override;
 	public:
-		static UICanvasComponent* Create(Actor* actor);
+		static UIDocumentComponent* Create(Actor* actor);
 
 		void Start() override;
 		void Update() override;
@@ -203,7 +205,7 @@ namespace noa {
 		uint32_t size = 25;
 
 	protected:
-		Label(UIGroup* group);
+		Label(UIContainer* group);
 		~Label();
 
 		void Start() override;
@@ -212,7 +214,7 @@ namespace noa {
 
 	public:
 
-		static Label* Create(UIGroup* group);
+		static Label* Create(UIContainer* group);
 
 		Label& SetID(const std::string & id);
 		Label& SetAnchor(float x,float y);
@@ -234,7 +236,7 @@ namespace noa {
 		Sprite* sprite = nullptr;
 		std::shared_ptr<SpriteGPU> spriteGPU = nullptr;
 	private:
-		Image(UIGroup* group);
+		Image(UIContainer* group);
 		~Image();
 
 		void Start() override;
@@ -243,7 +245,7 @@ namespace noa {
 
 	public:
 
-		static Image* Create(UIGroup* group);
+		static Image* Create(UIContainer* group);
 
 		Image& SetID(const std::string& id);
 		Image& SetPosition(int x,int y);
@@ -287,6 +289,7 @@ namespace noa {
 		bool selectEventFlag = false;
 		uint32_t currentColor = normalColor;
 		uint32_t currentTextColor = textNormalColor;
+		float targetScale = normalScale;
 		float currentScale = normalScale;
 		int radius = 25;
 
@@ -304,7 +307,7 @@ namespace noa {
 		friend class Button;
 
 	private:
-		Button(UIGroup* group);
+		Button(UIContainer* group);
 		~Button();
 
 		void SwapState();
@@ -314,7 +317,7 @@ namespace noa {
 		void Render() override;
 
 	public:
-		static Button* Create(UIGroup* group);
+		static Button* Create(UIContainer* group);
 
 		// 复制按钮属性，但不包括按钮的事件、id、位置
 		Button& Clone(Button* button);

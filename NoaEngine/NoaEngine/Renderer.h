@@ -22,7 +22,7 @@ namespace noa {
 	protected:
 		int pixelWidth = 0;
 		int pixelHeight = 0;
-		uint32_t* pixelBuffer = nullptr;
+		void* pixelBuffer = nullptr;
 
 		float invPixelWidth = 0;
 		float invPixelHeight = 0;
@@ -49,7 +49,7 @@ namespace noa {
 		void FullScreen(Uint32 color) const;
 
 		virtual void InitRenderer() = 0;
-		virtual Texture* CreateTexture(int w, int h, uint32_t* pixelBuffer) = 0;
+		virtual Texture* CreateTexture(int w, int h, void* pixelBuffer) = 0;
 		virtual void DrawTexture(Texture* texture, int index, int x, int y, int w, int h, unsigned int tint, float eulerAngle, bool isFlipX) = 0;
 		virtual void Clear() = 0;
 		virtual void SetContext(uint32_t windowID) = 0;

@@ -21,16 +21,17 @@ noa::SpriteFile CreateSpriteFromBitmap(FT_Bitmap* bitmap)
 
 	sprite.width = bitmap->width;
 	sprite.height = bitmap->rows;
-	sprite.images.resize(sprite.width * sprite.height, ERRORCOLOR);
+	sprite.images.resize(sprite.width * sprite.height, noa::RGBA(0,0,0,0));
 
-	if (bitmap->width == 0 || bitmap->rows == 0) {
-		sprite.x = 0;
-		sprite.y = 0;
+	if (bitmap->width == 0 || bitmap->rows == 0) 
+	{
+		sprite.width = 0;
+		sprite.height = 0;
 		return sprite;
 	}
 
-	for (unsigned int y = 0; y < bitmap->rows; y++) {
-		for (unsigned int x = 0; x < bitmap->width; x++) {
+	for (uint32_t y = 0; y < bitmap->rows; y++) {
+		for (uint32_t x = 0; x < bitmap->width; x++) {
 
 			uint8_t pixelValue = bitmap->buffer[y * (bitmap->width) + x];
 			uint32_t pixelColor = noa::RGBA(255,255,255,pixelValue);
@@ -152,96 +153,96 @@ noa::Font* noa::FontAsset::GetFont(wchar_t c)
 	return fonts[c];
 }
 
-noa::Canvas::Canvas() {
+noa::UIDocument::UIDocument() {
 
 }
 
-noa::Canvas::~Canvas() {
-	while (!groups.empty()) 
+noa::UIDocument::~UIDocument() {
+	while (!containerStack.empty())
 	{
-		groups.pop();
+		containerStack.pop();
 	}
-	for (auto & group:groupList)
+	for (auto & container: containerList)
 	{
-		group->Delete(group);
+		container->Delete(container);
 	}
 }
 
-void noa::Canvas::AddUIGroup(UIGroup * group) 
+void noa::UIDocument::AddUIContainer(UIContainer* container)
 {
-	if (group == nullptr) 
+	if (container == nullptr)
 	{
 		return;
 	}
-	group->index = groupList.size();
-	this->groupList.push_back(group);
-	if (groups.empty()) 
+	container->index = containerList.size();
+	this->containerList.push_back(container);
+	if (containerStack.empty())
 	{
-		OpenGroup(group->index);
+		Display(container->index);
 	}
 
 }
 
-void noa::Canvas::OpenGroup(size_t index) 
+void noa::UIDocument::Display(size_t index)
 {
-	if (index >=groupList.size()
-		||groupList[index] == nullptr)
+	if (index >= containerList.size()
+		|| containerList[index] == nullptr)
 	{
 		return;
 	}
-	groupList[index]->visiable = true;
-	this->groups.push(groupList[index]);
+	containerList[index]->visiable = true;
+	this->containerStack.push(containerList[index]);
 }
 
-void noa::Canvas::OpenGroup(const std::string& id) 
+void noa::UIDocument::Display(const std::string& id)
 {
-	UIGroup* group = this->GetGroupByID(id);
-	if (!group) 
+	UIContainer* container = this->GetContainerByID(id);
+	if (!container)
 	{
 		return;
 	}
-	OpenGroup(group->GetGroupIndex());
+	Display(container->GetGroupIndex());
 }
 
-void noa::Canvas::OpenGroup(noa::UIGroup* group) 
+void noa::UIDocument::Display(noa::UIContainer* container)
 {
-	if (!group) 
+	if (!container)
 	{
 		return;
 	}
-	OpenGroup(group->GetGroupIndex());
+	Display(container->GetGroupIndex());
 }
 
-void noa::Canvas::CloseGroup() {
-	if (groups.size()<=1) 
+void noa::UIDocument::Close() {
+	if (containerStack.size()<=1)
 	{
 		return;
 	}
-	groups.top()->visiable = false;
-	groups.pop();
+	containerStack.top()->visiable = false;
+	containerStack.pop();
 }
 
-noa::UIGroup* noa::Canvas::GetGroupByID(const std::string& id) 
+noa::UIContainer* noa::UIDocument::GetContainerByID(const std::string& id)
 {
-	for (auto& group:groupList) 
+	for (auto& container : containerList)
 	{
-		if (group&&group->id == id) 
+		if (container && container->id == id)
 		{
-			return group;
+			return container;
 		}
 	}
 	return nullptr;
 }
 
-noa::Label* noa::Canvas::GetLabelByID(const std::string& id) 
+noa::Label* noa::UIDocument::GetLabelByID(const std::string& id)
 {
-	for (auto& group:groupList) 
+	for (auto& container : containerList)
 	{
-		if (!group) 
+		if (!container)
 		{
 			continue;
 		}
-		noa::Label* temp = group->GetLabelByID(id);
+		noa::Label* temp = container->GetLabelByID(id);
 		if (temp) 
 		{
 			return temp;
@@ -250,15 +251,15 @@ noa::Label* noa::Canvas::GetLabelByID(const std::string& id)
 	return nullptr;
 }
 
-noa::Image* noa::Canvas::GetImageByID(const std::string& id) 
+noa::Image* noa::UIDocument::GetImageByID(const std::string& id)
 {
-	for (auto& group : groupList)
+	for (auto& container : containerList)
 	{
-		if (!group)
+		if (!container)
 		{
 			continue;
 		}
-		noa::Image* temp = group->GetImageByID(id);
+		noa::Image* temp = container->GetImageByID(id);
 		if (temp)
 		{
 			return temp;
@@ -267,15 +268,15 @@ noa::Image* noa::Canvas::GetImageByID(const std::string& id)
 	return nullptr;
 }
 
-noa::Button* noa::Canvas::GetButtonByID(const std::string& id) 
+noa::Button* noa::UIDocument::GetButtonByID(const std::string& id)
 {
-	for (auto& group : groupList)
+	for (auto& container : containerList)
 	{
-		if (!group)
+		if (!container)
 		{
 			continue;
 		}
-		noa::Button* temp = group->GetButtonByID(id);
+		noa::Button* temp = container->GetButtonByID(id);
 		if (temp)
 		{
 			return temp;
@@ -284,45 +285,45 @@ noa::Button* noa::Canvas::GetButtonByID(const std::string& id)
 	return nullptr;
 }
 
-void noa::Canvas::CanvasStart() {
+void noa::UIDocument::UIDocumentStart() {
 	
 }
 
-void noa::Canvas::CanvasUpdate() 
+void noa::UIDocument::UIDocumentUpdate()
 {
-	if (groups.empty())
+	if (containerStack.empty())
 	{
 		return;
 	}
 
 	//控制逻辑只控制栈顶
-	if (groups.top() == nullptr) 
+	if (containerStack.top() == nullptr)
 	{
-		groups.pop();
+		containerStack.pop();
 	}
 	else {
-		groups.top()->Update();
+		containerStack.top()->Update();
 	}
 
-	for (auto& group:groupList) 
+	for (auto& container : containerList)
 	{
 		//越往前的越先绘制
-		if (group&&group->visiable)
+		if (container && container->visiable)
 		{
-			group->Render();
+			container->Render();
 		}
 	}
 }
 
-noa::UIGroup::UIGroup(Canvas * canvas) 
+noa::UIContainer::UIContainer(UIDocument* document)
 {
-	if (canvas)
+	if (document)
 	{
-		canvas->AddUIGroup(this);
+		document->AddUIContainer(this);
 	}
 }
 
-noa::UIGroup::~UIGroup() {
+noa::UIContainer::~UIContainer() {
 	if (!this->uiComponent.empty())
 	{
 		//对component进行排序
@@ -341,42 +342,42 @@ noa::UIGroup::~UIGroup() {
 	}
 }
 
-noa::UIGroup* noa::UIGroup::Create(noa::Canvas* canvas) 
+noa::UIContainer* noa::UIContainer::Create(noa::UIDocument* document)
 {
-	if (canvas == nullptr) 
+	if (document == nullptr) 
 	{
 		return nullptr;
 	}
 
-	UIGroup* group = new UIGroup(canvas);
+	UIContainer* group = new UIContainer(document);
 	return group;
 
 }
 
-void noa::UIGroup::Delete(UIGroup *& ptr) 
+void noa::UIContainer::Delete(UIContainer*& ptr)
 {
 	delete this;
 	ptr = nullptr;
 }
 
-noa::UIGroup& noa::UIGroup::SetID(const std::string& id) 
+noa::UIContainer& noa::UIContainer::SetID(const std::string& id)
 {
 	this->id = id;
 	return *this;
 }
 
-noa::UIGroup& noa::UIGroup::SetPosition(int x,int y) 
+noa::UIContainer& noa::UIContainer::SetPosition(int x,int y)
 {
 	this->transform.position.x = x;
 	this->transform.position.y = y;
 	return *this;
 }
 
-noa::UIGroup* noa::UIGroup::Apply() {
+noa::UIContainer* noa::UIContainer::Apply() {
 	return this;
 }
 
-noa::Label* noa::UIGroup::GetLabelByID(const std::string& id) 
+noa::Label* noa::UIContainer::GetLabelByID(const std::string& id)
 {
 	for (auto& component:uiComponent) 
 	{
@@ -389,7 +390,7 @@ noa::Label* noa::UIGroup::GetLabelByID(const std::string& id)
 	return nullptr;
 }
 
-noa::Image* noa::UIGroup::GetImageByID(const std::string& id) 
+noa::Image* noa::UIContainer::GetImageByID(const std::string& id)
 {
 	for (auto& component : uiComponent)
 	{
@@ -402,7 +403,7 @@ noa::Image* noa::UIGroup::GetImageByID(const std::string& id)
 	return nullptr;
 }
 
-noa::Button* noa::UIGroup::GetButtonByID(const std::string& id) 
+noa::Button* noa::UIContainer::GetButtonByID(const std::string& id)
 {
 	for (auto& component : uiComponent)
 	{
@@ -415,7 +416,7 @@ noa::Button* noa::UIGroup::GetButtonByID(const std::string& id)
 	return nullptr;
 }
 
-void noa::UIGroup::AddUIComponent(UIComponent* component) 
+void noa::UIContainer::AddUIComponent(UIComponent* component)
 {
 	if (component == nullptr)
 	{
@@ -425,11 +426,11 @@ void noa::UIGroup::AddUIComponent(UIComponent* component)
 	uiComponent.push_back(component);
 }
 
-size_t noa::UIGroup::GetGroupIndex() {
+size_t noa::UIContainer::GetGroupIndex() {
 	return this->index;
 }
 
-void noa::UIGroup::Start() {
+void noa::UIContainer::Start() {
 	for (auto& component : uiComponent)
 	{
 		if (component != nullptr)
@@ -439,7 +440,7 @@ void noa::UIGroup::Start() {
 	}
 }
 
-void noa::UIGroup::Update() 
+void noa::UIContainer::Update()
 {
 	//显示背景
 	for (auto& component : uiComponent)
@@ -453,7 +454,7 @@ void noa::UIGroup::Update()
 	}
 }
 
-void noa::UIGroup::Render() {
+void noa::UIContainer::Render() {
 	//显示背景
 	for (auto& component : uiComponent)
 	{
@@ -466,54 +467,54 @@ void noa::UIGroup::Render() {
 	}
 }
 
-noa::UICanvasActor::UICanvasActor(Scene* scene) :Actor(scene), Canvas()
+noa::UIDocumentActor::UIDocumentActor(Scene* scene) :Actor(scene), UIDocument()
 {
 
 }
 
-noa::UICanvasActor::~UICanvasActor()
+noa::UIDocumentActor::~UIDocumentActor()
 {
 	
 }
 
-noa::UICanvasActor* noa::UICanvasActor::Create(Scene* scene)
+noa::UIDocumentActor* noa::UIDocumentActor::Create(Scene* scene)
 {
-	return noa::NObject<UICanvasActor>::Create(scene);
+	return noa::NObject<UIDocumentActor>::Create(scene);
 }
 
-void noa::UICanvasActor::Start()
+void noa::UIDocumentActor::Start()
 {
-	Canvas::CanvasStart();
+	UIDocument::UIDocumentStart();
 }
 
-void noa::UICanvasActor::Update()
+void noa::UIDocumentActor::Update()
 {
-	Canvas::CanvasUpdate();
+	UIDocument::UIDocumentUpdate();
 }
 
-noa::UICanvasComponent::UICanvasComponent(Actor* actor) :ActorComponent(actor)
+noa::UIDocumentComponent::UIDocumentComponent(Actor* actor) :ActorComponent(actor)
 {
 
 }
 
-noa::UICanvasComponent::~UICanvasComponent() {
+noa::UIDocumentComponent::~UIDocumentComponent() {
 	
 }
 
-noa::UICanvasComponent* noa::UICanvasComponent::Create(Actor * actor) 
+noa::UIDocumentComponent* noa::UIDocumentComponent::Create(Actor * actor)
 {
-	return noa::NObject<UICanvasComponent>::Create(actor);
+	return noa::NObject<UIDocumentComponent>::Create(actor);
 }
 
-void noa::UICanvasComponent::Start() {
-	Canvas::CanvasStart();
+void noa::UIDocumentComponent::Start() {
+	UIDocument::UIDocumentStart();
 }
 
-void noa::UICanvasComponent::Update() {
-	Canvas::CanvasUpdate();
+void noa::UIDocumentComponent::Update() {
+	UIDocument::UIDocumentUpdate();
 }
 
-noa::UIComponent::UIComponent(noa::UIGroup* group)
+noa::UIComponent::UIComponent(noa::UIContainer* group)
 {
 	if (group)
 	{
@@ -542,7 +543,7 @@ bool noa::UIComponent::GetActive()
 	return active;
 }
 
-noa::Label::Label(UIGroup* group) :UIComponent(group)
+noa::Label::Label(UIContainer* group) :UIComponent(group)
 {
 
 }
@@ -552,7 +553,7 @@ noa::Label::~Label()
 
 }
 
-noa::Label* noa::Label::Create(UIGroup* group)
+noa::Label* noa::Label::Create(UIContainer* group)
 {
 	Label* text = new Label(group);
 	return text;
@@ -632,7 +633,7 @@ void noa::Label::Render() {
 
 
 
-noa::Image::Image(UIGroup* group) :UIComponent(group)
+noa::Image::Image(UIContainer* group) :UIComponent(group)
 {
 
 }
@@ -642,7 +643,7 @@ noa::Image::~Image()
 	
 }
 
-noa::Image* noa::Image::Create(UIGroup* group)
+noa::Image* noa::Image::Create(UIContainer* group)
 {
 	Image* image = new Image(group);
 	return image;
@@ -728,8 +729,8 @@ void noa::Image::Render() {
 		return;
 	}
 
-	globalTransform.position.x = static_cast<float>(fatherTransform.position.x + transform.position.x - anchor.x * transform.size.x);
-	globalTransform.position.y = static_cast<float>(fatherTransform.position.y + transform.position.y - anchor.y * transform.size.y);
+	globalTransform.position.x = static_cast<int>(fatherTransform.position.x + transform.position.x - anchor.x * transform.size.x);
+	globalTransform.position.y = static_cast<int>(fatherTransform.position.y + transform.position.y - anchor.y * transform.size.y);
 
 	switch (style)
 	{
@@ -746,8 +747,8 @@ void noa::Image::Render() {
 		break;
 	default:
 		spriteGPU->DrawSprite(
-			globalTransform.position.x
-			, globalTransform.position.y
+			static_cast<float>(globalTransform.position.x)
+			, static_cast<float>(globalTransform.position.y)
 			, static_cast<float>(transform.size.x)
 			, static_cast<float>(transform.size.y)
 			, color
@@ -759,14 +760,28 @@ void noa::Image::Render() {
 }
 
 
-noa::Button::Button(UIGroup* group) :UIComponent(group)
+noa::Button::Button(UIContainer* group) :UIComponent(group)
 {
 	image = Image::Create(group);
 	label = Label::Create(group);
 	
 	label->anchor = { 0.5f,0.5f };
 
-	this->SetSize(80, 40);
+	SetFontSize(20);
+	SetPosition(0, 0);
+	SetSize(240, 60);
+	SetRadius(0);
+	SetNormalColor(noa::RGBA(255, 255, 255, 255));
+	SetHeightLightColor(noa::RGBA(255, 0, 0, 255));
+	SetAnchor(1.0f, 0.5f);
+	SetTextOffset(-0.15f, 0.0f);
+	SetTextNormalColor(noa::BLACK);
+	SetTextHeightLightColor(noa::WHITE);
+	SetTextClickColor(noa::BLACK);
+	SetNormalScale(1.0f);
+	SetHeightLightScale(1.1f);
+	SetClickScale(0.9f);
+
 	image->SetSprite(&sprite);
 }
 
@@ -775,7 +790,7 @@ noa::Button::~Button()
 
 }
 
-noa::Button* noa::Button::Create(UIGroup* group)
+noa::Button* noa::Button::Create(UIContainer* group)
 {
 	Button* button = new Button(group);
 	return button;
@@ -840,18 +855,18 @@ void noa::Button::SwapState()
 		{
 			currentColor = heightLightColor;
 			currentTextColor = textHeightLightColor;
-			currentScale = heightLightScale;
+			targetScale = heightLightScale;
 		}
 		else {
 			currentColor = normalColor;
 			currentTextColor = textNormalColor;
-			currentScale = normalScale;
+			targetScale = normalScale;
 		}
 	}
 	else {
 		currentColor = clickColor;
 		currentTextColor = textClickColor;
-		currentScale = clickScale;
+		targetScale = clickScale;
 	}
 
 }
@@ -868,17 +883,15 @@ void noa::Button::Update()
 
 void noa::Button::Render() {
 
-	const float lerpSpeed = 450.0f;
-	currentSize.x = noa::Math::LinearLerp(
-		currentSize.x
-		,transform.size.x * currentScale
+	const float lerpSpeed = 1;
+	currentScale = noa::Math::LinearLerp(
+		currentScale
+		,targetScale
 		, lerpSpeed
 	);
-	currentSize.y = noa::Math::LinearLerp(
-		currentSize.y
-		,transform.size.y * currentScale
-		, lerpSpeed
-	);
+
+	currentSize.x = transform.size.x * currentScale;
+	currentSize.y = transform.size.y * currentScale;
 
 	this->label->SetFontSize(static_cast<uint32_t>(fontSize * currentScale));
 

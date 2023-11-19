@@ -43,7 +43,7 @@ void noa::Renderer::DrawPixel(const uint32_t x, const uint32_t y, const uint32_t
 		return;
 	}
 
-	pixelBuffer[y * pixelWidth + x] = color;
+	((uint32_t*)pixelBuffer)[y * pixelWidth + x] = color;
 
 }
 
@@ -352,7 +352,7 @@ void noa::Renderer::FullScreen(Uint32 color) const
 {
 	for (int i = 0; i < pixelHeight * pixelWidth; i++)
 	{
-		pixelBuffer[i] = color;
+		((uint32_t*)pixelBuffer)[i] = color;
 	}
 }
 

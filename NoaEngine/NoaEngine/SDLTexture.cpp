@@ -1,6 +1,6 @@
 #include "SDLTexture.h"
 
-noa::SDLTexture::SDLTexture(int w, int h, uint32_t* pixelBuffer)
+noa::SDLTexture::SDLTexture(int w, int h, void* pixelBuffer)
 {
 	this->width = w;
 	this->height = h;
@@ -23,11 +23,11 @@ void noa::SDLTexture::CreateSDLTexture(SDL_Renderer* sdlRenderer)
 	SDL_UpdateTexture(sdlTexture, nullptr, this->pixelBuffer, this->width * sizeof(uint32_t));
 }
 
-void noa::SDLTexture::UpdateTexture(const uint32_t* pixelBuffer, const int width, const int height)
+void noa::SDLTexture::UpdateTexture(const void* pixelBuffer, const int width, const int height)
 {
 	this->width = width;
 	this->height = height;
-	this->pixelBuffer = (uint32_t*)(pixelBuffer);
+	this->pixelBuffer = (void*)pixelBuffer;
 
 	SDL_Rect rect = { 0,0,width,height };
 	SDL_UnlockTexture(sdlTexture);

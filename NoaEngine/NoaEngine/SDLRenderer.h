@@ -11,7 +11,7 @@ namespace noa {
 		~SDLRenderer();
 
 		void InitRenderer() override;
-		Texture* CreateTexture(int w, int h, uint32_t* pixelBuffer) override;
+		Texture* CreateTexture(int w, int h, void* pixelBuffer) override;
 		void DrawTexture(
 			Texture* texture
 			, int index

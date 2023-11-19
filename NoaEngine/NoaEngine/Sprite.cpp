@@ -353,12 +353,21 @@ noa::SpriteGPU::SpriteGPU(Sprite* sprite)
 }
 
 noa::SpriteGPU::SpriteGPU(const SpriteFile& spriteFile, int sizeX, int sizeY) {
+	
 	this->texture = renderer->CreateTexture(
 		spriteFile.width, spriteFile.height
-		, (uint32_t*)spriteFile.images.data()
+		, (void*)spriteFile.images.data()
 	);
 	this->size.x = sizeX;
 	this->size.y = sizeY;
+	texture->EnableAlpha();
+}
+
+noa::SpriteGPU::SpriteGPU(void* pixels,int width,int height) 
+{
+	this->texture = renderer->CreateTexture(width,height,pixels);
+	this->size.x = width;
+	this->size.y = height;
 	texture->EnableAlpha();
 }
 
@@ -378,6 +387,11 @@ std::shared_ptr<noa::SpriteGPU> noa::SpriteGPU::Create(Sprite* sprite)
 std::shared_ptr<noa::SpriteGPU> noa::SpriteGPU::Create(const SpriteFile& spriteFile, int scaleX, int scaleY)
 {
 	return std::make_shared<SpriteGPU>(spriteFile,scaleX,scaleY);
+}
+
+std::shared_ptr<noa::SpriteGPU> noa::SpriteGPU::Create(void* pixels,int width,int height) 
+{
+	return std::make_shared<SpriteGPU>(pixels,width,height);
 }
 
 void noa::SpriteGPU::SetLayer(InstanceLayer layer)

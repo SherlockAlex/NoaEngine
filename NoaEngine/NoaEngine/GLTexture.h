@@ -10,10 +10,10 @@ namespace noa {
 	class GLTexture :public Texture
 	{
 	public:
-		GLTexture(int w, int h, uint32_t* pixelBuffer);
+		GLTexture(int w, int h, void* pixelBuffer);
 		~GLTexture();
 
-		void UpdateTexture(const uint32_t* pixelBuffer, const int width, const int height) override;
+		void UpdateTexture(const void* pixelBuffer, const int width, const int height) override;
 		void Bind();
 		void EnableAlpha() override;
 		int GetWidth();

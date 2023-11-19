@@ -8,17 +8,17 @@ namespace noa {
 	class SDLTexture:public Texture
 	{
 	public:
-		SDLTexture(int w, int h, uint32_t* pixelBuffer);
+		SDLTexture(int w, int h, void* pixelBuffer);
 		~SDLTexture();
 
 		void CreateSDLTexture(SDL_Renderer * sdlRenderer);
 
-		void UpdateTexture(const uint32_t* pixelBuffer, const int width, const int height) override;
+		void UpdateTexture(const void* pixelBuffer, const int width, const int height) override;
 		void EnableAlpha() override;
 	public:
 		SDL_Texture* sdlTexture = nullptr;
 	private:
-		uint32_t* pixelBuffer = nullptr;
+		void* pixelBuffer = nullptr;
 
 	};
 }

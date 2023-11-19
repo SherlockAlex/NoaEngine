@@ -16,7 +16,7 @@ namespace noa {
 		bool isInit = false;
 		GLShader* defaultShader = nullptr;
 	public:
-		Texture* CreateTexture(int w, int h, uint32_t* pixelBuffer) override;
+		Texture* CreateTexture(int w, int h, void* pixelBuffer) override;
 
 		GLRenderer();
 		~GLRenderer();

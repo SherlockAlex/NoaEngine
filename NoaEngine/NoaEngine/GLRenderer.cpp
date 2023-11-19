@@ -7,7 +7,7 @@
 #include "GLShader.h"
 #include "Graphic.h"
 
-noa::Texture* noa::GLRenderer::CreateTexture(int w, int h, uint32_t* pixelBuffer)
+noa::Texture* noa::GLRenderer::CreateTexture(int w, int h, void* pixelBuffer)
 {
     noa::Texture* texture = new noa::GLTexture(w, h, pixelBuffer);
     return texture;

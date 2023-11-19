@@ -14,7 +14,7 @@ void noa::SDLRenderer::InitRenderer()
 	
 }
 
-noa::Texture* noa::SDLRenderer::CreateTexture(int w, int h, uint32_t* pixelBuffer)
+noa::Texture* noa::SDLRenderer::CreateTexture(int w, int h, void* pixelBuffer)
 {
 	noa::SDLTexture* texture = new SDLTexture(w,h,pixelBuffer);
 	texture->CreateSDLTexture(this->sdlRenderer);

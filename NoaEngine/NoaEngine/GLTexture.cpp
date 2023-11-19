@@ -8,7 +8,7 @@
 * 一张纹理包括VAO，VBO，EBO，以及纹理图片和Rect
 */
 
-noa::GLTexture::GLTexture(int w, int h, uint32_t* pixelBuffer)
+noa::GLTexture::GLTexture(int w, int h, void* pixelBuffer)
     :Texture()
 {
 
@@ -81,7 +81,7 @@ noa::GLTexture::~GLTexture() {
 }
 
 void noa::GLTexture::UpdateTexture(
-    const uint32_t* pixelBuffer
+    const void* pixelBuffer
     , const int width
     , const int height)
 {

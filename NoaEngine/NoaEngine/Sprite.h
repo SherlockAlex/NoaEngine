@@ -106,10 +106,12 @@ namespace noa {
 	public:
 		SpriteGPU(Sprite * sprite);
 		SpriteGPU(const SpriteFile & spriteFile,int scaleX,int scaleY);
+		SpriteGPU(void* pixels, int width, int height);
 		~SpriteGPU();
 	private:
 		static std::shared_ptr<SpriteGPU> Create(Sprite * sprite);
 		static std::shared_ptr<SpriteGPU> Create(const SpriteFile& spriteFile, int scaleX, int scaleY);
+		static std::shared_ptr<SpriteGPU> Create(void* pixels,int width,int height);
 	public:
 
 		void SetLayer(InstanceLayer layer);
