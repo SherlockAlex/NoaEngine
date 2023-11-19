@@ -79,7 +79,7 @@ noa::NoaEngine::NoaEngine(
 	}
 
 	texture = renderer->CreateTexture(width, height, Screen::pixelBuffer);
-	
+
 }
 
 noa::NoaEngine::~NoaEngine()
@@ -103,6 +103,13 @@ int noa::NoaEngine::Run()
 
 	return 0;
 
+}
+
+int noa::NoaEngine::Exit()
+{
+	sceneManager.Quit();
+	OnExit();
+	return 0;
 }
 
 void noa::NoaEngine::EngineThread()
@@ -154,13 +161,6 @@ void noa::NoaEngine::EngineThread()
 		tp1 = tp2;
 
 	}
-}
-
-int noa::NoaEngine::Exit()
-{
-	sceneManager.Quit();
-	OnExit();
-	return 0;
 }
 
 void noa::Application::Quit() {

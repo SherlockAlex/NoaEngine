@@ -7,11 +7,10 @@ const float noa::Math::doublePi = MUTIPI;
 
 float noa::Math::LinearLerp(float currentValue, float targetValue, float stepSpeed)
 {
-    // 首先计算差值
-    float difference = targetValue - currentValue;
+    if (currentValue>=targetValue) 
+    {
+        return targetValue;
+    }
 
-    // 根据步长速度和时间间隔进行线性插值
-    float interpolatedValue = currentValue + difference * stepSpeed;
-
-    return interpolatedValue;
+    return currentValue + stepSpeed * Time::deltaTime;
 }

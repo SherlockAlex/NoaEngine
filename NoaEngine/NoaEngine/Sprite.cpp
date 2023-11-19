@@ -318,8 +318,8 @@ uint32_t noa::Sprite::GetTransposeColor(const float normalizedX, const float nor
 		return BLACK;
 	}
 
-	const int sx = NOAABS((int)(normalizedX * (h - 1))) % h;
-	const int sy = NOAABS((int)(normalizedY * (w - 1))) % w;
+	const int sx = static_cast<int>(std::abs((int)(normalizedX * (h - 1)))) % h;
+	const int sy = static_cast<int>(std::abs((int)(normalizedY * (w - 1)))) % w;
 
 	const int height = static_cast<int>(h);
 	return image[sy * height + sx];
@@ -333,8 +333,8 @@ uint32_t noa::Sprite::GetTransposeColor(const Vector<float>& simple) const
 		return BLACK;
 	}
 
-	const int sx = NOAABS((int)(simple.x * (h - 1))) % h;
-	const int sy = NOAABS((int)(simple.y * (w - 1))) % w;
+	const int sx = static_cast<int>(std::abs(((int)(simple.x * (h - 1))))) % h;
+	const int sy = static_cast<int>(std::abs(((int)(simple.y * (w - 1))))) % w;
 
 	const int height = static_cast<int>(h);
 	return image[sy * height + sx];

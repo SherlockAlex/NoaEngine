@@ -156,19 +156,17 @@ namespace noa {
 	};
 }
 
-#define NOAABS(x) ((x ^ (x >> (sizeof(int) * 8 - 1))) - (x >> (sizeof(int) * 8 - 1)))
-
-template <typename KeyType, typename ValueType>
-inline bool ContainKey(const std::unordered_map<KeyType, ValueType>& myMap, const KeyType& keyToCheck) 
-{
-	return myMap.count(keyToCheck) > 0;
-}
-
-template <typename KeyType, typename ValueType>
-inline bool ContainKey(const std::map<KeyType, ValueType>& myMap, const KeyType& keyToCheck)
-{
-	return myMap.count(keyToCheck) > 0;
-}
+//template <typename KeyType, typename ValueType>
+//inline bool ContainKey(const std::unordered_map<KeyType, ValueType>& myMap, const KeyType& keyToCheck) 
+//{
+//	return myMap.count(keyToCheck) > 0;
+//}
+//
+//template <typename KeyType, typename ValueType>
+//inline bool ContainKey(const std::map<KeyType, ValueType>& myMap, const KeyType& keyToCheck)
+//{
+//	return myMap.count(keyToCheck) > 0;
+//}
 
 namespace noa
 {

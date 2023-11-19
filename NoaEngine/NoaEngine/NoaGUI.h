@@ -66,13 +66,6 @@ namespace noa {
 		}
 
 	};
-
-	/**
-	* Canvas有一系列的组组成
-	* 而组是有UICamponent
-	*/
-
-	//class UICanvas;
 	
 	class UICanvasComponent;
 
@@ -84,10 +77,10 @@ namespace noa {
 		friend class UICanvasComponent;
 	public:
 		UITransform transform;
-		UITransform fatherTransform;
+		UITransform globalTransform;
 		Vector<float> anchor = {0.5f,0.5f};
 	protected:
-
+		UITransform fatherTransform;	// 父节点的绝对路径
 		UIComponent(UIGroup* canvas);
 		virtual ~UIComponent();
 
@@ -299,7 +292,8 @@ namespace noa {
 
 		uint32_t fontSize = 0;
 
-		Vector<int> currentSize;
+		Vector<float> labelOffset;
+		Vector<float> currentSize;
 
 		//按键事件
 		NoaEvent<void> selectedEvent;
@@ -332,6 +326,7 @@ namespace noa {
 		Button& SetAnchor(float x,float y);
 		Button& SetSize(int w,int h);
 		Button& SetRadius(int value);
+		Button& SetTextOffset(float x,float y);
 		Button& SetText(const std::wstring & text);
 		Button& SetTextNormalColor(uint32_t color);
 		Button& SetTextHeightLightColor(uint32_t color);

@@ -616,12 +616,15 @@ void noa::Label::Update()
 
 void noa::Label::Render() {
 	//显示文字
-	const int posX = static_cast<int>(fatherTransform.position.x + transform.position.x - anchor.x * transform.size.x);
-	const int posY = static_cast<int>(fatherTransform.position.y + transform.position.y - anchor.y * transform.size.y);
+
+	
+
+	globalTransform.position.x = static_cast<int>(fatherTransform.position.x + transform.position.x - anchor.x * transform.size.x);
+	globalTransform.position.y = static_cast<int>(fatherTransform.position.y + transform.position.y - anchor.y * transform.size.y);
 	renderer->DrawString(
 		text
-		, posX
-		, posY
+		, globalTransform.position.x
+		, globalTransform.position.y
 		, color
 		, size
 	);
@@ -725,8 +728,8 @@ void noa::Image::Render() {
 		return;
 	}
 
-	const float posX = static_cast<float>(fatherTransform.position.x + transform.position.x - anchor.x * transform.size.x);
-	const float posY = static_cast<float>(fatherTransform.position.y + transform.position.y - anchor.y * transform.size.y);
+	globalTransform.position.x = static_cast<float>(fatherTransform.position.x + transform.position.x - anchor.x * transform.size.x);
+	globalTransform.position.y = static_cast<float>(fatherTransform.position.y + transform.position.y - anchor.y * transform.size.y);
 
 	switch (style)
 	{
@@ -743,8 +746,8 @@ void noa::Image::Render() {
 		break;
 	default:
 		spriteGPU->DrawSprite(
-			posX
-			, posY
+			globalTransform.position.x
+			, globalTransform.position.y
 			, static_cast<float>(transform.size.x)
 			, static_cast<float>(transform.size.y)
 			, color
@@ -797,6 +800,8 @@ void noa::Button::SwapState()
 	const int posY = static_cast<int>(transform.position.y + fatherTransform.position.y - anchor.y * transform.size.y);
 
 	//通常状态
+	globalTransform.position.x = posX;
+	globalTransform.position.y = posY;
 
 	isClickReady = false;
 	if (mousePosX > posX && mousePosX<posX + transform.size.x
@@ -862,19 +867,35 @@ void noa::Button::Update()
 }
 
 void noa::Button::Render() {
-	currentSize.x = static_cast<int>(transform.size.x * currentScale);
-	currentSize.y = static_cast<int>(transform.size.y * currentScale);
+
+	const float lerpSpeed = 450.0f;
+	currentSize.x = noa::Math::LinearLerp(
+		currentSize.x
+		,transform.size.x * currentScale
+		, lerpSpeed
+	);
+	currentSize.y = noa::Math::LinearLerp(
+		currentSize.y
+		,transform.size.y * currentScale
+		, lerpSpeed
+	);
 
 	this->label->SetFontSize(static_cast<uint32_t>(fontSize * currentScale));
 
 	image->anchor = anchor;
 	image->transform.position = transform.position;
-	image->transform.size = currentSize;
+	image->transform.size.x = static_cast<int>(currentSize.x);
+	image->transform.size.y = static_cast<int>(currentSize.y);
 	image->color = currentColor;
 
 	label->anchor = anchor;
 	label->color = currentTextColor;
-	label->transform.position = transform.position;
+	label->transform.position.x = 
+		static_cast<int>(transform.position.x 
+			+ transform.size.x*labelOffset.x);
+	label->transform.position.y = 
+		static_cast<int>(transform.position.y 
+			+ transform.size.y*labelOffset.y);
 }
 
 noa::Button& noa::Button::Clone(Button* button) {
@@ -890,7 +911,8 @@ noa::Button& noa::Button::Clone(Button* button) {
 		.SetFontSize				(button->fontSize)
 		.SetNormalScale			(button->normalScale)
 		.SetHeightLightScale		(button->heightLightScale)
-		.SetAnchor				(button->anchor.y,button->anchor.y)
+		.SetAnchor				(button->anchor.x,button->anchor.y)
+		.SetTextOffset(button->labelOffset.x,button->labelOffset.y)
 		.SetClickScale			(button->clickScale);
 }
 
@@ -937,7 +959,8 @@ noa::Button& noa::Button::SetSize(int w,int h)
 	this->transform.size.x = w;
 	this->transform.size.y = h;
 
-	this->currentSize = transform.size;
+	this->currentSize.x = static_cast<float>(transform.size.x);
+	this->currentSize.y = static_cast<float>(transform.size.y);
 
 	SpriteFile spriteFile;
 	spriteFile.width = w;
@@ -1045,6 +1068,13 @@ noa::Button& noa::Button::SetRadius(int value)
 
 	image->SetSprite(&sprite);
 
+	return *this;
+}
+
+noa::Button& noa::Button::SetTextOffset(float x,float y) 
+{
+	labelOffset.x = x;
+	labelOffset.y = y;
 	return *this;
 }
 

@@ -7,7 +7,7 @@ void MainMenuDelegate::OnLoad(noa::Scene* scene)
 
 	//创建一个UI容器
 	noa::UIGroup* mainGroup = noa::UIGroup::Create(canvas)
-		->SetPosition(noa::Screen::width/2,noa::Screen::height/2)
+		->SetPosition(noa::Screen::width,noa::Screen::height/2)
 		.SetID("main_group")
 		.Apply();
 
@@ -26,12 +26,14 @@ void MainMenuDelegate::OnLoad(noa::Scene* scene)
 		.SetFontSize(20)
 		.SetPosition(0,0)
 		.SetSize(240, 60)
-		.SetRadius(50)
-		.SetNormalColor(noa::RGBA(255,255,255,200))
-		.SetHeightLightColor(noa::RGBA(50,50,200,255))
-		.SetTextClickColor(noa::BLACK)
-		.SetAnchor(0.5f,0.5f)
+		.SetRadius(0)
+		.SetNormalColor(noa::RGBA(255,255,255,0))
+		.SetHeightLightColor(noa::RGBA(255,0,0,255))
+		.SetAnchor(1.0f,0.5f)
+		.SetTextOffset(-0.15f,0.0f)
+		.SetTextNormalColor(noa::WHITE)
 		.SetTextHeightLightColor(noa::WHITE)
+		.SetTextClickColor(noa::BLACK)
 		.SetNormalScale(1.0f)
 		.SetHeightLightScale(1.1f)
 		.SetClickScale(0.9f)
@@ -54,15 +56,15 @@ void MainMenuDelegate::OnLoad(noa::Scene* scene)
 	};
 	noa::Button* openButton = noa::Button::Create(mainGroup)
 		->SetText(L"游戏设置")
-		.SetPosition(0, 70)
 		.Clone(startButton)
+		.SetPosition(0, 70)
 		.AddClickCallback(openSecondGroup)
 		.Apply();
 
 	noa::Button* quitButton = noa::Button::Create(mainGroup)
 		->SetText(L"退出游戏")
-		.SetPosition(0,2*70)
 		.Clone(startButton)
+		.SetPosition(0,2*70)
 		.AddClickCallback(noa::Application::Quit)
 		.Apply();
 
@@ -75,8 +77,8 @@ void MainMenuDelegate::OnLoad(noa::Scene* scene)
 
 	noa::Button* backButton = noa::Button::Create(secondGroup)
 		->SetText(L"返回菜单")
-		.SetPosition(0, 0)
 		.Clone(startButton)
+		.SetPosition(0, 0)
 		.AddClickCallback([]() {
 			noa::Canvas* canvasActor =
 				noa::sceneManager.FindActorWithType<noa::UICanvasActor>();

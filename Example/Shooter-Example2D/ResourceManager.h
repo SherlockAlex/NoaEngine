@@ -9,5 +9,6 @@ public:
 	static noa::Sprite circleImage;
 	static noa::Sprite backgroundImage;
 	static noa::Sprite backgroundImage1;
+
 };
 
