@@ -781,7 +781,7 @@ noa::Button* noa::Button::Create(UIGroup* group)
 void noa::Button::SwapState()
 {
 
-	//下面函数在全屏时会出现bug，需要解决
+	//button的状态转换函数
 
 	if (!active)
 	{
@@ -796,15 +796,25 @@ void noa::Button::SwapState()
 	const int posX = static_cast<int>(transform.position.x + fatherTransform.position.x - anchor.x * transform.size.x);
 	const int posY = static_cast<int>(transform.position.y + fatherTransform.position.y - anchor.y * transform.size.y);
 
+	//通常状态
+
 	isClickReady = false;
 	if (mousePosX > posX && mousePosX<posX + transform.size.x
 		&& mousePosY>posY && mousePosY < posY + transform.size.y
 		)
 	{
-		isSelect = true;
+		isSelect = true;//进入到被高亮状态
 		
+		if (!selectEventFlag) 
+		{
+			//高亮事件
+			this->selectedEvent.Invoke();
+			selectEventFlag = true;
+		}
+
 		if (Input::GetMouseKeyHold(MouseButton::LEFT_BUTTON)) 
 		{
+			//进入点击状态
 			isClickReady = true;
 		}
 		else if (Input::GetMouseKeyUp(MouseButton::LEFT_BUTTON))
@@ -816,6 +826,7 @@ void noa::Button::SwapState()
 	}
 	else {
 		isSelect = false;
+		selectEventFlag = false;
 	}
 
 	if (!isClickReady) 
@@ -1085,7 +1096,18 @@ noa::Button& noa::Button::SetClickScale(float value)
 	return *this;
 }
 
-noa::Button& noa::Button::AddClickCallback(std::function<void()> func)
+noa::Button& noa::Button::AddSelectedCallback(
+	std::function<void()> func
+)
+{
+	this->selectedEvent += func;
+	return *this;
+}
+
+
+noa::Button& noa::Button::AddClickCallback(
+	std::function<void()> func
+)
 {
 	this->clickEvent += func;
 	return *this;

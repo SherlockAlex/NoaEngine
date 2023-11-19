@@ -291,6 +291,7 @@ namespace noa {
 
 		bool isClickReady = false;
 		bool isSelect = false;
+		bool selectEventFlag = false;
 		uint32_t currentColor = normalColor;
 		uint32_t currentTextColor = textNormalColor;
 		float currentScale = normalScale;
@@ -301,6 +302,7 @@ namespace noa {
 		Vector<int> currentSize;
 
 		//°´¼üÊÂ¼þ
+		NoaEvent<void> selectedEvent;
 		NoaEvent<void> clickEvent;
 
 		Sprite sprite;
@@ -338,6 +340,7 @@ namespace noa {
 		Button& SetNormalScale(float value);
 		Button& SetHeightLightScale(float value);
 		Button& SetClickScale(float value);
+		Button& AddSelectedCallback(std::function<void()> func);
 		Button& AddClickCallback(std::function<void()> func);
 		Button* Apply();
 	};
