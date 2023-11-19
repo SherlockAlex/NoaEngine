@@ -1,7 +1,7 @@
-﻿  NoaGUI.cpp
+﻿  MainMenuDelegate.cpp
   正在生成代码
-  0 of 3729 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    0 functions had inline decision re-evaluated but remain unchanged
+  28 of 3784 functions ( 0.7%) were compiled, the rest were copied from previous compilation.
+    22 functions were new in current compilation
+    155 functions had inline decision re-evaluated but remain unchanged
   已完成代码的生成
   Shooter-Example2D.vcxproj -> D:\Work\NoaEngine\x64\Release\Shooter-Example2D.exe

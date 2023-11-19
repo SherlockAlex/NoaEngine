@@ -8,5 +8,6 @@ public:
 	static noa::Sprite bulletImage;
 	static noa::Sprite circleImage;
 	static noa::Sprite backgroundImage;
+	static noa::Sprite backgroundImage1;
 };
 

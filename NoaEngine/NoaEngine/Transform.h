@@ -14,7 +14,7 @@ namespace noa {
 	class UITransform final {
 	public:
 		Vector<int> position = { 0,0 };
-		Vector<int> scale = {150,150};
+		Vector<int> size = {150,150};
 	};
 }
 

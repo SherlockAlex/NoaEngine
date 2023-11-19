@@ -30,7 +30,7 @@ namespace noa {
 		Texture* texture = nullptr;
 		uint32_t tint = 0xFFFFFFFF;
 		Vector<int> position;
-		Vector<int> scale;
+		Vector<int> size;
 		float eulerAngle = 0.0f;
 		bool flip = false;
 
@@ -52,7 +52,7 @@ namespace noa {
 		int posy = 0;
 		int w = 1024;
 		int h = 1024;
-		Vector<int> scale = Vector<int>(32, 32);
+		Vector<int> size = Vector<int>(32, 32);
 		bool isEmpty = false;
 
 	private:
@@ -102,7 +102,7 @@ namespace noa {
 	private:
 		Texture* texture = nullptr;
 		InstanceLayer layer = InstanceLayer::MAIN_LAYER;
-		noa::Vector<int> scale;
+		noa::Vector<int> size;
 	public:
 		SpriteGPU(Sprite * sprite);
 		SpriteGPU(const SpriteFile & spriteFile,int scaleX,int scaleY);

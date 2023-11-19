@@ -189,6 +189,7 @@ void noa::Canvas::OpenGroup(size_t index)
 	{
 		return;
 	}
+	groupList[index]->visiable = true;
 	this->groups.push(groupList[index]);
 }
 
@@ -216,6 +217,7 @@ void noa::Canvas::CloseGroup() {
 	{
 		return;
 	}
+	groups.top()->visiable = false;
 	groups.pop();
 }
 
@@ -292,12 +294,23 @@ void noa::Canvas::CanvasUpdate()
 	{
 		return;
 	}
+
+	//控制逻辑只控制栈顶
 	if (groups.top() == nullptr) 
 	{
 		groups.pop();
 	}
 	else {
 		groups.top()->Update();
+	}
+
+	for (auto& group:groupList) 
+	{
+		//越往前的越先绘制
+		if (group&&group->visiable)
+		{
+			group->Render();
+		}
 	}
 }
 
@@ -440,6 +453,19 @@ void noa::UIGroup::Update()
 	}
 }
 
+void noa::UIGroup::Render() {
+	//显示背景
+	for (auto& component : uiComponent)
+	{
+		if (component == nullptr || !component->GetActive())
+		{
+			continue;
+		}
+		component->fatherTransform = this->transform;
+		component->Render();
+	}
+}
+
 noa::UICanvasActor::UICanvasActor(Scene* scene) :Actor(scene), Canvas()
 {
 
@@ -538,6 +564,13 @@ noa::Label& noa::Label::SetID(const std::string& id)
 	return *this;
 }
 
+noa::Label& noa::Label::SetAnchor(float x,float y) 
+{
+	this->anchor.x = x;
+	this->anchor.y = y;
+	return *this;
+}
+
 noa::Label& noa::Label::SetColor(uint32_t color) 
 {
 	this->color = color;
@@ -547,7 +580,7 @@ noa::Label& noa::Label::SetColor(uint32_t color)
 noa::Label& noa::Label::SetFontSize(uint32_t size)
 {
 	this->size = size;
-	this->transform.scale = renderer->GetLabelScale(this->text,this->size);
+	this->transform.size = renderer->GetLabelScale(this->text,this->size);
 	return *this;
 }
 
@@ -561,7 +594,7 @@ noa::Label& noa::Label::SetPosition(int x,int y)
 noa::Label& noa::Label::SetText(const std::wstring& text) 
 {
 	this->text = text;
-	this->transform.scale = renderer->GetLabelScale(this->text, this->size);
+	this->transform.size = renderer->GetLabelScale(this->text, this->size);
 	return *this;
 }
 
@@ -578,9 +611,13 @@ void noa::Label::Start()
 
 void noa::Label::Update()
 {
+
+}
+
+void noa::Label::Render() {
 	//显示文字
-	const int posX = fatherTransform.position.x + transform.position.x;
-	const int posY = fatherTransform.position.y + transform.position.y;
+	const int posX = static_cast<int>(fatherTransform.position.x + transform.position.x - anchor.x * transform.size.x);
+	const int posY = static_cast<int>(fatherTransform.position.y + transform.position.y - anchor.y * transform.size.y);
 	renderer->DrawString(
 		text
 		, posX
@@ -588,7 +625,6 @@ void noa::Label::Update()
 		, color
 		, size
 	);
-
 }
 
 
@@ -622,10 +658,17 @@ noa::Image& noa::Image::SetPosition(int x,int y)
 	return *this;
 }
 
-noa::Image& noa::Image::SetScale(int x, int y) 
+noa::Image& noa::Image::SetAnchor(float x,float y) 
 {
-	this->transform.scale.x = x;
-	this->transform.scale.y = y;
+	this->anchor.x = x;
+	this->anchor.y = y;
+	return *this;
+}
+
+noa::Image& noa::Image::SetSize(int x, int y)
+{
+	this->transform.size.x = x;
+	this->transform.size.y = y;
 	return *this;
 }
 
@@ -672,13 +715,18 @@ void noa::Image::Start()
 void noa::Image::Update()
 {
 
+	
+
+}
+
+void noa::Image::Render() {
 	if (sprite == nullptr)
 	{
 		return;
 	}
-	
-	const float posX = static_cast<float>(fatherTransform.position.x + transform.position.x);
-	const float posY = static_cast<float>(fatherTransform.position.y + transform.position.y);
+
+	const float posX = static_cast<float>(fatherTransform.position.x + transform.position.x - anchor.x * transform.size.x);
+	const float posY = static_cast<float>(fatherTransform.position.y + transform.position.y - anchor.y * transform.size.y);
 
 	switch (style)
 	{
@@ -697,15 +745,14 @@ void noa::Image::Update()
 		spriteGPU->DrawSprite(
 			posX
 			, posY
-			, static_cast<float>(transform.scale.x)
-			, static_cast<float>(transform.scale.y)
+			, static_cast<float>(transform.size.x)
+			, static_cast<float>(transform.size.y)
 			, color
 			, isFilpX
 			, 0.0f
 		);
 		break;
 	}
-
 }
 
 
@@ -714,8 +761,9 @@ noa::Button::Button(UIGroup* group) :UIComponent(group)
 	image = Image::Create(group);
 	label = Label::Create(group);
 	
+	label->anchor = { 0.5f,0.5f };
+
 	this->SetSize(80, 40);
-	/*this->transform.scale = { 80,40 };*/
 	image->SetSprite(&sprite);
 }
 
@@ -745,12 +793,12 @@ void noa::Button::SwapState()
 	const float mousePosX = (static_cast<float>(mousePos.x));
 	const float mousePosY = (static_cast<float>(mousePos.y));
 
-	const int posX = transform.position.x + fatherTransform.position.x;
-	const int posY = transform.position.y + fatherTransform.position.y;
+	const int posX = static_cast<int>(transform.position.x + fatherTransform.position.x - anchor.x * transform.size.x);
+	const int posY = static_cast<int>(transform.position.y + fatherTransform.position.y - anchor.y * transform.size.y);
 
 	isClickReady = false;
-	if (mousePosX > posX && mousePosX<posX + transform.scale.x
-		&& mousePosY>posY && mousePosY < posY + transform.scale.y
+	if (mousePosX > posX && mousePosX<posX + transform.size.x
+		&& mousePosY>posY && mousePosY < posY + transform.size.y
 		)
 	{
 		isSelect = true;
@@ -799,37 +847,31 @@ void noa::Button::Start()
 
 void noa::Button::Update()
 {
-
 	this->SwapState();
+}
 
-	currentSize.x = static_cast<int>(transform.scale.x * currentScale);
-	currentSize.y = static_cast<int>(transform.scale.y * currentScale);
+void noa::Button::Render() {
+	currentSize.x = static_cast<int>(transform.size.x * currentScale);
+	currentSize.y = static_cast<int>(transform.size.y * currentScale);
 
 	this->label->SetFontSize(static_cast<uint32_t>(fontSize * currentScale));
 
+	image->anchor = anchor;
 	image->transform.position = transform.position;
-	image->transform.scale = currentSize;
+	image->transform.size = currentSize;
 	image->color = currentColor;
 
+	label->anchor = anchor;
 	label->color = currentTextColor;
-	label->transform.position.x =
-		static_cast<int>(
-			transform.position.x
-			+ 0.5f * currentSize.x
-			- 0.5f * label->transform.scale.x);
-	label->transform.position.y =
-		static_cast<int>(
-			transform.position.y
-			+ 0.5f * currentSize.y
-			- 0.5f * label->transform.scale.y);
+	label->transform.position = transform.position;
 }
 
 noa::Button& noa::Button::Clone(Button* button) {
 	return this->SetNormalColor	(button->normalColor)
 		.SetHeightLightColor		(button->heightLightColor)
 		.SetClickColor			(button->clickColor)
-		.SetSize					(button->transform.scale.x, 
-									button->transform.scale.y)
+		.SetSize					(button->transform.size.x,
+									button->transform.size.y)
 		.SetRadius				(button->radius)
 		.SetTextNormalColor		(button->textNormalColor)
 		.SetTextHeightLightColor	(button->textHeightLightColor)
@@ -837,6 +879,7 @@ noa::Button& noa::Button::Clone(Button* button) {
 		.SetFontSize				(button->fontSize)
 		.SetNormalScale			(button->normalScale)
 		.SetHeightLightScale		(button->heightLightScale)
+		.SetAnchor				(button->anchor.y,button->anchor.y)
 		.SetClickScale			(button->clickScale);
 }
 
@@ -871,23 +914,28 @@ noa::Button& noa::Button::SetPosition(int x,int y)
 	return *this;
 }
 
+noa::Button& noa::Button::SetAnchor(float x,float y) 
+{
+	anchor.x = x;
+	anchor.y = y;
+	return *this;
+}
+
 noa::Button& noa::Button::SetSize(int w,int h) 
 {
-	this->transform.scale.x = w;
-	this->transform.scale.y = h;
+	this->transform.size.x = w;
+	this->transform.size.y = h;
 
-	this->currentSize = transform.scale;
+	this->currentSize = transform.size;
 
 	SpriteFile spriteFile;
 	spriteFile.width = w;
 	spriteFile.height = h;
 	spriteFile.images.resize(spriteFile.width * spriteFile.height, noa::RGBA(255, 255, 255, 255));
 	
-	this->sprite.scale.x = w;
-	this->sprite.scale.y = h;
+	this->sprite.size.x = w;
+	this->sprite.size.y = h;
 	this->sprite.UpdateImage(spriteFile);
-
-	SetRadius(this->radius);
 
 	return *this;
 }
@@ -895,6 +943,22 @@ noa::Button& noa::Button::SetSize(int w,int h)
 noa::Button& noa::Button::SetRadius(int value)
 {
 	//四个角的半径
+
+	if (value<=0) 
+	{
+		SpriteFile spriteFile;
+		spriteFile.width = transform.size.x;
+		spriteFile.height = transform.size.y;
+		spriteFile.images.resize(spriteFile.width * spriteFile.height, noa::RGBA(255, 255, 255, 255));
+
+		this->sprite.size.x = transform.size.x;
+		this->sprite.size.y = transform.size.y;
+		this->sprite.UpdateImage(spriteFile);
+
+		radius = 0;
+		return *this;
+	}
+
 	const int maxValue = (sprite.w < sprite.h) ? (sprite.w/2) : (sprite.h/2);
 	radius = value;
 	if (radius> maxValue)

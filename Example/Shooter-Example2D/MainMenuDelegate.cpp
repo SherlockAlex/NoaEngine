@@ -5,7 +5,16 @@ void MainMenuDelegate::OnLoad(noa::Scene* scene)
 {
 	noa::UICanvasActor* canvas = noa::UICanvasActor::Create(scene);
 
-	noa::UIGroup* mainGroup = noa::UIGroup::Create(canvas);
+	//创建一个UI容器
+	noa::UIGroup* mainGroup = noa::UIGroup::Create(canvas)
+		->SetPosition(noa::Screen::width/2,noa::Screen::height/2)
+		.SetID("main_group")
+		.Apply();
+
+	noa::UIGroup* secondGroup = noa::UIGroup::Create(canvas)
+		->SetPosition(noa::Screen::width / 2, noa::Screen::height / 2)
+		.SetID("second_group")
+		.Apply();
 
 	noa::Image* backgroundImage = noa::Image::Create(mainGroup)
 		->SetSprite(&ResourceManager::backgroundImage)
@@ -15,12 +24,13 @@ void MainMenuDelegate::OnLoad(noa::Scene* scene)
 	noa::Button* startButton = noa::Button::Create(mainGroup)
 		->SetText(L"开始游戏")
 		.SetFontSize(20)
-		.SetPosition(3 * noa::Screen::width / 8, 3 * noa::Screen::height / 8)
-		.SetRadius(25)
-		.SetSize(160, 60)
-		.SetNormalColor(noa::WHITE)
-		.SetHeightLightColor(noa::BLUE)
+		.SetPosition(0,0)
+		.SetSize(240, 60)
+		.SetRadius(50)
+		.SetNormalColor(noa::RGBA(255,255,255,50))
+		.SetHeightLightColor(noa::RGBA(10,10,250,255))
 		.SetTextClickColor(noa::BLACK)
+		.SetAnchor(0.5f,0.5f)
 		.SetTextHeightLightColor(noa::WHITE)
 		.SetNormalScale(1.0f)
 		.SetHeightLightScale(1.1f)
@@ -32,14 +42,53 @@ void MainMenuDelegate::OnLoad(noa::Scene* scene)
 			})
 		.Apply();
 
+	auto openSecondGroup = []() {
+		noa::Canvas* canvasActor =
+			noa::sceneManager.FindActorWithType<noa::UICanvasActor>();
+
+		if (!canvasActor) {
+			return;
+		}
+
+		canvasActor->OpenGroup(1);
+	};
+	noa::Button* openButton = noa::Button::Create(mainGroup)
+		->SetText(L"游戏设置")
+		.SetPosition(0, 70)
+		.Clone(startButton)
+		.AddClickCallback(openSecondGroup)
+		.Apply();
+
 	noa::Button* quitButton = noa::Button::Create(mainGroup)
 		->SetText(L"退出游戏")
-		.SetPosition(3 * noa::Screen::width / 8, 3 * noa::Screen::height / 8 + 70)
+		.SetPosition(0,2*70)
 		.Clone(startButton)
-		.AddClickCallback(
-			[]()
-			{
-				
-			})
+		.AddClickCallback(noa::Application::Quit)
 		.Apply();
+
+
+	noa::Image* backgroundImage1 = noa::Image::Create(secondGroup)
+		->SetSprite(&ResourceManager::backgroundImage1)
+		.SetStyle(noa::ImageStyle::DEFAULT)
+		.SetSize(noa::Screen::width/2,noa::Screen::height/2)
+		.Apply();
+
+	noa::Button* backButton = noa::Button::Create(secondGroup)
+		->SetText(L"返回菜单")
+		.SetPosition(0, 0)
+		.Clone(startButton)
+		.AddClickCallback([]() {
+			noa::Canvas* canvasActor =
+				noa::sceneManager.FindActorWithType<noa::UICanvasActor>();
+
+			if (!canvasActor) {
+				return;
+			}
+
+			canvasActor->CloseGroup();
+
+		})
+		.Apply();
+
+
 }

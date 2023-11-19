@@ -80,8 +80,6 @@ noa::NoaEngine::NoaEngine(
 
 	texture = renderer->CreateTexture(width, height, Screen::pixelBuffer);
 	
-	
-
 }
 
 noa::NoaEngine::~NoaEngine()
@@ -101,7 +99,7 @@ int noa::NoaEngine::Run()
 
 	Start();
 	this->EngineThread();
-	Quit();
+	Exit();
 
 	return 0;
 
@@ -140,8 +138,8 @@ void noa::NoaEngine::EngineThread()
 				, textureIndex
 				, instance.position.x
 				, instance.position.y
-				, instance.scale.x
-				, instance.scale.y
+				, instance.size.x
+				, instance.size.y
 				, instance.tint
 				, instance.eulerAngle
 				, instance.flip
@@ -158,12 +156,15 @@ void noa::NoaEngine::EngineThread()
 	}
 }
 
-int noa::NoaEngine::Quit()
+int noa::NoaEngine::Exit()
 {
 	sceneManager.Quit();
-	platform->Quit();
 	OnExit();
 	return 0;
+}
+
+void noa::Application::Quit() {
+	platform->Quit();
 }
 
 

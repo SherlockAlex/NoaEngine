@@ -18,6 +18,13 @@ namespace noa {
 	class Image;
 	class UIGroup;
 
+	enum class ImageStyle
+	{
+		DEFAULT,
+		COVER
+	};
+
+
 	//字体
 	typedef struct Font
 	{
@@ -78,6 +85,7 @@ namespace noa {
 	public:
 		UITransform transform;
 		UITransform fatherTransform;
+		Vector<float> anchor = {0.5f,0.5f};
 	protected:
 
 		UIComponent(UIGroup* canvas);
@@ -89,7 +97,8 @@ namespace noa {
 	protected:
 
 		virtual void Start() = 0;
-		virtual void Update() = 0;
+		virtual void Update() = 0;		//负责UI的交互逻辑
+		virtual void Render() = 0;		//负责UI的绘制
 
 	public:
 
@@ -148,7 +157,9 @@ namespace noa {
 	private:
 		void Start();
 		void Update();
+		void Render();
 	private:
+		bool visiable = false;
 		UITransform transform;
 		std::vector<UIComponent*> uiComponent;
 		size_t index = 0;
@@ -204,28 +215,22 @@ namespace noa {
 
 		void Start() override;
 		void Update() override;
+		void Render() override;
 
 	public:
 
 		static Label* Create(UIGroup* group);
 
 		Label& SetID(const std::string & id);
+		Label& SetAnchor(float x,float y);
 		Label& SetColor(uint32_t color);
 		Label& SetFontSize(uint32_t size);
 		Label& SetPosition(int x,int y);
 		Label& SetText(const std::wstring & text);
 		Label* Apply();
 
-		
-
 	};
 	
-	enum class ImageStyle 
-	{
-		DEFAULT,
-		COVER
-	};
-
 	class Image :public UIComponent {
 	public:
 		std::string id = "image";
@@ -241,6 +246,7 @@ namespace noa {
 
 		void Start() override;
 		void Update() override;
+		void Render() override;
 
 	public:
 
@@ -248,7 +254,8 @@ namespace noa {
 
 		Image& SetID(const std::string& id);
 		Image& SetPosition(int x,int y);
-		Image& SetScale(int x,int y);
+		Image& SetAnchor(float x,float y);
+		Image& SetSize(int x,int y);
 		Image& SetStyle(ImageStyle style);
 		Image& SetSprite(Sprite * sprite);
 		Image& SetColor(uint32_t color);
@@ -308,6 +315,7 @@ namespace noa {
 
 		void Start() override;
 		void Update() override;
+		void Render() override;
 
 	public:
 		static Button* Create(UIGroup* group);
@@ -319,6 +327,7 @@ namespace noa {
 		Button& SetHeightLightColor(uint32_t color);
 		Button& SetClickColor(uint32_t color);
 		Button& SetPosition(int x,int y);
+		Button& SetAnchor(float x,float y);
 		Button& SetSize(int w,int h);
 		Button& SetRadius(int value);
 		Button& SetText(const std::wstring & text);

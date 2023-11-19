@@ -21,7 +21,7 @@ noa::Sprite::Sprite(const SpriteFile& sprFile, const Vector<int>& scale)
 	this->w = sprFile.width;
 	this->h = sprFile.height;
 	this->image = sprFile.images;
-	this->scale = scale;
+	this->size = scale;
 
 	this->isEmpty = this->image.empty();
 
@@ -29,20 +29,20 @@ noa::Sprite::Sprite(const SpriteFile& sprFile, const Vector<int>& scale)
 	this->sh = (h / 2) * 2;
 }
 
-noa::Sprite::Sprite(const Vector<int>& scale)
+noa::Sprite::Sprite(const Vector<int>& size)
 {
-	this->scale = scale;
+	this->size = size;
 	this->isEmpty = this->image.empty();
 }
 
-noa::Sprite::Sprite(const std::string& filename, const Vector<int>& scale) {
+noa::Sprite::Sprite(const std::string& filename, const Vector<int>& size) {
 	SpriteFile sprFile = Resource::LoadSprite(filename);
 	this->posx = sprFile.x;
 	this->posy = sprFile.y;
 	this->w = sprFile.width;
 	this->h = sprFile.height;
 	this->image = sprFile.images;
-	this->scale = scale;
+	this->size = size;
 	this->isEmpty = this->image.empty();
 
 	this->sw = (w / 2) * 2;
@@ -50,7 +50,7 @@ noa::Sprite::Sprite(const std::string& filename, const Vector<int>& scale) {
 
 }
 
-noa::Sprite::Sprite(const std::string& filename, int scaleX, int scaleY)
+noa::Sprite::Sprite(const std::string& filename, int sizeX, int sizeY)
 {
 	SpriteFile sprFile = Resource::LoadSprite(filename);
 	this->posx = sprFile.x;
@@ -58,7 +58,7 @@ noa::Sprite::Sprite(const std::string& filename, int scaleX, int scaleY)
 	this->w = sprFile.width;
 	this->h = sprFile.height;
 	this->image = sprFile.images;
-	this->scale = { scaleX,scaleY };
+	this->size = { sizeX,sizeY };
 	this->isEmpty = this->image.empty();
 
 	this->sw = (w / 2) * 2;
@@ -71,12 +71,12 @@ noa::Sprite::Sprite() {
 	this->isEmpty = this->image.empty();
 }
 
-noa::Sprite::Sprite(int w, int h, const Vector<int>& scale, const std::vector<uint32_t>& image)
+noa::Sprite::Sprite(int w, int h, const Vector<int>& size, const std::vector<uint32_t>& image)
 {
 	this->w = w;
 	this->h = h;
 	this->image = image;
-	this->scale = scale;
+	this->size = size;
 	this->isEmpty = this->image.empty();
 
 	this->sw = (w / 2) * 2;
@@ -111,8 +111,8 @@ void noa::Sprite::DrawSprite(int posX, int posY, bool isRenderAlpha) const
 	//将sprite图片填充到矩形上
 	const int x1 = posX;
 	const int y1 = posY;
-	const int x2 = posX + scale.x;
-	const int y2 = posY + scale.y;
+	const int x2 = posX + size.x;
+	const int y2 = posY + size.y;
 
 	for (int x = min(x1, x2); x <= max(x1, x2); x++)
 	{
@@ -139,8 +139,8 @@ void noa::Sprite::DrawSprite(int posX, int posY, bool isRenderAlpha, bool isMirr
 
 	const int x1 = posX;
 	const int y1 = posY;
-	const int x2 = posX + scale.x;
-	const int y2 = posY + scale.y;
+	const int x2 = posX + size.x;
+	const int y2 = posY + size.y;
 
 	for (int x = min(x1, x2); x <= max(x1, x2); x++)
 	{
@@ -175,8 +175,8 @@ void noa::Sprite::DrawSprite(bool isRenderAlpha) const
 
 	const int x1 = posx;
 	const int y1 = posy;
-	const int x2 = posx + scale.x;
-	const int y2 = posy + scale.y;
+	const int x2 = posx + size.x;
+	const int y2 = posy + size.y;
 
 	for (int x = min(x1, x2); x <= max(x1, x2); x++)
 	{
@@ -202,8 +202,8 @@ void noa::Sprite::DrawSprite(bool isRenderAlpha, bool isMirror) const
 
 	const int x1 = posx;
 	const int y1 = posy;
-	const int x2 = posx + scale.x;
-	const int y2 = posy + scale.y;
+	const int x2 = posx + size.x;
+	const int y2 = posy + size.y;
 
 	for (int x = min(x1, x2); x <= max(x1, x2); x++)
 	{
@@ -347,18 +347,18 @@ noa::SpriteGPU::SpriteGPU(Sprite* sprite)
 		return;
 	}
 	this->texture = renderer->CreateTexture(sprite->w, sprite->h, sprite->GetImage().data());
-	this->scale = sprite->scale;
+	this->size = sprite->size;
 	texture->EnableAlpha();
 
 }
 
-noa::SpriteGPU::SpriteGPU(const SpriteFile& spriteFile, int scaleX, int scaleY) {
+noa::SpriteGPU::SpriteGPU(const SpriteFile& spriteFile, int sizeX, int sizeY) {
 	this->texture = renderer->CreateTexture(
 		spriteFile.width, spriteFile.height
 		, (uint32_t*)spriteFile.images.data()
 	);
-	this->scale.x = scaleX;
-	this->scale.y = scaleY;
+	this->size.x = sizeX;
+	this->size.y = sizeY;
 	texture->EnableAlpha();
 }
 
@@ -391,7 +391,7 @@ void noa::SpriteGPU::Update(Sprite* sprite)
 	if (sprite != nullptr)
 	{
 		texture->UpdateTexture(sprite->GetImage().data(), sprite->w, sprite->h);
-		this->scale = sprite->scale;
+		this->size = sprite->size;
 	}
 
 }
@@ -408,8 +408,8 @@ void noa::SpriteGPU::DrawSprite(float x, float y, bool mirror, float eulerAngle)
 	instance.texture = texture;
 	instance.position.x = static_cast<int>(x);
 	instance.position.y = static_cast<int>(y);
-	instance.scale.x = this->scale.x;
-	instance.scale.y = this->scale.y;
+	instance.size.x = this->size.x;
+	instance.size.y = this->size.y;
 	instance.tint = WHITE;
 	instance.eulerAngle = eulerAngle;
 	instance.flip = mirror;
@@ -428,8 +428,8 @@ void noa::SpriteGPU::DrawSprite(float x, float y, float w, float h, unsigned int
 	instance.texture = texture;
 	instance.position.x = static_cast<int>(x);
 	instance.position.y = static_cast<int>(y);
-	instance.scale.x = static_cast<int>(w);
-	instance.scale.y = static_cast<int>(h);
+	instance.size.x = static_cast<int>(w);
+	instance.size.y = static_cast<int>(h);
 	instance.eulerAngle = eulerAngle;
 	instance.tint = tint;
 	instance.flip = mirror;

@@ -1,5 +1,4 @@
 d:\work\noaengine\example\shooter-example2d\x64\release\vc143.pdb
-d:\work\noaengine\example\shooter-example2d\x64\release\noaaction.obj
 d:\work\noaengine\example\shooter-example2d\x64\release\ipoolobjectfactroy.obj
 d:\work\noaengine\example\shooter-example2d\x64\release\inputsystem.obj
 d:\work\noaengine\example\shooter-example2d\x64\release\graphic.obj
@@ -17,9 +16,9 @@ d:\work\noaengine\example\shooter-example2d\x64\release\audiosource.obj
 d:\work\noaengine\example\shooter-example2d\x64\release\animator.obj
 d:\work\noaengine\example\shooter-example2d\x64\release\actorpoolfactory.obj
 d:\work\noaengine\example\shooter-example2d\x64\release\actorpool.obj
+d:\work\noaengine\example\shooter-example2d\x64\release\actormotion.obj
 d:\work\noaengine\example\shooter-example2d\x64\release\actorcomponent.obj
 d:\work\noaengine\example\shooter-example2d\x64\release\actor.obj
-d:\work\noaengine\example\shooter-example2d\x64\release\tilecollider2d.obj
 d:\work\noaengine\example\shooter-example2d\x64\release\texture.obj
 d:\work\noaengine\example\shooter-example2d\x64\release\statemachine.obj
 d:\work\noaengine\example\shooter-example2d\x64\release\spriterenderer.obj
@@ -39,6 +38,7 @@ d:\work\noaengine\example\shooter-example2d\x64\release\nobject.obj
 d:\work\noaengine\example\shooter-example2d\x64\release\noamath.obj
 d:\work\noaengine\example\shooter-example2d\x64\release\noagui.obj
 d:\work\noaengine\example\shooter-example2d\x64\release\noaengine.obj
+d:\work\noaengine\example\shooter-example2d\x64\release\noaaction.obj
 d:\work\noaengine\example\shooter-example2d\x64\release\test.obj
 d:\work\noaengine\example\shooter-example2d\x64\release\shooter.obj
 d:\work\noaengine\example\shooter-example2d\x64\release\resourcemanager.obj
@@ -51,7 +51,7 @@ d:\work\noaengine\example\shooter-example2d\x64\release\bulletfactory.obj
 d:\work\noaengine\example\shooter-example2d\x64\release\bullet.obj
 d:\work\noaengine\example\shooter-example2d\x64\release\transform.obj
 d:\work\noaengine\example\shooter-example2d\x64\release\time.obj
-d:\work\noaengine\example\shooter-example2d\x64\release\actormotion.obj
+d:\work\noaengine\example\shooter-example2d\x64\release\tilecollider2d.obj
 d:\work\noaengine\x64\release\shooter-example2d.exe
 d:\work\noaengine\example\shooter-example2d\x64\release\shooter-example2d.ipdb
 d:\work\noaengine\x64\release\shooter-example2d.pdb

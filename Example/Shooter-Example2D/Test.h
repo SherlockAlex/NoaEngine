@@ -22,7 +22,7 @@ public:
 
 	noa::Rigidbody* rigid = noa::Rigidbody::Create(this)
 		->SetBounce(0.5f)
-		.SetUseGravity(false)
+		.SetUseGravity(true)
 		.SetGravityScale(5.5f)
 		.SetDamping(0.0f)
 		.SetBodyType(noa::BodyType::DYNAMIC)

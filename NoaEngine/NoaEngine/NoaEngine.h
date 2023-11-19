@@ -245,12 +245,17 @@ namespace noa {
 
 		int Run();
 
-		int Quit();
+		int Exit();
 
 	private:
 		void EngineThread();
 
 
+	};
+
+	class Application {
+	public:
+		static void Quit();
 	};
 
 #pragma endregion
