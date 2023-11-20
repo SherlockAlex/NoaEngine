@@ -72,6 +72,8 @@ namespace noa {
 
 	public:
 		std::vector<uint32_t> GetImage();
+		void ResizeAndFull(int w,int h,uint32_t color);
+		void Full(uint32_t color);
 		void UpdateImage(const SpriteFile & image);
 		void DrawSprite(int posX, int posY, bool isRenderAlpha) const;
 		void DrawSprite(int posX, int posY, bool isRenderAlpha, bool isMirror) const;

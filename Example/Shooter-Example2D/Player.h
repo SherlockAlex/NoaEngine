@@ -18,7 +18,7 @@ public:
 		.Apply();
 
 	noa::Rigidbody* rigid = noa::Rigidbody::Create(this)
-		->SetUseGravity(false)
+		->SetUseGravity(true)
 		.SetDamping(0.0f)
 		.SetGravityScale(5.5f)
 		.SetBodyType(noa::BodyType::DYNAMIC)
@@ -27,7 +27,8 @@ public:
 	noa::CircleCollider2D* collider =
 		noa::CircleCollider2D::Create(this)
 		->SetRigidbody(rigid)
-		.SetRadius(1.0f)
+		.SetRadius(0.5f)
+		.SetOffset(0.0f,0.0f)
 		.Apply();
 
 	noa::TileCollider2D* tileCollider = 

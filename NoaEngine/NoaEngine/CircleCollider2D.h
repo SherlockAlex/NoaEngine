@@ -18,6 +18,7 @@ namespace noa {
 		CircleCollider2D& SetRigidbody(Rigidbody* rigidbody);
 		CircleCollider2D& SetRadius(float radius);
 		CircleCollider2D& SetIsTrigger(bool isTrigger);
+		CircleCollider2D& SetOffset(float x,float y);
 		CircleCollider2D* Apply();
 
 	};

@@ -1,16 +1,31 @@
 #include "NoaMath.h"
 #include "Time.h"
 
-const float noa::Math::Pi = PI;
+const float noa::Math::pi = PI;
 const float noa::Math::halfPi = HALFPI;
 const float noa::Math::doublePi = MUTIPI;
 
-float noa::Math::LinearLerp(float currentValue, float targetValue, float stepSpeed)
+float noa::Math::LinearLerp(float currentValue, float targetValue, float speed)
 {
-    if (currentValue>=targetValue) 
+
+    if (currentValue<targetValue) 
     {
-        return targetValue;
+        const float result = currentValue + speed * Time::deltaTime;
+        if (result >= targetValue)
+        {
+            return targetValue;
+        }
+        return result;
+    }
+    else if (currentValue>targetValue) 
+    {
+        const float result = currentValue - speed * Time::deltaTime;
+        if (result <= targetValue)
+        {
+            return targetValue;
+        }
+        return result;
     }
 
-    return currentValue + stepSpeed * Time::deltaTime;
+    return targetValue;
 }

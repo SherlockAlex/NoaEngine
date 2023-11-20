@@ -13,10 +13,10 @@
 
 namespace noa {
 
-	
 	class Button;
 	class Label;
 	class Image;
+	class ProcessBar;
 	class UIDocument;
 	class UIContainer;
 	class UIDocumentComponent;
@@ -69,8 +69,6 @@ namespace noa {
 		}
 
 	};
-	
-	
 
 	class UIComponent
 	{
@@ -79,16 +77,17 @@ namespace noa {
 		friend class UIContainer;
 		friend class UIDocumentComponent;
 	public:
+		std::string id = "ui_component";
 		UITransform transform;
 		UITransform globalTransform;
-		Vector<float> anchor = {0.5f,0.5f};
+		Vector<float> anchor = { 0.5f,0.5f };
 	protected:
 		UITransform fatherTransform;	// 父节点的绝对路径
 		UIComponent(UIContainer* canvas);
 		virtual ~UIComponent();
 
 	private:
-		void Delete(UIComponent *& ptr);
+		void Delete(UIComponent*& ptr);
 
 	protected:
 
@@ -98,7 +97,7 @@ namespace noa {
 
 	public:
 
-		void SetActive(bool active);
+		void SetActiveInContainer(bool active);
 		bool GetActive();
 	};
 
@@ -115,10 +114,29 @@ namespace noa {
 		void Display(UIContainer* container);
 		void Close();
 
-		UIContainer* GetContainerByID(const std::string& id);
-		Label* GetLabelByID(const std::string& id);
+		//UIContainer* GetContainerByID(const std::string& id);
+		template<class T>
+		T* GetElementByID(const std::string& id) 
+		{
+			for (auto& container : containerList)
+			{
+				if (!container)
+				{
+					continue;
+				}
+
+				T* temp = container->GetElementByID<T>(id);
+				if (temp)
+				{
+					return temp;
+				}
+			}
+			return nullptr;
+		}
+		/*Label* GetLabelByID(const std::string& id);
 		Image* GetImageByID(const std::string& id);
 		Button* GetButtonByID(const std::string& id);
+		ProcessBar* GetProcessBarByID(const std::string& id);*/
 
 	protected:
 		void UIDocumentStart();
@@ -134,20 +152,61 @@ namespace noa {
 		friend class UIDocument;
 	private:
 		UIContainer(UIDocument* canvas);
+		UIContainer(UIContainer* father);
 		~UIContainer();
 		void Delete(UIContainer*& ptr);
 	public:
 		static UIContainer* Create(UIDocument* canvas);
+		static UIContainer* Create(UIContainer* father);
 
 		UIContainer& SetID(const std::string& id);
 		UIContainer& SetPosition(int x, int y);
+		UIContainer& SetVisiable(bool value);
 		UIContainer* Apply();
 
-		Label* GetLabelByID(const std::string& id);
+		/*Label* GetLabelByID(const std::string& id);
 		Image* GetImageByID(const std::string& id);
 		Button* GetButtonByID(const std::string& id);
+		ProcessBar* GetProcessBarByID(const std::string& id);*/
+
+		template<class T>
+		T* GetElementByID(const std::string& id)
+		{
+
+			for (auto& element : uiComponent)
+			{
+				T* buffer = dynamic_cast<T*>(element);
+				if (buffer == nullptr || buffer->id != id)
+				{
+					continue;
+				}
+				return buffer;
+			}
+			return nullptr;
+		}
+
+		template<>
+		noa::UIContainer* GetElementByID(const std::string& id)
+		{
+
+			if (this->id == id) 
+			{
+				return this;
+			}
+
+			for (auto& element : subContainers)
+			{
+				if (element == nullptr || element->id != id)
+				{
+					continue;
+				}
+				return element;
+			}
+			return nullptr;
+		}
 
 		void AddUIComponent(UIComponent* component);
+		void AddUIContainer(UIContainer* container);
 		size_t GetGroupIndex();
 	private:
 		void Start();
@@ -156,10 +215,13 @@ namespace noa {
 	private:
 		bool visiable = false;
 		UITransform transform;
+		UITransform fatherTransform;
+		UITransform globalTransform;
 		std::vector<UIComponent*> uiComponent;
+		std::vector<UIContainer*> subContainers;
 		size_t index = 0;
 	public:
-		std::string id = "group";
+		std::string id = "container";
 
 	};
 
@@ -194,12 +256,17 @@ namespace noa {
 
 	};
 
-	
+	/**
+	* UI控件
+	* 按钮
+	* 图片
+	* 文字
+	* 进度条
+	*/
 
 	class Label :public UIComponent
 	{
 	public:
-		std::string id = "label";
 		std::wstring text = L"text";
 		uint32_t color = BLACK;
 		uint32_t size = 25;
@@ -219,6 +286,7 @@ namespace noa {
 		Label& SetID(const std::string & id);
 		Label& SetAnchor(float x,float y);
 		Label& SetColor(uint32_t color);
+		Label& SetActive(bool value);
 		Label& SetFontSize(uint32_t size);
 		Label& SetPosition(int x,int y);
 		Label& SetText(const std::wstring & text);
@@ -228,7 +296,6 @@ namespace noa {
 	
 	class Image :public UIComponent {
 	public:
-		std::string id = "image";
 		ImageStyle style = ImageStyle::DEFAULT;
 		uint32_t color = WHITE;
 		bool isFilpX = false;
@@ -250,6 +317,7 @@ namespace noa {
 		Image& SetID(const std::string& id);
 		Image& SetPosition(int x,int y);
 		Image& SetAnchor(float x,float y);
+		Image& SetActive(bool value);
 		Image& SetSize(int x,int y);
 		Image& SetStyle(ImageStyle style);
 		Image& SetSprite(Sprite * sprite);
@@ -263,7 +331,6 @@ namespace noa {
 	class Button :public UIComponent
 	{
 	public:
-		std::string id = "button";
 
 		//按键背景颜色
 		uint32_t normalColor = LIGHTGRAY;
@@ -327,6 +394,7 @@ namespace noa {
 		Button& SetClickColor(uint32_t color);
 		Button& SetPosition(int x,int y);
 		Button& SetAnchor(float x,float y);
+		Button& SetActive(bool value);
 		Button& SetSize(int w,int h);
 		Button& SetRadius(int value);
 		Button& SetTextOffset(float x,float y);
@@ -341,6 +409,52 @@ namespace noa {
 		Button& AddSelectedCallback(std::function<void()> func);
 		Button& AddClickCallback(std::function<void()> func);
 		Button* Apply();
+	};
+
+	//进度条
+	class ProcessBar :public UIComponent {
+	private:
+		ProcessBar(UIContainer* container);
+		~ProcessBar();
+
+		void UpdateRuntimeSprite();
+
+		void Start() override;
+		void Update() override;
+		void Render() override;
+
+	public:
+		static ProcessBar* Create(UIContainer* container);
+		ProcessBar& SetID(const std::string& id);
+		ProcessBar& SetActive(bool value);
+		ProcessBar& SetBackgroundColor(uint32_t color);
+		ProcessBar& SetFillColor(uint32_t color);
+		ProcessBar& SetFinishedCallback(std::function<void()> func);
+		ProcessBar& SetSize(int x,int y);
+		ProcessBar& SetAmount(float amount);
+		ProcessBar& SetRadius(int value);
+		ProcessBar& SetInteractable(bool value);
+		ProcessBar* Apply();
+
+		float GetValue();
+
+	private:
+		uint32_t backgroundColor = noa::BLACK;
+		uint32_t fillColor = noa::BLACK;
+
+		Image* background = nullptr;
+		Image* runtime = nullptr;
+
+		Sprite backgroundSprite;
+		Sprite runtimeSprite;
+
+		bool interactable = true;
+
+		NoaEvent<void> finishedEvent;
+		float amount = 0.0f;
+		float oldAmount = amount;
+		int radius = 0;
+		bool finished = false;
 	};
 }
 

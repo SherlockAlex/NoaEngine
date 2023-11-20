@@ -1,6 +1,34 @@
 #include "MainMenuDelegate.h"
 #include "ResourceManager.h"
 
+void LoadGameButtonClick() {
+	noa::sceneManager.LoadScene("Game");
+}
+
+void BackButtonClick() {
+	noa::UIDocument* document = 
+		noa::sceneManager.FindActorWithType<noa::UIDocumentActor>();
+
+	if (!document) 
+	{
+		return;
+	}
+	document->Close();
+}
+
+void ShowSecondContainerButtonClick() {
+	noa::UIDocument* document =
+		noa::sceneManager.FindActorWithType<noa::UIDocumentActor>();
+	if (!document) {
+		return;
+	}
+	document->Display(1);
+}
+
+void ProcessBarFinishedAction() {
+	noa::Debug::Log("this process is finished");
+}
+
 void MainMenuDelegate::OnLoad(noa::Scene* scene)
 {
 	noa::UIDocument* document = noa::UIDocumentActor::Create(scene);
@@ -9,6 +37,8 @@ void MainMenuDelegate::OnLoad(noa::Scene* scene)
 		->SetPosition(noa::Screen::width,noa::Screen::height/2)
 		.SetID("main_container")
 		.Apply();
+
+	document->Display(mainContainer);
 
 	noa::UIContainer* secondContainer = noa::UIContainer::Create(document)
 		->SetPosition(noa::Screen::width / 2, noa::Screen::height / 2)
@@ -26,7 +56,7 @@ void MainMenuDelegate::OnLoad(noa::Scene* scene)
 		.SetPosition(0,0)
 		.SetSize(240, 60)
 		.SetRadius(0)
-		.SetNormalColor(noa::RGBA(255,255,255,0))
+		.SetNormalColor(noa::RGBA(20,20,20,250))
 		.SetHeightLightColor(noa::RGBA(255,0,0,255))
 		.SetAnchor(1.0f,0.5f)
 		.SetTextOffset(-0.15f,0.0f)
@@ -36,28 +66,14 @@ void MainMenuDelegate::OnLoad(noa::Scene* scene)
 		.SetNormalScale(1.0f)
 		.SetHeightLightScale(1.1f)
 		.SetClickScale(0.9f)
-		.AddClickCallback(
-			[]()
-			{
-				noa::sceneManager.LoadScene("Game");
-			})
+		.AddClickCallback(LoadGameButtonClick)
 		.Apply();
 
-	auto openSecondGroup = []() {
-		noa::UIDocument* document =
-			noa::sceneManager.FindActorWithType<noa::UIDocumentActor>();
-
-		if (!document) {
-			return;
-		}
-
-		document->Display("second_container");
-	};
 	noa::Button* openButton = noa::Button::Create(mainContainer)
 		->SetText(L"ÓÎÏ·ÉèÖÃ")
 		.Clone(startButton)
 		.SetPosition(0, 70)
-		.AddClickCallback(openSecondGroup)
+		.AddClickCallback(ShowSecondContainerButtonClick)
 		.Apply();
 
 	noa::Button* quitButton = noa::Button::Create(mainContainer)
@@ -70,7 +86,7 @@ void MainMenuDelegate::OnLoad(noa::Scene* scene)
 
 	noa::Image* backgroundImage1 = noa::Image::Create(secondContainer)
 		->SetSprite(&ResourceManager::backgroundImage1)
-		.SetStyle(noa::ImageStyle::DEFAULT)
+		.SetStyle(noa::ImageStyle::COVER)
 		.SetSize(noa::Screen::width/1.5,noa::Screen::height/1.5)
 		.Apply();
 
@@ -81,18 +97,40 @@ void MainMenuDelegate::OnLoad(noa::Scene* scene)
 		.SetAnchor(0.5f,0.5f)
 		.SetRadius(50)
 		.SetTextOffset(0.0f,0.0f)
-		.AddClickCallback([]() {
-			noa::UIDocument* document =
-				noa::sceneManager.FindActorWithType<noa::UIDocumentActor>();
-
-			if (!document) {
-				return;
-			}
-
-			document->Close();
-
-		})
+		.AddClickCallback(BackButtonClick)
 		.Apply();
 
+
+	noa::ProcessBar* processBar = noa::ProcessBar::Create(secondContainer)
+		->SetSize(360,20)
+		.SetID("process_bar")
+		.SetAmount(0.5f)
+		.SetBackgroundColor(noa::RGBA(20,20,20,250))
+		.SetFillColor(noa::RGBA(255,255,255,255))
+		.SetRadius(50)
+		.SetInteractable(true)
+		.SetFinishedCallback(ProcessBarFinishedAction)
+		.Apply();
+
+	
+}
+
+void MainMenuDelegate::OnUpdate(noa::Scene* scene) 
+{
+	noa::UIDocument* document = 
+		noa::sceneManager.FindActorWithType<noa::UIDocumentActor>();
+
+	if (!document) {
+		return;
+	}
+	
+	noa::ProcessBar* processBar =
+		document->GetElementByID<noa::ProcessBar>("process_bar");
+
+	if (!processBar) 
+	{
+		return;
+	}
+	//noa::Debug::Log(std::to_string(processBar->GetValue()));
 
 }

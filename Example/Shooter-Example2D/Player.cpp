@@ -21,15 +21,13 @@ void Player::Start()
 static float timer = 0;
 void Player::Update() 
 {
-	rigid->velocity = {};
-	if (noa::Input::GetKeyHold(noa::KeyCode::KEY_W))
+	rigid->velocity.x = noa::Math::LinearLerp(rigid->velocity.x,0,50);
+	
+	if (noa::Input::GetKeyHold(noa::KeyCode::KEY_SPACE)) 
 	{
-		rigid->velocity.y = -15;
+		rigid->velocity.y = -15.0f;
 	}
-	if(noa::Input::GetKeyHold(noa::KeyCode::KEY_S))
-	{
-		rigid->velocity.y = 15;
-	}
+
 	if (noa::Input::GetKeyHold(noa::KeyCode::KEY_A))
 	{
 		rigid->velocity.x = -15;
@@ -46,7 +44,8 @@ void Player::Update()
 		this->transform.eulerAngle += 100*noa::Time::deltaTime;
 	}*/
 
-	if (noa::Input::GetMouseKeyHold(noa::MouseButton::LEFT_BUTTON))
+	timer += noa::Time::deltaTime;
+	if (noa::Input::GetMouseKeyHold(noa::MouseButton::LEFT_BUTTON)&&timer>0.1f)
 	{
 		Bullet* bullet = bulletPool->Request();
 		bullet->transform.position = this->transform.position;
@@ -59,7 +58,7 @@ void Player::Update()
 		
 		bullet->SetDirection(direction.x,direction.y);
 
-
+		timer = 0.0f;
 
 	}
 

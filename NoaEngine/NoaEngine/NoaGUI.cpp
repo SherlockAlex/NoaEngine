@@ -175,28 +175,25 @@ void noa::UIDocument::AddUIContainer(UIContainer* container)
 		return;
 	}
 	container->index = containerList.size();
+	container->SetVisiable(true);
 	this->containerList.push_back(container);
-	if (containerStack.empty())
-	{
-		Display(container->index);
-	}
 
 }
 
 void noa::UIDocument::Display(size_t index)
 {
-	if (index >= containerList.size()
-		|| containerList[index] == nullptr)
+	if (index >= containerList.size()|| containerList[index] == nullptr)
 	{
 		return;
 	}
-	containerList[index]->visiable = true;
+	
+	containerList[index]->SetVisiable(true);
 	this->containerStack.push(containerList[index]);
 }
 
 void noa::UIDocument::Display(const std::string& id)
 {
-	UIContainer* container = this->GetContainerByID(id);
+	UIContainer* container = this->GetElementByID<UIContainer>(id);
 	if (!container)
 	{
 		return;
@@ -210,80 +207,99 @@ void noa::UIDocument::Display(noa::UIContainer* container)
 	{
 		return;
 	}
+	
 	Display(container->GetGroupIndex());
 }
 
 void noa::UIDocument::Close() {
-	if (containerStack.size()<=1)
+	if (containerStack.empty())
 	{
 		return;
 	}
-	containerStack.top()->visiable = false;
+	containerStack.top()->SetVisiable(false);
 	containerStack.pop();
 }
 
-noa::UIContainer* noa::UIDocument::GetContainerByID(const std::string& id)
-{
-	for (auto& container : containerList)
-	{
-		if (container && container->id == id)
-		{
-			return container;
-		}
-	}
-	return nullptr;
-}
+//noa::UIContainer* noa::UIDocument::GetContainerByID(const std::string& id)
+//{
+//	for (auto& container : containerList)
+//	{
+//		if (container && container->id == id)
+//		{
+//			return container;
+//		}
+//	}
+//	return nullptr;
+//}
 
-noa::Label* noa::UIDocument::GetLabelByID(const std::string& id)
-{
-	for (auto& container : containerList)
-	{
-		if (!container)
-		{
-			continue;
-		}
-		noa::Label* temp = container->GetLabelByID(id);
-		if (temp) 
-		{
-			return temp;
-		}
-	}
-	return nullptr;
-}
-
-noa::Image* noa::UIDocument::GetImageByID(const std::string& id)
-{
-	for (auto& container : containerList)
-	{
-		if (!container)
-		{
-			continue;
-		}
-		noa::Image* temp = container->GetImageByID(id);
-		if (temp)
-		{
-			return temp;
-		}
-	}
-	return nullptr;
-}
-
-noa::Button* noa::UIDocument::GetButtonByID(const std::string& id)
-{
-	for (auto& container : containerList)
-	{
-		if (!container)
-		{
-			continue;
-		}
-		noa::Button* temp = container->GetButtonByID(id);
-		if (temp)
-		{
-			return temp;
-		}
-	}
-	return nullptr;
-}
+//noa::Label* noa::UIDocument::GetLabelByID(const std::string& id)
+//{
+//	for (auto& container : containerList)
+//	{
+//		if (!container)
+//		{
+//			continue;
+//		}
+//		noa::Label* temp = container->GetLabelByID(id);
+//		if (temp) 
+//		{
+//			return temp;
+//		}
+//	}
+//	return nullptr;
+//}
+//
+//noa::Image* noa::UIDocument::GetImageByID(const std::string& id)
+//{
+//	for (auto& container : containerList)
+//	{
+//		if (!container)
+//		{
+//			continue;
+//		}
+//		noa::Image* temp = container->GetImageByID(id);
+//		if (temp)
+//		{
+//			return temp;
+//		}
+//	}
+//	return nullptr;
+//}
+//
+//noa::Button* noa::UIDocument::GetButtonByID(const std::string& id)
+//{
+//	for (auto& container : containerList)
+//	{
+//		if (!container)
+//		{
+//			continue;
+//		}
+//		noa::Button* temp = container->GetButtonByID(id);
+//		if (temp)
+//		{
+//			return temp;
+//		}
+//	}
+//	return nullptr;
+//}
+//
+//noa::ProcessBar* noa::UIDocument::GetProcessBarByID(
+//	const std::string& id) 
+//{
+//	for (auto& container : containerList)
+//	{
+//		if (!container)
+//		{
+//			continue;
+//		}
+//		noa::ProcessBar* temp = container->GetProcessBarByID(id);
+//		if (temp)
+//		{
+//			return temp;
+//		}
+//	}
+//	return nullptr;
+//}
 
 void noa::UIDocument::UIDocumentStart() {
 	
@@ -321,6 +337,16 @@ noa::UIContainer::UIContainer(UIDocument* document)
 	{
 		document->AddUIContainer(this);
 	}
+	this->SetVisiable(false);
+}
+
+noa::UIContainer::UIContainer(UIContainer* father) 
+{
+	if (father)
+	{
+		father->AddUIContainer(this);
+	}
+	this->SetVisiable(false);
 }
 
 noa::UIContainer::~UIContainer() {
@@ -349,9 +375,19 @@ noa::UIContainer* noa::UIContainer::Create(noa::UIDocument* document)
 		return nullptr;
 	}
 
-	UIContainer* group = new UIContainer(document);
-	return group;
+	UIContainer* container = new UIContainer(document);
+	return container;
 
+}
+
+noa::UIContainer* noa::UIContainer::Create(noa::UIContainer* father) 
+{
+	if (father == nullptr)
+	{
+		return nullptr;
+	}
+	UIContainer* container = new UIContainer(father);
+	return container;
 }
 
 void noa::UIContainer::Delete(UIContainer*& ptr)
@@ -373,48 +409,67 @@ noa::UIContainer& noa::UIContainer::SetPosition(int x,int y)
 	return *this;
 }
 
+noa::UIContainer& noa::UIContainer::SetVisiable(bool value) 
+{
+	this->visiable = value;
+	return *this;
+}
+
 noa::UIContainer* noa::UIContainer::Apply() {
 	return this;
 }
 
-noa::Label* noa::UIContainer::GetLabelByID(const std::string& id)
-{
-	for (auto& component:uiComponent) 
-	{
-		noa::Label* temp = dynamic_cast<noa::Label*>(component);
-		if (temp&&temp->id == id) 
-		{
-			return temp;
-		}
-	}
-	return nullptr;
-}
-
-noa::Image* noa::UIContainer::GetImageByID(const std::string& id)
-{
-	for (auto& component : uiComponent)
-	{
-		noa::Image* temp = dynamic_cast<noa::Image*>(component);
-		if (temp && temp->id == id)
-		{
-			return temp;
-		}
-	}
-	return nullptr;
-}
-
-noa::Button* noa::UIContainer::GetButtonByID(const std::string& id)
-{
-	for (auto& component : uiComponent)
-	{
-		noa::Button* temp = dynamic_cast<noa::Button*>(component);
-		if (temp && temp->id == id)
-		{
-			return temp;
-		}
-	}
-	return nullptr;
-}
+//noa::Label* noa::UIContainer::GetLabelByID(const std::string& id)
+//{
+//	for (auto& component:uiComponent) 
+//	{
+//		noa::Label* temp = dynamic_cast<noa::Label*>(component);
+//		if (temp&&temp->id == id) 
+//		{
+//			return temp;
+//		}
+//	}
+//	return nullptr;
+//}
+//
+//noa::Image* noa::UIContainer::GetImageByID(const std::string& id)
+//{
+//	for (auto& component : uiComponent)
+//	{
+//		noa::Image* temp = dynamic_cast<noa::Image*>(component);
+//		if (temp && temp->id == id)
+//		{
+//			return temp;
+//		}
+//	}
+//	return nullptr;
+//}
+//
+//noa::Button* noa::UIContainer::GetButtonByID(const std::string& id)
+//{
+//	for (auto& component : uiComponent)
+//	{
+//		noa::Button* temp = dynamic_cast<noa::Button*>(component);
+//		if (temp && temp->id == id)
+//		{
+//			return temp;
+//		}
+//	}
+//	return nullptr;
+//}
+//
+//noa::ProcessBar* noa::UIContainer::GetProcessBarByID(
+//	const std::string& id) {
+//	for (auto& component : uiComponent)
+//	{
+//		noa::ProcessBar* temp = dynamic_cast<noa::ProcessBar*>(component);
+//		if (temp && temp->id == id)
+//		{
+//			return temp;
+//		}
+//	}
+//	return nullptr;
+//}
 
 void noa::UIContainer::AddUIComponent(UIComponent* component)
 {
@@ -422,8 +477,20 @@ void noa::UIContainer::AddUIComponent(UIComponent* component)
 	{
 		return;
 	}
-	component->SetActive(true);
+	component->SetActiveInContainer(true);
 	uiComponent.push_back(component);
+}
+
+void noa::UIContainer::AddUIContainer(UIContainer* container) 
+{
+	if (container == nullptr) 
+	{
+		return;
+	}
+
+	container->SetVisiable(true);
+	subContainers.push_back(container);
+
 }
 
 size_t noa::UIContainer::GetGroupIndex() {
@@ -442,29 +509,64 @@ void noa::UIContainer::Start() {
 
 void noa::UIContainer::Update()
 {
+
+	globalTransform.position = fatherTransform.position + transform.position;
 	//显示背景
-	for (auto& component : uiComponent)
+	
+	if (!visiable) 
 	{
-		if (component == nullptr || !component->GetActive())
+		return;
+	}
+
+	for (auto& container:subContainers) 
+	{
+		if (container == nullptr||!container->visiable) 
 		{
 			continue;
 		}
-		component->fatherTransform = this->transform;
+		container->fatherTransform = this->globalTransform;
+		container->Update();
+	}
+
+	for (auto& component : uiComponent)
+	{
+		if (component == nullptr || !component->active)
+		{
+			continue;
+		}
+		component->fatherTransform = this->globalTransform;
 		component->Update();
 	}
 }
 
 void noa::UIContainer::Render() {
-	//显示背景
-	for (auto& component : uiComponent)
+
+	if (!visiable)
 	{
-		if (component == nullptr || !component->GetActive())
+		return;
+	}
+
+	//显示背景
+	for (auto& container : subContainers)
+	{
+		if (container == nullptr || !container->visiable)
 		{
 			continue;
 		}
-		component->fatherTransform = this->transform;
+		container->fatherTransform = this->globalTransform;
+		container->Render();
+	}
+
+	for (auto& component : uiComponent)
+	{
+		if (component == nullptr || !component->active)
+		{
+			continue;
+		}
+		component->fatherTransform = this->globalTransform;
 		component->Render();
 	}
+
 }
 
 noa::UIDocumentActor::UIDocumentActor(Scene* scene) :Actor(scene), UIDocument()
@@ -533,7 +635,7 @@ void noa::UIComponent::Delete(UIComponent*& ptr)
 	ptr = nullptr;
 }
 
-void noa::UIComponent::SetActive(bool active)
+void noa::UIComponent::SetActiveInContainer(bool active)
 {
 	this->active = active;
 }
@@ -575,6 +677,12 @@ noa::Label& noa::Label::SetAnchor(float x,float y)
 noa::Label& noa::Label::SetColor(uint32_t color) 
 {
 	this->color = color;
+	return *this;
+}
+
+noa::Label& noa::Label::SetActive(bool value) 
+{
+	UIComponent::SetActiveInContainer(value);
 	return *this;
 }
 
@@ -666,6 +774,12 @@ noa::Image& noa::Image::SetAnchor(float x,float y)
 {
 	this->anchor.x = x;
 	this->anchor.y = y;
+	return *this;
+}
+
+noa::Image& noa::Image::SetActive(bool value)
+{
+	UIComponent::SetActiveInContainer(value);
 	return *this;
 }
 
@@ -819,8 +933,8 @@ void noa::Button::SwapState()
 	globalTransform.position.y = posY;
 
 	isClickReady = false;
-	if (mousePosX > posX && mousePosX<posX + transform.size.x
-		&& mousePosY>posY && mousePosY < posY + transform.size.y
+	if (mousePosX >= posX && mousePosX<=posX + transform.size.x
+		&& mousePosY>=posY && mousePosY <= posY + transform.size.y
 		)
 	{
 		isSelect = true;//进入到被高亮状态
@@ -883,7 +997,7 @@ void noa::Button::Update()
 
 void noa::Button::Render() {
 
-	const float lerpSpeed = 1;
+	const float lerpSpeed = 2.0f;
 	currentScale = noa::Math::LinearLerp(
 		currentScale
 		,targetScale
@@ -967,6 +1081,12 @@ noa::Button& noa::Button::SetAnchor(float x,float y)
 	return *this;
 }
 
+noa::Button& noa::Button::SetActive(bool value)
+{
+	UIComponent::SetActiveInContainer(value);
+	return *this;
+}
+
 noa::Button& noa::Button::SetSize(int w,int h) 
 {
 	this->transform.size.x = w;
@@ -975,14 +1095,9 @@ noa::Button& noa::Button::SetSize(int w,int h)
 	this->currentSize.x = static_cast<float>(transform.size.x);
 	this->currentSize.y = static_cast<float>(transform.size.y);
 
-	SpriteFile spriteFile;
-	spriteFile.width = w;
-	spriteFile.height = h;
-	spriteFile.images.resize(spriteFile.width * spriteFile.height, noa::RGBA(255, 255, 255, 255));
-	
 	this->sprite.size.x = w;
 	this->sprite.size.y = h;
-	this->sprite.UpdateImage(spriteFile);
+	this->sprite.ResizeAndFull(w,h, noa::RGBA(255, 255, 255, 255));
 
 	return *this;
 }
@@ -991,17 +1106,9 @@ noa::Button& noa::Button::SetRadius(int value)
 {
 	//四个角的半径
 
+	this->sprite.Full(noa::RGBA(255, 255, 255, 255));
 	if (value<=0) 
 	{
-		SpriteFile spriteFile;
-		spriteFile.width = transform.size.x;
-		spriteFile.height = transform.size.y;
-		spriteFile.images.resize(spriteFile.width * spriteFile.height, noa::RGBA(255, 255, 255, 255));
-
-		this->sprite.size.x = transform.size.x;
-		this->sprite.size.y = transform.size.y;
-		this->sprite.UpdateImage(spriteFile);
-
 		radius = 0;
 		return *this;
 	}
@@ -1158,6 +1265,296 @@ noa::Button& noa::Button::AddClickCallback(
 
 noa::Button* noa::Button::Apply() {
 	return this;
+}
+
+noa::ProcessBar::ProcessBar(noa::UIContainer* container)
+	:noa::UIComponent(container)
+{
+	background = noa::Image::Create(container);
+	runtime = noa::Image::Create(container);
+
+	SetSize(360, 20);
+
+}
+
+noa::ProcessBar::~ProcessBar() {
+
+}
+
+void noa::ProcessBar::UpdateRuntimeSprite() {
+	//首先计算x进度
+	const int targetX = static_cast<int>(amount * transform.size.x);
+	runtimeSprite.Full(noa::RGBA(0, 0, 0, 0));
+	for (int x = 0; x < targetX; x++)
+	{
+		for (int y = 0; y < runtimeSprite.h; y++)
+		{
+			runtimeSprite.SetPixelColor(
+				x, y
+				, noa::RGBA(255, 255, 255, 255));
+		}
+	}
+}
+
+void noa::ProcessBar::Start() {
+	
+}
+
+void noa::ProcessBar::Update() 
+{
+
+	const int posX = static_cast<int>(transform.position.x + fatherTransform.position.x - anchor.x * transform.size.x);
+	const int posY = static_cast<int>(transform.position.y + fatherTransform.position.y - anchor.y * transform.size.y);
+
+	//通常状态
+	globalTransform.position.x = posX;
+	globalTransform.position.y = posY;
+
+	
+
+	//交互
+	//获取鼠标的位置和自己当前的global位置
+
+	if (interactable
+		&&Input::GetMouseKeyHold(noa::MouseButton::LEFT_BUTTON)) 
+	{
+		Vector<double> mousePos = Input::GetMousePosition();
+		const int mousePosX = static_cast<int>(mousePos.x);
+		const int mousePosY = static_cast<int>(mousePos.y);
+		if (mousePosX >= posX-10 && mousePosX<=posX + transform.size.x+10
+		&& mousePosY>=posY-5 && mousePosY <= posY + transform.size.y+5
+		) 
+		{
+			//鼠标在范围内
+			const float deltaX = static_cast<float>(mousePosX - posX);
+			amount = deltaX / transform.size.x;
+			if (amount<=0.0f)
+			{
+				amount = 0.0f;
+			}
+			else if(amount>=1.0f){
+				amount = 1.0f;
+			}
+		}
+
+	}
+
+	if (amount >= 1.0f)
+	{
+		amount = 1.0f;
+		if (!finished)
+		{
+			finishedEvent();
+			finished = true;
+		}
+	}
+	else if (amount < 1.0f)
+	{
+		finished = false;
+	}
+
+	//更新数据
+	if (oldAmount == amount) 
+	{
+		return;
+	}
+
+	UpdateRuntimeSprite();
+	SetRadius(radius);
+
+	runtime->SetSprite(&runtimeSprite);
+	oldAmount = amount;
+
+}
+
+void noa::ProcessBar::Render() {
+	//绘制
+
+	background->anchor = anchor;
+	background->transform.position = transform.position;
+	background->transform.size = transform.size;
+	background->color = backgroundColor;
+
+	runtime->anchor = anchor;
+	runtime->transform.position = transform.position;
+	runtime->transform.size = transform.size;
+	runtime->color = fillColor;
+
+}
+
+noa::ProcessBar* noa::ProcessBar::Create(
+	noa::UIContainer* container) 
+{
+	return new noa::ProcessBar(container);
+}
+
+noa::ProcessBar& noa::ProcessBar::SetID(const std::string& id)
+{
+	this->id = id;
+	return *this;
+}
+
+noa::ProcessBar& noa::ProcessBar::SetActive(bool value) 
+{
+	noa::UIComponent::SetActiveInContainer(value);
+	return *this;
+}
+
+noa::ProcessBar& noa::ProcessBar::SetBackgroundColor(
+	uint32_t color)
+{
+	this->backgroundColor = color;
+	this->backgroundSprite.Full(color);
+	background->SetSprite(&backgroundSprite);
+	return *this;
+}
+
+noa::ProcessBar& noa::ProcessBar::SetFillColor(
+	uint32_t color) {
+	this->fillColor = color;
+	return *this;
+}
+
+noa::ProcessBar& noa::ProcessBar::SetFinishedCallback(
+	std::function<void()> func)
+{
+	this->finishedEvent += func;
+	return *this;
+}
+
+noa::ProcessBar& noa::ProcessBar::SetSize(int x,int y) 
+{
+	transform.size.x = x;
+	transform.size.y = y;
+
+	backgroundSprite.w = x;
+	backgroundSprite.h = y;
+	backgroundSprite.ResizeAndFull(x,y,noa::RGBA(255,255,255,255));
+	
+	runtimeSprite.w = x;
+	runtimeSprite.h = y;
+	runtimeSprite.ResizeAndFull(x, y, noa::RGBA(0,0,0,0));
+
+	background->SetSprite(&backgroundSprite);
+	runtime->SetSprite(&runtimeSprite);
+
+	return *this;
+
+}
+
+noa::ProcessBar& noa::ProcessBar::SetAmount(float amount) 
+{
+	this->amount = amount;
+	return *this;
+}
+
+noa::ProcessBar& noa::ProcessBar::SetRadius(int value)
+{
+	//四个角的半径
+
+	this->backgroundSprite.Full(noa::RGBA(255,255,255,255));
+	this->UpdateRuntimeSprite();
+	if (value <= 0)
+	{
+		radius = 0;
+		return *this;
+	}
+
+	const int maxValue = (backgroundSprite.w < backgroundSprite.h) ? (backgroundSprite.w / 2) : (backgroundSprite.h / 2);
+	radius = value;
+	if (radius > maxValue)
+	{
+		radius = maxValue;
+	}
+
+	const int x1 = radius;
+	const int x2 = backgroundSprite.w - radius;
+	const int y1 = radius;
+	const int y2 = backgroundSprite.h - radius;
+
+	const int sqrRadius = (radius) * (radius);
+
+	//左上角
+	for (int x = 0; x < radius; x++)
+	{
+		for (int y = 0; y < radius; y++)
+		{
+			const int deltaX = x - x1;
+			const int deltaY = y - y1;
+
+			if (deltaX * deltaX + deltaY * deltaY > sqrRadius) {
+				backgroundSprite.SetPixelColor(x, y, RGBA(0, 0, 0, 0));
+				runtimeSprite.SetPixelColor(x, y, RGBA(0, 0, 0, 0));
+			}
+		}
+	}
+
+	//左下角
+	for (int x = 0; x < radius; x++)
+	{
+		for (int y = y2; y < backgroundSprite.h; y++)
+		{
+			const int deltaX = x - x1;
+			const int deltaY = y - y2;
+
+			if (deltaX * deltaX + deltaY * deltaY > sqrRadius) {
+				backgroundSprite.SetPixelColor(x, y, RGBA(0, 0, 0, 0));
+				runtimeSprite.SetPixelColor(x, y, RGBA(0, 0, 0, 0));
+			}
+		}
+	}
+
+	//右下角
+	for (int x = x2; x < backgroundSprite.w; x++)
+	{
+		for (int y = y2; y < backgroundSprite.h; y++)
+		{
+			const int deltaX = x - x2;
+			const int deltaY = y - y2;
+
+			if (deltaX * deltaX + deltaY * deltaY > sqrRadius) {
+				backgroundSprite.SetPixelColor(x, y, RGBA(0, 0, 0, 0));
+				runtimeSprite.SetPixelColor(x, y, RGBA(0, 0, 0, 0));
+
+			}
+		}
+	}
+
+	//右上角
+	for (int x = x2; x < backgroundSprite.w; x++)
+	{
+		for (int y = 0; y < radius; y++)
+		{
+			const int deltaX = x - x2;
+			const int deltaY = y - y1;
+
+			if (deltaX * deltaX + deltaY * deltaY > sqrRadius)
+			{
+
+				backgroundSprite.SetPixelColor(x, y, RGBA(0, 0, 0, 0));
+				runtimeSprite.SetPixelColor(x, y, RGBA(0, 0, 0, 0));
+			}
+		}
+	}
+
+	background->SetSprite(&backgroundSprite);
+	runtime->SetSprite(&runtimeSprite);
+
+	return *this;
+}
+
+noa::ProcessBar& noa::ProcessBar::SetInteractable(bool interactable)
+{
+	this->interactable = interactable;
+	return *this;
+}
+
+noa::ProcessBar* noa::ProcessBar::Apply() {
+	return this;
+}
+
+float noa::ProcessBar::GetValue() {
+	return this->amount;
 }
 
 

@@ -33,6 +33,13 @@ noa::CircleCollider2D& noa::CircleCollider2D::SetIsTrigger(bool isTrigger)
 	return *this;
 }
 
+noa::CircleCollider2D& noa::CircleCollider2D::SetOffset(float x,float y) 
+{
+	this->offset.x = x;
+	this->offset.y = y;
+	return *this;
+}
+
 noa::CircleCollider2D* noa::CircleCollider2D::Apply()
 {
 	return this;

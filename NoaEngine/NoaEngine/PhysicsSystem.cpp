@@ -147,10 +147,10 @@ void noa::PhysicsSystem::SolveCollision(Collider2D* obj1, Collider2D* obj2)
 
 		const float sumRadius = collider1->radius + collider2->radius;
 
-		const float x1 = rigid1->newPosition.x;
-		const float y1 = rigid1->newPosition.y;
-		const float x2 = rigid2->newPosition.x;
-		const float y2 = rigid2->newPosition.y;
+		const float x1 = rigid1->newPosition.x + obj1->offset.x;
+		const float y1 = rigid1->newPosition.y + obj1->offset.y;
+		const float x2 = rigid2->newPosition.x + obj2->offset.x;
+		const float y2 = rigid2->newPosition.y + obj2->offset.y;
 
 		const float deltaX = (x1 - x2);
 		const float deltaY = (y1 - y2);
@@ -181,7 +181,7 @@ void noa::PhysicsSystem::SolveCollision(Collider2D* obj1, Collider2D* obj2)
 		
 		//计算接触力
 
-		float beta = 125.0f;//太小，扰动越明显，太大或剧烈跳动
+		float beta = 100;//太小，扰动越明显，太大或剧烈跳动
 
 		const Vector<float> constraintImpulse1 = {
 			 beta*fixX
@@ -334,11 +334,14 @@ bool noa::PhysicsSystem::CircleCollide(CircleCollider2D* obj1, CircleCollider2D*
 		return false;
 	}
 
-	const float deltaX = obj1->rigidbody->newPosition.x
-		- obj2->rigidbody->newPosition.x;
+	Rigidbody* rigid1 = obj1->rigidbody;
+	Rigidbody* rigid2 = obj2->rigidbody;
 
-	const float deltaY = obj1->rigidbody->newPosition.y
-		- obj2->rigidbody->newPosition.y;
+	const float deltaX = rigid1->newPosition.x + obj1->offset.x
+		- rigid2->newPosition.x - obj2->offset.x;
+
+	const float deltaY = rigid1->newPosition.y + obj1->offset.y
+		- rigid2->newPosition.y - obj2->offset.y;
 
 	const float deltaR = obj1->radius + obj2->radius;
 

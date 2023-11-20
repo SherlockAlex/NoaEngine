@@ -15,21 +15,15 @@ namespace noa
 	};
 
 	class Rigidbody;
-	class Collider2D:public ActorComponent
+	class Collider2D :public ActorComponent
 	{
-	protected:
-		friend class PhysicsSystem;
-		friend class Rigidbody;
-
-		Rigidbody* rigidbody = nullptr;
-		ColliderType colliderType;
-	public:
-		bool isTrigger = false;
+	
 	protected:
 		Collider2D(Actor* actor);
 		virtual ~Collider2D() override;
 		void ApplyTriggerEnter(Collider2D& other);
 		virtual void Update() override;
+		void SetRigidbody(Rigidbody* rigidbody);
 	public:
 
 		template<class T>
@@ -38,8 +32,14 @@ namespace noa
 		}
 
 	protected:
-		void SetRigidbody(Rigidbody * rigidbody);
-		
+		friend class PhysicsSystem;
+		friend class Rigidbody;
+
+		Rigidbody* rigidbody = nullptr;
+		ColliderType colliderType;
+	public:
+		bool isTrigger = false;
+		Vector<float> offset;
 	};
 
 	typedef struct Cell {

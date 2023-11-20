@@ -4,6 +4,7 @@
 #include "SDLHelper.h"
 #include "NoaMath.h"
 #include "Graphic.h"
+#include "NoaAction.h"
 
 #include <unordered_map>
 #include <memory>

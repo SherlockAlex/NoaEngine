@@ -156,28 +156,16 @@ namespace noa {
 	};
 }
 
-//template <typename KeyType, typename ValueType>
-//inline bool ContainKey(const std::unordered_map<KeyType, ValueType>& myMap, const KeyType& keyToCheck) 
-//{
-//	return myMap.count(keyToCheck) > 0;
-//}
-//
-//template <typename KeyType, typename ValueType>
-//inline bool ContainKey(const std::map<KeyType, ValueType>& myMap, const KeyType& keyToCheck)
-//{
-//	return myMap.count(keyToCheck) > 0;
-//}
-
 namespace noa
 {
 	class Math
 	{
 	public:
-		static const float Pi;
+		static const float pi;
 		static const float halfPi;
 		static const float doublePi;
 
-		static float LinearLerp(float currentValue,float targetValue,float stepSpeed);
+		static float LinearLerp(float currentValue,float targetValue,float speed);
 
 	};
 }

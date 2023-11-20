@@ -93,6 +93,21 @@ std::vector<uint32_t> noa::Sprite::GetImage()
 	return this->image;
 }
 
+void noa::Sprite::ResizeAndFull(int w,int h,uint32_t color) 
+{
+	this->w = w;
+	this->h = h;
+	this->image.resize(w*h,color);
+}
+
+void noa::Sprite::Full(uint32_t color) 
+{
+	for (int i = 0;i<w*h;i++) 
+	{
+		image[i] = color;
+	}
+}
+
 void noa::Sprite::UpdateImage(const SpriteFile& image)
 {
 	this->posx = image.x;
