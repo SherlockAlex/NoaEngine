@@ -15,7 +15,7 @@ Shooter::Shooter()
 
 	noa::Scene* gameScene = noa::sceneManager.CreateScene("Game");
 	gameScene->onLoad += GameDelegate::OnLoad;
-	gameScene->onUpdate += GameDelegate::OnUpdate;
+	gameScene->onTick += GameDelegate::OnTick;
 
 	noa::sceneManager.LoadScene("MainMenu");
 

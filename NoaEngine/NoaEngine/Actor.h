@@ -177,6 +177,8 @@ namespace noa {
 		void ComponentOnDestroy();
 		void DestroyComponent();
 
+		void ComponentRender();
+
 		void SetComponentActive(bool value);
 		void Delete(Actor*& ptr);
 

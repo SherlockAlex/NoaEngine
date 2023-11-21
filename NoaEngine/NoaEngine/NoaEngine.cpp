@@ -118,7 +118,8 @@ void noa::NoaEngine::EngineThread()
 	{
 		tp2 = std::chrono::system_clock::now();
 		elapsedTime = tp2 - tp1;
-		Time::deltaTime = Time::timeScale * elapsedTime.count();
+		Time::realDeltaTime = elapsedTime.count();
+		Time::deltaTime = Time::timeScale * Time::realDeltaTime;
 
 		Time::time += Time::deltaTime;
 		if (Time::time > 2 * PI)

@@ -42,7 +42,7 @@ namespace noa {
 
 		SpriteRenderer* Apply();
 
-		void Update() override;
+		void Render() override;
 
 	public:
 		Vector<bool> isFlip = {false,false};

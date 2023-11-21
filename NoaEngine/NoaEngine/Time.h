@@ -5,6 +5,7 @@ namespace noa {
 	class Time
 	{
 	public:
+		static float realDeltaTime;
 		static float deltaTime;
 		static float timeScale;
 		static float time;

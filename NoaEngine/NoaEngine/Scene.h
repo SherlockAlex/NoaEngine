@@ -1,6 +1,7 @@
 #ifndef NOAENGINE_SCENE_H
 #define NOAENGINE_SCENE_H
 
+#include <stack>
 #include <iostream>
 #include <vector>
 #include <utility>
@@ -112,17 +113,19 @@ namespace noa {
 		bool IsCollisionTile(const int x,const int y) const;
 	};
 
+	//有点抽象就是
+
 	class Scene final
 	{
-	//一个场景只有一个level
-	//但是一般来说开发者并不知道这件事
-	//所以怎么管理Level是一个问题
 	private:
 		friend class SceneManager;
 	private:
 		std::string name = "Scene";
 		std::vector<Actor*> actors;
 		std::vector<Camera*> cameras;
+
+		std::map<std::string, Scene*> sceneChildren;
+		std::stack<noa::Scene*> sceneStack;
 
 		int mainCameraIndex = -1;
 
@@ -131,14 +134,19 @@ namespace noa {
 	private:
 		Scene(const std::string & name);
 		virtual ~Scene();
-
 	public:
 		NoaEvent<Scene*> onLoad;
 		NoaEvent<Scene*> onStart;
 		NoaEvent<Scene*> onUpdate;
+		NoaEvent<Scene*> onTick;
 		NoaEvent<Scene*> onUnload;
 
 	public:
+
+		Scene* CreateChild(const std::string& name);
+		void ActiveSceneChild(const std::string& name);
+		void CloseSceneChild();
+
 		Level* GetLevel();
 		void SetLevel(Level* map);
 		void AddCamera(Camera* camera);
@@ -152,9 +160,78 @@ namespace noa {
 		}
 
 	private:
-
+		void AddSceneChild(noa::Scene* scene);
+		
 		Actor* FindActorWithTag(const std::string& tag);
 		std::vector<Actor*> FindActorsWithTag(const std::string& tag);
+
+		template<class T>
+		std::vector<T*> FindActorsWithType() {
+			std::vector<T*> results;
+			for (auto& actor : this->actors)
+			{
+				if (actor == nullptr
+					|| !actor->GetActive()
+					|| actor->isRemoved
+					)
+				{
+					continue;
+				}
+				T* buffer = dynamic_cast<T*>(actor);
+				if (buffer != nullptr)
+				{
+					results.push_back(buffer);
+				}
+
+				for (auto& child:sceneChildren) 
+				{
+					std::vector<T*> childResults = child.second->FindActorsWithType<T>();
+					for (auto& childResult:childResults) 
+					{
+						results.push_back(childResult);
+					}
+				}
+
+			}
+			return results;
+		}
+
+		template<class T>
+		T* FindActorWithType() {
+			T* buffer = nullptr;
+
+			for (auto& actor : this->actors)
+			{
+				if (actor == nullptr
+					|| !actor->GetActive()
+					|| actor->isRemoved)
+				{
+					continue;
+				}
+				buffer = dynamic_cast<T*>(actor);
+				if (buffer != nullptr)
+				{
+					break;
+				}
+			}
+
+			if (buffer != nullptr) 
+			{
+				return buffer;
+			}
+
+			for (auto& child:sceneChildren) 
+			{
+				buffer = child.second->FindActorWithType<T>();
+				if (buffer!=nullptr) 
+				{
+					break;
+				}
+			}
+
+			return buffer;
+
+		}
 
 	private:
 		void ApplyCamera();
@@ -162,7 +239,13 @@ namespace noa {
 		void ActorUpdate();
 		void DestoyScene();
 
-		void Delete();
+		void Delete(noa::Scene*& ptr);
+
+		void SceneChildOnLoad();
+		void SceneChildOnStart();
+		void SceneChildRender();
+		void SceneChildOnUpdate();
+		void SceneChildOnTick();
 
 	};
 
@@ -191,22 +274,7 @@ namespace noa {
 			{
 				return results;
 			}
-
-			for (auto & actor:this->activeScene->actors) 
-			{
-				if (actor == nullptr
-					||!actor->GetActive()
-					||actor->isRemoved
-					)
-				{
-					continue;
-				}
-				T* buffer = dynamic_cast<T*>(actor);
-				if (buffer!=nullptr)
-				{
-					results.push_back(buffer);
-				}
-			}
+			results = this->activeScene->FindActorsWithType<T>();
 			return results;
 
 		}
@@ -217,22 +285,7 @@ namespace noa {
 			{
 				return nullptr;
 			}
-			T* buffer = nullptr;
-			for (auto& actor : this->activeScene->actors)
-			{
-				if (actor == nullptr
-					|| !actor->GetActive()
-					|| actor->isRemoved)
-				{
-					continue;
-				}
-				buffer = dynamic_cast<T*>(actor);
-				if (buffer != nullptr)
-				{
-					break;
-				}
-			}
-			return buffer;
+			return activeScene->FindActorWithType<T>();
 		}
 
 		Actor* FindActorWithTag(const std::string& tag);

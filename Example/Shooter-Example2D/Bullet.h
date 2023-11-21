@@ -24,13 +24,13 @@ public:
 	void SetDirection(float x,float y);
 private:
 
+	noa::SpriteRenderer* spriteRenderer = noa::SpriteRenderer::Create(this)
+		->SetSprite(&ResourceManager::bulletImage)
+		.Apply();
+
 	noa::Rigidbody* rigid = noa::Rigidbody::Create(this)
 		->SetUseGravity(false)
 		.SetDamping(0)
-		.Apply();
-
-	noa::SpriteRenderer* spriteRenderer = noa::SpriteRenderer::Create(this)
-		->SetSprite(&ResourceManager::bulletImage)
 		.Apply();
 
 	noa::CircleCollider2D* collider = 

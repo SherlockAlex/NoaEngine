@@ -9,8 +9,11 @@ noa::TileMapCamera* camera = nullptr;
 Player* player = nullptr;
 
 void InitGUI(noa::Scene* scene) {
+
+	noa::Scene* ui = scene->CreateChild("Game_UI");
+
 	noa::UIDocument* document = 
-		noa::UIDocumentActor::Create(scene);
+		noa::UIDocumentActor::Create(ui);
 
 	noa::UIContainer* container = noa::UIContainer::Create(document)
 		->SetID("gui_container")
@@ -38,34 +41,42 @@ void InitGUI(noa::Scene* scene) {
 		.AddClickCallback([]() {noa::sceneManager.LoadScene("MainMenu"); })
 		.Apply();
 
-
-
 }
 
+bool flag = true;
 void GameDelegate::OnLoad(noa::Scene* scene)
 {
-	noa::TileMap* map = noa::TileMap::Create(scene)
+	flag = true;
+	noa::Scene* game = scene->CreateChild("Game_Game");
+
+	noa::TileMap* map = noa::TileMap::Create(game)
 		->LoadTileSet("tileSet.tsd")
 		.LoadTileLayer({"map_Layer1.csv","map_Layer2.csv"})
 		.SetCollisionTileID(40)
 		.Apply();
 
-	Test* test1 = noa::NObject<Test>::Create(scene);
+	Test* test1 = noa::NObject<Test>::Create(game);
+	test1->tileCollider->SetTileMap(map);
 	test1->transform.position = { 2,3 };
 
-	player = noa::NObject<Player>::Create(scene);
-	
+	player = noa::NObject<Player>::Create(game);
+	player->tileCollider->SetTileMap(map);
+
 	camera = noa::TileMapCamera::Create(scene)
 		->SetTileScale(32,32)
 		.SetFollow(player)
+		.SetTileMap(map)
 		.Apply();
 	player->camera = camera;
 
+	bulletFactory->SetActiveScene(game);
 	bulletPool = std::make_shared<noa::ActorPool<Bullet>>();
 	bulletPool->SetFactory(bulletFactory.get());
 	bulletPool->Prewarm(10);
 
 	InitGUI(scene);
+
+	scene->ActiveSceneChild("Game_Game");
 
 }
 
@@ -74,25 +85,27 @@ Test* currentSelect = nullptr;
 Test* hold = nullptr;
 
 int i = 0;
-bool flag = true;
 
-void GameDelegate::OnUpdate(noa::Scene* scene)
+void GameDelegate::OnTick(noa::Scene* scene)
 {
-
 	if (noa::Input::GetKeyDown(noa::KeyCode::KEY_ESC)) 
 	{
 		noa::UIDocument* document = 
 			noa::sceneManager.FindActorWithType<noa::UIDocumentActor>();
 		if (!document) 
 		{
+			noa::Debug::Log("can find document");
 			return;
 		}
 		if (flag) 
 		{
+			scene->ActiveSceneChild("Game_UI");
 			document->Display("gui_container");
 			flag = false;
 		}
-		else {
+		else 
+		{
+			scene->CloseSceneChild();
 			document->Close();
 			flag = true;
 		}

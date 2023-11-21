@@ -170,6 +170,17 @@ void noa::Actor::DestroyComponent()
 	components.clear();
 }
 
+void noa::Actor::ComponentRender() {
+	for (auto& component : components)
+	{
+		if (component == nullptr || !component->GetActive())
+		{
+			continue;
+		}
+		component->Render();
+	}
+}
+
 
 void noa::Actor::Delete(Actor *& ptr)
 {

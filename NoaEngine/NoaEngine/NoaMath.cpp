@@ -19,7 +19,7 @@ float noa::Math::LinearLerp(float currentValue, float targetValue, float speed)
     }
     else if (currentValue>targetValue) 
     {
-        const float result = currentValue - speed * Time::deltaTime;
+        const float result = currentValue - speed * Time::realDeltaTime;
         if (result <= targetValue)
         {
             return targetValue;

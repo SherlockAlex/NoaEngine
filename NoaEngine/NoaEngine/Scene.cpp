@@ -211,13 +211,45 @@ noa::Tile* noa::TileMap::GetTile(const int id)
 noa::Scene::Scene(const std::string& name)
 {
 	this->name = name;
-	sceneManager.AddScene(this);
 	actors.reserve(1024 * 10);
 }
 
 noa::Scene::~Scene()
 {
 	DestoyScene();
+}
+
+noa::Scene* noa::Scene::CreateChild(const std::string& name) 
+{
+	noa::Scene* child = new noa::Scene(name);
+	this->AddSceneChild(child);
+	return child;
+}
+
+void noa::Scene::AddSceneChild(noa::Scene* child) 
+{
+	if (!child) 
+	{
+		return;
+	}
+	this->sceneChildren[child->GetName()] = child;
+}
+
+void noa::Scene::ActiveSceneChild(const std::string& name) 
+{
+	if (sceneChildren.count(name)<=0)
+	{
+		return;
+	}
+	this->sceneStack.push(sceneChildren.at(name));
+}
+
+void noa::Scene::CloseSceneChild() {
+	if (this->sceneStack.empty()) 
+	{
+		return;
+	}
+	this->sceneStack.pop();
 }
 
 noa::Level* noa::Scene::GetLevel()
@@ -254,6 +286,7 @@ noa::Camera* noa::Scene::GetMainCamera()
 	{
 		return nullptr;
 	}
+
 	return cameras.front();
 }
 
@@ -263,13 +296,18 @@ void noa::Scene::AddActor(Actor* actor)
 	{
 		return;
 	}
-
 	actors.push_back(actor);
 
 }
 
 void noa::Scene::ActorUpdate()
 {
+
+	if (!sceneStack.empty())
+	{
+		//子场景Update
+		sceneStack.top()->ActorUpdate();
+	}
 
 	for (const auto& actor : actors)
 	{
@@ -290,9 +328,6 @@ void noa::Scene::ActorUpdate()
 		actor->LateUpdate();
 		actor->ComponentLateUpdate();
 	}
-
-	//更新物理系统
-	PhysicsSystem::Update(PhysicsSystem::step);
 
 }
 
@@ -316,11 +351,98 @@ void noa::Scene::DestoyScene()
 
 	//删除掉level
 	this->level->Delete(this->level);
+
+	if (!sceneChildren.empty())
+	{
+		for (auto& scene : sceneChildren)
+		{
+			if (scene.second != nullptr)
+			{
+				scene.second->onUnload(scene.second);
+				scene.second->DestoyScene();
+				scene.second->Delete(scene.second);
+			}
+		}
+	}
+	sceneChildren.clear();
+	this->onUnload(this);
 }
 
-void noa::Scene::Delete()
+void noa::Scene::Delete(noa::Scene*& ptr)
 {
+	ptr = nullptr;
 	delete this;
+}
+
+void noa::Scene::SceneChildOnLoad() {
+	for (auto& child : sceneChildren)
+	{
+		if (child.second)
+		{
+			child.second->onLoad(child.second);
+		}
+	}
+}
+
+void noa::Scene::SceneChildOnStart() {
+	for (auto& child:sceneChildren) 
+	{
+		if (child.second)
+		{
+			child.second->onStart(child.second);
+		}
+	}
+}
+
+void noa::Scene::SceneChildRender() {
+
+	for (const auto& actor : actors)
+	{
+		if (actor == nullptr || !actor->GetActive() || actor->isRemoved)
+		{
+			continue;
+		}
+		actor->ComponentRender();
+	}
+
+	for (auto& child : sceneChildren)
+	{
+		for (const auto& actor : child.second->actors)
+		{
+			if (actor == nullptr || !actor->GetActive() || actor->isRemoved)
+			{
+				continue;
+			}
+			actor->ComponentRender();
+		}
+	}
+}
+
+void noa::Scene::SceneChildOnUpdate() 
+{
+
+	if (sceneStack.empty()) 
+	{
+		onUpdate.Invoke(this);
+		return;
+	}
+	noa::Scene* scene = sceneStack.top();
+	scene->onUpdate(scene);
+
+}
+
+void noa::Scene::SceneChildOnTick() {
+	
+	onTick.Invoke(this);
+
+	for (auto& child:sceneChildren) 
+	{
+		if (child.second) 
+		{
+			child.second->SceneChildOnTick();
+		}
+		
+	}
 }
 
 noa::Actor* noa::Scene::FindActorWithTag(const string& tag)
@@ -376,7 +498,9 @@ void noa::Scene::ApplyCamera()
 
 noa::Scene* noa::SceneManager::CreateScene(const std::string& name)
 {
-	return new Scene(name);
+	noa::Scene* scene = new Scene(name);
+	sceneManager.AddScene(scene);
+	return scene;
 }
 
 noa::Scene* noa::SceneManager::GetActiveScene()
@@ -430,6 +554,7 @@ void noa::SceneManager::Awake()
 {
 	if (activeScene != nullptr)
 	{
+		activeScene->SceneChildOnLoad();
 		activeScene->onLoad.Invoke(activeScene);
 	}
 }
@@ -447,9 +572,9 @@ void noa::SceneManager::Start()
 {
 	if (activeScene != nullptr)
 	{
+		activeScene->SceneChildOnStart();
 		activeScene->onStart.Invoke(activeScene);
 	}
-
 }
 
 void noa::SceneManager::Update()
@@ -460,13 +585,19 @@ void noa::SceneManager::Update()
 	}
 
 	activeScene->ActorUpdate();
+	activeScene->SceneChildRender();
+
+	//更新物理系统
+	PhysicsSystem::Update(PhysicsSystem::step);
+
 	activeScene->ApplyCamera();
-	activeScene->onUpdate.Invoke(activeScene);
+
+	activeScene->SceneChildOnUpdate();
+	activeScene->SceneChildOnTick();
 
 	if (!done && oldScene != nullptr && oldScene != activeScene)
 	{
 		oldScene->DestoyScene();
-		oldScene->onUnload.Invoke(activeScene);
 		oldScene = nullptr;
 	}
 
@@ -486,7 +617,7 @@ noa::SceneManager::~SceneManager()
 		{
 			if (scene.second == nullptr)
 			{
-				scene.second->Delete();
+				scene.second->Delete(scene.second);
 			}
 		}
 	}

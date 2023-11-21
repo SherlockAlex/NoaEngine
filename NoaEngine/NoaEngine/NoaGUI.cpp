@@ -175,7 +175,6 @@ void noa::UIDocument::AddUIContainer(UIContainer* container)
 		return;
 	}
 	container->index = containerList.size();
-	container->SetVisiable(true);
 	this->containerList.push_back(container);
 
 }
@@ -186,7 +185,6 @@ void noa::UIDocument::Display(size_t index)
 	{
 		return;
 	}
-	
 	containerList[index]->SetVisiable(true);
 	this->containerStack.push(containerList[index]);
 }
@@ -198,7 +196,7 @@ void noa::UIDocument::Display(const std::string& id)
 	{
 		return;
 	}
-	Display(container->GetGroupIndex());
+	Display(container->GetContainerIndex());
 }
 
 void noa::UIDocument::Display(noa::UIContainer* container)
@@ -208,7 +206,7 @@ void noa::UIDocument::Display(noa::UIContainer* container)
 		return;
 	}
 	
-	Display(container->GetGroupIndex());
+	Display(container->GetContainerIndex());
 }
 
 void noa::UIDocument::Close() {
@@ -219,87 +217,6 @@ void noa::UIDocument::Close() {
 	containerStack.top()->SetVisiable(false);
 	containerStack.pop();
 }
-
-//noa::UIContainer* noa::UIDocument::GetContainerByID(const std::string& id)
-//{
-//	for (auto& container : containerList)
-//	{
-//		if (container && container->id == id)
-//		{
-//			return container;
-//		}
-//	}
-//	return nullptr;
-//}
-
-//noa::Label* noa::UIDocument::GetLabelByID(const std::string& id)
-//{
-//	for (auto& container : containerList)
-//	{
-//		if (!container)
-//		{
-//			continue;
-//		}
-//		noa::Label* temp = container->GetLabelByID(id);
-//		if (temp) 
-//		{
-//			return temp;
-//		}
-//	}
-//	return nullptr;
-//}
-//
-//noa::Image* noa::UIDocument::GetImageByID(const std::string& id)
-//{
-//	for (auto& container : containerList)
-//	{
-//		if (!container)
-//		{
-//			continue;
-//		}
-//		noa::Image* temp = container->GetImageByID(id);
-//		if (temp)
-//		{
-//			return temp;
-//		}
-//	}
-//	return nullptr;
-//}
-//
-//noa::Button* noa::UIDocument::GetButtonByID(const std::string& id)
-//{
-//	for (auto& container : containerList)
-//	{
-//		if (!container)
-//		{
-//			continue;
-//		}
-//		noa::Button* temp = container->GetButtonByID(id);
-//		if (temp)
-//		{
-//			return temp;
-//		}
-//	}
-//	return nullptr;
-//}
-//
-//noa::ProcessBar* noa::UIDocument::GetProcessBarByID(
-//	const std::string& id) 
-//{
-//	for (auto& container : containerList)
-//	{
-//		if (!container)
-//		{
-//			continue;
-//		}
-//		noa::ProcessBar* temp = container->GetProcessBarByID(id);
-//		if (temp)
-//		{
-//			return temp;
-//		}
-//	}
-//	return nullptr;
-//}
 
 void noa::UIDocument::UIDocumentStart() {
 	
@@ -313,13 +230,11 @@ void noa::UIDocument::UIDocumentUpdate()
 	}
 
 	//控制逻辑只控制栈顶
-	if (containerStack.top() == nullptr)
+	if (!containerStack.empty()) 
 	{
-		containerStack.pop();
-	}
-	else {
 		containerStack.top()->Update();
 	}
+	
 
 	for (auto& container : containerList)
 	{
@@ -350,22 +265,9 @@ noa::UIContainer::UIContainer(UIContainer* father)
 }
 
 noa::UIContainer::~UIContainer() {
-	if (!this->uiComponent.empty())
-	{
-		//对component进行排序
-		std::sort(uiComponent.begin(), uiComponent.end());
-		auto last = std::unique(uiComponent.begin(), uiComponent.end());
-		uiComponent.erase(last, uiComponent.end());
 
-		for (auto& component : uiComponent)
-		{
-			if (component)
-			{
-				component->Delete(component);
-			}
-		}
-
-	}
+	//删除控件
+	DestroyUIContainer();
 }
 
 noa::UIContainer* noa::UIContainer::Create(noa::UIDocument* document)
@@ -419,58 +321,6 @@ noa::UIContainer* noa::UIContainer::Apply() {
 	return this;
 }
 
-//noa::Label* noa::UIContainer::GetLabelByID(const std::string& id)
-//{
-//	for (auto& component:uiComponent) 
-//	{
-//		noa::Label* temp = dynamic_cast<noa::Label*>(component);
-//		if (temp&&temp->id == id) 
-//		{
-//			return temp;
-//		}
-//	}
-//	return nullptr;
-//}
-//
-//noa::Image* noa::UIContainer::GetImageByID(const std::string& id)
-//{
-//	for (auto& component : uiComponent)
-//	{
-//		noa::Image* temp = dynamic_cast<noa::Image*>(component);
-//		if (temp && temp->id == id)
-//		{
-//			return temp;
-//		}
-//	}
-//	return nullptr;
-//}
-//
-//noa::Button* noa::UIContainer::GetButtonByID(const std::string& id)
-//{
-//	for (auto& component : uiComponent)
-//	{
-//		noa::Button* temp = dynamic_cast<noa::Button*>(component);
-//		if (temp && temp->id == id)
-//		{
-//			return temp;
-//		}
-//	}
-//	return nullptr;
-//}
-//
-//noa::ProcessBar* noa::UIContainer::GetProcessBarByID(
-//	const std::string& id) {
-//	for (auto& component : uiComponent)
-//	{
-//		noa::ProcessBar* temp = dynamic_cast<noa::ProcessBar*>(component);
-//		if (temp && temp->id == id)
-//		{
-//			return temp;
-//		}
-//	}
-//	return nullptr;
-//}
-
 void noa::UIContainer::AddUIComponent(UIComponent* component)
 {
 	if (component == nullptr)
@@ -493,7 +343,7 @@ void noa::UIContainer::AddUIContainer(UIContainer* container)
 
 }
 
-size_t noa::UIContainer::GetGroupIndex() {
+size_t noa::UIContainer::GetContainerIndex() {
 	return this->index;
 }
 
@@ -566,6 +416,43 @@ void noa::UIContainer::Render() {
 		component->fatherTransform = this->globalTransform;
 		component->Render();
 	}
+
+}
+
+void noa::UIContainer::DestroyUIContainer() {
+	if (!this->uiComponent.empty())
+	{
+		//对component进行排序
+		std::sort(uiComponent.begin(), uiComponent.end());
+		auto last = std::unique(uiComponent.begin(), uiComponent.end());
+		uiComponent.erase(last, uiComponent.end());
+
+		for (auto& component : uiComponent)
+		{
+			if (component)
+			{
+				component->Delete(component);
+			}
+		}
+	}
+
+	uiComponent.clear();
+
+	if (!subContainers.empty())
+	{
+		std::sort(subContainers.begin(),subContainers.end());
+		auto last = std::unique(subContainers.begin(), subContainers.end());
+		subContainers.erase(last,subContainers.end());
+
+		for (auto& child:subContainers) 
+		{
+			if (child) 
+			{
+				child->Delete(child);
+			}
+		}
+	}
+	subContainers.clear();
 
 }
 

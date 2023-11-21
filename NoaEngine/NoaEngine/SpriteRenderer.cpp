@@ -78,18 +78,14 @@ noa::SpriteRenderer* noa::SpriteRenderer::Apply()
 	return this;
 }
 
-void noa::SpriteRenderer::Update()
+void noa::SpriteRenderer::Render()
 {
-
-	
 
 	if (!sprite) 
 	{
 		noa::Debug::Warring("The sprite of SpriteRenderer is null");
 		return;
-	}
-	
-	
+	}	
 
 	SpriteRendererInstance instance;
 	instance.actor = this->GetActor();

@@ -17,9 +17,12 @@ void Bullet::Start()
 
 void Bullet::OnEnable()
 {
+
 }
 
-void Bullet::Update() {
+void Bullet::Update() 
+{
+
 	this->rigid->velocity = this->direction * this->speed;
 
 	timer += noa::Time::deltaTime;

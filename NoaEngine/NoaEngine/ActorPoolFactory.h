@@ -15,6 +15,12 @@ namespace noa {
 	{
 	public:
 		virtual T* Create() = 0;
+		
+		void SetActiveScene(noa::Scene* scene) {
+			this->activeScene = scene;
+		}
+	protected:
+		noa::Scene* activeScene = nullptr;
 	};
 }
 

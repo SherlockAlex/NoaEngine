@@ -38,6 +38,8 @@ namespace noa {
 		virtual void LateUpdate() {};
 		virtual void OnDisable() {};
 		virtual void OnDestroy() {};
+
+		virtual void Render() {};
 	
 	private:
 		void Delete(ActorComponent*& ptr);

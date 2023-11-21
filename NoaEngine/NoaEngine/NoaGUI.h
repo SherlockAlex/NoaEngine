@@ -207,11 +207,14 @@ namespace noa {
 
 		void AddUIComponent(UIComponent* component);
 		void AddUIContainer(UIContainer* container);
-		size_t GetGroupIndex();
+		size_t GetContainerIndex();
 	private:
 		void Start();
 		void Update();
 		void Render();
+
+		void DestroyUIContainer();
+
 	private:
 		bool visiable = false;
 		UITransform transform;

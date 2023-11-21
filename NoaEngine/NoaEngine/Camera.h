@@ -44,7 +44,6 @@ namespace noa {
 
 		virtual void Update();
 
-		// 用户可以覆写自己的相机类
 		virtual void Render() = 0;
 	};
 
