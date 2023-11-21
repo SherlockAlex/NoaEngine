@@ -26,17 +26,17 @@ namespace noa {
 	class Actor;
 	class Scene;
 	class Transform;
-	class Camera:public Actor
+	class Camera :public Actor
 	{
 	protected:
 		friend class Scene;
-		friend class SceneManager;	
-		
+		friend class SceneManager;
+
 	public:
 		Vector<float> position;
 
 	protected:
-		Camera(Scene * scene);
+		Camera(Scene* scene);
 		virtual ~Camera();
 	private:
 		void Delete(Camera*& ptr);
@@ -46,7 +46,7 @@ namespace noa {
 	};
 
 	class SpriteGPU;
-	class StaticCamera final :public Camera 
+	class StaticCamera final :public Camera
 	{
 		NOBJECT(StaticCamera)
 
@@ -58,19 +58,19 @@ namespace noa {
 
 		Vector<float> offset = Vector<float>(10, 10);
 		Vector<float> visibleTiles;
-		
-		StaticCamera(Scene * scene);
+
+		StaticCamera(Scene* scene);
 
 	public:
 		static StaticCamera* Create(Scene* scene);
 
-		void SetBackground(Sprite * sprite);
-		void SetTileScale(const Vector<int> & tileScale);
+		void SetBackground(Sprite* sprite);
+		void SetTileScale(const Vector<int>& tileScale);
 	private:
 		void Render() override;
 	};
 
-	class TileMapCamera final:public Camera
+	class TileMapCamera final :public Camera
 	{
 		NOBJECT(TileMapCamera)
 	private:
@@ -82,28 +82,28 @@ namespace noa {
 		Vector<int> tileScale = Vector<int>(64, 64);	//一个tile由多少个像素显示
 		Vector<float> visibleTiles;						//相机可见的tile数量
 		Vector<float> offset;							//相机偏移量，表示相机左上角表示世界坐标的位置
-		
+
 		std::vector<NoaObject*> objectBufferWithRay = std::vector<NoaObject*>(
-			Screen::width*Screen::height, nullptr
+			Screen::width * Screen::height, nullptr
 		);
 
-		TileMapCamera(Scene * scene);
+		TileMapCamera(Scene* scene);
 
 	public:
-		
-		static TileMapCamera * Create(Scene * scene);
 
-		TileMapCamera& SetTileScale(uint32_t w,uint32_t h);
-		TileMapCamera& SetTileMap(TileMap * tileMap);
+		static TileMapCamera* Create(Scene* scene);
+
+		TileMapCamera& SetTileScale(uint32_t w, uint32_t h);
+		TileMapCamera& SetTileMap(TileMap* tileMap);
 		TileMapCamera& SetFollow(Actor* actor);
 		TileMapCamera* Apply();
 
 
-		Vector<float> ScreenPointToWorld(float x,float y);
+		Vector<float> ScreenPointToWorld(float x, float y);
 
 		template<class T>
 		T* GetRayHitInfoAs(int index) {
-			if (index<0||index>=objectBufferWithRay.size()) 
+			if (index < 0 || index >= objectBufferWithRay.size())
 			{
 				return nullptr;
 			}
@@ -111,15 +111,15 @@ namespace noa {
 		}
 
 		template<class T>
-		T* GetRayHitInfoAs(int x,int y) {
-			if (x<0||x>=static_cast<int>(noa::Screen::width)
-				||y<0||y>=static_cast<int>(noa::Screen::height)) 
+		T* GetRayHitInfoAs(int x, int y) {
+			if (x < 0 || x >= static_cast<int>(noa::Screen::width)
+				|| y < 0 || y >= static_cast<int>(noa::Screen::height))
 			{
 				return nullptr;
 			}
 			return dynamic_cast<T*>(objectBufferWithRay[
 				static_cast<std::vector<noa::NoaObject*, std::allocator<noa::NoaObject*>>
-					::size_type>(y) 
+					::size_type>(y)
 					* noa::Screen::width + x]);
 		}
 
@@ -127,7 +127,7 @@ namespace noa {
 		void Render() override;
 	};
 
-	class FreeCamera final:public Camera
+	class FreeCamera final :public Camera
 	{
 		NOBJECT(FreeCamera)
 	protected:
@@ -148,7 +148,7 @@ namespace noa {
 		bool renderFloor = false;
 
 	private:
-		FreeCamera(Scene * scene);
+		FreeCamera(Scene* scene);
 	public:
 		static FreeCamera* Create(Scene* scene);
 
@@ -175,8 +175,6 @@ namespace noa {
 		void RenderGameObject();
 
 	};
-
-	
 
 }
 

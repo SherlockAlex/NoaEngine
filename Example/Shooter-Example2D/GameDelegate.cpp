@@ -109,6 +109,7 @@ void GameDelegate::OnTick(noa::Scene* scene)
 			flag = true;
 		}
 
+
 	}
 
 	//if (i<500) 

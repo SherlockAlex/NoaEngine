@@ -100,7 +100,6 @@ void MainMenuDelegate::OnLoad(noa::Scene* scene)
 		.AddClickCallback(BackButtonClick)
 		.Apply();
 
-
 	noa::ProcessBar* processBar = noa::ProcessBar::Create(secondContainer)
 		->SetSize(360,20)
 		.SetID("process_bar")

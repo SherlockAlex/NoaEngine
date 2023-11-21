@@ -107,14 +107,12 @@ namespace noa {
 		UIDocument();
 		virtual ~UIDocument();
 	public:
-		void AddUIContainer(UIContainer* container);
 
 		void Display(size_t index);
 		void Display(const std::string& id);
 		void Display(UIContainer* container);
 		void Close();
 
-		//UIContainer* GetContainerByID(const std::string& id);
 		template<class T>
 		T* GetElementByID(const std::string& id) 
 		{
@@ -133,15 +131,15 @@ namespace noa {
 			}
 			return nullptr;
 		}
-		/*Label* GetLabelByID(const std::string& id);
-		Image* GetImageByID(const std::string& id);
-		Button* GetButtonByID(const std::string& id);
-		ProcessBar* GetProcessBarByID(const std::string& id);*/
 
+	private:
+		void AddUIContainer(UIContainer* container);
 	protected:
 		void UIDocumentStart();
 		void UIDocumentUpdate();
 	private:
+		friend class UIContainer;
+
 		std::stack<UIContainer*> containerStack;
 		std::vector<UIContainer*> containerList;
 	};
@@ -150,6 +148,8 @@ namespace noa {
 	{
 	private:
 		friend class UIDocument;
+		friend class UIContainer;
+		friend class UIComponent;
 	private:
 		UIContainer(UIDocument* canvas);
 		UIContainer(UIContainer* father);
@@ -163,11 +163,6 @@ namespace noa {
 		UIContainer& SetPosition(int x, int y);
 		UIContainer& SetVisiable(bool value);
 		UIContainer* Apply();
-
-		/*Label* GetLabelByID(const std::string& id);
-		Image* GetImageByID(const std::string& id);
-		Button* GetButtonByID(const std::string& id);
-		ProcessBar* GetProcessBarByID(const std::string& id);*/
 
 		template<class T>
 		T* GetElementByID(const std::string& id)
@@ -205,8 +200,7 @@ namespace noa {
 			return nullptr;
 		}
 
-		void AddUIComponent(UIComponent* component);
-		void AddUIContainer(UIContainer* container);
+		
 		size_t GetContainerIndex();
 	private:
 		void Start();
@@ -214,8 +208,10 @@ namespace noa {
 		void Render();
 
 		void DestroyUIContainer();
-
+		void AddUIComponent(UIComponent* component);
+		void AddUIContainer(UIContainer* container);
 	private:
+
 		bool visiable = false;
 		UITransform transform;
 		UITransform fatherTransform;

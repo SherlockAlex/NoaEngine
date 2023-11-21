@@ -265,31 +265,6 @@ void noa::Scene::SetLevel(Level* map)
 	this->level = map;
 }
 
-//void noa::Scene::AddCamera(Camera* camera)
-//{
-//	if (!camera)
-//	{
-//		return;
-//	}
-//	//添加活动的相机
-//	//相机是场景内的物品
-//	this->cameras.push_back(camera);
-//	if (mainCameraIndex == -1)
-//	{
-//		mainCameraIndex = 0;
-//	}
-//}
-
-//noa::Camera* noa::Scene::GetMainCamera()
-//{
-//	if (cameras.empty())
-//	{
-//		return nullptr;
-//	}
-//
-//	return cameras.front();
-//}
-
 void noa::Scene::AddActor(Actor* actor)
 {
 	if (actor == nullptr)
@@ -312,7 +287,9 @@ void noa::Scene::ActorUpdate()
 
 	for (const auto& actor : actors)
 	{
-		if (actor == nullptr || !actor->GetActive() || actor->isRemoved)
+		if (actor == nullptr 
+			|| !actor->GetActive() 
+			|| actor->isRemoved)
 		{
 			continue;
 		}
@@ -322,7 +299,9 @@ void noa::Scene::ActorUpdate()
 
 	for (const auto& actor : actors)
 	{
-		if (actor == nullptr || !actor->GetActive() || actor->isRemoved)
+		if (actor == nullptr 
+			|| !actor->GetActive() 
+			|| actor->isRemoved)
 		{
 			continue;
 		}
@@ -389,6 +368,9 @@ void noa::Scene::SceneChildOnLoad() {
 			child.second->onLoad(child.second);
 		}
 	}
+
+	this->onLoad(this);
+
 }
 
 void noa::Scene::SceneChildOnStart() {
@@ -399,25 +381,20 @@ void noa::Scene::SceneChildOnStart() {
 			child.second->onStart(child.second);
 		}
 	}
+
+	this->onStart(this);
+
 }
 
 void noa::Scene::SceneChildRender() {
-
-	for (const auto& actor : actors)
-	{
-		if (actor == nullptr || !actor->GetActive() || actor->isRemoved)
-		{
-			continue;
-		}
-		actor->Render();
-		actor->ComponentRender();
-	}
 
 	for (auto& child : sceneChildren)
 	{
 		for (const auto& actor : child.second->actors)
 		{
-			if (actor == nullptr || !actor->GetActive() || actor->isRemoved)
+			if (actor == nullptr 
+				|| !actor->GetActive() 
+				|| actor->isRemoved)
 			{
 				continue;
 			}
@@ -425,6 +402,19 @@ void noa::Scene::SceneChildRender() {
 			actor->ComponentRender();
 		}
 	}
+
+	for (const auto& actor : actors)
+	{
+		if (actor == nullptr
+			|| !actor->GetActive()
+			|| actor->isRemoved)
+		{
+			continue;
+		}
+		actor->Render();
+		actor->ComponentRender();
+	}
+
 }
 
 void noa::Scene::SceneChildOnUpdate() 
@@ -441,8 +431,6 @@ void noa::Scene::SceneChildOnUpdate()
 }
 
 void noa::Scene::SceneChildOnTick() {
-	
-	onTick.Invoke(this);
 
 	for (auto& child:sceneChildren) 
 	{
@@ -452,6 +440,9 @@ void noa::Scene::SceneChildOnTick() {
 		}
 		
 	}
+
+	onTick.Invoke(this);
+
 }
 
 noa::Actor* noa::Scene::FindActorWithTag(const string& tag)
@@ -459,7 +450,9 @@ noa::Actor* noa::Scene::FindActorWithTag(const string& tag)
 	noa::Actor* buffer = nullptr;
 	for (auto& actor : actors)
 	{
-		if (actor == nullptr || !actor->GetActive() || actor->isRemoved)
+		if (actor == nullptr 
+			|| !actor->GetActive() 
+			|| actor->isRemoved)
 		{
 			continue;
 		}
@@ -469,6 +462,20 @@ noa::Actor* noa::Scene::FindActorWithTag(const string& tag)
 			break;
 		}
 	}
+
+	if (buffer)
+	{
+		return buffer;
+	}
+
+	for (auto& child:sceneChildren) 
+	{
+		if (child.second) 
+		{
+			buffer = child.second->FindActorWithTag(tag);
+		}
+	}
+
 	return buffer;
 }
 
@@ -478,11 +485,31 @@ std::vector<noa::Actor*> noa::Scene::FindActorsWithTag(const std::string& tag)
 
 	for (auto& actor : this->actors)
 	{
-		if (actor == nullptr || actor->isRemoved || !actor->GetActive() || actor->tag != tag)
+		if (actor == nullptr 
+			|| actor->isRemoved 
+			|| !actor->GetActive() 
+			|| actor->tag != tag)
 		{
 			continue;
 		}
 		target.push_back(actor);
+	}
+
+	for (auto& child:sceneChildren) 
+	{
+		if (!child.second)
+		{
+			continue;
+		}
+
+		std::vector<Actor*> childTarget = 
+			child.second->FindActorsWithTag(tag);
+
+		for (auto& actor:childTarget) 
+		{
+			target.push_back(actor);
+		}
+
 	}
 
 	return target;
@@ -492,18 +519,6 @@ std::string noa::Scene::GetName()
 {
 	return this->name;
 }
-
-//void noa::Scene::ApplyCamera()
-//{
-//	if (mainCameraIndex <0|| mainCameraIndex >=cameras.size())
-//	{
-//		return;
-//	}
-//	
-//	cameras[mainCameraIndex]->Render();
-//	mainCameraIndex = -1;
-//	cameras.clear();
-//}
 
 noa::Scene* noa::SceneManager::CreateScene(const std::string& name)
 {
@@ -564,7 +579,6 @@ void noa::SceneManager::Awake()
 	if (activeScene != nullptr)
 	{
 		activeScene->SceneChildOnLoad();
-		activeScene->onLoad.Invoke(activeScene);
 	}
 }
 
@@ -582,7 +596,6 @@ void noa::SceneManager::Start()
 	if (activeScene != nullptr)
 	{
 		activeScene->SceneChildOnStart();
-		activeScene->onStart.Invoke(activeScene);
 	}
 }
 
@@ -598,8 +611,6 @@ void noa::SceneManager::Update()
 
 	//更新物理系统
 	PhysicsSystem::Update(PhysicsSystem::step);
-
-	//activeScene->ApplyCamera();
 
 	activeScene->SceneChildOnUpdate();
 	activeScene->SceneChildOnTick();
@@ -645,7 +656,9 @@ noa::Actor* noa::SceneManager::FindActorWithTag(const std::string& tag)
 	{
 		return nullptr;
 	}
-	return this->activeScene->FindActorWithTag(tag);
+	
+	return activeScene->FindActorWithTag(tag);
+	
 }
 
 std::vector<noa::Actor*> noa::SceneManager::FindActorsWithTag(const std::string& tag)

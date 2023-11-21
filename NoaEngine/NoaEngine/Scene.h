@@ -33,25 +33,25 @@ namespace noa {
 	class Camera;
 
 	//地图的层级
-	class MapLayer 
+	class MapLayer
 	{
 	public:
 		std::vector<int> layer;
 		uint32_t w = 0;
 		uint32_t h = 0;
 	public:
-		MapLayer(const LayerFile & layer);
+		MapLayer(const LayerFile& layer);
 		virtual ~MapLayer();
 
 	public:
 		int GetTileID(int x, int y) const;
-		void SetTileID(int x,int y,int value);
-		
+		void SetTileID(int x, int y, int value);
+
 	};
 
 	//关卡地图
 	//一张地图是由许多的地图层组成的
-	class Level 
+	class Level
 	{
 	public:
 		std::vector<MapLayer> layers;
@@ -76,7 +76,7 @@ namespace noa {
 		friend class Scene;
 		Scene* scene = nullptr;
 	};
-	
+
 	class Scene;
 
 	//瓦片地图
@@ -84,7 +84,7 @@ namespace noa {
 	//同时TileMap是有自己的Transform
 	//瓦片的坐标是Transform加上每个瓦片的位置
 
-	class TileMap:public Level
+	class TileMap :public Level
 	{
 	public:
 		TileSet tileSet;
@@ -105,12 +105,12 @@ namespace noa {
 
 		TileMap* Apply();
 
-		int GetLayerTileID(const int layerIndex,const int x,const int y) const;
-		void SetLayerTileID(const int layerIndex,const int x, const int y,const int tileID);
+		int GetLayerTileID(const int layerIndex, const int x, const int y) const;
+		void SetLayerTileID(const int layerIndex, const int x, const int y, const int tileID);
 		Tile* GetTile(const int id);
 		bool IsTile(const int code) const;
 		bool IsCollisionTile(int tileID) const;
-		bool IsCollisionTile(const int x,const int y) const;
+		bool IsCollisionTile(const int x, const int y) const;
 	};
 
 	//有点抽象就是
@@ -122,17 +122,14 @@ namespace noa {
 	private:
 		std::string name = "Scene";
 		std::vector<Actor*> actors;
-		//std::vector<Camera*> cameras;
 
 		std::map<std::string, Scene*> sceneChildren;
 		std::stack<noa::Scene*> sceneStack;
 
-		//int mainCameraIndex = -1;
-
 		noa::Level* level = nullptr;
 
 	private:
-		Scene(const std::string & name);
+		Scene(const std::string& name);
 		virtual ~Scene();
 	public:
 		NoaEvent<Scene*> onLoad;
@@ -149,8 +146,6 @@ namespace noa {
 
 		Level* GetLevel();
 		void SetLevel(Level* map);
-		//void AddCamera(Camera* camera);
-		//Camera* GetMainCamera();
 		void AddActor(Actor* actor);
 		std::string GetName();
 
@@ -161,7 +156,7 @@ namespace noa {
 
 	private:
 		void AddSceneChild(noa::Scene* scene);
-		
+
 		Actor* FindActorWithTag(const std::string& tag);
 		std::vector<Actor*> FindActorsWithTag(const std::string& tag);
 
@@ -183,10 +178,10 @@ namespace noa {
 					results.push_back(buffer);
 				}
 
-				for (auto& child:sceneChildren) 
+				for (auto& child : sceneChildren)
 				{
 					std::vector<T*> childResults = child.second->FindActorsWithType<T>();
-					for (auto& childResult:childResults) 
+					for (auto& childResult : childResults)
 					{
 						results.push_back(childResult);
 					}
@@ -215,15 +210,15 @@ namespace noa {
 				}
 			}
 
-			if (buffer != nullptr) 
+			if (buffer != nullptr)
 			{
 				return buffer;
 			}
 
-			for (auto& child:sceneChildren) 
+			for (auto& child : sceneChildren)
 			{
 				buffer = child.second->FindActorWithType<T>();
-				if (buffer!=nullptr) 
+				if (buffer != nullptr)
 				{
 					break;
 				}
@@ -248,7 +243,7 @@ namespace noa {
 	};
 
 
-	class SceneManager 
+	class SceneManager
 	{
 
 	private:
@@ -256,10 +251,10 @@ namespace noa {
 		friend class Scene;
 
 	public:
-		static Scene* CreateScene(const std::string & name);
+		static Scene* CreateScene(const std::string& name);
 
-		Scene * GetActiveScene();
-		void LoadScene(const std::string & sceneName);
+		Scene* GetActiveScene();
+		void LoadScene(const std::string& sceneName);
 
 		~SceneManager();
 
@@ -279,7 +274,7 @@ namespace noa {
 
 		template<class T>
 		T* FindActorWithType() {
-			if (this->activeScene == nullptr) 
+			if (this->activeScene == nullptr)
 			{
 				return nullptr;
 			}
@@ -289,7 +284,7 @@ namespace noa {
 		Actor* FindActorWithTag(const std::string& tag);
 
 		std::vector<Actor*> FindActorsWithTag(const std::string& tag);
-		
+
 	private:
 		void Awake();
 		void Destroy();
@@ -300,13 +295,13 @@ namespace noa {
 
 	private:
 		Scene* oldScene = nullptr;
-		Scene * activeScene = nullptr;
+		Scene* activeScene = nullptr;
 		Scene* nextScene = nullptr;
 		std::map<std::string, Scene*> sceneList;
 
 		bool done = true;
 		bool isLoading = false;
-		
+
 	public:
 		bool isQuit = false;
 		bool quited = false;

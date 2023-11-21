@@ -6,8 +6,10 @@ namespace noa {
 	class Transform final
 	{
 	public:
-		Vector<float> position = {0,0};
-		float eulerAngle = 0.0;
+		Vector<float> position = {0.0f,0.0f};
+		Vector<float> localPosition = {0.0f,0.0f};
+		float eulerAngle = 0.0f;
+		float localEulerAngle = 0.0f;
 		float posZ = 0.0;
 	};
 
