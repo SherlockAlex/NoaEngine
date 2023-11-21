@@ -137,6 +137,7 @@ namespace noa {
 	protected:
 		void UIDocumentStart();
 		void UIDocumentUpdate();
+		void UIDocumentRender();
 	private:
 		friend class UIContainer;
 
@@ -237,6 +238,9 @@ namespace noa {
 
 		void Start() override;
 		void Update() override;
+		void Render() override;
+		UIDocumentActor& SetActorTag(const std::string& tag);
+		UIDocumentActor* Apply();
 
 	};
 
@@ -252,6 +256,7 @@ namespace noa {
 
 		void Start() override;
 		void Update() override;
+		void Render() override;
 
 	};
 
@@ -425,6 +430,8 @@ namespace noa {
 	public:
 		static ProcessBar* Create(UIContainer* container);
 		ProcessBar& SetID(const std::string& id);
+		ProcessBar& SetPosition(int x,int y);
+		ProcessBar& SetAnchor(float x,float y);
 		ProcessBar& SetActive(bool value);
 		ProcessBar& SetBackgroundColor(uint32_t color);
 		ProcessBar& SetFillColor(uint32_t color);
@@ -439,7 +446,7 @@ namespace noa {
 
 	private:
 		uint32_t backgroundColor = noa::BLACK;
-		uint32_t fillColor = noa::BLACK;
+		uint32_t fillColor = noa::WHITE;
 
 		Image* background = nullptr;
 		Image* runtime = nullptr;

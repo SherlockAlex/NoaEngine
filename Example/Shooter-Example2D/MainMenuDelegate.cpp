@@ -101,7 +101,7 @@ void MainMenuDelegate::OnLoad(noa::Scene* scene)
 		.Apply();
 
 	noa::ProcessBar* processBar = noa::ProcessBar::Create(secondContainer)
-		->SetSize(360,20)
+		->SetSize(360,10)
 		.SetID("process_bar")
 		.SetAmount(0.5f)
 		.SetBackgroundColor(noa::RGBA(20,20,20,250))
@@ -110,8 +110,6 @@ void MainMenuDelegate::OnLoad(noa::Scene* scene)
 		.SetInteractable(true)
 		.SetFinishedCallback(ProcessBarFinishedAction)
 		.Apply();
-
-	
 }
 
 void MainMenuDelegate::OnUpdate(noa::Scene* scene) 

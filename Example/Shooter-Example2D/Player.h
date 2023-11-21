@@ -38,5 +38,9 @@ public:
 		.Apply();
 
 	noa::TileMapCamera* camera = nullptr;
+
+	int hp = 100;
+	int maxHp = 100;
+
 };
 

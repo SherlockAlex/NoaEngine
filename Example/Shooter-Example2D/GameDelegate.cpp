@@ -8,12 +8,14 @@ noa::TileMapCamera* camera = nullptr;
 
 Player* player = nullptr;
 
-void InitGUI(noa::Scene* scene) {
+void InitGameMenu(noa::Scene* scene) {
 
-	noa::Scene* ui = scene->CreateChild("Game_UI");
+	noa::Scene* ui = scene->CreateChild("game_menu");
 
 	noa::UIDocument* document = 
-		noa::UIDocumentActor::Create(ui);
+		noa::UIDocumentActor::Create(ui)
+		->SetActorTag("menu_document")
+		.Apply();
 
 	noa::UIContainer* container = noa::UIContainer::Create(document)
 		->SetID("gui_container")
@@ -40,6 +42,33 @@ void InitGUI(noa::Scene* scene) {
 		.SetClickScale(0.9f)
 		.AddClickCallback([]() {noa::sceneManager.LoadScene("MainMenu"); })
 		.Apply();
+
+}
+
+void InitGameUI(noa::Scene* scene) 
+{
+	noa::UIDocument* document = 
+		noa::UIDocumentActor::Create(scene)
+		->SetActorTag("ui_document")
+		.Apply();
+
+	noa::UIContainer* container =
+		noa::UIContainer::Create(document)
+		->SetPosition(0.0f,0.0f)
+		.Apply();
+
+	noa::ProcessBar* hpBar =
+		noa::ProcessBar::Create(container)
+		->SetAnchor(0.0f,0.0f)
+		.SetID("hp_bar")
+		.SetFillColor(noa::RGBA(255,0,0,255))
+		.SetSize(320,10)
+		.SetPosition(10,10)
+		.SetInteractable(false)
+		.SetRadius(10)
+		.Apply();
+
+	document->Display(container);
 
 }
 
@@ -73,7 +102,8 @@ void GameDelegate::OnLoad(noa::Scene* scene)
 	bulletPool->SetFactory(bulletFactory.get());
 	bulletPool->Prewarm(10);
 
-	InitGUI(scene);
+	InitGameMenu(scene);
+	InitGameUI(scene);
 
 }
 
@@ -88,7 +118,9 @@ void GameDelegate::OnTick(noa::Scene* scene)
 	if (noa::Input::GetKeyDown(noa::KeyCode::KEY_ESC)) 
 	{
 		noa::UIDocument* document = 
-			noa::sceneManager.FindActorWithType<noa::UIDocumentActor>();
+			noa::sceneManager.FindActorWithTag("menu_document")
+			->GetActorAs<noa::UIDocument>();
+
 		if (!document) 
 		{
 			noa::Debug::Log("can find document");
@@ -97,7 +129,7 @@ void GameDelegate::OnTick(noa::Scene* scene)
 		if (flag) 
 		{
 			noa::Debug::Log("this gui open");
-			scene->ActiveSceneChild("Game_UI");
+			scene->ActiveSceneChild("game_menu");
 			document->Display("gui_container");
 			flag = false;
 		}
@@ -109,6 +141,22 @@ void GameDelegate::OnTick(noa::Scene* scene)
 			flag = true;
 		}
 
+
+	}
+
+	noa::UIDocument* ui_document =
+		noa::sceneManager.FindActorWithTag("ui_document")
+		->GetActorAs<noa::UIDocument>();
+
+	if (ui_document) 
+	{
+		noa::ProcessBar* hpBar =
+			ui_document->GetElementByID<noa::ProcessBar>("hp_bar");
+
+		if (hpBar)
+		{
+			hpBar->SetAmount(static_cast<float>(player->hp)/player->maxHp);
+		}
 
 	}
 

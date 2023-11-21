@@ -235,7 +235,9 @@ void noa::UIDocument::UIDocumentUpdate()
 		containerStack.top()->Update();
 	}
 	
+}
 
+void noa::UIDocument::UIDocumentRender() {
 	for (auto& container : containerList)
 	{
 		//越往前的越先绘制
@@ -481,6 +483,21 @@ void noa::UIDocumentActor::Update()
 	UIDocument::UIDocumentUpdate();
 }
 
+void noa::UIDocumentActor::Render() {
+	UIDocument::UIDocumentRender();
+}
+
+noa::UIDocumentActor& noa::UIDocumentActor::SetActorTag(
+	const std::string& tag)
+{
+	this->tag = tag;
+	return *this;
+}
+
+noa::UIDocumentActor* noa::UIDocumentActor::Apply() {
+	return this;
+}
+
 noa::UIDocumentComponent::UIDocumentComponent(Actor* actor) :ActorComponent(actor)
 {
 
@@ -501,6 +518,10 @@ void noa::UIDocumentComponent::Start() {
 
 void noa::UIDocumentComponent::Update() {
 	UIDocument::UIDocumentUpdate();
+}
+
+void noa::UIDocumentComponent::Render() {
+	UIDocument::UIDocumentRender();
 }
 
 noa::UIComponent::UIComponent(noa::UIContainer* group)
@@ -1278,6 +1299,20 @@ noa::ProcessBar* noa::ProcessBar::Create(
 noa::ProcessBar& noa::ProcessBar::SetID(const std::string& id)
 {
 	this->id = id;
+	return *this;
+}
+
+noa::ProcessBar& noa::ProcessBar::SetPosition(int x,int y) 
+{
+	this->transform.position.x = x;
+	this->transform.position.y = y;
+	return *this;
+}
+
+noa::ProcessBar& noa::ProcessBar::SetAnchor(float x,float y)
+{
+	this->anchor.x = x;
+	this->anchor.y = y;
 	return *this;
 }
 
