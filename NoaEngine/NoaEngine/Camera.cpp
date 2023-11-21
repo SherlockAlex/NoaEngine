@@ -16,11 +16,6 @@ noa::Camera::~Camera()
 
 }
 
-void noa::Camera::Update() {
-	//Ìí¼Ócameraµ½scene
-	this->GetActiveScene()->AddCamera(this);
-}
-
 void noa::Camera::Delete(noa::Camera*& ptr)
 {
 	delete this;

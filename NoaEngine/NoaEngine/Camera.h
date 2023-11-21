@@ -42,8 +42,6 @@ namespace noa {
 		void Delete(Camera*& ptr);
 	protected:
 
-		virtual void Update();
-
 		virtual void Render() = 0;
 	};
 

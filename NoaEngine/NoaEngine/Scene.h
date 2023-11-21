@@ -122,12 +122,12 @@ namespace noa {
 	private:
 		std::string name = "Scene";
 		std::vector<Actor*> actors;
-		std::vector<Camera*> cameras;
+		//std::vector<Camera*> cameras;
 
 		std::map<std::string, Scene*> sceneChildren;
 		std::stack<noa::Scene*> sceneStack;
 
-		int mainCameraIndex = -1;
+		//int mainCameraIndex = -1;
 
 		noa::Level* level = nullptr;
 
@@ -149,8 +149,8 @@ namespace noa {
 
 		Level* GetLevel();
 		void SetLevel(Level* map);
-		void AddCamera(Camera* camera);
-		Camera* GetMainCamera();
+		//void AddCamera(Camera* camera);
+		//Camera* GetMainCamera();
 		void AddActor(Actor* actor);
 		std::string GetName();
 
@@ -234,8 +234,6 @@ namespace noa {
 		}
 
 	private:
-		void ApplyCamera();
-
 		void ActorUpdate();
 		void DestoyScene();
 

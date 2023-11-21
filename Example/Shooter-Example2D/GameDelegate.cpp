@@ -46,20 +46,19 @@ void InitGUI(noa::Scene* scene) {
 bool flag = true;
 void GameDelegate::OnLoad(noa::Scene* scene)
 {
-	flag = true;
-	noa::Scene* game = scene->CreateChild("Game_Game");
+	//flag = true;
 
-	noa::TileMap* map = noa::TileMap::Create(game)
+	noa::TileMap* map = noa::TileMap::Create(scene)
 		->LoadTileSet("tileSet.tsd")
 		.LoadTileLayer({"map_Layer1.csv","map_Layer2.csv"})
 		.SetCollisionTileID(40)
 		.Apply();
 
-	Test* test1 = noa::NObject<Test>::Create(game);
+	Test* test1 = noa::NObject<Test>::Create(scene);
 	test1->tileCollider->SetTileMap(map);
 	test1->transform.position = { 2,3 };
 
-	player = noa::NObject<Player>::Create(game);
+	player = noa::NObject<Player>::Create(scene);
 	player->tileCollider->SetTileMap(map);
 
 	camera = noa::TileMapCamera::Create(scene)
@@ -69,14 +68,12 @@ void GameDelegate::OnLoad(noa::Scene* scene)
 		.Apply();
 	player->camera = camera;
 
-	bulletFactory->SetActiveScene(game);
+	bulletFactory->SetActiveScene(scene);
 	bulletPool = std::make_shared<noa::ActorPool<Bullet>>();
 	bulletPool->SetFactory(bulletFactory.get());
 	bulletPool->Prewarm(10);
 
 	InitGUI(scene);
-
-	scene->ActiveSceneChild("Game_Game");
 
 }
 
@@ -99,12 +96,14 @@ void GameDelegate::OnTick(noa::Scene* scene)
 		}
 		if (flag) 
 		{
+			noa::Debug::Log("this gui open");
 			scene->ActiveSceneChild("Game_UI");
 			document->Display("gui_container");
 			flag = false;
 		}
 		else 
 		{
+			noa::Debug::Log("this gui close");
 			scene->CloseSceneChild();
 			document->Close();
 			flag = true;

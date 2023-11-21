@@ -65,6 +65,8 @@ namespace noa {
 		virtual void OnDisable() {};
 		virtual void OnDestroy() {};
 
+		virtual void Render() {};
+
 		virtual void OnTriggerEnter(noa::Collider2D& other);
 		virtual void OnHitTile() {}
 

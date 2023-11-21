@@ -182,8 +182,6 @@ bool noa::TileMap::IsCollisionTile(int tileID) const
 
 bool noa::TileMap::IsCollisionTile(const int x, const int y) const
 {
-	
-
 	//会去遍历所有的layer
 	//只要有一个layer是，那么就是
 	bool isCollision = false;
@@ -267,28 +265,30 @@ void noa::Scene::SetLevel(Level* map)
 	this->level = map;
 }
 
-void noa::Scene::AddCamera(Camera* camera)
-{
-	if (!camera)
-	{
-		return;
-	}
-	this->cameras.push_back(camera);
-	if (mainCameraIndex == -1)
-	{
-		mainCameraIndex = 0;
-	}
-}
+//void noa::Scene::AddCamera(Camera* camera)
+//{
+//	if (!camera)
+//	{
+//		return;
+//	}
+//	//添加活动的相机
+//	//相机是场景内的物品
+//	this->cameras.push_back(camera);
+//	if (mainCameraIndex == -1)
+//	{
+//		mainCameraIndex = 0;
+//	}
+//}
 
-noa::Camera* noa::Scene::GetMainCamera()
-{
-	if (cameras.empty())
-	{
-		return nullptr;
-	}
-
-	return cameras.front();
-}
+//noa::Camera* noa::Scene::GetMainCamera()
+//{
+//	if (cameras.empty())
+//	{
+//		return nullptr;
+//	}
+//
+//	return cameras.front();
+//}
 
 void noa::Scene::AddActor(Actor* actor)
 {
@@ -307,6 +307,7 @@ void noa::Scene::ActorUpdate()
 	{
 		//子场景Update
 		sceneStack.top()->ActorUpdate();
+		return;
 	}
 
 	for (const auto& actor : actors)
@@ -329,6 +330,8 @@ void noa::Scene::ActorUpdate()
 		actor->ComponentLateUpdate();
 	}
 
+	
+
 }
 
 void noa::Scene::DestoyScene()
@@ -347,10 +350,14 @@ void noa::Scene::DestoyScene()
 	}
 
 	actors.clear();
-	cameras.clear();
 
 	//删除掉level
 	this->level->Delete(this->level);
+
+	while (!sceneStack.empty())
+	{
+		sceneStack.pop();
+	}
 
 	if (!sceneChildren.empty())
 	{
@@ -402,6 +409,7 @@ void noa::Scene::SceneChildRender() {
 		{
 			continue;
 		}
+		actor->Render();
 		actor->ComponentRender();
 	}
 
@@ -413,6 +421,7 @@ void noa::Scene::SceneChildRender() {
 			{
 				continue;
 			}
+			actor->Render();
 			actor->ComponentRender();
 		}
 	}
@@ -484,17 +493,17 @@ std::string noa::Scene::GetName()
 	return this->name;
 }
 
-void noa::Scene::ApplyCamera()
-{
-	if (mainCameraIndex <0|| mainCameraIndex >=cameras.size())
-	{
-		return;
-	}
-	
-	cameras[mainCameraIndex]->Render();
-	mainCameraIndex = -1;
-	cameras.clear();
-}
+//void noa::Scene::ApplyCamera()
+//{
+//	if (mainCameraIndex <0|| mainCameraIndex >=cameras.size())
+//	{
+//		return;
+//	}
+//	
+//	cameras[mainCameraIndex]->Render();
+//	mainCameraIndex = -1;
+//	cameras.clear();
+//}
 
 noa::Scene* noa::SceneManager::CreateScene(const std::string& name)
 {
@@ -590,7 +599,7 @@ void noa::SceneManager::Update()
 	//更新物理系统
 	PhysicsSystem::Update(PhysicsSystem::step);
 
-	activeScene->ApplyCamera();
+	//activeScene->ApplyCamera();
 
 	activeScene->SceneChildOnUpdate();
 	activeScene->SceneChildOnTick();
