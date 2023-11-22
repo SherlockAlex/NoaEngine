@@ -59,7 +59,7 @@ namespace noa {
 		uint32_t w = 0;
 		uint32_t h = 0;
 	protected:
-		Level(Scene* scene);
+		Level();
 		virtual ~Level();
 
 
@@ -72,10 +72,6 @@ namespace noa {
 		T* GetLevelAs() {
 			return dynamic_cast<T*>(this);
 		}
-
-	private:
-		friend class Scene;
-		Scene* scene = nullptr;
 	};
 
 	class Scene;
@@ -92,12 +88,12 @@ namespace noa {
 		std::unordered_map<int, bool> collisionTiles;
 
 	private:
-		TileMap(Scene* scene);
+		TileMap();
 		virtual ~TileMap();
 
 	public:
 
-		static TileMap* Create(Scene* scene);
+		static TileMap* Create();
 
 		TileMap& LoadTileSet(const std::string& file);
 		TileMap& LoadTileLayer(const std::vector<std::string>& file);
@@ -112,6 +108,7 @@ namespace noa {
 		bool IsTile(const int code) const;
 		bool IsCollisionTile(int tileID) const;
 		bool IsCollisionTile(const int x, const int y) const;
+		TileSet& GetTileSet();
 	};
 
 	class Scene final
@@ -124,8 +121,6 @@ namespace noa {
 
 		std::map<std::string, Scene*> sceneChildren;
 		std::stack<noa::Scene*> sceneStack;
-
-		noa::Level* level = nullptr;
 
 	private:
 		Scene(const std::string& name);
@@ -143,15 +138,8 @@ namespace noa {
 		void ActiveSceneChild(const std::string& name);
 		void CloseSceneChild();
 
-		Level* GetLevel();
-		void SetLevel(Level* map);
 		void AddActor(Actor* actor);
 		std::string GetName();
-
-		template<class T>
-		T* GetLevelAs() {
-			return dynamic_cast<T*>(this->level);
-		}
 
 	private:
 		void AddSceneChild(noa::Scene* scene);

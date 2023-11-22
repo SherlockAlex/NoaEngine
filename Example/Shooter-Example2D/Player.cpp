@@ -49,7 +49,7 @@ void Player::Update()
 		this->transform.eulerAngle += 100*noa::Time::deltaTime;
 	}*/
 
-	timer += noa::Time::deltaTime;
+	/*timer += noa::Time::deltaTime;
 	if (noa::Input::GetMouseKeyHold(noa::MouseButton::LEFT_BUTTON)&&timer>0.1f)
 	{
 		Bullet* bullet = bulletPool->Request();
@@ -65,6 +65,6 @@ void Player::Update()
 
 		timer = 0.0f;
 
-	}
+	}*/
 
 }

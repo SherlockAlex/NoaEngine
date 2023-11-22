@@ -5,10 +5,6 @@ noa::TileCollider2D::TileCollider2D(Actor* actor)
 	:noa::Collider2D(actor)
 {
 	this->colliderType = ColliderType::TILE_COLLIDER;
-	if (actor)
-	{
-		this->SetTileMap(actor->GetActiveScene()->GetLevelAs<TileMap>());
-	}
 }
 
 noa::TileCollider2D::~TileCollider2D()

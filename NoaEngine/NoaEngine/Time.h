@@ -9,6 +9,7 @@ namespace noa {
 		static float deltaTime;
 		static float timeScale;
 		static float time;
+		static int fps;
 	};
 }
 

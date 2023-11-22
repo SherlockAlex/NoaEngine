@@ -25,21 +25,18 @@ noa::SpriteRenderer* noa::SpriteRenderer::Create(Actor* actor)
 
 void noa::SpriteRenderer::UpdateSprite(const SpriteFile& spriteFile)
 {
-	if (sprite == nullptr)
-	{
-		return;
-	}
-	sprite->UpdateImage(spriteFile);
+	spriteGPU->UpdateImage(spriteFile);
 }
 
-noa::SpriteRenderer& noa::SpriteRenderer::SetSprite(Sprite* sprite)
+noa::SpriteRenderer& noa::SpriteRenderer::SetSprite(
+	Sprite* sprite)
 {
 	if (sprite == nullptr) 
 	{
 		return *this;
 	}
-	this->sprite = sprite;
-
+	this->spriteOriginSize.x = sprite->w;
+	this->spriteOriginSize.y = sprite->h;
 	if (spriteGPU == nullptr) 
 	{
 		spriteGPU = SpriteGPU::Create(sprite);
@@ -47,7 +44,6 @@ noa::SpriteRenderer& noa::SpriteRenderer::SetSprite(Sprite* sprite)
 	}
 
 	spriteGPU->Update(sprite);
-	
 	return *this;
 
 }
@@ -71,6 +67,13 @@ noa::SpriteRenderer& noa::SpriteRenderer::SetScale(float x, float y)
 	return *this;
 }
 
+noa::SpriteRenderer& noa::SpriteRenderer::SetOffset(float x,float y) 
+{
+	this->offset.x = x;
+	this->offset.y = y;
+	return *this;
+}
+
 noa::SpriteRenderer& noa::SpriteRenderer::SetLayer(
 	noa::InstanceLayer layer) 
 {
@@ -89,17 +92,13 @@ void noa::SpriteRenderer::Update() {
 
 void noa::SpriteRenderer::Render()
 {
-	if (!sprite)
-	{
-		noa::Debug::Warring("The sprite of SpriteRenderer is null");
-		return;
-	}
 
 	spriteGPU->SetLayer(this->layer);
 	SpriteRendererInstance instance;
 	instance.actor = this->GetActor();
+	instance.offset = this->offset;
 	instance.tint = this->tint;
-	instance.sprite = this->sprite;
+	instance.spriteSize = this->spriteOriginSize;
 	instance.spriteGPU = this->spriteGPU.get();
 	instance.scale = this->scale;
 	instance.isFlip = this->isFlip;

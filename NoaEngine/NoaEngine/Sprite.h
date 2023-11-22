@@ -120,6 +120,7 @@ namespace noa {
 		void SetLayer(InstanceLayer layer);
 
 		void Update(Sprite* sprite);
+		void UpdateImage(const SpriteFile& image);
 
 		void DrawSprite(float x = 0, float y = 0,bool mirror = false,float eulerAngle = 0.0f);
 

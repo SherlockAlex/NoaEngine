@@ -73,11 +73,14 @@ void InitGameUI(noa::Scene* scene)
 }
 
 bool flag = true;
+noa::TileMap* map = nullptr;
 void GameDelegate::OnLoad(noa::Scene* scene)
 {
 	//flag = true;
 
-	noa::TileMap* map = noa::TileMap::Create(scene)
+	noa::PhysicsSystem::SetGrid(100,100);
+
+	map = noa::TileMap::Create()
 		->LoadTileSet("tileSet.tsd")
 		.LoadTileLayer({"map_Layer1.csv","map_Layer2.csv"})
 		.SetCollisionTileID(40)
@@ -86,7 +89,12 @@ void GameDelegate::OnLoad(noa::Scene* scene)
 	noa::Actor* tileMap = noa::NObject<noa::Actor>::Create(scene);
 	noa::TileMapRenderer* tileMapRenderer 
 		= noa::TileMapRenderer::Create(tileMap)
-		->SetTileMap(map)
+		->SetTileMap(&map->layers[0],map->GetTileSet())
+		.Apply();
+	noa::TileMapRenderer* tileMapRenderer1
+		= noa::TileMapRenderer::Create(tileMap)
+		->SetTileMap(&map->layers[1], map->GetTileSet())
+		.SetOffset(10.0f,9.0f)
 		.Apply();
 
 	Test* test1 = noa::NObject<Test>::Create(scene);
@@ -167,13 +175,14 @@ void GameDelegate::OnTick(noa::Scene* scene)
 
 	}
 
-	//if (i<500) 
-	//{
-	//	Test* test = noa::NObject<Test>::Create(scene);
-	//	test->transform.position = { 2,3 };
-	//	test->rigid->velocity = { 70,0 };
-	//	i++;
-	//}
+	if (i<500) 
+	{
+		Test* test = noa::NObject<Test>::Create(scene);
+		test->transform.position = { 2,3 };
+		test->rigid->velocity = { 70,0 };
+		test->tileCollider->SetTileMap(map);
+		i++;
+	}
 	//
 
 	//if (camera == nullptr)
@@ -181,11 +190,11 @@ void GameDelegate::OnTick(noa::Scene* scene)
 	//	return;
 	//}
 
-	//if (noa::Input::GetMouseKeyUp(noa::MouseButton::LEFT_BUTTON))
-	//{
-	//	hold = nullptr;
-	//	currentSelect = nullptr;
-	//}
+	if (noa::Input::GetMouseKeyUp(noa::MouseButton::LEFT_BUTTON))
+	{
+		hold = nullptr;
+		currentSelect = nullptr;
+	}
 
 	//if (hold) 
 	//{
@@ -196,43 +205,40 @@ void GameDelegate::OnTick(noa::Scene* scene)
 	//	);
 	//}
 
-	////选择鼠标点击到的Test
-	//noa::Vector<double> pos = noa::Input::GetMousePosition();
-	////通过鼠标位置获取Test
+	//选择鼠标点击到的Test
+	noa::Vector<double> pos = noa::Input::GetMousePosition();
+	//通过鼠标位置获取Test
 
-	//if (noa::Input::GetMouseKeyDown(noa::MouseButton::LEFT_BUTTON))
-	//{
-	//	currentSelect = camera->GetRayHitInfoAs<Test>(
-	//		static_cast<int>(pos.x)
-	//		, static_cast<int>(pos.y)
-	//	);
-	//}
-	//
-	//if (currentSelect!=nullptr&&hold == nullptr) 
-	//{
-	//	hold = currentSelect;
-	//}
+	if (noa::Input::GetMouseKeyDown(noa::MouseButton::LEFT_BUTTON))
+	{
+		//currentSelect = camera->GetPointActor<Test>(pos.x, pos.y);
+	}
+	
+	if (currentSelect!=nullptr&&hold == nullptr) 
+	{
+		hold = currentSelect;
+	}
 
 	//camera->SetFollow(hold);
 
-	//if (hold != nullptr) 
-	//{
-	//	if (noa::Input::GetMouseKeyHold(noa::MouseButton::LEFT_BUTTON))
-	//	{
-	//		//鼠标左键按住
-	//		noa::Vector<float> world = camera->ScreenPointToWorld(
-	//			static_cast<float>(pos.x)
-	//			, static_cast<float>(pos.y)
-	//		);
+	if (hold != nullptr) 
+	{
+		if (noa::Input::GetMouseKeyHold(noa::MouseButton::LEFT_BUTTON))
+		{
+			//鼠标左键按住
+			noa::Vector<float> world = camera->ScreenPointToWorld(
+				static_cast<float>(pos.x)
+				, static_cast<float>(pos.y)
+			);
 
-	//		noa::Vector<float> velocity = world - hold->transform.position;;
+			noa::Vector<float> velocity = world - hold->transform.position;;
 
-	//		hold->rigid->velocity = velocity*10.0f;
-	//	}
-	//}
+			hold->rigid->velocity = velocity*10.0f;
+		}
+	}
 
 	noa::renderer->DrawString(
-		(L"FPS:"+std::to_wstring(1.0f/noa::Time::deltaTime))
+		(L"FPS:"+std::to_wstring(noa::Time::fps))
 		,10
 		,10
 		,noa::RED,50

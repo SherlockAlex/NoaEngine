@@ -9,7 +9,7 @@
 
 noa::Camera2D::Camera2D(noa::Scene* scene) :Camera(scene)
 {
-
+	actorsInScreen.resize(Screen::width * Screen::height, nullptr);
 }
 
 noa::Camera2D::~Camera2D() {
@@ -31,6 +31,8 @@ void noa::Camera2D::Update() {
 void noa::Camera2D::Render() {
 	//»æÖÆÆÁÄ»ÐÅÏ¢
 
+	//actorsInScreen.resize(Screen::width * Screen::height, nullptr);
+
 	for (auto& instance:spriteRendererInstances) 
 	{
 		if (instance.actor == nullptr)
@@ -38,20 +40,37 @@ void noa::Camera2D::Render() {
 			continue;
 		}
 
-		const float screenPosX = (instance.actor->transform.position.x
-			- offset.x) * far;
-		const float screenPosY = (instance.actor->transform.position.y
-			- offset.y) * far;
+		const float screenPosX = 
+			(instance.actor->transform.position.x
+			- offset.x+instance.offset.x) * far;
+		const float screenPosY = 
+			(instance.actor->transform.position.y
+			- offset.y+instance.offset.y) * far;
 
 		instance.spriteGPU->DrawSprite(
 			screenPosX
 			, screenPosY
-			, instance.scale.x * instance.sprite->w
-			, instance.scale.y * instance.sprite->h
+			, instance.scale.x * instance.spriteSize.x
+			, instance.scale.y * instance.spriteSize.y
 			, instance.tint
 			, instance.isFlip.x
 			, (instance.actor == nullptr) ? 0.0f : instance.actor->transform.eulerAngle
 		);
+
+		/*for (int i = static_cast<int>(screenPosX); i < static_cast<int>(screenPosX + instance.scale.x * instance.spriteSize.x); i++)
+		{
+			for (int j = static_cast<int>(screenPosY); j < static_cast<int>(screenPosY + instance.scale.y * instance.spriteSize.y); j++)
+			{
+				const int index = static_cast<int>(j * Screen::width + i);
+
+				if (index < 0 || index >= actorsInScreen.size())
+				{
+					continue;
+				}
+				actorsInScreen[index] = instance.actor;
+
+			}
+		}*/
 
 	}
 

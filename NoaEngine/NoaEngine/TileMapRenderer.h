@@ -3,7 +3,6 @@
 
 #endif // !NOAENGINE_TILEMAPRENDERER_H
 
-
 #include "ActorComponent.h"
 #include "Sprite.h"
 
@@ -12,6 +11,7 @@ namespace noa
 	class TileMapRenderer;
 	class TileMapActor;
 	class SpriteRenderer;
+	class TileLayer;
 
 	class TileMapRenderer :public noa::ActorComponent
 	{
@@ -20,16 +20,18 @@ namespace noa
 	private:
 		TileMapRenderer(noa::Actor* actor);
 		~TileMapRenderer();
-
 	public:
 		static TileMapRenderer* Create(noa::Actor* actor);
 
-		TileMapRenderer& SetTileMap(noa::TileMap* tileMap);
+		TileMapRenderer& SetTileMap(
+			noa::MapLayer* layer
+			,noa::TileSet& tileSet
+		);
+		TileMapRenderer& SetOffset(float x,float y);
 		TileMapRenderer* Apply();
 	private:
-		noa::TileMap* tileMap = nullptr;
-		noa::Sprite sprite;
 		noa::Vector<int> tileScale = { 32,32 };
 		noa::SpriteRenderer* spriteRenderer = nullptr;
 	};
+
 }

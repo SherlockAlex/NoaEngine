@@ -22,7 +22,9 @@ namespace noa {
 		Camera2D& SetAnchor(float x,float y);
 		Camera2D* Apply();
 		Vector<float> ScreenPointToWorld(double x, double y);
+
 	private:
+		std::vector<Actor*> actorsInScreen;
 		Vector<float> worldGrid;
 		Vector<float> offset;
 		Vector<float> anchor;

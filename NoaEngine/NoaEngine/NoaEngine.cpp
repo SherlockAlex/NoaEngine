@@ -72,12 +72,6 @@ noa::NoaEngine::NoaEngine(
 	Input::InitInputSystem(platform->GetPlatformEvent());
 	audioSystem->InitAudioSubSystem();
 
-	if (windowMode == WindowMode::WINDOW)
-	{
-		Screen::hardwareScreenScale.x = width;
-		Screen::hardwareScreenScale.y = height;
-	}
-
 	texture = renderer->CreateTexture(width, height, Screen::pixelBuffer);
 
 }
@@ -123,9 +117,10 @@ void noa::NoaEngine::EngineThread()
 		Time::deltaTime = Time::timeScale * Time::realDeltaTime;
 
 		Time::time += Time::deltaTime;
-		if (Time::time > 2 * PI)
+		if (Time::time > noa::Math::doublePi)
 		{
 			Time::time = 0;
+			Time::fps = static_cast<int>(1.0f / Time::deltaTime);
 		}
 		platform->EventLoop();
 

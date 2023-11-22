@@ -139,9 +139,6 @@ void noa::InputEvent_Windows::UpdateMouseContext()
 
 	const Uint32 mouseState = SDL_GetMouseState(&mouseX, &mouseY);
 
-	mouseContext->position.x = mouseX;
-	mouseContext->position.y = mouseY;
-
 	mouseContext->mouseKey[MouseButton::LEFT_BUTTON].hold
 		= mouseState & SDL_BUTTON((static_cast<int>(MouseButton::LEFT_BUTTON)));
 	mouseContext->mouseKey[MouseButton::RIGHT_BUTTON].hold
@@ -161,6 +158,8 @@ void noa::InputEvent_Windows::UpdateMouseContext()
 		break;
 	case SDL_MOUSEMOTION:
 		mouseContext->motion = true;
+		mouseContext->position.x = e.motion.x;
+		mouseContext->position.y = e.motion.y;
 		mouseContext->delta.x += static_cast<double>(e.motion.xrel);
 		mouseContext->delta.y += static_cast<double>(e.motion.yrel);
 		break;

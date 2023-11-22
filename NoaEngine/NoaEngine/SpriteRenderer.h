@@ -9,7 +9,8 @@ namespace noa {
 
 	typedef struct SpriteRendererInstance {
 		Actor* actor = nullptr;
-		Sprite* sprite = nullptr;
+		Vector<float> offset;
+		Vector<int> spriteSize = {0,0};
 		SpriteGPU* spriteGPU = nullptr;
 		uint32_t tint = noa::WHITE;
 		float distanceToPlayer = 0;
@@ -26,7 +27,6 @@ namespace noa {
 		ACTOR_COMPONENT(SpriteRenderer)
 	private:
 		InstanceLayer layer = InstanceLayer::GAME_LAYER;
-		Sprite* sprite = nullptr;
 		std::shared_ptr<SpriteGPU> spriteGPU = nullptr;
 
 	private:
@@ -42,6 +42,7 @@ namespace noa {
 		SpriteRenderer& SetFlipX(bool value);
 		SpriteRenderer& SetFlipY(bool value);
 		SpriteRenderer& SetScale(float x,float y);
+		SpriteRenderer& SetOffset(float x, float y);
 		SpriteRenderer& SetLayer(InstanceLayer layer);
 
 		SpriteRenderer* Apply();
@@ -50,9 +51,11 @@ namespace noa {
 		void Render() override;
 
 	public:
+		Vector<int> spriteOriginSize = {0,0};
 		uint32_t tint = noa::WHITE;
 		Vector<bool> isFlip = {false,false};
 		Vector<float> scale = {1.0f,1.0f};
+		Vector<float> offset = { 0.0f,0.0f };
 	};
 
 	extern std::vector<SpriteRendererInstance> spriteRendererInstances;

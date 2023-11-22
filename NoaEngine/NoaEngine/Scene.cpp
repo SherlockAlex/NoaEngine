@@ -47,9 +47,9 @@ void noa::MapLayer::SetTileID(int x, int y, int value)
 	this->layer[y * this->w + x] = value;
 }
 
-noa::Level::Level(noa::Scene* scene) 
+noa::Level::Level() 
 {
-	this->scene = scene;
+	
 }
 
 noa::Level::~Level()
@@ -91,14 +91,9 @@ void noa::Level::Construct(const std::vector<MapLayer>& mapLayers)
 		}
 	}
 
-	if (scene) 
-	{
-		scene->SetLevel(this);
-	}
-
 }
 
-noa::TileMap::TileMap(noa::Scene* scene):Level(scene)
+noa::TileMap::TileMap():Level()
 {
 
 }
@@ -108,9 +103,9 @@ noa::TileMap::~TileMap()
 
 }
 
-noa::TileMap* noa::TileMap::Create(Scene* scene)
+noa::TileMap* noa::TileMap::Create()
 {
-	noa::TileMap* map = new TileMap(scene);
+	noa::TileMap* map = new TileMap();
 	return map;
 }
 
@@ -198,6 +193,10 @@ bool noa::TileMap::IsCollisionTile(const int x, const int y) const
 
 }
 
+noa::TileSet& noa::TileMap::GetTileSet() {
+	return *&this->tileSet;
+}
+
 noa::Tile* noa::TileMap::GetTile(const int id)
 {
 	return tileSet.GetTileByID(id);
@@ -245,21 +244,6 @@ void noa::Scene::CloseSceneChild() {
 		return;
 	}
 	this->sceneStack.pop();
-}
-
-noa::Level* noa::Scene::GetLevel()
-{
-	return this->level;
-}
-
-void noa::Scene::SetLevel(Level* map)
-{
-	PhysicsSystem::SetGrid(map->w, map->h);
-	if (this->level)
-	{
-		this->level->Delete(this->level);
-	}
-	this->level = map;
 }
 
 void noa::Scene::AddActor(Actor* actor)
@@ -326,9 +310,6 @@ void noa::Scene::DestoyScene()
 	}
 
 	actors.clear();
-
-	//É¾³ýµôlevel
-	this->level->Delete(this->level);
 
 	while (!sceneStack.empty())
 	{

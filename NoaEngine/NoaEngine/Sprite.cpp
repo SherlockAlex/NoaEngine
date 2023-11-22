@@ -416,13 +416,16 @@ void noa::SpriteGPU::SetLayer(InstanceLayer layer)
 
 void noa::SpriteGPU::Update(Sprite* sprite)
 {
-
 	if (sprite != nullptr)
 	{
 		texture->UpdateTexture(sprite->GetImage().data(), sprite->w, sprite->h);
 		this->size = sprite->size;
 	}
+}
 
+void noa::SpriteGPU::UpdateImage(const noa::SpriteFile& image)
+{
+	texture->UpdateTexture(image.images.data(), image.width, image.height);
 }
 
 void noa::SpriteGPU::DrawSprite(float x, float y, bool mirror, float eulerAngle)
