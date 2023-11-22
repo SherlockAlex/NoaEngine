@@ -19,8 +19,15 @@ void InitGUI(noa::Scene* scene)
 		.SetPosition(noa::Screen::width/2,noa::Screen::height/2)
 		.Apply();
 
+	noa::UIContainer* subContainer =
+		noa::UIContainer::Create(container)
+		->SetID("warry_container")
+		.SetPosition(0,0)
+		.SetVisiable(true)
+		.Apply();
+
 	noa::Image* image =
-		noa::Image::Create(container)
+		noa::Image::Create(subContainer)
 		->SetID("editor_image")
 		.SetColor(noa::RGBA(128,128,128,128))
 		.SetSize(noa::Screen::width/3,noa::Screen::height/3)
@@ -28,11 +35,12 @@ void InitGUI(noa::Scene* scene)
 		.Apply();
 
 	noa::Button* button =
-		noa::Button::Create(container)
+		noa::Button::Create(subContainer)
 		->SetID("button")
+		.SetText(L"È·¶¨")
 		.SetSize(160,50)
 		.SetRadius(50)
-		.SetPosition(0,50)
+		.SetPosition(0,150)
 		.Apply();
 
 	noa::Label* label =
@@ -108,17 +116,23 @@ void GUIBehaviour(noa::UIDocument* document) {
 			+ std::to_wstring(1.0f / noa::Time::realDeltaTime));
 	}
 
-	noa::UIContainer* container =
-		document->GetElementByID<noa::UIContainer>("editor_container");
-
-	noa::Vector<double> mousePos = noa::Input::GetMousePosition();
-	if (noa::Input::GetMouseKeyHold(noa::MouseButton::LEFT_BUTTON))
+	noa::UIContainer* subContainer =
+		document->GetElementByID<noa::UIContainer>("warry_container");
+	if (subContainer)
 	{
-		if (mousePos.y>=container->globalTransform.position.y-10
-			||mousePos.y<=container->globalTransform.position.y+10) 
+		noa::Vector<double> mousePos = 
+			noa::Input::GetMousePosition();
+		if (noa::Input::GetMouseKeyHold(noa::MouseButton::LEFT_BUTTON)) 
 		{
-			container->SetPosition(mousePos.x,mousePos.y);
+			if (mousePos.y>=subContainer->globalTransform.position.y -10
+				&&mousePos.y<=subContainer->globalTransform.position.y+10
+				&&mousePos.x>=subContainer->globalTransform.position.x - 0.5f* noa::Screen::width / 3
+				&&mousePos.y<=subContainer->globalTransform.position.x + 0.5f* noa::Screen::width / 3)
+			{
+				subContainer->SetGlobalPosition(mousePos.x,mousePos.y);
+			}
 		}
+
 	}
 
 }

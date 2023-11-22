@@ -1,22 +1,17 @@
-﻿  NoaEngine.cpp
-  NoaGUI.cpp
-  Renderer.cpp
-  EditorCamera.cpp
-  EditorSceneDelegate.cpp
-D:\Work\NoaEngine\NoaEditor\EditorSceneDelegate.cpp(120,46): warning C4244: “参数”: 从“T”转换到“int”，可能丢失数据
+﻿  EditorSceneDelegate.cpp
+D:\Work\NoaEngine\NoaEditor\EditorSceneDelegate.cpp(132,56): warning C4244: “参数”: 从“T”转换到“int”，可能丢失数据
           with
           [
               T=double
           ]
-D:\Work\NoaEngine\NoaEditor\EditorSceneDelegate.cpp(120,35): warning C4244: “参数”: 从“T”转换到“int”，可能丢失数据
+D:\Work\NoaEngine\NoaEditor\EditorSceneDelegate.cpp(132,45): warning C4244: “参数”: 从“T”转换到“int”，可能丢失数据
           with
           [
               T=double
           ]
-  NoaEditor.cpp
   正在生成代码
-  24 of 2915 functions ( 0.8%) were compiled, the rest were copied from previous compilation.
+  8 of 2920 functions ( 0.3%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    15 functions had inline decision re-evaluated but remain unchanged
+    10 functions had inline decision re-evaluated but remain unchanged
   已完成代码的生成
   NoaEditor.vcxproj -> D:\Work\NoaEngine\x64\Release\NoaEditor.exe

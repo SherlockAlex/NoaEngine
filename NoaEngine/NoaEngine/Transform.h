@@ -6,10 +6,8 @@ namespace noa {
 	class Transform final
 	{
 	public:
-		Vector<float> position = {0.0f,0.0f};		//绝对坐标系
-		Vector<float> localPosition = {0.0f,0.0f};	//相对父的绝对坐标系
+		Vector<float> position = {0.0f,0.0f};
 		float eulerAngle = 0.0f;
-		float localEulerAngle = 0.0f;
 		float posZ = 0.0;
 	};
 

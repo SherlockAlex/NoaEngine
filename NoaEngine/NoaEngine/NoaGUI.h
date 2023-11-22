@@ -80,12 +80,10 @@ namespace noa {
 		friend class UIContainer;
 		friend class UIDocumentComponent;
 
-
-
+		UITransform globalTransform;
 	public:
 		std::string id = "ui_component";
 		UITransform transform;
-		UITransform globalTransform;
 		Vector<float> anchor = { 0.5f,0.5f };
 	protected:
 		UITransform fatherTransform;	// 父节点的绝对路径
@@ -103,6 +101,7 @@ namespace noa {
 
 	public:
 
+		void SetGlobalPosition(int x,int y);
 		void SetActiveInContainer(bool active);
 		bool GetActive();
 	};
@@ -188,6 +187,7 @@ namespace noa {
 
 		UIContainer& SetID(const std::string& id);
 		UIContainer& SetPosition(int x, int y);
+		UIContainer& SetGlobalPosition(int x,int y);
 		UIContainer& SetVisiable(bool value);
 		UIContainer* Apply();
 

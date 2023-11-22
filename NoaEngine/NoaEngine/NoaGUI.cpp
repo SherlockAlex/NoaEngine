@@ -344,6 +344,17 @@ noa::UIContainer& noa::UIContainer::SetPosition(int x,int y)
 	return *this;
 }
 
+noa::UIContainer& noa::UIContainer::SetGlobalPosition(int x,int y) 
+{
+	transform.position.x =
+		x - fatherTransform.position.x;
+
+	transform.position.y =
+		y - fatherTransform.position.y;
+
+	return *this;
+}
+
 noa::UIContainer& noa::UIContainer::SetVisiable(bool value) 
 {
 	this->visiable = value;
@@ -590,6 +601,23 @@ void noa::UIComponent::Delete(UIComponent*& ptr)
 {
 	delete this;
 	ptr = nullptr;
+}
+
+void noa::UIComponent::SetGlobalPosition(int x,int y) {
+	//计算值，然后换算成position
+	//globalTransform.position.x 
+	// = (fatherTransform.position.x 
+	// + transform.position.x 
+	// - anchor.x * transform.size.x);
+
+	transform.position.x = 
+		x + anchor.x * transform.size.x 
+		- fatherTransform.position.x;
+
+	transform.position.y =
+		y + anchor.y * transform.size.y
+		- fatherTransform.position.y;
+
 }
 
 void noa::UIComponent::SetActiveInContainer(bool active)
