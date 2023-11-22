@@ -13,10 +13,13 @@
 
 namespace noa {
 
+	class AudioClip;
+
 	class Button;
 	class Label;
 	class Image;
 	class ProcessBar;
+	class UIHub;
 	class UIDocument;
 	class UIContainer;
 	class UIDocumentComponent;
@@ -101,12 +104,28 @@ namespace noa {
 		bool GetActive();
 	};
 
+	//UIDocument的查找是一个大的问题
+	//需要提供一套解决方案
+
+	class UIHub 
+	{
+	public:
+		static UIDocument* GetDocumentByID(const std::string& id);
+	private:
+		static void RemoveDocument(UIDocument* document);
+	private:
+		friend class UIDocument;
+		static std::vector<UIDocument*> documents;
+	};
+
 	class UIDocument 
 	{
 	protected:
 		UIDocument();
 		virtual ~UIDocument();
 	public:
+
+		void SetDocumentID(const std::string& id);
 
 		void Display(size_t index);
 		void Display(const std::string& id);
@@ -140,9 +159,13 @@ namespace noa {
 		void UIDocumentRender();
 	private:
 		friend class UIContainer;
+		friend class UIHub;
 
 		std::stack<UIContainer*> containerStack;
 		std::vector<UIContainer*> containerList;
+
+		std::string id = "document";
+
 	};
 
 	class UIContainer final
@@ -185,7 +208,7 @@ namespace noa {
 		noa::UIContainer* GetElementByID(const std::string& id)
 		{
 
-			if (this->id == id) 
+			if (this->id == id)
 			{
 				return this;
 			}
@@ -240,6 +263,7 @@ namespace noa {
 		void Update() override;
 		void Render() override;
 		UIDocumentActor& SetActorTag(const std::string& tag);
+		UIDocumentActor& SetID(const std::string& id);
 		UIDocumentActor* Apply();
 
 	};
@@ -253,6 +277,9 @@ namespace noa {
 		~UIDocumentComponent() override;
 	public:
 		static UIDocumentComponent* Create(Actor* actor);
+
+		UIDocumentComponent& SetID(const std::string& id);
+		UIDocumentComponent* Apply();
 
 		void Start() override;
 		void Update() override;
@@ -374,6 +401,10 @@ namespace noa {
 		NoaEvent<void> clickEvent;
 
 		Sprite sprite;
+		
+		std::shared_ptr<noa::AudioClip> selectedAudio = nullptr;
+		std::shared_ptr<noa::AudioClip> clickAudio = nullptr;
+
 
 		friend class Button;
 
@@ -410,6 +441,8 @@ namespace noa {
 		Button& SetNormalScale(float value);
 		Button& SetHeightLightScale(float value);
 		Button& SetClickScale(float value);
+		Button& SetSelectedAudio(std::shared_ptr<noa::AudioClip> audio);
+		Button& SetClickAudio(std::shared_ptr<noa::AudioClip> audio);
 		Button& AddSelectedCallback(std::function<void()> func);
 		Button& AddClickCallback(std::function<void()> func);
 		Button* Apply();

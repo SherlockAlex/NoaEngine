@@ -180,6 +180,12 @@
     <ClCompile Include="..\..\NoaEngine\NoaEngine\Transform.cpp">
       <Filter>头文件\Engine</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\NoaEngine\NoaEngine\Camera2D.cpp">
+      <Filter>头文件\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\NoaEngine\NoaEngine\TileMapRenderer.cpp">
+      <Filter>头文件\Engine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h">
@@ -363,6 +369,12 @@
       <Filter>头文件\Engine</Filter>
     </ClInclude>
     <ClInclude Include="..\..\NoaEngine\NoaEngine\Transform.h">
+      <Filter>头文件\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\NoaEngine\NoaEngine\Camera2D.h">
+      <Filter>头文件\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\NoaEngine\NoaEngine\TileMapRenderer.h">
       <Filter>头文件\Engine</Filter>
     </ClInclude>
   </ItemGroup>

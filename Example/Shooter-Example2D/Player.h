@@ -37,7 +37,7 @@ public:
 		.SetScale(1.5f, 1.7f)
 		.Apply();
 
-	noa::TileMapCamera* camera = nullptr;
+	noa::Camera2D* camera = nullptr;
 
 	int hp = 100;
 	int maxHp = 100;

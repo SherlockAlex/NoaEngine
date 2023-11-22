@@ -6,7 +6,6 @@ Player::Player(noa::Scene * scene):noa::Actor(scene)
 {
 	this->tag = "Player";
 	this->transform.position = { 3,3 };
-
 }
 
 Player::~Player() {
@@ -33,10 +32,16 @@ void Player::Update()
 		rigid->velocity.x = -15;
 		spriteRenderer->isFlip.x = true;
 	}
+
 	if (noa::Input::GetKeyHold(noa::KeyCode::KEY_D))
 	{
 		rigid->velocity.x = 15;
 		spriteRenderer->isFlip.x = false;
+	}
+
+	if (noa::Input::GetKeyDown(noa::KeyCode::KEY_K)) 
+	{
+		this->hp = hp - 1;
 	}
 
 	/*if (noa::Input::GetMouseKeyHold(noa::MouseButton::RIGHT_BUTTON))

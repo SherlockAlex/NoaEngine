@@ -8,12 +8,11 @@
 #include "Sprite.h"
 #include "InputSystem.h"
 #include "Screen.h"
+#include "AudioSystem.h"
 
-namespace noa {
+extern std::shared_ptr<noa::Renderer> noa::renderer;
 
-	extern std::shared_ptr<Renderer> renderer;
-
-}
+std::vector<noa::UIDocument*> noa::UIHub::documents;
 
 noa::SpriteFile CreateSpriteFromBitmap(FT_Bitmap* bitmap)
 {
@@ -153,11 +152,38 @@ noa::Font* noa::FontAsset::GetFont(wchar_t c)
 	return fonts[c];
 }
 
-noa::UIDocument::UIDocument() {
-
+noa::UIDocument* noa::UIHub::GetDocumentByID(
+	const std::string& id)
+{
+	for (auto& document:documents)
+	{
+		if (document&&document->id == id) 
+		{
+			return document;
+		}
+	}
+	return nullptr;
 }
 
-noa::UIDocument::~UIDocument() {
+void noa::UIHub::RemoveDocument(noa::UIDocument* document) {
+	auto it = std::find(
+		documents.begin()
+		, documents.end()
+		, document);
+	if (it == documents.end()) 
+	{
+		return;
+	}
+	documents.erase(it);
+}
+
+noa::UIDocument::UIDocument() {
+	noa::UIHub::documents.push_back(this);
+}
+
+noa::UIDocument::~UIDocument() 
+{
+	noa::UIHub::RemoveDocument(this);
 	while (!containerStack.empty())
 	{
 		containerStack.pop();
@@ -177,6 +203,11 @@ void noa::UIDocument::AddUIContainer(UIContainer* container)
 	container->index = containerList.size();
 	this->containerList.push_back(container);
 
+}
+
+void noa::UIDocument::SetDocumentID(const std::string& id)
+{
+	this->id = id;
 }
 
 void noa::UIDocument::Display(size_t index)
@@ -494,6 +525,13 @@ noa::UIDocumentActor& noa::UIDocumentActor::SetActorTag(
 	return *this;
 }
 
+noa::UIDocumentActor& noa::UIDocumentActor::SetID(
+	const std::string& id) 
+{
+	SetDocumentID(id);
+	return *this;
+}
+
 noa::UIDocumentActor* noa::UIDocumentActor::Apply() {
 	return this;
 }
@@ -510,6 +548,17 @@ noa::UIDocumentComponent::~UIDocumentComponent() {
 noa::UIDocumentComponent* noa::UIDocumentComponent::Create(Actor * actor)
 {
 	return noa::NObject<UIDocumentComponent>::Create(actor);
+}
+
+noa::UIDocumentComponent& noa::UIDocumentComponent::SetID(
+	const std::string& id)
+{
+	noa::UIDocument::SetDocumentID(id);
+	return *this;
+}
+
+noa::UIDocumentComponent* noa::UIDocumentComponent::Apply() {
+	return this;
 }
 
 void noa::UIDocumentComponent::Start() {
@@ -841,8 +890,8 @@ void noa::Button::SwapState()
 	globalTransform.position.y = posY;
 
 	isClickReady = false;
-	if (mousePosX >= posX && mousePosX<=posX + transform.size.x
-		&& mousePosY>=posY && mousePosY <= posY + transform.size.y
+	if (mousePosX >= posX && mousePosX<=posX + transform.size.x*currentScale
+		&& mousePosY>=posY && mousePosY <= posY + transform.size.y*currentScale
 		)
 	{
 		isSelect = true;//进入到被高亮状态
@@ -850,6 +899,10 @@ void noa::Button::SwapState()
 		if (!selectEventFlag) 
 		{
 			//高亮事件
+			if (this->selectedAudio!=nullptr)
+			{
+				selectedAudio->Play(false);
+			}
 			this->selectedEvent.Invoke();
 			selectEventFlag = true;
 		}
@@ -861,6 +914,10 @@ void noa::Button::SwapState()
 		}
 		else if (Input::GetMouseKeyUp(MouseButton::LEFT_BUTTON))
 		{
+			if (clickAudio!=nullptr)
+			{
+				clickAudio->Play(false);
+			}
 			this->clickEvent.Invoke();
 		}
 		
@@ -948,6 +1005,8 @@ noa::Button& noa::Button::Clone(Button* button) {
 		.SetHeightLightScale		(button->heightLightScale)
 		.SetAnchor				(button->anchor.x,button->anchor.y)
 		.SetTextOffset(button->labelOffset.x,button->labelOffset.y)
+		.SetClickAudio(button->clickAudio)
+		.SetSelectedAudio(button->selectedAudio)
 		.SetClickScale			(button->clickScale);
 }
 
@@ -1151,6 +1210,20 @@ noa::Button& noa::Button::SetHeightLightScale(float value)
 noa::Button& noa::Button::SetClickScale(float value)
 {
 	this->clickScale = value;
+	return *this;
+}
+
+noa::Button& noa::Button::SetSelectedAudio(
+	std::shared_ptr<noa::AudioClip> audio) 
+{
+	this->selectedAudio = audio;
+	return *this;
+}
+
+noa::Button& noa::Button::SetClickAudio(
+	std::shared_ptr<noa::AudioClip> audio)
+{
+	this->clickAudio = audio;
 	return *this;
 }
 

@@ -40,8 +40,9 @@ namespace noa {
 
 	enum class InstanceLayer {
 		MAIN_LAYER = 0,		//д╛хом╪╡Ц
-		GAME_LAYER = 1,		//сно╥м╪╡Ц
-		UI_LAYER = 2		//UIм╪╡Ц
+		MAP_LAYER = 1,		//╣ьм╪м╪╡Ц
+		GAME_LAYER = 2,		//сно╥м╪╡Ц
+		UI_LAYER = 3		//UIм╪╡Ц
 	};
 
 	class Sprite final {

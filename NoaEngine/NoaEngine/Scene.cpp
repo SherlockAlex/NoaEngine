@@ -12,10 +12,7 @@
 
 using namespace std;
 
-namespace noa 
-{
-	SceneManager sceneManager;
-}
+noa::SceneManager noa::sceneManager;
 
 noa::MapLayer::MapLayer(const LayerFile& layer)
 {

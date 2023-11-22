@@ -16,14 +16,14 @@
             "scale": 1.5,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 246.66666666666666,
-                "y": 183.66666666666663
+                "x": 80.66666666666666,
+                "y": 637
             }
         }
     },
-    "last.exportedFilePath": "D:/Work/NoaEngine/Example/RPGExample/Data/Resource/assets",
+    "last.exportedFilePath": "C:/Users/zhang/Desktop",
     "last.imagePath": "D:/Work/NoaEngine/Example/Resource/Tilemap",
-    "map.lastUsedExportFilter": "CSV 文件 (*.csv)",
+    "map.lastUsedExportFilter": "Godot 4 Scene files (*.tscn)",
     "map.lastUsedFormat": "tmx",
     "map.tileHeight": 16,
     "map.tileWidth": 16,

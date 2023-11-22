@@ -31,7 +31,9 @@ void ProcessBarFinishedAction() {
 
 void MainMenuDelegate::OnLoad(noa::Scene* scene)
 {
-	noa::UIDocument* document = noa::UIDocumentActor::Create(scene);
+	noa::UIDocument* document = noa::UIDocumentActor::Create(scene)
+		->SetID("main_menu_document")
+		.Apply();
 
 	noa::UIContainer* mainContainer = noa::UIContainer::Create(document)
 		->SetPosition(noa::Screen::width,noa::Screen::height/2)
@@ -66,6 +68,7 @@ void MainMenuDelegate::OnLoad(noa::Scene* scene)
 		.SetNormalScale(1.0f)
 		.SetHeightLightScale(1.1f)
 		.SetClickScale(0.9f)
+		.SetSelectedAudio(noa::Resource::LoadAudioClip("buttonselect.mp3"))
 		.AddClickCallback(LoadGameButtonClick)
 		.Apply();
 
@@ -82,7 +85,6 @@ void MainMenuDelegate::OnLoad(noa::Scene* scene)
 		.SetPosition(0,2*70)
 		.AddClickCallback(noa::Application::Quit)
 		.Apply();
-
 
 	noa::Image* backgroundImage1 = noa::Image::Create(secondContainer)
 		->SetSprite(&ResourceManager::backgroundImage1)
@@ -114,8 +116,7 @@ void MainMenuDelegate::OnLoad(noa::Scene* scene)
 
 void MainMenuDelegate::OnUpdate(noa::Scene* scene) 
 {
-	noa::UIDocument* document = 
-		noa::sceneManager.FindActorWithType<noa::UIDocumentActor>();
+	noa::UIDocument* document = noa::UIHub::GetDocumentByID("main_menu_document");
 
 	if (!document) {
 		return;
@@ -128,6 +129,5 @@ void MainMenuDelegate::OnUpdate(noa::Scene* scene)
 	{
 		return;
 	}
-	//noa::Debug::Log(std::to_string(processBar->GetValue()));
 
 }

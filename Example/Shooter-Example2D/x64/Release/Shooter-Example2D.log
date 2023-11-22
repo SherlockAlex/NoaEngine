@@ -1,8 +1,47 @@
-﻿  MainMenuDelegate.cpp
-D:\Work\NoaEngine\Example\Shooter-Example2D\MainMenuDelegate.cpp(90,54): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
-D:\Work\NoaEngine\Example\Shooter-Example2D\MainMenuDelegate.cpp(90,30): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+﻿  Actor.cpp
+  ActorComponent.cpp
+  ActorMotion.cpp
+  ActorPool.cpp
+  ActorPoolFactory.cpp
+  Animator.cpp
+  AudioSource.cpp
+  BoxCollider2D.cpp
+  Camera.cpp
+  Camera2D.cpp
+  CircleCollider2D.cpp
+  Collider2D.cpp
+  NObject.cpp
+  NoaEngine.cpp
+  NoaGUI.cpp
+  Physics.cpp
+  PhysicsSystem.cpp
+  Renderer.cpp
+  Resource.cpp
+  Scene.cpp
+  正在编译...
+  Sprite.cpp
+  SpriteRenderer.cpp
+  StateMachine.cpp
+  Texture.cpp
+  TileCollider2D.cpp
+  TileMapRenderer.cpp
+  Transform.cpp
+  Bullet.cpp
+  BulletFactory.cpp
+  BulletPool.cpp
+  Engine.cpp
+  GameDelegate.cpp
+D:\Work\NoaEngine\Example\Shooter-Example2D\GameDelegate.cpp(57,22): warning C4244: “参数”: 从“float”转换到“int”，可能丢失数据
+D:\Work\NoaEngine\Example\Shooter-Example2D\GameDelegate.cpp(57,17): warning C4244: “参数”: 从“float”转换到“int”，可能丢失数据
+  MainMenuDelegate.cpp
+D:\Work\NoaEngine\Example\Shooter-Example2D\MainMenuDelegate.cpp(92,54): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+D:\Work\NoaEngine\Example\Shooter-Example2D\MainMenuDelegate.cpp(92,30): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+  Player.cpp
+  ResourceManager.cpp
+  Shooter.cpp
+  Test.cpp
   正在生成代码
-  3 of 3851 functions (<0.1%) were compiled, the rest were copied from previous compilation.
+  1 of 3921 functions (<0.1%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
     1 functions had inline decision re-evaluated but remain unchanged
   已完成代码的生成

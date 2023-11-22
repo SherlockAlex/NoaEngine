@@ -9,6 +9,7 @@ D:\Work\NoaEngine\NoaEngine\NoaEngine\AudioSystem.cpp;D:\Work\NoaEngine\Example\
 D:\Work\NoaEngine\NoaEngine\NoaEngine\AudioSystem_SDL.cpp;D:\Work\NoaEngine\Example\Shooter-Example2D\x64\Release\AudioSystem_SDL.obj
 D:\Work\NoaEngine\NoaEngine\NoaEngine\BoxCollider2D.cpp;D:\Work\NoaEngine\Example\Shooter-Example2D\x64\Release\BoxCollider2D.obj
 D:\Work\NoaEngine\NoaEngine\NoaEngine\Camera.cpp;D:\Work\NoaEngine\Example\Shooter-Example2D\x64\Release\Camera.obj
+D:\Work\NoaEngine\NoaEngine\NoaEngine\Camera2D.cpp;D:\Work\NoaEngine\Example\Shooter-Example2D\x64\Release\Camera2D.obj
 D:\Work\NoaEngine\NoaEngine\NoaEngine\CircleCollider2D.cpp;D:\Work\NoaEngine\Example\Shooter-Example2D\x64\Release\CircleCollider2D.obj
 D:\Work\NoaEngine\NoaEngine\NoaEngine\Collider2D.cpp;D:\Work\NoaEngine\Example\Shooter-Example2D\x64\Release\Collider2D.obj
 D:\Work\NoaEngine\NoaEngine\NoaEngine\Debug.cpp;D:\Work\NoaEngine\Example\Shooter-Example2D\x64\Release\Debug.obj
@@ -39,6 +40,7 @@ D:\Work\NoaEngine\NoaEngine\NoaEngine\SpriteRenderer.cpp;D:\Work\NoaEngine\Examp
 D:\Work\NoaEngine\NoaEngine\NoaEngine\StateMachine.cpp;D:\Work\NoaEngine\Example\Shooter-Example2D\x64\Release\StateMachine.obj
 D:\Work\NoaEngine\NoaEngine\NoaEngine\Texture.cpp;D:\Work\NoaEngine\Example\Shooter-Example2D\x64\Release\Texture.obj
 D:\Work\NoaEngine\NoaEngine\NoaEngine\TileCollider2D.cpp;D:\Work\NoaEngine\Example\Shooter-Example2D\x64\Release\TileCollider2D.obj
+D:\Work\NoaEngine\NoaEngine\NoaEngine\TileMapRenderer.cpp;D:\Work\NoaEngine\Example\Shooter-Example2D\x64\Release\TileMapRenderer.obj
 D:\Work\NoaEngine\NoaEngine\NoaEngine\Time.cpp;D:\Work\NoaEngine\Example\Shooter-Example2D\x64\Release\Time.obj
 D:\Work\NoaEngine\NoaEngine\NoaEngine\Transform.cpp;D:\Work\NoaEngine\Example\Shooter-Example2D\x64\Release\Transform.obj
 D:\Work\NoaEngine\Example\Shooter-Example2D\Bullet.cpp;D:\Work\NoaEngine\Example\Shooter-Example2D\x64\Release\Bullet.obj

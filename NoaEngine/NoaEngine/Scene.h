@@ -37,6 +37,7 @@ namespace noa {
 	{
 	public:
 		std::vector<int> layer;
+		noa::Vector<float> position;
 		uint32_t w = 0;
 		uint32_t h = 0;
 	public:
@@ -112,8 +113,6 @@ namespace noa {
 		bool IsCollisionTile(int tileID) const;
 		bool IsCollisionTile(const int x, const int y) const;
 	};
-
-	//有点抽象就是
 
 	class Scene final
 	{

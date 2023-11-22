@@ -41,7 +41,8 @@ namespace noa {
 
 		virtual void Return(T* member) override
 		{
-			Actor* actor = Actor::HandleActor((NoaObject*)member);
+			Actor* actor = dynamic_cast<Actor*>(member);
+			//Actor* actor = Actor::HandleActor((NoaObject*)member);
 			if (actor == nullptr)
 			{
 				Debug::Error("This member is't Actor");

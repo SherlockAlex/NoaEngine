@@ -141,6 +141,7 @@
     <ClCompile Include="..\..\NoaEngine\NoaEngine\AudioSystem_SDL.cpp" />
     <ClCompile Include="..\..\NoaEngine\NoaEngine\BoxCollider2D.cpp" />
     <ClCompile Include="..\..\NoaEngine\NoaEngine\Camera.cpp" />
+    <ClCompile Include="..\..\NoaEngine\NoaEngine\Camera2D.cpp" />
     <ClCompile Include="..\..\NoaEngine\NoaEngine\CircleCollider2D.cpp" />
     <ClCompile Include="..\..\NoaEngine\NoaEngine\Collider2D.cpp" />
     <ClCompile Include="..\..\NoaEngine\NoaEngine\Debug.cpp" />
@@ -171,6 +172,7 @@
     <ClCompile Include="..\..\NoaEngine\NoaEngine\StateMachine.cpp" />
     <ClCompile Include="..\..\NoaEngine\NoaEngine\Texture.cpp" />
     <ClCompile Include="..\..\NoaEngine\NoaEngine\TileCollider2D.cpp" />
+    <ClCompile Include="..\..\NoaEngine\NoaEngine\TileMapRenderer.cpp" />
     <ClCompile Include="..\..\NoaEngine\NoaEngine\Time.cpp" />
     <ClCompile Include="..\..\NoaEngine\NoaEngine\Transform.cpp" />
     <ClCompile Include="Bullet.cpp" />
@@ -196,6 +198,7 @@
     <ClInclude Include="..\..\NoaEngine\NoaEngine\AudioSystem_SDL.h" />
     <ClInclude Include="..\..\NoaEngine\NoaEngine\BoxCollider2D.h" />
     <ClInclude Include="..\..\NoaEngine\NoaEngine\Camera.h" />
+    <ClInclude Include="..\..\NoaEngine\NoaEngine\Camera2D.h" />
     <ClInclude Include="..\..\NoaEngine\NoaEngine\CircleCollider2D.h" />
     <ClInclude Include="..\..\NoaEngine\NoaEngine\Collider2D.h" />
     <ClInclude Include="..\..\NoaEngine\NoaEngine\Debug.h" />
@@ -234,6 +237,7 @@
     <ClInclude Include="..\..\NoaEngine\NoaEngine\StateMachine.h" />
     <ClInclude Include="..\..\NoaEngine\NoaEngine\Texture.h" />
     <ClInclude Include="..\..\NoaEngine\NoaEngine\TileCollider2D.h" />
+    <ClInclude Include="..\..\NoaEngine\NoaEngine\TileMapRenderer.h" />
     <ClInclude Include="..\..\NoaEngine\NoaEngine\Time.h" />
     <ClInclude Include="..\..\NoaEngine\NoaEngine\Transform.h" />
     <ClInclude Include="Bullet.h" />

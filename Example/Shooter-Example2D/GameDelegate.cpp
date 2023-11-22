@@ -4,7 +4,7 @@
 #include "BulletPool.h"
 #include "Test.h"
 
-noa::TileMapCamera* camera = nullptr;
+noa::Camera2D* camera = nullptr;
 
 Player* player = nullptr;
 
@@ -14,7 +14,7 @@ void InitGameMenu(noa::Scene* scene) {
 
 	noa::UIDocument* document = 
 		noa::UIDocumentActor::Create(ui)
-		->SetActorTag("menu_document")
+		->SetID("menu_document")
 		.Apply();
 
 	noa::UIContainer* container = noa::UIContainer::Create(document)
@@ -49,7 +49,7 @@ void InitGameUI(noa::Scene* scene)
 {
 	noa::UIDocument* document = 
 		noa::UIDocumentActor::Create(scene)
-		->SetActorTag("ui_document")
+		->SetID("ui_document")
 		.Apply();
 
 	noa::UIContainer* container =
@@ -83,6 +83,12 @@ void GameDelegate::OnLoad(noa::Scene* scene)
 		.SetCollisionTileID(40)
 		.Apply();
 
+	noa::Actor* tileMap = noa::NObject<noa::Actor>::Create(scene);
+	noa::TileMapRenderer* tileMapRenderer 
+		= noa::TileMapRenderer::Create(tileMap)
+		->SetTileMap(map)
+		.Apply();
+
 	Test* test1 = noa::NObject<Test>::Create(scene);
 	test1->tileCollider->SetTileMap(map);
 	test1->transform.position = { 2,3 };
@@ -90,10 +96,9 @@ void GameDelegate::OnLoad(noa::Scene* scene)
 	player = noa::NObject<Player>::Create(scene);
 	player->tileCollider->SetTileMap(map);
 
-	camera = noa::TileMapCamera::Create(scene)
-		->SetTileScale(32,32)
-		.SetFollow(player)
-		.SetTileMap(map)
+	camera = noa::Camera2D::Create(scene)
+		->SetFar(32.0f)
+		.SetAnchor(0.5f,0.5f)
 		.Apply();
 	player->camera = camera;
 
@@ -115,11 +120,13 @@ int i = 0;
 
 void GameDelegate::OnTick(noa::Scene* scene)
 {
+
+	camera->transform.position = player->transform.position;
+
 	if (noa::Input::GetKeyDown(noa::KeyCode::KEY_ESC)) 
 	{
 		noa::UIDocument* document = 
-			noa::sceneManager.FindActorWithTag("menu_document")
-			->GetActorAs<noa::UIDocument>();
+			noa::UIHub::GetDocumentByID("menu_document");
 
 		if (!document) 
 		{
@@ -144,9 +151,8 @@ void GameDelegate::OnTick(noa::Scene* scene)
 
 	}
 
-	noa::UIDocument* ui_document =
-		noa::sceneManager.FindActorWithTag("ui_document")
-		->GetActorAs<noa::UIDocument>();
+	noa::UIDocument* ui_document = 
+		noa::UIHub::GetDocumentByID("ui_document");
 
 	if (ui_document) 
 	{
@@ -155,7 +161,8 @@ void GameDelegate::OnTick(noa::Scene* scene)
 
 		if (hpBar)
 		{
-			hpBar->SetAmount(static_cast<float>(player->hp)/player->maxHp);
+			hpBar->SetAmount(
+				static_cast<float>(player->hp)/player->maxHp);
 		}
 
 	}
@@ -224,11 +231,11 @@ void GameDelegate::OnTick(noa::Scene* scene)
 	//	}
 	//}
 
-	//noa::renderer->DrawString(
-	//	(L"FPS:"+std::to_wstring(1.0f/noa::Time::deltaTime))
-	//	,10
-	//	,10
-	//	,noa::RED,50
-	//);
+	noa::renderer->DrawString(
+		(L"FPS:"+std::to_wstring(1.0f/noa::Time::deltaTime))
+		,10
+		,10
+		,noa::RED,50
+	);
 
 }

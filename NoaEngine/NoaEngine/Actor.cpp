@@ -173,7 +173,8 @@ void noa::Actor::DestroyComponent()
 void noa::Actor::ComponentRender() {
 	for (auto& component : components)
 	{
-		if (component == nullptr || !component->GetActive())
+		if (component == nullptr 
+			|| !component->GetActive())
 		{
 			continue;
 		}

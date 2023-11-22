@@ -82,12 +82,12 @@ namespace noa {
 #endif // _WIN64
 	};
 
-	typedef struct KeyState 
+	typedef struct MouseKey
 	{
 		bool down = false;
 		bool hold = false;
 		bool up = false;
-	}KeyState;
+	}MouseKey;
 
 	//鼠标输入事件上下文
 	typedef struct MouseContext
@@ -96,7 +96,7 @@ namespace noa {
 		Vector<double> delta;
 		Vector<double> wheel;
 		bool motion = false;
-		std::unordered_map<noa::MouseButton, noa::KeyState> mouseKey =
+		std::unordered_map<noa::MouseButton, noa::MouseKey> mouseKey =
 		{
 			{noa::MouseButton::LEFT_BUTTON,{false,false,false}},
 			{noa::MouseButton::MIDDLE_BUTTON,{false,false,false}},

@@ -226,20 +226,20 @@ noa::Tile::Tile(shared_ptr<Sprite> sprite, bool isCollision)
 {
 	this->sprite = sprite;
 	this->isCollision = isCollision;
-	if (sprite)
+	/*if (sprite)
 	{
 		spriteGPU = SpriteGPU::Create(sprite.get());
-	}
+	}*/
 }
 
 noa::Tile::Tile(SpriteFile spriteFile, bool isCollision)
 {
 	this->sprite = make_shared<Sprite>(spriteFile, Vector<int>(1, 1));
 	this->isCollision = isCollision;
-	if (sprite)
+	/*if (sprite)
 	{
 		spriteGPU = SpriteGPU::Create(sprite.get());
-	}
+	}*/
 }
 
 noa::Tile::~Tile()

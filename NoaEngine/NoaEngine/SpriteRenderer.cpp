@@ -5,9 +5,7 @@
 #include "Transform.h"
 
 
-namespace noa {
-	std::vector<noa::SpriteRendererInstance> spriteRendererInstances;
-}
+std::vector<noa::SpriteRendererInstance> noa::spriteRendererInstances;
 
 
 noa::SpriteRenderer::SpriteRenderer(Actor* actor):ActorComponent(actor)
@@ -73,22 +71,34 @@ noa::SpriteRenderer& noa::SpriteRenderer::SetScale(float x, float y)
 	return *this;
 }
 
+noa::SpriteRenderer& noa::SpriteRenderer::SetLayer(
+	noa::InstanceLayer layer) 
+{
+	this->layer = layer;
+	return *this;
+}
+
 noa::SpriteRenderer* noa::SpriteRenderer::Apply()
 {
 	return this;
 }
 
+void noa::SpriteRenderer::Update() {
+
+}
+
 void noa::SpriteRenderer::Render()
 {
-
-	if (!sprite) 
+	if (!sprite)
 	{
 		noa::Debug::Warring("The sprite of SpriteRenderer is null");
 		return;
-	}	
+	}
 
+	spriteGPU->SetLayer(this->layer);
 	SpriteRendererInstance instance;
 	instance.actor = this->GetActor();
+	instance.tint = this->tint;
 	instance.sprite = this->sprite;
 	instance.spriteGPU = this->spriteGPU.get();
 	instance.scale = this->scale;

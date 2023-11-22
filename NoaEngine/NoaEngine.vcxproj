@@ -158,6 +158,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="NoaEngine\Camera2D.h" />
     <ClInclude Include="NoaEngine\ActorMotion.h" />
     <ClInclude Include="NoaEngine\CircleCollider2D.h" />
     <ClInclude Include="NoaEngine\BoxCollider2D.h" />
@@ -192,6 +193,7 @@
     <ClInclude Include="NoaEngine\Sprite.h" />
     <ClInclude Include="NoaEngine\Stack.h" />
     <ClInclude Include="NoaEngine\StateMachine.h" />
+    <ClInclude Include="NoaEngine\TileMapRenderer.h" />
     <ClInclude Include="NoaEngine\Transform.h" />
     <ClInclude Include="NoaEngine\NObject.h" />
     <ClInclude Include="NoaEngine\Time.h" />
@@ -211,6 +213,7 @@
     <ClInclude Include="NoaEngine\TileCollider2D.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="NoaEngine\Camera2D.cpp" />
     <ClCompile Include="NoaEngine\ActorMotion.cpp" />
     <ClCompile Include="NoaEngine\CircleCollider2D.cpp" />
     <ClCompile Include="NoaEngine\BoxCollider2D.cpp" />
@@ -238,6 +241,7 @@
     <ClCompile Include="NoaEngine\Scene.cpp" />
     <ClCompile Include="NoaEngine\Sprite.cpp" />
     <ClCompile Include="NoaEngine\StateMachine.cpp" />
+    <ClCompile Include="NoaEngine\TileMapRenderer.cpp" />
     <ClCompile Include="NoaEngine\Transform.cpp" />
     <ClCompile Include="NoaEngine\NObject.cpp" />
     <ClCompile Include="NoaEngine\Platform.cpp" />

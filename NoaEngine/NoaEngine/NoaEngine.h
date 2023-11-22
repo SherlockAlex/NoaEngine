@@ -91,7 +91,10 @@
 #include "Sprite.h"
 #include "Physics.h"
 #include "NoaAction.h"
+
 #include "Camera.h"
+#include "Camera2D.h"
+
 #include "StateMachine.h"
 #include "NoaGUI.h"
 #include "Resource.h"
@@ -101,7 +104,9 @@
 #include "Time.h"
 #include "Texture.h"
 #include "Renderer.h"
+
 #include "SpriteRenderer.h"
+#include "TileMapRenderer.h"
 
 #include "Collider2D.h"
 #include "BoxCollider2D.h"

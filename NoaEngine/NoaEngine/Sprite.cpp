@@ -442,7 +442,7 @@ void noa::SpriteGPU::DrawSprite(float x, float y, bool mirror, float eulerAngle)
 	instance.tint = WHITE;
 	instance.eulerAngle = eulerAngle;
 	instance.flip = mirror;
-	rendererInstanceLayer[static_cast<int>(layer)].push_back(instance);
+	rendererInstanceLayer[static_cast<uint32_t>(layer)].push_back(instance);
 
 }
 
@@ -462,7 +462,7 @@ void noa::SpriteGPU::DrawSprite(float x, float y, float w, float h, unsigned int
 	instance.eulerAngle = eulerAngle;
 	instance.tint = tint;
 	instance.flip = mirror;
-	rendererInstanceLayer[static_cast<unsigned int>(layer)].push_back(instance);
+	rendererInstanceLayer[static_cast<uint32_t>(layer)].push_back(instance);
 
 }
 

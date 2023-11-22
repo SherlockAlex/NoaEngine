@@ -53,7 +53,7 @@ public:
 		.SetScale(1.0f, 1.0f)
 		.Apply();
 
-	noa::TileMapCamera* camera = nullptr;
+	/*noa::TileMapCamera* camera = nullptr;*/
 
 
 };
