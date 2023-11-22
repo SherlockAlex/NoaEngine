@@ -6,6 +6,8 @@ noa::Sprite defaultBtn = noa::Sprite("btn-white.spr",64,64);
 
 void GUIBehaviour(noa::UIDocument* document);
 
+void CloseWindow();
+
 void InitGUI(noa::Scene* scene)
 {
 	noa::UIDocument* document =
@@ -29,18 +31,49 @@ void InitGUI(noa::Scene* scene)
 	noa::Image* image =
 		noa::Image::Create(subContainer)
 		->SetID("editor_image")
-		.SetColor(noa::RGBA(128,128,128,128))
-		.SetSize(noa::Screen::width/3,noa::Screen::height/3)
+		.SetColor(noa::RGBA(0,0,200,128))
+		.SetSize(noa::Screen::width/2,noa::Screen::height/2)
 		.SetAnchor(0.5f,0.0f)
 		.Apply();
+
+	noa::Label* titleLabel =
+		noa::Label::Create(subContainer)
+		->SetFontSize(40)
+		.SetID("title_label")
+		.SetText(L"窗口")
+		.SetAnchor(0.5f,0.0f)
+		.SetColor(noa::WHITE)
+		.Apply();
+
+	noa::ProcessBar* processBar =
+		noa::ProcessBar::Create(subContainer)
+		->SetSize(240,10)
+		.SetID("process_bar")
+		.SetBackgroundColor(noa::RGBA(255,255,255,255))
+		.SetFillColor(noa::RGBA(255,0,0,255))
+		.SetPosition(-50,75)
+		.SetAnchor(0.0f,0.5f)
+		.Apply();
+
+	noa::Label* processName =
+		noa::Label::Create(subContainer)
+		->SetFontSize(20)
+		.SetID("process_name_label")
+		.SetAnchor(0.0f,0.5f)
+		.SetText(L"音量(100%):")
+		.SetPosition(-170,72)
+		.SetColor(noa::WHITE)
+		.Apply();
+
 
 	noa::Button* button =
 		noa::Button::Create(subContainer)
 		->SetID("button")
-		.SetText(L"确定")
+		.SetText(L"关闭")
 		.SetSize(160,50)
 		.SetRadius(50)
-		.SetPosition(0,150)
+		.SetPosition(0,235)
+		.AddClickCallback(CloseWindow)
 		.Apply();
 
 	noa::Label* label =
@@ -132,7 +165,25 @@ void GUIBehaviour(noa::UIDocument* document) {
 				subContainer->SetGlobalPosition(mousePos.x,mousePos.y);
 			}
 		}
-
 	}
 
+	noa::ProcessBar* processBar =
+		document->GetElementByID<noa::ProcessBar>("process_bar");
+	noa::Label* processName =
+		document->GetElementByID<noa::Label>("process_name_label");
+	const std::wstring processInfo = L"音量("
+		+ std::to_wstring(
+			static_cast<int>(processBar->GetValue() * 100.0f)
+		)
+		+ L"%):";
+	processName->SetText(processInfo);
+}
+
+void CloseWindow() {
+	noa::UIDocument* document =
+		noa::UIHub::GetDocumentByID("editor_document");
+	noa::UIContainer* container =
+		document->GetElementByID<noa::UIContainer>("warry_container");
+	container->SetVisiable(false);
+	noa::Debug::Log("close window");
 }

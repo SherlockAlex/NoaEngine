@@ -611,12 +611,12 @@ void noa::UIComponent::SetGlobalPosition(int x,int y) {
 	// - anchor.x * transform.size.x);
 
 	transform.position.x = 
-		x + anchor.x * transform.size.x 
-		- fatherTransform.position.x;
+		static_cast<int>(x + anchor.x * transform.size.x
+		- fatherTransform.position.x);
 
 	transform.position.y =
-		y + anchor.y * transform.size.y
-		- fatherTransform.position.y;
+		static_cast<int>(y + anchor.y * transform.size.y
+		- fatherTransform.position.y);
 
 }
 

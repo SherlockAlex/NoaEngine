@@ -204,7 +204,18 @@ namespace noa {
 				}
 				return buffer;
 			}
+			//这里面是null
+
+			for (auto& child:subContainers)
+			{
+				T* buffer = child->GetElementByID<T>(id);
+				if (buffer) 
+				{
+					return buffer;
+				}
+			}
 			return nullptr;
+
 		}
 
 		template<>
