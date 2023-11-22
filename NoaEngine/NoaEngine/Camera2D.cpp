@@ -9,7 +9,7 @@
 
 noa::Camera2D::Camera2D(noa::Scene* scene) :Camera(scene)
 {
-	actorsInScreen.resize(Screen::width * Screen::height, nullptr);
+
 }
 
 noa::Camera2D::~Camera2D() {
@@ -56,21 +56,6 @@ void noa::Camera2D::Render() {
 			, instance.isFlip.x
 			, (instance.actor == nullptr) ? 0.0f : instance.actor->transform.eulerAngle
 		);
-
-		/*for (int i = static_cast<int>(screenPosX); i < static_cast<int>(screenPosX + instance.scale.x * instance.spriteSize.x); i++)
-		{
-			for (int j = static_cast<int>(screenPosY); j < static_cast<int>(screenPosY + instance.scale.y * instance.spriteSize.y); j++)
-			{
-				const int index = static_cast<int>(j * Screen::width + i);
-
-				if (index < 0 || index >= actorsInScreen.size())
-				{
-					continue;
-				}
-				actorsInScreen[index] = instance.actor;
-
-			}
-		}*/
 
 	}
 

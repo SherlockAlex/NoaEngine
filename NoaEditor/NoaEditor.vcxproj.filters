@@ -16,9 +16,6 @@
     <Filter Include="头文件\Engine">
       <UniqueIdentifier>{bb6361e4-28e1-4d57-99cb-173036ba6d47}</UniqueIdentifier>
     </Filter>
-    <Filter Include="头文件\Imgui">
-      <UniqueIdentifier>{b346906b-dc70-42c7-a546-77dbbe6ed6cf}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\NoaEngine\NoaEngine\Actor.cpp">
@@ -156,20 +153,14 @@
     <ClCompile Include="EditorCamera.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="imgui.cpp">
-      <Filter>头文件\Imgui</Filter>
+    <ClCompile Include="..\NoaEngine\NoaEngine\ActorMotion.cpp">
+      <Filter>头文件\Engine</Filter>
     </ClCompile>
-    <ClCompile Include="imgui_demo.cpp">
-      <Filter>头文件\Imgui</Filter>
+    <ClCompile Include="..\NoaEngine\NoaEngine\Camera2D.cpp">
+      <Filter>头文件\Engine</Filter>
     </ClCompile>
-    <ClCompile Include="imgui_draw.cpp">
-      <Filter>头文件\Imgui</Filter>
-    </ClCompile>
-    <ClCompile Include="imgui_tables.cpp">
-      <Filter>头文件\Imgui</Filter>
-    </ClCompile>
-    <ClCompile Include="imgui_widgets.cpp">
-      <Filter>头文件\Imgui</Filter>
+    <ClCompile Include="..\NoaEngine\NoaEngine\TileMapRenderer.cpp">
+      <Filter>头文件\Engine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -332,23 +323,14 @@
     <ClInclude Include="EditorCamera.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="imconfig.h">
-      <Filter>头文件\Imgui</Filter>
+    <ClInclude Include="..\NoaEngine\NoaEngine\ActorMotion.h">
+      <Filter>头文件\Engine</Filter>
     </ClInclude>
-    <ClInclude Include="imgui.h">
-      <Filter>头文件\Imgui</Filter>
+    <ClInclude Include="..\NoaEngine\NoaEngine\Camera2D.h">
+      <Filter>头文件\Engine</Filter>
     </ClInclude>
-    <ClInclude Include="imgui_internal.h">
-      <Filter>头文件\Imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="imstb_rectpack.h">
-      <Filter>头文件\Imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="imstb_textedit.h">
-      <Filter>头文件\Imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="imstb_truetype.h">
-      <Filter>头文件\Imgui</Filter>
+    <ClInclude Include="..\NoaEngine\NoaEngine\TileMapRenderer.h">
+      <Filter>头文件\Engine</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

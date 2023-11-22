@@ -3,7 +3,7 @@
 
 #include "Camera.h"
 namespace noa {
-	class Camera2D:public Camera
+	class Camera2D final:public Camera
 	{
 	private:
 		ACTOR(Camera2D)

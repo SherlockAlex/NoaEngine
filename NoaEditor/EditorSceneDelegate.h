@@ -7,6 +7,6 @@ namespace noa {
 	{
 	public:
 		static void OnLoad(Scene* scene);
-		static void OnUpdate(Scene* scene);
+		static void OnTick(Scene* scene);
 	};
 }

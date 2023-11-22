@@ -4,90 +4,121 @@
 
 noa::Sprite defaultBtn = noa::Sprite("btn-white.spr",64,64);
 
-void noa::EditorSceneDelegate::OnLoad(noa::Scene* scene) 
+void GUIBehaviour(noa::UIDocument* document);
+
+void InitGUI(noa::Scene* scene)
 {
-	noa::UICanvasActor* canvas = noa::UICanvasActor::Create(scene);
-	noa::UIGroup* group = noa::UIGroup::Create(canvas)
-		->SetID("main_group")
-		.SetPosition(100,0)
+	noa::UIDocument* document =
+		noa::UIDocumentActor::Create(scene)
+		->SetID("editor_document")
 		.Apply();
 
-	auto newProjectButtonClick = [](){
-		noa::Canvas* canvas = noa::sceneManager.FindActorWithType<UICanvasActor>();
-		if (!canvas) 
-		{
-			return;
-		}
-		canvas->OpenGroup("loader_group");
+	noa::UIContainer* container =
+		noa::UIContainer::Create(document)
+		->SetID("editor_container")
+		.SetPosition(noa::Screen::width/2,noa::Screen::height/2)
+		.Apply();
 
-	};
+	noa::Image* image =
+		noa::Image::Create(container)
+		->SetID("editor_image")
+		.SetColor(noa::RGBA(128,128,128,128))
+		.SetSize(noa::Screen::width/3,noa::Screen::height/3)
+		.SetAnchor(0.5f,0.0f)
+		.Apply();
 
-	noa::Label* label = noa::Label::Create(group)
-		->SetText(L"Hello World")
-		.SetFontSize(15)
-		.SetID("camera_info")
+	noa::Button* button =
+		noa::Button::Create(container)
+		->SetID("button")
+		.SetSize(160,50)
+		.SetRadius(50)
+		.SetPosition(0,50)
+		.Apply();
+
+	noa::Label* label =
+		noa::Label::Create(container)
+		->SetFontSize(20)
+		.SetID("camera_pos")
 		.SetColor(noa::WHITE)
+		.SetAnchor(0.0f,0.0f)
+		.SetPosition(-noa::Screen::width/2,-noa::Screen::height/2)
 		.Apply();
 
-	noa::Button* newProjectButton = noa::Button::Create(group)
-		->SetID("project_btn")
-		.SetText(L"新建工程")
-		.SetSprite(&defaultBtn)
-		.SetFontSize(15)
-		.SetPosition(0, 60)
-		.AddClickEvent(newProjectButtonClick)
+	noa::Label* deltaTime =
+		noa::Label::Create(container)
+		->SetFontSize(20)
+		.SetID("deltaTime_label")
+		.SetColor(noa::WHITE)
+		.SetAnchor(0.0f, 0.0f)
+		.SetPosition(-noa::Screen::width / 2, -noa::Screen::height / 2+25)
 		.Apply();
 
-	noa::UIGroup* loaderGroup = noa::UIGroup::Create(canvas)
-		->SetID("loader_group")
-		.Apply();
-
-	
-
-	auto closeButtonClick = []() {
-		noa::Canvas* canvas = noa::sceneManager.FindActorWithType<noa::UICanvasActor>();
-		if (!canvas) 
-		{
-			return;
-		}
-		canvas->CloseGroup();
-	};
-	noa::Button* closeLoaderGroupButton = noa::Button::Create(loaderGroup)
-		->SetSprite(&defaultBtn)
-		.SetText(L"返回")
-		.SetFontSize(15)
-		.SetPosition(0,30)
-		.AddClickEvent(closeButtonClick)
-		.Apply();
-
-	//添加场景编辑相机
-	noa::EditorCamera* camera = noa::NObject<EditorCamera>::Create(scene)
-		->SetTileScale(64,64)
-		.Apply();
+	document->Display(container);
 
 }
 
-void noa::EditorSceneDelegate::OnUpdate(noa::Scene* scene)
+void noa::EditorSceneDelegate::OnLoad(noa::Scene* scene) 
+{
+	//添加场景编辑相机
+	noa::EditorCamera* camera = noa::NObject<EditorCamera>::Create(scene)
+		->SetFar(64)
+		.Apply();
+
+	InitGUI(scene);
+
+}
+
+void noa::EditorSceneDelegate::OnTick(noa::Scene* scene)
 {
 
-	Vector<float> position;
-	noa::EditorCamera* camera = dynamic_cast<noa::EditorCamera*>(noa::sceneManager.GetActiveScene()->GetMainCamera());
-	if (camera) 
+	noa::UIDocument* document = noa::UIHub::GetDocumentByID("editor_document");
+	
+	if (document)
 	{
-		position = camera->transform.position;
+		GUIBehaviour(document);
 	}
 
-	noa::UICanvasActor* canvas = noa::sceneManager.FindActorWithType<noa::UICanvasActor>();
-	if (!canvas) 
-	{
-		return;
-	}
-	noa::Label* label = canvas->GetLabelByID("camera_info");
-	/*label->SetText(L"camera positon:("
-		+std::to_wstring(position.x)
-		+L","+std::to_wstring(position.y)+L")"
-	);*/
+	
 
-	label->SetText(L"新建工程");
+}
+
+void GUIBehaviour(noa::UIDocument* document) {
+
+	//屏幕信息显示
+
+	noa::Vector<float> cameraPostion =
+		noa::sceneManager.FindActorWithType<noa::EditorCamera>()->transform.position;
+
+	std::wstring cameraInfo = L"camera position:"
+		+ std::to_wstring(cameraPostion.x)
+		+ L","
+		+ std::to_wstring(cameraPostion.y);
+	
+	noa::Label* label =
+		document->GetElementByID<noa::Label>("camera_pos");
+	if (label)
+	{
+		label->SetText(cameraInfo);
+	}
+
+	noa::Label* deltaTimeLabel =
+		document->GetElementByID<noa::Label>("deltaTime_label");
+	if (deltaTimeLabel) {
+		deltaTimeLabel->SetText(L"fps:"
+			+ std::to_wstring(1.0f / noa::Time::realDeltaTime));
+	}
+
+	noa::UIContainer* container =
+		document->GetElementByID<noa::UIContainer>("editor_container");
+
+	noa::Vector<double> mousePos = noa::Input::GetMousePosition();
+	if (noa::Input::GetMouseKeyHold(noa::MouseButton::LEFT_BUTTON))
+	{
+		if (mousePos.y>=container->globalTransform.position.y-10
+			||mousePos.y<=container->globalTransform.position.y+10) 
+		{
+			container->SetPosition(mousePos.x,mousePos.y);
+		}
+	}
 
 }

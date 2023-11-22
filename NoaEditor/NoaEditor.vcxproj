@@ -129,6 +129,7 @@
   <ItemGroup>
     <ClCompile Include="..\NoaEngine\NoaEngine\Actor.cpp" />
     <ClCompile Include="..\NoaEngine\NoaEngine\ActorComponent.cpp" />
+    <ClCompile Include="..\NoaEngine\NoaEngine\ActorMotion.cpp" />
     <ClCompile Include="..\NoaEngine\NoaEngine\ActorPool.cpp" />
     <ClCompile Include="..\NoaEngine\NoaEngine\ActorPoolFactory.cpp" />
     <ClCompile Include="..\NoaEngine\NoaEngine\Animator.cpp" />
@@ -137,6 +138,7 @@
     <ClCompile Include="..\NoaEngine\NoaEngine\AudioSystem_SDL.cpp" />
     <ClCompile Include="..\NoaEngine\NoaEngine\BoxCollider2D.cpp" />
     <ClCompile Include="..\NoaEngine\NoaEngine\Camera.cpp" />
+    <ClCompile Include="..\NoaEngine\NoaEngine\Camera2D.cpp" />
     <ClCompile Include="..\NoaEngine\NoaEngine\CircleCollider2D.cpp" />
     <ClCompile Include="..\NoaEngine\NoaEngine\Collider2D.cpp" />
     <ClCompile Include="..\NoaEngine\NoaEngine\Debug.cpp" />
@@ -167,20 +169,17 @@
     <ClCompile Include="..\NoaEngine\NoaEngine\StateMachine.cpp" />
     <ClCompile Include="..\NoaEngine\NoaEngine\Texture.cpp" />
     <ClCompile Include="..\NoaEngine\NoaEngine\TileCollider2D.cpp" />
+    <ClCompile Include="..\NoaEngine\NoaEngine\TileMapRenderer.cpp" />
     <ClCompile Include="..\NoaEngine\NoaEngine\Time.cpp" />
     <ClCompile Include="..\NoaEngine\NoaEngine\Transform.cpp" />
     <ClCompile Include="EditorCamera.cpp" />
     <ClCompile Include="EditorSceneDelegate.cpp" />
-    <ClCompile Include="imgui.cpp" />
-    <ClCompile Include="imgui_demo.cpp" />
-    <ClCompile Include="imgui_draw.cpp" />
-    <ClCompile Include="imgui_tables.cpp" />
-    <ClCompile Include="imgui_widgets.cpp" />
     <ClCompile Include="NoaEditor.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\NoaEngine\NoaEngine\Actor.h" />
     <ClInclude Include="..\NoaEngine\NoaEngine\ActorComponent.h" />
+    <ClInclude Include="..\NoaEngine\NoaEngine\ActorMotion.h" />
     <ClInclude Include="..\NoaEngine\NoaEngine\ActorPool.h" />
     <ClInclude Include="..\NoaEngine\NoaEngine\ActorPoolFactory.h" />
     <ClInclude Include="..\NoaEngine\NoaEngine\Animator.h" />
@@ -189,6 +188,7 @@
     <ClInclude Include="..\NoaEngine\NoaEngine\AudioSystem_SDL.h" />
     <ClInclude Include="..\NoaEngine\NoaEngine\BoxCollider2D.h" />
     <ClInclude Include="..\NoaEngine\NoaEngine\Camera.h" />
+    <ClInclude Include="..\NoaEngine\NoaEngine\Camera2D.h" />
     <ClInclude Include="..\NoaEngine\NoaEngine\CircleCollider2D.h" />
     <ClInclude Include="..\NoaEngine\NoaEngine\Collider2D.h" />
     <ClInclude Include="..\NoaEngine\NoaEngine\Debug.h" />
@@ -227,16 +227,11 @@
     <ClInclude Include="..\NoaEngine\NoaEngine\StateMachine.h" />
     <ClInclude Include="..\NoaEngine\NoaEngine\Texture.h" />
     <ClInclude Include="..\NoaEngine\NoaEngine\TileCollider2D.h" />
+    <ClInclude Include="..\NoaEngine\NoaEngine\TileMapRenderer.h" />
     <ClInclude Include="..\NoaEngine\NoaEngine\Time.h" />
     <ClInclude Include="..\NoaEngine\NoaEngine\Transform.h" />
     <ClInclude Include="EditorCamera.h" />
     <ClInclude Include="EditorSceneDelegate.h" />
-    <ClInclude Include="imconfig.h" />
-    <ClInclude Include="imgui.h" />
-    <ClInclude Include="imgui_internal.h" />
-    <ClInclude Include="imstb_rectpack.h" />
-    <ClInclude Include="imstb_textedit.h" />
-    <ClInclude Include="imstb_truetype.h" />
     <ClInclude Include="NoaEditor.h" />
   </ItemGroup>
   <ItemGroup>

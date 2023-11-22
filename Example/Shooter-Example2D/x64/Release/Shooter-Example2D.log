@@ -1,9 +1,23 @@
-﻿  GameDelegate.cpp
+﻿  NoaEngine.cpp
+  NoaGUI.cpp
+  Renderer.cpp
+  Bullet.cpp
+  BulletFactory.cpp
+  BulletPool.cpp
+  Engine.cpp
+  GameDelegate.cpp
 D:\Work\NoaEngine\Example\Shooter-Example2D\GameDelegate.cpp(57,22): warning C4244: “参数”: 从“float”转换到“int”，可能丢失数据
 D:\Work\NoaEngine\Example\Shooter-Example2D\GameDelegate.cpp(57,17): warning C4244: “参数”: 从“float”转换到“int”，可能丢失数据
+  MainMenuDelegate.cpp
+D:\Work\NoaEngine\Example\Shooter-Example2D\MainMenuDelegate.cpp(92,54): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+D:\Work\NoaEngine\Example\Shooter-Example2D\MainMenuDelegate.cpp(92,30): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+  Player.cpp
+  ResourceManager.cpp
+  Shooter.cpp
+  Test.cpp
   正在生成代码
-  5 of 3922 functions ( 0.1%) were compiled, the rest were copied from previous compilation.
+  66 of 3914 functions ( 1.7%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    1 functions had inline decision re-evaluated but remain unchanged
+    20 functions had inline decision re-evaluated but remain unchanged
   已完成代码的生成
   Shooter-Example2D.vcxproj -> D:\Work\NoaEngine\x64\Release\Shooter-Example2D.exe

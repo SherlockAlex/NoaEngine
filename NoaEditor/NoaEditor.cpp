@@ -6,7 +6,7 @@ noa::NoaEditor::NoaEditor()
 {
 	noa::Scene* editorScene = noa::sceneManager.CreateScene("EditorScene");
 	editorScene->onLoad += EditorSceneDelegate::OnLoad;
-	editorScene->onUpdate += EditorSceneDelegate::OnUpdate;
+	editorScene->onTick += EditorSceneDelegate::OnTick;
 
 	noa::sceneManager.LoadScene("EditorScene");
 

@@ -700,7 +700,14 @@ void noa::Label::Render() {
 
 noa::Image::Image(UIContainer* group) :UIComponent(group)
 {
+	Sprite noneSprite;
+	noneSprite.w = 320;
+	noneSprite.h = 320;
+	noneSprite.size = { 320,320 };
+	noneSprite.ResizeAndFull(320, 320, noa::RGBA(255, 255, 255, 255));
 
+	spriteGPU = SpriteGPU::Create(&noneSprite);
+	spriteGPU->SetLayer(InstanceLayer::UI_LAYER);
 }
 
 noa::Image::~Image()
@@ -760,15 +767,8 @@ noa::Image & noa::Image::SetSprite(Sprite* sprite)
 		return *this;
 	}
 	this->sprite = sprite;
-	if (spriteGPU)
-	{
-		//如果有了spriteGPU
-		spriteGPU->Update(sprite);
-		spriteGPU->SetLayer(InstanceLayer::UI_LAYER);
-		return *this;
-	}
-	spriteGPU = SpriteGPU::Create(sprite);
-	spriteGPU->SetLayer(InstanceLayer::UI_LAYER);
+	//如果有了spriteGPU
+	spriteGPU->Update(sprite);
 	return *this;
 }
 
@@ -790,15 +790,9 @@ void noa::Image::Start()
 void noa::Image::Update()
 {
 
-	
-
 }
 
 void noa::Image::Render() {
-	if (sprite == nullptr)
-	{
-		return;
-	}
 
 	globalTransform.position.x = static_cast<int>(fatherTransform.position.x + transform.position.x - anchor.x * transform.size.x);
 	globalTransform.position.y = static_cast<int>(fatherTransform.position.y + transform.position.y - anchor.y * transform.size.y);
@@ -841,11 +835,11 @@ noa::Button::Button(UIContainer* group) :UIComponent(group)
 	SetFontSize(20);
 	SetPosition(0, 0);
 	SetSize(240, 60);
-	SetRadius(0);
+	SetRadius(50);
 	SetNormalColor(noa::RGBA(255, 255, 255, 255));
 	SetHeightLightColor(noa::RGBA(255, 0, 0, 255));
-	SetAnchor(1.0f, 0.5f);
-	SetTextOffset(-0.15f, 0.0f);
+	SetAnchor(0.5f, 0.5f);
+	SetTextOffset(0.0f, 0.0f);
 	SetTextNormalColor(noa::BLACK);
 	SetTextHeightLightColor(noa::WHITE);
 	SetTextClickColor(noa::BLACK);

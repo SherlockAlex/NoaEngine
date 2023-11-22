@@ -79,6 +79,9 @@ namespace noa {
 		bool active = false;
 		friend class UIContainer;
 		friend class UIDocumentComponent;
+
+
+
 	public:
 		std::string id = "ui_component";
 		UITransform transform;
@@ -235,17 +238,15 @@ namespace noa {
 		void AddUIComponent(UIComponent* component);
 		void AddUIContainer(UIContainer* container);
 	private:
-
 		bool visiable = false;
 		UITransform transform;
 		UITransform fatherTransform;
-		UITransform globalTransform;
 		std::vector<UIComponent*> uiComponent;
 		std::vector<UIContainer*> subContainers;
 		size_t index = 0;
 	public:
+		UITransform globalTransform;
 		std::string id = "container";
-
 	};
 
 
