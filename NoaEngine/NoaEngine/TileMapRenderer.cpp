@@ -69,12 +69,15 @@ noa::TileMapRenderer& noa::TileMapRenderer::SetTileMap(
 }
 
 noa::TileMapRenderer& noa::TileMapRenderer::SetOffset(
-	float x,float y) 
+	int x, int y)
 {
 	this->offset.x = x;
 	this->offset.y = y;
 
-	this->spriteRenderer->SetOffset(offset.x,offset.y);
+	this->spriteRenderer->SetOffset(
+		static_cast<float>(offset.x)
+		, static_cast<float>(offset.y)
+	);
 	return *this;
 }
 
@@ -83,7 +86,7 @@ noa::TileMapRenderer* noa::TileMapRenderer::Apply()
 	return this;
 }
 
-bool noa::TileMapRenderer::CheckCollision(float x,float y)
+bool noa::TileMapRenderer::CheckCollision(int x, int y)
 {
 
 	const int tileX = static_cast<int>(x - offset.x);

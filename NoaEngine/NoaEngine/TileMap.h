@@ -15,7 +15,7 @@ namespace noa {
 	public:
 		static TileMap* Create(noa::Scene* scene);
 		void AddTileMapRenderer(noa::TileMapRenderer* layerRenderer);
-		bool CheckCollision(float x, float y);
+		bool CheckCollision(int x, int y);
 	private:
 		ACTOR(TileMap)
 	private:

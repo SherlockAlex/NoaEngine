@@ -96,7 +96,7 @@ void GameDelegate::OnLoad(noa::Scene* scene)
 	noa::TileMapRenderer* tileMapRenderer1
 		= noa::TileMapRenderer::Create(tileMap)
 		->SetTileMap(mapInfo.layers[1], mapInfo.GetTileSet())
-		.SetOffset(10.0f,9.0f)
+		.SetOffset(10,9)
 		.SetCollision(84)
 		.Apply();
 

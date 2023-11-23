@@ -25,9 +25,8 @@ void noa::TileMap::AddTileMapRenderer(noa::TileMapRenderer* layerRenderer)
 	this->layerRenderers.push_back(layerRenderer);
 }
 
-bool noa::TileMap::CheckCollision(float x,float y)
+bool noa::TileMap::CheckCollision(int x, int y)
 {
-	bool result = false;
 	for (auto& layer:layerRenderers) 
 	{
 		if (!layer) 
@@ -35,14 +34,14 @@ bool noa::TileMap::CheckCollision(float x,float y)
 			continue;
 		}
 
-		const float posX = x - transform.position.x;
-		const float posY = y - transform.position.y;
+		const int posX = static_cast<int>(x - transform.position.x);
+		const int posY = static_cast<int>(y - transform.position.y);
 
 		bool flag = layer->CheckCollision(posX, posY);
 		if (flag)
 		{
-			result = true;
+			return true;
 		}
 	}
-	return result;
+	return false;
 }

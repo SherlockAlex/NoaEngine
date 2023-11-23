@@ -29,16 +29,16 @@ namespace noa
 			noa::MapLayer& layer
 			, noa::TileSet& tileSet
 		);
-		TileMapRenderer& SetOffset(float x, float y);
+		TileMapRenderer& SetOffset(int x, int y);
 		TileMapRenderer* Apply();
 
-		bool CheckCollision(float x,float y);
+		bool CheckCollision(int x, int y);
 
 	private:
 		noa::Vector<int> tileScale = { 32,32 };
 		noa::SpriteRenderer* spriteRenderer = nullptr;
 		std::unordered_map<int, bool> collisions;
-		noa::Vector<float> offset;
+		noa::Vector<int> offset;
 		noa::MapLayer layer;
 
 	};
