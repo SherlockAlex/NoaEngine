@@ -328,12 +328,16 @@ namespace noa {
 		Label& SetFontSize(uint32_t size);
 		Label& SetPosition(int x,int y);
 		Label& SetText(const std::wstring & text);
+		Label& SetRowCount(int count);
 		Label* Apply();
 
 	public:
 		std::wstring text = L"text";
 		uint32_t color = BLACK;
 		uint32_t size = 25;
+
+	private:
+		int rowCount = -1;
 
 	};
 	
@@ -355,6 +359,7 @@ namespace noa {
 		Image& SetAnchor(float x,float y);
 		Image& SetActive(bool value);
 		Image& SetSize(int x,int y);
+		Image& SetRadius(int radius);
 		Image& SetStyle(ImageStyle style);
 		Image& SetSprite(Sprite * sprite);
 		Image& SetColor(uint32_t color);
@@ -365,9 +370,10 @@ namespace noa {
 		uint32_t color = WHITE;
 		bool isFilpX = false;
 	private:
-		Sprite* sprite = nullptr;
+		Sprite sprite;
+		Sprite* mapSprite = nullptr;
 		std::shared_ptr<SpriteGPU> spriteGPU = nullptr;
-
+		int radius = 0;
 	};
 
 	class Button :public UIComponent
@@ -430,6 +436,8 @@ namespace noa {
 		float clickScale = 1.0f;
 
 	private:
+		Sprite* sprite = nullptr;
+
 		Label* label = nullptr;
 		Image* image = nullptr;
 
@@ -450,9 +458,6 @@ namespace noa {
 		//°´¼üÊÂ¼þ
 		NoaEvent<void> selectedEvent;
 		NoaEvent<void> clickEvent;
-
-		Sprite sprite;
-		Sprite* mapSprite = nullptr;
 
 		std::shared_ptr<noa::AudioClip> selectedAudio = nullptr;
 		std::shared_ptr<noa::AudioClip> clickAudio = nullptr;
@@ -497,16 +502,15 @@ namespace noa {
 		Image* background = nullptr;
 		Image* runtime = nullptr;
 
-		Sprite backgroundSprite;
-		Sprite runtimeSprite;
+		Sprite fillbar;
 
 		bool interactable = true;
 
 		NoaEvent<void> finishedEvent;
 		float amount = 0.0f;
 		float oldAmount = amount;
-		int radius = 0;
 		bool finished = false;
+		int radius = 0;
 	};
 }
 

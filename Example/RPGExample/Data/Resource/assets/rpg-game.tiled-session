@@ -3,11 +3,19 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "game-test.tmx",
+    "activeFile": "C:/Users/zhang/Desktop/test.tmx",
     "expandedProjectPaths": [
         "."
     ],
     "fileStates": {
+        "C:/Users/zhang/Desktop/test.tmx": {
+            "scale": 0.75,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 86.66666666666663,
+                "y": 4.666666666666629
+            }
+        },
         "Tilemap.tsx": {
             "scaleInDock": 1.5,
             "scaleInEditor": 5.5
@@ -16,25 +24,28 @@
             "scale": 1.5,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 80.66666666666666,
-                "y": 637
+                "x": 80,
+                "y": 636.3333333333333
             }
         }
     },
     "last.exportedFilePath": "C:/Users/zhang/Desktop",
     "last.imagePath": "D:/Work/NoaEngine/Example/Resource/Tilemap",
+    "map.fixedSize": false,
     "map.lastUsedExportFilter": "Godot 4 Scene files (*.tscn)",
     "map.lastUsedFormat": "tmx",
     "map.tileHeight": 16,
     "map.tileWidth": 16,
     "openFiles": [
         "Tilemap.tsx",
-        "game-test.tmx"
+        "game-test.tmx",
+        "C:/Users/zhang/Desktop/test.tmx"
     ],
     "project": "rpg-game.tiled-project",
     "recentFiles": [
         "Tilemap.tsx",
-        "game-test.tmx"
+        "game-test.tmx",
+        "C:/Users/zhang/Desktop/test.tmx"
     ],
     "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {

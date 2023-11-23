@@ -18,10 +18,22 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="NoaEditor.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorSceneDelegate.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorCamera.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
     <ClCompile Include="..\NoaEngine\NoaEngine\Actor.cpp">
       <Filter>头文件\Engine</Filter>
     </ClCompile>
     <ClCompile Include="..\NoaEngine\NoaEngine\ActorComponent.cpp">
+      <Filter>头文件\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\NoaEngine\NoaEngine\ActorMotion.cpp">
       <Filter>头文件\Engine</Filter>
     </ClCompile>
     <ClCompile Include="..\NoaEngine\NoaEngine\ActorPool.cpp">
@@ -46,6 +58,9 @@
       <Filter>头文件\Engine</Filter>
     </ClCompile>
     <ClCompile Include="..\NoaEngine\NoaEngine\Camera.cpp">
+      <Filter>头文件\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\NoaEngine\NoaEngine\Camera2D.cpp">
       <Filter>头文件\Engine</Filter>
     </ClCompile>
     <ClCompile Include="..\NoaEngine\NoaEngine\CircleCollider2D.cpp">
@@ -138,36 +153,39 @@
     <ClCompile Include="..\NoaEngine\NoaEngine\TileCollider2D.cpp">
       <Filter>头文件\Engine</Filter>
     </ClCompile>
+    <ClCompile Include="..\NoaEngine\NoaEngine\TileMap.cpp">
+      <Filter>头文件\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\NoaEngine\NoaEngine\TileMapInfo.cpp">
+      <Filter>头文件\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\NoaEngine\NoaEngine\TileMapRenderer.cpp">
+      <Filter>头文件\Engine</Filter>
+    </ClCompile>
     <ClCompile Include="..\NoaEngine\NoaEngine\Time.cpp">
       <Filter>头文件\Engine</Filter>
     </ClCompile>
     <ClCompile Include="..\NoaEngine\NoaEngine\Transform.cpp">
       <Filter>头文件\Engine</Filter>
     </ClCompile>
-    <ClCompile Include="NoaEditor.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="EditorSceneDelegate.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="EditorCamera.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="..\NoaEngine\NoaEngine\ActorMotion.cpp">
-      <Filter>头文件\Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="..\NoaEngine\NoaEngine\Camera2D.cpp">
-      <Filter>头文件\Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="..\NoaEngine\NoaEngine\TileMapRenderer.cpp">
-      <Filter>头文件\Engine</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="NoaEditor.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorSceneDelegate.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorCamera.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
     <ClInclude Include="..\NoaEngine\NoaEngine\Actor.h">
       <Filter>头文件\Engine</Filter>
     </ClInclude>
     <ClInclude Include="..\NoaEngine\NoaEngine\ActorComponent.h">
+      <Filter>头文件\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\NoaEngine\NoaEngine\ActorMotion.h">
       <Filter>头文件\Engine</Filter>
     </ClInclude>
     <ClInclude Include="..\NoaEngine\NoaEngine\ActorPool.h">
@@ -192,6 +210,9 @@
       <Filter>头文件\Engine</Filter>
     </ClInclude>
     <ClInclude Include="..\NoaEngine\NoaEngine\Camera.h">
+      <Filter>头文件\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\NoaEngine\NoaEngine\Camera2D.h">
       <Filter>头文件\Engine</Filter>
     </ClInclude>
     <ClInclude Include="..\NoaEngine\NoaEngine\CircleCollider2D.h">
@@ -308,28 +329,19 @@
     <ClInclude Include="..\NoaEngine\NoaEngine\TileCollider2D.h">
       <Filter>头文件\Engine</Filter>
     </ClInclude>
+    <ClInclude Include="..\NoaEngine\NoaEngine\TileMap.h">
+      <Filter>头文件\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\NoaEngine\NoaEngine\TileMapInfo.h">
+      <Filter>头文件\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\NoaEngine\NoaEngine\TileMapRenderer.h">
+      <Filter>头文件\Engine</Filter>
+    </ClInclude>
     <ClInclude Include="..\NoaEngine\NoaEngine\Time.h">
       <Filter>头文件\Engine</Filter>
     </ClInclude>
     <ClInclude Include="..\NoaEngine\NoaEngine\Transform.h">
-      <Filter>头文件\Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="NoaEditor.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="EditorSceneDelegate.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="EditorCamera.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\NoaEngine\NoaEngine\ActorMotion.h">
-      <Filter>头文件\Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="..\NoaEngine\NoaEngine\Camera2D.h">
-      <Filter>头文件\Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="..\NoaEngine\NoaEngine\TileMapRenderer.h">
       <Filter>头文件\Engine</Filter>
     </ClInclude>
   </ItemGroup>

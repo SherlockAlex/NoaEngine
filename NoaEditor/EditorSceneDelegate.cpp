@@ -2,8 +2,6 @@
 #include "NoaEditor.h"
 #include "EditorCamera.h"
 
-noa::Sprite defaultBtn = noa::Sprite("btn-white.spr",64,64);
-
 void GUIBehaviour(noa::UIDocument* document);
 
 void CloseWindow();
@@ -28,12 +26,15 @@ void InitGUI(noa::Scene* scene)
 		.SetVisiable(true)
 		.Apply();
 
+	noa::Sprite sprite("background.spr", 1920, 1080);
 	noa::Image* image =
 		noa::Image::Create(subContainer)
 		->SetID("editor_image")
-		.SetColor(noa::RGBA(0,0,200,128))
+		.SetColor(noa::RGBA(128,128,128,255))
 		.SetSize(noa::Screen::width/2,noa::Screen::height/2)
+		.SetRadius(25)
 		.SetAnchor(0.5f,0.0f)
+		.SetSprite(&sprite)
 		.Apply();
 
 	noa::Label* titleLabel =
@@ -53,6 +54,7 @@ void InitGUI(noa::Scene* scene)
 		.SetFillColor(noa::RGBA(255,0,0,255))
 		.SetPosition(-50,75)
 		.SetAnchor(0.0f,0.5f)
+		.SetRadius(50)
 		.Apply();
 
 	noa::Label* processName =
@@ -63,6 +65,16 @@ void InitGUI(noa::Scene* scene)
 		.SetText(L"ÒôÁ¿(100%):")
 		.SetPosition(-170,72)
 		.SetColor(noa::WHITE)
+		.Apply();
+
+	noa::Label* text =
+		noa::Label::Create(subContainer)
+		->SetFontSize(20)
+		.SetColor(noa::WHITE)
+		.SetPosition(0,100)
+		.SetAnchor(0.5f,0.0f)
+		.SetRowCount(6)
+		.SetText(L"666666666666666666666666666666666666666")
 		.Apply();
 
 

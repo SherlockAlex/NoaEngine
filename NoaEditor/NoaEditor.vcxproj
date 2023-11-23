@@ -169,6 +169,8 @@
     <ClCompile Include="..\NoaEngine\NoaEngine\StateMachine.cpp" />
     <ClCompile Include="..\NoaEngine\NoaEngine\Texture.cpp" />
     <ClCompile Include="..\NoaEngine\NoaEngine\TileCollider2D.cpp" />
+    <ClCompile Include="..\NoaEngine\NoaEngine\TileMap.cpp" />
+    <ClCompile Include="..\NoaEngine\NoaEngine\TileMapInfo.cpp" />
     <ClCompile Include="..\NoaEngine\NoaEngine\TileMapRenderer.cpp" />
     <ClCompile Include="..\NoaEngine\NoaEngine\Time.cpp" />
     <ClCompile Include="..\NoaEngine\NoaEngine\Transform.cpp" />
@@ -227,6 +229,8 @@
     <ClInclude Include="..\NoaEngine\NoaEngine\StateMachine.h" />
     <ClInclude Include="..\NoaEngine\NoaEngine\Texture.h" />
     <ClInclude Include="..\NoaEngine\NoaEngine\TileCollider2D.h" />
+    <ClInclude Include="..\NoaEngine\NoaEngine\TileMap.h" />
+    <ClInclude Include="..\NoaEngine\NoaEngine\TileMapInfo.h" />
     <ClInclude Include="..\NoaEngine\NoaEngine\TileMapRenderer.h" />
     <ClInclude Include="..\NoaEngine\NoaEngine\Time.h" />
     <ClInclude Include="..\NoaEngine\NoaEngine\Transform.h" />

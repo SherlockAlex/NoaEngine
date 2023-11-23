@@ -96,7 +96,7 @@ void GameDelegate::OnLoad(noa::Scene* scene)
 	noa::TileMapRenderer* tileMapRenderer1
 		= noa::TileMapRenderer::Create(tileMap)
 		->SetTileMap(mapInfo.layers[1], mapInfo.GetTileSet())
-		.SetOffset(10,9)
+		.SetOffset(10,8)
 		.SetCollision(84)
 		.Apply();
 
@@ -180,14 +180,15 @@ void GameDelegate::OnTick(noa::Scene* scene)
 
 	}
 
-	/*if (i<500) 
+	if (i<500) 
 	{
+		noa::TileMap* map = noa::sceneManager.FindActorWithType<noa::TileMap>();
 		Test* test = noa::NObject<Test>::Create(scene);
 		test->transform.position = { 2,3 };
 		test->rigid->velocity = { 70,0 };
 		test->tileCollider->SetTileMap(map);
 		i++;
-	}*/
+	}
 	//
 
 	//if (camera == nullptr)

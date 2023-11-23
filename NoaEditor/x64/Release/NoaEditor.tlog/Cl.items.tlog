@@ -40,6 +40,8 @@ D:\Work\NoaEngine\NoaEngine\NoaEngine\SpriteRenderer.cpp;D:\Work\NoaEngine\NoaEd
 D:\Work\NoaEngine\NoaEngine\NoaEngine\StateMachine.cpp;D:\Work\NoaEngine\NoaEditor\x64\Release\StateMachine.obj
 D:\Work\NoaEngine\NoaEngine\NoaEngine\Texture.cpp;D:\Work\NoaEngine\NoaEditor\x64\Release\Texture.obj
 D:\Work\NoaEngine\NoaEngine\NoaEngine\TileCollider2D.cpp;D:\Work\NoaEngine\NoaEditor\x64\Release\TileCollider2D.obj
+D:\Work\NoaEngine\NoaEngine\NoaEngine\TileMap.cpp;D:\Work\NoaEngine\NoaEditor\x64\Release\TileMap.obj
+D:\Work\NoaEngine\NoaEngine\NoaEngine\TileMapInfo.cpp;D:\Work\NoaEngine\NoaEditor\x64\Release\TileMapInfo.obj
 D:\Work\NoaEngine\NoaEngine\NoaEngine\TileMapRenderer.cpp;D:\Work\NoaEngine\NoaEditor\x64\Release\TileMapRenderer.obj
 D:\Work\NoaEngine\NoaEngine\NoaEngine\Time.cpp;D:\Work\NoaEngine\NoaEditor\x64\Release\Time.obj
 D:\Work\NoaEngine\NoaEngine\NoaEngine\Transform.cpp;D:\Work\NoaEngine\NoaEditor\x64\Release\Transform.obj

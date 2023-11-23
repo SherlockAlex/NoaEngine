@@ -36,8 +36,7 @@ bool noa::TileMap::CheckCollision(int x, int y)
 
 		const int posX = static_cast<int>(x - transform.position.x);
 		const int posY = static_cast<int>(y - transform.position.y);
-
-		bool flag = layer->CheckCollision(posX, posY);
+		const bool flag = layer->CheckCollision(posX, posY);
 		if (flag)
 		{
 			return true;

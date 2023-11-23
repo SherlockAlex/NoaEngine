@@ -693,6 +693,12 @@ noa::Label& noa::Label::SetText(const std::wstring& text)
 	return *this;
 }
 
+noa::Label& noa::Label::SetRowCount(int count)
+{
+	this->rowCount = count;
+	return *this;
+}
+
 noa::Label* noa::Label::Apply() 
 {
 	return this;
@@ -712,12 +718,31 @@ void noa::Label::Update()
 void noa::Label::Render() {
 	//显示文字
 
-	
+	//下面代码只是暂时的，需要优化
 
+	std::wstring textBuffer = text;
+	if (rowCount>0) 
+	{
+		textBuffer = L"";
+		int count = 0;
+		const size_t length = text.length();
+		for (int i = 0;i< length;i++)
+		{
+			textBuffer += text[i];
+			count++;
+			if (count>=rowCount) 
+			{
+				count = 0;
+				textBuffer += L"\n";
+			}
+		}
+	}
+
+	this->transform.size = renderer->GetLabelScale(textBuffer, this->size);
 	globalTransform.position.x = static_cast<int>(fatherTransform.position.x + transform.position.x - anchor.x * transform.size.x);
 	globalTransform.position.y = static_cast<int>(fatherTransform.position.y + transform.position.y - anchor.y * transform.size.y);
 	renderer->DrawString(
-		text
+		textBuffer
 		, globalTransform.position.x
 		, globalTransform.position.y
 		, color
@@ -729,13 +754,12 @@ void noa::Label::Render() {
 
 noa::Image::Image(UIContainer* group) :UIComponent(group)
 {
-	Sprite noneSprite;
-	noneSprite.w = 320;
-	noneSprite.h = 320;
-	noneSprite.size = { 320,320 };
-	noneSprite.ResizeAndFull(320, 320, noa::RGBA(255, 255, 255, 255));
+	sprite.w = 320;
+	sprite.h = 320;
+	sprite.size = { 320,320 };
+	sprite.ResizeAndFull(320, 320, noa::RGBA(255, 255, 255, 255));
 
-	spriteGPU = SpriteGPU::Create(&noneSprite);
+	spriteGPU = SpriteGPU::Create(&sprite);
 	spriteGPU->SetLayer(InstanceLayer::UI_LAYER);
 }
 
@@ -778,8 +802,105 @@ noa::Image& noa::Image::SetActive(bool value)
 
 noa::Image& noa::Image::SetSize(int x, int y)
 {
+	
 	this->transform.size.x = x;
 	this->transform.size.y = y;
+
+	this->sprite.size.x = x;
+	this->sprite.size.y = y;
+	this->sprite.ResizeAndFull(x, y, noa::RGBA(255, 255, 255, 255));
+
+	return *this;
+}
+
+noa::Image& noa::Image::SetRadius(int value) 
+{
+
+	this->sprite.Full(noa::RGBA(255, 255, 255, 255));
+	if (mapSprite)
+	{
+		this->sprite.MapFromSprite(*mapSprite);
+	}
+
+	if (value <= 0)
+	{
+		radius = 0;
+		return *this;
+	}
+
+	const int maxValue = (sprite.w < sprite.h) ? (sprite.w / 2) : (sprite.h / 2);
+	radius = value;
+	if (radius > maxValue)
+	{
+		radius = maxValue;
+	}
+
+	const int x1 = radius;
+	const int x2 = sprite.w - radius;
+	const int y1 = radius;
+	const int y2 = sprite.h - radius;
+
+	const int sqrRadius = (radius) * (radius);
+
+	//左上角
+	for (int x = 0; x < radius; x++)
+	{
+		for (int y = 0; y < radius; y++)
+		{
+			const int deltaX = x - x1;
+			const int deltaY = y - y1;
+
+			if (deltaX * deltaX + deltaY * deltaY > sqrRadius) {
+				sprite.SetPixelColor(x, y, RGBA(0, 0, 0, 0));
+			}
+		}
+	}
+
+	//左下角
+	for (int x = 0; x < radius; x++)
+	{
+		for (int y = y2; y < sprite.h; y++)
+		{
+			const int deltaX = x - x1;
+			const int deltaY = y - y2;
+
+			if (deltaX * deltaX + deltaY * deltaY > sqrRadius) {
+				sprite.SetPixelColor(x, y, RGBA(0, 0, 0, 0));
+			}
+		}
+	}
+
+	//右下角
+	for (int x = x2; x < sprite.w; x++)
+	{
+		for (int y = y2; y < sprite.h; y++)
+		{
+			const int deltaX = x - x2;
+			const int deltaY = y - y2;
+
+			if (deltaX * deltaX + deltaY * deltaY > sqrRadius) {
+				sprite.SetPixelColor(x, y, RGBA(0, 0, 0, 0));
+
+			}
+		}
+	}
+
+	//右上角
+	for (int x = x2; x < sprite.w; x++)
+	{
+		for (int y = 0; y < radius; y++)
+		{
+			const int deltaX = x - x2;
+			const int deltaY = y - y1;
+
+			if (deltaX * deltaX + deltaY * deltaY > sqrRadius)
+			{
+
+				sprite.SetPixelColor(x, y, RGBA(0, 0, 0, 0));
+			}
+		}
+	}
+
 	return *this;
 }
 
@@ -791,13 +912,16 @@ noa::Image& noa::Image::SetStyle(noa::ImageStyle style)
 
 noa::Image & noa::Image::SetSprite(Sprite* sprite)
 {
-	if (!sprite)
+	if (sprite == nullptr)
 	{
+		Sprite spriteBuffer;
+		spriteBuffer.ResizeAndFull(10, 10, noa::RGBA(255, 255, 255, 255));
+		this->sprite.MapFromSprite(spriteBuffer);
 		return *this;
 	}
-	this->sprite = sprite;
-	//如果有了spriteGPU
-	spriteGPU->Update(sprite);
+
+	this->mapSprite = sprite;
+	this->sprite.MapFromSprite(*mapSprite);
 	return *this;
 }
 
@@ -807,7 +931,9 @@ noa::Image& noa::Image::SetColor(uint32_t color)
 	return *this;
 }
 
-noa::Image* noa::Image::Apply() {
+noa::Image* noa::Image::Apply() 
+{
+	spriteGPU->Update(&sprite);
 	return this;
 }
 
@@ -1030,7 +1156,7 @@ noa::Button& noa::Button::Clone(Button* button) {
 		.SetTextOffset(button->labelOffset.x,button->labelOffset.y)
 		.SetClickAudio(button->clickAudio)
 		.SetSelectedAudio(button->selectedAudio)
-		.SetSprite(button->mapSprite)
+		.SetSprite(button->sprite)
 		.SetClickScale			(button->clickScale);
 }
 
@@ -1086,117 +1212,23 @@ noa::Button& noa::Button::SetSize(int w,int h)
 	this->currentSize.x = static_cast<float>(transform.size.x);
 	this->currentSize.y = static_cast<float>(transform.size.y);
 
-	this->sprite.size.x = w;
-	this->sprite.size.y = h;
-	this->sprite.ResizeAndFull(w,h, noa::RGBA(255, 255, 255, 255));
+	this->image->SetSize(w, h).Apply();
 
 	return *this;
 }
 
 noa::Button& noa::Button::SetSprite(noa::Sprite* sprite)
 {
-	if (!sprite) 
-	{
-		Sprite spriteBuffer;
-		spriteBuffer.ResizeAndFull(10,10,noa::RGBA(255,255,255,255));
-		this->sprite.MapFromSprite(spriteBuffer);
-		return *this;
-	}
-	
-	this->mapSprite = sprite;
-	this->sprite.MapFromSprite(*mapSprite);
+	this->sprite = sprite;
+	this->image->SetSprite(sprite).Apply();
 	return *this;
 }
 
 noa::Button& noa::Button::SetRadius(int value)
 {
 	//四个角的半径
-
-	this->sprite.Full(noa::RGBA(255, 255, 255, 255));
-	if (mapSprite) 
-	{
-		this->sprite.MapFromSprite(*mapSprite);
-	}
-
-	if (value<=0) 
-	{
-		radius = 0;
-		return *this;
-	}
-
-	const int maxValue = (sprite.w < sprite.h) ? (sprite.w/2) : (sprite.h/2);
-	radius = value;
-	if (radius> maxValue)
-	{
-		radius = maxValue;
-	}
-
-	const int x1 = radius;
-	const int x2 = sprite.w - radius;
-	const int y1 = radius;
-	const int y2 = sprite.h - radius;
-
-	const int sqrRadius = (radius) * (radius);
-
-	//左上角
-	for (int x = 0;x<radius;x++) 
-	{
-		for (int y = 0;y<radius;y++) 
-		{
-			const int deltaX = x - x1;
-			const int deltaY = y - y1;
-
-			if (deltaX*deltaX + deltaY*deltaY > sqrRadius) {
-				sprite.SetPixelColor(x, y, RGBA(0, 0, 0, 0));
-			}
-		}
-	}
-
-	//左下角
-	for (int x = 0; x < radius; x++)
-	{
-		for (int y = y2; y < sprite.h; y++)
-		{
-			const int deltaX = x - x1;
-			const int deltaY = y - y2;
-
-			if (deltaX * deltaX + deltaY * deltaY > sqrRadius) {
-				sprite.SetPixelColor(x, y, RGBA(0, 0, 0, 0));
-			}
-		}
-	}
-
-	//右下角
-	for (int x = x2; x < sprite.w; x++)
-	{
-		for (int y = y2; y < sprite.h; y++)
-		{
-			const int deltaX = x - x2;
-			const int deltaY = y - y2;
-
-			if (deltaX * deltaX + deltaY * deltaY > sqrRadius) {
-				sprite.SetPixelColor(x, y, RGBA(0, 0, 0, 0));
-				
-			}
-		}
-	}
-
-	//右上角
-	for (int x = x2; x < sprite.w; x++)
-	{
-		for (int y = 0; y < radius; y++)
-		{
-			const int deltaX = x - x2;
-			const int deltaY = y - y1;
-
-			if (deltaX * deltaX + deltaY * deltaY > sqrRadius) 
-			{
-				
-				sprite.SetPixelColor(x, y, RGBA(0, 0, 0, 0));
-			}
-		}
-	}
-
+	this->radius = value;
+	this->image->SetRadius(value).Apply();
 	return *this;
 }
 
@@ -1287,7 +1319,7 @@ noa::Button& noa::Button::AddClickCallback(
 }
 
 noa::Button* noa::Button::Apply() {
-	image->SetSprite(&sprite);
+	this->image->Apply();
 	return this;
 }
 
@@ -1296,9 +1328,7 @@ noa::ProcessBar::ProcessBar(noa::UIContainer* container)
 {
 	background = noa::Image::Create(container);
 	runtime = noa::Image::Create(container);
-
 	SetSize(360, 20);
-
 }
 
 noa::ProcessBar::~ProcessBar() {
@@ -1308,12 +1338,12 @@ noa::ProcessBar::~ProcessBar() {
 void noa::ProcessBar::UpdateRuntimeSprite() {
 	//首先计算x进度
 	const int targetX = static_cast<int>(amount * transform.size.x);
-	runtimeSprite.Full(noa::RGBA(0, 0, 0, 0));
+	fillbar.Full(noa::RGBA(0, 0, 0, 0));
 	for (int x = 0; x < targetX; x++)
 	{
-		for (int y = 0; y < runtimeSprite.h; y++)
+		for (int y = 0; y < fillbar.h; y++)
 		{
-			runtimeSprite.SetPixelColor(
+			fillbar.SetPixelColor(
 				x, y
 				, noa::RGBA(255, 255, 255, 255));
 		}
@@ -1333,8 +1363,6 @@ void noa::ProcessBar::Update()
 	//通常状态
 	globalTransform.position.x = posX;
 	globalTransform.position.y = posY;
-
-	
 
 	//交互
 	//获取鼠标的位置和自己当前的global位置
@@ -1385,8 +1413,7 @@ void noa::ProcessBar::Update()
 
 	UpdateRuntimeSprite();
 	SetRadius(radius);
-
-	runtime->SetSprite(&runtimeSprite);
+	runtime->SetSprite(&fillbar).Apply();
 	oldAmount = amount;
 
 }
@@ -1442,8 +1469,7 @@ noa::ProcessBar& noa::ProcessBar::SetBackgroundColor(
 	uint32_t color)
 {
 	this->backgroundColor = color;
-	this->backgroundSprite.Full(color);
-	background->SetSprite(&backgroundSprite);
+	background->SetColor(color);
 	return *this;
 }
 
@@ -1465,16 +1491,12 @@ noa::ProcessBar& noa::ProcessBar::SetSize(int x,int y)
 	transform.size.x = x;
 	transform.size.y = y;
 
-	backgroundSprite.w = x;
-	backgroundSprite.h = y;
-	backgroundSprite.ResizeAndFull(x,y,noa::RGBA(255,255,255,255));
-	
-	runtimeSprite.w = x;
-	runtimeSprite.h = y;
-	runtimeSprite.ResizeAndFull(x, y, noa::RGBA(0,0,0,0));
+	fillbar.w = x;
+	fillbar.h = y;
+	fillbar.ResizeAndFull(x, y, noa::RGBA(0, 0, 0, 0));
 
-	background->SetSprite(&backgroundSprite);
-	runtime->SetSprite(&runtimeSprite);
+	background->SetSize(x,y).Apply();
+	runtime->SetSize(x,y).SetSprite(&fillbar).Apply();
 
 	return *this;
 
@@ -1488,95 +1510,11 @@ noa::ProcessBar& noa::ProcessBar::SetAmount(float amount)
 
 noa::ProcessBar& noa::ProcessBar::SetRadius(int value)
 {
-	//四个角的半径
 
-	this->backgroundSprite.Full(noa::RGBA(255,255,255,255));
-	this->UpdateRuntimeSprite();
-	if (value <= 0)
-	{
-		radius = 0;
-		return *this;
-	}
+	this->radius = value;
 
-	const int maxValue = (backgroundSprite.w < backgroundSprite.h) ? (backgroundSprite.w / 2) : (backgroundSprite.h / 2);
-	radius = value;
-	if (radius > maxValue)
-	{
-		radius = maxValue;
-	}
-
-	const int x1 = radius;
-	const int x2 = backgroundSprite.w - radius;
-	const int y1 = radius;
-	const int y2 = backgroundSprite.h - radius;
-
-	const int sqrRadius = (radius) * (radius);
-
-	//左上角
-	for (int x = 0; x < radius; x++)
-	{
-		for (int y = 0; y < radius; y++)
-		{
-			const int deltaX = x - x1;
-			const int deltaY = y - y1;
-
-			if (deltaX * deltaX + deltaY * deltaY > sqrRadius) {
-				backgroundSprite.SetPixelColor(x, y, RGBA(0, 0, 0, 0));
-				runtimeSprite.SetPixelColor(x, y, RGBA(0, 0, 0, 0));
-			}
-		}
-	}
-
-	//左下角
-	for (int x = 0; x < radius; x++)
-	{
-		for (int y = y2; y < backgroundSprite.h; y++)
-		{
-			const int deltaX = x - x1;
-			const int deltaY = y - y2;
-
-			if (deltaX * deltaX + deltaY * deltaY > sqrRadius) {
-				backgroundSprite.SetPixelColor(x, y, RGBA(0, 0, 0, 0));
-				runtimeSprite.SetPixelColor(x, y, RGBA(0, 0, 0, 0));
-			}
-		}
-	}
-
-	//右下角
-	for (int x = x2; x < backgroundSprite.w; x++)
-	{
-		for (int y = y2; y < backgroundSprite.h; y++)
-		{
-			const int deltaX = x - x2;
-			const int deltaY = y - y2;
-
-			if (deltaX * deltaX + deltaY * deltaY > sqrRadius) {
-				backgroundSprite.SetPixelColor(x, y, RGBA(0, 0, 0, 0));
-				runtimeSprite.SetPixelColor(x, y, RGBA(0, 0, 0, 0));
-
-			}
-		}
-	}
-
-	//右上角
-	for (int x = x2; x < backgroundSprite.w; x++)
-	{
-		for (int y = 0; y < radius; y++)
-		{
-			const int deltaX = x - x2;
-			const int deltaY = y - y1;
-
-			if (deltaX * deltaX + deltaY * deltaY > sqrRadius)
-			{
-
-				backgroundSprite.SetPixelColor(x, y, RGBA(0, 0, 0, 0));
-				runtimeSprite.SetPixelColor(x, y, RGBA(0, 0, 0, 0));
-			}
-		}
-	}
-
-	background->SetSprite(&backgroundSprite);
-	runtime->SetSprite(&runtimeSprite);
+	background->SetRadius(value).Apply();
+	runtime->SetRadius(value).Apply();
 
 	return *this;
 }

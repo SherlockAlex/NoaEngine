@@ -188,8 +188,8 @@ void noa::Scene::SceneChildRender() {
 			{
 				continue;
 			}
-			actor->Render();
 			actor->ComponentRender();
+			actor->Render();
 		}
 	}
 
@@ -201,15 +201,14 @@ void noa::Scene::SceneChildRender() {
 		{
 			continue;
 		}
-		actor->Render();
 		actor->ComponentRender();
+		actor->Render();
 	}
 
 }
 
 void noa::Scene::SceneChildOnUpdate() 
 {
-
 	if (sceneStack.empty()) 
 	{
 		onUpdate.Invoke(this);

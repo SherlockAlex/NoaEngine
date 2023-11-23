@@ -29,11 +29,6 @@ namespace noa {
 	class ScriptableActor;
 	class Camera;
 
-	
-
-	//关卡地图
-	//一张地图是由许多的地图层组成的
-
 	class Scene;
 
 	class Scene final

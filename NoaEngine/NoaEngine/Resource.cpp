@@ -5,11 +5,8 @@
 
 using namespace std;
 
-//path = ./Data/Resource/assets
-
-namespace noa {
-	const std::string Resource::path = "./Data/Resource/assets/";
-}
+const std::string noa::Resource::path =
+	"./Data/Resource/assets/";
 
 bool noa::TileSet::ContainTileID(int id) const
 {
@@ -226,20 +223,12 @@ noa::Tile::Tile(shared_ptr<Sprite> sprite, bool isCollision)
 {
 	this->sprite = sprite;
 	this->isCollision = isCollision;
-	/*if (sprite)
-	{
-		spriteGPU = SpriteGPU::Create(sprite.get());
-	}*/
 }
 
 noa::Tile::Tile(SpriteFile spriteFile, bool isCollision)
 {
 	this->sprite = make_shared<Sprite>(spriteFile, Vector<int>(1, 1));
 	this->isCollision = isCollision;
-	/*if (sprite)
-	{
-		spriteGPU = SpriteGPU::Create(sprite.get());
-	}*/
 }
 
 noa::Tile::~Tile()

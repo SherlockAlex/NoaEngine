@@ -48,7 +48,8 @@ void MainMenuDelegate::OnLoad(noa::Scene* scene)
 		.Apply();
 
 	noa::Image* backgroundImage = noa::Image::Create(mainContainer)
-		->SetSprite(&ResourceManager::backgroundImage)
+		->SetSize(1920,1080)
+		.SetSprite(&ResourceManager::backgroundImage)
 		.SetStyle(noa::ImageStyle::COVER)
 		.Apply();
 
@@ -88,9 +89,9 @@ void MainMenuDelegate::OnLoad(noa::Scene* scene)
 		.Apply();
 
 	noa::Image* backgroundImage1 = noa::Image::Create(secondContainer)
-		->SetSprite(&ResourceManager::backgroundImage1)
-		.SetStyle(noa::ImageStyle::COVER)
-		.SetSize(noa::Screen::width/1.5,noa::Screen::height/1.5)
+		->SetSize(noa::Screen::width / 1.5, noa::Screen::height / 1.5)
+		.SetSprite(&ResourceManager::backgroundImage1)
+		.SetStyle(noa::ImageStyle::DEFAULT)
 		.Apply();
 
 	noa::Button* backButton = noa::Button::Create(secondContainer)

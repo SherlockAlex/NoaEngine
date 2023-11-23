@@ -49,6 +49,8 @@ namespace noa {
 		virtual void OnTriggerEnter(noa::Collider2D& other);
 		virtual void OnHitTile() {}
 
+		virtual void OnMouseHold() {};
+
 
 	public:
 		void SetActiveScene(Scene* scene);
