@@ -1,5 +1,6 @@
 #include "TileCollider2D.h"
 #include "Physics.h"
+#include "TileMap.h"
 
 noa::TileCollider2D::TileCollider2D(Actor* actor)
 	:noa::Collider2D(actor)
@@ -79,10 +80,10 @@ void noa::TileCollider2D::ApplyTileCollision(float deltaTime)
 	float posX = GetActor()->transform.position.x;
 	float posY = GetActor()->transform.position.y;
 
-	int intNewX = static_cast<int>(newX);
-	int intNewY = static_cast<int>(newY);
-	int intPosX = static_cast<int>(posX);
-	int intPosY = static_cast<int>(posY);
+	float intNewX = static_cast<float>(static_cast<int>(newX));
+	float intNewY = static_cast<float>(static_cast<int>(newY));
+	float intPosX = static_cast<float>(static_cast<int>(posX));
+	float intPosY = static_cast<float>(static_cast<int>(posY));
 
 	float deltaStep = 0.9999f;
 	float scaleX = deltaStep * std::abs(this->scale.x);
@@ -92,8 +93,8 @@ void noa::TileCollider2D::ApplyTileCollision(float deltaTime)
 	const float bounce = std::abs(rigidbody->bounce);
 
 
-	if (tileMap->IsCollisionTile(intNewX, intPosY)
-		|| tileMap->IsCollisionTile(intNewX, static_cast<int>(posY + scaleY))
+	if (tileMap->CheckCollision(intNewX, intPosY)
+		|| tileMap->CheckCollision(intNewX, posY + scaleY)
 		)
 	{
 		this->isHitCollisionTile = true;
@@ -105,11 +106,11 @@ void noa::TileCollider2D::ApplyTileCollision(float deltaTime)
 
 		newX = intNewX + 1.0f;
 
-		intNewX = static_cast<int>(newX);
+		intNewX = newX;
 	}
 
-	if (tileMap->IsCollisionTile(static_cast<int>(newX + scaleX), intPosY)
-		|| tileMap->IsCollisionTile(static_cast<int>(newX + scaleX), static_cast<int>(posY + scaleY))
+	if (tileMap->CheckCollision(newX + scaleX, intPosY)
+		|| tileMap->CheckCollision(newX + scaleX,posY + scaleY)
 		)
 	{
 		this->isHitCollisionTile = true;
@@ -119,13 +120,13 @@ void noa::TileCollider2D::ApplyTileCollision(float deltaTime)
 			rigidbody->velocity.x = 0;
 		}
 
-		newX = static_cast<int>(newX + scaleX) - scale.x;
-
-		intNewX = static_cast<int>(newX);
+		const int value = static_cast<int>(newX + scaleX) - scale.x;
+		newX = static_cast<float>(value);
+		intNewX = newX;
 	}
 
-	if (tileMap->IsCollisionTile(intNewX, intNewY)
-		|| tileMap->IsCollisionTile(static_cast<int>(newX + scaleX), intNewY))
+	if (tileMap->CheckCollision(intNewX, intNewY)
+		|| tileMap->CheckCollision(newX + scaleX, intNewY))
 	{
 		this->isHitCollisionTile = true;
 		rigidbody->velocity.y = (-rigidbody->velocity.y * bounce);
@@ -135,13 +136,12 @@ void noa::TileCollider2D::ApplyTileCollision(float deltaTime)
 		}
 
 		newY = intNewY + 1.0f;
-
-		intNewY = static_cast<int>(newY);
+		intNewY = newY;
 
 	}
 
-	if (tileMap->IsCollisionTile(intNewX, static_cast<int>(newY + scaleY))
-		|| tileMap->IsCollisionTile(static_cast<int>(newX + scaleX), static_cast<int>(newY + scaleY)))
+	if (tileMap->CheckCollision(intNewX, newY + scaleY)
+		|| tileMap->CheckCollision(newX + scaleX,newY + scaleY))
 	{
 		//об
 		this->isHitCollisionTile = true;
@@ -151,8 +151,9 @@ void noa::TileCollider2D::ApplyTileCollision(float deltaTime)
 			rigidbody->velocity.y = 0;
 		}
 
-		newY = static_cast<int>(newY + scaleY) - scale.y;
-		intNewY = static_cast<int>(newY);
+		const int value = static_cast<int>(newY + scaleY) - scale.y;
+		newY = static_cast<float>(value);
+		intNewY = newY;
 
 	}
 
@@ -177,17 +178,17 @@ void noa::TileCollider2D::ApplyConstraint(float deltaTime)
 	float posX = GetActor()->transform.position.x;
 	float posY = GetActor()->transform.position.y;
 
-	int intNewX = static_cast<int>(newX);
-	int intNewY = static_cast<int>(newY);
-	int intPosX = static_cast<int>(posX);
-	int intPosY = static_cast<int>(posY);
+	float intNewX = static_cast<int>(newX);
+	float intNewY = static_cast<int>(newY);
+	float intPosX = static_cast<int>(posX);
+	float intPosY = static_cast<int>(posY);
 
 	float deltaStep = 1.01f;
 	float scaleX = deltaStep * std::abs(this->scale.x);
 	float scaleY = deltaStep * std::abs(this->scale.y);
 
-	if (tileMap->IsCollisionTile(intNewX, intPosY)
-		|| tileMap->IsCollisionTile(intNewX, static_cast<int>(posY + scaleY))
+	if (tileMap->CheckCollision(intNewX, intPosY)
+		|| tileMap->CheckCollision(intNewX, posY + scaleY)
 		)
 	{
 		//вС
@@ -201,12 +202,12 @@ void noa::TileCollider2D::ApplyConstraint(float deltaTime)
 		}
 
 		newX = intNewX + 1.0f;
-
-		intNewX = static_cast<int>(newX);
+		const int value = static_cast<int>(newX);
+		intNewX = static_cast<float>(value);
 	}
 
-	if (tileMap->IsCollisionTile(static_cast<int>(newX + scaleX), intPosY)
-		|| tileMap->IsCollisionTile(static_cast<int>(newX + scaleX), static_cast<int>(posY + scaleY))
+	if (tileMap->CheckCollision(newX + scaleX, intPosY)
+		|| tileMap->CheckCollision(newX + scaleX, posY + scaleY)
 		)
 	{
 		//ср
@@ -224,8 +225,8 @@ void noa::TileCollider2D::ApplyConstraint(float deltaTime)
 		intNewX = static_cast<int>(newX);
 	}
 
-	if (tileMap->IsCollisionTile(intNewX, intNewY)
-		|| tileMap->IsCollisionTile(static_cast<int>(newX + scaleX), intNewY))
+	if (tileMap->CheckCollision(intNewX, intNewY)
+		|| tileMap->CheckCollision(newX + scaleX, intNewY))
 	{
 		//ио
 		this->isHitCollisionTile = true;
@@ -243,8 +244,8 @@ void noa::TileCollider2D::ApplyConstraint(float deltaTime)
 
 	}
 
-	if (tileMap->IsCollisionTile(intNewX, static_cast<int>(newY + scaleY))
-		|| tileMap->IsCollisionTile(static_cast<int>(newX + scaleX), static_cast<int>(newY + scaleY)))
+	if (tileMap->CheckCollision(intNewX, newY + scaleY)
+		|| tileMap->CheckCollision(newX + scaleX, newY + scaleY))
 	{
 		//об
 		if (static_cast<int>(rigidbody->velocity.y * 10.0f) == 0)

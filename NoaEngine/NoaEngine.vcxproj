@@ -211,6 +211,8 @@
     <ClInclude Include="NoaEngine\Screen.h" />
     <ClInclude Include="NoaEngine\Platform_Linux.h" />
     <ClInclude Include="NoaEngine\TileCollider2D.h" />
+    <ClInclude Include="NoaEngine\TileMapInfo.h" />
+    <ClInclude Include="NoaEngine\TileMap.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="NoaEngine\Camera2D.cpp" />
@@ -258,6 +260,8 @@
     <ClCompile Include="NoaEngine\Screen.cpp" />
     <ClCompile Include="NoaEngine\Platform_Linux.cpp" />
     <ClCompile Include="NoaEngine\TileCollider2D.cpp" />
+    <ClCompile Include="NoaEngine\TileMapInfo.cpp" />
+    <ClCompile Include="NoaEngine\TileMap.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

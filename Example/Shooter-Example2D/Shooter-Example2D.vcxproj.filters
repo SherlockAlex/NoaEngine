@@ -84,6 +84,9 @@
     <ClCompile Include="..\..\NoaEngine\NoaEngine\Camera.cpp">
       <Filter>头文件\Engine</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\NoaEngine\NoaEngine\Camera2D.cpp">
+      <Filter>头文件\Engine</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\NoaEngine\NoaEngine\CircleCollider2D.cpp">
       <Filter>头文件\Engine</Filter>
     </ClCompile>
@@ -174,16 +177,19 @@
     <ClCompile Include="..\..\NoaEngine\NoaEngine\TileCollider2D.cpp">
       <Filter>头文件\Engine</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\NoaEngine\NoaEngine\TileMap.cpp">
+      <Filter>头文件\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\NoaEngine\NoaEngine\TileMapInfo.cpp">
+      <Filter>头文件\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\NoaEngine\NoaEngine\TileMapRenderer.cpp">
+      <Filter>头文件\Engine</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\NoaEngine\NoaEngine\Time.cpp">
       <Filter>头文件\Engine</Filter>
     </ClCompile>
     <ClCompile Include="..\..\NoaEngine\NoaEngine\Transform.cpp">
-      <Filter>头文件\Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\NoaEngine\NoaEngine\Camera2D.cpp">
-      <Filter>头文件\Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\NoaEngine\NoaEngine\TileMapRenderer.cpp">
       <Filter>头文件\Engine</Filter>
     </ClCompile>
   </ItemGroup>
@@ -249,6 +255,9 @@
       <Filter>头文件\Engine</Filter>
     </ClInclude>
     <ClInclude Include="..\..\NoaEngine\NoaEngine\Camera.h">
+      <Filter>头文件\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\NoaEngine\NoaEngine\Camera2D.h">
       <Filter>头文件\Engine</Filter>
     </ClInclude>
     <ClInclude Include="..\..\NoaEngine\NoaEngine\CircleCollider2D.h">
@@ -365,16 +374,19 @@
     <ClInclude Include="..\..\NoaEngine\NoaEngine\TileCollider2D.h">
       <Filter>头文件\Engine</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\NoaEngine\NoaEngine\TileMap.h">
+      <Filter>头文件\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\NoaEngine\NoaEngine\TileMapInfo.h">
+      <Filter>头文件\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\NoaEngine\NoaEngine\TileMapRenderer.h">
+      <Filter>头文件\Engine</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\NoaEngine\NoaEngine\Time.h">
       <Filter>头文件\Engine</Filter>
     </ClInclude>
     <ClInclude Include="..\..\NoaEngine\NoaEngine\Transform.h">
-      <Filter>头文件\Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\NoaEngine\NoaEngine\Camera2D.h">
-      <Filter>头文件\Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\NoaEngine\NoaEngine\TileMapRenderer.h">
       <Filter>头文件\Engine</Filter>
     </ClInclude>
   </ItemGroup>

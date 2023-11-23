@@ -73,36 +73,39 @@ void InitGameUI(noa::Scene* scene)
 }
 
 bool flag = true;
-noa::TileMap* map = nullptr;
+
 void GameDelegate::OnLoad(noa::Scene* scene)
 {
 	//flag = true;
 
 	noa::PhysicsSystem::SetGrid(100,100);
 
-	map = noa::TileMap::Create()
-		->LoadTileSet("tileSet.tsd")
-		.LoadTileLayer({"map_Layer1.csv","map_Layer2.csv"})
-		.SetCollisionTileID(40)
-		.Apply();
+	//tilemap 的内存释放还没有写，等下记得补充
+	noa::TileMapInfo mapInfo = noa::TileMapInfo()
+		.LoadTileSet("tileSet.tsd")
+		.LoadTileLayer(
+			{"map_Layer1.csv","map_Layer2.csv"}
+		);
 
-	noa::Actor* tileMap = noa::NObject<noa::Actor>::Create(scene);
+	noa::TileMap* tileMap = noa::TileMap::Create(scene);
 	noa::TileMapRenderer* tileMapRenderer 
 		= noa::TileMapRenderer::Create(tileMap)
-		->SetTileMap(&map->layers[0],map->GetTileSet())
+		->SetTileMap(mapInfo.layers[0], mapInfo.GetTileSet())
+		.SetCollision(40)
 		.Apply();
 	noa::TileMapRenderer* tileMapRenderer1
 		= noa::TileMapRenderer::Create(tileMap)
-		->SetTileMap(&map->layers[1], map->GetTileSet())
+		->SetTileMap(mapInfo.layers[1], mapInfo.GetTileSet())
 		.SetOffset(10.0f,9.0f)
+		.SetCollision(84)
 		.Apply();
 
 	Test* test1 = noa::NObject<Test>::Create(scene);
-	test1->tileCollider->SetTileMap(map);
+	test1->tileCollider->SetTileMap(tileMap);
 	test1->transform.position = { 2,3 };
 
 	player = noa::NObject<Player>::Create(scene);
-	player->tileCollider->SetTileMap(map);
+	player->tileCollider->SetTileMap(tileMap);
 
 	camera = noa::Camera2D::Create(scene)
 		->SetFar(32.0f)
@@ -117,6 +120,8 @@ void GameDelegate::OnLoad(noa::Scene* scene)
 
 	InitGameMenu(scene);
 	InitGameUI(scene);
+
+	//map->Delete();
 
 }
 
@@ -175,14 +180,14 @@ void GameDelegate::OnTick(noa::Scene* scene)
 
 	}
 
-	if (i<500) 
+	/*if (i<500) 
 	{
 		Test* test = noa::NObject<Test>::Create(scene);
 		test->transform.position = { 2,3 };
 		test->rigid->velocity = { 70,0 };
 		test->tileCollider->SetTileMap(map);
 		i++;
-	}
+	}*/
 	//
 
 	//if (camera == nullptr)

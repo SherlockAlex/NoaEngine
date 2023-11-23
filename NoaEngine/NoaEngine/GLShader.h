@@ -41,7 +41,7 @@ namespace noa {
 		void SetVec2(const std::string& name,float value1,float value2);
 		void SetVec3(const std::string& name,float value1,float value2,float value3);
 		void SetVec4(const std::string& name,float value1,float value2,float value3,float value4);
-
+		void SetMatrix4(const std::string& name, const glm::mat4& matrix);
 	};
 }
 

@@ -62,6 +62,7 @@ noa::FontAsset::FontAsset(const char* ttfPath, int size)
 		exit(-1);
 	}
 
+	FT_Select_Charmap(face, ft_encoding_unicode);
 	FT_Set_Pixel_Sizes(face, 0, size);
 
 
@@ -863,7 +864,6 @@ noa::Button::Button(UIContainer* group) :UIComponent(group)
 	SetFontSize(20);
 	SetPosition(0, 0);
 	SetSize(240, 60);
-	SetRadius(50);
 	SetNormalColor(noa::RGBA(255, 255, 255, 255));
 	SetHeightLightColor(noa::RGBA(255, 0, 0, 255));
 	SetAnchor(0.5f, 0.5f);
@@ -875,7 +875,8 @@ noa::Button::Button(UIContainer* group) :UIComponent(group)
 	SetHeightLightScale(1.1f);
 	SetClickScale(0.9f);
 
-	image->SetSprite(&sprite);
+	Apply();
+
 }
 
 noa::Button::~Button()
@@ -1029,6 +1030,7 @@ noa::Button& noa::Button::Clone(Button* button) {
 		.SetTextOffset(button->labelOffset.x,button->labelOffset.y)
 		.SetClickAudio(button->clickAudio)
 		.SetSelectedAudio(button->selectedAudio)
+		.SetSprite(button->mapSprite)
 		.SetClickScale			(button->clickScale);
 }
 
@@ -1091,11 +1093,31 @@ noa::Button& noa::Button::SetSize(int w,int h)
 	return *this;
 }
 
+noa::Button& noa::Button::SetSprite(noa::Sprite* sprite)
+{
+	if (!sprite) 
+	{
+		Sprite spriteBuffer;
+		spriteBuffer.ResizeAndFull(10,10,noa::RGBA(255,255,255,255));
+		this->sprite.MapFromSprite(spriteBuffer);
+		return *this;
+	}
+	
+	this->mapSprite = sprite;
+	this->sprite.MapFromSprite(*mapSprite);
+	return *this;
+}
+
 noa::Button& noa::Button::SetRadius(int value)
 {
 	//ËÄ¸ö½ÇµÄ°ë¾¶
 
 	this->sprite.Full(noa::RGBA(255, 255, 255, 255));
+	if (mapSprite) 
+	{
+		this->sprite.MapFromSprite(*mapSprite);
+	}
+
 	if (value<=0) 
 	{
 		radius = 0;
@@ -1174,8 +1196,6 @@ noa::Button& noa::Button::SetRadius(int value)
 			}
 		}
 	}
-
-	image->SetSprite(&sprite);
 
 	return *this;
 }
@@ -1267,6 +1287,7 @@ noa::Button& noa::Button::AddClickCallback(
 }
 
 noa::Button* noa::Button::Apply() {
+	image->SetSprite(&sprite);
 	return this;
 }
 

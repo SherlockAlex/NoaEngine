@@ -6,6 +6,7 @@
 #include "GLTexture.h"
 #include "GLShader.h"
 #include "Graphic.h"
+#include "Screen.h"
 
 noa::Texture* noa::GLRenderer::CreateTexture(int w, int h, void* pixelBuffer)
 {
@@ -35,6 +36,14 @@ void noa::GLRenderer::InitRenderer()
     this->defaultShader = this->CreateShader(vertexFile, fragmentFile);
     this->defaultShader->UseShaderProgram();
 
+    glm::mat4 projection = glm::ortho(
+        0.0f
+        , static_cast<float>(noa::Screen::width)
+        , 0.0f
+        , static_cast<float>(noa::Screen::height)
+    );
+
+    this->defaultShader->SetMatrix4("projection",projection);
 
 }
 
@@ -73,17 +82,17 @@ void noa::GLRenderer::DrawTexture(
         ,eulerAngle
     );
 
-    const float left = 2.0f * x * invPixelWidth - 1.0f;
-    const float right = 2.0f * (x + w) * invPixelWidth - 1.0f;
-    const float bottom = -(2.0f * y * invPixelHeight - 1.0f);
-    const float top = -(2.0f * (y + h) * invPixelHeight - 1.0f);
+    //将把坐标系转为屏幕坐标系
+    const float fixYLow = static_cast<float>(noa::Screen::height - y);
+    const float fixYHeight = static_cast<float>(noa::Screen::height - (y + h));
+    const float fixXLow = static_cast<float>(x);
+    const float fixXHeight = static_cast<float>(x+w);
 
     float vertices[] = {
-         //顶点坐标        纹理坐标
-         right,  bottom,    1.0f, 0.0f, // 右下角
-         right,  top,       1.0f, 1.0f, // 右上角
-         left,   top,       0.0f, 1.0f, // 左上角
-         left,   bottom,    0.0f, 0.0f  // 左下角
+        fixXHeight,fixYLow,1.0f,0.0f
+        ,fixXHeight,fixYHeight,1.0f,1.0f
+        ,fixXLow,fixYHeight,0.0f,1.0f
+        ,fixXLow,fixYLow,0.0f,0.0f
     };
 
     //图片发生旋转的时候，改变的是纹理坐标

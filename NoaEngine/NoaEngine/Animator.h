@@ -18,11 +18,11 @@
 #include "ActorComponent.h"
 #include "StateMachine.h"
 
-
 namespace noa 
 {
 	typedef unsigned int Uint32;
 
+	class SpriteRenderer;
 	class Actor;
 
 	typedef struct AnimationClip 
@@ -44,7 +44,7 @@ namespace noa
 		float i = 0;
 		bool loop = false;
 		int previousFrameIndex = -1;
-		Sprite* animatedSprite = nullptr;
+		SpriteRenderer* animatedSpriteRenderer = nullptr;
 
 	protected:
 		Animation(Actor * actor);
@@ -67,7 +67,7 @@ namespace noa
 		Animation& SetLoop(bool value);
 		Animation& SetSpeed(float value);
 		Animation& SetFrameEvent(int frame, std::function<void()> e);
-		Animation& SetAnimatedSprite(Sprite * sprite);
+		Animation& SetAnimatedSpriteRenderer(SpriteRenderer* spriteRenderer);
 		Animation& SetClip(AnimationClip* frame);
 		Animation* Apply();
 	};

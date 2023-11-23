@@ -309,12 +309,7 @@ namespace noa {
 
 	class Label :public UIComponent
 	{
-	public:
-		std::wstring text = L"text";
-		uint32_t color = BLACK;
-		uint32_t size = 25;
-
-	protected:
+	private:
 		Label(UIContainer* group);
 		~Label();
 
@@ -335,16 +330,14 @@ namespace noa {
 		Label& SetText(const std::wstring & text);
 		Label* Apply();
 
+	public:
+		std::wstring text = L"text";
+		uint32_t color = BLACK;
+		uint32_t size = 25;
+
 	};
 	
 	class Image :public UIComponent {
-	public:
-		ImageStyle style = ImageStyle::DEFAULT;
-		uint32_t color = WHITE;
-		bool isFilpX = false;
-	private:
-		Sprite* sprite = nullptr;
-		std::shared_ptr<SpriteGPU> spriteGPU = nullptr;
 	private:
 		Image(UIContainer* group);
 		~Image();
@@ -367,59 +360,18 @@ namespace noa {
 		Image& SetColor(uint32_t color);
 		Image* Apply();
 
-		
+	public:
+		ImageStyle style = ImageStyle::DEFAULT;
+		uint32_t color = WHITE;
+		bool isFilpX = false;
+	private:
+		Sprite* sprite = nullptr;
+		std::shared_ptr<SpriteGPU> spriteGPU = nullptr;
 
 	};
 
 	class Button :public UIComponent
 	{
-	public:
-
-		//按键背景颜色
-		uint32_t normalColor = LIGHTGRAY;
-		uint32_t heightLightColor = WHITE;
-		uint32_t clickColor = DARKGRAY;
-
-		//按键字体颜色
-		uint32_t textNormalColor = BLACK;
-		uint32_t textHeightLightColor = BLACK;
-		uint32_t textClickColor = BLACK;
-
-		//设置按钮大小
-		float normalScale = 1.0f;
-		float heightLightScale = 1.0f;
-		float clickScale = 1.0f;
-		
-	private:
-		Label* label = nullptr;
-		Image* image = nullptr;
-
-		bool isClickReady = false;
-		bool isSelect = false;
-		bool selectEventFlag = false;
-		uint32_t currentColor = normalColor;
-		uint32_t currentTextColor = textNormalColor;
-		float targetScale = normalScale;
-		float currentScale = normalScale;
-		int radius = 25;
-
-		uint32_t fontSize = 0;
-
-		Vector<float> labelOffset;
-		Vector<float> currentSize;
-
-		//按键事件
-		NoaEvent<void> selectedEvent;
-		NoaEvent<void> clickEvent;
-
-		Sprite sprite;
-		
-		std::shared_ptr<noa::AudioClip> selectedAudio = nullptr;
-		std::shared_ptr<noa::AudioClip> clickAudio = nullptr;
-
-
-		friend class Button;
-
 	private:
 		Button(UIContainer* group);
 		~Button();
@@ -443,6 +395,7 @@ namespace noa {
 		Button& SetAnchor(float x,float y);
 		Button& SetActive(bool value);
 		Button& SetSize(int w,int h);
+		Button& SetSprite(noa::Sprite* sprite);
 		Button& SetRadius(int value);
 		Button& SetTextOffset(float x,float y);
 		Button& SetText(const std::wstring & text);
@@ -458,6 +411,54 @@ namespace noa {
 		Button& AddSelectedCallback(std::function<void()> func);
 		Button& AddClickCallback(std::function<void()> func);
 		Button* Apply();
+
+	public:
+
+		//按键背景颜色
+		uint32_t normalColor = LIGHTGRAY;
+		uint32_t heightLightColor = WHITE;
+		uint32_t clickColor = DARKGRAY;
+
+		//按键字体颜色
+		uint32_t textNormalColor = BLACK;
+		uint32_t textHeightLightColor = BLACK;
+		uint32_t textClickColor = BLACK;
+
+		//设置按钮大小
+		float normalScale = 1.0f;
+		float heightLightScale = 1.0f;
+		float clickScale = 1.0f;
+
+	private:
+		Label* label = nullptr;
+		Image* image = nullptr;
+
+		bool isClickReady = false;
+		bool isSelect = false;
+		bool selectEventFlag = false;
+		uint32_t currentColor = normalColor;
+		uint32_t currentTextColor = textNormalColor;
+		float targetScale = normalScale;
+		float currentScale = normalScale;
+		int radius = 25;
+
+		uint32_t fontSize = 0;
+
+		Vector<float> labelOffset;
+		Vector<float> currentSize;
+
+		//按键事件
+		NoaEvent<void> selectedEvent;
+		NoaEvent<void> clickEvent;
+
+		Sprite sprite;
+		Sprite* mapSprite = nullptr;
+
+		std::shared_ptr<noa::AudioClip> selectedAudio = nullptr;
+		std::shared_ptr<noa::AudioClip> clickAudio = nullptr;
+
+
+		friend class Button;
 	};
 
 	//进度条

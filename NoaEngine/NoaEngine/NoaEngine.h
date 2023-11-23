@@ -106,7 +106,10 @@
 #include "Renderer.h"
 
 #include "SpriteRenderer.h"
+
+#include "TileMapInfo.h"
 #include "TileMapRenderer.h"
+#include "TileMap.h"
 
 #include "Collider2D.h"
 #include "BoxCollider2D.h"

@@ -1,6 +1,7 @@
 #include "Animator.h"
 #include "Actor.h"
 #include "Time.h"
+#include "SpriteRenderer.h"
 
 noa::AnimationClip::AnimationClip(const char* filePath)
 {
@@ -121,9 +122,9 @@ void noa::Animation::Update()
 
 	this->Play(static_cast<int>(i));
 
-	if (animatedSprite) 
+	if (animatedSpriteRenderer) 
 	{
-		animatedSprite->UpdateImage(this->currentFrame);
+		animatedSpriteRenderer->UpdateSprite(this->currentFrame);
 	}
 
 	//当前帧事件只执行一次
@@ -149,8 +150,9 @@ noa::Animation& noa::Animation::SetSpeed(float value)
 	return *this;
 }
 
-noa::Animation& noa::Animation::SetAnimatedSprite(Sprite* sprite)
+noa::Animation& noa::Animation::SetAnimatedSpriteRenderer(
+	noa::SpriteRenderer* spriteRenderer)
 {
-	this->animatedSprite = sprite;
+	this->animatedSpriteRenderer = spriteRenderer;
 	return *this;
 }

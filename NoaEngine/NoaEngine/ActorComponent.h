@@ -18,15 +18,6 @@ namespace noa {
 	class ActorComponent:public NoaObject
 	{
 	protected:
-		friend class NObject<ActorComponent>;
-		friend void InitNObject(NoaObject* obj);
-		friend class Actor;
-
-	private:
-		Actor* actor = nullptr;
-		bool active = true;
-
-	protected:
 		ActorComponent(Actor* actor);
 		virtual ~ActorComponent();
 
@@ -125,6 +116,15 @@ namespace noa {
 		std::vector<T*> FindActorsWithType() {
 			return sceneManager.FindActorsWithType<T>();
 		}
+
+	protected:
+		friend class NObject<ActorComponent>;
+		friend void InitNObject(NoaObject* obj);
+		friend class Actor;
+
+	private:
+		Actor* actor = nullptr;
+		bool active = true;
 
 	};
 }

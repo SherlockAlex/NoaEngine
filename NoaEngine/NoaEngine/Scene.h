@@ -18,98 +18,23 @@
 
 #include "NoaMath.h"
 #include "NoaAction.h"
-#include "Resource.h"
+
 #include "Debug.h"
 #include "NObject.h"
 
 namespace noa {
-
-
-	typedef unsigned char Uint8;
 
 	class Actor;
 	class Rigidbody;
 	class ScriptableActor;
 	class Camera;
 
-	//地图的层级
-	class MapLayer
-	{
-	public:
-		std::vector<int> layer;
-		noa::Vector<float> position;
-		uint32_t w = 0;
-		uint32_t h = 0;
-	public:
-		MapLayer(const LayerFile& layer);
-		virtual ~MapLayer();
-
-	public:
-		int GetTileID(int x, int y) const;
-		void SetTileID(int x, int y, int value);
-
-	};
+	
 
 	//关卡地图
 	//一张地图是由许多的地图层组成的
-	class Level
-	{
-	public:
-		std::vector<MapLayer> layers;
-		uint32_t w = 0;
-		uint32_t h = 0;
-	protected:
-		Level();
-		virtual ~Level();
-
-
-		void Delete(Level*& level);
-		void LoadLayer(const std::vector<std::string>& file);
-		void Construct(const std::vector<MapLayer>& layer);
-	public:
-
-		template<class T>
-		T* GetLevelAs() {
-			return dynamic_cast<T*>(this);
-		}
-	};
 
 	class Scene;
-
-	//瓦片地图
-	//一个相机可以同时绘制多张TileMap
-	//同时TileMap是有自己的Transform
-	//瓦片的坐标是Transform加上每个瓦片的位置
-
-	class TileMap :public Level
-	{
-	public:
-		TileSet tileSet;
-		std::unordered_map<int, bool> collisionTiles;
-
-	private:
-		TileMap();
-		virtual ~TileMap();
-
-	public:
-
-		static TileMap* Create();
-
-		TileMap& LoadTileSet(const std::string& file);
-		TileMap& LoadTileLayer(const std::vector<std::string>& file);
-		TileMap& SetCollisionTileID(const std::vector<int>& collisionTileIDs);
-		TileMap& SetCollisionTileID(const int tileID);
-
-		TileMap* Apply();
-
-		int GetLayerTileID(const int layerIndex, const int x, const int y) const;
-		void SetLayerTileID(const int layerIndex, const int x, const int y, const int tileID);
-		Tile* GetTile(const int id);
-		bool IsTile(const int code) const;
-		bool IsCollisionTile(int tileID) const;
-		bool IsCollisionTile(const int x, const int y) const;
-		TileSet& GetTileSet();
-	};
 
 	class Scene final
 	{

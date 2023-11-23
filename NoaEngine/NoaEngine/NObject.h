@@ -28,16 +28,24 @@ namespace noa
 	{
 	public:
 
-		static T * Create(Scene * scene) 
+		static T* Create(Scene * scene) 
 		{
 			T* obj = new T(scene);
 			InitNObject(obj);
 			return obj;
 		}
 
-		static T * Create(Actor * actor) 
+		static T* Create(Actor * actor) 
 		{
 			T* obj = new T(actor);
+			InitNObject(obj);
+			return obj;
+		}
+
+		template<typename ...Args>
+		static T* Create(Args... arg)
+		{
+			T* obj = new T(arg...);
 			InitNObject(obj);
 			return obj;
 		}

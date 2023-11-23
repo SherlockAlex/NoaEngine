@@ -30,27 +30,6 @@ namespace noa {
 
 	class Actor:public NoaObject
 	{
-	private:
-		friend class NObject<Actor>;
-		friend class Scene;
-		friend class SceneManager;
-		friend class Collider2D;
-		friend class TileCollider2D;
-		friend void InitNObject(NoaObject* obj);
-
-	public:
-		std::string tag = "default";
-	private:
-		Scene* activeScene = nullptr;
-	private:
-		bool active = true;
-		bool start = false;
-
-		std::vector<ActorComponent*> components;
-	public:
-		Transform transform;
-		bool isRaycasted = false;
-
 	protected:
 		Actor(Scene* activeScene);
 		virtual ~Actor();
@@ -187,7 +166,22 @@ namespace noa {
 	private:
 
 		bool isRemoved = false;
+		bool active = true;
+		bool start = false;
+		Scene* activeScene = nullptr;
 
+		std::vector<ActorComponent*> components;
+
+		friend class NObject<Actor>;
+		friend class Scene;
+		friend class SceneManager;
+		friend class Collider2D;
+		friend class TileCollider2D;
+		friend void InitNObject(NoaObject* obj);
+	public:
+		std::string tag = "default";
+		Transform transform;
+		bool isRaycasted = false;
 	};
 
 }

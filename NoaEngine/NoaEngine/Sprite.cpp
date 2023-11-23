@@ -88,7 +88,7 @@ noa::Sprite::~Sprite()
 
 }
 
-std::vector<uint32_t> noa::Sprite::GetImage()
+std::vector<uint32_t> noa::Sprite::GetImage() const
 {
 	return this->image;
 }
@@ -98,6 +98,7 @@ void noa::Sprite::ResizeAndFull(int w,int h,uint32_t color)
 	this->w = w;
 	this->h = h;
 	this->image.resize(w*h,color);
+	this->isEmpty = image.empty();
 }
 
 void noa::Sprite::Full(uint32_t color) 
@@ -106,6 +107,7 @@ void noa::Sprite::Full(uint32_t color)
 	{
 		image[i] = color;
 	}
+	this->isEmpty = image.empty();
 }
 
 void noa::Sprite::UpdateImage(const SpriteFile& image)
@@ -270,6 +272,34 @@ void noa::Sprite::SetPixelColor(int x,int y,uint32_t color)
 		return;
 	}
 	image[y * w + x] = color;
+}
+
+void noa::Sprite::MapFromSprite(const noa::Sprite& sprite)
+{
+	
+	for (int x = 0; x < w;x++) {
+		for (int y = 0; y < h;y++)
+		{
+			const uint32_t ownColor = GetPixelColor(x,y);
+			const uint8_t alpha = noa::GetAValue(ownColor);
+			const float simpleX = static_cast<float>(x) / w;
+			const float simpleY = static_cast<float>(y) / h;
+
+			const float alphaValue = static_cast<float>(alpha) / 255.0f;
+
+			const uint32_t simpleColor = 
+				sprite.GetColor(simpleX,simpleY);
+			const uint32_t color = noa::RGBA(
+				noa::GetRValue(simpleColor)
+				, noa::GetGValue(simpleColor)
+				, noa::GetBValue(simpleColor)
+				, static_cast<uint8_t>(noa::GetAValue(simpleColor) * alphaValue)
+			);
+
+			SetPixelColor(x,y,color);
+
+		}
+	}
 }
 
 uint32_t noa::Sprite::GetPixelColor(const int x, const int y) const

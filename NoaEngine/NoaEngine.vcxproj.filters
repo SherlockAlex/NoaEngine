@@ -177,6 +177,12 @@
     <ClInclude Include="NoaEngine\TileMapRenderer.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="NoaEngine\TileMapInfo.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="NoaEngine\TileMap.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="NoaEngine\Animator.cpp">
@@ -312,6 +318,12 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="NoaEngine\TileMapRenderer.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="NoaEngine\TileMapInfo.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="NoaEngine\TileMap.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
