@@ -122,9 +122,9 @@ void noa::Animation::Update()
 
 	this->Play(static_cast<int>(i));
 
-	if (animatedSpriteRenderer) 
+	if (spriteRenderer)
 	{
-		animatedSpriteRenderer->UpdateSprite(this->currentFrame);
+		spriteRenderer->UpdateSprite(this->currentFrame);
 	}
 
 	//当前帧事件只执行一次
@@ -150,9 +150,9 @@ noa::Animation& noa::Animation::SetSpeed(float value)
 	return *this;
 }
 
-noa::Animation& noa::Animation::SetAnimatedSpriteRenderer(
+noa::Animation& noa::Animation::SetSpriteRenderer(
 	noa::SpriteRenderer* spriteRenderer)
 {
-	this->animatedSpriteRenderer = spriteRenderer;
+	this->spriteRenderer = spriteRenderer;
 	return *this;
 }

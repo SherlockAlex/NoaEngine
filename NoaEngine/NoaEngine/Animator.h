@@ -44,7 +44,7 @@ namespace noa
 		float i = 0;
 		bool loop = false;
 		int previousFrameIndex = -1;
-		SpriteRenderer* animatedSpriteRenderer = nullptr;
+		SpriteRenderer* spriteRenderer = nullptr;
 
 	protected:
 		Animation(Actor * actor);
@@ -67,7 +67,7 @@ namespace noa
 		Animation& SetLoop(bool value);
 		Animation& SetSpeed(float value);
 		Animation& SetFrameEvent(int frame, std::function<void()> e);
-		Animation& SetAnimatedSpriteRenderer(SpriteRenderer* spriteRenderer);
+		Animation& SetSpriteRenderer(SpriteRenderer* spriteRenderer);
 		Animation& SetClip(AnimationClip* frame);
 		Animation* Apply();
 	};

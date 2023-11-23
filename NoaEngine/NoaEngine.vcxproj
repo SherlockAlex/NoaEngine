@@ -158,15 +158,19 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="NoaEngine\UIButton.h" />
     <ClInclude Include="NoaEngine\Camera2D.h" />
     <ClInclude Include="NoaEngine\ActorMotion.h" />
     <ClInclude Include="NoaEngine\CircleCollider2D.h" />
     <ClInclude Include="NoaEngine\BoxCollider2D.h" />
     <ClInclude Include="NoaEngine\AudioSystem.h" />
     <ClInclude Include="NoaEngine\AudioSystem_SDL.h" />
+    <ClInclude Include="NoaEngine\Font.h" />
+    <ClInclude Include="NoaEngine\FontAsset.h" />
     <ClInclude Include="NoaEngine\GLShader.h" />
     <ClInclude Include="NoaEngine\ActorPoolFactory.h" />
     <ClInclude Include="NoaEngine\ActorPool.h" />
+    <ClInclude Include="NoaEngine\UIImage.h" />
     <ClInclude Include="NoaEngine\IPoolObjectFactroy.h" />
     <ClInclude Include="NoaEngine\Collider2D.h" />
     <ClInclude Include="NoaEngine\ActorComponent.h" />
@@ -177,6 +181,7 @@
     <ClInclude Include="NoaEngine\Graphic.h" />
     <ClInclude Include="NoaEngine\InputSystem.h" />
     <ClInclude Include="NoaEngine\IPool.h" />
+    <ClInclude Include="NoaEngine\UILabel.h" />
     <ClInclude Include="NoaEngine\List.h" />
     <ClInclude Include="NoaEngine\NoaAction.h" />
     <ClInclude Include="NoaEngine\NoaEngine.h" />
@@ -184,6 +189,7 @@
     <ClInclude Include="NoaEngine\NoaMath.h" />
     <ClInclude Include="NoaEngine\Physics.h" />
     <ClInclude Include="NoaEngine\ObjectPool.h" />
+    <ClInclude Include="NoaEngine\UIProcessBar.h" />
     <ClInclude Include="NoaEngine\Queue.h" />
     <ClInclude Include="NoaEngine\Renderer.h" />
     <ClInclude Include="NoaEngine\Resource.h" />
@@ -213,17 +219,25 @@
     <ClInclude Include="NoaEngine\TileCollider2D.h" />
     <ClInclude Include="NoaEngine\TileMapInfo.h" />
     <ClInclude Include="NoaEngine\TileMap.h" />
+    <ClInclude Include="NoaEngine\UIComponent.h" />
+    <ClInclude Include="NoaEngine\UIContainer.h" />
+    <ClInclude Include="NoaEngine\UIDocument.h" />
+    <ClInclude Include="NoaEngine\UIHub.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="NoaEngine\UIButton.cpp" />
     <ClCompile Include="NoaEngine\Camera2D.cpp" />
     <ClCompile Include="NoaEngine\ActorMotion.cpp" />
     <ClCompile Include="NoaEngine\CircleCollider2D.cpp" />
     <ClCompile Include="NoaEngine\BoxCollider2D.cpp" />
     <ClCompile Include="NoaEngine\AudioSystem.cpp" />
     <ClCompile Include="NoaEngine\AudioSystem_SDL.cpp" />
+    <ClCompile Include="NoaEngine\Font.cpp" />
+    <ClCompile Include="NoaEngine\FontAsset.cpp" />
     <ClCompile Include="NoaEngine\GLShader.cpp" />
     <ClCompile Include="NoaEngine\ActorPoolFactory.cpp" />
     <ClCompile Include="NoaEngine\ActorPool.cpp" />
+    <ClCompile Include="NoaEngine\UIImage.cpp" />
     <ClCompile Include="NoaEngine\IPoolObjectFactroy.cpp" />
     <ClCompile Include="NoaEngine\Collider2D.cpp" />
     <ClCompile Include="NoaEngine\ActorComponent.cpp" />
@@ -233,11 +247,13 @@
     <ClCompile Include="NoaEngine\Camera.cpp" />
     <ClCompile Include="NoaEngine\Graphic.cpp" />
     <ClCompile Include="NoaEngine\InputSystem.cpp" />
+    <ClCompile Include="NoaEngine\UILabel.cpp" />
     <ClCompile Include="NoaEngine\NoaAction.cpp" />
     <ClCompile Include="NoaEngine\NoaEngine.cpp" />
     <ClCompile Include="NoaEngine\NoaGUI.cpp" />
     <ClCompile Include="NoaEngine\NoaMath.cpp" />
     <ClCompile Include="NoaEngine\Physics.cpp" />
+    <ClCompile Include="NoaEngine\UIProcessBar.cpp" />
     <ClCompile Include="NoaEngine\Renderer.cpp" />
     <ClCompile Include="NoaEngine\Resource.cpp" />
     <ClCompile Include="NoaEngine\Scene.cpp" />
@@ -262,6 +278,10 @@
     <ClCompile Include="NoaEngine\TileCollider2D.cpp" />
     <ClCompile Include="NoaEngine\TileMapInfo.cpp" />
     <ClCompile Include="NoaEngine\TileMap.cpp" />
+    <ClCompile Include="NoaEngine\UIComponent.cpp" />
+    <ClCompile Include="NoaEngine\UIContainer.cpp" />
+    <ClCompile Include="NoaEngine\UIDocument.cpp" />
+    <ClCompile Include="NoaEngine\UIHub.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

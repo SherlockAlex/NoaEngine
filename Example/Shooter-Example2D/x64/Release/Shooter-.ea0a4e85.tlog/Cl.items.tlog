@@ -13,6 +13,8 @@ D:\Work\NoaEngine\NoaEngine\NoaEngine\Camera2D.cpp;D:\Work\NoaEngine\Example\Sho
 D:\Work\NoaEngine\NoaEngine\NoaEngine\CircleCollider2D.cpp;D:\Work\NoaEngine\Example\Shooter-Example2D\x64\Release\CircleCollider2D.obj
 D:\Work\NoaEngine\NoaEngine\NoaEngine\Collider2D.cpp;D:\Work\NoaEngine\Example\Shooter-Example2D\x64\Release\Collider2D.obj
 D:\Work\NoaEngine\NoaEngine\NoaEngine\Debug.cpp;D:\Work\NoaEngine\Example\Shooter-Example2D\x64\Release\Debug.obj
+D:\Work\NoaEngine\NoaEngine\NoaEngine\Font.cpp;D:\Work\NoaEngine\Example\Shooter-Example2D\x64\Release\Font.obj
+D:\Work\NoaEngine\NoaEngine\NoaEngine\FontAsset.cpp;D:\Work\NoaEngine\Example\Shooter-Example2D\x64\Release\FontAsset.obj
 D:\Work\NoaEngine\NoaEngine\NoaEngine\GLRenderer.cpp;D:\Work\NoaEngine\Example\Shooter-Example2D\x64\Release\GLRenderer.obj
 D:\Work\NoaEngine\NoaEngine\NoaEngine\GLShader.cpp;D:\Work\NoaEngine\Example\Shooter-Example2D\x64\Release\GLShader.obj
 D:\Work\NoaEngine\NoaEngine\NoaEngine\GLTexture.cpp;D:\Work\NoaEngine\Example\Shooter-Example2D\x64\Release\GLTexture.obj
@@ -45,6 +47,14 @@ D:\Work\NoaEngine\NoaEngine\NoaEngine\TileMapInfo.cpp;D:\Work\NoaEngine\Example\
 D:\Work\NoaEngine\NoaEngine\NoaEngine\TileMapRenderer.cpp;D:\Work\NoaEngine\Example\Shooter-Example2D\x64\Release\TileMapRenderer.obj
 D:\Work\NoaEngine\NoaEngine\NoaEngine\Time.cpp;D:\Work\NoaEngine\Example\Shooter-Example2D\x64\Release\Time.obj
 D:\Work\NoaEngine\NoaEngine\NoaEngine\Transform.cpp;D:\Work\NoaEngine\Example\Shooter-Example2D\x64\Release\Transform.obj
+D:\Work\NoaEngine\NoaEngine\NoaEngine\UIButton.cpp;D:\Work\NoaEngine\Example\Shooter-Example2D\x64\Release\UIButton.obj
+D:\Work\NoaEngine\NoaEngine\NoaEngine\UIComponent.cpp;D:\Work\NoaEngine\Example\Shooter-Example2D\x64\Release\UIComponent.obj
+D:\Work\NoaEngine\NoaEngine\NoaEngine\UIContainer.cpp;D:\Work\NoaEngine\Example\Shooter-Example2D\x64\Release\UIContainer.obj
+D:\Work\NoaEngine\NoaEngine\NoaEngine\UIDocument.cpp;D:\Work\NoaEngine\Example\Shooter-Example2D\x64\Release\UIDocument.obj
+D:\Work\NoaEngine\NoaEngine\NoaEngine\UIHub.cpp;D:\Work\NoaEngine\Example\Shooter-Example2D\x64\Release\UIHub.obj
+D:\Work\NoaEngine\NoaEngine\NoaEngine\UIImage.cpp;D:\Work\NoaEngine\Example\Shooter-Example2D\x64\Release\UIImage.obj
+D:\Work\NoaEngine\NoaEngine\NoaEngine\UILabel.cpp;D:\Work\NoaEngine\Example\Shooter-Example2D\x64\Release\UILabel.obj
+D:\Work\NoaEngine\NoaEngine\NoaEngine\UIProcessBar.cpp;D:\Work\NoaEngine\Example\Shooter-Example2D\x64\Release\UIProcessBar.obj
 D:\Work\NoaEngine\Example\Shooter-Example2D\Bullet.cpp;D:\Work\NoaEngine\Example\Shooter-Example2D\x64\Release\Bullet.obj
 D:\Work\NoaEngine\Example\Shooter-Example2D\BulletFactory.cpp;D:\Work\NoaEngine\Example\Shooter-Example2D\x64\Release\BulletFactory.obj
 D:\Work\NoaEngine\Example\Shooter-Example2D\BulletPool.cpp;D:\Work\NoaEngine\Example\Shooter-Example2D\x64\Release\BulletPool.obj
