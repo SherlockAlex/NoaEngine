@@ -13,10 +13,7 @@ noa::UIBody::~UIBody() {
 
 void noa::UIBody::OnUpdate() {
 	
-	for (auto& script : scripts)
-	{
-		script->Update();
-	}
+	
 	const Vector<double>& mousePos = Input::GetMousePosition();
 
 	const float mousePosX = (static_cast<float>(mousePos.x));
@@ -53,6 +50,38 @@ void noa::UIBody::OnUpdate() {
 		&& mousePosX <= maxX
 		&& mousePosY >= minY
 		&& mousePosY <= maxY;
+	
+	if (handled&&!isEnter&&!isEnterFlag) 
+	{
+		isEnter = true;
+		isEnterFlag = true;
+	}
+	else if (!handled&&!isExit&&!isExitFlag)
+	{
+		isExit = true;
+		isExitFlag = true;
+	}
+
+	for (auto& script : scripts)
+	{
+		script->Update();
+		if (isEnter) 
+		{
+			script->OnEnter();
+			isEnter = false;
+			isExitFlag = false;
+		}
+		if (handled) 
+		{
+			script->OnStay();
+		}
+		if (isExit)
+		{
+			script->OnExit();
+			isExit = false;
+			isEnterFlag = false;
+		}
+	}
 
 }
 

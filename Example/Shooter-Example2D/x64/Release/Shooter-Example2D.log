@@ -1,6 +1,4 @@
-﻿  MainMenuDelegate.cpp
-D:\Work\NoaEngine\Example\Shooter-Example2D\MainMenuDelegate.cpp(91,59): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
-D:\Work\NoaEngine\Example\Shooter-Example2D\MainMenuDelegate.cpp(91,32): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+﻿  Engine.cpp
   正在生成代码
   1 of 4077 functions (<0.1%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation

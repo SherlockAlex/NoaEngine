@@ -4,6 +4,5 @@ class Shooter:public noa::NoaEngine
 {
 public:
 	Shooter();
-
 };
 

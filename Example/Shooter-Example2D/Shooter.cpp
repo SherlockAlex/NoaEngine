@@ -18,5 +18,4 @@ Shooter::Shooter()
 	gameScene->onTick += GameDelegate::OnTick;
 
 	noa::sceneManager.LoadScene("MainMenu");
-
 }

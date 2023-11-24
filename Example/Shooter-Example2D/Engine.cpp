@@ -1,6 +1,7 @@
 #include "Shooter.h"
 
-int main() {
+int main() 
+{
 	Shooter game;
 	game.Run();
 	return 0;

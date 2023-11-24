@@ -10,5 +10,9 @@ private:
 
 	void Update() override;
 
+	void OnEnter() override;
+	void OnStay() override;
+	void OnExit() override;
+
 };
 

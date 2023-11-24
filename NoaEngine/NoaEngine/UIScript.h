@@ -14,6 +14,11 @@ namespace noa {
 		UIScript(UIBody* body);
 		virtual ~UIScript();
 		virtual void Update() {};
+
+		virtual void OnEnter() {};
+		virtual void OnStay() {};
+		virtual void OnExit() {};
+
 	public:
 		noa::UIBody* GetBody();
 	private:

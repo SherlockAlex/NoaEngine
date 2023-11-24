@@ -29,6 +29,10 @@ namespace noa {
 
 	private:
 		std::vector<UIScript*> scripts;
+		bool isEnter = false;
+		bool isEnterFlag = false;
+		bool isExit = false;
+		bool isExitFlag = false;
 	protected:
 		UITransform transform;
 		UITransform fatherTransform;

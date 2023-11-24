@@ -23,7 +23,7 @@ void UIMove::Update() {
 				mousePosition.y
 			);
 		}
-		noa::Debug::Log(noa::ToString<double>(mousePosition));
+		//noa::Debug::Log(noa::ToString<double>(mousePosition));
 
 	}
 
@@ -34,4 +34,17 @@ void UIMove::Update() {
 		noa::Screen::height/2
 	);*/
 
+}
+
+void UIMove::OnEnter() {
+	noa::Debug::Log("on enter");
+}
+
+void UIMove::OnStay() {
+
+}
+
+void UIMove::OnExit()
+{
+	noa::Debug::Log("on exit");
 }
