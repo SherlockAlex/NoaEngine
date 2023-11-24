@@ -148,13 +148,12 @@ void noa::UIContainer::Update()
 
 	noa::UIBody::OnUpdate();
 
-	UITransform childFatherTransform = globalTransform;
+	UITransform childFatherTransform;
 	childFatherTransform.position.x =
-		globalTransform.position.x
-		+ anchor.x*transform.size.x;
+		globalTransform.position.x;
 	childFatherTransform.position.y =
-		globalTransform.position.y
-		+ anchor.y * transform.size.y;
+		globalTransform.position.y;
+	childFatherTransform.size = transform.size;
 
 	for (auto& container : subContainers)
 	{
@@ -163,6 +162,7 @@ void noa::UIContainer::Update()
 			continue;
 		}
 		
+		container->fatherAnchor = anchor;
 		container->SetFatherTransform(childFatherTransform);
 		container->Update();
 	}
@@ -173,6 +173,7 @@ void noa::UIContainer::Update()
 		{
 			continue;
 		}
+		component->fatherAnchor = anchor;
 		component->SetFatherTransform(childFatherTransform);
 		component->Update();
 	}

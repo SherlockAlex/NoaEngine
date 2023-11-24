@@ -217,8 +217,10 @@ void noa::Image::Render() {
 		break;
 	default:
 		spriteGPU->DrawSprite(
-			globalTransform.position.x - anchor.x*transform.size.x
-			, globalTransform.position.y - anchor.y * transform.size.y
+			globalTransform.position.x 
+				- anchor.x * transform.size.x
+			, globalTransform.position.y 
+				- anchor.y * transform.size.y
 			, static_cast<float>(transform.size.x)
 			, static_cast<float>(transform.size.y)
 			, color

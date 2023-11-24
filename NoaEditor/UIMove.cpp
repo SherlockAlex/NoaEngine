@@ -23,7 +23,11 @@ void UIMove::Update() {
 				mousePosition.y
 			);
 		}
+		noa::Debug::Log(noa::ToString<double>(mousePosition));
+
 	}
+
+	
 
 	/*body->SetGlobalPositionByAnchor(
 		noa::Screen::width/2, 

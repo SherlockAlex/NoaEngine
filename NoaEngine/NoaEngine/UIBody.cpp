@@ -31,17 +31,28 @@ void noa::UIBody::OnUpdate() {
 	const int posY = 
 		static_cast<int>(
 			transform.position.y 
-			+ fatherTransform.position.y 
+			+ fatherTransform.position.y
 			);
 	
 	globalTransform.position.x = posX;
 	globalTransform.position.y = posY;
 
+	const float minX = 
+		static_cast<float>(posX - anchor.x * transform.size.x);
+	const float maxX = 
+		static_cast<float>(posX + transform.size.x
+		- anchor.x * transform.size.x);
+	const float minY = 
+		static_cast<float>(posY - anchor.y * transform.size.y);
+	const float maxY = 
+		static_cast<float>(posY + transform.size.y
+		- anchor.y * transform.size.y);
+
 	handled = 
-		mousePosX >= posX - anchor.x*transform.size.x
-		&& mousePosX <= posX + transform.size.x - anchor.x * transform.size.x
-		&& mousePosY >= posY - anchor.y * transform.size.y
-		&& mousePosY <= posY + transform.size.y - anchor.y * transform.size.y;
+		mousePosX >= minX
+		&& mousePosX <= maxX
+		&& mousePosY >= minY
+		&& mousePosY <= maxY;
 
 }
 
@@ -82,4 +93,9 @@ void noa::UIBody::SetGlobalPosition(int x, int y)
 		x - fatherTransform.position.x;
 	transform.position.y = 
 		y - fatherTransform.position.y;
+}
+
+void noa::UIBody::SetFatherAnchor(float x, float y) {
+	fatherAnchor.x = x;
+	fatherAnchor.y = y;
 }

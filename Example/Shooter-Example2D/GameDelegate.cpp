@@ -54,7 +54,7 @@ void InitGameUI(noa::Scene* scene)
 
 	noa::UIContainer* container =
 		noa::UIContainer::Create(document)
-		->SetLocalPosition(0.0f,0.0f)
+		->SetLocalPosition(0,0)
 		.Apply();
 
 	noa::ProcessBar* hpBar =

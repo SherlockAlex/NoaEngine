@@ -124,8 +124,10 @@ void noa::Label::Render() {
 	
 	renderer->DrawString(
 		textBuffer
-		, globalTransform.position.x - anchor.x * transform.size.x
-		, globalTransform.position.y - anchor.y * transform.size.y
+		, static_cast<int>(globalTransform.position.x
+			- anchor.x * transform.size.x)
+		, static_cast<int>(globalTransform.position.y
+			- anchor.y * transform.size.y)
 		, color
 		, size
 	);

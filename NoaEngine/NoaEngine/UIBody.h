@@ -20,7 +20,7 @@ namespace noa {
 		void SetLocalSize(int w,int h);
 		void SetFatherTransform(const UITransform& transform);
 		void SetGlobalPosition(int x, int y);
-
+		void SetFatherAnchor(float x,float y);
 		template<class T>
 		T* GetElementByType() {
 			return dynamic_cast<T*>(this);
@@ -40,6 +40,7 @@ namespace noa {
 		UITransform fatherTransform;
 		UITransform globalTransform;
 		Vector<float> anchor = { 0.5f,0.5f };
+		Vector<float> fatherAnchor = { 0.5f,0.5f };
 
 		bool handled = false;
 	};

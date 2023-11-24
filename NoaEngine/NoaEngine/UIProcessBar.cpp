@@ -50,8 +50,12 @@ void noa::ProcessBar::Update()
 		const int mousePosX = static_cast<int>(mousePos.x);
 		const int mousePosY = static_cast<int>(mousePos.y);
 		
-		const int posX = globalTransform.position.x - anchor.x * transform.size.x;
-		const int posY = globalTransform.position.y - anchor.y * transform.size.y;
+		const int posX = 
+			static_cast<int>(globalTransform.position.x
+			- anchor.x * transform.size.x);
+		const int posY = 
+			static_cast<int>(globalTransform.position.y
+			- anchor.y * transform.size.y);
 
 		if (handled)
 		{

@@ -24,9 +24,9 @@ void InitGUI(noa::Scene* scene)
 		noa::UIContainer::Create(container)
 		->SetID("warry_container")
 		.SetVisiable(true)
-		.SetLocalSize(noa::Screen::width / 2, 10)
+		.SetLocalSize(noa::Screen::width / 2, 100)
 		.SetLocalPosition(0,0)
-		.SetAnchor(0.5f,0.5f)
+		.SetAnchor(0.0f,0.5f)
 		.Apply();
 	UIMove* subContainerMove = noa::NObject<UIMove>::Create(subContainer);
 
