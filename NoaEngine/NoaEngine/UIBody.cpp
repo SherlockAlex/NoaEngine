@@ -38,15 +38,15 @@ void noa::UIBody::OnUpdate() {
 	globalTransform.position.y = posY;
 
 	const float minX = 
-		static_cast<float>(posX - anchor.x * transform.size.x);
+		static_cast<float>(posX - anchor.x * transform.size.x*activeScale);
 	const float maxX = 
-		static_cast<float>(posX + transform.size.x
-		- anchor.x * transform.size.x);
+		static_cast<float>(posX + transform.size.x * activeScale
+		- anchor.x * transform.size.x * activeScale);
 	const float minY = 
-		static_cast<float>(posY - anchor.y * transform.size.y);
+		static_cast<float>(posY - anchor.y * transform.size.y * activeScale);
 	const float maxY = 
-		static_cast<float>(posY + transform.size.y
-		- anchor.y * transform.size.y);
+		static_cast<float>(posY + transform.size.y * activeScale
+		- anchor.y * transform.size.y * activeScale);
 
 	handled = 
 		mousePosX >= minX
@@ -98,4 +98,9 @@ void noa::UIBody::SetGlobalPosition(int x, int y)
 void noa::UIBody::SetFatherAnchor(float x, float y) {
 	fatherAnchor.x = x;
 	fatherAnchor.y = y;
+}
+
+void noa::UIBody::SetActiveScale(float value)
+{
+	this->activeScale = value;
 }

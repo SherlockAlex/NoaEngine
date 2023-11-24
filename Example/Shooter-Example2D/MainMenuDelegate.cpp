@@ -112,6 +112,7 @@ void MainMenuDelegate::OnLoad(noa::Scene* scene)
 		.SetRadius(50)
 		.SetInteractable(true)
 		.SetFinishedCallback(ProcessBarFinishedAction)
+		.SetActiveScale(2.0f)
 		.Apply();
 }
 

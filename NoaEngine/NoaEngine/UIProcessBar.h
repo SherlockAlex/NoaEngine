@@ -37,6 +37,7 @@ namespace noa {
 		ProcessBar& SetAmount(float amount);
 		ProcessBar& SetRadius(int value);
 		ProcessBar& SetInteractable(bool value);
+		ProcessBar& SetActiveScale(float value);
 		ProcessBar* Apply();
 
 		float GetValue();

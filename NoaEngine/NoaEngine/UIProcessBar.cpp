@@ -210,6 +210,12 @@ noa::ProcessBar& noa::ProcessBar::SetInteractable(bool interactable)
 	return *this;
 }
 
+noa::ProcessBar& noa::ProcessBar::SetActiveScale(float value)
+{
+	noa::UIBody::SetActiveScale(value);
+	return *this;
+}
+
 noa::ProcessBar* noa::ProcessBar::Apply() {
 	return this;
 }
