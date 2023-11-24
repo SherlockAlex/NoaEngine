@@ -118,18 +118,5 @@ void MainMenuDelegate::OnLoad(noa::Scene* scene)
 
 void MainMenuDelegate::OnUpdate(noa::Scene* scene) 
 {
-	noa::UIDocument* document = noa::UIHub::GetDocumentByID("main_menu_document");
-
-	if (!document) {
-		return;
-	}
-	
-	noa::ProcessBar* processBar =
-		document->GetElementByID<noa::ProcessBar>("process_bar");
-
-	if (!processBar) 
-	{
-		return;
-	}
 
 }

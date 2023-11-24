@@ -108,7 +108,9 @@ void noa::Label::Update()
 		}
 	}
 
-	this->transform.size = renderer->GetLabelScale(textBuffer, this->size);
+	this->transform.size = 
+		renderer->GetLabelScale(
+			textBuffer, this->size);
 
 	noa::UIBody::OnUpdate();
 
@@ -122,8 +124,8 @@ void noa::Label::Render() {
 	
 	renderer->DrawString(
 		textBuffer
-		, globalTransform.position.x
-		, globalTransform.position.y
+		, globalTransform.position.x - anchor.x * transform.size.x
+		, globalTransform.position.y - anchor.y * transform.size.y
 		, color
 		, size
 	);

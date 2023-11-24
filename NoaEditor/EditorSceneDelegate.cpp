@@ -23,12 +23,12 @@ void InitGUI(noa::Scene* scene)
 	noa::UIContainer* subContainer =
 		noa::UIContainer::Create(container)
 		->SetID("warry_container")
-		.SetLocalPosition(0,0)
 		.SetVisiable(true)
 		.SetLocalSize(noa::Screen::width / 2, 10)
+		.SetLocalPosition(0,0)
 		.SetAnchor(0.5f,0.5f)
 		.Apply();
-	UIMove* subContainerMove = UIMove::Create(subContainer);
+	UIMove* subContainerMove = noa::NObject<UIMove>::Create(subContainer);
 
 	noa::Sprite sprite("background.spr", 1920, 1080);
 	noa::Image* image =
@@ -127,15 +127,6 @@ void noa::EditorSceneDelegate::OnLoad(noa::Scene* scene)
 
 void noa::EditorSceneDelegate::OnTick(noa::Scene* scene)
 {
-
-	noa::UIDocument* document = noa::UIHub::GetDocumentByID("editor_document");
-	
-	if (document)
-	{
-		GUIBehaviour(document);
-	}
-
-	
 
 }
 

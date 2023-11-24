@@ -3,13 +3,12 @@
 class UIMove:public noa::UIScript
 {
 private:
+	UISCRIPT(UIMove)
+private:
 	UIMove(noa::UIBody* body);
 	~UIMove();
 
 	void Update() override;
-
-public:
-	static UIMove* Create(noa::UIBody* body);
 
 };
 

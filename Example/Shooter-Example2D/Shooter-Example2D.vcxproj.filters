@@ -16,6 +16,9 @@
     <Filter Include="头文件\Engine">
       <UniqueIdentifier>{8748ae5f-597d-400d-a5c4-25435b2a7d80}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\UIScript">
+      <UniqueIdentifier>{91789f42-b90e-43a6-ac98-37725eb39d4c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

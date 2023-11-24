@@ -19,10 +19,10 @@ namespace noa
 	private:
 		ACTOR_COMPONENT(TileMapRenderer)
 	private:
-		TileMapRenderer(noa::TileMap* actor);
+		TileMapRenderer(noa::Actor* actor);
 		~TileMapRenderer();
 	public:
-		static TileMapRenderer* Create(noa::TileMap* actor);
+		static TileMapRenderer* Create(noa::Actor* actor);
 
 		TileMapRenderer& SetCollision(int tileID);
 		TileMapRenderer& SetTileMap(

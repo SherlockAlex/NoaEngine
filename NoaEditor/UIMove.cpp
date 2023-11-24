@@ -18,16 +18,16 @@ void UIMove::Update() {
 			noa::Input::GetMousePosition();
 		if (noa::Input::GetMouseKeyHold(noa::MouseButton::LEFT_BUTTON)) 
 		{
-			body->SetGlobalPosition(mousePosition.x, mousePosition.y);
+			body->SetGlobalPosition(
+				mousePosition.x, 
+				mousePosition.y
+			);
 		}
 	}
-}
 
-UIMove* UIMove::Create(noa::UIBody* body)
-{
-	if (body==nullptr) 
-	{
-		return nullptr;
-	}
-	return new UIMove(body);
+	/*body->SetGlobalPositionByAnchor(
+		noa::Screen::width/2, 
+		noa::Screen::height/2
+	);*/
+
 }

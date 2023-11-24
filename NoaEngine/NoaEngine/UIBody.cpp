@@ -12,6 +12,7 @@ noa::UIBody::~UIBody() {
 }
 
 void noa::UIBody::OnUpdate() {
+	
 	for (auto& script : scripts)
 	{
 		script->Update();
@@ -22,19 +23,25 @@ void noa::UIBody::OnUpdate() {
 	const float mousePosY = (static_cast<float>(mousePos.y));
 
 	const int posX = 
-		static_cast<int>(transform.position.x + fatherTransform.position.x - anchor.x * transform.size.x);
-	const int posY = 
-		static_cast<int>(transform.position.y + fatherTransform.position.y - anchor.y * transform.size.y);
+		static_cast<int>(
+			transform.position.x 
+			+ fatherTransform.position.x 
+			);
 
-	//Í¨³£×´Ì¬
+	const int posY = 
+		static_cast<int>(
+			transform.position.y 
+			+ fatherTransform.position.y 
+			);
+	
 	globalTransform.position.x = posX;
 	globalTransform.position.y = posY;
 
 	handled = 
-		mousePosX >= posX-2
-		&& mousePosX <= posX + transform.size.x+2
-		&& mousePosY >= posY-2
-		&& mousePosY <= posY + transform.size.y+2;
+		mousePosX >= posX - anchor.x*transform.size.x
+		&& mousePosX <= posX + transform.size.x - anchor.x * transform.size.x
+		&& mousePosY >= posY - anchor.y * transform.size.y
+		&& mousePosY <= posY + transform.size.y - anchor.y * transform.size.y;
 
 }
 
@@ -71,13 +78,8 @@ void noa::UIBody::SetFatherTransform(
 
 void noa::UIBody::SetGlobalPosition(int x, int y)
 {
-	transform.position.x =
-		static_cast<int>(x 
-			+ anchor.x * transform.size.x
-		- fatherTransform.position.x);
-
-	transform.position.y =
-		static_cast<int>(y 
-			+ anchor.y * transform.size.y
-		- fatherTransform.position.y);
+	transform.position.x = 
+		x - fatherTransform.position.x;
+	transform.position.y = 
+		y - fatherTransform.position.y;
 }

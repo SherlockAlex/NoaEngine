@@ -20,9 +20,22 @@ namespace noa {
 		void SetLocalSize(int w,int h);
 		void SetFatherTransform(const UITransform& transform);
 		void SetGlobalPosition(int x, int y);
+
+		template<class T>
+		T* GetElementByType() {
+			return dynamic_cast<T*>(this);
+		}
+
 	private:
 		std::vector<UIScript*> scripts;
 	protected:
+
+		//要定义globalTransform是绝对坐标
+		//是锚点为{0,0}的那个坐标
+
+		//transform是{anchor.x,anchor.y}
+		//相对于fatherTransform + father.Anchor*fatherSize
+
 		UITransform transform;
 		UITransform fatherTransform;
 		UITransform globalTransform;

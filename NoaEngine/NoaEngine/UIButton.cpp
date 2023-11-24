@@ -128,15 +128,17 @@ void noa::Button::Update()
 
 	currentSize.x = transform.size.x * currentScale;
 	currentSize.y = transform.size.y * currentScale;
-
 	this->label->SetFontSize(static_cast<uint32_t>(fontSize * currentScale));
 
 }
 
 void noa::Button::Render() {
-	
+
 	image->SetAnchor(anchor.x,anchor.y);
-	image->SetLocalPosition(transform.position.x,transform.position.y);
+	image->SetLocalPosition(
+		transform.position.x
+		,transform.position.y
+	);
 	image->SetLocalSize(
 		static_cast<int>(currentSize.x)
 		, static_cast<int>(currentSize.y)
@@ -145,7 +147,8 @@ void noa::Button::Render() {
 
 	label->SetAnchor(anchor.x,anchor.y);
 	label->color = currentTextColor;
-	label->SetLocalPosition(static_cast<int>(transform.position.x
+	label->SetLocalPosition(
+		static_cast<int>(transform.position.x
 		+ transform.size.x * labelOffset.x)
 		, static_cast<int>(transform.position.y
 			+ transform.size.y * labelOffset.y)

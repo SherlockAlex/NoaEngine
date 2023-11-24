@@ -9,6 +9,8 @@
 * 
 **************************/
 
+#include "Debug.h"
+
 namespace noa 
 {
 
@@ -22,6 +24,7 @@ namespace noa
 
 	class Actor;
 	class Scene;
+	class UIBody;
 
 	template<typename T>
 	class NObject final
@@ -30,6 +33,11 @@ namespace noa
 
 		static T* Create(Scene * scene) 
 		{
+			if (scene == nullptr) 
+			{
+				noa::Debug::Error("create actor failed,this scene is nullptr");
+				return nullptr;
+			}
 			T* obj = new T(scene);
 			InitNObject(obj);
 			return obj;
@@ -37,16 +45,24 @@ namespace noa
 
 		static T* Create(Actor * actor) 
 		{
+			if (actor == nullptr)
+			{
+				noa::Debug::Error("create component failed,this actor is nullptr");
+				return nullptr;
+			}
 			T* obj = new T(actor);
 			InitNObject(obj);
 			return obj;
 		}
 
-		template<typename ...Args>
-		static T* Create(Args... arg)
+		static T* Create(UIBody* body) 
 		{
-			T* obj = new T(arg...);
-			InitNObject(obj);
+			if (body == nullptr)
+			{
+				noa::Debug::Error("create UIScript object failed,this UIBody is nullptr");
+				return nullptr;
+			}
+			T* obj = new T(body);
 			return obj;
 		}
 

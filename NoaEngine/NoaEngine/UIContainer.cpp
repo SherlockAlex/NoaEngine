@@ -13,7 +13,7 @@ noa::UIContainer::UIContainer(UIDocument* document)
 	}
 	this->SetVisiable(false);
 	noa::UIBody::SetLocalSize(0,0);
-	noa::UIBody::anchor = { 0.5f,0.5f };
+	noa::UIBody::anchor = { 0.0f,0.0f };
 
 }
 
@@ -148,13 +148,22 @@ void noa::UIContainer::Update()
 
 	noa::UIBody::OnUpdate();
 
+	UITransform childFatherTransform = globalTransform;
+	childFatherTransform.position.x =
+		globalTransform.position.x
+		+ anchor.x*transform.size.x;
+	childFatherTransform.position.y =
+		globalTransform.position.y
+		+ anchor.y * transform.size.y;
+
 	for (auto& container : subContainers)
 	{
 		if (container == nullptr || !container->visiable)
 		{
 			continue;
 		}
-		container->SetFatherTransform(this->globalTransform);
+		
+		container->SetFatherTransform(childFatherTransform);
 		container->Update();
 	}
 
@@ -164,7 +173,7 @@ void noa::UIContainer::Update()
 		{
 			continue;
 		}
-		component->SetFatherTransform(this->globalTransform);
+		component->SetFatherTransform(childFatherTransform);
 		component->Update();
 	}
 }

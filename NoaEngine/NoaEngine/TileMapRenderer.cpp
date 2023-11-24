@@ -6,12 +6,11 @@
 #include "TileMapInfo.h"
 #include "TileMap.h"
 
-noa::TileMapRenderer::TileMapRenderer(noa::TileMap* actor)
+noa::TileMapRenderer::TileMapRenderer(noa::Actor* actor)
 	:noa::ActorComponent(actor)
 {
 	this->spriteRenderer = noa::SpriteRenderer::Create(actor);
 	this->spriteRenderer->SetLayer(InstanceLayer::MAP_LAYER);
-	actor->AddTileMapRenderer(this);
 }
 
 noa::TileMapRenderer::~TileMapRenderer() {
@@ -19,9 +18,15 @@ noa::TileMapRenderer::~TileMapRenderer() {
 }
 
 noa::TileMapRenderer* noa::TileMapRenderer::Create(
-	noa::TileMap* actor)
+	noa::Actor* actor)
 {
-	return noa::NObject<noa::TileMapRenderer>::Create<noa::TileMap*>(actor);
+	noa::TileMapRenderer* renderer = noa::NObject<noa::TileMapRenderer>::Create(actor);
+	noa::TileMap* tileMap = actor->GetActorAs<noa::TileMap>();
+	if (tileMap)
+	{
+		tileMap->AddTileMapRenderer(renderer);
+	}
+	return renderer;
 }
 
 noa::TileMapRenderer& noa::TileMapRenderer::SetCollision(int tileID) {
