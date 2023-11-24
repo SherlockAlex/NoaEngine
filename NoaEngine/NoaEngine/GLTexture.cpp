@@ -26,7 +26,7 @@ noa::GLTexture::GLTexture(int w, int h, void* pixelBuffer)
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
     glBindTexture(GL_TEXTURE_2D, 0);
-
+    glGenerateMipmap(GL_TEXTURE_2D);
 
     // ÅäÖÃ VAO/VBO
 
@@ -111,9 +111,4 @@ int noa::GLTexture::GetWidth() {
 int noa::GLTexture::GetHeight() {
     return height;
 }
-GLuint noa::GLTexture::GetVAO()
-{
-    return this->VAO;
-}
-
 #endif //_WIN64

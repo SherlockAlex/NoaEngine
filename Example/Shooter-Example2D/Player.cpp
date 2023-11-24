@@ -44,10 +44,10 @@ void Player::Update()
 		this->hp = hp - 1;
 	}
 
-	/*if (noa::Input::GetMouseKeyHold(noa::MouseButton::RIGHT_BUTTON))
+	if (noa::Input::GetMouseKeyHold(noa::MouseButton::RIGHT_BUTTON))
 	{
-		this->transform.eulerAngle += 100*noa::Time::deltaTime;
-	}*/
+		this->transform.eulerAngle += 10*noa::Time::deltaTime;
+	}
 
 	/*timer += noa::Time::deltaTime;
 	if (noa::Input::GetMouseKeyHold(noa::MouseButton::LEFT_BUTTON)&&timer>0.1f)

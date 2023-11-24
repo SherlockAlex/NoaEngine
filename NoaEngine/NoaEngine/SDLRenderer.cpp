@@ -91,5 +91,7 @@ void noa::SDLRenderer::SetContext(uint32_t windowID)
 
 void noa::SDLRenderer::Present(uint32_t windowID)
 {
+	
 	SDL_RenderPresent(sdlRenderer);
+	SDL_RenderClear(sdlRenderer);
 }

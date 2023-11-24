@@ -14,6 +14,7 @@ noa::SDLTexture::~SDLTexture()
 
 void noa::SDLTexture::CreateSDLTexture(SDL_Renderer* sdlRenderer)
 {
+	this->sdlRenderer = sdlRenderer;
 	this->sdlTexture = SDL_CreateTexture(
 		sdlRenderer
 		, SDL_PIXELFORMAT_ABGR8888
@@ -29,9 +30,16 @@ void noa::SDLTexture::UpdateTexture(const void* pixelBuffer, const int width, co
 	this->height = height;
 	this->pixelBuffer = (void*)pixelBuffer;
 
+	SDL_DestroyTexture(sdlTexture);
+	this->sdlTexture = SDL_CreateTexture(
+		sdlRenderer
+		, SDL_PIXELFORMAT_ABGR8888
+		, SDL_TEXTUREACCESS_TARGET
+		, this->width, this->height);
 	SDL_Rect rect = { 0,0,width,height };
 	SDL_UnlockTexture(sdlTexture);
 	SDL_UpdateTexture(sdlTexture, &rect, pixelBuffer, width * sizeof(uint32_t));
+	this->EnableAlpha();
 }
 
 void noa::SDLTexture::EnableAlpha()

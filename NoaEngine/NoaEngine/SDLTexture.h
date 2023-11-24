@@ -19,6 +19,7 @@ namespace noa {
 		SDL_Texture* sdlTexture = nullptr;
 	private:
 		void* pixelBuffer = nullptr;
+		SDL_Renderer* sdlRenderer = nullptr;
 
 	};
 }

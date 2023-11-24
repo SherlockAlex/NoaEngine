@@ -63,6 +63,8 @@ void noa::GLRenderer::DrawTexture(
 
     ////正常一个物件一个VAO
 
+    //图片绕(x,y)点旋转eulerAngle角
+
     GLTexture* texture = tex->GetTextureAs<GLTexture>();
     if (texture == nullptr)
     {
