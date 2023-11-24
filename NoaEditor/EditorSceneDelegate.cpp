@@ -1,6 +1,7 @@
 #include "EditorSceneDelegate.h"
 #include "NoaEditor.h"
 #include "EditorCamera.h"
+#include "UIMove.h"
 
 void GUIBehaviour(noa::UIDocument* document);
 
@@ -16,15 +17,18 @@ void InitGUI(noa::Scene* scene)
 	noa::UIContainer* container =
 		noa::UIContainer::Create(document)
 		->SetID("editor_container")
-		.SetPosition(noa::Screen::width/2,noa::Screen::height/2)
+		.SetLocalPosition(noa::Screen::width/2,noa::Screen::height/2)
 		.Apply();
 
 	noa::UIContainer* subContainer =
 		noa::UIContainer::Create(container)
 		->SetID("warry_container")
-		.SetPosition(0,0)
+		.SetLocalPosition(0,0)
 		.SetVisiable(true)
+		.SetLocalSize(noa::Screen::width / 2, 10)
+		.SetAnchor(0.5f,0.5f)
 		.Apply();
+	UIMove* subContainerMove = UIMove::Create(subContainer);
 
 	noa::Sprite sprite("background.spr", 1920, 1080);
 	noa::Image* image =
@@ -52,7 +56,7 @@ void InitGUI(noa::Scene* scene)
 		.SetID("process_bar")
 		.SetBackgroundColor(noa::RGBA(255,255,255,255))
 		.SetFillColor(noa::RGBA(255,0,0,255))
-		.SetPosition(-50,75)
+		.SetLocalPosition(-50,75)
 		.SetAnchor(0.0f,0.5f)
 		.SetRadius(50)
 		.Apply();
@@ -63,7 +67,7 @@ void InitGUI(noa::Scene* scene)
 		.SetID("process_name_label")
 		.SetAnchor(0.0f,0.5f)
 		.SetText(L"ÒôÁ¿(100%):")
-		.SetPosition(-170,72)
+		.SetLocalPosition(-170,72)
 		.SetColor(noa::WHITE)
 		.Apply();
 
@@ -71,7 +75,7 @@ void InitGUI(noa::Scene* scene)
 		noa::Label::Create(subContainer)
 		->SetFontSize(20)
 		.SetColor(noa::WHITE)
-		.SetPosition(0,100)
+		.SetLocalPosition(0,100)
 		.SetAnchor(0.5f,0.0f)
 		.SetRowCount(6)
 		.SetText(L"666666666666666666666666666666666666666")
@@ -84,7 +88,7 @@ void InitGUI(noa::Scene* scene)
 		.SetText(L"¹Ø±Õ")
 		.SetSize(160,50)
 		.SetRadius(50)
-		.SetPosition(0,235)
+		.SetLocalPosition(0,235)
 		.AddClickCallback(CloseWindow)
 		.Apply();
 
@@ -94,7 +98,7 @@ void InitGUI(noa::Scene* scene)
 		.SetID("camera_pos")
 		.SetColor(noa::WHITE)
 		.SetAnchor(0.0f,0.0f)
-		.SetPosition(-noa::Screen::width/2,-noa::Screen::height/2)
+		.SetLocalPosition(-noa::Screen::width/2,-noa::Screen::height/2)
 		.Apply();
 
 	noa::Label* deltaTime =
@@ -103,7 +107,7 @@ void InitGUI(noa::Scene* scene)
 		.SetID("deltaTime_label")
 		.SetColor(noa::WHITE)
 		.SetAnchor(0.0f, 0.0f)
-		.SetPosition(-noa::Screen::width / 2, -noa::Screen::height / 2+25)
+		.SetLocalPosition(-noa::Screen::width / 2, -noa::Screen::height / 2+25)
 		.Apply();
 
 	document->Display(container);
@@ -159,24 +163,6 @@ void GUIBehaviour(noa::UIDocument* document) {
 	if (deltaTimeLabel) {
 		deltaTimeLabel->SetText(L"fps:"
 			+ std::to_wstring(1.0f / noa::Time::realDeltaTime));
-	}
-
-	noa::UIContainer* subContainer =
-		document->GetElementByID<noa::UIContainer>("warry_container");
-	if (subContainer)
-	{
-		noa::Vector<double> mousePos = 
-			noa::Input::GetMousePosition();
-		if (noa::Input::GetMouseKeyHold(noa::MouseButton::LEFT_BUTTON)) 
-		{
-			if (mousePos.y>=subContainer->globalTransform.position.y -10
-				&&mousePos.y<=subContainer->globalTransform.position.y+10
-				&&mousePos.x>=subContainer->globalTransform.position.x - 0.5f* noa::Screen::width / 3
-				&&mousePos.y<=subContainer->globalTransform.position.x + 0.5f* noa::Screen::width / 3)
-			{
-				subContainer->SetGlobalPosition(mousePos.x,mousePos.y);
-			}
-		}
 	}
 
 	noa::ProcessBar* processBar =

@@ -11,6 +11,8 @@
 #include "UIButton.h"
 #include "UIProcessBar.h"
 
+#include "UIScript.h"
+
 #endif // !NOAGUI_H
 
 

@@ -25,9 +25,11 @@ namespace noa {
 		static UIContainer* Create(UIContainer* father);
 
 		UIContainer& SetID(const std::string& id);
+		UIContainer& SetLocalSize(int x,int y);
 		UIContainer& SetLocalPosition(int x, int y);
 		UIContainer& SetGlobalPosition(int x, int y);
 		UIContainer& SetVisiable(bool value);
+		UIContainer& SetAnchor(float x,float y);
 		UIContainer* Apply();
 
 		template<class T>

@@ -10,19 +10,11 @@ void noa::UIScript::Delete(noa::UIScript*& ptr)
 noa::UIScript::UIScript(noa::UIBody* body) 
 {
 	this->body = body;
+	this->body->AddScript(this);
 }
 
 noa::UIScript::~UIScript() {
 
-}
-
-noa::UIScript* noa::UIScript::Create(noa::UIBody* body) 
-{
-	if (body) 
-	{
-		return nullptr;
-	}
-	return new UIScript(body);
 }
 
 noa::UIBody* noa::UIScript::GetBody() {

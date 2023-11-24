@@ -62,6 +62,11 @@ void noa::UIContainer::Delete(UIContainer*& ptr)
 	ptr = nullptr;
 }
 
+noa::UIContainer& noa::UIContainer::SetLocalSize(int x,int y) {
+	noa::UIBody::SetLocalSize(x,y);
+	return *this;
+}
+
 noa::UIContainer& noa::UIContainer::SetID(const std::string& id)
 {
 	this->id = id;
@@ -83,6 +88,13 @@ noa::UIContainer& noa::UIContainer::SetGlobalPosition(int x, int y)
 noa::UIContainer& noa::UIContainer::SetVisiable(bool value)
 {
 	this->visiable = value;
+	return *this;
+}
+
+noa::UIContainer& noa::UIContainer::SetAnchor(float x,float y) 
+{
+	this->anchor.x = x;
+	this->anchor.y = y;
 	return *this;
 }
 
@@ -128,12 +140,13 @@ void noa::UIContainer::Start() {
 
 void noa::UIContainer::Update()
 {
-
-	noa::UIBody::OnUpdate();
+	
 	if (!visiable)
 	{
 		return;
 	}
+
+	noa::UIBody::OnUpdate();
 
 	for (auto& container : subContainers)
 	{

@@ -1,6 +1,7 @@
 #include "UIBody.h"
 #include "UIScript.h"
 #include "InputSystem.h"
+#include "Debug.h"
 
 noa::UIBody::~UIBody() {
 	for (auto& script : scripts)
@@ -15,7 +16,6 @@ void noa::UIBody::OnUpdate() {
 	{
 		script->Update();
 	}
-	
 	const Vector<double>& mousePos = Input::GetMousePosition();
 
 	const float mousePosX = (static_cast<float>(mousePos.x));
@@ -31,16 +31,16 @@ void noa::UIBody::OnUpdate() {
 	globalTransform.position.y = posY;
 
 	handled = 
-		mousePosX >= posX
-		&& mousePosX <= posX + transform.size.x
-		&& mousePosY >= posY 
-		&& mousePosY <= posY + transform.size.y;
+		mousePosX >= posX-2
+		&& mousePosX <= posX + transform.size.x+2
+		&& mousePosY >= posY-2
+		&& mousePosY <= posY + transform.size.y+2;
 
 }
 
 void noa::UIBody::AddScript(noa::UIScript* script) 
 {
-	if (!script)
+	if (script == nullptr)
 	{
 		return;
 	}
