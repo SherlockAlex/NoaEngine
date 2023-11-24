@@ -38,7 +38,8 @@ namespace noa {
 		Button& SetNormalColor(uint32_t color);
 		Button& SetHeightLightColor(uint32_t color);
 		Button& SetClickColor(uint32_t color);
-		Button& SetPosition(int x, int y);
+		Button& SetLocalPosition(int x, int y);
+		Button& SetGlobalPosition(int x,int y);
 		Button& SetAnchor(float x, float y);
 		Button& SetActive(bool value);
 		Button& SetSize(int w, int h);

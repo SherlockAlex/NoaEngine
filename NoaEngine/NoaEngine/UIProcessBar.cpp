@@ -36,12 +36,9 @@ void noa::ProcessBar::Start() {
 void noa::ProcessBar::Update()
 {
 
-	const int posX = static_cast<int>(transform.position.x + fatherTransform.position.x - anchor.x * transform.size.x);
-	const int posY = static_cast<int>(transform.position.y + fatherTransform.position.y - anchor.y * transform.size.y);
-
-	//通常状态
-	globalTransform.position.x = posX;
-	globalTransform.position.y = posY;
+	//这边是UIBody::Update
+	noa::UIBody::OnUpdate();
+	
 
 	//交互
 	//获取鼠标的位置和自己当前的global位置
@@ -52,11 +49,17 @@ void noa::ProcessBar::Update()
 		Vector<double> mousePos = Input::GetMousePosition();
 		const int mousePosX = static_cast<int>(mousePos.x);
 		const int mousePosY = static_cast<int>(mousePos.y);
-		if (mousePosX >= posX - 10 && mousePosX <= posX + transform.size.x + 10
-		&& mousePosY >= posY - 5 && mousePosY <= posY + transform.size.y + 5
+		
+		const int posX = globalTransform.position.x;
+		const int posY = globalTransform.position.y;
+
+		if (mousePosX >= posX - 10 
+			&& mousePosX <= posX + transform.size.x + 10
+			&& mousePosY >= posY - 5 
+			&& mousePosY <= posY + transform.size.y + 5
 		)
 		{
-			//鼠标在范围内
+
 			const float deltaX = static_cast<float>(mousePosX - posX);
 			amount = deltaX / transform.size.x;
 			if (amount <= 0.0f)
@@ -100,16 +103,15 @@ void noa::ProcessBar::Update()
 void noa::ProcessBar::Render() {
 	//绘制
 
-	background->anchor = anchor;
-	background->transform.position = transform.position;
-	background->transform.size = transform.size;
+	background->SetAnchor(anchor.x,anchor.y);
+	background->SetLocalPosition(transform.position.x,transform.position.y);
+	background->SetLocalSize(transform.size.x,transform.size.y);
 	background->color = backgroundColor;
 
-	runtime->anchor = anchor;
-	runtime->transform.position = transform.position;
-	runtime->transform.size = transform.size;
+	runtime->SetAnchor(anchor.x, anchor.y);
+	runtime->SetLocalPosition(transform.position.x,transform.position.y);
+	runtime->SetSize(transform.size.x,transform.size.y);
 	runtime->color = fillColor;
-
 }
 
 noa::ProcessBar* noa::ProcessBar::Create(
@@ -124,10 +126,15 @@ noa::ProcessBar& noa::ProcessBar::SetID(const std::string& id)
 	return *this;
 }
 
-noa::ProcessBar& noa::ProcessBar::SetPosition(int x, int y)
+noa::ProcessBar& noa::ProcessBar::SetLocalPosition(int x, int y)
 {
-	this->transform.position.x = x;
-	this->transform.position.y = y;
+	noa::UIBody::SetLocalPosition(x,y);
+	return *this;
+}
+
+noa::ProcessBar& noa::ProcessBar::SetGlobalPosition(int x,int y)
+{
+	noa::UIBody::SetGlobalPosition(x,y);
 	return *this;
 }
 
@@ -167,8 +174,7 @@ noa::ProcessBar& noa::ProcessBar::SetFinishedCallback(
 
 noa::ProcessBar& noa::ProcessBar::SetSize(int x, int y)
 {
-	transform.size.x = x;
-	transform.size.y = y;
+	noa::UIBody::SetLocalSize(x, y);
 
 	fillbar.w = x;
 	fillbar.h = y;

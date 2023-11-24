@@ -12,6 +12,9 @@ noa::UIContainer::UIContainer(UIDocument* document)
 		document->AddUIContainer(this);
 	}
 	this->SetVisiable(false);
+
+	this->SetLocalSize(0,0);
+
 }
 
 noa::UIContainer::UIContainer(UIContainer* father)
@@ -21,6 +24,8 @@ noa::UIContainer::UIContainer(UIContainer* father)
 		father->AddUIContainer(this);
 	}
 	this->SetVisiable(false);
+
+	this->SetLocalSize(0, 0);
 }
 
 noa::UIContainer::~UIContainer() {
@@ -63,21 +68,15 @@ noa::UIContainer& noa::UIContainer::SetID(const std::string& id)
 	return *this;
 }
 
-noa::UIContainer& noa::UIContainer::SetPosition(int x, int y)
+noa::UIContainer& noa::UIContainer::SetLocalPosition(int x, int y)
 {
-	this->transform.position.x = x;
-	this->transform.position.y = y;
+	noa::UIBody::SetLocalPosition(x,y);
 	return *this;
 }
 
 noa::UIContainer& noa::UIContainer::SetGlobalPosition(int x, int y)
 {
-	transform.position.x =
-		x - fatherTransform.position.x;
-
-	transform.position.y =
-		y - fatherTransform.position.y;
-
+	noa::UIBody::SetGlobalPosition(x,y);
 	return *this;
 }
 
@@ -130,9 +129,7 @@ void noa::UIContainer::Start() {
 void noa::UIContainer::Update()
 {
 
-	globalTransform.position = fatherTransform.position + transform.position;
-	//ÏÔÊ¾±³¾°
-
+	noa::UIBody::OnUpdate();
 	if (!visiable)
 	{
 		return;
@@ -144,7 +141,7 @@ void noa::UIContainer::Update()
 		{
 			continue;
 		}
-		container->fatherTransform = this->globalTransform;
+		container->SetFatherTransform(this->globalTransform);
 		container->Update();
 	}
 
@@ -154,7 +151,7 @@ void noa::UIContainer::Update()
 		{
 			continue;
 		}
-		component->fatherTransform = this->globalTransform;
+		component->SetFatherTransform(this->globalTransform);
 		component->Update();
 	}
 }

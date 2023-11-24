@@ -3,12 +3,13 @@
 
 #include <string>
 #include "Transform.h"
+#include "UIBody.h"
 
 namespace noa {
 	class UIDocument;
 	class UIComponent;
 
-	class UIContainer final
+	class UIContainer final:public UIBody
 	{
 	private:
 		friend class UIDocument;
@@ -24,7 +25,7 @@ namespace noa {
 		static UIContainer* Create(UIContainer* father);
 
 		UIContainer& SetID(const std::string& id);
-		UIContainer& SetPosition(int x, int y);
+		UIContainer& SetLocalPosition(int x, int y);
 		UIContainer& SetGlobalPosition(int x, int y);
 		UIContainer& SetVisiable(bool value);
 		UIContainer* Apply();
@@ -88,13 +89,10 @@ namespace noa {
 		void AddUIContainer(UIContainer* container);
 	private:
 		bool visiable = false;
-		UITransform transform;
-		UITransform fatherTransform;
 		std::vector<UIComponent*> uiComponent;
 		std::vector<UIContainer*> subContainers;
 		size_t index = 0;
 	public:
-		UITransform globalTransform;
 		std::string id = "container";
 	};
 }

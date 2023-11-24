@@ -25,7 +25,8 @@ namespace noa {
 		Label& SetColor(uint32_t color);
 		Label& SetActive(bool value);
 		Label& SetFontSize(uint32_t size);
-		Label& SetPosition(int x, int y);
+		Label& SetLocalPosition(int x, int y);
+		Label& SetGlobalPosition(int x,int y);
 		Label& SetText(const std::wstring& text);
 		Label& SetRowCount(int count);
 		Label* Apply();
@@ -37,7 +38,7 @@ namespace noa {
 
 	private:
 		int rowCount = -1;
-
+		std::wstring textBuffer = L"";
 	};
 }
 

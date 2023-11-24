@@ -9,10 +9,10 @@ noa::Button::Button(UIContainer* group) :UIComponent(group)
 	image = Image::Create(group);
 	label = Label::Create(group);
 
-	label->anchor = { 0.5f,0.5f };
+	label->SetAnchor(0.5f,0.5f);
 
 	SetFontSize(20);
-	SetPosition(0, 0);
+	SetLocalPosition(0, 0);
 	SetSize(240, 60);
 	SetNormalColor(noa::RGBA(255, 255, 255, 255));
 	SetHeightLightColor(noa::RGBA(255, 0, 0, 255));
@@ -50,22 +50,10 @@ void noa::Button::SwapState()
 		return;
 	}
 
-	const Vector<double>& mousePos = Input::GetMousePosition();
-
-	const float mousePosX = (static_cast<float>(mousePos.x));
-	const float mousePosY = (static_cast<float>(mousePos.y));
-
-	const int posX = static_cast<int>(transform.position.x + fatherTransform.position.x - anchor.x * transform.size.x);
-	const int posY = static_cast<int>(transform.position.y + fatherTransform.position.y - anchor.y * transform.size.y);
-
-	//通常状态
-	globalTransform.position.x = posX;
-	globalTransform.position.y = posY;
+	noa::UIBody::OnUpdate();
 
 	isClickReady = false;
-	if (mousePosX >= posX && mousePosX <= posX + transform.size.x * currentScale
-		&& mousePosY >= posY && mousePosY <= posY + transform.size.y * currentScale
-		)
+	if (handled)
 	{
 		isSelect = true;//进入到被高亮状态
 
@@ -147,20 +135,21 @@ void noa::Button::Render() {
 
 	this->label->SetFontSize(static_cast<uint32_t>(fontSize * currentScale));
 
-	image->anchor = anchor;
-	image->transform.position = transform.position;
-	image->transform.size.x = static_cast<int>(currentSize.x);
-	image->transform.size.y = static_cast<int>(currentSize.y);
+	image->SetAnchor(anchor.x,anchor.y);
+	image->SetLocalPosition(transform.position.x,transform.position.y);
+	image->SetLocalSize(
+		static_cast<int>(currentSize.x)
+		, static_cast<int>(currentSize.y)
+	) ;
 	image->color = currentColor;
 
-	label->anchor = anchor;
+	label->SetAnchor(anchor.x,anchor.y);
 	label->color = currentTextColor;
-	label->transform.position.x =
-		static_cast<int>(transform.position.x
-			+ transform.size.x * labelOffset.x);
-	label->transform.position.y =
-		static_cast<int>(transform.position.y
-			+ transform.size.y * labelOffset.y);
+	label->SetLocalPosition(static_cast<int>(transform.position.x
+		+ transform.size.x * labelOffset.x)
+		, static_cast<int>(transform.position.y
+			+ transform.size.y * labelOffset.y)
+	);
 }
 
 noa::Button& noa::Button::Clone(Button* button) {
@@ -208,10 +197,15 @@ noa::Button& noa::Button::SetClickColor(uint32_t color)
 	return *this;
 }
 
-noa::Button& noa::Button::SetPosition(int x, int y)
+noa::Button& noa::Button::SetLocalPosition(int x, int y)
 {
-	this->transform.position.x = x;
-	this->transform.position.y = y;
+	noa::UIBody::SetLocalPosition(x, y);
+	return *this;
+}
+
+noa::Button& noa::Button::SetGlobalPosition(int x,int y) 
+{
+	noa::UIBody::SetGlobalPosition(x,y);
 	return *this;
 }
 
@@ -230,8 +224,7 @@ noa::Button& noa::Button::SetActive(bool value)
 
 noa::Button& noa::Button::SetSize(int w, int h)
 {
-	this->transform.size.x = w;
-	this->transform.size.y = h;
+	noa::UIBody::SetLocalSize(w,h);
 
 	this->currentSize.x = static_cast<float>(transform.size.x);
 	this->currentSize.y = static_cast<float>(transform.size.y);

@@ -29,10 +29,15 @@ noa::Image& noa::Image::SetID(const std::string& id)
 	return *this;
 }
 
-noa::Image& noa::Image::SetPosition(int x, int y)
+noa::Image& noa::Image::SetLocalPosition(int x, int y)
 {
-	this->transform.position.x = x;
-	this->transform.position.y = y;
+	noa::UIBody::SetLocalPosition(x,y);
+	return *this;
+}
+
+noa::Image& noa::Image::SetGlobalPosition(int x,int y) 
+{
+	noa::UIBody::SetGlobalPosition(x,y);
 	return *this;
 }
 
@@ -52,8 +57,7 @@ noa::Image& noa::Image::SetActive(bool value)
 noa::Image& noa::Image::SetSize(int x, int y)
 {
 
-	this->transform.size.x = x;
-	this->transform.size.y = y;
+	noa::UIBody::SetLocalSize(x, y);
 
 	this->sprite.size.x = x;
 	this->sprite.size.y = y;
@@ -193,13 +197,10 @@ void noa::Image::Start()
 
 void noa::Image::Update()
 {
-
+	noa::UIBody::OnUpdate();
 }
 
 void noa::Image::Render() {
-
-	globalTransform.position.x = static_cast<int>(fatherTransform.position.x + transform.position.x - anchor.x * transform.size.x);
-	globalTransform.position.y = static_cast<int>(fatherTransform.position.y + transform.position.y - anchor.y * transform.size.y);
 
 	switch (style)
 	{

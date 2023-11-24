@@ -198,6 +198,9 @@
     <ClCompile Include="..\..\NoaEngine\NoaEngine\Transform.cpp">
       <Filter>头文件\Engine</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\NoaEngine\NoaEngine\UIBody.cpp">
+      <Filter>头文件\Engine</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\NoaEngine\NoaEngine\UIButton.cpp">
       <Filter>头文件\Engine</Filter>
     </ClCompile>
@@ -220,6 +223,9 @@
       <Filter>头文件\Engine</Filter>
     </ClCompile>
     <ClCompile Include="..\..\NoaEngine\NoaEngine\UIProcessBar.cpp">
+      <Filter>头文件\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\NoaEngine\NoaEngine\UIScript.cpp">
       <Filter>头文件\Engine</Filter>
     </ClCompile>
   </ItemGroup>
@@ -425,6 +431,9 @@
     <ClInclude Include="..\..\NoaEngine\NoaEngine\Transform.h">
       <Filter>头文件\Engine</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\NoaEngine\NoaEngine\UIBody.h">
+      <Filter>头文件\Engine</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\NoaEngine\NoaEngine\UIButton.h">
       <Filter>头文件\Engine</Filter>
     </ClInclude>
@@ -447,6 +456,9 @@
       <Filter>头文件\Engine</Filter>
     </ClInclude>
     <ClInclude Include="..\..\NoaEngine\NoaEngine\UIProcessBar.h">
+      <Filter>头文件\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\NoaEngine\NoaEngine\UIScript.h">
       <Filter>头文件\Engine</Filter>
     </ClInclude>
   </ItemGroup>

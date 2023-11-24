@@ -213,6 +213,12 @@
     <ClInclude Include="NoaEngine\UIProcessBar.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="NoaEngine\UIBody.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="NoaEngine\UIScript.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="NoaEngine\Animator.cpp">
@@ -384,6 +390,12 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="NoaEngine\UIProcessBar.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="NoaEngine\UIBody.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="NoaEngine\UIScript.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

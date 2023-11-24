@@ -26,7 +26,8 @@ namespace noa {
 	public:
 		static ProcessBar* Create(UIContainer* container);
 		ProcessBar& SetID(const std::string& id);
-		ProcessBar& SetPosition(int x, int y);
+		ProcessBar& SetLocalPosition(int x, int y);
+		ProcessBar& SetGlobalPosition(int x,int y);
 		ProcessBar& SetAnchor(float x, float y);
 		ProcessBar& SetActive(bool value);
 		ProcessBar& SetBackgroundColor(uint32_t color);

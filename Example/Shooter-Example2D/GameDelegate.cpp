@@ -19,7 +19,7 @@ void InitGameMenu(noa::Scene* scene) {
 
 	noa::UIContainer* container = noa::UIContainer::Create(document)
 		->SetID("gui_container")
-		.SetPosition(noa::Screen::width/2,noa::Screen::height/2)
+		.SetLocalPosition(noa::Screen::width/2,noa::Screen::height/2)
 		.SetVisiable(false)
 		.Apply();
 
@@ -27,7 +27,7 @@ void InitGameMenu(noa::Scene* scene) {
 		->SetID("back_main_menu")
 		.SetText(L"·µ»ØÖ÷²Ëµ¥")
 		.SetFontSize(20)
-		.SetPosition(0, 0)
+		.SetLocalPosition(0, 0)
 		.SetSize(240, 60)
 		.SetAnchor(0.5f, 0.5f)
 		.SetRadius(50)
@@ -54,7 +54,7 @@ void InitGameUI(noa::Scene* scene)
 
 	noa::UIContainer* container =
 		noa::UIContainer::Create(document)
-		->SetPosition(0.0f,0.0f)
+		->SetLocalPosition(0.0f,0.0f)
 		.Apply();
 
 	noa::ProcessBar* hpBar =
@@ -63,7 +63,7 @@ void InitGameUI(noa::Scene* scene)
 		.SetID("hp_bar")
 		.SetFillColor(noa::RGBA(255,0,0,255))
 		.SetSize(320,10)
-		.SetPosition(10,10)
+		.SetLocalPosition(10,10)
 		.SetInteractable(false)
 		.SetRadius(10)
 		.Apply();

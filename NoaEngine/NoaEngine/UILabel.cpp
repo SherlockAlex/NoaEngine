@@ -53,10 +53,14 @@ noa::Label& noa::Label::SetFontSize(uint32_t size)
 	return *this;
 }
 
-noa::Label& noa::Label::SetPosition(int x, int y)
+noa::Label& noa::Label::SetLocalPosition(int x, int y)
 {
-	this->transform.position.x = x;
-	this->transform.position.y = y;
+	noa::UIBody::SetLocalPosition(x,y);
+	return *this;
+}
+
+noa::Label& noa::Label::SetGlobalPosition(int x,int y) {
+	noa::UIBody::SetGlobalPosition(x,y);
 	return *this;
 }
 
@@ -86,15 +90,7 @@ void noa::Label::Start()
 
 void noa::Label::Update()
 {
-
-}
-
-void noa::Label::Render() {
-	//显示文字
-
-	//下面代码只是暂时的，需要优化
-
-	std::wstring textBuffer = text;
+	textBuffer = text;
 	if (rowCount > 0)
 	{
 		textBuffer = L"";
@@ -113,8 +109,17 @@ void noa::Label::Render() {
 	}
 
 	this->transform.size = renderer->GetLabelScale(textBuffer, this->size);
-	globalTransform.position.x = static_cast<int>(fatherTransform.position.x + transform.position.x - anchor.x * transform.size.x);
-	globalTransform.position.y = static_cast<int>(fatherTransform.position.y + transform.position.y - anchor.y * transform.size.y);
+
+	noa::UIBody::OnUpdate();
+
+}
+
+void noa::Label::Render() {
+	//显示文字
+
+	//下面代码只是暂时的，需要优化
+
+	
 	renderer->DrawString(
 		textBuffer
 		, globalTransform.position.x

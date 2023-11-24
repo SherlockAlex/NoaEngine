@@ -29,7 +29,8 @@ namespace noa {
 		static Image* Create(UIContainer* group);
 
 		Image& SetID(const std::string& id);
-		Image& SetPosition(int x, int y);
+		Image& SetLocalPosition(int x, int y);
+		Image& SetGlobalPosition(int x,int y);
 		Image& SetAnchor(float x, float y);
 		Image& SetActive(bool value);
 		Image& SetSize(int x, int y);

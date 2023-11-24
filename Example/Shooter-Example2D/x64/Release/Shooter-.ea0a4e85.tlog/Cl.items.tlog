@@ -47,6 +47,7 @@ D:\Work\NoaEngine\NoaEngine\NoaEngine\TileMapInfo.cpp;D:\Work\NoaEngine\Example\
 D:\Work\NoaEngine\NoaEngine\NoaEngine\TileMapRenderer.cpp;D:\Work\NoaEngine\Example\Shooter-Example2D\x64\Release\TileMapRenderer.obj
 D:\Work\NoaEngine\NoaEngine\NoaEngine\Time.cpp;D:\Work\NoaEngine\Example\Shooter-Example2D\x64\Release\Time.obj
 D:\Work\NoaEngine\NoaEngine\NoaEngine\Transform.cpp;D:\Work\NoaEngine\Example\Shooter-Example2D\x64\Release\Transform.obj
+D:\Work\NoaEngine\NoaEngine\NoaEngine\UIBody.cpp;D:\Work\NoaEngine\Example\Shooter-Example2D\x64\Release\UIBody.obj
 D:\Work\NoaEngine\NoaEngine\NoaEngine\UIButton.cpp;D:\Work\NoaEngine\Example\Shooter-Example2D\x64\Release\UIButton.obj
 D:\Work\NoaEngine\NoaEngine\NoaEngine\UIComponent.cpp;D:\Work\NoaEngine\Example\Shooter-Example2D\x64\Release\UIComponent.obj
 D:\Work\NoaEngine\NoaEngine\NoaEngine\UIContainer.cpp;D:\Work\NoaEngine\Example\Shooter-Example2D\x64\Release\UIContainer.obj
@@ -55,6 +56,7 @@ D:\Work\NoaEngine\NoaEngine\NoaEngine\UIHub.cpp;D:\Work\NoaEngine\Example\Shoote
 D:\Work\NoaEngine\NoaEngine\NoaEngine\UIImage.cpp;D:\Work\NoaEngine\Example\Shooter-Example2D\x64\Release\UIImage.obj
 D:\Work\NoaEngine\NoaEngine\NoaEngine\UILabel.cpp;D:\Work\NoaEngine\Example\Shooter-Example2D\x64\Release\UILabel.obj
 D:\Work\NoaEngine\NoaEngine\NoaEngine\UIProcessBar.cpp;D:\Work\NoaEngine\Example\Shooter-Example2D\x64\Release\UIProcessBar.obj
+D:\Work\NoaEngine\NoaEngine\NoaEngine\UIScript.cpp;D:\Work\NoaEngine\Example\Shooter-Example2D\x64\Release\UIScript.obj
 D:\Work\NoaEngine\Example\Shooter-Example2D\Bullet.cpp;D:\Work\NoaEngine\Example\Shooter-Example2D\x64\Release\Bullet.obj
 D:\Work\NoaEngine\Example\Shooter-Example2D\BulletFactory.cpp;D:\Work\NoaEngine\Example\Shooter-Example2D\x64\Release\BulletFactory.obj
 D:\Work\NoaEngine\Example\Shooter-Example2D\BulletPool.cpp;D:\Work\NoaEngine\Example\Shooter-Example2D\x64\Release\BulletPool.obj

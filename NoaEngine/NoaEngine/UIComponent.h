@@ -1,26 +1,15 @@
 #ifndef NOAENGINE_UICOMPONENT_H
 #define NOAENGINE_UICOMPONENT_H
 
-#include "Transform.h"
+#include "UIBody.h"
 
 namespace noa {
 
 	class UIContainer;
 
-	class UIComponent
+	class UIComponent:public noa::UIBody
 	{
 	protected:
-		bool active = false;
-		friend class UIContainer;
-		friend class UIDocumentComponent;
-
-		UITransform globalTransform;
-	public:
-		std::string id = "ui_component";
-		UITransform transform;
-		Vector<float> anchor = { 0.5f,0.5f };
-	protected:
-		UITransform fatherTransform;	// 父节点的绝对路径
 		UIComponent(UIContainer* canvas);
 		virtual ~UIComponent();
 
@@ -34,10 +23,17 @@ namespace noa {
 		virtual void Render() = 0;		//负责UI的绘制
 
 	public:
-
 		void SetGlobalPosition(int x, int y);
 		void SetActiveInContainer(bool active);
 		bool GetActive();
+
+	protected:
+		bool active = false;
+		friend class UIContainer;
+		friend class UIDocumentComponent;
+
+	public:
+		std::string id = "ui_component";
 	};
 }
 

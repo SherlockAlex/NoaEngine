@@ -36,14 +36,14 @@ void MainMenuDelegate::OnLoad(noa::Scene* scene)
 		.Apply();
 
 	noa::UIContainer* mainContainer = noa::UIContainer::Create(document)
-		->SetPosition(noa::Screen::width,noa::Screen::height/2)
+		->SetLocalPosition(noa::Screen::width,noa::Screen::height/2)
 		.SetID("main_container")
 		.Apply();
 
 	document->Display(mainContainer);
 
 	noa::UIContainer* secondContainer = noa::UIContainer::Create(document)
-		->SetPosition(noa::Screen::width / 2, noa::Screen::height / 2)
+		->SetLocalPosition(noa::Screen::width / 2, noa::Screen::height / 2)
 		.SetID("second_container")
 		.Apply();
 
@@ -56,7 +56,7 @@ void MainMenuDelegate::OnLoad(noa::Scene* scene)
 	noa::Button* startButton = noa::Button::Create(mainContainer)
 		->SetText(L"开始游戏")
 		.SetFontSize(20)
-		.SetPosition(0,0)
+		.SetLocalPosition(0,0)
 		.SetSize(240, 60)
 		.SetRadius(0)
 		.SetSprite(&ResourceManager::backgroundImage)
@@ -77,14 +77,14 @@ void MainMenuDelegate::OnLoad(noa::Scene* scene)
 	noa::Button* openButton = noa::Button::Create(mainContainer)
 		->SetText(L"游戏设置")
 		.Clone(startButton)
-		.SetPosition(0, 70)
+		.SetLocalPosition(0, 70)
 		.AddClickCallback(ShowSecondContainerButtonClick)
 		.Apply();
 
 	noa::Button* quitButton = noa::Button::Create(mainContainer)
 		->SetText(L"退出游戏")
 		.Clone(startButton)
-		.SetPosition(0,2*70)
+		.SetLocalPosition(0,2*70)
 		.AddClickCallback(noa::Application::Quit)
 		.Apply();
 
@@ -97,7 +97,7 @@ void MainMenuDelegate::OnLoad(noa::Scene* scene)
 	noa::Button* backButton = noa::Button::Create(secondContainer)
 		->SetText(L"返回菜单")
 		.Clone(startButton)
-		.SetPosition(0, -200)
+		.SetLocalPosition(0, -200)
 		.SetAnchor(0.5f,0.5f)
 		.SetRadius(50)
 		.SetTextOffset(0.0f,0.0f)

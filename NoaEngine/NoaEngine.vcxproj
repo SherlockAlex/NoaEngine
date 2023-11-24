@@ -158,6 +158,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="NoaEngine\UIBody.h" />
     <ClInclude Include="NoaEngine\UIButton.h" />
     <ClInclude Include="NoaEngine\Camera2D.h" />
     <ClInclude Include="NoaEngine\ActorMotion.h" />
@@ -223,8 +224,10 @@
     <ClInclude Include="NoaEngine\UIContainer.h" />
     <ClInclude Include="NoaEngine\UIDocument.h" />
     <ClInclude Include="NoaEngine\UIHub.h" />
+    <ClInclude Include="NoaEngine\UIScript.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="NoaEngine\UIBody.cpp" />
     <ClCompile Include="NoaEngine\UIButton.cpp" />
     <ClCompile Include="NoaEngine\Camera2D.cpp" />
     <ClCompile Include="NoaEngine\ActorMotion.cpp" />
@@ -282,6 +285,7 @@
     <ClCompile Include="NoaEngine\UIContainer.cpp" />
     <ClCompile Include="NoaEngine\UIDocument.cpp" />
     <ClCompile Include="NoaEngine\UIHub.cpp" />
+    <ClCompile Include="NoaEngine\UIScript.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

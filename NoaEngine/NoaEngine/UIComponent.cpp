@@ -23,13 +23,7 @@ void noa::UIComponent::Delete(UIComponent*& ptr)
 void noa::UIComponent::SetGlobalPosition(int x, int y) {
 	//计算值，然后换算成position
 
-	transform.position.x =
-		static_cast<int>(x + anchor.x * transform.size.x
-		- fatherTransform.position.x);
-
-	transform.position.y =
-		static_cast<int>(y + anchor.y * transform.size.y
-		- fatherTransform.position.y);
+	noa::UIBody::SetGlobalPosition(x, y);
 
 }
 
