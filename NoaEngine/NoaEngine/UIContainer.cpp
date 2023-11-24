@@ -12,8 +12,8 @@ noa::UIContainer::UIContainer(UIDocument* document)
 		document->AddUIContainer(this);
 	}
 	this->SetVisiable(false);
-
-	this->SetLocalSize(0,0);
+	noa::UIBody::SetLocalSize(0,0);
+	noa::UIBody::anchor = { 0.5f,0.5f };
 
 }
 
@@ -24,8 +24,8 @@ noa::UIContainer::UIContainer(UIContainer* father)
 		father->AddUIContainer(this);
 	}
 	this->SetVisiable(false);
-
-	this->SetLocalSize(0, 0);
+	noa::UIBody::SetLocalSize(0, 0);
+	noa::UIBody::anchor = { 0.5f,0.5f };
 }
 
 noa::UIContainer::~UIContainer() {

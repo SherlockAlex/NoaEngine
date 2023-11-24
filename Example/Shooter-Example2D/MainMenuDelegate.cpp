@@ -77,7 +77,7 @@ void MainMenuDelegate::OnLoad(noa::Scene* scene)
 	noa::Button* openButton = noa::Button::Create(mainContainer)
 		->SetText(L"”Œœ∑…Ë÷√")
 		.Clone(startButton)
-		.SetLocalPosition(0, 70)
+		.SetLocalPosition(0,70)
 		.AddClickCallback(ShowSecondContainerButtonClick)
 		.Apply();
 

@@ -50,8 +50,6 @@ void noa::Button::SwapState()
 		return;
 	}
 
-	noa::UIBody::OnUpdate();
-
 	isClickReady = false;
 	if (handled)
 	{
@@ -118,10 +116,8 @@ void noa::Button::Start()
 
 void noa::Button::Update()
 {
+	noa::UIBody::OnUpdate();
 	this->SwapState();
-}
-
-void noa::Button::Render() {
 
 	const float lerpSpeed = 2.0f;
 	currentScale = noa::Math::LinearLerp(
@@ -135,6 +131,10 @@ void noa::Button::Render() {
 
 	this->label->SetFontSize(static_cast<uint32_t>(fontSize * currentScale));
 
+}
+
+void noa::Button::Render() {
+	
 	image->SetAnchor(anchor.x,anchor.y);
 	image->SetLocalPosition(transform.position.x,transform.position.y);
 	image->SetLocalSize(
