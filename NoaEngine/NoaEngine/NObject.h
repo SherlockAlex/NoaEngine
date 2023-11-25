@@ -25,6 +25,7 @@ namespace noa
 	class Actor;
 	class Scene;
 	class UIBody;
+	class UIContainer;
 
 	template<typename T>
 	class NObject final
@@ -55,6 +56,17 @@ namespace noa
 			return obj;
 		}
 
+		//创建UI控件
+		static T* Create(UIContainer* container) {
+			if (container == nullptr)
+			{
+				return nullptr;
+			}
+			T* obj = new T(container);
+			return obj;
+		}
+
+		//创建UI控件脚本
 		static T* Create(UIBody* body) 
 		{
 			if (body == nullptr)
@@ -68,12 +80,13 @@ namespace noa
 
 	};
 
-	//T的对象由NObject管理
-	#define NOBJECT(T) friend class noa::NObject<T>;
-
-	//安全删除
-	#define SAFE_DELETE(ptr) if(ptr) {delete ptr;(ptr) = nullptr;}
 }
+
+//T的对象由NObject管理
+#define NOBJECT(T) friend class noa::NObject<T>;
+
+//安全删除
+#define SAFE_DELETE(ptr) if(ptr) {delete ptr;(ptr) = nullptr;}
 
 
 

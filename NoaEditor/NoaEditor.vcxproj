@@ -163,6 +163,7 @@
     <ClCompile Include="..\NoaEngine\NoaEngine\Renderer.cpp" />
     <ClCompile Include="..\NoaEngine\NoaEngine\Resource.cpp" />
     <ClCompile Include="..\NoaEngine\NoaEngine\Scene.cpp" />
+    <ClCompile Include="..\NoaEngine\NoaEngine\SceneManager.cpp" />
     <ClCompile Include="..\NoaEngine\NoaEngine\Screen.cpp" />
     <ClCompile Include="..\NoaEngine\NoaEngine\SDLRenderer.cpp" />
     <ClCompile Include="..\NoaEngine\NoaEngine\SDLTexture.cpp" />
@@ -187,9 +188,11 @@
     <ClCompile Include="..\NoaEngine\NoaEngine\UIScrollBar.cpp" />
     <ClCompile Include="..\NoaEngine\NoaEngine\UIScript.cpp" />
     <ClCompile Include="EditorCamera.cpp" />
+    <ClCompile Include="EditorMainUI.cpp" />
     <ClCompile Include="EditorSceneDelegate.cpp" />
     <ClCompile Include="NoaEditor.cpp" />
     <ClCompile Include="UIMove.cpp" />
+    <ClCompile Include="UIWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\NoaEngine\NoaEngine\Actor.h" />
@@ -233,6 +236,7 @@
     <ClInclude Include="..\NoaEngine\NoaEngine\Renderer.h" />
     <ClInclude Include="..\NoaEngine\NoaEngine\Resource.h" />
     <ClInclude Include="..\NoaEngine\NoaEngine\Scene.h" />
+    <ClInclude Include="..\NoaEngine\NoaEngine\SceneManager.h" />
     <ClInclude Include="..\NoaEngine\NoaEngine\Screen.h" />
     <ClInclude Include="..\NoaEngine\NoaEngine\ScriptableActor.h" />
     <ClInclude Include="..\NoaEngine\NoaEngine\SDLHelper.h" />
@@ -260,9 +264,11 @@
     <ClInclude Include="..\NoaEngine\NoaEngine\UIScrollBar.h" />
     <ClInclude Include="..\NoaEngine\NoaEngine\UIScript.h" />
     <ClInclude Include="EditorCamera.h" />
+    <ClInclude Include="EditorMainUI.h" />
     <ClInclude Include="EditorSceneDelegate.h" />
     <ClInclude Include="NoaEditor.h" />
     <ClInclude Include="UIMove.h" />
+    <ClInclude Include="UIWindow.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

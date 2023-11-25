@@ -49,10 +49,8 @@ int noa::Platform_Windows::Create(
 		exit(-1);
 	}
 
-	//设置WindowID
 	this->windowID = SDL_GetWindowID(window);
 
-	//创建Event
 	this->e = std::make_shared<InputEvent_Windows>();
 
 	return 0;
@@ -60,11 +58,7 @@ int noa::Platform_Windows::Create(
 
 void noa::Platform_Windows::EventLoop()
 {
-
-	//实现Windows系统写的事件循环
-	// 下面对于SDL事件的封装要进行，不然没有办法跨平台
 	this->e->PollEvent([this]() {Quit(); });
-	
 }
 
 bool noa::Platform_Windows::CheckWindowClose()

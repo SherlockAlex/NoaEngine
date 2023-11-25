@@ -19,10 +19,10 @@ d:\work\noaengine\example\shooter-example2d\x64\release\actorpool.obj
 d:\work\noaengine\example\shooter-example2d\x64\release\actormotion.obj
 d:\work\noaengine\example\shooter-example2d\x64\release\actorcomponent.obj
 d:\work\noaengine\example\shooter-example2d\x64\release\actor.obj
-d:\work\noaengine\example\shooter-example2d\x64\release\sprite.obj
 d:\work\noaengine\example\shooter-example2d\x64\release\sdltexture.obj
 d:\work\noaengine\example\shooter-example2d\x64\release\sdlrenderer.obj
 d:\work\noaengine\example\shooter-example2d\x64\release\screen.obj
+d:\work\noaengine\example\shooter-example2d\x64\release\scenemanager.obj
 d:\work\noaengine\example\shooter-example2d\x64\release\scene.obj
 d:\work\noaengine\example\shooter-example2d\x64\release\resource.obj
 d:\work\noaengine\example\shooter-example2d\x64\release\renderer.obj
@@ -39,10 +39,8 @@ d:\work\noaengine\example\shooter-example2d\x64\release\noaaction.obj
 d:\work\noaengine\example\shooter-example2d\x64\release\ipoolobjectfactroy.obj
 d:\work\noaengine\example\shooter-example2d\x64\release\inputsystem.obj
 d:\work\noaengine\example\shooter-example2d\x64\release\graphic.obj
-d:\work\noaengine\example\shooter-example2d\x64\release\bulletpool.obj
-d:\work\noaengine\example\shooter-example2d\x64\release\bulletfactory.obj
-d:\work\noaengine\example\shooter-example2d\x64\release\bullet.obj
-d:\work\noaengine\example\shooter-example2d\x64\release\uiprocessbar.obj
+d:\work\noaengine\example\shooter-example2d\x64\release\uiscrollbar.obj
+d:\work\noaengine\example\shooter-example2d\x64\release\uiscript.obj
 d:\work\noaengine\example\shooter-example2d\x64\release\uilabel.obj
 d:\work\noaengine\example\shooter-example2d\x64\release\uiimage.obj
 d:\work\noaengine\example\shooter-example2d\x64\release\uihub.obj
@@ -50,6 +48,7 @@ d:\work\noaengine\example\shooter-example2d\x64\release\uidocument.obj
 d:\work\noaengine\example\shooter-example2d\x64\release\uicontainer.obj
 d:\work\noaengine\example\shooter-example2d\x64\release\uicomponent.obj
 d:\work\noaengine\example\shooter-example2d\x64\release\uibutton.obj
+d:\work\noaengine\example\shooter-example2d\x64\release\uibody.obj
 d:\work\noaengine\example\shooter-example2d\x64\release\transform.obj
 d:\work\noaengine\example\shooter-example2d\x64\release\time.obj
 d:\work\noaengine\example\shooter-example2d\x64\release\tilemaprenderer.obj
@@ -59,6 +58,7 @@ d:\work\noaengine\example\shooter-example2d\x64\release\tilecollider2d.obj
 d:\work\noaengine\example\shooter-example2d\x64\release\texture.obj
 d:\work\noaengine\example\shooter-example2d\x64\release\statemachine.obj
 d:\work\noaengine\example\shooter-example2d\x64\release\spriterenderer.obj
+d:\work\noaengine\example\shooter-example2d\x64\release\sprite.obj
 d:\work\noaengine\example\shooter-example2d\x64\release\test.obj
 d:\work\noaengine\example\shooter-example2d\x64\release\shooter.obj
 d:\work\noaengine\example\shooter-example2d\x64\release\resourcemanager.obj
@@ -66,12 +66,13 @@ d:\work\noaengine\example\shooter-example2d\x64\release\player.obj
 d:\work\noaengine\example\shooter-example2d\x64\release\mainmenudelegate.obj
 d:\work\noaengine\example\shooter-example2d\x64\release\gamedelegate.obj
 d:\work\noaengine\example\shooter-example2d\x64\release\engine.obj
-d:\work\noaengine\example\shooter-example2d\x64\release\uiscript.obj
-d:\work\noaengine\example\shooter-example2d\x64\release\uibody.obj
+d:\work\noaengine\example\shooter-example2d\x64\release\bulletpool.obj
+d:\work\noaengine\example\shooter-example2d\x64\release\bulletfactory.obj
+d:\work\noaengine\example\shooter-example2d\x64\release\bullet.obj
 d:\work\noaengine\x64\release\shooter-example2d.exe
+d:\work\noaengine\example\shooter-example2d\x64\release\shooter-example2d.ipdb
 d:\work\noaengine\x64\release\shooter-example2d.pdb
 d:\work\noaengine\example\shooter-example2d\x64\release\shooter-example2d.iobj
-d:\work\noaengine\example\shooter-example2d\x64\release\shooter-example2d.ipdb
 d:\work\noaengine\example\shooter-example2d\x64\release\shooter-.ea0a4e85.tlog\cl.command.1.tlog
 d:\work\noaengine\example\shooter-example2d\x64\release\shooter-.ea0a4e85.tlog\cl.items.tlog
 d:\work\noaengine\example\shooter-example2d\x64\release\shooter-.ea0a4e85.tlog\cl.read.1.tlog

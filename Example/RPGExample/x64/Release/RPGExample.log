@@ -4,7 +4,6 @@
   ActorPoolFactory.cpp
   Animator.cpp
   AudioSource.cpp
-  AudioSystem.cpp
   AudioSystem_SDL.cpp
   BoxCollider2D.cpp
   Camera.cpp
@@ -12,38 +11,35 @@
   Collider2D.cpp
   Debug.cpp
   GLRenderer.cpp
+D:\Work\NoaEngine\NoaEngine\NoaEngine\GLHelper.h(11,10): fatal  error C1083: 无法打开包括文件: “glm/glm.hpp”: No such file or directory
   GLShader.cpp
+D:\Work\NoaEngine\NoaEngine\NoaEngine\GLHelper.h(11,10): fatal  error C1083: 无法打开包括文件: “glm/glm.hpp”: No such file or directory
   GLTexture.cpp
+D:\Work\NoaEngine\NoaEngine\NoaEngine\GLHelper.h(11,10): fatal  error C1083: 无法打开包括文件: “glm/glm.hpp”: No such file or directory
   Graphic.cpp
   InputSystem.cpp
-  IPoolObjectFactroy.cpp
-  NoaAction.cpp
-  正在编译...
-  NoaEngine.cpp
-  NoaGUI.cpp
-  NoaMath.cpp
   NObject.cpp
+  NoaEngine.cpp
+D:\Work\NoaEngine\NoaEngine\NoaEngine\GLHelper.h(11,10): fatal  error C1083: 无法打开包括文件: “glm/glm.hpp”: No such file or directory
+  NoaGUI.cpp
+  正在编译...
+  NoaMath.cpp
   Physics.cpp
   PhysicsSystem.cpp
   Platform.cpp
-  Platform_Linux.cpp
   Platform_Windows.cpp
   Renderer.cpp
   Resource.cpp
-  Scene.cpp
-  Screen.cpp
   SDLRenderer.cpp
   SDLTexture.cpp
+  Scene.cpp
+  Screen.cpp
   Sprite.cpp
   SpriteRenderer.cpp
   StateMachine.cpp
   Texture.cpp
   TileCollider2D.cpp
-  正在编译...
   Time.cpp
   Transform.cpp
-  正在生成代码
-  Previous IPDB not found, fall back to full compilation.
-  All 2496 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
-  已完成代码的生成
-  RPGExample.vcxproj -> D:\Work\NoaEngine\x64\Release\RPGExample.exe
+  GameTestDelegate.cpp
+  RPGGame.cpp

@@ -81,7 +81,9 @@
 #include "Transform.h"
 #include "Debug.h"
 #include "NoaMath.h"
+
 #include "Scene.h"
+#include "SceneManager.h"
 
 #include "AudioSource.h"
 

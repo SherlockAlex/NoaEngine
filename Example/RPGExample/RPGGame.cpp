@@ -4,10 +4,10 @@
 RPGGame::RPGGame() 
 	:noa::NoaEngine(1920/2,1080/2,noa::WindowMode::WINDOW,noa::GraphicsAPI::OPENGL,"RPG")
 {
-	noa::Scene* gameTest = noa::sceneManager.CreateScene("Game");
+	noa::Scene* gameTest = noa::SceneManager::CreateScene("Game");
 	gameTest->onLoad += GameTestDelegate::OnLoad;
 
-	noa::sceneManager.LoadScene("Game");
+	noa::SceneManager::LoadScene("Game");
 }
 
 RPGGame::~RPGGame() {

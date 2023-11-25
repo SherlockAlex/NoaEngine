@@ -158,6 +158,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="NoaEngine\SceneManager.h" />
     <ClInclude Include="NoaEngine\UIBody.h" />
     <ClInclude Include="NoaEngine\UIButton.h" />
     <ClInclude Include="NoaEngine\Camera2D.h" />
@@ -227,6 +228,7 @@
     <ClInclude Include="NoaEngine\UIScrollBar.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="NoaEngine\SceneManager.cpp" />
     <ClCompile Include="NoaEngine\UIBody.cpp" />
     <ClCompile Include="NoaEngine\UIButton.cpp" />
     <ClCompile Include="NoaEngine\Camera2D.cpp" />

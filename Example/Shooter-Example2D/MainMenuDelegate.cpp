@@ -2,12 +2,12 @@
 #include "ResourceManager.h"
 
 void LoadGameButtonClick() {
-	noa::sceneManager.LoadScene("Game");
+	noa::SceneManager::LoadScene("Game");
 }
 
 void BackButtonClick() {
 	noa::UIDocument* document = 
-		noa::sceneManager.FindActorWithType<noa::UIDocumentActor>();
+		noa::SceneManager::FindActorWithType<noa::UIDocumentActor>();
 
 	if (!document) 
 	{
@@ -18,7 +18,7 @@ void BackButtonClick() {
 
 void ShowSecondContainerButtonClick() {
 	noa::UIDocument* document =
-		noa::sceneManager.FindActorWithType<noa::UIDocumentActor>();
+		noa::SceneManager::FindActorWithType<noa::UIDocumentActor>();
 	if (!document) {
 		return;
 	}

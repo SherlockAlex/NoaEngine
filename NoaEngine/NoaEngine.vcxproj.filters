@@ -219,6 +219,9 @@
     <ClInclude Include="NoaEngine\UIScrollBar.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="NoaEngine\SceneManager.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="NoaEngine\Animator.cpp">
@@ -396,6 +399,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="NoaEngine\UIScrollBar.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="NoaEngine\SceneManager.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

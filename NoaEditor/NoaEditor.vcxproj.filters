@@ -207,6 +207,15 @@
     <ClCompile Include="UIMove.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="..\NoaEngine\NoaEngine\SceneManager.cpp">
+      <Filter>头文件\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="UIWindow.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorMainUI.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="NoaEditor.h">
@@ -420,6 +429,15 @@
       <Filter>头文件\Engine</Filter>
     </ClInclude>
     <ClInclude Include="UIMove.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\NoaEngine\NoaEngine\SceneManager.h">
+      <Filter>头文件\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="UIWindow.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorMainUI.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

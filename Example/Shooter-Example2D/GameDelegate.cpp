@@ -40,7 +40,7 @@ void InitGameMenu(noa::Scene* scene) {
 		.SetNormalScale(1.0f)
 		.SetHeightLightScale(1.1f)
 		.SetClickScale(0.9f)
-		.AddClickCallback([]() {noa::sceneManager.LoadScene("MainMenu"); })
+		.AddClickCallback([]() {noa::SceneManager::LoadScene("MainMenu"); })
 		.Apply();
 
 }

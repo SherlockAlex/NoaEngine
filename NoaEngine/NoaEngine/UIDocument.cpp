@@ -30,7 +30,7 @@ void noa::UIDocument::AddUIContainer(UIContainer* container)
 
 }
 
-void noa::UIDocument::SetDocumentID(const std::string& id)
+void noa::UIDocument::SetID(const std::string& id)
 {
 	this->id = id;
 }
@@ -144,7 +144,7 @@ noa::UIDocumentActor& noa::UIDocumentActor::SetActorTag(
 noa::UIDocumentActor& noa::UIDocumentActor::SetID(
 	const std::string& id)
 {
-	SetDocumentID(id);
+	noa::UIDocument::SetID(id);
 	return *this;
 }
 
@@ -169,7 +169,7 @@ noa::UIDocumentComponent* noa::UIDocumentComponent::Create(Actor* actor)
 noa::UIDocumentComponent& noa::UIDocumentComponent::SetID(
 	const std::string& id)
 {
-	noa::UIDocument::SetDocumentID(id);
+	noa::UIDocument::SetID(id);
 	return *this;
 }
 

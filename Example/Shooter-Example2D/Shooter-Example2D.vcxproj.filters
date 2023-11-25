@@ -231,6 +231,9 @@
     <ClCompile Include="..\..\NoaEngine\NoaEngine\UIScrollBar.cpp">
       <Filter>头文件\Engine</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\NoaEngine\NoaEngine\SceneManager.cpp">
+      <Filter>头文件\Engine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h">
@@ -462,6 +465,9 @@
       <Filter>头文件\Engine</Filter>
     </ClInclude>
     <ClInclude Include="..\..\NoaEngine\NoaEngine\UIScrollBar.h">
+      <Filter>头文件\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\NoaEngine\NoaEngine\SceneManager.h">
       <Filter>头文件\Engine</Filter>
     </ClInclude>
   </ItemGroup>

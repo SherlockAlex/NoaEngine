@@ -46,21 +46,29 @@ void noa::ScrollBar::Update()
 	if (interactable
 		&& Input::GetMouseKeyHold(noa::MouseButton::LEFT_BUTTON))
 	{
-		Vector<double> mousePos = Input::GetMousePosition();
-		const int mousePosX = static_cast<int>(mousePos.x);
-		const int mousePosY = static_cast<int>(mousePos.y);
+		Vector<double> mousePos 
+			= Input::GetMousePosition();
+		const int mousePosX 
+			= static_cast<int>(mousePos.x);
+		const int mousePosY 
+			= static_cast<int>(mousePos.y);
 		
 		const int posX = 
-			static_cast<int>(globalTransform.position.x
-			- anchor.x * transform.size.x);
+			static_cast<int>(
+				globalTransform.position.x
+				-2*anchor.x*transform.size.x*activeScale
+				);
 		const int posY = 
-			static_cast<int>(globalTransform.position.y
-			- anchor.y * transform.size.y);
+			static_cast<int>(
+				globalTransform.position.y
+				-2*anchor.y*transform.size.y * activeScale
+				);
 
 		if (handled)
 		{
 
-			const float deltaX = static_cast<float>(mousePosX - posX);
+			const float deltaX = 
+				static_cast<float>(mousePosX - posX);
 			amount = deltaX / transform.size.x;
 			if (amount <= 0.0f)
 			{

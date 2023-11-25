@@ -12,27 +12,26 @@ UIMove::~UIMove() {
 void UIMove::Update() {
 	//ÒÆ¶¯
 	noa::UIBody* body = GetBody();
-	if (body->GetHandle())
+	if (body->GetHandle()
+		&& noa::Input::GetMouseKeyHold(noa::MouseButton::LEFT_BUTTON))
 	{
-		noa::Vector<double> mousePosition =
-			noa::Input::GetMousePosition();
-		if (noa::Input::GetMouseKeyHold(noa::MouseButton::LEFT_BUTTON)) 
-		{
-			body->SetGlobalPosition(
-				mousePosition.x, 
-				mousePosition.y
-			);
-		}
-		//noa::Debug::Log(noa::ToString<double>(mousePosition));
-
+		isHold = true;
 	}
 
-	
+	noa::Vector<double> mousePosition =
+		noa::Input::GetMousePosition();
+	if (isHold)
+	{
+		body->SetGlobalPosition(
+			mousePosition.x,
+			mousePosition.y
+		);
+	}
 
-	/*body->SetGlobalPositionByAnchor(
-		noa::Screen::width/2, 
-		noa::Screen::height/2
-	);*/
+	if (isHold&&noa::Input::GetMouseKeyUp(noa::MouseButton::LEFT_BUTTON))
+	{
+		isHold = false;
+	}
 
 }
 

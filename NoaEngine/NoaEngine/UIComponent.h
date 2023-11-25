@@ -18,9 +18,9 @@ namespace noa {
 
 	protected:
 
-		virtual void Start() = 0;
-		virtual void Update() = 0;		//负责UI的交互逻辑
-		virtual void Render() = 0;		//负责UI的绘制
+		virtual void Start() {};
+		virtual void Update() {};		//负责UI的交互逻辑
+		virtual void Render() {};		//负责UI的绘制
 
 	public:
 		void SetGlobalPosition(int x, int y);

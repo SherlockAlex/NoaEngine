@@ -121,8 +121,7 @@ void noa::Label::Render() {
 
 	//下面代码只是暂时的，需要优化
 
-	
-	renderer->DrawString(
+	/*renderer->DrawString(
 		textBuffer
 		, static_cast<int>(globalTransform.position.x
 			- anchor.x * transform.size.x)
@@ -130,5 +129,16 @@ void noa::Label::Render() {
 			- anchor.y * transform.size.y)
 		, color
 		, size
+	);*/
+
+	renderer->DrawString(
+		textBuffer
+		, static_cast<int>(globalTransform.position.x
+			- 2*anchor.x * transform.size.x)
+		, static_cast<int>(globalTransform.position.y
+			- 2*anchor.y * transform.size.y)
+		, color
+		, size
 	);
+
 }

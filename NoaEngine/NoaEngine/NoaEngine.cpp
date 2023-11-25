@@ -94,13 +94,14 @@ int noa::NoaEngine::Run()
 	this->EngineThread();
 	Exit();
 
+	SceneManager::DestroySceneManager();
 	return 0;
 
 }
 
 int noa::NoaEngine::Exit()
 {
-	sceneManager.Quit();
+	SceneManager::Quit();
 	OnExit();
 	return 0;
 }
@@ -122,7 +123,7 @@ void noa::NoaEngine::EngineThread()
 		}
 		platform->EventLoop();
 
-		sceneManager.Update();
+		SceneManager::Update();
 		Update();
 
 		renderer->Clear();

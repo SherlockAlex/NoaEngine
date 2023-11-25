@@ -3,12 +3,13 @@
 
 #include <vector>
 
+#include "NObject.h"
 #include "Transform.h"
 
 namespace noa {
 	class UIScript;
 
-	class UIBody 
+	class UIBody :public noa::NoaObject
 	{
 	protected:
 		virtual ~UIBody();
@@ -42,6 +43,9 @@ namespace noa {
 		bool handled = false;
 		float activeScale = 1.0f;
 	};
+
 }
+
+#define UIBODY(T) template<class T> friend class noa::NObject;
 
 #endif // !NOAENGINE_UIBODY_H

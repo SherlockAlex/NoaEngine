@@ -14,7 +14,7 @@ namespace noa {
 		virtual ~UIDocument();
 	public:
 
-		void SetDocumentID(const std::string& id);
+		void SetID(const std::string& id);
 
 		void Display(size_t index);
 		void Display(const std::string& id);

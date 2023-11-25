@@ -166,6 +166,7 @@
     <ClCompile Include="..\..\NoaEngine\NoaEngine\Renderer.cpp" />
     <ClCompile Include="..\..\NoaEngine\NoaEngine\Resource.cpp" />
     <ClCompile Include="..\..\NoaEngine\NoaEngine\Scene.cpp" />
+    <ClCompile Include="..\..\NoaEngine\NoaEngine\SceneManager.cpp" />
     <ClCompile Include="..\..\NoaEngine\NoaEngine\Screen.cpp" />
     <ClCompile Include="..\..\NoaEngine\NoaEngine\SDLRenderer.cpp" />
     <ClCompile Include="..\..\NoaEngine\NoaEngine\SDLTexture.cpp" />
@@ -242,6 +243,7 @@
     <ClInclude Include="..\..\NoaEngine\NoaEngine\Renderer.h" />
     <ClInclude Include="..\..\NoaEngine\NoaEngine\Resource.h" />
     <ClInclude Include="..\..\NoaEngine\NoaEngine\Scene.h" />
+    <ClInclude Include="..\..\NoaEngine\NoaEngine\SceneManager.h" />
     <ClInclude Include="..\..\NoaEngine\NoaEngine\Screen.h" />
     <ClInclude Include="..\..\NoaEngine\NoaEngine\ScriptableActor.h" />
     <ClInclude Include="..\..\NoaEngine\NoaEngine\SDLHelper.h" />

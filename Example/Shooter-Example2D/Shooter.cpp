@@ -9,13 +9,13 @@ Shooter::Shooter()
 		,"Shooter-2D"
 	)
 {
-	noa::Scene* mainMenu = noa::sceneManager.CreateScene("MainMenu");
+	noa::Scene* mainMenu = noa::SceneManager::CreateScene("MainMenu");
 	mainMenu->onLoad += MainMenuDelegate::OnLoad;
 	mainMenu->onUpdate += MainMenuDelegate::OnUpdate;
 
-	noa::Scene* gameScene = noa::sceneManager.CreateScene("Game");
+	noa::Scene* gameScene = noa::SceneManager::CreateScene("Game");
 	gameScene->onLoad += GameDelegate::OnLoad;
 	gameScene->onTick += GameDelegate::OnTick;
 
-	noa::sceneManager.LoadScene("MainMenu");
+	noa::SceneManager::LoadScene("MainMenu");
 }

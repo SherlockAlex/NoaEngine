@@ -19,31 +19,45 @@ void noa::UIBody::OnUpdate() {
 	const float mousePosX = (static_cast<float>(mousePos.x));
 	const float mousePosY = (static_cast<float>(mousePos.y));
 
-	const int posX = 
+	const int posX =
 		static_cast<int>(
-			transform.position.x 
-			+ fatherTransform.position.x 
+			transform.position.x
+			+ fatherTransform.position.x
+			+ anchor.x * transform.size.x
 			);
 
 	const int posY = 
 		static_cast<int>(
 			transform.position.y 
 			+ fatherTransform.position.y
+			+ anchor.y * transform.size.y
 			);
 	
 	globalTransform.position.x = posX;
 	globalTransform.position.y = posY;
 
 	const float minX = 
-		static_cast<float>(posX - anchor.x * transform.size.x*activeScale);
+		static_cast<float>(
+			posX
+			-2*anchor.x
+			*transform.size.x*activeScale);
 	const float maxX = 
-		static_cast<float>(posX + transform.size.x * activeScale
-		- anchor.x * transform.size.x * activeScale);
+		static_cast<float>(
+			posX
+			+transform.size.x * activeScale 
+			- 2*anchor.x 
+			* transform.size.x * activeScale);
 	const float minY = 
-		static_cast<float>(posY - anchor.y * transform.size.y * activeScale);
+		static_cast<float>(
+			posY
+			-2*anchor.y 
+			* transform.size.y * activeScale);
 	const float maxY = 
-		static_cast<float>(posY + transform.size.y * activeScale
-		- anchor.y * transform.size.y * activeScale);
+		static_cast<float>(
+			posY
+			+transform.size.y * activeScale 
+			- 2*anchor.y 
+			* transform.size.y * activeScale);
 
 	handled = 
 		mousePosX >= minX

@@ -10,10 +10,10 @@
 * 作用:生成制作Actor及其派生类的对象池，主要用于射击游戏
 */
 
+#define ACTOR_COMPONENT(T) template<class T> friend class noa::NObject;
+
 namespace noa {
 	class Actor;
-
-#define ACTOR_COMPONENT(T) template<class T> friend class noa::NObject;
 
 	class ActorComponent:public NoaObject
 	{
@@ -99,22 +99,22 @@ namespace noa {
 
 		Actor* FindActorWithTag(const std::string & tag)
 		{
-			return sceneManager.FindActorWithTag(tag);
+			return SceneManager::FindActorWithTag(tag);
 		}
 
 		std::vector<Actor*> FindActorsWithTag(const std::string & tag)
 		{
-			return sceneManager.FindActorsWithTag(tag);
+			return SceneManager::FindActorsWithTag(tag);
 		}
 
 		template<class T>
 		T* FindActorWithType() {
-			return sceneManager.FindActorWithType<T>();
+			return SceneManager::FindActorWithType<T>();
 		}
 
 		template<class T>
 		std::vector<T*> FindActorsWithType() {
-			return sceneManager.FindActorsWithType<T>();
+			return SceneManager::FindActorsWithType<T>();
 		}
 
 	protected:

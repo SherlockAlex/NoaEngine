@@ -14,5 +14,7 @@ private:
 	void OnStay() override;
 	void OnExit() override;
 
+private:
+	bool isHold = false;
 };
 
