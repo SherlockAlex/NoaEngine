@@ -40,30 +40,35 @@ void noa::UIBody::OnUpdate() {
 		static_cast<float>(
 			posX
 			-2*anchor.x
-			*transform.size.x*activeScale);
+			*transform.size.x);
 	const float maxX = 
 		static_cast<float>(
 			posX
-			+transform.size.x * activeScale 
+			+transform.size.x 
 			- 2*anchor.x 
-			* transform.size.x * activeScale);
+			* transform.size.x);
 	const float minY = 
 		static_cast<float>(
 			posY
 			-2*anchor.y 
-			* transform.size.y * activeScale);
+			* transform.size.y);
 	const float maxY = 
 		static_cast<float>(
 			posY
-			+transform.size.y * activeScale 
+			+transform.size.y 
 			- 2*anchor.y 
-			* transform.size.y * activeScale);
+			* transform.size.y);
+
+	const float deltaX = 
+		(activeScale - 1) * transform.size.x;
+	const float deltaY =
+		(activeScale - 1) * transform.size.y;
 
 	handled = 
-		mousePosX >= minX
-		&& mousePosX <= maxX
-		&& mousePosY >= minY
-		&& mousePosY <= maxY;
+		mousePosX >= minX - deltaX
+		&& mousePosX <= maxX + deltaX
+		&& mousePosY >= minY - deltaY
+		&& mousePosY <= maxY + deltaY;
 	
 	if (handled&&!isEnter&&!isEnterFlag) 
 	{

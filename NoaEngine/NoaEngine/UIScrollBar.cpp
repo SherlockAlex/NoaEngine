@@ -56,12 +56,12 @@ void noa::ScrollBar::Update()
 		const int posX = 
 			static_cast<int>(
 				globalTransform.position.x
-				-2*anchor.x*transform.size.x*activeScale
+				-2*anchor.x*transform.size.x
 				);
 		const int posY = 
 			static_cast<int>(
 				globalTransform.position.y
-				-2*anchor.y*transform.size.y * activeScale
+				-2*anchor.y*transform.size.y
 				);
 
 		if (handled)

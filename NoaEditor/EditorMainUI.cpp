@@ -22,14 +22,14 @@ noa::UIContainer* noa::EditorMainUI::CreateMainUI() {
 		.SetVisiable(true)
 		.Apply();
 
-	noa::Image* image =
-		noa::Image::Create(container)
+	noa::ScrollBar* image =
+		noa::ScrollBar::Create(container)
 		->SetID("window_background_image")
 		.SetLocalPosition(0, 0)
-		.SetSize(100, 100)
-		.SetAnchor(1.0f,0.0f)
+		.SetSize(300, 50)
+		.SetAnchor(0.5f,0.5f)
 		.Apply();
-	UIMove* move = noa::NObject<UIMove>::Create(image);
+	//UIMove* move = noa::NObject<UIMove>::Create(image);
 
 	return container;
 

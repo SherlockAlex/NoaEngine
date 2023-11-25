@@ -45,6 +45,7 @@ void MainMenuDelegate::OnLoad(noa::Scene* scene)
 	noa::UIContainer* secondContainer = noa::UIContainer::Create(document)
 		->SetLocalPosition(noa::Screen::width / 2, noa::Screen::height / 2)
 		.SetID("second_container")
+		.SetAnchor(0.5f,0.5f)
 		.Apply();
 
 	noa::Image* backgroundImage = noa::Image::Create(mainContainer)
@@ -103,7 +104,8 @@ void MainMenuDelegate::OnLoad(noa::Scene* scene)
 		.AddClickCallback(BackButtonClick)
 		.Apply();
 
-	noa::ScrollBar* processBar = noa::ScrollBar::Create(secondContainer)
+	noa::ScrollBar* processBar = 
+		noa::ScrollBar::Create(secondContainer)
 		->SetSize(360,10)
 		.SetID("process_bar")
 		.SetAmount(0.5f)
@@ -111,8 +113,8 @@ void MainMenuDelegate::OnLoad(noa::Scene* scene)
 		.SetFillColor(noa::RGBA(255,255,255,255))
 		.SetRadius(50)
 		.SetInteractable(true)
-		.SetFinishedCallback(ProcessBarFinishedAction)
 		.SetActiveScale(2.0f)
+		.SetFinishedCallback(ProcessBarFinishedAction)
 		.Apply();
 }
 
