@@ -16,10 +16,7 @@ noa::ActorComponent::~ActorComponent()
 void noa::ActorComponent::Delete(ActorComponent*& ptr)
 {
 	delete this;
-	if (ptr!=nullptr) 
-	{
-		ptr = nullptr;
-	}
+	ptr = nullptr;
 	
 }
 
@@ -30,7 +27,7 @@ void noa::ActorComponent::SetActive(bool value)
 		return;
 	}
 	active = value;
-	if (value)
+	if (active)
 	{
 		OnEnable();
 		return;

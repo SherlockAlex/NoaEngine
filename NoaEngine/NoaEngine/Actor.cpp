@@ -7,14 +7,9 @@
 
 noa::Actor::Actor(noa::Scene* activeScene)
 {
-	if (activeScene == nullptr) 
-	{
-		Debug::Error("Actor's scene is nullptr");
-		exit(-1);
-	}
 	this->activeScene = activeScene;
-
 	activeScene->AddActor(this);
+	this->components.reserve(50);
 }
 
 noa::Actor::~Actor()

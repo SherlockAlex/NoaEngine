@@ -35,13 +35,7 @@ void noa::ScrollBar::Start() {
 
 void noa::ScrollBar::Update()
 {
-
-	//这边是UIBody::Update
 	noa::UIBody::OnUpdate();
-	
-
-	//交互
-	//获取鼠标的位置和自己当前的global位置
 
 	if (interactable
 		&& Input::GetMouseKeyHold(noa::MouseButton::LEFT_BUTTON))
