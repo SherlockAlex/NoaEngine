@@ -18,6 +18,8 @@ namespace noa {
 	public:
 		static Camera2D* Create(noa::Scene* scene);
 
+		Camera2D& SetSmooth(float value);
+		Camera2D& SetFollow(Actor* actor);
 		Camera2D& SetBoundary(bool value);
 		Camera2D& SetHorizonalBoundary(float min,float max);
 		Camera2D& SetVerticalBoundary(float min,float max);
@@ -27,6 +29,8 @@ namespace noa {
 		Vector<float> ScreenPointToWorld(double x, double y);
 
 	private:
+		Actor* follow = nullptr;
+		
 		Vector<float> worldGrid;
 		Vector<float> offset;
 		Vector<float> anchor;
@@ -35,10 +39,10 @@ namespace noa {
 		Vector<float> horizonalBoundary;
 		Vector<float> verticalBoundary;
 		bool boundary = false;
+
+		float smooth = 1.0f;
+
 	};
 }
 
 #endif // !NOAENGINE_CAMERA2D_H
-
-
-

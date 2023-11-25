@@ -73,7 +73,7 @@ void noa::SDLRenderer::DrawTexture(
 
 void noa::SDLRenderer::Clear()
 {
-
+	SDL_RenderClear(sdlRenderer);
 }
 
 void noa::SDLRenderer::CreateContext(uint32_t windowID)
@@ -97,5 +97,5 @@ void noa::SDLRenderer::Present(uint32_t windowID)
 {
 	
 	SDL_RenderPresent(sdlRenderer);
-	SDL_RenderClear(sdlRenderer);
+	
 }

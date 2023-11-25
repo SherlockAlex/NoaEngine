@@ -7,14 +7,19 @@
 namespace noa {
 	class UIContainer;
 
-	class UIDocument
+	class UIDocument: public ActorComponent
 	{
+	private:
+		ACTOR_COMPONENT(UIDocumentComponent)
 	protected:
-		UIDocument();
+		UIDocument(noa::Actor* actor);
 		virtual ~UIDocument();
 	public:
 
-		void SetID(const std::string& id);
+		static UIDocument* Create(noa::Actor* actor);
+
+		UIDocument& SetID(const std::string& id);
+		UIDocument* Apply();
 
 		void Display(size_t index);
 		void Display(const std::string& id);
@@ -43,9 +48,9 @@ namespace noa {
 	private:
 		void AddUIContainer(UIContainer* container);
 	protected:
-		void UIDocumentStart();
-		void UIDocumentUpdate();
-		void UIDocumentRender();
+		void Start() override;
+		void Update() override;
+		void Render() override;
 	private:
 		friend class UIContainer;
 		friend class UIHub;
@@ -57,44 +62,6 @@ namespace noa {
 
 	};
 
-
-	class UIDocumentActor final : public Actor, public UIDocument
-	{
-	private:
-		NOBJECT(UIDocumentActor)
-	private:
-		UIDocumentActor(Scene* scene);
-		~UIDocumentActor() override;
-	public:
-		static UIDocumentActor* Create(Scene* scene);
-
-		void Start() override;
-		void Update() override;
-		void Render() override;
-		UIDocumentActor& SetActorTag(const std::string& tag);
-		UIDocumentActor& SetID(const std::string& id);
-		UIDocumentActor* Apply();
-
-	};
-
-	class UIDocumentComponent final : public ActorComponent, public UIDocument
-	{
-	private:
-		NOBJECT(UIDocumentComponent)
-	private:
-		UIDocumentComponent(Actor* actor);
-		~UIDocumentComponent() override;
-	public:
-		static UIDocumentComponent* Create(Actor* actor);
-
-		UIDocumentComponent& SetID(const std::string& id);
-		UIDocumentComponent* Apply();
-
-		void Start() override;
-		void Update() override;
-		void Render() override;
-
-	};
 }
 
 #endif // NOAENGINE_UIDOCUMENT_H

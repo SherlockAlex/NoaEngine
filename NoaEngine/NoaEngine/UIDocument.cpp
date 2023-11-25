@@ -2,7 +2,9 @@
 #include "UIContainer.h"
 #include "UIHub.h"
 
-noa::UIDocument::UIDocument() {
+noa::UIDocument::UIDocument(noa::Actor* actor)
+	:noa::ActorComponent(actor)
+{
 	noa::UIHub::documents.push_back(this);
 }
 
@@ -30,9 +32,24 @@ void noa::UIDocument::AddUIContainer(UIContainer* container)
 
 }
 
-void noa::UIDocument::SetID(const std::string& id)
+noa::UIDocument* noa::UIDocument::Create(noa::Actor* actor)
+{
+	if (actor == nullptr) 
+	{
+		noa::Debug::Error("create UIDocument failed");
+		return nullptr;
+	}
+	return noa::NObject<noa::UIDocument>::Create(actor);
+}
+
+noa::UIDocument& noa::UIDocument::SetID(const std::string& id)
 {
 	this->id = id;
+	return *this;
+}
+
+noa::UIDocument* noa::UIDocument::Apply() {
+	return this;
 }
 
 void noa::UIDocument::Display(size_t index)
@@ -74,11 +91,17 @@ void noa::UIDocument::Close() {
 	containerStack.pop();
 }
 
-void noa::UIDocument::UIDocumentStart() {
-
+void noa::UIDocument::Start() {
+	for (auto& container:containerList) 
+	{
+		if (container) 
+		{
+			container->Start();
+		}
+	}
 }
 
-void noa::UIDocument::UIDocumentUpdate()
+void noa::UIDocument::Update()
 {
 	if (containerStack.empty())
 	{
@@ -93,7 +116,7 @@ void noa::UIDocument::UIDocumentUpdate()
 
 }
 
-void noa::UIDocument::UIDocumentRender() {
+void noa::UIDocument::Render() {
 	for (auto& container : containerList)
 	{
 		//越往前的越先绘制
@@ -102,89 +125,4 @@ void noa::UIDocument::UIDocumentRender() {
 			container->Render();
 		}
 	}
-}
-
-
-noa::UIDocumentActor::UIDocumentActor(Scene* scene) :Actor(scene), UIDocument()
-{
-
-}
-
-noa::UIDocumentActor::~UIDocumentActor()
-{
-
-}
-
-noa::UIDocumentActor* noa::UIDocumentActor::Create(Scene* scene)
-{
-	return noa::NObject<UIDocumentActor>::Create(scene);
-}
-
-void noa::UIDocumentActor::Start()
-{
-	UIDocument::UIDocumentStart();
-}
-
-void noa::UIDocumentActor::Update()
-{
-	UIDocument::UIDocumentUpdate();
-}
-
-void noa::UIDocumentActor::Render() {
-	UIDocument::UIDocumentRender();
-}
-
-noa::UIDocumentActor& noa::UIDocumentActor::SetActorTag(
-	const std::string& tag)
-{
-	this->tag = tag;
-	return *this;
-}
-
-noa::UIDocumentActor& noa::UIDocumentActor::SetID(
-	const std::string& id)
-{
-	noa::UIDocument::SetID(id);
-	return *this;
-}
-
-noa::UIDocumentActor* noa::UIDocumentActor::Apply() {
-	return this;
-}
-
-noa::UIDocumentComponent::UIDocumentComponent(Actor* actor) :ActorComponent(actor)
-{
-
-}
-
-noa::UIDocumentComponent::~UIDocumentComponent() {
-
-}
-
-noa::UIDocumentComponent* noa::UIDocumentComponent::Create(Actor* actor)
-{
-	return noa::NObject<UIDocumentComponent>::Create(actor);
-}
-
-noa::UIDocumentComponent& noa::UIDocumentComponent::SetID(
-	const std::string& id)
-{
-	noa::UIDocument::SetID(id);
-	return *this;
-}
-
-noa::UIDocumentComponent* noa::UIDocumentComponent::Apply() {
-	return this;
-}
-
-void noa::UIDocumentComponent::Start() {
-	UIDocument::UIDocumentStart();
-}
-
-void noa::UIDocumentComponent::Update() {
-	UIDocument::UIDocumentUpdate();
-}
-
-void noa::UIDocumentComponent::Render() {
-	UIDocument::UIDocumentRender();
 }

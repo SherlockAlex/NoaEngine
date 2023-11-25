@@ -19,22 +19,26 @@ noa::MapLayer::~MapLayer()
 
 int noa::MapLayer::GetTileID(int x, int y) const
 {
-	if (x < 0 || x >= static_cast<int>(this->w)
-		|| y < 0 || y >= static_cast<int>(this->h))
+	const int width = static_cast<int>(this->w);
+	const int height = static_cast<int>(this->h);
+	const int index = y * width + x;
+	if (index<0||index>=this->layer.size())
 	{
 		return -1;
 	}
-	return this->layer[y * this->w + x];
+	return this->layer[index];
 }
 
 void noa::MapLayer::SetTileID(int x, int y, int value)
 {
-	if (x < 0 || x >= static_cast<int>(this->w)
-		|| y < 0 || y >= static_cast<int>(this->h))
+	const int width = static_cast<int>(this->w);
+	const int height = static_cast<int>(this->h);
+	const int index = y * width + x;
+	if (index < 0 || index >= this->layer.size())
 	{
 		return;
 	}
-	this->layer[y * this->w + x] = value;
+	this->layer[index] = value;
 }
 
 

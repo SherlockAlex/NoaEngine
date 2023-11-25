@@ -22,6 +22,15 @@ void noa::Camera2D::Awake() {
 
 void noa::Camera2D::Update() {
 	//offset表示的是屏幕左上方是世界坐标的什么位置
+
+	if (follow!=nullptr) 
+	{
+		transform.position.x = 
+			noa::Math::LinearLerp(transform.position.x,follow->transform.position.x,smooth*20.0f);
+		transform.position.y =
+			noa::Math::LinearLerp(transform.position.y, follow->transform.position.y, smooth *20.0f);
+	}
+
 	offset.x = transform.position.x 
 		- anchor.x * worldGrid.x + 0.5f;
 	offset.y = transform.position.y 
@@ -64,8 +73,6 @@ void noa::Camera2D::Update() {
 void noa::Camera2D::Render() {
 	//绘制屏幕信息
 
-	//actorsInScreen.resize(Screen::width * Screen::height, nullptr);
-
 	for (auto& instance:spriteRendererInstances) 
 	{
 		if (instance.actor == nullptr)
@@ -99,6 +106,18 @@ void noa::Camera2D::Render() {
 noa::Camera2D* noa::Camera2D::Create(noa::Scene* scene)
 {
 	return noa::NObject<noa::Camera2D>::Create(scene);
+}
+
+noa::Camera2D& noa::Camera2D::SetSmooth(float value)
+{
+	this->smooth = value;
+	return *this;
+}
+
+noa::Camera2D& noa::Camera2D::SetFollow(Actor* follow)
+{
+	this->follow = follow;
+	return *this;
 }
 
 noa::Camera2D& noa::Camera2D::SetBoundary(bool value)

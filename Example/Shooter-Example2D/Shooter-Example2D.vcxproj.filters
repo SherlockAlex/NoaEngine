@@ -234,6 +234,15 @@
     <ClCompile Include="..\..\NoaEngine\NoaEngine\SceneManager.cpp">
       <Filter>头文件\Engine</Filter>
     </ClCompile>
+    <ClCompile Include="GameUI.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="MainMenuUI.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="GameMenu.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h">
@@ -469,6 +478,15 @@
     </ClInclude>
     <ClInclude Include="..\..\NoaEngine\NoaEngine\SceneManager.h">
       <Filter>头文件\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="GameUI.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="MainMenuUI.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="GameMenu.h">
+      <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

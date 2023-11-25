@@ -34,7 +34,6 @@ namespace noa {
 		Camera(Scene* scene);
 		virtual ~Camera();
 	protected:
-
 		virtual void Render() = 0;
 	};
 
