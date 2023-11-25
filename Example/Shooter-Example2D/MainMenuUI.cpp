@@ -20,7 +20,7 @@ void MainMenuUI::Start() {
 	document->Display(mainContainer);
 
 	noa::UIContainer* secondContainer = noa::UIContainer::Create(document)
-		->SetLocalPosition(noa::Screen::width / 2, noa::Screen::height / 2)
+		->SetLocalPosition(noa::Screen::width, noa::Screen::height)
 		.SetID("second_container")
 		.SetAnchor(0.5f,0.5f)
 		.Apply();
@@ -65,7 +65,7 @@ void MainMenuUI::Start() {
 		.AddClickCallback(noa::Application::Quit)
 		.Apply();
 
-	/*noa::Image* backgroundImage1 = noa::Image::Create(secondContainer)
+	noa::Image* backgroundImage1 = noa::Image::Create(secondContainer)
 		->SetSize(noa::Screen::width / 1.5, noa::Screen::height / 1.5)
 		.SetSprite(&ResourceManager::backgroundImage1)
 		.SetStyle(noa::ImageStyle::DEFAULT)
@@ -78,7 +78,7 @@ void MainMenuUI::Start() {
 		.SetAnchor(0.5f,0.5f)
 		.SetRadius(50)
 		.SetTextOffset(0.0f,0.0f)
-		.AddClickCallback(BackButtonClick)
+		//.AddClickCallback(BackButtonClick)
 		.Apply();
 
 	noa::ScrollBar* processBar =
@@ -91,8 +91,8 @@ void MainMenuUI::Start() {
 		.SetRadius(50)
 		.SetInteractable(true)
 		.SetActiveScale(2.0f)
-		.SetFinishedCallback(ProcessBarFinishedAction)
-		.Apply();*/
+		//.SetFinishedCallback(ProcessBarFinishedAction)
+		.Apply();
 }
 
 void MainMenuUI::Update() {
