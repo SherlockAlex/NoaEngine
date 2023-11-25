@@ -21,18 +21,16 @@
 #include <mutex>
 #include <queue>
 
-using namespace std;
-
 namespace noa {
 
 #if defined(_WIN64) || defined(_WIN32)
-	static shared_ptr<Platform> platform = make_shared<Platform_Windows>();
-	shared_ptr<AudioSystem> audioSystem = make_shared<AudioSystem_SDL>();
-	shared_ptr<Renderer> renderer = nullptr;
+	std::shared_ptr<Platform> platform = std::make_shared<Platform_Windows>();
+	std::shared_ptr<AudioSystem> audioSystem = std::make_shared<AudioSystem_SDL>();
+	std::shared_ptr<Renderer> renderer = nullptr;
 #elif defined(__linux__)
-	static shared_ptr<Platform> platform = make_shared<Platform_Linux>();
-	shared_ptr<AudioSystem> audioSystem = make_shared<AudioSystem_SDL>();
-	shared_ptr<Renderer> renderer = nullptr;
+	std::shared_ptr<Platform> platform = std::make_shared<Platform_Linux>();
+	std::shared_ptr<AudioSystem> audioSystem = std::make_shared<AudioSystem_SDL>();
+	std::shared_ptr<Renderer> renderer = nullptr;
 #endif
 
 	std::vector<std::vector<SpriteGPUInstance>> rendererInstanceLayer;
@@ -53,20 +51,20 @@ noa::NoaEngine::NoaEngine(
 	switch (graphics)
 	{
 	case noa::GraphicsAPI::SDL2:
-		renderer = make_shared<SDLRenderer>();
+		renderer = std::make_shared<SDLRenderer>();
 		break;
 	case noa::GraphicsAPI::OPENGL:
-		renderer = make_shared<GLRenderer>();
+		renderer = std::make_shared<GLRenderer>();
 		break;
 	default:
-		renderer = make_shared<SDLRenderer>();
+		renderer = std::make_shared<SDLRenderer>();
 		break;
 	}
 
 	renderer->SetRenderer(width, height);
 	platform->Create(width, height, windowMode, gameName);
 	windowID = platform->GetWindowID();
-	renderer->SetContext(windowID);
+	renderer->CreateContext(windowID);
 	renderer->InitRenderer();
 	renderer->InitFontAsset();
 	Input::InitInputSystem(platform->GetPlatformEvent());

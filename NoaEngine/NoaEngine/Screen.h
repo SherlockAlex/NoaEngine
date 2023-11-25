@@ -11,7 +11,6 @@ namespace noa {
 	public:
 		static int width;
 		static int height;
-		static Vector<int> hardwareScreenScale;
 	private:
 		static uint32_t * pixelBuffer;
 	};

@@ -103,7 +103,7 @@ void MainMenuDelegate::OnLoad(noa::Scene* scene)
 		.AddClickCallback(BackButtonClick)
 		.Apply();
 
-	noa::ProcessBar* processBar = noa::ProcessBar::Create(secondContainer)
+	noa::ScrollBar* processBar = noa::ScrollBar::Create(secondContainer)
 		->SetSize(360,10)
 		.SetID("process_bar")
 		.SetAmount(0.5f)

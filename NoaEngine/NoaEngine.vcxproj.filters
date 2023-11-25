@@ -210,13 +210,13 @@
     <ClInclude Include="NoaEngine\UIButton.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="NoaEngine\UIProcessBar.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="NoaEngine\UIBody.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="NoaEngine\UIScript.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="NoaEngine\UIScrollBar.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
@@ -389,13 +389,13 @@
     <ClCompile Include="NoaEngine\UIButton.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="NoaEngine\UIProcessBar.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="NoaEngine\UIBody.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="NoaEngine\UIScript.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="NoaEngine\UIScrollBar.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

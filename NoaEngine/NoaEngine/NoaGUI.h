@@ -9,7 +9,7 @@
 #include "UILabel.h"
 #include "UIImage.h"
 #include "UIButton.h"
-#include "UIProcessBar.h"
+#include "UIScrollBar.h"
 
 #include "UIScript.h"
 

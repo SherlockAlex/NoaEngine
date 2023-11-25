@@ -187,8 +187,8 @@
     <ClCompile Include="..\..\NoaEngine\NoaEngine\UIHub.cpp" />
     <ClCompile Include="..\..\NoaEngine\NoaEngine\UIImage.cpp" />
     <ClCompile Include="..\..\NoaEngine\NoaEngine\UILabel.cpp" />
-    <ClCompile Include="..\..\NoaEngine\NoaEngine\UIProcessBar.cpp" />
     <ClCompile Include="..\..\NoaEngine\NoaEngine\UIScript.cpp" />
+    <ClCompile Include="..\..\NoaEngine\NoaEngine\UIScrollBar.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="BulletFactory.cpp" />
     <ClCompile Include="BulletPool.cpp" />
@@ -266,8 +266,8 @@
     <ClInclude Include="..\..\NoaEngine\NoaEngine\UIHub.h" />
     <ClInclude Include="..\..\NoaEngine\NoaEngine\UIImage.h" />
     <ClInclude Include="..\..\NoaEngine\NoaEngine\UILabel.h" />
-    <ClInclude Include="..\..\NoaEngine\NoaEngine\UIProcessBar.h" />
     <ClInclude Include="..\..\NoaEngine\NoaEngine\UIScript.h" />
+    <ClInclude Include="..\..\NoaEngine\NoaEngine\UIScrollBar.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="BulletFactory.h" />
     <ClInclude Include="BulletPool.h" />

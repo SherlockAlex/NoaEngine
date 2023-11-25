@@ -3,8 +3,8 @@
 #include "EditorCamera.h"
 #include "UIMove.h"
 
-void GUIBehaviour(noa::UIDocument* document);
 
+void GUIBehaviour(noa::UIDocument* document);
 void CloseWindow();
 
 void InitGUI(noa::Scene* scene)
@@ -50,8 +50,8 @@ void InitGUI(noa::Scene* scene)
 		.SetColor(noa::WHITE)
 		.Apply();
 
-	noa::ProcessBar* processBar =
-		noa::ProcessBar::Create(subContainer)
+	noa::ScrollBar* processBar =
+		noa::ScrollBar::Create(subContainer)
 		->SetSize(240,10)
 		.SetID("process_bar")
 		.SetBackgroundColor(noa::RGBA(255,255,255,255))
@@ -59,6 +59,7 @@ void InitGUI(noa::Scene* scene)
 		.SetLocalPosition(-50,75)
 		.SetAnchor(0.0f,0.5f)
 		.SetRadius(50)
+		.SetActiveScale(5)
 		.Apply();
 
 	noa::Label* processName =
@@ -122,12 +123,13 @@ void noa::EditorSceneDelegate::OnLoad(noa::Scene* scene)
 		.Apply();
 
 	InitGUI(scene);
-
+	
 }
 
 void noa::EditorSceneDelegate::OnTick(noa::Scene* scene)
 {
-
+	noa::UIDocument* document = noa::UIHub::GetDocumentByID("editor_document");
+	GUIBehaviour(document);
 }
 
 void GUIBehaviour(noa::UIDocument* document) {
@@ -156,8 +158,8 @@ void GUIBehaviour(noa::UIDocument* document) {
 			+ std::to_wstring(1.0f / noa::Time::realDeltaTime));
 	}
 
-	noa::ProcessBar* processBar =
-		document->GetElementByID<noa::ProcessBar>("process_bar");
+	noa::ScrollBar* processBar =
+		document->GetElementByID<noa::ScrollBar>("process_bar");
 	noa::Label* processName =
 		document->GetElementByID<noa::Label>("process_name_label");
 	const std::wstring processInfo = L"ÒôÁ¿("
@@ -166,6 +168,7 @@ void GUIBehaviour(noa::UIDocument* document) {
 		)
 		+ L"%):";
 	processName->SetText(processInfo);
+
 }
 
 void CloseWindow() {
@@ -176,3 +179,4 @@ void CloseWindow() {
 	container->SetVisiable(false);
 	noa::Debug::Log("close window");
 }
+

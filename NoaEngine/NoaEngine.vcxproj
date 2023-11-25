@@ -190,7 +190,6 @@
     <ClInclude Include="NoaEngine\NoaMath.h" />
     <ClInclude Include="NoaEngine\Physics.h" />
     <ClInclude Include="NoaEngine\ObjectPool.h" />
-    <ClInclude Include="NoaEngine\UIProcessBar.h" />
     <ClInclude Include="NoaEngine\Queue.h" />
     <ClInclude Include="NoaEngine\Renderer.h" />
     <ClInclude Include="NoaEngine\Resource.h" />
@@ -225,6 +224,7 @@
     <ClInclude Include="NoaEngine\UIDocument.h" />
     <ClInclude Include="NoaEngine\UIHub.h" />
     <ClInclude Include="NoaEngine\UIScript.h" />
+    <ClInclude Include="NoaEngine\UIScrollBar.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="NoaEngine\UIBody.cpp" />
@@ -256,7 +256,6 @@
     <ClCompile Include="NoaEngine\NoaGUI.cpp" />
     <ClCompile Include="NoaEngine\NoaMath.cpp" />
     <ClCompile Include="NoaEngine\Physics.cpp" />
-    <ClCompile Include="NoaEngine\UIProcessBar.cpp" />
     <ClCompile Include="NoaEngine\Renderer.cpp" />
     <ClCompile Include="NoaEngine\Resource.cpp" />
     <ClCompile Include="NoaEngine\Scene.cpp" />
@@ -286,6 +285,7 @@
     <ClCompile Include="NoaEngine\UIDocument.cpp" />
     <ClCompile Include="NoaEngine\UIHub.cpp" />
     <ClCompile Include="NoaEngine\UIScript.cpp" />
+    <ClCompile Include="NoaEngine\UIScrollBar.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

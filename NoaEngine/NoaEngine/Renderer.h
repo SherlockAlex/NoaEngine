@@ -52,7 +52,8 @@ namespace noa {
 		virtual Texture* CreateTexture(int w, int h, void* pixelBuffer) = 0;
 		virtual void DrawTexture(Texture* texture, int index, int x, int y, int w, int h, unsigned int tint, float eulerAngle, bool isFlipX) = 0;
 		virtual void Clear() = 0;
-		virtual void SetContext(uint32_t windowID) = 0;
+		virtual void CreateContext(uint32_t windowID) = 0;
+		virtual void* GetContext() = 0;
 		virtual void Present(uint32_t windowID) = 0;
 
 	};

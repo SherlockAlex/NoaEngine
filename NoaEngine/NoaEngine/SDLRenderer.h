@@ -23,7 +23,8 @@ namespace noa {
 			, float eulerAngle
 			, bool isFlipX) override;
 		void Clear() override;
-		void SetContext(uint32_t windowID) override;
+		void CreateContext(uint32_t windowID) override;
+		void* GetContext() override;
 		void Present(uint32_t windows) override;
 
 	private:

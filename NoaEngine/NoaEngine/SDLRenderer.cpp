@@ -39,8 +39,8 @@ void noa::SDLRenderer::DrawTexture(
 		return;
 	}
 
-	SDL_Rect srcRect;
-	SDL_Rect dstRect;
+	SDL_Rect srcRect = {};
+	SDL_Rect dstRect = {};
 
 	srcRect.x = 0;
 	srcRect.y = 0;
@@ -76,7 +76,7 @@ void noa::SDLRenderer::Clear()
 
 }
 
-void noa::SDLRenderer::SetContext(uint32_t windowID)
+void noa::SDLRenderer::CreateContext(uint32_t windowID)
 {
 	SDL_Window* window = SDL_GetWindowFromID(windowID);
 	if (window == nullptr)
@@ -87,6 +87,10 @@ void noa::SDLRenderer::SetContext(uint32_t windowID)
 	//创建一个SDLRenderer
 	sdlRenderer = SDL_CreateRenderer(window,-1,SDL_RENDERER_ACCELERATED);
 	SDL_SetRenderDrawBlendMode(sdlRenderer, SDL_BLENDMODE_BLEND);
+}
+
+void* noa::SDLRenderer::GetContext() {
+	return this->sdlRenderer;
 }
 
 void noa::SDLRenderer::Present(uint32_t windowID)

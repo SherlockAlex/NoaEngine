@@ -75,6 +75,8 @@ namespace noa {
 		virtual void SetRelativeMouseMode(bool mode) = 0;
 	};
 
+	extern std::shared_ptr<noa::Platform> platform;
+
 }
 
 

@@ -114,7 +114,7 @@ void noa::GLRenderer::DrawTexture(
 
 }
 
-void noa::GLRenderer::SetContext(uint32_t windowID)
+void noa::GLRenderer::CreateContext(uint32_t windowID)
 {
     SDL_Window* window = SDL_GetWindowFromID(windowID);
     if (window == nullptr) 
@@ -129,6 +129,10 @@ void noa::GLRenderer::SetContext(uint32_t windowID)
         exit(-1);
     }
     SDL_GL_SetSwapInterval(0);
+}
+
+void* noa::GLRenderer::GetContext() {
+    return this->context;
 }
 
 void noa::GLRenderer::Present(uint32_t windowID)

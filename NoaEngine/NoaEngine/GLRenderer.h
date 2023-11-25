@@ -33,7 +33,8 @@ namespace noa {
 			, unsigned int tint
 			, float eulerAngle
 			, bool isFlipX) override;
-		void SetContext(uint32_t windows) override;
+		void CreateContext(uint32_t windows) override;
+		void* GetContext() override;
 		void Present(uint32_t windows) override;
 
 	private:

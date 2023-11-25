@@ -57,8 +57,8 @@ void InitGameUI(noa::Scene* scene)
 		->SetLocalPosition(0,0)
 		.Apply();
 
-	noa::ProcessBar* hpBar =
-		noa::ProcessBar::Create(container)
+	noa::ScrollBar* hpBar =
+		noa::ScrollBar::Create(container)
 		->SetAnchor(0.0f,0.0f)
 		.SetID("hp_bar")
 		.SetFillColor(noa::RGBA(255,0,0,255))
@@ -110,6 +110,9 @@ void GameDelegate::OnLoad(noa::Scene* scene)
 	camera = noa::Camera2D::Create(scene)
 		->SetFar(32.0f)
 		.SetAnchor(0.5f,0.5f)
+		.SetBoundary(true)
+		.SetHorizonalBoundary(0, mapInfo.w)
+		.SetVerticalBoundary(0,mapInfo.h)
 		.Apply();
 	player->camera = camera;
 
@@ -169,8 +172,8 @@ void GameDelegate::OnTick(noa::Scene* scene)
 
 	if (ui_document) 
 	{
-		noa::ProcessBar* hpBar =
-			ui_document->GetElementByID<noa::ProcessBar>("hp_bar");
+		noa::ScrollBar* hpBar =
+			ui_document->GetElementByID<noa::ScrollBar>("hp_bar");
 
 		if (hpBar)
 		{
@@ -180,7 +183,7 @@ void GameDelegate::OnTick(noa::Scene* scene)
 
 	}
 
-	if (i<500) 
+	/*if (i<500) 
 	{
 		noa::TileMap* map = noa::sceneManager.FindActorWithType<noa::TileMap>();
 		Test* test = noa::NObject<Test>::Create(scene);
@@ -188,7 +191,7 @@ void GameDelegate::OnTick(noa::Scene* scene)
 		test->rigid->velocity = { 70,0 };
 		test->tileCollider->SetTileMap(map);
 		i++;
-	}
+	}*/
 	//
 
 	//if (camera == nullptr)

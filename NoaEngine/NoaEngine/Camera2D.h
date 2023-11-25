@@ -18,17 +18,23 @@ namespace noa {
 	public:
 		static Camera2D* Create(noa::Scene* scene);
 
+		Camera2D& SetBoundary(bool value);
+		Camera2D& SetHorizonalBoundary(float min,float max);
+		Camera2D& SetVerticalBoundary(float min,float max);
 		Camera2D& SetFar(float value);
 		Camera2D& SetAnchor(float x,float y);
 		Camera2D* Apply();
 		Vector<float> ScreenPointToWorld(double x, double y);
 
 	private:
-		std::vector<Actor*> actorsInScreen;
 		Vector<float> worldGrid;
 		Vector<float> offset;
 		Vector<float> anchor;
 		float far = 32.0f;//比例尺，表示32个单位像素表示一个单位的世界坐标
+		
+		Vector<float> horizonalBoundary;
+		Vector<float> verticalBoundary;
+		bool boundary = false;
 	};
 }
 

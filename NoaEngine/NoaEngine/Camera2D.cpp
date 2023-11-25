@@ -26,6 +26,39 @@ void noa::Camera2D::Update() {
 		- anchor.x * worldGrid.x + 0.5f;
 	offset.y = transform.position.y 
 		- anchor.y * worldGrid.y + 0.5f;
+
+	if (!boundary)
+	{
+		return;
+	}
+
+	//设置相机边界
+	if (horizonalBoundary.y-horizonalBoundary.x>=worldGrid.x) 
+	{
+		if (offset.x <= horizonalBoundary.x)
+		{
+			offset.x = horizonalBoundary.x;
+		}
+		else if (offset.x >= horizonalBoundary.y - worldGrid.x)
+		{
+			offset.x = horizonalBoundary.y - worldGrid.x;
+		}
+	}
+	
+	if (verticalBoundary.y - verticalBoundary.x >= worldGrid.y) 
+	{
+		if (offset.y <= verticalBoundary.x)
+		{
+			offset.y = verticalBoundary.x;
+		}
+		else if (offset.y >= verticalBoundary.y - worldGrid.y)
+		{
+			offset.y = verticalBoundary.y - worldGrid.y;
+		}
+
+	}
+	
+
 }
 
 void noa::Camera2D::Render() {
@@ -66,6 +99,26 @@ void noa::Camera2D::Render() {
 noa::Camera2D* noa::Camera2D::Create(noa::Scene* scene)
 {
 	return noa::NObject<noa::Camera2D>::Create(scene);
+}
+
+noa::Camera2D& noa::Camera2D::SetBoundary(bool value)
+{
+	this->boundary = value;
+	return *this;
+}
+
+noa::Camera2D& noa::Camera2D::SetHorizonalBoundary(float min, float max)
+{
+	this->horizonalBoundary.x = min;
+	this->horizonalBoundary.y = max;
+	return *this;
+}
+
+noa::Camera2D& noa::Camera2D::SetVerticalBoundary(float min,float max)
+{
+	this->verticalBoundary.x = min;
+	this->verticalBoundary.y = max;
+	return *this;
 }
 
 noa::Camera2D& noa::Camera2D::SetFar(float value) 
