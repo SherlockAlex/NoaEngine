@@ -21,7 +21,6 @@ namespace noa {
 	//平台抽象类
 	class Platform {
 	public:
-
 		Platform();
 		virtual ~Platform();
 		virtual int Create(int width, int height,
@@ -42,24 +41,32 @@ namespace noa {
 
 	enum class KeyCode; // 前置声明
 	struct MouseContext;
+	struct KeyboardContext;
 	// 平台输入事件类的抽象
 	class InputEvent
 	{
 	private:
 		friend class Input;
-	protected:
-		std::shared_ptr<MouseContext> mouseContext = nullptr;
+	
 	public:
 		InputEvent();
 		virtual ~InputEvent();
 
-		virtual bool GetKeyHold(noa::KeyCode key) = 0;
 		virtual bool GetKeyDown(noa::KeyCode key) = 0;
+		virtual bool GetKeyUp(noa::KeyCode key) = 0;
 
 		virtual void PollEvent(const std::function<void()> & quitCallback) = 0;
+		
+		virtual void ResetKeyboardContext() = 0;
+		virtual void UpdateKeyboardContext() = 0;
+
 		virtual void ResetMouseContext() = 0;
 		virtual void UpdateMouseContext() = 0;
+		
 		virtual void SetRelativeMouseMode(bool mode) = 0;
+	protected:
+		std::shared_ptr<MouseContext> mouseContext = nullptr;
+		std::shared_ptr<KeyboardContext> keyboardContext = nullptr;
 	};
 
 	extern std::shared_ptr<noa::Platform> platform;

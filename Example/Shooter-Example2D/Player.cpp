@@ -22,29 +22,29 @@ void Player::Update()
 {
 	rigid->velocity.x = noa::Math::LinearLerp(rigid->velocity.x,0,50);
 	
-	if (noa::Input::GetKeyHold(noa::KeyCode::KEY_SPACE)) 
+	if (noa::Input::GetKeyDown(noa::KeyCode::KEY_SPACE)) 
 	{
 		rigid->velocity.y = -15.0f;
 	}
 
-	if (noa::Input::GetKeyHold(noa::KeyCode::KEY_A))
+	if (noa::Input::GetKeyDown(noa::KeyCode::KEY_A))
 	{
 		rigid->velocity.x = -15;
 		spriteRenderer->isFlip.x = true;
 	}
 
-	if (noa::Input::GetKeyHold(noa::KeyCode::KEY_D))
+	if (noa::Input::GetKeyDown(noa::KeyCode::KEY_D))
 	{
 		rigid->velocity.x = 15;
 		spriteRenderer->isFlip.x = false;
 	}
 
-	if (noa::Input::GetKeyDown(noa::KeyCode::KEY_K)) 
+	if (noa::Input::GetKeyUp(noa::KeyCode::KEY_K)) 
 	{
 		this->hp = hp - 1;
 	}
 
-	if (noa::Input::GetMouseKeyHold(noa::MouseButton::RIGHT_BUTTON))
+	if (noa::Input::GetMouseKeyDown(noa::MouseButton::RIGHT_BUTTON))
 	{
 		this->transform.eulerAngle += 10*noa::Time::deltaTime;
 	}

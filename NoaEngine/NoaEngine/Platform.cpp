@@ -33,6 +33,7 @@ uint32_t noa::Platform::GetWindowID()
 noa::InputEvent::InputEvent()
 {
 	this->mouseContext = std::make_shared<MouseContext>();
+	this->keyboardContext = std::make_shared<KeyboardContext>();
 }
 
 noa::InputEvent::~InputEvent() {

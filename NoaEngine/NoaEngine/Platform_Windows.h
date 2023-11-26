@@ -29,11 +29,16 @@ namespace noa {
 		InputEvent_Windows();
 		~InputEvent_Windows();
 
-		bool GetKeyHold(KeyCode key) override;
 		bool GetKeyDown(KeyCode key) override;
+		bool GetKeyUp(KeyCode key) override;
 		void PollEvent(const std::function<void()>& quitCallback) override;
+		
+		void ResetKeyboardContext() override;
+		void UpdateKeyboardContext() override;
+		
 		void ResetMouseContext() override;
 		void UpdateMouseContext() override;
+		
 		void SetRelativeMouseMode(bool mode) override;
 	};
 

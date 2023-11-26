@@ -39,7 +39,7 @@ void noa::ScrollBar::Update()
 	noa::UIBody::OnUpdate();
 
 	if (interactable
-		&& Input::GetMouseKeyHold(noa::MouseButton::LEFT_BUTTON))
+		&& Input::GetMouseKeyDown(noa::MouseButton::LEFT_BUTTON))
 	{
 		Vector<double> mousePos 
 			= Input::GetMousePosition();

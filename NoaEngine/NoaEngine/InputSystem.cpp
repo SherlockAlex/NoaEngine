@@ -8,6 +8,76 @@ using namespace std;
 
 std::shared_ptr<noa::InputEvent> noa::Input::e = nullptr;
 
+noa::KeyboardContext::KeyboardContext() 
+{
+	this->keyMap[KeyCode::KEY_0] = { false,false };
+	this->keyMap[KeyCode::KEY_1] = { false,false };
+	this->keyMap[KeyCode::KEY_2] = { false,false };
+	this->keyMap[KeyCode::KEY_3] = { false,false };
+	this->keyMap[KeyCode::KEY_4] = { false,false };
+	this->keyMap[KeyCode::KEY_5] = { false,false };
+	this->keyMap[KeyCode::KEY_6] = { false,false };
+	this->keyMap[KeyCode::KEY_7] = { false,false };
+	this->keyMap[KeyCode::KEY_8] = { false,false };
+	this->keyMap[KeyCode::KEY_9] = { false,false };
+
+	this->keyMap[KeyCode::KEY_A] = { false,false };
+	this->keyMap[KeyCode::KEY_B] = { false,false };
+	this->keyMap[KeyCode::KEY_C] = { false,false };
+	this->keyMap[KeyCode::KEY_D] = { false,false };
+	this->keyMap[KeyCode::KEY_E] = { false,false };
+	this->keyMap[KeyCode::KEY_F] = { false,false };
+	this->keyMap[KeyCode::KEY_G] = { false,false };
+	this->keyMap[KeyCode::KEY_H] = { false,false };
+	this->keyMap[KeyCode::KEY_I] = { false,false };
+	this->keyMap[KeyCode::KEY_J] = { false,false };
+	this->keyMap[KeyCode::KEY_K] = { false,false };
+	this->keyMap[KeyCode::KEY_L] = { false,false };
+	this->keyMap[KeyCode::KEY_M] = { false,false };
+	this->keyMap[KeyCode::KEY_N] = { false,false };
+	this->keyMap[KeyCode::KEY_O] = { false,false };
+	this->keyMap[KeyCode::KEY_P] = { false,false };
+	this->keyMap[KeyCode::KEY_Q] = { false,false };
+	this->keyMap[KeyCode::KEY_R] = { false,false };
+	this->keyMap[KeyCode::KEY_S] = { false,false };
+	this->keyMap[KeyCode::KEY_T] = { false,false };
+	this->keyMap[KeyCode::KEY_U] = { false,false };
+	this->keyMap[KeyCode::KEY_V] = { false,false };
+	this->keyMap[KeyCode::KEY_W] = { false,false };
+	this->keyMap[KeyCode::KEY_X] = { false,false };
+	this->keyMap[KeyCode::KEY_Y] = { false,false };
+	this->keyMap[KeyCode::KEY_Z] = { false,false };
+
+	this->keyMap[KeyCode::KEY_SPACE] = { false,false };
+	
+	this->keyMap[KeyCode::KEY_ESC] = { false,false };
+	this->keyMap[KeyCode::KEY_TAB] = { false,false };
+	this->keyMap[KeyCode::KEY_CAPSLOCK] = { false,false };
+
+	this->keyMap[KeyCode::KEY_LSHIFT] = { false,false };
+	this->keyMap[KeyCode::KEY_RSHIFT] = { false,false };
+
+	this->keyMap[KeyCode::KEY_ALT] = { false,false };
+	this->keyMap[KeyCode::KEY_DEL] = { false,false };
+
+	this->keyMap[KeyCode::KEY_F1] = { false,false };
+	this->keyMap[KeyCode::KEY_F2] = { false,false };
+	this->keyMap[KeyCode::KEY_F3] = { false,false };
+	this->keyMap[KeyCode::KEY_F4] = { false,false };
+	this->keyMap[KeyCode::KEY_F5] = { false,false };
+	this->keyMap[KeyCode::KEY_F6] = { false,false };
+	this->keyMap[KeyCode::KEY_F7] = { false,false };
+	this->keyMap[KeyCode::KEY_F8] = { false,false };
+	this->keyMap[KeyCode::KEY_F9] = { false,false };
+	this->keyMap[KeyCode::KEY_F10] = { false,false };
+	this->keyMap[KeyCode::KEY_F11] = { false,false };
+	this->keyMap[KeyCode::KEY_F12] = { false,false };
+
+	this->keyMap[KeyCode::KEY_LSHIFT] = { false,false };
+	this->keyMap[KeyCode::KEY_RSHIFT] = { false,false };
+	
+}
+
 void noa::Input::InitInputSystem(std::shared_ptr<noa::InputEvent> e)
 {
 	//≥ı ºªØInputSystem
@@ -21,14 +91,14 @@ void noa::Input::InitInputSystem(std::shared_ptr<noa::InputEvent> e)
 
 }
 
-bool noa::Input::GetKeyHold(noa::KeyCode key) {
-
-	return e->GetKeyHold(key);
-}
-
 bool noa::Input::GetKeyDown(noa::KeyCode key)
 {
 	return e->GetKeyDown(key);
+}
+
+bool noa::Input::GetKeyUp(noa::KeyCode key) 
+{
+	return e->GetKeyUp(key);
 }
 
 bool noa::Input::GetMouseMoveState()
@@ -69,17 +139,13 @@ noa::Vector<double>& noa::Input::GetMouseWheel()
 
 bool noa::Input::GetMouseKeyDown(MouseButton mouseButton)
 {
-	return e->mouseContext->mouseKey[mouseButton].down;
+	return e->mouseContext->mouseKey[mouseButton].performed;
 }
 
-bool noa::Input::GetMouseKeyHold(noa::MouseButton mouseButton)
-{
-	return e->mouseContext->mouseKey[mouseButton].hold;
-}
 
 bool noa::Input::GetMouseKeyUp(MouseButton mouseButton)
 {
-	return e->mouseContext->mouseKey[mouseButton].up;
+	return e->mouseContext->mouseKey[mouseButton].canceled;
 }
 
 

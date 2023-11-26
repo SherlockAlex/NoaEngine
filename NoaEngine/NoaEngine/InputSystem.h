@@ -20,7 +20,17 @@ namespace noa {
 	//按键映射
 	enum class KeyCode
 	{
-#ifdef __linux
+		KEY_0 = SDLK_0,
+		KEY_1 = SDLK_1,
+		KEY_2 = SDLK_2,
+		KEY_3 = SDLK_3,
+		KEY_4 = SDLK_4,
+		KEY_5 = SDLK_5,
+		KEY_6 = SDLK_6,
+		KEY_7 = SDLK_7,
+		KEY_8 = SDLK_8,
+		KEY_9 = SDLK_9,
+
 		KEY_A = 'a',
 		KEY_B = 'b',
 		KEY_C = 'c',
@@ -47,47 +57,47 @@ namespace noa {
 		KEY_X = 'x',
 		KEY_Y = 'y',
 		KEY_Z = 'z',
-		KEY_SPACE = ' ',
-		KEY_ESC = XK_Escape
-#endif // __linux
-#ifdef _WIN64
-		KEY_A = 'A',
-		KEY_B = 'B',
-		KEY_C = 'C',
-		KEY_D = 'D',
-		KEY_E = 'E',
-		KEY_F = 'F',
-		KEY_G = 'G',
-		KEY_H = 'H',
-		KEY_I = 'I',
-		KEY_J = 'J',
-		KEY_K = 'K',
-		KEY_L = 'L',
-		KEY_M = 'M',
-		KEY_N = 'N',
-		KEY_O = 'O',
-		KEY_P = 'P',
-		KEY_Q = 'Q',
-		KEY_R = 'R',
-		KEY_S = 'S',
-		KEY_T = 'T',
-		KEY_U = 'U',
-		KEY_V = 'V',
-		KEY_W = 'W',
-		KEY_X = 'X',
-		KEY_Y = 'Y',
-		KEY_Z = 'Z',
-		KEY_SPACE = ' ',
-		KEY_ESC = 0x1B
-#endif // _WIN64
+
+		KEY_SPACE = 32,
+		KEY_ESC = 27,
+		KEY_TAB = 9,
+		KEY_CAPSLOCK = SDLK_CAPSLOCK,
+		
+		KEY_LCTRL = SDLK_LCTRL,
+		KEY_RCTRL = SDLK_RCTRL,
+
+		KEY_ALT = SDLK_ALTERASE,
+
+		KEY_DEL = SDLK_DELETE,
+
+		KEY_F1 = SDLK_F1,
+		KEY_F2 = SDLK_F2,
+		KEY_F3 = SDLK_F3,
+		KEY_F4 = SDLK_F4,
+		KEY_F5 = SDLK_F5,
+		KEY_F6 = SDLK_F6,
+		KEY_F7 = SDLK_F7,
+		KEY_F8 = SDLK_F8,
+		KEY_F9 = SDLK_F9,
+		KEY_F10 = SDLK_F10,
+		KEY_F11 = SDLK_F11,
+		KEY_F12 = SDLK_F12,
+		
+		KEY_LSHIFT = SDLK_LSHIFT,
+		KEY_RSHIFT = SDLK_RSHIFT,
+		
 	};
 
-	typedef struct MouseKey
+	typedef struct KeyState
 	{
-		bool down = false;
-		bool hold = false;
-		bool up = false;
-	}MouseKey;
+		bool performed = false;
+		bool canceled = false;
+	}KeyState;
+
+	typedef struct KeyboardContext {
+		std::unordered_map<noa::KeyCode, noa::KeyState> keyMap;
+		KeyboardContext();
+	}KeyboardContext;
 
 	//鼠标输入事件上下文
 	typedef struct MouseContext
@@ -96,11 +106,11 @@ namespace noa {
 		Vector<double> delta;
 		Vector<double> wheel;
 		bool motion = false;
-		std::unordered_map<noa::MouseButton, noa::MouseKey> mouseKey =
+		std::unordered_map<noa::MouseButton, noa::KeyState> mouseKey =
 		{
-			{noa::MouseButton::LEFT_BUTTON,{false,false,false}},
-			{noa::MouseButton::MIDDLE_BUTTON,{false,false,false}},
-			{noa::MouseButton::RIGHT_BUTTON,{false,false,false}},
+			{noa::MouseButton::LEFT_BUTTON,{false,false}},
+			{noa::MouseButton::MIDDLE_BUTTON,{false,false}},
+			{noa::MouseButton::RIGHT_BUTTON,{false,false}},
 		};
 
 	}MouseContext;
@@ -114,12 +124,11 @@ namespace noa {
 
 		static void InitInputSystem(std::shared_ptr<InputEvent> e);
 
-		static bool GetKeyHold(KeyCode key);
 		static bool GetKeyDown(KeyCode key);
-		static bool GetMouseMoveState();
+		static bool GetKeyUp(KeyCode key);
 
+		static bool GetMouseMoveState();
 		static bool GetMouseKeyDown(MouseButton mouseButton);
-		static bool GetMouseKeyHold(MouseButton mouseButton);
 		static bool GetMouseKeyUp(MouseButton mouseButton);
 
 		static void SetRelativeMouseMode(bool mode);

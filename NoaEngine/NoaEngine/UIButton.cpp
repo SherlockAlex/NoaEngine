@@ -67,7 +67,7 @@ void noa::Button::SwapState()
 			selectEventFlag = true;
 		}
 
-		if (Input::GetMouseKeyHold(MouseButton::LEFT_BUTTON))
+		if (Input::GetMouseKeyDown(MouseButton::LEFT_BUTTON))
 		{
 			//½øÈëµã»÷×´Ì¬
 			isClickReady = true;

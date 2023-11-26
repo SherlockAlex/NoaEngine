@@ -71,7 +71,7 @@ void GameDelegate::OnTick(noa::Scene* scene)
 		return;
 	}
 
-	if (noa::Input::GetKeyDown(noa::KeyCode::KEY_ESC)) 
+	if (noa::Input::GetKeyUp(noa::KeyCode::KEY_ESC)) 
 	{
 		flag = !flag;
 		if (flag)

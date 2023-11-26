@@ -76,21 +76,22 @@ noa::InputEvent_Windows::~InputEvent_Windows()
 
 }
 
-bool noa::InputEvent_Windows::GetKeyHold(KeyCode key)
-{
-	return GetAsyncKeyState((unsigned short)key) & 0x8000;
-}
-
 bool noa::InputEvent_Windows::GetKeyDown(KeyCode key)
 {
-	return GetAsyncKeyState((unsigned short)key) & 1;
+	return keyboardContext->keyMap[key].performed;
+}
+
+bool noa::InputEvent_Windows::GetKeyUp(KeyCode key)
+{
+	
+	return keyboardContext->keyMap[key].canceled;
 }
 
 static SDL_Event e = {};
 void noa::InputEvent_Windows::PollEvent(const std::function<void()>& quitCallback)
 {
-	this->ResetMouseContext();
-	
+	ResetKeyboardContext();
+	ResetMouseContext();
 	while (SDL_PollEvent(&e))
 	{
 		switch (e.type)
@@ -100,6 +101,7 @@ void noa::InputEvent_Windows::PollEvent(const std::function<void()>& quitCallbac
 			quitCallback();
 			break;
 		default:
+			this->UpdateKeyboardContext();
 			this->UpdateMouseContext();
 			break;
 		}
@@ -107,20 +109,50 @@ void noa::InputEvent_Windows::PollEvent(const std::function<void()>& quitCallbac
 
 }
 
+void noa::InputEvent_Windows::ResetKeyboardContext() {
+
+	for (auto& state:keyboardContext->keyMap)
+	{
+		state.second.canceled = false;
+	}
+}
+
+void noa::InputEvent_Windows::UpdateKeyboardContext() 
+{
+
+	switch (e.type)
+	{
+	case SDL_KEYDOWN:
+		keyboardContext->keyMap[
+			static_cast<noa::KeyCode>(e.key.keysym.sym)
+		].performed = true;
+		break;
+	case SDL_KEYUP:
+		keyboardContext->keyMap[
+			static_cast<noa::KeyCode>(e.key.keysym.sym)
+		].performed = false;
+		keyboardContext->keyMap[
+			static_cast<noa::KeyCode>(e.key.keysym.sym)
+		].canceled = true;
+		break;
+	default:
+		break;
+	}
+}
+
 void noa::InputEvent_Windows::ResetMouseContext()
 {
+
 	mouseContext->delta = { 0,0 };
 	mouseContext->wheel = { 0,0 };
 
-	mouseContext->mouseKey[noa::MouseButton::LEFT_BUTTON].down = false;
-	mouseContext->mouseKey[noa::MouseButton::LEFT_BUTTON].up = false;
-
-	mouseContext->mouseKey[noa::MouseButton::MIDDLE_BUTTON].down = false;
-	mouseContext->mouseKey[noa::MouseButton::MIDDLE_BUTTON].up = false;
-
-	mouseContext->mouseKey[noa::MouseButton::RIGHT_BUTTON].down = false;
-	mouseContext->mouseKey[noa::MouseButton::RIGHT_BUTTON].up = false;
+	mouseContext->mouseKey[noa::MouseButton::LEFT_BUTTON].canceled = false;
+	mouseContext->mouseKey[noa::MouseButton::MIDDLE_BUTTON].canceled = false;
+	mouseContext->mouseKey[noa::MouseButton::RIGHT_BUTTON].canceled = false;
 	mouseContext->motion = false;
+
+	
+
 }
 
 void noa::InputEvent_Windows::UpdateMouseContext()
@@ -130,22 +162,20 @@ void noa::InputEvent_Windows::UpdateMouseContext()
 
 	const Uint32 mouseState = SDL_GetMouseState(&mouseX, &mouseY);
 
-	mouseContext->mouseKey[MouseButton::LEFT_BUTTON].hold
-		= mouseState & SDL_BUTTON((static_cast<int>(MouseButton::LEFT_BUTTON)));
-	mouseContext->mouseKey[MouseButton::RIGHT_BUTTON].hold
-		= mouseState & SDL_BUTTON((static_cast<int>(MouseButton::RIGHT_BUTTON)));
-	mouseContext->mouseKey[MouseButton::MIDDLE_BUTTON].hold
-		= mouseState & SDL_BUTTON((static_cast<int>(MouseButton::MIDDLE_BUTTON)));
-
 	switch (e.type)
 	{
 	case SDL_MOUSEBUTTONDOWN:
-		mouseContext->mouseKey[static_cast<noa::MouseButton>(e.button.button)].down 
-			= true;
+		mouseContext->mouseKey[
+			static_cast<noa::MouseButton>(e.button.button)
+		].performed = true;
 		break;
 	case SDL_MOUSEBUTTONUP:
-		mouseContext->mouseKey[static_cast<noa::MouseButton>(e.button.button)].up 
-			= true;
+		mouseContext->mouseKey[
+			static_cast<noa::MouseButton>(e.button.button)
+		].performed = false;
+		mouseContext->mouseKey[
+			static_cast<noa::MouseButton>(e.button.button)
+		].canceled = true;
 		break;
 	case SDL_MOUSEMOTION:
 		mouseContext->motion = true;
