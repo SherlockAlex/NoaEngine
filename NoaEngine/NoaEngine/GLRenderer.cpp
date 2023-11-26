@@ -74,6 +74,10 @@ void noa::GLRenderer::DrawTexture(
         ,GetAValue(tint)
     );
 
+    //图像的投影矩阵绕的是角色关于世界坐标系原定继续旋转
+    //但是实际我们希望绕的是玩家关于自己的坐标
+    //因此还有对旋转后的坐标进行一个修正
+
     defaultShader->SetFloat(
         "eulerAngle"
         ,eulerAngle
@@ -131,6 +135,12 @@ void* noa::GLRenderer::GetContext() {
 
 void noa::GLRenderer::Present(uint32_t windowID)
 {
+
+    if (!renderable)
+    {
+        return;
+    }
+
     SDL_Window* window = SDL_GetWindowFromID(windowID);
     if (window == nullptr)
     {

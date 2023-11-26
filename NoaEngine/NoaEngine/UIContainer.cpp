@@ -128,7 +128,15 @@ size_t noa::UIContainer::GetContainerIndex() {
 	return this->index;
 }
 
-void noa::UIContainer::Start() {
+void noa::UIContainer::Start() 
+{
+	for (auto& container:subContainers) 
+	{
+		if (container) 
+		{
+			container->Start();
+		}
+	}
 	for (auto& component : uiComponent)
 	{
 		if (component != nullptr)

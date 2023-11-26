@@ -15,7 +15,7 @@ namespace noa {
 
 	private:
 		noa::UIDocument* document =
-			noa::UIDocumentComponent::Create(this)
+			noa::UIDocument::Create(this)
 			->SetID("editor_main_document")
 			.Apply();
 	};

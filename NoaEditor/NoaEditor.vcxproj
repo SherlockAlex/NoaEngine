@@ -127,6 +127,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\imgui\backends\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="..\..\imgui\backends\imgui_impl_sdl2.cpp" />
+    <ClCompile Include="..\..\imgui\imgui.cpp" />
+    <ClCompile Include="..\..\imgui\imgui_demo.cpp" />
+    <ClCompile Include="..\..\imgui\imgui_draw.cpp" />
+    <ClCompile Include="..\..\imgui\imgui_tables.cpp" />
+    <ClCompile Include="..\..\imgui\imgui_widgets.cpp" />
     <ClCompile Include="..\NoaEngine\NoaEngine\Actor.cpp" />
     <ClCompile Include="..\NoaEngine\NoaEngine\ActorComponent.cpp" />
     <ClCompile Include="..\NoaEngine\NoaEngine\ActorMotion.cpp" />
@@ -188,7 +195,9 @@
     <ClCompile Include="..\NoaEngine\NoaEngine\UILabel.cpp" />
     <ClCompile Include="..\NoaEngine\NoaEngine\UIScript.cpp" />
     <ClCompile Include="..\NoaEngine\NoaEngine\UIScrollBar.cpp" />
+    <ClCompile Include="..\NoaEngine\NoaEngine\UISlider.cpp" />
     <ClCompile Include="EditorCamera.cpp" />
+    <ClCompile Include="EditorGUI.cpp" />
     <ClCompile Include="EditorMainUI.cpp" />
     <ClCompile Include="EditorSceneDelegate.cpp" />
     <ClCompile Include="NoaEditor.cpp" />
@@ -196,6 +205,15 @@
     <ClCompile Include="UIWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\imgui\backends\imgui_impl_opengl3.h" />
+    <ClInclude Include="..\..\imgui\backends\imgui_impl_opengl3_loader.h" />
+    <ClInclude Include="..\..\imgui\backends\imgui_impl_sdl2.h" />
+    <ClInclude Include="..\..\imgui\imconfig.h" />
+    <ClInclude Include="..\..\imgui\imgui.h" />
+    <ClInclude Include="..\..\imgui\imgui_internal.h" />
+    <ClInclude Include="..\..\imgui\imstb_rectpack.h" />
+    <ClInclude Include="..\..\imgui\imstb_textedit.h" />
+    <ClInclude Include="..\..\imgui\imstb_truetype.h" />
     <ClInclude Include="..\NoaEngine\NoaEngine\Actor.h" />
     <ClInclude Include="..\NoaEngine\NoaEngine\ActorComponent.h" />
     <ClInclude Include="..\NoaEngine\NoaEngine\ActorMotion.h" />
@@ -261,7 +279,9 @@
     <ClInclude Include="..\NoaEngine\NoaEngine\UILabel.h" />
     <ClInclude Include="..\NoaEngine\NoaEngine\UIScript.h" />
     <ClInclude Include="..\NoaEngine\NoaEngine\UIScrollBar.h" />
+    <ClInclude Include="..\NoaEngine\NoaEngine\UISlider.h" />
     <ClInclude Include="EditorCamera.h" />
+    <ClInclude Include="EditorGUI.h" />
     <ClInclude Include="EditorMainUI.h" />
     <ClInclude Include="EditorSceneDelegate.h" />
     <ClInclude Include="NoaEditor.h" />

@@ -14,7 +14,13 @@ namespace noa {
 	class ActorFactory:public IPoolObjectFactroy<T> 
 	{
 	public:
-		virtual T* Create() = 0;
+		virtual T* Create() {
+			if (activeScene == nullptr)
+			{
+				return noa::NObject<T>::Create(noa::SceneManager::GetActiveScene());
+			}
+			return noa::NObject<T>::Create(this->activeScene);
+		};
 		
 		void SetActiveScene(noa::Scene* scene) {
 			this->activeScene = scene;

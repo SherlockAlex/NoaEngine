@@ -10,7 +10,7 @@ noa::EditorCamera::~EditorCamera() {
 }
 
 void noa::EditorCamera::Update() {
-	if (noa::Input::GetMouseKeyHold(noa::MouseButton::RIGHT_BUTTON))
+	if (noa::Input::GetMouseKeyDown(noa::MouseButton::RIGHT_BUTTON))
 	{
 		//按住鼠标右键，拖动相机
 		Vector<double>& delta = noa::Input::GetMouseMoveDelta();

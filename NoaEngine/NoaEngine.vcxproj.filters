@@ -213,6 +213,9 @@
     <ClInclude Include="NoaEngine\State.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="NoaEngine\UISlider.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="NoaEngine\Animator.cpp">
@@ -396,6 +399,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="NoaEngine\State.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="NoaEngine\UISlider.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

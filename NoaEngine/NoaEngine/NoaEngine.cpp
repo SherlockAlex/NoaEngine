@@ -120,6 +120,7 @@ void noa::NoaEngine::EngineThread()
 			Time::fps = static_cast<int>(1.0f / Time::deltaTime);
 		}
 		platform->EventLoop();
+		BeforeUpdate();
 
 		SceneManager::Update();
 		Update();
@@ -150,6 +151,7 @@ void noa::NoaEngine::EngineThread()
 			layer.clear();
 		}
 
+		Render();
 		renderer->Present(windowID);
 
 		tp1 = tp2;

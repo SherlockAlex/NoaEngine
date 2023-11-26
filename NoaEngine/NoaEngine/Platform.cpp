@@ -40,4 +40,9 @@ noa::InputEvent::~InputEvent() {
 
 }
 
+void noa::InputEvent::AddPollEventCallback(std::function<void()> callback)
+{
+	this->eventPollAction += callback;
+}
+
 

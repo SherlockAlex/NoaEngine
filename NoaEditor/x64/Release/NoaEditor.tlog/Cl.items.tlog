@@ -1,3 +1,10 @@
+D:\Work\imgui\backends\imgui_impl_opengl3.cpp;D:\Work\NoaEngine\NoaEditor\x64\Release\imgui_impl_opengl3.obj
+D:\Work\imgui\backends\imgui_impl_sdl2.cpp;D:\Work\NoaEngine\NoaEditor\x64\Release\imgui_impl_sdl2.obj
+D:\Work\imgui\imgui.cpp;D:\Work\NoaEngine\NoaEditor\x64\Release\imgui.obj
+D:\Work\imgui\imgui_demo.cpp;D:\Work\NoaEngine\NoaEditor\x64\Release\imgui_demo.obj
+D:\Work\imgui\imgui_draw.cpp;D:\Work\NoaEngine\NoaEditor\x64\Release\imgui_draw.obj
+D:\Work\imgui\imgui_tables.cpp;D:\Work\NoaEngine\NoaEditor\x64\Release\imgui_tables.obj
+D:\Work\imgui\imgui_widgets.cpp;D:\Work\NoaEngine\NoaEditor\x64\Release\imgui_widgets.obj
 D:\Work\NoaEngine\NoaEngine\NoaEngine\Actor.cpp;D:\Work\NoaEngine\NoaEditor\x64\Release\Actor.obj
 D:\Work\NoaEngine\NoaEngine\NoaEngine\ActorComponent.cpp;D:\Work\NoaEngine\NoaEditor\x64\Release\ActorComponent.obj
 D:\Work\NoaEngine\NoaEngine\NoaEngine\ActorMotion.cpp;D:\Work\NoaEngine\NoaEditor\x64\Release\ActorMotion.obj
@@ -40,6 +47,7 @@ D:\Work\NoaEngine\NoaEngine\NoaEngine\SDLRenderer.cpp;D:\Work\NoaEngine\NoaEdito
 D:\Work\NoaEngine\NoaEngine\NoaEngine\SDLTexture.cpp;D:\Work\NoaEngine\NoaEditor\x64\Release\SDLTexture.obj
 D:\Work\NoaEngine\NoaEngine\NoaEngine\Sprite.cpp;D:\Work\NoaEngine\NoaEditor\x64\Release\Sprite.obj
 D:\Work\NoaEngine\NoaEngine\NoaEngine\SpriteRenderer.cpp;D:\Work\NoaEngine\NoaEditor\x64\Release\SpriteRenderer.obj
+D:\Work\NoaEngine\NoaEngine\NoaEngine\State.cpp;D:\Work\NoaEngine\NoaEditor\x64\Release\State.obj
 D:\Work\NoaEngine\NoaEngine\NoaEngine\StateMachine.cpp;D:\Work\NoaEngine\NoaEditor\x64\Release\StateMachine.obj
 D:\Work\NoaEngine\NoaEngine\NoaEngine\Texture.cpp;D:\Work\NoaEngine\NoaEditor\x64\Release\Texture.obj
 D:\Work\NoaEngine\NoaEngine\NoaEngine\TileCollider2D.cpp;D:\Work\NoaEngine\NoaEditor\x64\Release\TileCollider2D.obj
@@ -56,9 +64,11 @@ D:\Work\NoaEngine\NoaEngine\NoaEngine\UIDocument.cpp;D:\Work\NoaEngine\NoaEditor
 D:\Work\NoaEngine\NoaEngine\NoaEngine\UIHub.cpp;D:\Work\NoaEngine\NoaEditor\x64\Release\UIHub.obj
 D:\Work\NoaEngine\NoaEngine\NoaEngine\UIImage.cpp;D:\Work\NoaEngine\NoaEditor\x64\Release\UIImage.obj
 D:\Work\NoaEngine\NoaEngine\NoaEngine\UILabel.cpp;D:\Work\NoaEngine\NoaEditor\x64\Release\UILabel.obj
-D:\Work\NoaEngine\NoaEngine\NoaEngine\UIScrollBar.cpp;D:\Work\NoaEngine\NoaEditor\x64\Release\UIScrollBar.obj
 D:\Work\NoaEngine\NoaEngine\NoaEngine\UIScript.cpp;D:\Work\NoaEngine\NoaEditor\x64\Release\UIScript.obj
+D:\Work\NoaEngine\NoaEngine\NoaEngine\UIScrollBar.cpp;D:\Work\NoaEngine\NoaEditor\x64\Release\UIScrollBar.obj
+D:\Work\NoaEngine\NoaEngine\NoaEngine\UISlider.cpp;D:\Work\NoaEngine\NoaEditor\x64\Release\UISlider.obj
 D:\Work\NoaEngine\NoaEditor\EditorCamera.cpp;D:\Work\NoaEngine\NoaEditor\x64\Release\EditorCamera.obj
+D:\Work\NoaEngine\NoaEditor\EditorGUI.cpp;D:\Work\NoaEngine\NoaEditor\x64\Release\EditorGUI.obj
 D:\Work\NoaEngine\NoaEditor\EditorMainUI.cpp;D:\Work\NoaEngine\NoaEditor\x64\Release\EditorMainUI.obj
 D:\Work\NoaEngine\NoaEditor\EditorSceneDelegate.cpp;D:\Work\NoaEngine\NoaEditor\x64\Release\EditorSceneDelegate.obj
 D:\Work\NoaEngine\NoaEditor\NoaEditor.cpp;D:\Work\NoaEngine\NoaEditor\x64\Release\NoaEditor.obj

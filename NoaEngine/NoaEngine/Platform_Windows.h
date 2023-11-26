@@ -31,6 +31,8 @@ namespace noa {
 
 		bool GetKeyDown(KeyCode key) override;
 		bool GetKeyUp(KeyCode key) override;
+		
+		void* GetEventEntity() override;
 		void PollEvent(const std::function<void()>& quitCallback) override;
 		
 		void ResetKeyboardContext() override;

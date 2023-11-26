@@ -13,7 +13,7 @@ void UIMove::Update() {
 	//ÒÆ¶¯
 	noa::UIBody* body = GetBody();
 	if (body->GetHandle()
-		&& noa::Input::GetMouseKeyHold(noa::MouseButton::LEFT_BUTTON))
+		&& noa::Input::GetMouseKeyDown(noa::MouseButton::LEFT_BUTTON))
 	{
 		isHold = true;
 	}

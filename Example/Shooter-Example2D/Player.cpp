@@ -46,25 +46,21 @@ void Player::Update()
 
 	if (noa::Input::GetMouseKeyDown(noa::MouseButton::RIGHT_BUTTON))
 	{
-		this->transform.eulerAngle += 10*noa::Time::deltaTime;
+		this->transform.eulerAngle += 1*noa::Time::deltaTime;
 	}
 
-	/*timer += noa::Time::deltaTime;
-	if (noa::Input::GetMouseKeyHold(noa::MouseButton::LEFT_BUTTON)&&timer>0.1f)
+	timer += noa::Time::deltaTime;
+	if (noa::Input::GetKeyDown(noa::KeyCode::KEY_K)&&timer>0.1f)
 	{
 		Bullet* bullet = bulletPool->Request();
 		bullet->transform.position = this->transform.position;
 
-		noa::Vector<double> & mousePos = noa::Input::GetMousePosition();
-
-		noa::Vector<float> worldPos = camera->ScreenPointToWorld(mousePos.x, mousePos.y);
-
-		noa::Vector<float> direction = (worldPos - this->transform.position).Normalize();
+		noa::Vector<float> direction = { spriteRenderer->isFlip.x?-1.0f:1.0f,0.0f };
 		
 		bullet->SetDirection(direction.x,direction.y);
 
 		timer = 0.0f;
 
-	}*/
+	}
 
 }

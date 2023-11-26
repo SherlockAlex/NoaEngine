@@ -167,7 +167,9 @@ namespace noa {
 		virtual ~NoaEngine();
 
 		virtual void Start() {};
+		virtual void BeforeUpdate() {};
 		virtual void Update() {};
+		virtual void Render() {};
 		virtual void OnExit() {};
 
 		int Run();

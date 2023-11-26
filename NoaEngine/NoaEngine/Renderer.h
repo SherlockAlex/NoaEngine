@@ -20,6 +20,8 @@ namespace noa {
 	public:
 		Renderer();
 
+		void SetRenderable(bool value);
+
 		void InitFontAsset();
 
 		void SetRenderer(int pixelWidth, int pixelHeight);
@@ -53,6 +55,8 @@ namespace noa {
 
 		float invPixelWidth = 0;
 		float invPixelHeight = 0;
+
+		bool renderable = true;
 
 	};
 

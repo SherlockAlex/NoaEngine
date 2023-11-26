@@ -159,6 +159,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="NoaEngine\SceneManager.h" />
+    <ClInclude Include="NoaEngine\UISlider.h" />
     <ClInclude Include="NoaEngine\State.h" />
     <ClInclude Include="NoaEngine\UIBody.h" />
     <ClInclude Include="NoaEngine\UIButton.h" />
@@ -226,6 +227,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="NoaEngine\SceneManager.cpp" />
+    <ClCompile Include="NoaEngine\UISlider.cpp" />
     <ClCompile Include="NoaEngine\State.cpp" />
     <ClCompile Include="NoaEngine\UIBody.cpp" />
     <ClCompile Include="NoaEngine\UIButton.cpp" />

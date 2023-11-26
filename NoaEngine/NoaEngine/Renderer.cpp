@@ -23,6 +23,11 @@ noa::Renderer::Renderer()
 
 }
 
+void noa::Renderer::SetRenderable(bool value)
+{
+	this->renderable = value;
+}
+
 void noa::Renderer::InitFontAsset() {
 	// ³õÊ¼»¯×ÖÌå
 	fontAsset = make_shared<FontAsset>("./Data/Resource/font/font.ttf", 48);

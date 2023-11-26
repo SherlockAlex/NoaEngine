@@ -88,12 +88,18 @@ bool noa::InputEvent_Windows::GetKeyUp(KeyCode key)
 }
 
 static SDL_Event e = {};
+
+void* noa::InputEvent_Windows::GetEventEntity() {
+	return &e;
+}
+
 void noa::InputEvent_Windows::PollEvent(const std::function<void()>& quitCallback)
 {
 	ResetKeyboardContext();
 	ResetMouseContext();
 	while (SDL_PollEvent(&e))
 	{
+		eventPollAction();
 		switch (e.type)
 		{
 		case SDL_QUIT:

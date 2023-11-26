@@ -7,6 +7,7 @@
 #include <chrono>
 #include <memory>
 
+#include "NoaAction.h"
 
 namespace noa {
 
@@ -55,8 +56,10 @@ namespace noa {
 		virtual bool GetKeyDown(noa::KeyCode key) = 0;
 		virtual bool GetKeyUp(noa::KeyCode key) = 0;
 
+		virtual void* GetEventEntity() = 0;
 		virtual void PollEvent(const std::function<void()> & quitCallback) = 0;
-		
+		void AddPollEventCallback(std::function<void()> callback);
+
 		virtual void ResetKeyboardContext() = 0;
 		virtual void UpdateKeyboardContext() = 0;
 
@@ -67,6 +70,9 @@ namespace noa {
 	protected:
 		std::shared_ptr<MouseContext> mouseContext = nullptr;
 		std::shared_ptr<KeyboardContext> keyboardContext = nullptr;
+
+		noa::NoaEvent<void> eventPollAction;
+
 	};
 
 	extern std::shared_ptr<noa::Platform> platform;

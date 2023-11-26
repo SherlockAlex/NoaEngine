@@ -15,6 +15,7 @@ namespace noa
 	protected:
 		virtual ~UIBody();
 		void OnUpdate();
+
 	public:
 		void AddScript(UIScript* script);
 		bool GetHandle();

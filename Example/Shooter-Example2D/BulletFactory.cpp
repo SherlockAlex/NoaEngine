@@ -1,12 +1,4 @@
 #include "BulletFactory.h"
 
-Bullet* BulletFactory::Create() {
-	//´´½¨×Óµ¯
-	if (!activeScene) 
-	{
-		return noa::NObject<Bullet>::Create(noa::SceneManager::GetActiveScene());
-	}
-	return noa::NObject<Bullet>::Create(activeScene);
-}
-
-std::shared_ptr<BulletFactory> bulletFactory = std::make_shared<BulletFactory>();
+std::shared_ptr<noa::ActorFactory<Bullet>> bulletFactory 
+	= std::make_shared<noa::ActorFactory<Bullet>>();

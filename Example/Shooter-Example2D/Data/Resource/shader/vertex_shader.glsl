@@ -8,12 +8,15 @@ uniform mat4 projection;
 
 void main()
 {
-    texCoord = vertex.zw;
-    mat4 ratate = mat4(
+    vec2 originTextCoord = vertex.zw;
+    mat4 rotate4 = mat4(
         cos(eulerAngle),-sin(eulerAngle),0.0f,0.0f
         ,sin(eulerAngle),cos(eulerAngle),0.0f,0.0f
         ,0.0f,0.0f,1.0f,0.0f
         ,0.0f,0.0f,0.0f,1.0f
     );
-    gl_Position = ratate*projection*vec4(vertex.xy, 0.0f, 1.0f);
+
+    texCoord = originTextCoord;
+    vec4 position = vec4(vertex.xy, 0.0f, 1.0f);
+    gl_Position = projection*(position);
 }
