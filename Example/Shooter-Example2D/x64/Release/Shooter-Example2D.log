@@ -1,7 +1,70 @@
-﻿  Scene.cpp
+﻿  Actor.cpp
+  ActorComponent.cpp
+  ActorMotion.cpp
+  ActorPool.cpp
+  ActorPoolFactory.cpp
+  Animator.cpp
+  AudioSource.cpp
+  BoxCollider2D.cpp
+  Camera.cpp
+  Camera2D.cpp
+  CircleCollider2D.cpp
+  Collider2D.cpp
+  Font.cpp
+  FontAsset.cpp
+  GLRenderer.cpp
+  GLShader.cpp
+  InputSystem.cpp
+  NObject.cpp
+  NoaEngine.cpp
+  Physics.cpp
+  正在编译...
+  PhysicsSystem.cpp
+  Platform.cpp
+  Platform_Windows.cpp
+  Renderer.cpp
+  Resource.cpp
+  SDLRenderer.cpp
+  Scene.cpp
+  SceneManager.cpp
+  Sprite.cpp
+  SpriteRenderer.cpp
+  State.cpp
+  StateMachine.cpp
+  Texture.cpp
+  TileCollider2D.cpp
+  TileMap.cpp
+  TileMapInfo.cpp
+  TileMapRenderer.cpp
+  UIButton.cpp
+  UIContainer.cpp
+  UIDocument.cpp
+  正在编译...
+  UIHub.cpp
+  UIImage.cpp
+  UILabel.cpp
+  UIScrollBar.cpp
+  Bullet.cpp
+  BulletFactory.cpp
+  BulletPool.cpp
+  Engine.cpp
+  GameDelegate.cpp
+D:\Work\NoaEngine\Example\Shooter-Example2D\GameDelegate.cpp(48,35): warning C4244: “参数”: 从“noa::uint32_t”转换到“float”，可能丢失数据
+D:\Work\NoaEngine\Example\Shooter-Example2D\GameDelegate.cpp(49,33): warning C4244: “参数”: 从“noa::uint32_t”转换到“float”，可能丢失数据
+  GameMenu.cpp
+D:\Work\NoaEngine\Example\Shooter-Example2D\GameMenu.cpp(23,54): warning C4244: “参数”: 从“float”转换到“int”，可能丢失数据
+  GameUI.cpp
+  MainMenuDelegate.cpp
+  MainMenuUI.cpp
+D:\Work\NoaEngine\Example\Shooter-Example2D\MainMenuUI.cpp(72,59): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+D:\Work\NoaEngine\Example\Shooter-Example2D\MainMenuUI.cpp(72,32): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+  Player.cpp
+  ResourceManager.cpp
+  Shooter.cpp
+  Test.cpp
   正在生成代码
-  21 of 3996 functions ( 0.5%) were compiled, the rest were copied from previous compilation.
+  64 of 3996 functions ( 1.6%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    10 functions had inline decision re-evaluated but remain unchanged
+    3 functions had inline decision re-evaluated but remain unchanged
   已完成代码的生成
   Shooter-Example2D.vcxproj -> D:\Work\NoaEngine\x64\Release\Shooter-Example2D.exe

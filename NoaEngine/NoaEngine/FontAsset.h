@@ -10,13 +10,14 @@ namespace noa {
 
 	class FontAsset 
 	{
+	public:
+		FontAsset(const char* ttfPath, int size);
+		Font* GetFont(wchar_t c);
+		Font* operator[](wchar_t c);
 	private:
 		std::unordered_map<wchar_t, Font*> fonts;
 	public:
 		int size = 0;
-		FontAsset(const char* ttfPath, int size);
-		Font* GetFont(wchar_t c);
-		Font* operator[](wchar_t c);
 	};
 }
 

@@ -88,21 +88,16 @@ namespace noa {
 
 	class AudioClip;
 	class Resource {
-	public:
-		static const std::string path;
+	
 	public:
 		static std::shared_ptr<AudioClip> LoadAudioClip(const std::string & filename);
-
 		static SpriteFile LoadSprite(const std::string & filename);
-
 		static AnimationFile LoadAnimationClip(const std::string & filename);
-
 		static LayerFile LoadMapLayer(const std::string & filename);
-
 		static TileSet LoadTileSet(const std::string& filename);
-
 		static std::string ReadTextFrom(const std::string & filename);
-
+	public:
+		static const std::string path;
 	};
 
 }

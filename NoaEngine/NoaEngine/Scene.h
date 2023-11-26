@@ -36,21 +36,8 @@ namespace noa {
 	private:
 		friend class SceneManager;
 	private:
-		std::string name = "Scene";
-		std::vector<Actor*> actors;
-
-		std::map<std::string, Scene*> sceneChildren;
-		std::stack<noa::Scene*> sceneStack;
-
-	private:
 		Scene(const std::string& name);
 		virtual ~Scene();
-	public:
-		NoaEvent<Scene*> onLoad;
-		NoaEvent<Scene*> onStart;
-		NoaEvent<Scene*> onUpdate;
-		NoaEvent<Scene*> onTick;
-		NoaEvent<Scene*> onUnload;
 
 	public:
 
@@ -146,6 +133,18 @@ namespace noa {
 		void SceneChildRender();
 		void SceneChildOnUpdate();
 		void SceneChildOnTick();
+
+	private:
+		std::string name = "Scene";
+		std::vector<Actor*> actors;
+		std::map<std::string, Scene*> sceneChildren;
+		std::stack<noa::Scene*> sceneStack;
+	public:
+		NoaEvent<Scene*> onLoad;
+		NoaEvent<Scene*> onStart;
+		NoaEvent<Scene*> onUpdate;
+		NoaEvent<Scene*> onTick;
+		NoaEvent<Scene*> onUnload;
 
 	};
 

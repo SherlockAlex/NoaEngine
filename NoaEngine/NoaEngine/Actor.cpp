@@ -242,10 +242,4 @@ void noa::Actor::OnTriggerEnter(noa::Collider2D& other)
 
 }
 
-void noa::Actor::SetActiveScene(noa::Scene* scene)
-{
-	this->activeScene = scene;
-	scene->AddActor(this);
-}
-
 

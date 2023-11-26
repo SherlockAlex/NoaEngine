@@ -87,56 +87,56 @@ void noa::GLShader::CreateShaderProgram(
 
 }
 
-GLint noa::GLShader::GetUniformLocation(const char* uniformName)
+uint32_t noa::GLShader::GetUniformLocation(const char* uniformName)
 {
 	return glGetUniformLocation(this->shaderProgram, uniformName);
 }
 
 void noa::GLShader::SetInt(const std::string& name, int value)
 {
-	const GLint location = glGetUniformLocation(this->shaderProgram,name.c_str());
+	const uint32_t location = glGetUniformLocation(this->shaderProgram,name.c_str());
 	glUniform1i(location, value);
 }
 
 void noa::GLShader::SetFloat(const std::string& name, float value)
 {
-	const GLint location = glGetUniformLocation(this->shaderProgram,name.c_str());
+	const uint32_t location = glGetUniformLocation(this->shaderProgram,name.c_str());
 	glUniform1f(location,value);
 }
 
 void noa::GLShader::SetUint(const std::string& name, uint32_t value)
 {
-	const GLint location = glGetUniformLocation(this->shaderProgram,name.c_str());
+	const uint32_t location = glGetUniformLocation(this->shaderProgram,name.c_str());
 	glUniform1ui(location,value);
 }
 
 void noa::GLShader::SetVec2(const std::string& name, float value1, float value2)
 {
-	const GLint location = glGetUniformLocation(this->shaderProgram, name.c_str());
+	const uint32_t location = glGetUniformLocation(this->shaderProgram, name.c_str());
 	glUniform2f(location,value1,value2);
 }
 
 void noa::GLShader::SetVec3(const std::string& name, float value1, float value2, float value3)
 {
-	const GLint location = glGetUniformLocation(this->shaderProgram,name.c_str());
+	const uint32_t location = glGetUniformLocation(this->shaderProgram,name.c_str());
 	glUniform3f(location,value1,value2,value3);
 }
 
 void noa::GLShader::SetBool(const std::string& name, bool value)
 {
-	const GLint location = glGetUniformLocation(this->shaderProgram,name.c_str());
+	const uint32_t location = glGetUniformLocation(this->shaderProgram,name.c_str());
 	glUniform1i(location,value);
 }
 
 void noa::GLShader::SetVec4(const std::string& name, float value1, float value2, float value3, float value4)
 {
-	const GLint location = glGetUniformLocation(this->shaderProgram, name.c_str());
+	const uint32_t location = glGetUniformLocation(this->shaderProgram, name.c_str());
 	glUniform4f(location,value1,value2,value3,value4);
 }
 
 void noa::GLShader::SetMatrix4(const std::string& name,const glm::mat4& mat)
 {
-	const GLint location = glGetUniformLocation(this->shaderProgram, name.c_str());
+	const uint32_t location = glGetUniformLocation(this->shaderProgram, name.c_str());
 	glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(mat));
 
 	//Debug::Log(ToString<float>(mat[3][3]));

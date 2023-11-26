@@ -8,8 +8,6 @@ namespace noa {
 	{
 	private:
 		ACTOR_COMPONENT(CircleCollider2D)
-	public:
-		float radius = 0.5f;
 	private:
 		CircleCollider2D(Actor* actor);
 		~CircleCollider2D() override;
@@ -20,6 +18,8 @@ namespace noa {
 		CircleCollider2D& SetTrigger(bool isTrigger);
 		CircleCollider2D& SetOffset(float x,float y);
 		CircleCollider2D* Apply();
+	public:
+		float radius = 0.5f;
 
 	};
 

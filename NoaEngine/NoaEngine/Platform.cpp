@@ -4,13 +4,7 @@
 
 #include "Renderer.h"
 
-namespace noa {
-
-	extern std::shared_ptr<Renderer> renderer;
-
-	
-
-}
+extern std::shared_ptr<noa::Renderer> noa::renderer;
 
 noa::Platform::Platform()
 {

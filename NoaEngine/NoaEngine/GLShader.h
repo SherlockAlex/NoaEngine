@@ -10,12 +10,6 @@ namespace noa {
 	class GLShader
 	{
 	private:
-		friend class GLRenderer;
-	private:
-		GLuint vertexShader = 0;
-		GLuint fragmentShader = 0;
-		GLuint shaderProgram = 0;
-
 		GLShader();
 		virtual ~GLShader();
 	private:
@@ -32,7 +26,7 @@ namespace noa {
 			,const std::string & fragmentShaderFile
 		);
 
-		GLint GetUniformLocation(const char * uniformName);
+		uint32_t GetUniformLocation(const char * uniformName);
 
 		void SetInt(const std::string& name, int value);
 		void SetFloat(const std::string& name,float value);
@@ -42,6 +36,14 @@ namespace noa {
 		void SetVec3(const std::string& name,float value1,float value2,float value3);
 		void SetVec4(const std::string& name,float value1,float value2,float value3,float value4);
 		void SetMatrix4(const std::string& name, const glm::mat4& matrix);
+	
+	private:
+		friend class GLRenderer;
+
+		uint32_t vertexShader = 0;
+		uint32_t fragmentShader = 0;
+		uint32_t shaderProgram = 0;
+
 	};
 }
 

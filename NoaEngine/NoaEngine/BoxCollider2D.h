@@ -7,8 +7,6 @@ namespace noa {
 	class BoxCollider2D final :public Collider2D {
 	private:
 		ACTOR_COMPONENT(BoxCollider2D)
-	public:
-		Vector<float> scale = { 1,1 };
 	private:
 		BoxCollider2D(Actor* actor);
 		~BoxCollider2D() override;
@@ -19,6 +17,8 @@ namespace noa {
 		BoxCollider2D& SetRigidbody(Rigidbody* rigidbody);
 		BoxCollider2D& SetTrigger(bool isTrigger);
 		BoxCollider2D* Apply();
+	public:
+		Vector<float> scale = { 1,1 };
 	};
 }
 

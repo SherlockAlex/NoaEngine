@@ -156,15 +156,6 @@ namespace noa {
 
 	class NoaEngine
 	{
-
-	private:
-		std::chrono::system_clock::time_point tp1 = std::chrono::system_clock::now();
-		std::chrono::system_clock::time_point tp2 = std::chrono::system_clock::now();
-		std::chrono::duration<float> elapsedTime = tp1 - tp2;
-
-		Texture* texture = nullptr;
-		uint32_t windowID = 0;
-
 	public:
 		NoaEngine(
 			int width, int height
@@ -185,7 +176,13 @@ namespace noa {
 	private:
 		void EngineThread();
 
+	private:
+		std::chrono::system_clock::time_point tp1 = std::chrono::system_clock::now();
+		std::chrono::system_clock::time_point tp2 = std::chrono::system_clock::now();
+		std::chrono::duration<float> elapsedTime = tp1 - tp2;
 
+		Texture* texture = nullptr;
+		uint32_t windowID = 0;
 	};
 
 	class Application {

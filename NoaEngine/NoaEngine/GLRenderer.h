@@ -12,9 +12,6 @@ namespace noa {
 	class GLShader;
 	class GLRenderer :public Renderer
 	{
-	private:
-		bool isInit = false;
-		GLShader* defaultShader = nullptr;
 	public:
 		Texture* CreateTexture(int w, int h, void* pixelBuffer) override;
 
@@ -46,7 +43,8 @@ namespace noa {
 			,const std::string& fragmentSourceFile
 		);
 
-
+		bool isInit = false;
+		GLShader* defaultShader = nullptr;
 
 	};
 }

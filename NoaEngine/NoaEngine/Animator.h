@@ -76,8 +76,6 @@ namespace noa
 		float speed = 7;
 		float i = 0;
 		
-		
-
 		SpriteRenderer* spriteRenderer = nullptr;
 
 	};

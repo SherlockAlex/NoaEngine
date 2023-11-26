@@ -1,7 +1,5 @@
 #include "NoaEngine.h"
 
-
-
 #ifdef _WIN64
 #include "SDLRenderer.h"
 #include "SDLTexture.h"

@@ -20,36 +20,23 @@ namespace noa {
 	class InputEvent;
 	//平台抽象类
 	class Platform {
-	protected:
-		//系统时钟
-
-		uint32_t windowID = 0;
-
-		bool isRun = true;
-
-		std::shared_ptr<InputEvent> e = nullptr;
-
 	public:
 
 		Platform();
 		virtual ~Platform();
-
-		//创建窗口
 		virtual int Create(int width, int height,
 				WindowMode windowMode,
 				const std::string & gameName) = 0;
-
 		std::shared_ptr<InputEvent> GetPlatformEvent();
-
-		//确定窗口关闭
 		virtual bool CheckWindowClose() = 0;
-
 		virtual void EventLoop() = 0;
-
 		void Quit();
-
 		uint32_t GetWindowID();
 
+	protected:
+		uint32_t windowID = 0;
+		bool isRun = true;
+		std::shared_ptr<InputEvent> e = nullptr;
 
 	};
 

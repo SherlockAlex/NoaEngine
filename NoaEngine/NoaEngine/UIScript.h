@@ -13,8 +13,8 @@ namespace noa {
 	protected:
 		UIScript(UIBody* body);
 		virtual ~UIScript();
-		virtual void Update() {};
 
+		virtual void Update() {};
 		virtual void OnEnter() {};
 		virtual void OnStay() {};
 		virtual void OnExit() {};

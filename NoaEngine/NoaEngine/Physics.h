@@ -40,57 +40,6 @@ namespace noa {
 		friend class PhysicsSystem;
 		friend class Collider2D;
 		friend class TileCollider2D;
-	public:
-		
-		//反弹系数
-		float bounce = 0.0f;
-		//摩擦系数
-		float friction = 0.0f;
-		//空气阻尼系数
-		float damping = 0.02f;
-		//重力权重
-		float gravityScale = 3.5f;
-
-		bool isFrozen = false;
-		bool useGravity = true;
-
-		Vector<float> velocity = Vector<float>(0.0f, 0.0f);
-		float angleVelocity = 0.0f;
-
-		BodyType bodyType = BodyType::DYNAMIC;
-
-	private:
-
-		float mass = 1;
-		float invMass = 1;
-
-		//线性速度
-		Vector<float> newPosition;
-		Vector<float> oldPosition;
-		Vector<float> newVelocity;
-
-		//角速度
-		
-		float newAngleVelocity = 0.0f;
-
-		//动量 = 动量 + 外部冲量 + 玩家输入速度动量
-		Vector<float> momentum;
-		Vector<float> impuls;
-
-		Vector<float> force = Vector<float>(0.0f, 0.0f);
-		std::vector<Collider2D*> colliders;
-
-		noa::TileCollider2D* tileCollider2D = nullptr;
-
-		Transform* transform = nullptr;
-
-		//约束
-		//一个物体进入约束状态条件
-		//和运动边界发生碰撞时
-		//和已经进入约束状态的物体发生碰撞，同时自身的动量分量趋近0
-		Vector<bool> constraint = {false,false};
-		Vector<bool> nextConstraint = {false,false};
-
 	private:
 		Rigidbody(Actor* actor);
 		~Rigidbody();
@@ -135,7 +84,44 @@ namespace noa {
 		Rigidbody& SetUseGravity(bool value);
 		Rigidbody* Apply();
 
+	public:
 
+		float bounce = 0.0f;
+		float friction = 0.0f;
+		float damping = 0.02f;
+		float gravityScale = 3.5f;
+
+		bool isFrozen = false;
+		bool useGravity = true;
+
+		Vector<float> velocity = Vector<float>(0.0f, 0.0f);
+		float angleVelocity = 0.0f;
+
+		BodyType bodyType = BodyType::DYNAMIC;
+
+	private:
+
+		float mass = 1;
+		float invMass = 1;
+
+		Vector<float> newPosition;
+		Vector<float> oldPosition;
+		Vector<float> newVelocity;
+
+		float newAngleVelocity = 0.0f;
+
+		Vector<float> momentum;
+		Vector<float> impuls;
+
+		Vector<float> force = Vector<float>(0.0f, 0.0f);
+
+		std::vector<Collider2D*> colliders;
+		noa::TileCollider2D* tileCollider2D = nullptr;
+
+		Transform* transform = nullptr;
+
+		Vector<bool> constraint = { false,false };
+		Vector<bool> nextConstraint = { false,false };
 	};
 
 }

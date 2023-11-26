@@ -153,9 +153,7 @@ noa::LayerFile noa::Resource::LoadMapLayer(const std::string& filename)
 
 noa::TileSet noa::Resource::LoadTileSet(const std::string& filename)
 {
-	//¼ÓÔØÓÎÏ·µÄtileSet
 	noa::TileSet tileSet;
-	//unordered_map<int, Tile> result;
 	std::vector<TileData> resultData;
 	const std::string filePath = Resource::path + filename;
 	std::ifstream inputFile(filePath, std::ios::binary);

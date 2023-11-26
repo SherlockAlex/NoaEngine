@@ -18,28 +18,18 @@ namespace noa {
 	class Renderer
 	{
 	public:
-
-	protected:
-		int pixelWidth = 0;
-		int pixelHeight = 0;
-		void* pixelBuffer = nullptr;
-
-		float invPixelWidth = 0;
-		float invPixelHeight = 0;
-
-	public:
 		Renderer();
 
 		void InitFontAsset();
 
 		void SetRenderer(int pixelWidth, int pixelHeight);
 
-		void DrawPixel(const uint32_t x,const uint32_t y,const uint32_t color) const;
+		void DrawPixel(const uint32_t x, const uint32_t y, const uint32_t color) const;
 		void DrawLine(int x1, int y1, int x2, int y2, Uint32 color) const;
-		void DrawLine(const Vector<int> & point1,const Vector<int> & point2, Uint32 color) const;
+		void DrawLine(const Vector<int>& point1, const Vector<int>& point2, Uint32 color) const;
 
-		void DrawRect(const Vector<int> & point1,const Vector<int> & point2,Uint32 color) const;
-		void DrawRect(const Vector<int>& point1, const Vector<int>& point2, Sprite & sprite) const;
+		void DrawRect(const Vector<int>& point1, const Vector<int>& point2, Uint32 color) const;
+		void DrawRect(const Vector<int>& point1, const Vector<int>& point2, Sprite& sprite) const;
 		void DrawRect(const Vector<int>& point1, const Vector<int>& point2, Sprite& sprite, Uint32 mutiColor, bool isAlpha) const;
 		void DrawRect(const Vector<int>& point1, const Vector<int>& point2, Sprite* sprite, Uint32 mutiColor, bool isAlpha) const;
 
@@ -55,6 +45,14 @@ namespace noa {
 		virtual void CreateContext(uint32_t windowID) = 0;
 		virtual void* GetContext() = 0;
 		virtual void Present(uint32_t windowID) = 0;
+
+	protected:
+		int pixelWidth = 0;
+		int pixelHeight = 0;
+		void* pixelBuffer = nullptr;
+
+		float invPixelWidth = 0;
+		float invPixelHeight = 0;
 
 	};
 

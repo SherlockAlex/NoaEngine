@@ -53,8 +53,6 @@ namespace noa {
 
 
 	public:
-		void SetActiveScene(Scene* scene);
-
 		void AddComponent(ActorComponent* component);
 		virtual void Destroy();
 
@@ -183,11 +181,8 @@ namespace noa {
 	public:
 		std::string tag = "default";
 		Transform transform;
-		bool isRaycasted = false;
 	};
 
 }
-
-
 
 #endif
