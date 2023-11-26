@@ -171,11 +171,11 @@ namespace noa {
 		virtual void OnExit() {};
 
 		int Run();
-		int Exit();
+		
 
 	private:
 		void EngineThread();
-
+		int Exit();
 	private:
 		std::chrono::system_clock::time_point tp1 = std::chrono::system_clock::now();
 		std::chrono::system_clock::time_point tp2 = std::chrono::system_clock::now();
