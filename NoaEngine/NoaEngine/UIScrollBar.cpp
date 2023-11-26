@@ -8,6 +8,7 @@ noa::ScrollBar::ScrollBar(noa::UIContainer* container)
 	background = noa::Image::Create(container);
 	runtime = noa::Image::Create(container);
 	SetSize(360, 20);
+
 }
 
 noa::ScrollBar::~ScrollBar() {

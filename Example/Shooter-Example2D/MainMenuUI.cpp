@@ -13,15 +13,18 @@ MainMenuUI::MainMenuUI(noa::Scene* scene)
 
 void MainMenuUI::Start() {
 	noa::UIContainer* mainContainer = noa::UIContainer::Create(document)
-		->SetLocalPosition(noa::Screen::width,noa::Screen::height/2)
+		->SetLocalPosition(0,0)
 		.SetID("main_container")
+		.SetLocalSize(noa::Screen::width,noa::Screen::height)
+		.SetAnchor(0.5f,0.5f)
 		.Apply();
 
 	document->Display(mainContainer);
 
 	noa::UIContainer* secondContainer = noa::UIContainer::Create(document)
-		->SetLocalPosition(noa::Screen::width, noa::Screen::height)
+		->SetLocalPosition(0, 0)
 		.SetID("second_container")
+		.SetLocalSize(noa::Screen::width,noa::Screen::height)
 		.SetAnchor(0.5f,0.5f)
 		.Apply();
 
@@ -34,7 +37,7 @@ void MainMenuUI::Start() {
 	noa::Button* startButton = noa::Button::Create(mainContainer)
 		->SetText(L"开始游戏")
 		.SetFontSize(20)
-		.SetLocalPosition(0,0)
+		.SetLocalPosition(noa::Screen::width/2,0)
 		.SetSize(240, 60)
 		.SetRadius(0)
 		.SetNormalColor(noa::RGBA(20,20,20,250))
@@ -54,14 +57,14 @@ void MainMenuUI::Start() {
 	noa::Button* openButton = noa::Button::Create(mainContainer)
 		->SetText(L"游戏设置")
 		.Clone(startButton)
-		.SetLocalPosition(0,70)
-		//.AddClickCallback(ShowSecondContainerButtonClick)
+		.SetLocalPosition(noa::Screen::width / 2,70)
+		.AddClickCallback([this] {document->Display("second_container");})
 		.Apply();
 
 	noa::Button* quitButton = noa::Button::Create(mainContainer)
 		->SetText(L"退出游戏")
 		.Clone(startButton)
-		.SetLocalPosition(0,2*70)
+		.SetLocalPosition(noa::Screen::width / 2,2*70)
 		.AddClickCallback(noa::Application::Quit)
 		.Apply();
 
@@ -69,6 +72,8 @@ void MainMenuUI::Start() {
 		->SetSize(noa::Screen::width / 1.5, noa::Screen::height / 1.5)
 		.SetSprite(&ResourceManager::backgroundImage1)
 		.SetStyle(noa::ImageStyle::DEFAULT)
+		.SetLocalPosition(0,0)
+		.SetAnchor(0.5f,0.5f)
 		.Apply();
 
 	noa::Button* backButton = noa::Button::Create(secondContainer)
@@ -78,7 +83,7 @@ void MainMenuUI::Start() {
 		.SetAnchor(0.5f,0.5f)
 		.SetRadius(50)
 		.SetTextOffset(0.0f,0.0f)
-		//.AddClickCallback(BackButtonClick)
+		.AddClickCallback([this] {this->document->Close(); })
 		.Apply();
 
 	noa::ScrollBar* processBar =

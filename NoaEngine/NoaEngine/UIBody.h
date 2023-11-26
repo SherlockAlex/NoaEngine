@@ -6,7 +6,8 @@
 #include "NObject.h"
 #include "Transform.h"
 
-namespace noa {
+namespace noa 
+{
 	class UIScript;
 
 	class UIBody :public noa::NoaObject

@@ -155,6 +155,17 @@ void noa::UIContainer::Update()
 		globalTransform.position.y;
 	childFatherTransform.size = transform.size;
 
+	for (auto& component : uiComponent)
+	{
+		if (component == nullptr || !component->active)
+		{
+			continue;
+		}
+		component->fatherAnchor = anchor;
+		component->SetFatherTransform(childFatherTransform);
+		component->Update();
+	}
+
 	for (auto& container : subContainers)
 	{
 		if (container == nullptr || !container->visiable)
@@ -167,16 +178,6 @@ void noa::UIContainer::Update()
 		container->Update();
 	}
 
-	for (auto& component : uiComponent)
-	{
-		if (component == nullptr || !component->active)
-		{
-			continue;
-		}
-		component->fatherAnchor = anchor;
-		component->SetFatherTransform(childFatherTransform);
-		component->Update();
-	}
 }
 
 void noa::UIContainer::Render() {
@@ -184,6 +185,16 @@ void noa::UIContainer::Render() {
 	if (!visiable)
 	{
 		return;
+	}
+
+	for (auto& component : uiComponent)
+	{
+		if (component == nullptr || !component->active)
+		{
+			continue;
+		}
+		component->fatherTransform = this->globalTransform;
+		component->Render();
 	}
 
 	//ÏÔÊ¾±³¾°
@@ -197,15 +208,7 @@ void noa::UIContainer::Render() {
 		container->Render();
 	}
 
-	for (auto& component : uiComponent)
-	{
-		if (component == nullptr || !component->active)
-		{
-			continue;
-		}
-		component->fatherTransform = this->globalTransform;
-		component->Render();
-	}
+	
 
 }
 

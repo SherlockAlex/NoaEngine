@@ -104,10 +104,13 @@
 #include "Camera.h"
 #include "Camera2D.h"
 
+#include "State.h"
 #include "StateMachine.h"
+
 #include "NoaGUI.h"
+
 #include "Resource.h"
-#include "ScriptableActor.h"
+
 #include "ActorComponent.h"
 #include "NObject.h"
 #include "Time.h"

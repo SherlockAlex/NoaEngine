@@ -32,44 +32,54 @@ namespace noa
 	}AnimationClip;
 
 	//可以作为一个组件挂载到角色身上，让角色播放动画
-	class Animation:public ActorComponent
+	class Animation final:public ActorComponent
 	{
+	private:
 		ACTOR_COMPONENT(Animation)
 	private:
-		AnimationClip* clip = nullptr;
-		std::unordered_map<Uint32, NoaEvent<void>> framesEvent;
-		SpriteFile currentFrame;
-		bool isPlaying = false;
-		float speed = 7;
-		float i = 0;
-		bool loop = false;
-		int previousFrameIndex = -1;
-		SpriteRenderer* spriteRenderer = nullptr;
-
-	protected:
 		Animation(Actor * actor);
 		~Animation();
+
+		void Play(int frame);
+		void Start() override;
+		void Update() override;//更新动画帧
 
 	public:
 		static Animation* Create(Actor* actor);
 		
-		
 		SpriteFile& GetCurrentFrameImage();
 		SpriteFile& GetFrameImage(int frame);
 		
-		void Play(int frame);
+		
 		void Play();
 		void Reset();
-		
-		void Start() override;
-		void Update() override;//更新动画帧
 
 		Animation& SetLoop(bool value);
 		Animation& SetSpeed(float value);
 		Animation& SetFrameEvent(int frame, std::function<void()> e);
 		Animation& SetSpriteRenderer(SpriteRenderer* spriteRenderer);
-		Animation& SetClip(AnimationClip* frame);
+		Animation& SetClip(AnimationClip* clip);
 		Animation* Apply();
+
+	private:
+		AnimationClip* clip = nullptr;
+		std::vector<noa::AnimationClip*> clips;
+
+		int previousFrameIndex = -1;
+		std::unordered_map<Uint32, NoaEvent<void>> framesEvent;
+
+		SpriteFile currentFrame;
+		
+		bool isPlaying = false;
+		bool loop = false;
+
+		float speed = 7;
+		float i = 0;
+		
+		
+
+		SpriteRenderer* spriteRenderer = nullptr;
+
 	};
 
 }

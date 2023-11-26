@@ -69,9 +69,6 @@
     <ClInclude Include="NoaEngine\Resource.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="NoaEngine\ScriptableActor.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="NoaEngine\ActorComponent.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -133,15 +130,6 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="NoaEngine\SDLTexture.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="NoaEngine\List.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="NoaEngine\Stack.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="NoaEngine\Queue.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="NoaEngine\Screen.h">
@@ -220,6 +208,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="NoaEngine\SceneManager.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="NoaEngine\State.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
@@ -402,6 +393,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="NoaEngine\SceneManager.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="NoaEngine\State.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

@@ -24,6 +24,7 @@ namespace noa
 		void ApplyTriggerEnter(Collider2D& other);
 		virtual void Update() override;
 		void SetRigidbody(Rigidbody* rigidbody);
+		void SetTrigger(bool value);
 	public:
 
 		template<class T>

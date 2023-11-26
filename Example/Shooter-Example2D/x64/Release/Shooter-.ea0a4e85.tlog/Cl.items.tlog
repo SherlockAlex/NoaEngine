@@ -40,6 +40,7 @@ D:\Work\NoaEngine\NoaEngine\NoaEngine\SDLRenderer.cpp;D:\Work\NoaEngine\Example\
 D:\Work\NoaEngine\NoaEngine\NoaEngine\SDLTexture.cpp;D:\Work\NoaEngine\Example\Shooter-Example2D\x64\Release\SDLTexture.obj
 D:\Work\NoaEngine\NoaEngine\NoaEngine\Sprite.cpp;D:\Work\NoaEngine\Example\Shooter-Example2D\x64\Release\Sprite.obj
 D:\Work\NoaEngine\NoaEngine\NoaEngine\SpriteRenderer.cpp;D:\Work\NoaEngine\Example\Shooter-Example2D\x64\Release\SpriteRenderer.obj
+D:\Work\NoaEngine\NoaEngine\NoaEngine\State.cpp;D:\Work\NoaEngine\Example\Shooter-Example2D\x64\Release\State.obj
 D:\Work\NoaEngine\NoaEngine\NoaEngine\StateMachine.cpp;D:\Work\NoaEngine\Example\Shooter-Example2D\x64\Release\StateMachine.obj
 D:\Work\NoaEngine\NoaEngine\NoaEngine\Texture.cpp;D:\Work\NoaEngine\Example\Shooter-Example2D\x64\Release\Texture.obj
 D:\Work\NoaEngine\NoaEngine\NoaEngine\TileCollider2D.cpp;D:\Work\NoaEngine\Example\Shooter-Example2D\x64\Release\TileCollider2D.obj

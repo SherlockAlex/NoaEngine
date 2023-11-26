@@ -10,6 +10,7 @@ noa::Image::Image(UIContainer* group) :UIComponent(group)
 
 	spriteGPU = SpriteGPU::Create(&sprite);
 	spriteGPU->SetLayer(InstanceLayer::UI_LAYER);
+
 }
 
 noa::Image::~Image()

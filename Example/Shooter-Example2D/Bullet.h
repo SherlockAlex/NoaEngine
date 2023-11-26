@@ -36,12 +36,12 @@ private:
 	noa::CircleCollider2D* collider = 
 		noa::CircleCollider2D::Create(this)
 		->SetRigidbody(rigid)
-		.SetIsTrigger(true)
+		.SetTrigger(true)
 		.Apply();
 
 	noa::TileCollider2D* tileCollider = noa::TileCollider2D::Create(this)
 		->SetRigidbody(rigid)
-		.SetIsTrigger(true)
+		.SetTrigger(true)
 		.Apply();
 
 	float timer = 0;

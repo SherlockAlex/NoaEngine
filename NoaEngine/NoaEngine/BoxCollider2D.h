@@ -17,7 +17,7 @@ namespace noa {
 		static BoxCollider2D* Create(Actor* actor);
 		BoxCollider2D& SetScale(float x, float y);
 		BoxCollider2D& SetRigidbody(Rigidbody* rigidbody);
-		BoxCollider2D& SetIsTrigger(bool isTrigger);
+		BoxCollider2D& SetTrigger(bool isTrigger);
 		BoxCollider2D* Apply();
 	};
 }

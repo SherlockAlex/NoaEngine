@@ -9,8 +9,6 @@ noa::Button::Button(UIContainer* group) :UIComponent(group)
 	image = Image::Create(group);
 	label = Label::Create(group);
 
-	label->SetAnchor(0.5f,0.5f);
-
 	SetFontSize(20);
 	SetLocalPosition(0, 0);
 	SetSize(240, 60);
@@ -25,7 +23,10 @@ noa::Button::Button(UIContainer* group) :UIComponent(group)
 	SetHeightLightScale(1.1f);
 	SetClickScale(0.9f);
 
+	Render();
+
 	Apply();
+
 
 }
 

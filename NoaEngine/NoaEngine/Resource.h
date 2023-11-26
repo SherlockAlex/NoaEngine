@@ -84,7 +84,6 @@ namespace noa {
 		std::unordered_map<int, Tile> set;
 		bool ContainTileID(int id) const;
 		Tile* GetTileByID(int id);
-
 	}TileSet;
 
 	class AudioClip;

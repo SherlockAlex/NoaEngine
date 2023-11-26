@@ -17,7 +17,7 @@ namespace noa {
 		static CircleCollider2D* Create(Actor* actor);
 		CircleCollider2D& SetRigidbody(Rigidbody* rigidbody);
 		CircleCollider2D& SetRadius(float radius);
-		CircleCollider2D& SetIsTrigger(bool isTrigger);
+		CircleCollider2D& SetTrigger(bool isTrigger);
 		CircleCollider2D& SetOffset(float x,float y);
 		CircleCollider2D* Apply();
 

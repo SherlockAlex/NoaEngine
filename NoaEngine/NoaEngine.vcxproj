@@ -159,6 +159,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="NoaEngine\SceneManager.h" />
+    <ClInclude Include="NoaEngine\State.h" />
     <ClInclude Include="NoaEngine\UIBody.h" />
     <ClInclude Include="NoaEngine\UIButton.h" />
     <ClInclude Include="NoaEngine\Camera2D.h" />
@@ -184,21 +185,17 @@
     <ClInclude Include="NoaEngine\InputSystem.h" />
     <ClInclude Include="NoaEngine\IPool.h" />
     <ClInclude Include="NoaEngine\UILabel.h" />
-    <ClInclude Include="NoaEngine\List.h" />
     <ClInclude Include="NoaEngine\NoaAction.h" />
     <ClInclude Include="NoaEngine\NoaEngine.h" />
     <ClInclude Include="NoaEngine\NoaGUI.h" />
     <ClInclude Include="NoaEngine\NoaMath.h" />
     <ClInclude Include="NoaEngine\Physics.h" />
     <ClInclude Include="NoaEngine\ObjectPool.h" />
-    <ClInclude Include="NoaEngine\Queue.h" />
     <ClInclude Include="NoaEngine\Renderer.h" />
     <ClInclude Include="NoaEngine\Resource.h" />
     <ClInclude Include="NoaEngine\Scene.h" />
-    <ClInclude Include="NoaEngine\ScriptableActor.h" />
     <ClInclude Include="NoaEngine\SDLHelper.h" />
     <ClInclude Include="NoaEngine\Sprite.h" />
-    <ClInclude Include="NoaEngine\Stack.h" />
     <ClInclude Include="NoaEngine\StateMachine.h" />
     <ClInclude Include="NoaEngine\TileMapRenderer.h" />
     <ClInclude Include="NoaEngine\Transform.h" />
@@ -229,6 +226,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="NoaEngine\SceneManager.cpp" />
+    <ClCompile Include="NoaEngine\State.cpp" />
     <ClCompile Include="NoaEngine\UIBody.cpp" />
     <ClCompile Include="NoaEngine\UIButton.cpp" />
     <ClCompile Include="NoaEngine\Camera2D.cpp" />

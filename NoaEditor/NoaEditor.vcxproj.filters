@@ -27,6 +27,15 @@
     <ClCompile Include="EditorCamera.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="UIMove.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="UIWindow.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorMainUI.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
     <ClCompile Include="..\NoaEngine\NoaEngine\Actor.cpp">
       <Filter>头文件\Engine</Filter>
     </ClCompile>
@@ -135,6 +144,9 @@
     <ClCompile Include="..\NoaEngine\NoaEngine\Scene.cpp">
       <Filter>头文件\Engine</Filter>
     </ClCompile>
+    <ClCompile Include="..\NoaEngine\NoaEngine\SceneManager.cpp">
+      <Filter>头文件\Engine</Filter>
+    </ClCompile>
     <ClCompile Include="..\NoaEngine\NoaEngine\Screen.cpp">
       <Filter>头文件\Engine</Filter>
     </ClCompile>
@@ -148,6 +160,9 @@
       <Filter>头文件\Engine</Filter>
     </ClCompile>
     <ClCompile Include="..\NoaEngine\NoaEngine\SpriteRenderer.cpp">
+      <Filter>头文件\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\NoaEngine\NoaEngine\State.cpp">
       <Filter>头文件\Engine</Filter>
     </ClCompile>
     <ClCompile Include="..\NoaEngine\NoaEngine\StateMachine.cpp">
@@ -198,23 +213,11 @@
     <ClCompile Include="..\NoaEngine\NoaEngine\UILabel.cpp">
       <Filter>头文件\Engine</Filter>
     </ClCompile>
-    <ClCompile Include="..\NoaEngine\NoaEngine\UIScrollBar.cpp">
-      <Filter>头文件\Engine</Filter>
-    </ClCompile>
     <ClCompile Include="..\NoaEngine\NoaEngine\UIScript.cpp">
       <Filter>头文件\Engine</Filter>
     </ClCompile>
-    <ClCompile Include="UIMove.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="..\NoaEngine\NoaEngine\SceneManager.cpp">
+    <ClCompile Include="..\NoaEngine\NoaEngine\UIScrollBar.cpp">
       <Filter>头文件\Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="UIWindow.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="EditorMainUI.cpp">
-      <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -225,6 +228,15 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="EditorCamera.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="UIMove.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="UIWindow.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorMainUI.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="..\NoaEngine\NoaEngine\Actor.h">
@@ -302,9 +314,6 @@
     <ClInclude Include="..\NoaEngine\NoaEngine\IPoolObjectFactroy.h">
       <Filter>头文件\Engine</Filter>
     </ClInclude>
-    <ClInclude Include="..\NoaEngine\NoaEngine\List.h">
-      <Filter>头文件\Engine</Filter>
-    </ClInclude>
     <ClInclude Include="..\NoaEngine\NoaEngine\NoaAction.h">
       <Filter>头文件\Engine</Filter>
     </ClInclude>
@@ -338,9 +347,6 @@
     <ClInclude Include="..\NoaEngine\NoaEngine\Platform_Windows.h">
       <Filter>头文件\Engine</Filter>
     </ClInclude>
-    <ClInclude Include="..\NoaEngine\NoaEngine\Queue.h">
-      <Filter>头文件\Engine</Filter>
-    </ClInclude>
     <ClInclude Include="..\NoaEngine\NoaEngine\Renderer.h">
       <Filter>头文件\Engine</Filter>
     </ClInclude>
@@ -350,10 +356,10 @@
     <ClInclude Include="..\NoaEngine\NoaEngine\Scene.h">
       <Filter>头文件\Engine</Filter>
     </ClInclude>
-    <ClInclude Include="..\NoaEngine\NoaEngine\Screen.h">
+    <ClInclude Include="..\NoaEngine\NoaEngine\SceneManager.h">
       <Filter>头文件\Engine</Filter>
     </ClInclude>
-    <ClInclude Include="..\NoaEngine\NoaEngine\ScriptableActor.h">
+    <ClInclude Include="..\NoaEngine\NoaEngine\Screen.h">
       <Filter>头文件\Engine</Filter>
     </ClInclude>
     <ClInclude Include="..\NoaEngine\NoaEngine\SDLHelper.h">
@@ -371,7 +377,7 @@
     <ClInclude Include="..\NoaEngine\NoaEngine\SpriteRenderer.h">
       <Filter>头文件\Engine</Filter>
     </ClInclude>
-    <ClInclude Include="..\NoaEngine\NoaEngine\Stack.h">
+    <ClInclude Include="..\NoaEngine\NoaEngine\State.h">
       <Filter>头文件\Engine</Filter>
     </ClInclude>
     <ClInclude Include="..\NoaEngine\NoaEngine\StateMachine.h">
@@ -422,23 +428,11 @@
     <ClInclude Include="..\NoaEngine\NoaEngine\UILabel.h">
       <Filter>头文件\Engine</Filter>
     </ClInclude>
-    <ClInclude Include="..\NoaEngine\NoaEngine\UIScrollBar.h">
-      <Filter>头文件\Engine</Filter>
-    </ClInclude>
     <ClInclude Include="..\NoaEngine\NoaEngine\UIScript.h">
       <Filter>头文件\Engine</Filter>
     </ClInclude>
-    <ClInclude Include="UIMove.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\NoaEngine\NoaEngine\SceneManager.h">
+    <ClInclude Include="..\NoaEngine\NoaEngine\UIScrollBar.h">
       <Filter>头文件\Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="UIWindow.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="EditorMainUI.h">
-      <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

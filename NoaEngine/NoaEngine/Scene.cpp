@@ -15,7 +15,7 @@ using namespace std;
 noa::Scene::Scene(const std::string& name)
 {
 	this->name = name;
-	actors.reserve(1024 * 10);
+	actors.reserve(1024);
 }
 
 noa::Scene::~Scene()
@@ -178,16 +178,9 @@ void noa::Scene::SceneChildRender() {
 
 	for (auto& child : sceneChildren)
 	{
-		for (const auto& actor : child.second->actors)
+		if (child.second)
 		{
-			if (actor == nullptr 
-				|| !actor->GetActive() 
-				|| actor->isRemoved)
-			{
-				continue;
-			}
-			actor->ComponentRender();
-			actor->Render();
+			child.second->SceneChildRender();
 		}
 	}
 

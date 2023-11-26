@@ -15,7 +15,7 @@ bool noa::TileSet::ContainTileID(int id) const
 
 noa::Tile* noa::TileSet::GetTileByID(int id)
 {
-	if (this->set.count(id)<=0) 
+	if (this->set.count(id) <= 0)
 	{
 		return nullptr;
 	}

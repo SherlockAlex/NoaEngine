@@ -5,6 +5,10 @@
 
 namespace noa {
 
+	//只会和tile进行交互，不会和其他的collider进行交互
+	//但是这会照成其他的bug
+	//解决方案是统一所有的Collider
+
 	class TileCollider2D final :public Collider2D
 	{
 	private:
@@ -24,7 +28,7 @@ namespace noa {
 		TileCollider2D& SetTileMap(TileMap* tileMap);
 		TileCollider2D& SetScale(float x, float y);
 		TileCollider2D& SetRigidbody(Rigidbody* rigidbody);
-		TileCollider2D& SetIsTrigger(bool value);
+		TileCollider2D& SetTrigger(bool value);
 		TileCollider2D* Apply();
 
 	private:

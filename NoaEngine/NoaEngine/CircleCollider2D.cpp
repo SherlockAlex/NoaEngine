@@ -27,9 +27,9 @@ noa::CircleCollider2D& noa::CircleCollider2D::SetRigidbody(noa::Rigidbody* rigid
 	return *this;
 }
 
-noa::CircleCollider2D& noa::CircleCollider2D::SetIsTrigger(bool isTrigger)
+noa::CircleCollider2D& noa::CircleCollider2D::SetTrigger(bool value)
 {
-	this->isTrigger = isTrigger;
+	Collider2D::SetTrigger(value);
 	return *this;
 }
 

@@ -50,9 +50,9 @@ noa::TileCollider2D& noa::TileCollider2D::SetRigidbody(Rigidbody* rigidbody)
 	return *this;
 }
 
-noa::TileCollider2D& noa::TileCollider2D::SetIsTrigger(bool value)
+noa::TileCollider2D& noa::TileCollider2D::SetTrigger(bool value)
 {
-	this->isTrigger = value;
+	noa::Collider2D::SetTrigger(value);
 	return *this;
 }
 

@@ -10,7 +10,7 @@ private:
 	void Start() override;
 	void Update() override;
 
-private:
+public:
 	noa::UIDocument* document =
 		noa::UIDocument::Create(this)
 		->SetID("main_menu_document")

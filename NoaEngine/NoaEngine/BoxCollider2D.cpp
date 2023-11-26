@@ -22,9 +22,9 @@ noa::BoxCollider2D& noa::BoxCollider2D::SetScale(float x, float y)
 	return *this;
 }
 
-noa::BoxCollider2D& noa::BoxCollider2D::SetIsTrigger(bool isTrigger)
+noa::BoxCollider2D& noa::BoxCollider2D::SetTrigger(bool value)
 {
-	this->isTrigger = isTrigger;
+	Collider2D::SetTrigger(value);
 	return *this;
 }
 

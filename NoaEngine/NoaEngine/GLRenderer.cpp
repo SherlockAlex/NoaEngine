@@ -43,7 +43,7 @@ void noa::GLRenderer::InitRenderer()
         , static_cast<float>(noa::Screen::height)
     );
 
-    this->defaultShader->SetMatrix4("projection",projection);
+    this->defaultShader->SetMatrix4("projection", projection);
 
 }
 
