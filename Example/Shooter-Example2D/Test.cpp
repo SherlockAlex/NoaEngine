@@ -25,6 +25,7 @@ void Test::Update()
 
 	if (isHand) 
 	{
+		camera->SetFollow(this);
 		noa::Vector<double> mousePos = noa::Input::GetMousePosition();
 		noa::Vector<float> worldPos = camera->ScreenPointToWorld(mousePos.x,mousePos.y);
 		

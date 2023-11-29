@@ -1,7 +1,7 @@
-﻿  Test.cpp
+﻿  Shooter.cpp
   正在生成代码
-  0 of 4227 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
+  2 of 4228 functions (<0.1%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    0 functions had inline decision re-evaluated but remain unchanged
+    1 functions had inline decision re-evaluated but remain unchanged
   已完成代码的生成
   Shooter-Example2D.vcxproj -> D:\Work\NoaEngine\x64\Release\Shooter-Example2D.exe

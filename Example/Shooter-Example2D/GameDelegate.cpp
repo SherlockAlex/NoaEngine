@@ -7,11 +7,11 @@
 #include "GameMenu.h"
 
 bool flag = true;
-
+int i = 0;
 void GameMenuScene(noa::Scene* scene);
 void GameDelegate::OnLoad(noa::Scene* scene)
 {
-
+	i = 0;
 	noa::PhysicsSystem::SetGrid(100,100);
 
 	noa::TileMapInfo mapInfo = noa::TileMapInfo()
@@ -37,8 +37,8 @@ void GameDelegate::OnLoad(noa::Scene* scene)
 	test1->GetComponent<noa::TileCollider2D>()->SetTileMap(tileMap);
 	test1->transform.position = { 2,3 };
 
-	Player* player = noa::NObject<Player>::Create(scene);
-	player->GetComponent<noa::TileCollider2D>()->SetTileMap(tileMap);
+	//Player* player = noa::NObject<Player>::Create(scene);
+	//player->GetComponent<noa::TileCollider2D>()->SetTileMap(tileMap);
 
 	noa::Camera2D* camera = noa::Camera2D::Create(scene)
 		->SetFar(32.0f)
@@ -46,7 +46,7 @@ void GameDelegate::OnLoad(noa::Scene* scene)
 		.SetBoundary(true)
 		.SetHorizonalBoundary(0, mapInfo.w)
 		.SetVerticalBoundary(0,mapInfo.h)
-		.SetFollow(player)
+		.SetFollow(test1)
 		.Apply();
 	test1->camera = camera;
 
@@ -63,8 +63,20 @@ void GameDelegate::OnLoad(noa::Scene* scene)
 }
 
 
+
 void GameDelegate::OnTick(noa::Scene* scene)
 {
+	noa::Camera2D* camera = noa::SceneManager::FindActorWithType<noa::Camera2D>();
+	noa::TileMap* tileMap = noa::SceneManager::FindActorWithType<noa::TileMap>();
+	if (i<50)
+	{
+		Test* test = noa::NObject<Test>::Create(scene);
+		test->GetComponent<noa::TileCollider2D>()->SetTileMap(tileMap);
+		test->transform.position = { 2,3 };
+		test->camera = camera;
+		i++;
+	}
+
 
 	GameMenu* gameMenu = noa::SceneManager::FindActorWithType<GameMenu>();
 	GameUI* gui = noa::SceneManager::FindActorWithType<GameUI>();
