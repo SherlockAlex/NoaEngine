@@ -15,15 +15,6 @@ bool noa::SceneManager::isLoading = false;
 bool noa::SceneManager::isQuit = false;
 bool noa::SceneManager::quited = false;
 
-
-
-noa::Scene* noa::SceneManager::CreateScene(const std::string& name)
-{
-	noa::Scene* scene = new Scene(name);
-	SceneManager::AddScene(scene);
-	return scene;
-}
-
 noa::Scene* noa::SceneManager::GetActiveScene()
 {
 	return activeScene;

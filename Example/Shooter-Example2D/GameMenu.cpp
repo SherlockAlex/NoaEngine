@@ -20,7 +20,7 @@ void GameMenu::Start() {
 		noa::Image::Create(container)
 		->SetID("game_memu_uihub")
 		.SetStyle(noa::ImageStyle::DEFAULT)
-		.SetSize(noa::Screen::width/2, noa::Screen::height / 1.5f)
+		.SetLocalSize(noa::Screen::width/2, noa::Screen::height / 1.5f)
 		.SetAnchor(0.5f,0.5f)
 		.SetRadius(30)
 		.SetColor(noa::RGBA(0, 0, 0, 250))

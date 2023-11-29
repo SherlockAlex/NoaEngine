@@ -55,7 +55,7 @@ noa::Image& noa::Image::SetActive(bool value)
 	return *this;
 }
 
-noa::Image& noa::Image::SetSize(int x, int y)
+noa::Image& noa::Image::SetLocalSize(int x, int y)
 {
 
 	noa::UIBody::SetLocalSize(x, y);

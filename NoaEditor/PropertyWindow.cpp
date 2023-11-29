@@ -30,7 +30,7 @@ void noa::PropertyWindow::OnGUI() {
 			= document->GetElementByID<noa::ScrollBar>("window_background_scrollbar");
 		
 		bar->SetLocalPosition(position[0],position[1]);
-		bar->SetSize(size[0],size[1]);
+		bar->SetLocalSize(size[0],size[1]);
 	}
 }
 

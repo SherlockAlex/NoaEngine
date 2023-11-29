@@ -56,3 +56,8 @@ void Bullet::SetDirection(float x,float y)
 	this->direction.y = y;
 	this->direction = this->direction.Normalize();
 }
+
+void Bullet::SetTileMap(noa::TileMap* tileMap)
+{
+	this->tileCollider->SetTileMap(tileMap);
+}

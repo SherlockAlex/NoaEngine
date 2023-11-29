@@ -73,9 +73,6 @@ namespace noa {
 		template<class T>
 		bool TryGetComponent(std::function<void(T&)> callback)
 		{
-			//尝试获取T类型的组件
-			//如果没有获取到返回false
-			//否则返回True，并执行回调函数
 			T* buffer = nullptr;
 			for (auto & component:components) 
 			{
@@ -93,8 +90,6 @@ namespace noa {
 
 			callback(*buffer);
 			return true;
-
-
 
 		}
 

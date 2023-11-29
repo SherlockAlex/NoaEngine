@@ -42,7 +42,7 @@ namespace noa {
 		Button& SetGlobalPosition(int x,int y);
 		Button& SetAnchor(float x, float y);
 		Button& SetActive(bool value);
-		Button& SetSize(int w, int h);
+		Button& SetLocalSize(int w, int h);
 		Button& SetSprite(noa::Sprite* sprite);
 		Button& SetRadius(int value);
 		Button& SetTextOffset(float x, float y);

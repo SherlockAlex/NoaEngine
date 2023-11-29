@@ -126,16 +126,16 @@ bool noa::PhysicsSystem::Collide(Collider2D* obj1, Collider2D* obj2)
 	
 }
 
-bool noa::PhysicsSystem::Collide(const AABB& box1, const AABB& box2)
-{
-	if (box1.maxX < box2.minX || box1.minX > box2.maxX) {
-		return false;
-	}
-	if (box1.maxY < box2.minY || box1.minY > box2.maxY) {
-		return false;
-	}
-	return true;
-}
+//bool noa::PhysicsSystem::Collide(const AABB& box1, const AABB& box2)
+//{
+//	if (box1.maxX < box2.minX || box1.minX > box2.maxX) {
+//		return false;
+//	}
+//	if (box1.maxY < box2.minY || box1.minY > box2.maxY) {
+//		return false;
+//	}
+//	return true;
+//}
 
 void noa::PhysicsSystem::SolveCollision(Collider2D* obj1, Collider2D* obj2)
 {
@@ -358,25 +358,25 @@ bool noa::PhysicsSystem::BoxCollide(BoxCollider2D* obj1, BoxCollider2D* obj2)
 		return false;
 	}
 
-	float obj1X = obj1->rigidbody->newPosition.x;
-	float obj1Y = obj1->rigidbody->newPosition.y;
-	float obj1Width = obj1->scale.x;
-	float obj1Height = obj1->scale.y;
+	const float obj1X = obj1->rigidbody->newPosition.x;
+	const float obj1Y = obj1->rigidbody->newPosition.y;
+	const float obj1Width = obj1->scale.x;
+	const float obj1Height = obj1->scale.y;
 
-	float obj2X = obj2->rigidbody->newPosition.x;
-	float obj2Y = obj2->rigidbody->newPosition.y;
-	float obj2Width = obj2->scale.x;
-	float obj2Height = obj2->scale.y;
+	const float obj2X = obj2->rigidbody->newPosition.x;
+	const float obj2Y = obj2->rigidbody->newPosition.y;
+	const float obj2Width = obj2->scale.x;
+	const float obj2Height = obj2->scale.y;
 
-	float obj1Left = obj1X - obj1Width / 2;
-	float obj1Right = obj1X + obj1Width / 2;
-	float obj1Top = obj1Y + obj1Height / 2;
-	float obj1Bottom = obj1Y - obj1Height / 2;
+	float obj1Left = obj1X;
+	float obj1Right = obj1X + obj1Width;
+	float obj1Top = obj1Y;
+	float obj1Bottom = obj1Y + obj1Height;
 
-	float obj2Left = obj2X - obj2Width / 2;
-	float obj2Right = obj2X + obj2Width / 2;
-	float obj2Top = obj2Y + obj2Height / 2;
-	float obj2Bottom = obj2Y - obj2Height / 2;
+	float obj2Left = obj2X;
+	float obj2Right = obj2X + obj2Width;
+	float obj2Top = obj2Y;
+	float obj2Bottom = obj2Y + obj2Height;
 
 	if (obj1Right < obj2Left 
 		|| obj1Left > obj2Right 

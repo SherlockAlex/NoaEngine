@@ -29,7 +29,7 @@ void MainMenuUI::Start() {
 		.Apply();
 
 	noa::Image* backgroundImage = noa::Image::Create(mainContainer)
-		->SetSize(1920,1080)
+		->SetLocalSize(1920,1080)
 		.SetSprite(&ResourceManager::backgroundImage)
 		.SetStyle(noa::ImageStyle::COVER)
 		.Apply();
@@ -38,7 +38,7 @@ void MainMenuUI::Start() {
 		->SetText(L"¿ªÊ¼ÓÎÏ·")
 		.SetFontSize(20)
 		.SetLocalPosition(noa::Screen::width/2,0)
-		.SetSize(240, 60)
+		.SetLocalSize(240, 60)
 		.SetRadius(0)
 		.SetNormalColor(noa::RGBA(20,20,20,250))
 		.SetHeightLightColor(noa::RGBA(255,0,0,255))
@@ -69,7 +69,7 @@ void MainMenuUI::Start() {
 		.Apply();
 
 	noa::Image* backgroundImage1 = noa::Image::Create(secondContainer)
-		->SetSize(noa::Screen::width / 1.5, noa::Screen::height / 1.5)
+		->SetLocalSize(noa::Screen::width / 1.5, noa::Screen::height / 1.5)
 		.SetSprite(&ResourceManager::backgroundImage1)
 		.SetStyle(noa::ImageStyle::DEFAULT)
 		.SetLocalPosition(0,0)
@@ -88,7 +88,7 @@ void MainMenuUI::Start() {
 
 	noa::ScrollBar* processBar =
 		noa::ScrollBar::Create(secondContainer)
-		->SetSize(360,10)
+		->SetLocalSize(360,10)
 		.SetID("process_bar")
 		.SetAmount(0.5f)
 		.SetBackgroundColor(noa::RGBA(20,20,20,250))

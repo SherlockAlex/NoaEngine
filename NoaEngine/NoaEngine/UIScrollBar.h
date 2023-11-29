@@ -33,14 +33,14 @@ namespace noa {
 		ScrollBar& SetBackgroundColor(uint32_t color);
 		ScrollBar& SetFillColor(uint32_t color);
 		ScrollBar& SetFinishedCallback(std::function<void()> func);
-		ScrollBar& SetSize(int x, int y);
+		ScrollBar& SetLocalSize(int x, int y);
 		ScrollBar& SetAmount(float amount);
 		ScrollBar& SetRadius(int value);
 		ScrollBar& SetInteractable(bool value);
 		ScrollBar& SetActiveScale(float value);
 		ScrollBar* Apply();
 
-		float GetValue();
+		float GetAmount();
 
 	private:
 		uint32_t backgroundColor = noa::BLACK;

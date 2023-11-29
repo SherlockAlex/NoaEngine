@@ -26,6 +26,7 @@ namespace noa {
 		void ApplyConstraint(float deltaTime);
 
 		TileCollider2D& SetTileMap(TileMap* tileMap);
+		TileMap* GetTileMap();
 		TileCollider2D& SetScale(float x, float y);
 		TileCollider2D& SetRigidbody(Rigidbody* rigidbody);
 		TileCollider2D& SetTrigger(bool value);

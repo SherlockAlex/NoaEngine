@@ -139,7 +139,7 @@
     <ClCompile Include="..\NoaEngine\NoaEngine\ActorMotion.cpp" />
     <ClCompile Include="..\NoaEngine\NoaEngine\ActorPool.cpp" />
     <ClCompile Include="..\NoaEngine\NoaEngine\ActorPoolFactory.cpp" />
-    <ClCompile Include="..\NoaEngine\NoaEngine\Animator.cpp" />
+    <ClCompile Include="..\NoaEngine\NoaEngine\Animation.cpp" />
     <ClCompile Include="..\NoaEngine\NoaEngine\Application.cpp" />
     <ClCompile Include="..\NoaEngine\NoaEngine\AudioSource.cpp" />
     <ClCompile Include="..\NoaEngine\NoaEngine\AudioSystem.cpp" />
@@ -163,13 +163,13 @@
     <ClCompile Include="..\NoaEngine\NoaEngine\NoaGUI.cpp" />
     <ClCompile Include="..\NoaEngine\NoaEngine\NoaMath.cpp" />
     <ClCompile Include="..\NoaEngine\NoaEngine\NObject.cpp" />
-    <ClCompile Include="..\NoaEngine\NoaEngine\Physics.cpp" />
     <ClCompile Include="..\NoaEngine\NoaEngine\PhysicsSystem.cpp" />
     <ClCompile Include="..\NoaEngine\NoaEngine\Platform.cpp" />
     <ClCompile Include="..\NoaEngine\NoaEngine\Platform_Linux.cpp" />
     <ClCompile Include="..\NoaEngine\NoaEngine\Platform_Windows.cpp" />
     <ClCompile Include="..\NoaEngine\NoaEngine\Renderer.cpp" />
     <ClCompile Include="..\NoaEngine\NoaEngine\Resource.cpp" />
+    <ClCompile Include="..\NoaEngine\NoaEngine\Rigidbody.cpp" />
     <ClCompile Include="..\NoaEngine\NoaEngine\Scene.cpp" />
     <ClCompile Include="..\NoaEngine\NoaEngine\SceneManager.cpp" />
     <ClCompile Include="..\NoaEngine\NoaEngine\Screen.cpp" />
@@ -221,7 +221,7 @@
     <ClInclude Include="..\NoaEngine\NoaEngine\ActorMotion.h" />
     <ClInclude Include="..\NoaEngine\NoaEngine\ActorPool.h" />
     <ClInclude Include="..\NoaEngine\NoaEngine\ActorPoolFactory.h" />
-    <ClInclude Include="..\NoaEngine\NoaEngine\Animator.h" />
+    <ClInclude Include="..\NoaEngine\NoaEngine\Animation.h" />
     <ClInclude Include="..\NoaEngine\NoaEngine\Application.h" />
     <ClInclude Include="..\NoaEngine\NoaEngine\AudioSource.h" />
     <ClInclude Include="..\NoaEngine\NoaEngine\AudioSystem.h" />
@@ -231,6 +231,7 @@
     <ClInclude Include="..\NoaEngine\NoaEngine\Camera2D.h" />
     <ClInclude Include="..\NoaEngine\NoaEngine\CircleCollider2D.h" />
     <ClInclude Include="..\NoaEngine\NoaEngine\Collider2D.h" />
+    <ClInclude Include="..\NoaEngine\NoaEngine\Core.h" />
     <ClInclude Include="..\NoaEngine\NoaEngine\Debug.h" />
     <ClInclude Include="..\NoaEngine\NoaEngine\Font.h" />
     <ClInclude Include="..\NoaEngine\NoaEngine\FontAsset.h" />
@@ -248,13 +249,13 @@
     <ClInclude Include="..\NoaEngine\NoaEngine\NoaMath.h" />
     <ClInclude Include="..\NoaEngine\NoaEngine\NObject.h" />
     <ClInclude Include="..\NoaEngine\NoaEngine\ObjectPool.h" />
-    <ClInclude Include="..\NoaEngine\NoaEngine\Physics.h" />
     <ClInclude Include="..\NoaEngine\NoaEngine\PhysicsSystem.h" />
     <ClInclude Include="..\NoaEngine\NoaEngine\Platform.h" />
     <ClInclude Include="..\NoaEngine\NoaEngine\Platform_Linux.h" />
     <ClInclude Include="..\NoaEngine\NoaEngine\Platform_Windows.h" />
     <ClInclude Include="..\NoaEngine\NoaEngine\Renderer.h" />
     <ClInclude Include="..\NoaEngine\NoaEngine\Resource.h" />
+    <ClInclude Include="..\NoaEngine\NoaEngine\Rigidbody.h" />
     <ClInclude Include="..\NoaEngine\NoaEngine\Scene.h" />
     <ClInclude Include="..\NoaEngine\NoaEngine\SceneManager.h" />
     <ClInclude Include="..\NoaEngine\NoaEngine\Screen.h" />

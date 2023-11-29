@@ -10,6 +10,8 @@
 #include "Camera.h"
 #include "Debug.h"
 
+#include "SceneManager.h"
+
 using namespace std;
 
 noa::Scene::Scene(const std::string& name)
@@ -21,6 +23,12 @@ noa::Scene::Scene(const std::string& name)
 noa::Scene::~Scene()
 {
 	DestoyScene();
+}
+
+noa::Scene* noa::Scene::Create(const std::string& name) {
+	noa::Scene* scene = new Scene(name);
+	SceneManager::AddScene(scene);
+	return scene;
 }
 
 noa::Scene* noa::Scene::CreateChild(const std::string& name) 

@@ -12,6 +12,16 @@ public:
 	void Show();
 	void Close();
 
+	template<class T>
+	T* GetElementByID(const std::string& id) 
+	{
+		if (document==nullptr) 
+		{
+			return nullptr;
+		}
+		return document->GetElementByID(id);
+	}
+
 private:
 	noa::UIDocument* document = noa::UIDocument::Create(this);
 	noa::UIContainer* container =

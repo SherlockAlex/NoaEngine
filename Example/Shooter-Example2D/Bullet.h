@@ -22,6 +22,7 @@ private:
 
 public:
 	void SetDirection(float x,float y);
+	void SetTileMap(noa::TileMap* tileMap);
 private:
 
 	noa::SpriteRenderer* spriteRenderer = noa::SpriteRenderer::Create(this)

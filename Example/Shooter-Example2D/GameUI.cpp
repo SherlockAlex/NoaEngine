@@ -18,7 +18,7 @@ void GameUI::Start()
 	noa::ScrollBar* hpBar =
 		noa::ScrollBar::Create(container)
 		->SetID("game_ui_hpbar")
-		.SetSize(240,25)
+		.SetLocalSize(240,25)
 		.SetAnchor(0.0f,0.0f)
 		.SetLocalPosition(5,5)
 		.Apply();

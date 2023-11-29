@@ -10,7 +10,7 @@ D:\Work\NoaEngine\NoaEngine\NoaEngine\ActorComponent.cpp;D:\Work\NoaEngine\NoaEd
 D:\Work\NoaEngine\NoaEngine\NoaEngine\ActorMotion.cpp;D:\Work\NoaEngine\NoaEditor\x64\Release\ActorMotion.obj
 D:\Work\NoaEngine\NoaEngine\NoaEngine\ActorPool.cpp;D:\Work\NoaEngine\NoaEditor\x64\Release\ActorPool.obj
 D:\Work\NoaEngine\NoaEngine\NoaEngine\ActorPoolFactory.cpp;D:\Work\NoaEngine\NoaEditor\x64\Release\ActorPoolFactory.obj
-D:\Work\NoaEngine\NoaEngine\NoaEngine\Animator.cpp;D:\Work\NoaEngine\NoaEditor\x64\Release\Animator.obj
+D:\Work\NoaEngine\NoaEngine\NoaEngine\Animation.cpp;D:\Work\NoaEngine\NoaEditor\x64\Release\Animation.obj
 D:\Work\NoaEngine\NoaEngine\NoaEngine\Application.cpp;D:\Work\NoaEngine\NoaEditor\x64\Release\Application.obj
 D:\Work\NoaEngine\NoaEngine\NoaEngine\AudioSource.cpp;D:\Work\NoaEngine\NoaEditor\x64\Release\AudioSource.obj
 D:\Work\NoaEngine\NoaEngine\NoaEngine\AudioSystem.cpp;D:\Work\NoaEngine\NoaEditor\x64\Release\AudioSystem.obj
@@ -34,13 +34,13 @@ D:\Work\NoaEngine\NoaEngine\NoaEngine\NoaEngine.cpp;D:\Work\NoaEngine\NoaEditor\
 D:\Work\NoaEngine\NoaEngine\NoaEngine\NoaGUI.cpp;D:\Work\NoaEngine\NoaEditor\x64\Release\NoaGUI.obj
 D:\Work\NoaEngine\NoaEngine\NoaEngine\NoaMath.cpp;D:\Work\NoaEngine\NoaEditor\x64\Release\NoaMath.obj
 D:\Work\NoaEngine\NoaEngine\NoaEngine\NObject.cpp;D:\Work\NoaEngine\NoaEditor\x64\Release\NObject.obj
-D:\Work\NoaEngine\NoaEngine\NoaEngine\Physics.cpp;D:\Work\NoaEngine\NoaEditor\x64\Release\Physics.obj
 D:\Work\NoaEngine\NoaEngine\NoaEngine\PhysicsSystem.cpp;D:\Work\NoaEngine\NoaEditor\x64\Release\PhysicsSystem.obj
 D:\Work\NoaEngine\NoaEngine\NoaEngine\Platform.cpp;D:\Work\NoaEngine\NoaEditor\x64\Release\Platform.obj
 D:\Work\NoaEngine\NoaEngine\NoaEngine\Platform_Linux.cpp;D:\Work\NoaEngine\NoaEditor\x64\Release\Platform_Linux.obj
 D:\Work\NoaEngine\NoaEngine\NoaEngine\Platform_Windows.cpp;D:\Work\NoaEngine\NoaEditor\x64\Release\Platform_Windows.obj
 D:\Work\NoaEngine\NoaEngine\NoaEngine\Renderer.cpp;D:\Work\NoaEngine\NoaEditor\x64\Release\Renderer.obj
 D:\Work\NoaEngine\NoaEngine\NoaEngine\Resource.cpp;D:\Work\NoaEngine\NoaEditor\x64\Release\Resource.obj
+D:\Work\NoaEngine\NoaEngine\NoaEngine\Rigidbody.cpp;D:\Work\NoaEngine\NoaEditor\x64\Release\Rigidbody.obj
 D:\Work\NoaEngine\NoaEngine\NoaEngine\Scene.cpp;D:\Work\NoaEngine\NoaEditor\x64\Release\Scene.obj
 D:\Work\NoaEngine\NoaEngine\NoaEngine\SceneManager.cpp;D:\Work\NoaEngine\NoaEditor\x64\Release\SceneManager.obj
 D:\Work\NoaEngine\NoaEngine\NoaEngine\Screen.cpp;D:\Work\NoaEngine\NoaEditor\x64\Release\Screen.obj

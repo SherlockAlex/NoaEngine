@@ -9,11 +9,11 @@ Shooter::Shooter()
 		,"Shooter-2D"
 	)
 {
-	noa::Scene* mainMenu = noa::SceneManager::CreateScene("MainMenu");
+	noa::Scene* mainMenu = noa::Scene::Create("MainMenu");
 	mainMenu->onLoad += MainMenuDelegate::OnLoad;
 	mainMenu->onUpdate += MainMenuDelegate::OnUpdate;
 
-	noa::Scene* gameScene = noa::SceneManager::CreateScene("Game");
+	noa::Scene* gameScene = noa::Scene::Create("Game");
 	gameScene->onLoad += GameDelegate::OnLoad;
 	gameScene->onTick += GameDelegate::OnTick;
 

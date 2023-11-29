@@ -7,7 +7,7 @@ noa::ScrollBar::ScrollBar(noa::UIContainer* container)
 {
 	background = noa::Image::Create(container);
 	runtime = noa::Image::Create(container);
-	SetSize(360, 20);
+	SetLocalSize(360, 20);
 
 }
 
@@ -113,7 +113,7 @@ void noa::ScrollBar::Render() {
 
 	runtime->SetAnchor(anchor.x, anchor.y);
 	runtime->SetLocalPosition(transform.position.x,transform.position.y);
-	runtime->SetSize(transform.size.x,transform.size.y);
+	runtime->SetLocalSize(transform.size.x,transform.size.y);
 	runtime->color = fillColor;
 }
 
@@ -175,7 +175,7 @@ noa::ScrollBar& noa::ScrollBar::SetFinishedCallback(
 	return *this;
 }
 
-noa::ScrollBar& noa::ScrollBar::SetSize(int x, int y)
+noa::ScrollBar& noa::ScrollBar::SetLocalSize(int x, int y)
 {
 	noa::UIBody::SetLocalSize(x, y);
 
@@ -183,8 +183,8 @@ noa::ScrollBar& noa::ScrollBar::SetSize(int x, int y)
 	fillbar.h = y;
 	fillbar.ResizeAndFull(x, y, noa::RGBA(0, 0, 0, 0));
 
-	background->SetSize(x, y).Apply();
-	runtime->SetSize(x, y).SetSprite(&fillbar).Apply();
+	background->SetLocalSize(x, y).Apply();
+	runtime->SetLocalSize(x, y).SetSprite(&fillbar).Apply();
 
 	return *this;
 
@@ -223,7 +223,7 @@ noa::ScrollBar* noa::ScrollBar::Apply() {
 	return this;
 }
 
-float noa::ScrollBar::GetValue() {
+float noa::ScrollBar::GetAmount() {
 	return this->amount;
 }
 

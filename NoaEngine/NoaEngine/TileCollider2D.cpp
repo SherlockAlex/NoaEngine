@@ -40,6 +40,10 @@ noa::TileCollider2D& noa::TileCollider2D::SetTileMap(TileMap* tileMap)
 	return *this;
 }
 
+noa::TileMap* noa::TileCollider2D::GetTileMap() {
+	return this->tileMap;
+}
+
 noa::TileCollider2D& noa::TileCollider2D::SetRigidbody(Rigidbody* rigidbody)
 {
 	Collider2D::SetRigidbody(rigidbody);

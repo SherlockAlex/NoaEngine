@@ -8,7 +8,6 @@
 
 bool flag = true;
 
-
 void GameMenuScene(noa::Scene* scene);
 void GameDelegate::OnLoad(noa::Scene* scene)
 {
@@ -35,11 +34,11 @@ void GameDelegate::OnLoad(noa::Scene* scene)
 		.Apply();
 
 	Test* test1 = noa::NObject<Test>::Create(scene);
-	test1->tileCollider->SetTileMap(tileMap);
+	test1->GetComponent<noa::TileCollider2D>()->SetTileMap(tileMap);
 	test1->transform.position = { 2,3 };
 
 	Player* player = noa::NObject<Player>::Create(scene);
-	player->tileCollider->SetTileMap(tileMap);
+	player->GetComponent<noa::TileCollider2D>()->SetTileMap(tileMap);
 
 	noa::Camera2D* camera = noa::Camera2D::Create(scene)
 		->SetFar(32.0f)
@@ -62,9 +61,12 @@ void GameDelegate::OnLoad(noa::Scene* scene)
 
 }
 
-GameMenu* gameMenu = nullptr;
+
 void GameDelegate::OnTick(noa::Scene* scene)
 {
+
+	GameMenu* gameMenu = noa::SceneManager::FindActorWithType<GameMenu>();
+	GameUI* gui = noa::SceneManager::FindActorWithType<GameUI>();
 
 	if (gameMenu == nullptr)
 	{
@@ -85,6 +87,10 @@ void GameDelegate::OnTick(noa::Scene* scene)
 		}
 	}
 
+	noa::ScrollBar* hpBar =
+		gui->GetElementByID<noa::ScrollBar>("game_ui_hpbar");
+
+	hpBar->SetAmount(0.5f);
 	
 
 }
@@ -92,5 +98,5 @@ void GameDelegate::OnTick(noa::Scene* scene)
 
 void GameMenuScene(noa::Scene* scene) {
 	//创建游戏菜单
-	gameMenu = noa::NObject<GameMenu>::Create(scene);
+	GameMenu* gameMenu = noa::NObject<GameMenu>::Create(scene);
 }

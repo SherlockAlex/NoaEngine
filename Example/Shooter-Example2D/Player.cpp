@@ -58,6 +58,7 @@ void Player::Update()
 		noa::Vector<float> direction = { spriteRenderer->isFlip.x?-1.0f:1.0f,0.0f };
 		
 		bullet->SetDirection(direction.x,direction.y);
+		bullet->SetTileMap(tileCollider->GetTileMap());
 
 		timer = 0.0f;
 

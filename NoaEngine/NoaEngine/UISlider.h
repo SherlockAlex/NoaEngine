@@ -18,11 +18,19 @@ namespace noa {
 		void Update() override;
 		void Render() override;
 
+	public:
+		Slider& SetLocalSize(int w,int h);
+		Slider& SetAmount(float amount);
+		Slider& SetTrackColor(uint32_t color);
+		Slider& SetSliderColor(uint32_t color);
+		Slider& SetAnchor(float x,float y);
+		Slider* Apply();
 	private:
-		Image* bar = nullptr;
+		Image* track = nullptr;
 		Image* slider = nullptr;
 
-
+		// 表示滑块的宽度占了总宽度的多少
+		float amount = 0.1f;
 
 	};
 }

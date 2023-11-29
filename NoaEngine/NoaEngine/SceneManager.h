@@ -14,7 +14,6 @@ namespace noa {
 	class SceneManager
 	{
 	public:
-		static Scene* CreateScene(const std::string& name);
 
 		static Scene* GetActiveScene();
 		static void LoadScene(const std::string& sceneName);

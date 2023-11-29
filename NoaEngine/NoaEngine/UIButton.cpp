@@ -11,7 +11,7 @@ noa::Button::Button(UIContainer* group) :UIComponent(group)
 
 	SetFontSize(20);
 	SetLocalPosition(0, 0);
-	SetSize(240, 60);
+	SetLocalSize(240, 60);
 	SetNormalColor(noa::RGBA(255, 255, 255, 255));
 	SetHeightLightColor(noa::RGBA(255, 0, 0, 255));
 	SetAnchor(0.5f, 0.5f);
@@ -160,7 +160,7 @@ noa::Button& noa::Button::Clone(Button* button) {
 	return this->SetNormalColor(button->normalColor)
 		.SetHeightLightColor(button->heightLightColor)
 		.SetClickColor(button->clickColor)
-		.SetSize(button->transform.size.x,
+		.SetLocalSize(button->transform.size.x,
 									button->transform.size.y)
 		.SetRadius(button->radius)
 		.SetTextNormalColor(button->textNormalColor)
@@ -226,14 +226,14 @@ noa::Button& noa::Button::SetActive(bool value)
 	return *this;
 }
 
-noa::Button& noa::Button::SetSize(int w, int h)
+noa::Button& noa::Button::SetLocalSize(int w, int h)
 {
 	noa::UIBody::SetLocalSize(w,h);
 
 	this->currentSize.x = static_cast<float>(transform.size.x);
 	this->currentSize.y = static_cast<float>(transform.size.y);
 
-	this->image->SetSize(w, h).Apply();
+	this->image->SetLocalSize(w, h).Apply();
 
 	return *this;
 }

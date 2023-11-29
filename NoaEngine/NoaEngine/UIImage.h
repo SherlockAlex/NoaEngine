@@ -33,7 +33,7 @@ namespace noa {
 		Image& SetGlobalPosition(int x,int y);
 		Image& SetAnchor(float x, float y);
 		Image& SetActive(bool value);
-		Image& SetSize(int x, int y);
+		Image& SetLocalSize(int x, int y);
 		Image& SetRadius(int radius);
 		Image& SetStyle(ImageStyle style);
 		Image& SetSprite(Sprite* sprite);

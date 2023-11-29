@@ -8,6 +8,16 @@ private:
 	GameUI(noa::Scene * scene);
 
 	void Start() override;
+public:
+	template<class T>
+	T* GetElementByID(const std::string& id)
+	{
+		if (document == nullptr)
+		{
+			return nullptr;
+		}
+		return document->GetElementByID<T>(id);
+	}
 
 private:
 	noa::UIDocument* document = 

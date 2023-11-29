@@ -26,7 +26,7 @@ noa::UIContainer* noa::EditorMainUI::CreateMainUI() {
 		noa::ScrollBar::Create(container)
 		->SetID("window_background_scrollbar")
 		.SetLocalPosition(0, 0)
-		.SetSize(300, 50)
+		.SetLocalSize(300, 50)
 		.SetAnchor(0.5f,0.5f)
 		.Apply();
 	//UIMove* move = noa::NObject<UIMove>::Create(image);

@@ -41,6 +41,8 @@ namespace noa {
 
 	public:
 
+		static Scene* Create(const std::string& name);
+
 		Scene* CreateChild(const std::string& name);
 		void ActiveSceneChild(const std::string& name);
 		void CloseSceneChild();
