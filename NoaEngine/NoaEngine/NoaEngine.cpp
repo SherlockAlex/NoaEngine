@@ -64,8 +64,8 @@ noa::NoaEngine::NoaEngine(
 		noa::Screen::height = hardwareSize.y;
 		break;
 	default:
-		noa::Screen::width = width;
-		noa::Screen::height = height;
+		noa::Screen::width = (width > hardwareSize.x) ? hardwareSize.x : width;
+		noa::Screen::height = (height > hardwareSize.y) ? hardwareSize.y : height;
 		break;
 	}
 
