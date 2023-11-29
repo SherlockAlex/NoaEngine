@@ -42,10 +42,6 @@ noa::NoaEngine::NoaEngine(
 )
 {
 
-	Screen::width = width;
-	Screen::height = height;
-	Screen::pixelBuffer = new uint32_t[width * height];
-
 	switch (graphics)
 	{
 	case noa::GraphicsAPI::SDL2:
@@ -58,9 +54,25 @@ noa::NoaEngine::NoaEngine(
 		renderer = std::make_shared<SDLRenderer>();
 		break;
 	}
+	
+	const Vector<int>& hardwareSize = platform->GetHardwareScreenSize();
+	
+	switch (windowMode)
+	{
+	case noa::WindowMode::FULLSCREEN:
+		noa::Screen::width = hardwareSize.x;
+		noa::Screen::height = hardwareSize.y;
+		break;
+	default:
+		noa::Screen::width = width;
+		noa::Screen::height = height;
+		break;
+	}
 
-	renderer->SetRenderer(width, height);
-	platform->Create(width, height, windowMode, gameName);
+	Screen::pixelBuffer = new uint32_t[Screen::width * Screen::height];
+	
+	renderer->SetRenderer();//³õÊ¼»¯äÖÈ¾Æ÷
+	platform->Create(Screen::width, Screen::height, windowMode, gameName);
 	windowID = platform->GetWindowID();
 	renderer->CreateContext(windowID);
 	renderer->InitRenderer();
@@ -68,7 +80,7 @@ noa::NoaEngine::NoaEngine(
 	Input::InitInputSystem(platform->GetPlatformEvent());
 	audioSystem->InitAudioSubSystem();
 
-	texture = renderer->CreateTexture(width, height, Screen::pixelBuffer);
+	texture = renderer->CreateTexture(Screen::width, Screen::height, Screen::pixelBuffer);
 
 }
 
@@ -158,11 +170,6 @@ void noa::NoaEngine::EngineThread()
 
 	}
 }
-
-void noa::Application::Quit() {
-	platform->Quit();
-}
-
 
 
 

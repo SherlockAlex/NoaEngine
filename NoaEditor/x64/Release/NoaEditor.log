@@ -1,7 +1,7 @@
-﻿  EditorGUI.cpp
+﻿  PropertyWindow.cpp
   正在生成代码
-  2 of 5418 functions (<0.1%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    74 functions had inline decision re-evaluated but remain unchanged
+  96 of 4777 functions ( 2.0%) were compiled, the rest were copied from previous compilation.
+    13 functions were new in current compilation
+    34 functions had inline decision re-evaluated but remain unchanged
   已完成代码的生成
   NoaEditor.vcxproj -> D:\Work\NoaEngine\x64\Release\NoaEditor.exe

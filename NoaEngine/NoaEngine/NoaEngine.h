@@ -81,10 +81,14 @@
 #include <mutex>
 #include <condition_variable>
 
-#include "SDLHelper.h"
+#include "Application.h"
 
 #include "Screen.h"
+
 #include "Platform.h"
+#include "Texture.h"
+#include "Renderer.h"
+
 #include "Transform.h"
 #include "Debug.h"
 #include "NoaMath.h"
@@ -95,10 +99,14 @@
 #include "AudioSource.h"
 
 #include "InputSystem.h"
+
+#include "NObject.h"
 #include "Actor.h"
-#include "Animator.h"
+#include "ActorComponent.h"
+#include "Animation.h"
+#include "SpriteRenderer.h"
+
 #include "Sprite.h"
-#include "Physics.h"
 #include "NoaAction.h"
 
 #include "Camera.h"
@@ -111,13 +119,7 @@
 
 #include "Resource.h"
 
-#include "ActorComponent.h"
-#include "NObject.h"
 #include "Time.h"
-#include "Texture.h"
-#include "Renderer.h"
-
-#include "SpriteRenderer.h"
 
 #include "TileMapInfo.h"
 #include "TileMapRenderer.h"
@@ -128,6 +130,7 @@
 #include "CircleCollider2D.h"
 #include "TileCollider2D.h"
 
+#include "Rigidbody.h"
 #include "PhysicsSystem.h"
 #include "ActorMotion.h"
 
@@ -185,11 +188,6 @@ namespace noa {
 
 		Texture* texture = nullptr;
 		uint32_t windowID = 0;
-	};
-
-	class Application {
-	public:
-		static void Quit();
 	};
 
 #pragma endregion

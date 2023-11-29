@@ -136,11 +136,6 @@ void* noa::GLRenderer::GetContext() {
 void noa::GLRenderer::Present(uint32_t windowID)
 {
 
-    if (!renderable)
-    {
-        return;
-    }
-
     SDL_Window* window = SDL_GetWindowFromID(windowID);
     if (window == nullptr)
     {

@@ -22,9 +22,9 @@ noa::UIContainer* noa::EditorMainUI::CreateMainUI() {
 		.SetVisiable(true)
 		.Apply();
 
-	noa::ScrollBar* image =
+	noa::ScrollBar* bar =
 		noa::ScrollBar::Create(container)
-		->SetID("window_background_image")
+		->SetID("window_background_scrollbar")
 		.SetLocalPosition(0, 0)
 		.SetSize(300, 50)
 		.SetAnchor(0.5f,0.5f)

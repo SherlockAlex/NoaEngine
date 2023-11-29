@@ -18,7 +18,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="NoaEngine\Animator.h">
+    <ClInclude Include="NoaEngine\Animation.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="NoaEngine\AudioSource.h">
@@ -45,7 +45,7 @@
     <ClInclude Include="NoaEngine\NoaMath.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="NoaEngine\Physics.h">
+    <ClInclude Include="NoaEngine\Rigidbody.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="NoaEngine\Renderer.h">
@@ -216,9 +216,12 @@
     <ClInclude Include="NoaEngine\UISlider.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="NoaEngine\Application.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="NoaEngine\Animator.cpp">
+    <ClCompile Include="NoaEngine\Animation.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="NoaEngine\AudioSource.cpp">
@@ -245,7 +248,7 @@
     <ClCompile Include="NoaEngine\NoaMath.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="NoaEngine\Physics.cpp">
+    <ClCompile Include="NoaEngine\Rigidbody.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="NoaEngine\Renderer.cpp">
@@ -402,6 +405,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="NoaEngine\UISlider.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="NoaEngine\Application.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

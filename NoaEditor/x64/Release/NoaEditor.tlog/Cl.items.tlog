@@ -11,6 +11,7 @@ D:\Work\NoaEngine\NoaEngine\NoaEngine\ActorMotion.cpp;D:\Work\NoaEngine\NoaEdito
 D:\Work\NoaEngine\NoaEngine\NoaEngine\ActorPool.cpp;D:\Work\NoaEngine\NoaEditor\x64\Release\ActorPool.obj
 D:\Work\NoaEngine\NoaEngine\NoaEngine\ActorPoolFactory.cpp;D:\Work\NoaEngine\NoaEditor\x64\Release\ActorPoolFactory.obj
 D:\Work\NoaEngine\NoaEngine\NoaEngine\Animator.cpp;D:\Work\NoaEngine\NoaEditor\x64\Release\Animator.obj
+D:\Work\NoaEngine\NoaEngine\NoaEngine\Application.cpp;D:\Work\NoaEngine\NoaEditor\x64\Release\Application.obj
 D:\Work\NoaEngine\NoaEngine\NoaEngine\AudioSource.cpp;D:\Work\NoaEngine\NoaEditor\x64\Release\AudioSource.obj
 D:\Work\NoaEngine\NoaEngine\NoaEngine\AudioSystem.cpp;D:\Work\NoaEngine\NoaEditor\x64\Release\AudioSystem.obj
 D:\Work\NoaEngine\NoaEngine\NoaEngine\AudioSystem_SDL.cpp;D:\Work\NoaEngine\NoaEditor\x64\Release\AudioSystem_SDL.obj
@@ -68,9 +69,10 @@ D:\Work\NoaEngine\NoaEngine\NoaEngine\UIScript.cpp;D:\Work\NoaEngine\NoaEditor\x
 D:\Work\NoaEngine\NoaEngine\NoaEngine\UIScrollBar.cpp;D:\Work\NoaEngine\NoaEditor\x64\Release\UIScrollBar.obj
 D:\Work\NoaEngine\NoaEngine\NoaEngine\UISlider.cpp;D:\Work\NoaEngine\NoaEditor\x64\Release\UISlider.obj
 D:\Work\NoaEngine\NoaEditor\EditorCamera.cpp;D:\Work\NoaEngine\NoaEditor\x64\Release\EditorCamera.obj
-D:\Work\NoaEngine\NoaEditor\EditorGUI.cpp;D:\Work\NoaEngine\NoaEditor\x64\Release\EditorGUI.obj
+D:\Work\NoaEngine\NoaEditor\Editor.cpp;D:\Work\NoaEngine\NoaEditor\x64\Release\Editor.obj
 D:\Work\NoaEngine\NoaEditor\EditorMainUI.cpp;D:\Work\NoaEngine\NoaEditor\x64\Release\EditorMainUI.obj
 D:\Work\NoaEngine\NoaEditor\EditorSceneDelegate.cpp;D:\Work\NoaEngine\NoaEditor\x64\Release\EditorSceneDelegate.obj
+D:\Work\NoaEngine\NoaEditor\EditorWindow.cpp;D:\Work\NoaEngine\NoaEditor\x64\Release\EditorWindow.obj
 D:\Work\NoaEngine\NoaEditor\NoaEditor.cpp;D:\Work\NoaEngine\NoaEditor\x64\Release\NoaEditor.obj
+D:\Work\NoaEngine\NoaEditor\PropertyWindow.cpp;D:\Work\NoaEngine\NoaEditor\x64\Release\PropertyWindow.obj
 D:\Work\NoaEngine\NoaEditor\UIMove.cpp;D:\Work\NoaEngine\NoaEditor\x64\Release\UIMove.obj
-D:\Work\NoaEngine\NoaEditor\UIWindow.cpp;D:\Work\NoaEngine\NoaEditor\x64\Release\UIWindow.obj

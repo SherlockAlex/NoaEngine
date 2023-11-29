@@ -15,6 +15,17 @@ noa::Platform_Windows::Platform_Windows():noa::Platform()
 		exit(-1);
 	}
 
+	//创建游戏窗口
+	SDL_DisplayMode displayMode;
+	if (SDL_GetDesktopDisplayMode(0, &displayMode) != 0)
+	{
+		noa::Debug::Error("Unable to get display mode: " + std::string(SDL_GetError()));
+		exit(-1);
+	}
+
+	hardwareScreenSize.x = displayMode.w;
+	hardwareScreenSize.y = displayMode.h;
+
 }
 
 noa::Platform_Windows::~Platform_Windows() {
@@ -26,26 +37,20 @@ int noa::Platform_Windows::Create(
 	, WindowMode windowMode
 	, const std::string& gameName
 )
-{
+{	
+
 	window = SDL_CreateWindow(
 			gameName.c_str(),
 			SDL_WINDOWPOS_CENTERED,
 			SDL_WINDOWPOS_CENTERED,
 			width,
 			height,
-			static_cast<uint32_t>(windowMode)|SDL_WINDOW_OPENGL
+			static_cast<uint32_t>(windowMode) | SDL_WINDOW_OPENGL
 	);
 
 	if (window == nullptr)
 	{
 		noa::Debug::Error("Create window failed");
-		exit(-1);
-	}
-
-	SDL_DisplayMode displayMode;
-	if (SDL_GetDesktopDisplayMode(0,&displayMode)!=0) 
-	{
-		noa::Debug::Error("Unable to get display mode: " + std::string(SDL_GetError()));
 		exit(-1);
 	}
 
@@ -166,7 +171,7 @@ void noa::InputEvent_Windows::UpdateMouseContext()
 
 	int mouseX, mouseY;
 
-	const Uint32 mouseState = SDL_GetMouseState(&mouseX, &mouseY);
+	const uint32_t mouseState = SDL_GetMouseState(&mouseX, &mouseY);
 
 	switch (e.type)
 	{

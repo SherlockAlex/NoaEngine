@@ -1,7 +1,7 @@
 #include "Actor.h"
 #include "ActorComponent.h"
 #include "Collider2D.h"
-#include "Physics.h"
+#include "Rigidbody.h"
 #include "PhysicsSystem.h"
 #include "Scene.h"
 

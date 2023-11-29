@@ -30,6 +30,10 @@ uint32_t noa::Platform::GetWindowID()
 	return this->windowID;
 }
 
+noa::Vector<int> noa::Platform::GetHardwareScreenSize() {
+	return this->hardwareScreenSize;
+}
+
 noa::InputEvent::InputEvent()
 {
 	this->mouseContext = std::make_shared<MouseContext>();

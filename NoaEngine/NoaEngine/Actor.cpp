@@ -1,9 +1,9 @@
 #include "Actor.h"
 #include "Debug.h"
 #include "ActorComponent.h"
-#include "Physics.h"
 #include "SpriteRenderer.h"
 #include "Collider2D.h"
+
 
 noa::Actor::Actor(noa::Scene* activeScene)
 {

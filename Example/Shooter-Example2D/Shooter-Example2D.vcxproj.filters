@@ -78,7 +78,10 @@
     <ClCompile Include="..\..\NoaEngine\NoaEngine\ActorPoolFactory.cpp">
       <Filter>头文件\Engine</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\NoaEngine\NoaEngine\Animator.cpp">
+    <ClCompile Include="..\..\NoaEngine\NoaEngine\Animation.cpp">
+      <Filter>头文件\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\NoaEngine\NoaEngine\Application.cpp">
       <Filter>头文件\Engine</Filter>
     </ClCompile>
     <ClCompile Include="..\..\NoaEngine\NoaEngine\AudioSource.cpp">
@@ -147,9 +150,6 @@
     <ClCompile Include="..\..\NoaEngine\NoaEngine\NObject.cpp">
       <Filter>头文件\Engine</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\NoaEngine\NoaEngine\Physics.cpp">
-      <Filter>头文件\Engine</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\NoaEngine\NoaEngine\PhysicsSystem.cpp">
       <Filter>头文件\Engine</Filter>
     </ClCompile>
@@ -166,6 +166,9 @@
       <Filter>头文件\Engine</Filter>
     </ClCompile>
     <ClCompile Include="..\..\NoaEngine\NoaEngine\Resource.cpp">
+      <Filter>头文件\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\NoaEngine\NoaEngine\Rigidbody.cpp">
       <Filter>头文件\Engine</Filter>
     </ClCompile>
     <ClCompile Include="..\..\NoaEngine\NoaEngine\Scene.cpp">
@@ -246,6 +249,9 @@
     <ClCompile Include="..\..\NoaEngine\NoaEngine\UIScrollBar.cpp">
       <Filter>头文件\Engine</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\NoaEngine\NoaEngine\UISlider.cpp">
+      <Filter>头文件\Engine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h">
@@ -302,7 +308,10 @@
     <ClInclude Include="..\..\NoaEngine\NoaEngine\ActorPoolFactory.h">
       <Filter>头文件\Engine</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\NoaEngine\NoaEngine\Animator.h">
+    <ClInclude Include="..\..\NoaEngine\NoaEngine\Animation.h">
+      <Filter>头文件\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\NoaEngine\NoaEngine\Application.h">
       <Filter>头文件\Engine</Filter>
     </ClInclude>
     <ClInclude Include="..\..\NoaEngine\NoaEngine\AudioSource.h">
@@ -380,9 +389,6 @@
     <ClInclude Include="..\..\NoaEngine\NoaEngine\ObjectPool.h">
       <Filter>头文件\Engine</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\NoaEngine\NoaEngine\Physics.h">
-      <Filter>头文件\Engine</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\NoaEngine\NoaEngine\PhysicsSystem.h">
       <Filter>头文件\Engine</Filter>
     </ClInclude>
@@ -399,6 +405,9 @@
       <Filter>头文件\Engine</Filter>
     </ClInclude>
     <ClInclude Include="..\..\NoaEngine\NoaEngine\Resource.h">
+      <Filter>头文件\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\NoaEngine\NoaEngine\Rigidbody.h">
       <Filter>头文件\Engine</Filter>
     </ClInclude>
     <ClInclude Include="..\..\NoaEngine\NoaEngine\Scene.h">
@@ -480,6 +489,9 @@
       <Filter>头文件\Engine</Filter>
     </ClInclude>
     <ClInclude Include="..\..\NoaEngine\NoaEngine\UIScrollBar.h">
+      <Filter>头文件\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\NoaEngine\NoaEngine\UISlider.h">
       <Filter>头文件\Engine</Filter>
     </ClInclude>
   </ItemGroup>

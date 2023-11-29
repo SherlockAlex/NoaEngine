@@ -10,6 +10,7 @@
 #include "UIImage.h"
 #include "UIButton.h"
 #include "UIScrollBar.h"
+#include "UISlider.h"
 
 #include "UIScript.h"
 

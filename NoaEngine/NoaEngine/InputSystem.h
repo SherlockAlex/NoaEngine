@@ -85,6 +85,8 @@ namespace noa {
 		
 		KEY_LSHIFT = SDLK_LSHIFT,
 		KEY_RSHIFT = SDLK_RSHIFT,
+
+		KEY_COMMA = SDLK_COMMA,
 		
 	};
 
@@ -106,12 +108,9 @@ namespace noa {
 		Vector<double> delta;
 		Vector<double> wheel;
 		bool motion = false;
-		std::unordered_map<noa::MouseButton, noa::KeyState> mouseKey =
-		{
-			{noa::MouseButton::LEFT_BUTTON,{false,false}},
-			{noa::MouseButton::MIDDLE_BUTTON,{false,false}},
-			{noa::MouseButton::RIGHT_BUTTON,{false,false}},
-		};
+
+		std::unordered_map<noa::MouseButton, noa::KeyState> mouseKey;
+		MouseContext();
 
 	}MouseContext;
 

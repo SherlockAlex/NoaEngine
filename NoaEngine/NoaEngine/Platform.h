@@ -8,13 +8,15 @@
 #include <memory>
 
 #include "NoaAction.h"
+#include "NoaMath.h"
 
 namespace noa {
 
 	//¥∞ø⁄¿‡–Õ
 	enum class WindowMode
 	{
-		FULLSCREEN = 1,
+		
+		FULLSCREEN = 4097,
 		WINDOW = 2048
 	};
 
@@ -30,6 +32,7 @@ namespace noa {
 		std::shared_ptr<InputEvent> GetPlatformEvent();
 		virtual bool CheckWindowClose() = 0;
 		virtual void EventLoop() = 0;
+		Vector<int> GetHardwareScreenSize();
 		void Quit();
 		uint32_t GetWindowID();
 
@@ -37,6 +40,7 @@ namespace noa {
 		uint32_t windowID = 0;
 		bool isRun = true;
 		std::shared_ptr<InputEvent> e = nullptr;
+		noa::Vector<int> hardwareScreenSize;
 
 	};
 

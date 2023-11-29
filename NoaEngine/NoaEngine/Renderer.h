@@ -20,15 +20,11 @@ namespace noa {
 	public:
 		Renderer();
 
-		void SetRenderable(bool value);
-
 		void InitFontAsset();
 
-		void SetRenderer(int pixelWidth, int pixelHeight);
+		void SetRenderer();
 
 		void DrawPixel(const uint32_t x, const uint32_t y, const uint32_t color) const;
-		void DrawLine(int x1, int y1, int x2, int y2, Uint32 color) const;
-		void DrawLine(const Vector<int>& point1, const Vector<int>& point2, Uint32 color) const;
 
 		void DrawRect(const Vector<int>& point1, const Vector<int>& point2, Uint32 color) const;
 		void DrawRect(const Vector<int>& point1, const Vector<int>& point2, Sprite& sprite) const;
@@ -55,8 +51,6 @@ namespace noa {
 
 		float invPixelWidth = 0;
 		float invPixelHeight = 0;
-
-		bool renderable = true;
 
 	};
 

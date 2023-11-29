@@ -1,5 +1,5 @@
 #include "TileCollider2D.h"
-#include "Physics.h"
+#include "Rigidbody.h"
 #include "TileMap.h"
 
 noa::TileCollider2D::TileCollider2D(Actor* actor)

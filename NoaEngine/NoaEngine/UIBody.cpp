@@ -64,6 +64,12 @@ void noa::UIBody::OnUpdate() {
 	const float deltaY =
 		(activeScale - 1) * transform.size.y;
 
+	//noa::Vector<float> scaleX = {minX,maxX};
+	//noa::Debug::Log(noa::ToString<float>(scaleX));
+
+	//全屏的时候，鼠标位置是1500*1080
+	//但是图像还是1920，1080
+
 	handled = 
 		mousePosX >= minX - deltaX
 		&& mousePosX <= maxX + deltaX

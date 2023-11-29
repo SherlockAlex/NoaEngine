@@ -140,6 +140,7 @@
     <ClCompile Include="..\NoaEngine\NoaEngine\ActorPool.cpp" />
     <ClCompile Include="..\NoaEngine\NoaEngine\ActorPoolFactory.cpp" />
     <ClCompile Include="..\NoaEngine\NoaEngine\Animator.cpp" />
+    <ClCompile Include="..\NoaEngine\NoaEngine\Application.cpp" />
     <ClCompile Include="..\NoaEngine\NoaEngine\AudioSource.cpp" />
     <ClCompile Include="..\NoaEngine\NoaEngine\AudioSystem.cpp" />
     <ClCompile Include="..\NoaEngine\NoaEngine\AudioSystem_SDL.cpp" />
@@ -197,12 +198,13 @@
     <ClCompile Include="..\NoaEngine\NoaEngine\UIScrollBar.cpp" />
     <ClCompile Include="..\NoaEngine\NoaEngine\UISlider.cpp" />
     <ClCompile Include="EditorCamera.cpp" />
-    <ClCompile Include="EditorGUI.cpp" />
+    <ClCompile Include="Editor.cpp" />
     <ClCompile Include="EditorMainUI.cpp" />
     <ClCompile Include="EditorSceneDelegate.cpp" />
+    <ClCompile Include="EditorWindow.cpp" />
     <ClCompile Include="NoaEditor.cpp" />
+    <ClCompile Include="PropertyWindow.cpp" />
     <ClCompile Include="UIMove.cpp" />
-    <ClCompile Include="UIWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\imgui\backends\imgui_impl_opengl3.h" />
@@ -220,6 +222,7 @@
     <ClInclude Include="..\NoaEngine\NoaEngine\ActorPool.h" />
     <ClInclude Include="..\NoaEngine\NoaEngine\ActorPoolFactory.h" />
     <ClInclude Include="..\NoaEngine\NoaEngine\Animator.h" />
+    <ClInclude Include="..\NoaEngine\NoaEngine\Application.h" />
     <ClInclude Include="..\NoaEngine\NoaEngine\AudioSource.h" />
     <ClInclude Include="..\NoaEngine\NoaEngine\AudioSystem.h" />
     <ClInclude Include="..\NoaEngine\NoaEngine\AudioSystem_SDL.h" />
@@ -281,12 +284,14 @@
     <ClInclude Include="..\NoaEngine\NoaEngine\UIScrollBar.h" />
     <ClInclude Include="..\NoaEngine\NoaEngine\UISlider.h" />
     <ClInclude Include="EditorCamera.h" />
-    <ClInclude Include="EditorGUI.h" />
+    <ClInclude Include="Editor.h" />
     <ClInclude Include="EditorMainUI.h" />
     <ClInclude Include="EditorSceneDelegate.h" />
+    <ClInclude Include="EditorWindow.h" />
+    <ClInclude Include="ImGuiHelper.h" />
     <ClInclude Include="NoaEditor.h" />
+    <ClInclude Include="PropertyWindow.h" />
     <ClInclude Include="UIMove.h" />
-    <ClInclude Include="UIWindow.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

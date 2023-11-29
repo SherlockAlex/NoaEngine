@@ -32,6 +32,11 @@ namespace noa
 	{
 	public:
 
+		static T* Create() {
+			T* obj = new T();
+			return obj;
+		}
+
 		static T* Create(Scene * scene) 
 		{
 			if (scene == nullptr) 

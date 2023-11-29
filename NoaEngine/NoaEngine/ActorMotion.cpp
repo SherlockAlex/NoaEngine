@@ -1,6 +1,7 @@
 #include "ActorMotion.h"
-#include "Physics.h"
+#include "Rigidbody.h"
 #include "Debug.h"
+
 
 noa::ActorMotion::ActorMotion(noa::Actor* actor):ActorComponent(actor) 
 {

@@ -75,7 +75,16 @@ noa::KeyboardContext::KeyboardContext()
 
 	this->keyMap[KeyCode::KEY_LSHIFT] = { false,false };
 	this->keyMap[KeyCode::KEY_RSHIFT] = { false,false };
+
+	this->keyMap[KeyCode::KEY_COMMA] = { false,false };
 	
+}
+
+noa::MouseContext::MouseContext() 
+{
+	this->mouseKey[noa::MouseButton::LEFT_BUTTON] = { false,false };
+	this->mouseKey[noa::MouseButton::MIDDLE_BUTTON] = { false,false };
+	this->mouseKey[noa::MouseButton::RIGHT_BUTTON] = { false,false };
 }
 
 void noa::Input::InitInputSystem(std::shared_ptr<noa::InputEvent> e)

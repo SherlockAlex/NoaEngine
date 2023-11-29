@@ -4,6 +4,8 @@
 #include "UIComponent.h"
 
 namespace noa {
+	class Image;
+
 	class Slider :public noa::UIComponent
 	{
 	private:
@@ -15,6 +17,12 @@ namespace noa {
 		void Start() override;
 		void Update() override;
 		void Render() override;
+
+	private:
+		Image* bar = nullptr;
+		Image* slider = nullptr;
+
+
 
 	};
 }

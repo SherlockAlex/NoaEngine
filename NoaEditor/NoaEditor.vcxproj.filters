@@ -19,26 +19,20 @@
     <Filter Include="头文件\Imgui">
       <UniqueIdentifier>{b6a671bd-e521-48f9-995e-f567a7f039ec}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\Editor">
+      <UniqueIdentifier>{ad739d36-18e0-4672-a85f-8f52f25af8dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Editor">
+      <UniqueIdentifier>{c73305a8-82df-43bf-bd8b-a7804dc0832b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\EditorWindow">
+      <UniqueIdentifier>{d3f2a519-885d-4bfa-8905-d98152e33722}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\EditorWindow">
+      <UniqueIdentifier>{ea6dd953-c0d0-4eec-ba7e-342459411272}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="NoaEditor.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="EditorSceneDelegate.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="EditorCamera.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="UIMove.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="UIWindow.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="EditorMainUI.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="..\NoaEngine\NoaEngine\Actor.cpp">
       <Filter>头文件\Engine</Filter>
     </ClCompile>
@@ -246,29 +240,35 @@
     <ClCompile Include="..\..\imgui\backends\imgui_impl_sdl2.cpp">
       <Filter>头文件\Imgui</Filter>
     </ClCompile>
-    <ClCompile Include="EditorGUI.cpp">
-      <Filter>源文件</Filter>
+    <ClCompile Include="EditorCamera.cpp">
+      <Filter>源文件\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="Editor.cpp">
+      <Filter>源文件\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorMainUI.cpp">
+      <Filter>源文件\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorSceneDelegate.cpp">
+      <Filter>源文件\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorWindow.cpp">
+      <Filter>源文件\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="NoaEditor.cpp">
+      <Filter>源文件\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="UIMove.cpp">
+      <Filter>源文件\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="PropertyWindow.cpp">
+      <Filter>源文件\EditorWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="..\NoaEngine\NoaEngine\Application.cpp">
+      <Filter>头文件\Engine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="NoaEditor.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="EditorSceneDelegate.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="EditorCamera.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="UIMove.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="UIWindow.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="EditorMainUI.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="..\NoaEngine\NoaEngine\Actor.h">
       <Filter>头文件\Engine</Filter>
     </ClInclude>
@@ -494,8 +494,35 @@
     <ClInclude Include="..\..\imgui\backends\imgui_impl_sdl2.h">
       <Filter>头文件\Imgui</Filter>
     </ClInclude>
-    <ClInclude Include="EditorGUI.h">
-      <Filter>头文件</Filter>
+    <ClInclude Include="EditorCamera.h">
+      <Filter>头文件\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="Editor.h">
+      <Filter>头文件\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorMainUI.h">
+      <Filter>头文件\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorSceneDelegate.h">
+      <Filter>头文件\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorWindow.h">
+      <Filter>头文件\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGuiHelper.h">
+      <Filter>头文件\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="NoaEditor.h">
+      <Filter>头文件\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="UIMove.h">
+      <Filter>头文件\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="PropertyWindow.h">
+      <Filter>头文件\EditorWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="..\NoaEngine\NoaEngine\Application.h">
+      <Filter>头文件\Engine</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

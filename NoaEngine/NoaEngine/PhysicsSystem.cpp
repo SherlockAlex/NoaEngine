@@ -5,7 +5,7 @@
 
 #include "PhysicsSystem.h"
 #include "Time.h"
-#include "Physics.h"
+#include "Rigidbody.h"
 
 
 noa::Grid noa::PhysicsSystem::grid;

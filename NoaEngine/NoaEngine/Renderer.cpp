@@ -11,21 +11,11 @@
 
 using namespace std;
 
-namespace noa {
-	extern void Debug(string msg);
-
-	std::shared_ptr<FontAsset> fontAsset;
-
-}
+std::shared_ptr<noa::FontAsset> fontAsset;
 
 noa::Renderer::Renderer()
 {
 
-}
-
-void noa::Renderer::SetRenderable(bool value)
-{
-	this->renderable = value;
 }
 
 void noa::Renderer::InitFontAsset() {
@@ -33,13 +23,13 @@ void noa::Renderer::InitFontAsset() {
 	fontAsset = make_shared<FontAsset>("./Data/Resource/font/font.ttf", 48);
 }
 
-void noa::Renderer::SetRenderer(int pixelWidth, int pixelHeight) {
-	this->pixelWidth = pixelWidth;
-	this->pixelHeight = pixelHeight;
-	this->pixelBuffer = Screen::pixelBuffer;
+void noa::Renderer::SetRenderer() {
+	this->pixelWidth = noa::Screen::width;
+	this->pixelHeight = noa::Screen::height;
+	this->pixelBuffer = noa::Screen::pixelBuffer;
 
-	this->invPixelWidth = 1.0f / pixelWidth;
-	this->invPixelHeight = 1.0f / pixelHeight;
+	this->invPixelWidth = 1.0f / noa::Screen::width;
+	this->invPixelHeight = 1.0f / noa::Screen::height;
 }
 
 void noa::Renderer::DrawPixel(const uint32_t x, const uint32_t y, const uint32_t color) const
@@ -51,86 +41,6 @@ void noa::Renderer::DrawPixel(const uint32_t x, const uint32_t y, const uint32_t
 
 	((uint32_t*)pixelBuffer)[y * pixelWidth + x] = color;
 
-}
-
-void noa::Renderer::DrawLine(int x1, int y1, int x2, int y2, Uint32 color) const
-{
-	const int dx = static_cast<int>(std::abs(x2 - x1));
-	const int dy = static_cast<int>(std::abs(y2 - y1));
-	const int sx = (x1 < x2) ? 1 : -1;
-	const int sy = (y1 < y2) ? 1 : -1;
-
-	int err = dx - dy;
-
-	while (true)
-	{
-
-		DrawPixel(x1, y1, color);
-
-		if (x1 == x2 && y1 == y2)
-		{
-			break;
-		}
-
-		const int e2 = err * 2;
-
-		if (e2 > -dy)
-		{
-			err -= dy;
-			x1 += sx;
-		}
-
-		if (e2 < dx)
-		{
-			err += dx;
-			y1 += sy;
-		}
-
-	}
-
-}
-
-void noa::Renderer::DrawLine(const Vector<int>& point1, const Vector<int>& point2, Uint32 color) const
-{
-
-	int x1 = point1.x;
-	int x2 = point2.x;
-
-	int y1 = point1.y;
-	int y2 = point2.y;
-
-	int dx = abs(x2 - x1);
-	int dy = abs(y2 - y1);
-	int sx = (x1 < x2) ? 1 : -1;
-	int sy = (y1 < y2) ? 1 : -1;
-
-	int err = dx - dy;
-
-	while (true)
-	{
-		//DrawPixel(x1, y1, color);
-		DrawPixel(x1, y1, color);
-		if (x1 == x2 && y1 == y2)
-		{
-			break;
-		}
-
-		int e2 = err * 2;
-
-		if (e2 > -dy)
-		{
-			err -= dy;
-			x1 += sx;
-		}
-
-		if (e2 < dx)
-		{
-			err += dx;
-			y1 += sy;
-		}
-
-
-	}
 }
 
 void noa::Renderer::DrawRect(const Vector<int>& point1, const Vector<int>& point2, Uint32 color) const

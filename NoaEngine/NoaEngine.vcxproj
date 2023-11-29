@@ -46,7 +46,7 @@
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -158,6 +158,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="NoaEngine\Application.h" />
     <ClInclude Include="NoaEngine\SceneManager.h" />
     <ClInclude Include="NoaEngine\UISlider.h" />
     <ClInclude Include="NoaEngine\State.h" />
@@ -178,7 +179,7 @@
     <ClInclude Include="NoaEngine\IPoolObjectFactroy.h" />
     <ClInclude Include="NoaEngine\Collider2D.h" />
     <ClInclude Include="NoaEngine\ActorComponent.h" />
-    <ClInclude Include="NoaEngine\Animator.h" />
+    <ClInclude Include="NoaEngine\Animation.h" />
     <ClInclude Include="NoaEngine\AudioSource.h" />
     <ClInclude Include="NoaEngine\Actor.h" />
     <ClInclude Include="NoaEngine\Camera.h" />
@@ -190,7 +191,7 @@
     <ClInclude Include="NoaEngine\NoaEngine.h" />
     <ClInclude Include="NoaEngine\NoaGUI.h" />
     <ClInclude Include="NoaEngine\NoaMath.h" />
-    <ClInclude Include="NoaEngine\Physics.h" />
+    <ClInclude Include="NoaEngine\Rigidbody.h" />
     <ClInclude Include="NoaEngine\ObjectPool.h" />
     <ClInclude Include="NoaEngine\Renderer.h" />
     <ClInclude Include="NoaEngine\Resource.h" />
@@ -226,6 +227,7 @@
     <ClInclude Include="NoaEngine\UIScrollBar.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="NoaEngine\Application.cpp" />
     <ClCompile Include="NoaEngine\SceneManager.cpp" />
     <ClCompile Include="NoaEngine\UISlider.cpp" />
     <ClCompile Include="NoaEngine\State.cpp" />
@@ -246,7 +248,7 @@
     <ClCompile Include="NoaEngine\IPoolObjectFactroy.cpp" />
     <ClCompile Include="NoaEngine\Collider2D.cpp" />
     <ClCompile Include="NoaEngine\ActorComponent.cpp" />
-    <ClCompile Include="NoaEngine\Animator.cpp" />
+    <ClCompile Include="NoaEngine\Animation.cpp" />
     <ClCompile Include="NoaEngine\AudioSource.cpp" />
     <ClCompile Include="NoaEngine\Actor.cpp" />
     <ClCompile Include="NoaEngine\Camera.cpp" />
@@ -257,7 +259,7 @@
     <ClCompile Include="NoaEngine\NoaEngine.cpp" />
     <ClCompile Include="NoaEngine\NoaGUI.cpp" />
     <ClCompile Include="NoaEngine\NoaMath.cpp" />
-    <ClCompile Include="NoaEngine\Physics.cpp" />
+    <ClCompile Include="NoaEngine\Rigidbody.cpp" />
     <ClCompile Include="NoaEngine\Renderer.cpp" />
     <ClCompile Include="NoaEngine\Resource.cpp" />
     <ClCompile Include="NoaEngine\Scene.cpp" />
