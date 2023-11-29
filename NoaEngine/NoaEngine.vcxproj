@@ -160,6 +160,7 @@
   <ItemGroup>
     <ClInclude Include="NoaEngine\Application.h" />
     <ClInclude Include="NoaEngine\Core.h" />
+    <ClInclude Include="NoaEngine\EngineExtension.h" />
     <ClInclude Include="NoaEngine\SceneManager.h" />
     <ClInclude Include="NoaEngine\UISlider.h" />
     <ClInclude Include="NoaEngine\State.h" />
@@ -229,6 +230,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="NoaEngine\Application.cpp" />
+    <ClCompile Include="NoaEngine\EngineExtension.cpp" />
     <ClCompile Include="NoaEngine\SceneManager.cpp" />
     <ClCompile Include="NoaEngine\UISlider.cpp" />
     <ClCompile Include="NoaEngine\State.cpp" />

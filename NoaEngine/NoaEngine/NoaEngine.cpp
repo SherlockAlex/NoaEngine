@@ -1,4 +1,5 @@
 #include "NoaEngine.h"
+#include "EngineExtension.h"
 
 #ifdef _WIN64
 #include "SDLRenderer.h"
@@ -32,6 +33,36 @@ namespace noa {
 #endif
 
 	std::vector<std::vector<SpriteGPUInstance>> rendererInstanceLayer;
+}
+
+void noa::NoaEngine::AddExtension(noa::EnginExtension* extension) 
+{
+	if (!extension) 
+	{
+		return;
+	}
+	this->extensions.push_back(extension);
+
+	//保证扩展的唯一性
+	std::sort(extensions.begin(),extensions.end());
+	auto last = std::unique(extensions.begin(), extensions.end());
+	extensions.erase(last,extensions.end());
+
+}
+
+void noa::NoaEngine::RemoveExtension(noa::EnginExtension* extension) 
+{
+	if (!extension) 
+	{
+		return;
+	}
+
+	auto it = std::find(extensions.begin(),extensions.end(),extension);
+	if (it!=extensions.end())
+	{
+		extensions.erase(it);
+	}
+
 }
 
 noa::NoaEngine::NoaEngine(
@@ -88,6 +119,12 @@ noa::NoaEngine::~NoaEngine()
 {
 	delete[] Screen::pixelBuffer;
 	Mix_CloseAudio();
+
+	for (auto& extension:extensions) 
+	{
+		extension->Delete(extension);
+	}
+
 }
 
 
@@ -101,6 +138,7 @@ int noa::NoaEngine::Run()
 	rendererInstanceLayer.push_back(std::vector<SpriteGPUInstance>());
 
 	Start();
+	ExtensionStart();
 	this->EngineThread();
 	Exit();
 
@@ -113,7 +151,44 @@ int noa::NoaEngine::Exit()
 {
 	SceneManager::Quit();
 	OnExit();
+	ExtensionOnExit();
 	return 0;
+}
+
+void noa::NoaEngine::ExtensionStart() {
+	for (auto& extension:extensions) 
+	{
+		extension->Start();
+	}
+}
+
+void noa::NoaEngine::ExtensionBeforeUpdate() {
+	for (auto& extension : extensions)
+	{
+		extension->BeforeUpdate();
+	}
+}
+
+void noa::NoaEngine::ExtensionUpdate() {
+	for (auto& extension : extensions)
+	{
+		extension->Update();
+	}
+}
+
+void noa::NoaEngine::ExtensionRender() {
+	for (auto& extension : extensions)
+	{
+		extension->Render();
+	}
+}
+
+void noa::NoaEngine::ExtensionOnExit() 
+{
+	for (auto& extension : extensions)
+	{
+		extension->OnExit();
+	}
 }
 
 void noa::NoaEngine::EngineThread()
@@ -133,9 +208,11 @@ void noa::NoaEngine::EngineThread()
 		}
 		platform->EventLoop();
 		BeforeUpdate();
+		ExtensionBeforeUpdate();
 
 		SceneManager::Update();
 		Update();
+		ExtensionUpdate();
 
 		renderer->Clear();
 		int textureIndex = 0;
@@ -164,6 +241,7 @@ void noa::NoaEngine::EngineThread()
 		}
 
 		Render();
+		ExtensionRender();
 		renderer->Present(windowID);
 
 		tp1 = tp2;

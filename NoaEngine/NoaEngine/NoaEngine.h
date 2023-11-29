@@ -157,6 +157,8 @@ namespace noa {
 		OPENGL
 	};
 
+	class EnginExtension;
+
 	class NoaEngine
 	{
 	public:
@@ -175,10 +177,20 @@ namespace noa {
 		virtual void Render() {};
 		virtual void OnExit() {};
 
+		void AddExtension(noa::EnginExtension* extension);
+		void RemoveExtension(noa::EnginExtension* extension);
+
 		int Run();
 		
 
 	private:
+		
+		void ExtensionStart();
+		void ExtensionBeforeUpdate();
+		void ExtensionUpdate();
+		void ExtensionRender();
+		void ExtensionOnExit();
+
 		void EngineThread();
 		int Exit();
 	private:
@@ -188,6 +200,9 @@ namespace noa {
 
 		Texture* texture = nullptr;
 		uint32_t windowID = 0;
+
+		std::vector<EnginExtension*> extensions;//”Œœ∑“˝«Ê¿©’π
+
 	};
 
 #pragma endregion

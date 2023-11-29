@@ -111,6 +111,9 @@
     <ClCompile Include="..\..\NoaEngine\NoaEngine\Debug.cpp">
       <Filter>头文件\Engine</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\NoaEngine\NoaEngine\EngineExtension.cpp">
+      <Filter>头文件\Engine</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\NoaEngine\NoaEngine\Font.cpp">
       <Filter>头文件\Engine</Filter>
     </ClCompile>
@@ -338,7 +341,13 @@
     <ClInclude Include="..\..\NoaEngine\NoaEngine\Collider2D.h">
       <Filter>头文件\Engine</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\NoaEngine\NoaEngine\Core.h">
+      <Filter>头文件\Engine</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\NoaEngine\NoaEngine\Debug.h">
+      <Filter>头文件\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\NoaEngine\NoaEngine\EngineExtension.h">
       <Filter>头文件\Engine</Filter>
     </ClInclude>
     <ClInclude Include="..\..\NoaEngine\NoaEngine\Font.h">
