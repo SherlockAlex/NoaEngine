@@ -56,6 +56,7 @@ namespace noa {
 		Vector<bool> isFlip = {false,false};
 		Vector<float> scale = {1.0f,1.0f};
 		Vector<float> offset = { 0.0f,0.0f };
+
 	};
 
 	extern std::vector<SpriteRendererInstance> spriteRendererInstances;

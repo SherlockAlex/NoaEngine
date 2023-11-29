@@ -4,7 +4,6 @@
 #include "Debug.h"
 #include "Transform.h"
 
-
 std::vector<noa::SpriteRendererInstance> noa::spriteRendererInstances;
 
 
@@ -33,6 +32,7 @@ noa::SpriteRenderer& noa::SpriteRenderer::SetSprite(
 {
 	if (sprite == nullptr) 
 	{
+		this->spriteOriginSize = {};
 		return *this;
 	}
 	this->spriteOriginSize.x = sprite->w;

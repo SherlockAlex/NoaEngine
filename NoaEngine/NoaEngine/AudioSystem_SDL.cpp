@@ -21,6 +21,10 @@ void noa::AudioSystem_SDL::InitAudioSubSystem()
 	AudioSystem::init = true;
 }
 
+noa::AudioSystem_SDL::~AudioSystem_SDL() {
+	Mix_CloseAudio();
+}
+
 std::shared_ptr<noa::AudioClip> noa::AudioSystem_SDL::LoadAudioClip(const std::string& filename)
 {
 	std::shared_ptr<noa::AudioClip> clip = std::make_shared<noa::AudioClip_SDL>();

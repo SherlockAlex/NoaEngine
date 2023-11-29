@@ -1,44 +1,40 @@
 #include "NoaEditor.h"
-#include "EditorSceneDelegate.h"
-#include "Editor.h"
+#include "ImGuiHelper.h"
 
-noa::NoaEditor::NoaEditor() 
-	:noa::NoaEngine(1920/2,1080/2,WindowMode::WINDOW,GraphicsAPI::OPENGL,"NoaEditor")
+void noa::NoaEditor::Start() 
 {
-	noa::Scene* editorScene = noa::SceneManager::CreateScene("EditorScene");
-	editorScene->onLoad += EditorSceneDelegate::OnLoad;
-	editorScene->onTick += EditorSceneDelegate::OnTick;
+	IMGUI_CHECKVERSION();
+	ImGui::CreateContext();
+	ImGuiIO& io = ImGui::GetIO();
+	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
+	ImGui::StyleColorsDark();
+	
+	SDL_Window* window = SDL_GetWindowFromID(noa::platform->GetWindowID());
+	void* context = noa::renderer->GetContext();
+	ImGui_ImplSDL2_InitForOpenGL(window,context);
+	ImGui_ImplOpenGL3_Init("#version 330");
 
-	noa::SceneManager::LoadScene("EditorScene");
+	eventPtr = noa::platform->GetPlatformEvent()->GetEventEntity();
+
+	noa::platform->GetPlatformEvent()->AddPollEventCallback([this]() {ImGui_ImplSDL2_ProcessEvent((SDL_Event*)this->eventPtr)});
+
 }
-
-noa::NoaEditor::~NoaEditor() {
-
-}
-
-void noa::NoaEditor::Start() {
-	noa::Editor::Start();
-}
-
-void noa::NoaEditor::BeforeUpdate() {
-	noa::Editor::BeforeUpdate();
-}
-
-void noa::NoaEditor::Update() {
-	noa::Editor::Update();
-}
-
-void noa::NoaEditor::Render() {
-	noa::Editor::Render();
-}
-
-void noa::NoaEditor::OnExit() {
-	noa::Editor::OnExit();
-}
-
-int main() 
+void noa::NoaEditor::BeforeUpdate()
 {
-	noa::NoaEditor editor;
-	editor.Run();
-	return 0;
+	
+	ImGui_ImplOpenGL3_NewFrame();
+	ImGui_ImplSDL2_NewFrame();
+	ImGui::NewFrame();
+}
+void noa::NoaEditor::Update()
+{
+
+}
+void noa::NoaEditor::Render()
+{
+
+}
+void noa::NoaEditor::OnExit()
+{
+
 }

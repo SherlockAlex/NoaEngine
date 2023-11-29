@@ -48,6 +48,7 @@ void GameDelegate::OnLoad(noa::Scene* scene)
 		.SetVerticalBoundary(0,mapInfo.h)
 		.SetFollow(player)
 		.Apply();
+	test1->camera = camera;
 
 	bulletFactory->SetActiveScene(scene);
 	bulletPool = std::make_shared<noa::ActorPool<Bullet>>();
@@ -92,6 +93,7 @@ void GameDelegate::OnTick(noa::Scene* scene)
 
 	hpBar->SetAmount(0.5f);
 	
+	noa::renderer->DrawString(std::to_wstring(1.0/noa::Time::deltaTime),10,10,noa::WHITE,50);
 
 }
 

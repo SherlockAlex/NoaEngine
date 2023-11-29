@@ -6,6 +6,7 @@
 #include "Sprite.h"
 #include "SpriteRenderer.h"
 #include "Graphic.h"
+#include "InputSystem.h"
 
 noa::Camera2D::Camera2D(noa::Scene* scene) :Camera(scene)
 {
@@ -97,6 +98,20 @@ void noa::Camera2D::Render() {
 			, (instance.actor == nullptr) ? 0.0f : instance.actor->transform.eulerAngle
 		);
 
+		//下面功能代码要在相机里面执行才对
+
+		const noa::Vector<double> mousePos = noa::Input::GetMousePosition();
+		if (mousePos.x <= screenPosX
+			|| mousePos.x >= screenPosX + instance.spriteSize.x * instance.scale.x
+			|| mousePos.y <= screenPosY
+			|| mousePos.y >= screenPosY + instance.spriteSize.y * instance.scale.y)
+		{
+			continue;
+		}
+
+		//执行Actor身上的OnMouseStay方法
+		instance.actor->OnMouseStay();
+
 	}
 
 	spriteRendererInstances.clear();
@@ -177,8 +192,8 @@ noa::Vector<float> noa::Camera2D::ScreenPointToWorld(double x,double y)
 		return result;
 	}
 
-	result.x = static_cast<float>(x / far + offset.x);
-	result.y = static_cast<float>(y / far + offset.y);
+	result.x = static_cast<float>(x / far + offset.x)-0.5f;
+	result.y = static_cast<float>(y / far + offset.y)-0.5f;
 
 	return result;
 

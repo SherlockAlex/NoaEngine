@@ -118,7 +118,6 @@ noa::NoaEngine::NoaEngine(
 noa::NoaEngine::~NoaEngine()
 {
 	delete[] Screen::pixelBuffer;
-	Mix_CloseAudio();
 
 	for (auto& extension:extensions) 
 	{

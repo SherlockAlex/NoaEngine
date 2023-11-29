@@ -27,6 +27,7 @@ namespace noa {
 	public:
 		void InitAudioSubSystem() override;
 		std::shared_ptr<AudioClip> LoadAudioClip(const std::string& filename) override;
+		virtual ~AudioSystem_SDL();
 	};
 
 }

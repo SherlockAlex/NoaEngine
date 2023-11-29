@@ -1,8 +1,49 @@
-﻿  EditorMainUI.cpp
+﻿  Actor.cpp
+  ActorComponent.cpp
+  ActorMotion.cpp
+  ActorPool.cpp
+  ActorPoolFactory.cpp
+  Animation.cpp
+  AudioSource.cpp
+  AudioSystem_SDL.cpp
+  BoxCollider2D.cpp
+  Camera.cpp
+  Camera2D.cpp
+  CircleCollider2D.cpp
+  Collider2D.cpp
+  NObject.cpp
+  NoaEngine.cpp
+  PhysicsSystem.cpp
+  Rigidbody.cpp
+  Scene.cpp
+  SceneManager.cpp
+  SpriteRenderer.cpp
+  正在编译...
+  State.cpp
+  StateMachine.cpp
+  TileCollider2D.cpp
+  TileMap.cpp
+  TileMapRenderer.cpp
+  UIContainer.cpp
+  UIDocument.cpp
+  UIHub.cpp
+  Editor.cpp
+  EditorCamera.cpp
+  EditorMainUI.cpp
+  EditorSceneDelegate.cpp
+  EditorWindow.cpp
+  NoaEditor.cpp
   PropertyWindow.cpp
-  正在生成代码
-  500 of 4778 functions (10.5%) were compiled, the rest were copied from previous compilation.
-    4 functions were new in current compilation
-    244 functions had inline decision re-evaluated but remain unchanged
-  已完成代码的生成
-  NoaEditor.vcxproj -> D:\Work\NoaEngine\x64\Release\NoaEditor.exe
+  UIMove.cpp
+D:\Work\NoaEngine\NoaEditor\UIMove.cpp(27,17): warning C4244: “参数”: 从“T”转换到“int”，可能丢失数据
+          with
+          [
+              T=double
+          ]
+D:\Work\NoaEngine\NoaEditor\UIMove.cpp(26,17): warning C4244: “参数”: 从“T”转换到“int”，可能丢失数据
+          with
+          [
+              T=double
+          ]
+NoaEngine.obj : error LNK2001: 无法解析的外部符号 "private: void __cdecl noa::EnginExtension::Delete(class noa::EnginExtension * &)" (?Delete@EnginExtension@noa@@AEAAXAEAPEAV12@@Z)
+D:\Work\NoaEngine\x64\Release\NoaEditor.exe : fatal error LNK1120: 1 个无法解析的外部命令

@@ -14,6 +14,8 @@ private:
 	void Start() override;
 	void Update() override;
 
+	void OnMouseStay() override;
+
 public:
 	noa::SpriteRenderer* spriteRenderer = noa::SpriteRenderer::Create(this)
 		->SetSprite(&ResourceManager::circleImage)
@@ -53,7 +55,9 @@ public:
 		.SetScale(1.0f, 1.0f)
 		.Apply();
 
-	/*noa::TileMapCamera* camera = nullptr;*/
+	noa::Camera2D* camera = nullptr;
+
+	bool isHand = false;
 
 
 };

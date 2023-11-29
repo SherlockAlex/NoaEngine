@@ -38,7 +38,7 @@ namespace noa {
 		virtual void OnTriggerEnter(noa::Collider2D& other);
 		virtual void OnHitTile() {}
 
-		virtual void OnMouseHold() {};
+		virtual void OnMouseStay() {};
 
 
 	public:
@@ -156,6 +156,7 @@ namespace noa {
 
 		std::vector<ActorComponent*> components;
 
+		friend class Camera2D;
 		friend class NObject<Actor>;
 		friend class Scene;
 		friend class SceneManager;

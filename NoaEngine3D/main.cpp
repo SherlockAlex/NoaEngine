@@ -6,8 +6,8 @@
 int main()
 {
 	noa::noa3d::Engine3D engine;
-	engine.beginAction = RenderColoredRect::Begin;
-	engine.tickAction = RenderColoredRect::Tick;
+	engine.beginAction = RenderTriangle::Begin;
+	engine.tickAction = RenderTriangle::Tick;
 	engine.Run();
 	return 0;
 }

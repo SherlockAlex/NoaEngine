@@ -1,0 +1,7 @@
+﻿  AudioSystem_SDL.cpp
+  NoaEngine.cpp
+  GameDelegate.cpp
+D:\Work\NoaEngine\Example\Shooter-Example2D\GameDelegate.cpp(47,35): warning C4244: “参数”: 从“noa::uint32_t”转换到“float”，可能丢失数据
+D:\Work\NoaEngine\Example\Shooter-Example2D\GameDelegate.cpp(48,33): warning C4244: “参数”: 从“noa::uint32_t”转换到“float”，可能丢失数据
+  正在生成代码...
+  Shooter-Example2D.vcxproj -> D:\Work\NoaEngine\x64\Debug\Shooter-Example2D.exe
