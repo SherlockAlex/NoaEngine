@@ -37,10 +37,10 @@ noa::GLTexture::GLTexture(int w, int h, void* pixelBuffer)
 
     float vertices[] = {
          //¶¥µã×ø±ê        ÎÆÀí×ø±ê
-         right,  bottom,    1.0f, 0.0f, // ÓÒÏÂ½Ç
-         right,  top,       1.0f, 1.0f, // ÓÒÉÏ½Ç
-         left,   top,       0.0f, 1.0f, // ×óÉÏ½Ç
-         left,   bottom,    0.0f, 0.0f  // ×óÏÂ½Ç
+         right,  top,    1.0f, 0.0f, // ÓÒÏÂ½Ç
+         right,  bottom, 1.0f, 1.0f, // ÓÒÉÏ½Ç
+         left,   bottom, 0.0f, 1.0f, // ×óÉÏ½Ç
+         left,   top,    0.0f, 0.0f  // ×óÏÂ½Ç
     };
 
     uint32_t indices[] = {
@@ -94,7 +94,6 @@ void noa::GLTexture::UpdateTexture(
 
 void noa::GLTexture::Bind() {
     glBindTexture(GL_TEXTURE_2D, this->textureID);
-    glBindVertexArray(VAO);
     glBindBuffer(GL_ARRAY_BUFFER,VBO);
 }
 

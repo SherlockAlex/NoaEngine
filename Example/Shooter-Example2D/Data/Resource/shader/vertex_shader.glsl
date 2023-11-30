@@ -5,18 +5,31 @@ out vec2 texCoord;
 
 uniform float eulerAngle;
 uniform mat4 projection;
+uniform vec2 offset;
+uniform vec2 size;
+uniform bool isFlipX;
 
 void main()
 {
-    vec2 originTextCoord = vertex.zw;
-    mat4 rotate4 = mat4(
-        cos(eulerAngle),-sin(eulerAngle),0.0f,0.0f
-        ,sin(eulerAngle),cos(eulerAngle),0.0f,0.0f
-        ,0.0f,0.0f,1.0f,0.0f
-        ,0.0f,0.0f,0.0f,1.0f
+    mat2 rotationMatrix = mat2(
+        cos(eulerAngle),-sin(eulerAngle)
+        ,sin(eulerAngle),cos(eulerAngle)
     );
 
-    texCoord = originTextCoord;
-    vec4 position = vec4(vertex.xy, 0.0f, 1.0f);
-    gl_Position = projection*(position);
+    vec2 finalPositon = vertex.xy*size*0.5f;
+     //图像顶点进行一个旋转
+    finalPositon = rotationMatrix*finalPositon;
+
+    finalPositon = finalPositon + offset + 0.5f*vec2(size.x,-size.y);
+    vec2 finalTexCoord = vertex.zw;
+
+    if(isFlipX)
+    {
+        finalTexCoord.x = 1.0f-finalTexCoord.x;
+    }
+
+    gl_Position = projection*vec4(finalPositon,0.0f,1.0f);
+
+    texCoord = finalTexCoord;
+
 }

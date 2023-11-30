@@ -74,40 +74,22 @@ void noa::GLRenderer::DrawTexture(
         ,GetAValue(tint)
     );
 
-    //图像的投影矩阵绕的是角色关于世界坐标系原定继续旋转
-    //但是实际我们希望绕的是玩家关于自己的坐标
-    //因此还有对旋转后的坐标进行一个修正
-
     defaultShader->SetFloat(
         "eulerAngle"
         ,eulerAngle
     );
+    
+    const float posX = static_cast<float>(x);
+    const float posY = static_cast<float>(noa::Screen::height - y);
 
-    //将把坐标系转为屏幕坐标系
-    const float fixYLow = static_cast<float>(noa::Screen::height - y);
-    const float fixYHeight = static_cast<float>(noa::Screen::height - (y + h));
-    const float fixXLow = static_cast<float>(x);
-    const float fixXHeight = static_cast<float>(x+w);
+    const float sizeX = static_cast<float>(w);
+    const float sizeY = static_cast<float>(h);
 
-    float vertices[] = {
-        fixXHeight,fixYLow,1.0f,0.0f
-        ,fixXHeight,fixYHeight,1.0f,1.0f
-        ,fixXLow,fixYHeight,0.0f,1.0f
-        ,fixXLow,fixYLow,0.0f,0.0f
-    };
-
-    //图片发生旋转的时候，改变的是纹理坐标
-
-    if (isFlipX)
-    {
-        vertices[2] = 0.0;
-        vertices[6] = 0.0;
-        vertices[10] = 1.0;
-        vertices[14] = 1.0;
-    }
+    defaultShader->SetBool("isFlipX",isFlipX);
+    defaultShader->SetVec2("offset", posX,posY);
+    defaultShader->SetVec2("size",sizeX,sizeY);
 
     texture->Bind();
-    glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices);
     glDrawElements(GL_TRIANGLES,6,GL_UNSIGNED_INT,0);
 
 }
