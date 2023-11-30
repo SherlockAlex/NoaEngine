@@ -58,6 +58,7 @@ namespace noa {
 		virtual ~InputEvent();
 
 		virtual bool GetKeyDown(noa::KeyCode key) = 0;
+		virtual bool GetKeyDownOnce(KeyCode key) = 0;
 		virtual bool GetKeyUp(noa::KeyCode key) = 0;
 
 		virtual void* GetEventEntity() = 0;

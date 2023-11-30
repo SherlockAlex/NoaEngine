@@ -38,7 +38,9 @@ namespace noa {
 		virtual void OnTriggerEnter(noa::Collider2D& other);
 		virtual void OnHitTile() {}
 
+		virtual void OnMouseEnter() {};
 		virtual void OnMouseStay() {};
+		virtual void OnMouseExit() {};
 
 
 	public:
@@ -148,6 +150,8 @@ namespace noa {
 		void Delete(Actor*& ptr);
 
 	private:
+
+		bool isMouseFlag = false;
 
 		bool isRemoved = false;
 		bool active = true;

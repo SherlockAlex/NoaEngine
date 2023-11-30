@@ -4,7 +4,7 @@
 
 Shooter::Shooter()
 	:noa::NoaEngine(1920/2,1080/2
-		,noa::WindowMode::FULLSCREEN
+		,noa::WindowMode::WINDOW
 		,noa::GraphicsAPI::OPENGL
 		,"Shooter-2D"
 	)

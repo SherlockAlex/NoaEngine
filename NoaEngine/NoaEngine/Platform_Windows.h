@@ -30,6 +30,7 @@ namespace noa {
 		~InputEvent_Windows();
 
 		bool GetKeyDown(KeyCode key) override;
+		bool GetKeyDownOnce(KeyCode key) override;
 		bool GetKeyUp(KeyCode key) override;
 		
 		void* GetEventEntity() override;

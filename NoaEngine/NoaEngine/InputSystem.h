@@ -9,7 +9,8 @@
 #include <unordered_map>
 #include <memory>
 
-namespace noa {
+namespace noa 
+{
 	enum class MouseButton {
 		LEFT_BUTTON = 1,
 		MIDDLE_BUTTON = 2,
@@ -87,12 +88,18 @@ namespace noa {
 		KEY_RSHIFT = SDLK_RSHIFT,
 
 		KEY_COMMA = SDLK_COMMA,
+
+		KEY_UP = SDLK_UP,
+		KEY_DOWN = SDLK_DOWN,
+		KEY_LEFT = SDLK_LEFT,
+		KEY_RIGHT = SDLK_RIGHT
 		
 	};
 
 	typedef struct KeyState
 	{
 		bool performed = false;
+		bool wasPerformedOnce = false;
 		bool canceled = false;
 	}KeyState;
 
@@ -124,10 +131,12 @@ namespace noa {
 		static void InitInputSystem(std::shared_ptr<InputEvent> e);
 
 		static bool GetKeyDown(KeyCode key);
+		static bool GetKeyDownOnce(KeyCode key);
 		static bool GetKeyUp(KeyCode key);
 
 		static bool GetMouseMoveState();
 		static bool GetMouseKeyDown(MouseButton mouseButton);
+		static bool GetMouseKeyDownOnce(MouseButton mouseButton);
 		static bool GetMouseKeyUp(MouseButton mouseButton);
 
 		static void SetRelativeMouseMode(bool mode);

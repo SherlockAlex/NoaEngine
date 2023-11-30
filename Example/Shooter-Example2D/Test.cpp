@@ -2,7 +2,6 @@
 #include "ResourceManager.h"
 
 static Test* hold = nullptr;
-static bool isMouseLeft = false;
 
 Test::Test(noa::Scene * scene):noa::Actor(scene)
 {
@@ -26,19 +25,24 @@ void Test::Start()
 void Test::Update()
 {
 	//执行跟随鼠标的逻辑，同时一次只能跟一个
-	if (isMouseLeft
-		&&noa::Input::GetMouseKeyUp(noa::MouseButton::LEFT_BUTTON)) 
-	{
-		isMouseLeft = false;
-	}
 	
-	if (isMouseLeft) 
+	if (isHold)
 	{
 		noa::Vector<double> mousePos = noa::Input::GetMousePosition();
-		noa::Vector<float> worldPos = camera->ScreenPointToWorld(mousePos.x,mousePos.y);
+		noa::Vector<float> worldPos = camera->ScreenPointToWorld(mousePos.x, mousePos.y);
 		noa::Vector<float> velocity = worldPos - hold->transform.position;
 		hold->rigid->velocity = velocity * 15.0f;
 	}
+
+	if (isHold&&noa::Input::GetMouseKeyUp(noa::MouseButton::LEFT_BUTTON)) 
+	{
+		isHold = false;
+	}
+	
+}
+
+void Test::OnMouseEnter() {
+	noa::Debug::Log("enter");
 }
 
 void Test::OnMouseStay()
@@ -46,12 +50,15 @@ void Test::OnMouseStay()
 
 	//要的是鼠标按下的瞬间
 
-	if (!isMouseLeft
-		&&noa::Input::GetMouseKeyDown(noa::MouseButton::LEFT_BUTTON))
+	if (noa::Input::GetMouseKeyDownOnce(noa::MouseButton::LEFT_BUTTON))
 	{
-		isMouseLeft = true;
 		hold = this;
+		this->isHold = true;
 		camera->SetFollow(this);
 	}
+}
+
+void Test::OnMouseExit() {
+	noa::Debug::Log("exit");
 }
 

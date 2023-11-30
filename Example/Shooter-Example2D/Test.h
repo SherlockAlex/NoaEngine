@@ -14,7 +14,9 @@ private:
 	void Start() override;
 	void Update() override;
 
+	void OnMouseEnter() override;
 	void OnMouseStay() override;
+	void OnMouseExit() override;
 
 public:
 	noa::SpriteRenderer* spriteRenderer = noa::SpriteRenderer::Create(this)
@@ -56,6 +58,8 @@ public:
 		.Apply();
 
 	noa::Camera2D* camera = nullptr;
+
+	bool isHold = false;
 
 
 };

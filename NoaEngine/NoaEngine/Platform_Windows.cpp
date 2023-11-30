@@ -86,6 +86,11 @@ bool noa::InputEvent_Windows::GetKeyDown(KeyCode key)
 	return keyboardContext->keyMap[key].performed;
 }
 
+bool noa::InputEvent_Windows::GetKeyDownOnce(KeyCode key)
+{
+	return keyboardContext->keyMap[key].wasPerformedOnce;
+}
+
 bool noa::InputEvent_Windows::GetKeyUp(KeyCode key)
 {
 	
@@ -124,6 +129,7 @@ void noa::InputEvent_Windows::ResetKeyboardContext() {
 
 	for (auto& state:keyboardContext->keyMap)
 	{
+		state.second.wasPerformedOnce = false;
 		state.second.canceled = false;
 	}
 }
@@ -137,6 +143,9 @@ void noa::InputEvent_Windows::UpdateKeyboardContext()
 		keyboardContext->keyMap[
 			static_cast<noa::KeyCode>(e.key.keysym.sym)
 		].performed = true;
+		keyboardContext->keyMap[
+			static_cast<noa::KeyCode>(e.key.keysym.sym)
+		].wasPerformedOnce = true;
 		break;
 	case SDL_KEYUP:
 		keyboardContext->keyMap[
@@ -160,6 +169,11 @@ void noa::InputEvent_Windows::ResetMouseContext()
 	mouseContext->mouseKey[noa::MouseButton::LEFT_BUTTON].canceled = false;
 	mouseContext->mouseKey[noa::MouseButton::MIDDLE_BUTTON].canceled = false;
 	mouseContext->mouseKey[noa::MouseButton::RIGHT_BUTTON].canceled = false;
+
+	mouseContext->mouseKey[noa::MouseButton::LEFT_BUTTON].wasPerformedOnce = false;
+	mouseContext->mouseKey[noa::MouseButton::MIDDLE_BUTTON].wasPerformedOnce = false;
+	mouseContext->mouseKey[noa::MouseButton::RIGHT_BUTTON].wasPerformedOnce = false;
+
 	mouseContext->motion = false;
 
 	
@@ -169,16 +183,15 @@ void noa::InputEvent_Windows::ResetMouseContext()
 void noa::InputEvent_Windows::UpdateMouseContext()
 {
 
-	int mouseX, mouseY;
-
-	const uint32_t mouseState = SDL_GetMouseState(&mouseX, &mouseY);
-
 	switch (e.type)
 	{
 	case SDL_MOUSEBUTTONDOWN:
 		mouseContext->mouseKey[
 			static_cast<noa::MouseButton>(e.button.button)
 		].performed = true;
+		mouseContext->mouseKey[
+			static_cast<noa::MouseButton>(e.button.button)
+		].wasPerformedOnce = true;
 		break;
 	case SDL_MOUSEBUTTONUP:
 		mouseContext->mouseKey[

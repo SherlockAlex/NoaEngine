@@ -98,19 +98,28 @@ void noa::Camera2D::Render() {
 			, (instance.actor == nullptr) ? 0.0f : instance.actor->transform.eulerAngle
 		);
 
-		//下面功能代码要在相机里面执行才对
-
 		const noa::Vector<double> mousePos = noa::Input::GetMousePosition();
 		if (mousePos.x <= screenPosX
 			|| mousePos.x >= screenPosX + instance.spriteSize.x * instance.scale.x
 			|| mousePos.y <= screenPosY
 			|| mousePos.y >= screenPosY + instance.spriteSize.y * instance.scale.y)
 		{
+			if (instance.actor->isMouseFlag) 
+			{
+				instance.actor->OnMouseExit();
+				instance.actor->isMouseFlag = false;
+			}
 			continue;
 		}
 
 		//执行Actor身上的OnMouseStay方法
+		if (!instance.actor->isMouseFlag)
+		{
+			instance.actor->OnMouseEnter();
+			instance.actor->isMouseFlag = true;
+		}
 		instance.actor->OnMouseStay();
+		
 
 	}
 

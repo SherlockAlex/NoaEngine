@@ -68,7 +68,7 @@ void GameDelegate::OnTick(noa::Scene* scene)
 {
 	noa::Camera2D* camera = noa::SceneManager::FindActorWithType<noa::Camera2D>();
 	noa::TileMap* tileMap = noa::SceneManager::FindActorWithType<noa::TileMap>();
-	if (i<500)
+	if (i<100)
 	{
 		Test* test = noa::NObject<Test>::Create(scene);
 		test->GetComponent<noa::TileCollider2D>()->SetTileMap(tileMap);
