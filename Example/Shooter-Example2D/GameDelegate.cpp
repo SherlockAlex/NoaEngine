@@ -26,19 +26,19 @@ void GameDelegate::OnLoad(noa::Scene* scene)
 		->SetTileMap(mapInfo.layers[0], mapInfo.GetTileSet())
 		.SetCollision(40)
 		.Apply();
-	/*noa::TileMapRenderer* tileMapRenderer1
+	noa::TileMapRenderer* tileMapRenderer1
 		= noa::TileMapRenderer::Create(tileMap)
 		->SetTileMap(mapInfo.layers[1], mapInfo.GetTileSet())
 		.SetOffset(10,8)
-		.SetCollision(84)
-		.Apply();*/
+		//.SetCollision(84)
+		.SetVisiable(false)
+		.Apply();
 
-	//Test* test1 = noa::NObject<Test>::Create(scene);
-	//test1->GetComponent<noa::TileCollider2D>()->SetTileMap(tileMap);
-	//test1->transform.position = { 2,3 };
+	
 
 	Player* player = noa::NObject<Player>::Create(scene);
 	player->GetComponent<noa::TileCollider2D>()->SetTileMap(tileMap);
+	player->transform.position = tileMap->GetTilePosition(84);
 
 	noa::Camera2D* camera = noa::Camera2D::Create(scene)
 		->SetFar(32.0f)
@@ -48,7 +48,6 @@ void GameDelegate::OnLoad(noa::Scene* scene)
 		.SetVerticalBoundary(0,mapInfo.h)
 		.SetFollow(player)
 		.Apply();
-	//test1->camera = camera;
 
 	bulletFactory->SetActiveScene(scene);
 	bulletPool = std::make_shared<noa::ActorPool<Bullet>>();

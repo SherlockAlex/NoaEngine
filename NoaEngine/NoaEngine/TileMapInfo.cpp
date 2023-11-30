@@ -6,7 +6,6 @@ noa::MapLayer::MapLayer() {
 
 noa::MapLayer::MapLayer(const LayerFile& layer)
 {
-	//²ã¼¶
 	this->layer = layer.image;
 	this->w = layer.w;
 	this->h = layer.h;

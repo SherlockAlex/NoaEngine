@@ -5,7 +5,6 @@
 Player::Player(noa::Scene * scene):noa::Actor(scene) 
 {
 	this->tag = "Player";
-	this->transform.position = { 3,3 };
 }
 
 Player::~Player() {

@@ -37,8 +37,8 @@ namespace noa {
 
 	public:
 
-		virtual void SetActive(bool value);
-		virtual bool GetActive();
+		void SetActive(bool value);
+		bool GetActive();
 		std::string& GetActorTag();
 		bool CompareTag(const std::string& tag);
 

@@ -29,7 +29,7 @@ bool noa::TileMap::CheckCollision(int x, int y)
 {
 	for (auto& layer:layerRenderers) 
 	{
-		if (!layer) 
+		if (!layer||!layer->GetActive()) 
 		{
 			continue;
 		}
@@ -43,4 +43,57 @@ bool noa::TileMap::CheckCollision(int x, int y)
 		}
 	}
 	return false;
+}
+
+noa::Vector<float> noa::TileMap::GetTilePosition(int tileID)
+{
+	noa::Vector<float> result = this->transform.position;
+	if (tileID==-1) 
+	{
+		return result;
+	}
+	//查找TileID第一次出现的
+	
+	//tileID的索引坐标
+	int posX = 0;
+	int posY = 0;
+
+	bool isFind = false;
+	for (auto& layer:layerRenderers) 
+	{
+		if (!layer||!layer->GetActive()) 
+		{
+			continue;
+		}
+
+		const noa::Vector<int>& offset = layer->GetOffset();
+		const noa::Vector<int>& size = layer->GetSize();
+		int id = -1;
+		for (int x = 0;x<size.x&&!isFind;x++)
+		{
+			for (int y = 0;y<size.y&&!isFind;y++) 
+			{
+				id = layer->GetTileID(x,y);
+				if (id == tileID)
+				{
+					posX = x + offset.x;
+					posY = y + offset.y;
+					isFind = true;
+					break;
+				}
+			}
+		}
+
+		if (isFind)
+		{
+			break;
+		}
+
+	}
+
+	result.x = static_cast<float>(posX + transform.position.x);
+	result.y = static_cast<float>(posY + transform.position.y);
+	return result;
+
+	
 }

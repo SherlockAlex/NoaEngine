@@ -30,9 +30,15 @@ namespace noa
 			, noa::TileSet& tileSet
 		);
 		TileMapRenderer& SetOffset(int x, int y);
+		noa::Vector<int> GetOffset();
+		TileMapRenderer& SetActive(bool value);
+		TileMapRenderer& SetVisiable(bool value);
 		TileMapRenderer* Apply();
 
 		bool CheckCollision(int x, int y);
+		int GetTileID(int x,int y);
+
+		noa::Vector<int> GetSize();
 
 	private:
 		noa::Vector<int> tileScale = { 32,32 };
@@ -40,7 +46,7 @@ namespace noa
 		std::unordered_map<int, bool> collisions;
 		noa::Vector<int> offset;
 		noa::MapLayer layer;
-
+		noa::Vector<int> size;
 	};
 
 }

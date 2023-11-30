@@ -45,6 +45,10 @@ noa::TileMapRenderer& noa::TileMapRenderer::SetTileMap(
 	noa::Sprite sprite;
 	sprite.w = layer.w*tileScale.x;
 	sprite.h = layer.h*tileScale.y;
+
+	this->size.x = layer.w;
+	this->size.y = layer.h;
+
 	sprite.ResizeAndFull(sprite.w,sprite.h,noa::RGBA(255,255,255,0));
 	for (int x = 0; x < sprite.w; x++)
 	{
@@ -86,6 +90,23 @@ noa::TileMapRenderer& noa::TileMapRenderer::SetOffset(
 	return *this;
 }
 
+noa::Vector<int> noa::TileMapRenderer::GetOffset() {
+	return this->offset;
+}
+
+noa::TileMapRenderer& noa::TileMapRenderer::SetActive(bool value) 
+{
+	noa::ActorComponent::SetActive(value);
+	this->spriteRenderer->SetActive(value);
+	return *this;
+}
+
+noa::TileMapRenderer& noa::TileMapRenderer::SetVisiable(bool value) 
+{
+	this->spriteRenderer->SetActive(value);
+	return *this;
+}
+
 noa::TileMapRenderer* noa::TileMapRenderer::Apply() 
 {
 	return this;
@@ -100,5 +121,14 @@ bool noa::TileMapRenderer::CheckCollision(int x, int y)
 	const int tileID = this->layer.GetTileID(tileX, tileY);
 	return collisions.count(tileID) > 0;
 
+}
+
+int noa::TileMapRenderer::GetTileID(int x, int y)
+{
+	return this->layer.GetTileID(x, y);
+}
+
+noa::Vector<int> noa::TileMapRenderer::GetSize() {
+	return this->size;
 }
 
