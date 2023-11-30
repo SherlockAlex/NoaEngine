@@ -2,9 +2,11 @@
 #define NOAENGINE_APPLICATION_H
 
 namespace noa {
+	class NoaEngine;
 	class Application {
 	public:
 		static void Quit();
+		static NoaEngine* CreateEngine();
 	};
 }
 

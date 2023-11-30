@@ -181,10 +181,10 @@ namespace noa {
 		void RemoveExtension(noa::EnginExtension* extension);
 
 		int Run();
-		
+
 
 	private:
-		
+
 		void ExtensionStart();
 		void ExtensionBeforeUpdate();
 		void ExtensionUpdate();

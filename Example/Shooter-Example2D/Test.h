@@ -57,8 +57,6 @@ public:
 
 	noa::Camera2D* camera = nullptr;
 
-	bool isHand = false;
-
 
 };
 

@@ -231,6 +231,7 @@
   <ItemGroup>
     <ClCompile Include="NoaEngine\Application.cpp" />
     <ClCompile Include="NoaEngine\EngineExtension.cpp" />
+    <ClCompile Include="NoaEngine\Entrance.cpp" />
     <ClCompile Include="NoaEngine\SceneManager.cpp" />
     <ClCompile Include="NoaEngine\UISlider.cpp" />
     <ClCompile Include="NoaEngine\State.cpp" />

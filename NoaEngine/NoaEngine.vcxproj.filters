@@ -419,5 +419,8 @@
     <ClCompile Include="NoaEngine\EngineExtension.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="NoaEngine\Entrance.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

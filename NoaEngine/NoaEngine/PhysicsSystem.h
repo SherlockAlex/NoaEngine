@@ -46,7 +46,6 @@ namespace noa
 		static bool BoxCollide(BoxCollider2D * obj1,BoxCollider2D * obj2);
 		static bool BoxAndCircleCollide(BoxCollider2D* obj1, CircleCollider2D* obj2);
 		static bool Collide(Collider2D* obj1, Collider2D* obj2);
-		//static bool Collide(const AABB& box1, const AABB& box2);
 		static void SolveCollision(Collider2D* obj1, Collider2D* obj2);
 
 	private:

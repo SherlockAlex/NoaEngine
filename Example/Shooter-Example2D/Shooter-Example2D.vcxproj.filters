@@ -255,6 +255,9 @@
     <ClCompile Include="..\..\NoaEngine\NoaEngine\UISlider.cpp">
       <Filter>头文件\Engine</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\NoaEngine\NoaEngine\Entrance.cpp">
+      <Filter>头文件\Engine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h">

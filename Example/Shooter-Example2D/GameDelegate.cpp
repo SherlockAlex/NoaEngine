@@ -26,12 +26,12 @@ void GameDelegate::OnLoad(noa::Scene* scene)
 		->SetTileMap(mapInfo.layers[0], mapInfo.GetTileSet())
 		.SetCollision(40)
 		.Apply();
-	noa::TileMapRenderer* tileMapRenderer1
+	/*noa::TileMapRenderer* tileMapRenderer1
 		= noa::TileMapRenderer::Create(tileMap)
 		->SetTileMap(mapInfo.layers[1], mapInfo.GetTileSet())
 		.SetOffset(10,8)
 		.SetCollision(84)
-		.Apply();
+		.Apply();*/
 
 	Test* test1 = noa::NObject<Test>::Create(scene);
 	test1->GetComponent<noa::TileCollider2D>()->SetTileMap(tileMap);
@@ -68,7 +68,7 @@ void GameDelegate::OnTick(noa::Scene* scene)
 {
 	noa::Camera2D* camera = noa::SceneManager::FindActorWithType<noa::Camera2D>();
 	noa::TileMap* tileMap = noa::SceneManager::FindActorWithType<noa::TileMap>();
-	if (i<50)
+	if (i<500)
 	{
 		Test* test = noa::NObject<Test>::Create(scene);
 		test->GetComponent<noa::TileCollider2D>()->SetTileMap(tileMap);

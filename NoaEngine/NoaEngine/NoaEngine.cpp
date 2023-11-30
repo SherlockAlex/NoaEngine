@@ -35,30 +35,30 @@ namespace noa {
 	std::vector<std::vector<SpriteGPUInstance>> rendererInstanceLayer;
 }
 
-void noa::NoaEngine::AddExtension(noa::EnginExtension* extension) 
+void noa::NoaEngine::AddExtension(noa::EnginExtension* extension)
 {
-	if (!extension) 
+	if (!extension)
 	{
 		return;
 	}
 	this->extensions.push_back(extension);
 
 	//保证扩展的唯一性
-	std::sort(extensions.begin(),extensions.end());
+	std::sort(extensions.begin(), extensions.end());
 	auto last = std::unique(extensions.begin(), extensions.end());
-	extensions.erase(last,extensions.end());
+	extensions.erase(last, extensions.end());
 
 }
 
-void noa::NoaEngine::RemoveExtension(noa::EnginExtension* extension) 
+void noa::NoaEngine::RemoveExtension(noa::EnginExtension* extension)
 {
-	if (!extension) 
+	if (!extension)
 	{
 		return;
 	}
 
-	auto it = std::find(extensions.begin(),extensions.end(),extension);
-	if (it!=extensions.end())
+	auto it = std::find(extensions.begin(), extensions.end(), extension);
+	if (it != extensions.end())
 	{
 		extensions.erase(it);
 	}
@@ -85,9 +85,9 @@ noa::NoaEngine::NoaEngine(
 		renderer = std::make_shared<SDLRenderer>();
 		break;
 	}
-	
+
 	const Vector<int>& hardwareSize = platform->GetHardwareScreenSize();
-	
+
 	switch (windowMode)
 	{
 	case noa::WindowMode::FULLSCREEN:
@@ -101,7 +101,7 @@ noa::NoaEngine::NoaEngine(
 	}
 
 	Screen::pixelBuffer = new uint32_t[Screen::width * Screen::height];
-	
+
 	renderer->SetRenderer();//初始化渲染器
 	platform->Create(Screen::width, Screen::height, windowMode, gameName);
 	windowID = platform->GetWindowID();
@@ -119,7 +119,7 @@ noa::NoaEngine::~NoaEngine()
 {
 	delete[] Screen::pixelBuffer;
 
-	for (auto& extension:extensions) 
+	for (auto& extension : extensions)
 	{
 		extension->Delete(extension);
 	}
@@ -129,7 +129,7 @@ noa::NoaEngine::~NoaEngine()
 
 int noa::NoaEngine::Run()
 {
-	
+
 	//初始化游戏图层
 	rendererInstanceLayer.push_back(std::vector<SpriteGPUInstance>());
 	rendererInstanceLayer.push_back(std::vector<SpriteGPUInstance>());
@@ -155,7 +155,7 @@ int noa::NoaEngine::Exit()
 }
 
 void noa::NoaEngine::ExtensionStart() {
-	for (auto& extension:extensions) 
+	for (auto& extension : extensions)
 	{
 		extension->Start();
 	}
@@ -182,7 +182,7 @@ void noa::NoaEngine::ExtensionRender() {
 	}
 }
 
-void noa::NoaEngine::ExtensionOnExit() 
+void noa::NoaEngine::ExtensionOnExit()
 {
 	for (auto& extension : extensions)
 	{

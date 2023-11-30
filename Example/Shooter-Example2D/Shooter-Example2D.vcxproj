@@ -148,6 +148,7 @@
     <ClCompile Include="..\..\NoaEngine\NoaEngine\Collider2D.cpp" />
     <ClCompile Include="..\..\NoaEngine\NoaEngine\Debug.cpp" />
     <ClCompile Include="..\..\NoaEngine\NoaEngine\EngineExtension.cpp" />
+    <ClCompile Include="..\..\NoaEngine\NoaEngine\Entrance.cpp" />
     <ClCompile Include="..\..\NoaEngine\NoaEngine\Font.cpp" />
     <ClCompile Include="..\..\NoaEngine\NoaEngine\FontAsset.cpp" />
     <ClCompile Include="..\..\NoaEngine\NoaEngine\GLRenderer.cpp" />
