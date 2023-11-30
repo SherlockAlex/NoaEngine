@@ -59,11 +59,14 @@ namespace noa
 		Animation& SetFrameEvent(int frame, std::function<void()> e);
 		Animation& SetSpriteRenderer(SpriteRenderer* spriteRenderer);
 		Animation& SetClip(AnimationClip* clip);
+		Animation& SetClip(const std::string& name);
+		Animation& AddClip(const std::string& name,AnimationClip* clip);
+		Animation& RemoveClip(const std::string& name);
 		Animation* Apply();
 
 	private:
 		AnimationClip* clip = nullptr;
-		std::vector<noa::AnimationClip*> clips;
+		std::map<const std::string,noa::AnimationClip*> clips;
 
 		int previousFrameIndex = -1;
 		std::unordered_map<Uint32, NoaEvent<void>> framesEvent;

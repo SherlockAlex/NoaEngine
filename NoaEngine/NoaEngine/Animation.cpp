@@ -38,9 +38,39 @@ noa::Animation& noa::Animation::SetClip(noa::AnimationClip* clip)
 	{
 		currentFrame = clip->framesImage[0];
 	}
-	
+	this->Reset();
 	return *this;
 
+}
+
+noa::Animation& noa::Animation::SetClip(
+	const std::string& name) {
+	if (this->clips.count(name)<=0) 
+	{
+		return *this;
+	}
+	this->SetClip(clips[name]);
+}
+
+noa::Animation& noa::Animation::AddClip(
+	const std::string& name,noa::AnimationClip* clip) {
+	if (clip == nullptr) 
+	{
+		return *this;
+	}
+	this->clips.insert({name,clip});
+	return *this;
+}
+
+noa::Animation& noa::Animation::RemoveClip(
+	const std::string& name) 
+{
+	if (this->clips.count(name)<=0) 
+	{
+		return *this;
+	}
+	auto it = clips.find(name);
+	clips.erase(it);
 }
 
 noa::Animation* noa::Animation::Apply()
