@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>17.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{7c03c11b-33a8-40ab-842f-2b3f9d81263f}</ProjectGuid>
+    <RootNamespace>Example</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NOA_WINDOWS;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\NoaEngine\Engine\Actor.cpp" />
+    <ClCompile Include="..\..\NoaEngine\Engine\ActorComponent.cpp" />
+    <ClCompile Include="..\..\NoaEngine\Engine\ActorMotion.cpp" />
+    <ClCompile Include="..\..\NoaEngine\Engine\ActorPool.cpp" />
+    <ClCompile Include="..\..\NoaEngine\Engine\ActorPoolFactory.cpp" />
+    <ClCompile Include="..\..\NoaEngine\Engine\Animation.cpp" />
+    <ClCompile Include="..\..\NoaEngine\Engine\Application.cpp" />
+    <ClCompile Include="..\..\NoaEngine\Engine\AudioSource.cpp" />
+    <ClCompile Include="..\..\NoaEngine\Engine\AudioSystem.cpp" />
+    <ClCompile Include="..\..\NoaEngine\Engine\AudioSystem_SDL.cpp" />
+    <ClCompile Include="..\..\NoaEngine\Engine\BoxCollider2D.cpp" />
+    <ClCompile Include="..\..\NoaEngine\Engine\Camera.cpp" />
+    <ClCompile Include="..\..\NoaEngine\Engine\Camera2D.cpp" />
+    <ClCompile Include="..\..\NoaEngine\Engine\CircleCollider2D.cpp" />
+    <ClCompile Include="..\..\NoaEngine\Engine\Collider2D.cpp" />
+    <ClCompile Include="..\..\NoaEngine\Engine\Debug.cpp" />
+    <ClCompile Include="..\..\NoaEngine\Engine\Engine.cpp" />
+    <ClCompile Include="..\..\NoaEngine\Engine\EngineExtension.cpp" />
+    <ClCompile Include="..\..\NoaEngine\Engine\Font.cpp" />
+    <ClCompile Include="..\..\NoaEngine\Engine\FontAsset.cpp" />
+    <ClCompile Include="..\..\NoaEngine\Engine\GLRenderer.cpp" />
+    <ClCompile Include="..\..\NoaEngine\Engine\GLShader.cpp" />
+    <ClCompile Include="..\..\NoaEngine\Engine\GLTexture.cpp" />
+    <ClCompile Include="..\..\NoaEngine\Engine\Graphic.cpp" />
+    <ClCompile Include="..\..\NoaEngine\Engine\Input.cpp" />
+    <ClCompile Include="..\..\NoaEngine\Engine\IOStruct.cpp" />
+    <ClCompile Include="..\..\NoaEngine\Engine\IPoolObjectFactroy.cpp" />
+    <ClCompile Include="..\..\NoaEngine\Engine\NoaAction.cpp" />
+    <ClCompile Include="..\..\NoaEngine\Engine\NoaGUI.cpp" />
+    <ClCompile Include="..\..\NoaEngine\Engine\NoaMath.cpp" />
+    <ClCompile Include="..\..\NoaEngine\Engine\NObject.cpp" />
+    <ClCompile Include="..\..\NoaEngine\Engine\PhysicsSystem.cpp" />
+    <ClCompile Include="..\..\NoaEngine\Engine\Platform.cpp" />
+    <ClCompile Include="..\..\NoaEngine\Engine\Platform_Linux.cpp" />
+    <ClCompile Include="..\..\NoaEngine\Engine\Platform_Windows.cpp" />
+    <ClCompile Include="..\..\NoaEngine\Engine\Renderer.cpp" />
+    <ClCompile Include="..\..\NoaEngine\Engine\Resource.cpp" />
+    <ClCompile Include="..\..\NoaEngine\Engine\Rigidbody.cpp" />
+    <ClCompile Include="..\..\NoaEngine\Engine\Scene.cpp" />
+    <ClCompile Include="..\..\NoaEngine\Engine\SceneManager.cpp" />
+    <ClCompile Include="..\..\NoaEngine\Engine\Screen.cpp" />
+    <ClCompile Include="..\..\NoaEngine\Engine\SDLRenderer.cpp" />
+    <ClCompile Include="..\..\NoaEngine\Engine\SDLTexture.cpp" />
+    <ClCompile Include="..\..\NoaEngine\Engine\Sprite.cpp" />
+    <ClCompile Include="..\..\NoaEngine\Engine\SpriteRenderer.cpp" />
+    <ClCompile Include="..\..\NoaEngine\Engine\State.cpp" />
+    <ClCompile Include="..\..\NoaEngine\Engine\StateMachine.cpp" />
+    <ClCompile Include="..\..\NoaEngine\Engine\Texture.cpp" />
+    <ClCompile Include="..\..\NoaEngine\Engine\TileCollider2D.cpp" />
+    <ClCompile Include="..\..\NoaEngine\Engine\TileMap.cpp" />
+    <ClCompile Include="..\..\NoaEngine\Engine\TileMapInfo.cpp" />
+    <ClCompile Include="..\..\NoaEngine\Engine\TileMapRenderer.cpp" />
+    <ClCompile Include="..\..\NoaEngine\Engine\Time.cpp" />
+    <ClCompile Include="..\..\NoaEngine\Engine\Transform.cpp" />
+    <ClCompile Include="..\..\NoaEngine\Engine\UIBody.cpp" />
+    <ClCompile Include="..\..\NoaEngine\Engine\UIButton.cpp" />
+    <ClCompile Include="..\..\NoaEngine\Engine\UIComponent.cpp" />
+    <ClCompile Include="..\..\NoaEngine\Engine\UIContainer.cpp" />
+    <ClCompile Include="..\..\NoaEngine\Engine\UIDocument.cpp" />
+    <ClCompile Include="..\..\NoaEngine\Engine\UIHub.cpp" />
+    <ClCompile Include="..\..\NoaEngine\Engine\UIImage.cpp" />
+    <ClCompile Include="..\..\NoaEngine\Engine\UILabel.cpp" />
+    <ClCompile Include="..\..\NoaEngine\Engine\UIScript.cpp" />
+    <ClCompile Include="..\..\NoaEngine\Engine\UIScrollBar.cpp" />
+    <ClCompile Include="..\..\NoaEngine\Engine\UISlider.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="MainMenuUI.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\NoaEngine\Engine\Actor.h" />
+    <ClInclude Include="..\..\NoaEngine\Engine\ActorComponent.h" />
+    <ClInclude Include="..\..\NoaEngine\Engine\ActorMotion.h" />
+    <ClInclude Include="..\..\NoaEngine\Engine\ActorPool.h" />
+    <ClInclude Include="..\..\NoaEngine\Engine\ActorPoolFactory.h" />
+    <ClInclude Include="..\..\NoaEngine\Engine\Animation.h" />
+    <ClInclude Include="..\..\NoaEngine\Engine\Application.h" />
+    <ClInclude Include="..\..\NoaEngine\Engine\AudioSource.h" />
+    <ClInclude Include="..\..\NoaEngine\Engine\AudioSystem.h" />
+    <ClInclude Include="..\..\NoaEngine\Engine\AudioSystem_SDL.h" />
+    <ClInclude Include="..\..\NoaEngine\Engine\BoxCollider2D.h" />
+    <ClInclude Include="..\..\NoaEngine\Engine\Camera.h" />
+    <ClInclude Include="..\..\NoaEngine\Engine\Camera2D.h" />
+    <ClInclude Include="..\..\NoaEngine\Engine\CircleCollider2D.h" />
+    <ClInclude Include="..\..\NoaEngine\Engine\Collider2D.h" />
+    <ClInclude Include="..\..\NoaEngine\Engine\Core.h" />
+    <ClInclude Include="..\..\NoaEngine\Engine\Debug.h" />
+    <ClInclude Include="..\..\NoaEngine\Engine\Engine.h" />
+    <ClInclude Include="..\..\NoaEngine\Engine\EngineExtension.h" />
+    <ClInclude Include="..\..\NoaEngine\Engine\Font.h" />
+    <ClInclude Include="..\..\NoaEngine\Engine\FontAsset.h" />
+    <ClInclude Include="..\..\NoaEngine\Engine\GLHelper.h" />
+    <ClInclude Include="..\..\NoaEngine\Engine\GLRenderer.h" />
+    <ClInclude Include="..\..\NoaEngine\Engine\GLShader.h" />
+    <ClInclude Include="..\..\NoaEngine\Engine\GLTexture.h" />
+    <ClInclude Include="..\..\NoaEngine\Engine\Graphic.h" />
+    <ClInclude Include="..\..\NoaEngine\Engine\Input.h" />
+    <ClInclude Include="..\..\NoaEngine\Engine\IOCode.h" />
+    <ClInclude Include="..\..\NoaEngine\Engine\IOStruct.h" />
+    <ClInclude Include="..\..\NoaEngine\Engine\IPool.h" />
+    <ClInclude Include="..\..\NoaEngine\Engine\IPoolObjectFactroy.h" />
+    <ClInclude Include="..\..\NoaEngine\Engine\NoaAction.h" />
+    <ClInclude Include="..\..\NoaEngine\Engine\NoaGUI.h" />
+    <ClInclude Include="..\..\NoaEngine\Engine\NoaMath.h" />
+    <ClInclude Include="..\..\NoaEngine\Engine\NObject.h" />
+    <ClInclude Include="..\..\NoaEngine\Engine\ObjectPool.h" />
+    <ClInclude Include="..\..\NoaEngine\Engine\PhysicsSystem.h" />
+    <ClInclude Include="..\..\NoaEngine\Engine\Platform.h" />
+    <ClInclude Include="..\..\NoaEngine\Engine\Platform_Linux.h" />
+    <ClInclude Include="..\..\NoaEngine\Engine\Platform_Windows.h" />
+    <ClInclude Include="..\..\NoaEngine\Engine\Renderer.h" />
+    <ClInclude Include="..\..\NoaEngine\Engine\Resource.h" />
+    <ClInclude Include="..\..\NoaEngine\Engine\Rigidbody.h" />
+    <ClInclude Include="..\..\NoaEngine\Engine\Scene.h" />
+    <ClInclude Include="..\..\NoaEngine\Engine\SceneManager.h" />
+    <ClInclude Include="..\..\NoaEngine\Engine\Screen.h" />
+    <ClInclude Include="..\..\NoaEngine\Engine\SDLHelper.h" />
+    <ClInclude Include="..\..\NoaEngine\Engine\SDLRenderer.h" />
+    <ClInclude Include="..\..\NoaEngine\Engine\SDLTexture.h" />
+    <ClInclude Include="..\..\NoaEngine\Engine\Sprite.h" />
+    <ClInclude Include="..\..\NoaEngine\Engine\SpriteRenderer.h" />
+    <ClInclude Include="..\..\NoaEngine\Engine\State.h" />
+    <ClInclude Include="..\..\NoaEngine\Engine\StateMachine.h" />
+    <ClInclude Include="..\..\NoaEngine\Engine\Texture.h" />
+    <ClInclude Include="..\..\NoaEngine\Engine\TileCollider2D.h" />
+    <ClInclude Include="..\..\NoaEngine\Engine\TileMap.h" />
+    <ClInclude Include="..\..\NoaEngine\Engine\TileMapInfo.h" />
+    <ClInclude Include="..\..\NoaEngine\Engine\TileMapRenderer.h" />
+    <ClInclude Include="..\..\NoaEngine\Engine\Time.h" />
+    <ClInclude Include="..\..\NoaEngine\Engine\Transform.h" />
+    <ClInclude Include="..\..\NoaEngine\Engine\UIBody.h" />
+    <ClInclude Include="..\..\NoaEngine\Engine\UIButton.h" />
+    <ClInclude Include="..\..\NoaEngine\Engine\UIComponent.h" />
+    <ClInclude Include="..\..\NoaEngine\Engine\UIContainer.h" />
+    <ClInclude Include="..\..\NoaEngine\Engine\UIDocument.h" />
+    <ClInclude Include="..\..\NoaEngine\Engine\UIHub.h" />
+    <ClInclude Include="..\..\NoaEngine\Engine\UIImage.h" />
+    <ClInclude Include="..\..\NoaEngine\Engine\UILabel.h" />
+    <ClInclude Include="..\..\NoaEngine\Engine\UIScript.h" />
+    <ClInclude Include="..\..\NoaEngine\Engine\UIScrollBar.h" />
+    <ClInclude Include="..\..\NoaEngine\Engine\UISlider.h" />
+    <ClInclude Include="MainMenuUI.h" />
+    <ClInclude Include="NoaEngine.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+    <Import Project="..\..\packages\nupengl.core.redist.0.1.0.1\build\native\nupengl.core.redist.targets" Condition="Exists('..\..\packages\nupengl.core.redist.0.1.0.1\build\native\nupengl.core.redist.targets')" />
+    <Import Project="..\..\packages\sdl2.nuget.redist.2.28.5\build\native\sdl2.nuget.redist.targets" Condition="Exists('..\..\packages\sdl2.nuget.redist.2.28.5\build\native\sdl2.nuget.redist.targets')" />
+    <Import Project="..\..\packages\sdl2.nuget.2.28.5\build\native\sdl2.nuget.targets" Condition="Exists('..\..\packages\sdl2.nuget.2.28.5\build\native\sdl2.nuget.targets')" />
+    <Import Project="..\..\packages\sdl2_mixer.nuget.redist.2.6.3\build\native\sdl2_mixer.nuget.redist.targets" Condition="Exists('..\..\packages\sdl2_mixer.nuget.redist.2.6.3\build\native\sdl2_mixer.nuget.redist.targets')" />
+    <Import Project="..\..\packages\sdl2_mixer.nuget.2.6.3\build\native\sdl2_mixer.nuget.targets" Condition="Exists('..\..\packages\sdl2_mixer.nuget.2.6.3\build\native\sdl2_mixer.nuget.targets')" />
+    <Import Project="..\..\packages\freetype2.2.6.0.1\build\native\freetype2.targets" Condition="Exists('..\..\packages\freetype2.2.6.0.1\build\native\freetype2.targets')" />
+    <Import Project="..\..\packages\nupengl.core.0.1.0.1\build\native\nupengl.core.targets" Condition="Exists('..\..\packages\nupengl.core.0.1.0.1\build\native\nupengl.core.targets')" />
+    <Import Project="..\..\packages\glm.0.9.9.800\build\native\glm.targets" Condition="Exists('..\..\packages\glm.0.9.9.800\build\native\glm.targets')" />
+  </ImportGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>这台计算机上缺少此项目引用的 NuGet 程序包。使用“NuGet 程序包还原”可下载这些程序包。有关更多信息，请参见 http://go.microsoft.com/fwlink/?LinkID=322105。缺少的文件是 {0}。</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\..\packages\nupengl.core.redist.0.1.0.1\build\native\nupengl.core.redist.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\nupengl.core.redist.0.1.0.1\build\native\nupengl.core.redist.targets'))" />
+    <Error Condition="!Exists('..\..\packages\sdl2.nuget.redist.2.28.5\build\native\sdl2.nuget.redist.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\sdl2.nuget.redist.2.28.5\build\native\sdl2.nuget.redist.targets'))" />
+    <Error Condition="!Exists('..\..\packages\sdl2.nuget.2.28.5\build\native\sdl2.nuget.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\sdl2.nuget.2.28.5\build\native\sdl2.nuget.targets'))" />
+    <Error Condition="!Exists('..\..\packages\sdl2_mixer.nuget.redist.2.6.3\build\native\sdl2_mixer.nuget.redist.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\sdl2_mixer.nuget.redist.2.6.3\build\native\sdl2_mixer.nuget.redist.targets'))" />
+    <Error Condition="!Exists('..\..\packages\sdl2_mixer.nuget.2.6.3\build\native\sdl2_mixer.nuget.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\sdl2_mixer.nuget.2.6.3\build\native\sdl2_mixer.nuget.targets'))" />
+    <Error Condition="!Exists('..\..\packages\freetype2.2.6.0.1\build\native\freetype2.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\freetype2.2.6.0.1\build\native\freetype2.targets'))" />
+    <Error Condition="!Exists('..\..\packages\nupengl.core.0.1.0.1\build\native\nupengl.core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\nupengl.core.0.1.0.1\build\native\nupengl.core.targets'))" />
+    <Error Condition="!Exists('..\..\packages\glm.0.9.9.800\build\native\glm.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\glm.0.9.9.800\build\native\glm.targets'))" />
+  </Target>
+</Project>

@@ -22,6 +22,9 @@ noa::Tile* noa::TileSet::GetTileByID(int id)
 
 std::shared_ptr<noa::AudioClip> noa::Resource::LoadAudioClip(const std::string & filename) 
 {
+	//加载声音文件将会交给声音引擎
+	//不同的声音引擎对声音资源的处理不同
+
 	const std::string filePath = Resource::path + filename;
 	return noa::audioSystem->LoadAudioClip(filePath);
 }
@@ -197,6 +200,7 @@ noa::TileSet noa::Resource::LoadTileSet(const std::string& filename)
 
 std::string noa::Resource::ReadTextFrom(const std::string& filename)
 {
+	//返回的是字符串
 	const std::string filePath = Resource::path + filename;
 	std::ifstream file(filePath);
 	if (!file.is_open())

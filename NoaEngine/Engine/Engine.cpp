@@ -118,6 +118,8 @@ noa::NoaEngine::~NoaEngine()
 		extension->Delete(extension);
 	}
 
+	delete texture;
+
 }
 
 

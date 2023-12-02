@@ -12,7 +12,8 @@
 
 namespace noa {
 	template<class T>
-	class NOA_API ActorFactory:public IPoolObjectFactroy<T>
+	class NOA_API ActorFactory
+		:public IPoolObjectFactroy<T>
 	{
 	public:
 		virtual T* Create() {

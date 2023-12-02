@@ -7,9 +7,6 @@ namespace noa {
 
 	class NOA_API Texture
 	{
-	public:
-		int width = 0;
-		int height = 0;
 	protected:
 		Texture();
 	public:
@@ -23,6 +20,10 @@ namespace noa {
 		T* GetTextureAs() {
 			return dynamic_cast<T*>(this);
 		}
+
+	public:
+		int width = 0;
+		int height = 0;
 
 	};
 }

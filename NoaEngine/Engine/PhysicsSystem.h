@@ -27,12 +27,6 @@ namespace noa
 	class NOA_API CircleCollider2D;
 	class NOA_API BoxCollider2D;
 
-	// 定义AABB结构体
-	struct NOA_API AABB {
-		float minX, maxX;
-		float minY, maxY;
-	};
-
 	class NOA_API PhysicsSystem
 	{
 	public:

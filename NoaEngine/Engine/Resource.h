@@ -62,16 +62,10 @@ namespace noa {
 		std::shared_ptr<Sprite> sprite = nullptr;
 		bool isCollision = false;
 
-		//Ìí¼ÓÒ»¸öAnimation
-
 		Tile();
-
 		Tile(std::shared_ptr<Sprite> sprite, bool isCollision = false);
-
 		Tile(SpriteFile spriteFile, bool isCollision = false);
-
 		~Tile();
-
 
 	}Tile;
 

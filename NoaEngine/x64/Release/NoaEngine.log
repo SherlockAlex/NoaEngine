@@ -1,34 +1,40 @@
 ﻿  Actor.cpp
-  ActorComponent.cpp
   ActorMotion.cpp
-  ActorPool.cpp
   ActorPoolFactory.cpp
   Animation.cpp
   AudioSource.cpp
-  BoxCollider2D.cpp
+  AudioSystem.cpp
+  AudioSystem_SDL.cpp
   Camera.cpp
   Camera2D.cpp
-  CircleCollider2D.cpp
   Collider2D.cpp
   Engine.cpp
-  NObject.cpp
+  Font.cpp
+  FontAsset.cpp
+  GLRenderer.cpp
+  GLShader.cpp
+  GLTexture.cpp
   PhysicsSystem.cpp
+  Renderer.cpp
+  Resource.cpp
   Rigidbody.cpp
+  正在编译...
+  SDLRenderer.cpp
+  SDLTexture.cpp
   Scene.cpp
   SceneManager.cpp
+  Sprite.cpp
   SpriteRenderer.cpp
-  State.cpp
-  正在编译...
-  StateMachine.cpp
-  TileCollider2D.cpp
+  Texture.cpp
   TileMap.cpp
+  TileMapInfo.cpp
   TileMapRenderer.cpp
-  UIContainer.cpp
-  UIDocument.cpp
-  UIHub.cpp
+  UIButton.cpp
+  UIImage.cpp
+  UIScrollBar.cpp
+  UISlider.cpp
   正在生成代码
-  0 of 2466 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    0 functions had inline decision re-evaluated but remain unchanged
+  Previous IPDB and IOBJ mismatch, fall back to full compilation.
+  All 2466 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
   已完成代码的生成
   NoaEngine.vcxproj -> D:\Work\NoaEngine\x64\Release\NoaEngine.dll

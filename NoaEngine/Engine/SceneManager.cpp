@@ -40,6 +40,9 @@ void noa::SceneManager::LoadScene(const std::string& sceneName)
 
 	oldScene = activeScene;
 	activeScene = nextScene;
+	activeScene->SceneChildOnUpdate();
+	activeScene->SceneChildOnTick();
+	activeScene->SceneChildRender();
 	nextScene = nullptr;
 
 	Awake();
@@ -95,13 +98,13 @@ void noa::SceneManager::Update()
 	}
 
 	activeScene->ActorUpdate();
-	activeScene->SceneChildRender();
 
 	//更新物理系统
 	PhysicsSystem::Update(PhysicsSystem::step);
 
 	activeScene->SceneChildOnUpdate();
 	activeScene->SceneChildOnTick();
+	activeScene->SceneChildRender();
 
 	if (!done && oldScene != nullptr && oldScene != activeScene)
 	{

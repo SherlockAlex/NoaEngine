@@ -26,11 +26,6 @@ namespace noa {
 	class NOA_API MapLayer
 	{
 	public:
-		std::vector<int> layer;
-		noa::Vector<float> position;
-		uint32_t w = 0;
-		uint32_t h = 0;
-	public:
 		MapLayer();
 		MapLayer(const LayerFile& layer);
 		virtual ~MapLayer();
@@ -38,7 +33,11 @@ namespace noa {
 	public:
 		int GetTileID(int x, int y) const;
 		void SetTileID(int x, int y, int value);
-
+	public:
+		std::vector<int> layer;
+		noa::Vector<float> position;
+		uint32_t w = 0;
+		uint32_t h = 0;
 	};
 
 	class NOA_API TileMapInfo

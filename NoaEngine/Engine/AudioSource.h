@@ -10,13 +10,11 @@ namespace noa {
 
 	class NOA_API AudioClip;
 
-	class NOA_API AudioSource final :public ActorComponent
+	class NOA_API AudioSource final 
+		:public ActorComponent
 	{
 	private:
 		ACTOR_COMPONENT(AudioSource)
-	private:
-		std::shared_ptr<AudioClip> clip = nullptr;
-
 	private:
 		AudioSource(Actor * actor);
 		~AudioSource();
@@ -31,6 +29,10 @@ namespace noa {
 
 		void Play(bool loop) const;
 		void Stop() const;
+
+	private:
+		std::shared_ptr<AudioClip> clip = nullptr;
+
 	};
 }
 

@@ -126,20 +126,19 @@ namespace noa {
 			, GraphicsAPI graphics
 			, const std::string& gameName
 		);
-
 		virtual ~NoaEngine();
-
-		virtual void Start() {};
-		virtual void BeforeUpdate() {};
-		virtual void Update() {};
-		virtual void Render() {};
-		virtual void OnExit() {};
 
 		void AddExtension(noa::EnginExtension* extension);
 		void RemoveExtension(noa::EnginExtension* extension);
 
 		int Run();
 
+	protected:
+		virtual void Start() {};
+		virtual void BeforeUpdate() {};
+		virtual void Update() {};
+		virtual void Render() {};
+		virtual void OnExit() {};
 
 	private:
 

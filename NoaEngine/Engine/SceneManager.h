@@ -19,10 +19,6 @@ namespace noa {
 		static Scene* GetActiveScene();
 		static void LoadScene(const std::string& sceneName);
 
-		static void DestroySceneManager();
-
-		static void Quit();
-
 		template<class T>
 		static std::vector<T*> FindActorsWithType() {
 			std::vector<T*> results;
@@ -56,6 +52,10 @@ namespace noa {
 
 		static void AddScene(Scene* scene);
 
+		static void DestroySceneManager();
+
+		static void Quit();
+
 	private:
 		static Scene* oldScene;
 		static Scene* activeScene;
@@ -65,7 +65,6 @@ namespace noa {
 		static bool done;
 		static bool isLoading;
 
-	public:
 		static bool isQuit;
 		static bool quited;
 
