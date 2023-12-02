@@ -1,8 +1,0 @@
-#ifndef NOAENGINE3D_SDLHELPER_H
-#define NOAENGINE3D_SDLHELPER_H
-
-#define SDL_MAIN_HANDED
-#include <SDL.h>
-
-#endif // !NOAENGINE3D_SDLHELPER_H
-

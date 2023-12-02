@@ -1,5 +1,0 @@
-#ifndef NOAENGINE3D_PLATFORM_H
-#define NOAENGINE3D_PLATFORM_H
-
-
-#endif
