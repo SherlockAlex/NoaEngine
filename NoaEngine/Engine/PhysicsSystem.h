@@ -19,8 +19,6 @@
 
 namespace noa 
 {
-	struct NOA_API Grid;
-	struct NOA_API Cell;
 
 	class NOA_API Rigidbody;
 	class NOA_API Collider2D;
@@ -30,19 +28,16 @@ namespace noa
 	class NOA_API PhysicsSystem
 	{
 	public:
-		static void SetGrid(int width,int height);
 		static void Update(int step);
-
 	private:
-		static void FindCollisionsGrid();
-		static void CheckCellsCollisions(Cell& cell1, Cell& cell2);
+		static void FindCollisions();
 		static bool CircleCollide(CircleCollider2D * obj1,CircleCollider2D * obj2);
 		static bool BoxCollide(BoxCollider2D * obj1,BoxCollider2D * obj2);
 		static bool BoxAndCircleCollide(BoxCollider2D* obj1, CircleCollider2D* obj2);
 		static bool Collide(Collider2D* obj1, Collider2D* obj2);
 		static void SolveCollision(Collider2D* obj1, Collider2D* obj2);
-
-	private:
+		
+		//刚体求解相关
 		static void InitVelocity(float deltaTime);
 		static void ApplyVelocity(float deltaTime);
 		static void InitPosition(float deltaTime);
@@ -51,10 +46,17 @@ namespace noa
 		static void ApplyPosition(float deltaTime);
 
 	public:
+		//物理引擎参数
+
 		static int step;
-		static Grid grid;
-		static std::vector<Rigidbody*> rigidbodys;
 		static noa::Vector<float> gravity;
+	private:
+		static std::vector<Collider2D*> colliders;
+		static std::vector<Rigidbody*> rigidbodys;
+
+		friend class Collider2D;
+		friend class Rigidbody;
+
 	};
 
 }

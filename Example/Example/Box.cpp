@@ -20,7 +20,7 @@ Box::~Box()
 
 void Box::Update() 
 {
-	noa::Debug::Log(noa::ToString<float>(this->transform.position));
+	//noa::Debug::Log(noa::ToString<float>(this->transform.position));
 	/*if (transform.position.x<0) 
 	{
 		transform.position.x = 0;

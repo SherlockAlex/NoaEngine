@@ -47,6 +47,7 @@ void noa::Rigidbody::Update()
 		return;
 	}
 
+	//上传rigidbody到物理系统中
 	PhysicsSystem::rigidbodys.push_back(this);
 }
 

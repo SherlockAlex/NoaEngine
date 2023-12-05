@@ -44,21 +44,21 @@ namespace noa
 		Vector<float> offset;
 	};
 
-	typedef NOA_API struct Cell {
-		std::vector<Collider2D*> colliders;
-	}Cell;
+	//typedef NOA_API struct Cell {
+	//	std::vector<Collider2D*> colliders;
+	//}Cell;
 
-	typedef struct NOA_API Grid
-	{
-		int width = 0;
-		int height = 0;
+	//typedef struct NOA_API Grid
+	//{
+	//	int width = 0;
+	//	int height = 0;
 
-		std::vector<Cell> cells;
+	//	std::vector<Cell> cells;
 
-		//返回坐标为x,y的cell
-		Cell * GetCell(int x, int y);
+	//	//返回坐标为x,y的cell
+	//	Cell * GetCell(int x, int y);
 
-	}Grid;
+	//}Grid;
 
 }
 

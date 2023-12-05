@@ -7,29 +7,12 @@
 #include "Time.h"
 #include "Rigidbody.h"
 
-
-noa::Grid noa::PhysicsSystem::grid;
 std::vector<noa::Rigidbody*> noa::PhysicsSystem::rigidbodys;
+std::vector<noa::Collider2D*> noa::PhysicsSystem::colliders;
+
 noa::Vector<float> noa::PhysicsSystem::gravity = { 0,9.82f };
 
 int noa::PhysicsSystem::step = 5;
-
-void noa::PhysicsSystem::SetGrid(int width, int height)
-{
-	grid.cells.clear();
-	if (width * height == 0)
-	{
-		return;
-	}
-	grid.width = width;
-	grid.height = height;
-	for (int i = 0;i<width * height;i++)
-	{
-		Cell cell;
-		cell.colliders.clear();
-		grid.cells.push_back(cell);
-	}
-}
 
 void noa::PhysicsSystem::Update(int step)
 {
@@ -49,46 +32,59 @@ void noa::PhysicsSystem::Update(int step)
 		InitPosition(subDeltaTime);			
 		ApplyTileCollision(subDeltaTime);	
 		ApplyTileConstraint(subDeltaTime);	
-		FindCollisionsGrid();				
+		FindCollisions();
 		ApplyTileCollision(subDeltaTime);	
 		ApplyTileConstraint(subDeltaTime);	
 		ApplyPosition(subDeltaTime);		
 		
 	}
 	
-
-	for (auto& cell : grid.cells)
-	{
-		cell.colliders.clear();
-	}
+	colliders.clear();
 	rigidbodys.clear();
 }
 
-void noa::PhysicsSystem::FindCollisionsGrid()
+void noa::PhysicsSystem::FindCollisions() 
 {
-#pragma omp parallel for
-	for (int x = 1; x < grid.width - 1; x++)
+	const int colliderCount = static_cast<int>(colliders.size());
+	for (int i = 0;i< colliderCount-1;i++)
 	{
-		for (int y = 1; y < grid.height - 1; y++)
+		for (int j = i+1;j< colliderCount;j++)
 		{
-			auto * currentCell = grid.GetCell(x, y);
+			Collider2D* collider1 = colliders[i];
+			Collider2D* collider2 = colliders[j];
 
-			for (int dx{ -1 }; dx <= 1; dx++)
+			if (Collide(collider1, collider2))
 			{
-				for (int dy{ -1 }; dy <= 1; dy++)
+				const bool isAllTrigger = collider1->isTrigger
+					&& collider2->isTrigger;
+				if (isAllTrigger)
 				{
-					auto* otherCell = grid.GetCell(x + dx, y + dy);
-					CheckCellsCollisions(*currentCell, *otherCell);
+					// 如果说两个都是Trigger，那么不进行碰撞处理
+					continue;
 				}
+
+				if (!collider1->isTrigger && !collider2->isTrigger)
+				{
+					// 如果说两个都不是isTrigger，那么两个进行一个碰撞处理
+					SolveCollision(collider1, collider2);
+				}
+
+				//两者其中一个是trigger
+
+				collider1->ApplyTriggerEnter(*collider2);
+				collider2->ApplyTriggerEnter(*collider1);
+
 			}
 
 		}
 	}
-
 }
 
 bool noa::PhysicsSystem::Collide(Collider2D* obj1, Collider2D* obj2)
 {
+
+	//碰撞检测
+
 	if (obj1->colliderType == ColliderType::CIRCLE_COLLIDER
 		&&obj2->colliderType == ColliderType::CIRCLE_COLLIDER) 
 	{
@@ -129,6 +125,8 @@ bool noa::PhysicsSystem::Collide(Collider2D* obj1, Collider2D* obj2)
 void noa::PhysicsSystem::SolveCollision(Collider2D* obj1, Collider2D* obj2)
 {
 
+	//求解碰撞
+
 	Rigidbody* rigid1 = obj1->rigidbody;
 	Rigidbody* rigid2 = obj2->rigidbody;
 
@@ -142,7 +140,6 @@ void noa::PhysicsSystem::SolveCollision(Collider2D* obj1, Collider2D* obj2)
 		&& obj2->colliderType == ColliderType::CIRCLE_COLLIDER)
 	{
 		//如果两个都是圆形
-		//对当前位置进行修正
 		CircleCollider2D* collider1 = obj1->GetCollider2DAs<CircleCollider2D>();
 		CircleCollider2D* collider2 = obj2->GetCollider2DAs<CircleCollider2D>();
 
@@ -163,8 +160,6 @@ void noa::PhysicsSystem::SolveCollision(Collider2D* obj1, Collider2D* obj2)
 		const float fixY = deltaR * normal.y;
 		
 		//计算受力
-		//刚刚好接触的时候，双方不发生任何受力
-		//及双发的动量很小
 
 		const float bounce1 = rigid1->bounce;
 		const float bounce2 = rigid2->bounce;
@@ -217,53 +212,24 @@ void noa::PhysicsSystem::SolveCollision(Collider2D* obj1, Collider2D* obj2)
 		const float top2 = y2;
 		const float bottom2 = y2 + h2;
 
-		const float overlapX =
-			std::min(right1, right2)
-			- std::max(left1, left2);
+		// 计算碰撞信息
+		const float overlapX = 
+			std::max(
+				0.0f
+				, std::min(right1, right2) 
+				- std::max(left1, left2));
+		const float overlapY = 
+			std::max(
+				0.0f
+				, std::min(bottom1, bottom2) 
+				- std::max(top1, top2));
 
-		const float overlapY =
-			std::min(bottom1, bottom2)
-			- std::max(top1, top2);
+		//计算出了overlap
+		//判断相对速度方向(刚体1相对于刚体2)
+		const noa::Vector<float> relativeVelocity 
+			= rigid1->velocity - rigid2->velocity;
 
-
-		const float restitution = 0.5f;
-
-		const noa::Vector<float> relativeVelocity
-			= rigid2->velocity - rigid1->velocity;
-		const float normalVelocity =
-			relativeVelocity.x * overlapX
-			+ relativeVelocity.y * overlapY;
-
-		const noa::Vector<float> fix = 
-		{relativeVelocity.Normalize().x*overlapX
-		,relativeVelocity.Normalize().y* overlapY };
-
-		rigid1->newPosition.x = x1 + 0.5f * fix.x;
-		rigid1->newPosition.y = y1 + 0.5f * fix.y;
-
-		rigid2->newPosition.x = x2 - 0.5f * fix.x;
-		rigid2->newPosition.y = y2 - 0.5f * fix.y;
-
-
-		/*const float impulseMagnitude =
-			-(1 + restitution) * normalVelocity
-			/ (rigid1->invMass + rigid2->invMass);*/
-
-		/*const Vector<float> impules1 = 
-		{ impulseMagnitude * overlapX * 0.5f
-			,impulseMagnitude * overlapY * 0.5f };
-
-		const Vector<float> impules2 =
-		{ -impulseMagnitude * overlapX * 0.5f
-			,-impulseMagnitude * overlapY * 0.5f };*/
-
-		const float beta = 1;
-		const Vector<float> impules1 = fix * beta;
-		const Vector<float> impules2 = fix * beta*-1.0f;
-
-
-		rigid1->AddForce(impules1,noa::ForceType::IMPULSE_FORCE);
-		rigid2->AddForce(impules2,noa::ForceType::IMPULSE_FORCE);
+		
 
 	}
 
@@ -324,42 +290,42 @@ void noa::PhysicsSystem::ApplyPosition(float deltaTime)
 	}
 }
 
-void noa::PhysicsSystem::CheckCellsCollisions(Cell& cell1, Cell& cell2)
-{
-	
-#pragma omp parallel for
-	for (auto& collider1 : cell1.colliders)
-	{
-		for (auto& collider2 : cell2.colliders)
-		{
-			if ((&collider1) != (&collider2))
-			{
-				if (Collide(collider1, collider2))
-				{
-					const bool isAllTrigger = collider1->isTrigger
-						&& collider2->isTrigger;
-					if (isAllTrigger)
-					{
-						// 如果说两个都是Trigger，那么不进行碰撞处理
-						continue;
-					}
-					
-					if (!collider1->isTrigger&&!collider2->isTrigger)
-					{
-						// 如果说两个都不是isTrigger，那么两个进行一个碰撞处理
-						SolveCollision(collider1, collider2);
-					}
-
-					//两者其中一个是trigger
-
-					collider1->ApplyTriggerEnter(*collider2);
-					collider2->ApplyTriggerEnter(*collider1);
-
-				}
-			}
-		}
-	}
-}
+//void noa::PhysicsSystem::CheckCellsCollisions(Cell& cell1, Cell& cell2)
+//{
+//	
+//#pragma omp parallel for
+//	for (auto& collider1 : cell1.colliders)
+//	{
+//		for (auto& collider2 : cell2.colliders)
+//		{
+//			if ((&collider1) != (&collider2))
+//			{
+//				if (Collide(collider1, collider2))
+//				{
+//					const bool isAllTrigger = collider1->isTrigger
+//						&& collider2->isTrigger;
+//					if (isAllTrigger)
+//					{
+//						// 如果说两个都是Trigger，那么不进行碰撞处理
+//						continue;
+//					}
+//					
+//					if (!collider1->isTrigger&&!collider2->isTrigger)
+//					{
+//						// 如果说两个都不是isTrigger，那么两个进行一个碰撞处理
+//						SolveCollision(collider1, collider2);
+//					}
+//
+//					//两者其中一个是trigger
+//
+//					collider1->ApplyTriggerEnter(*collider2);
+//					collider2->ApplyTriggerEnter(*collider1);
+//
+//				}
+//			}
+//		}
+//	}
+//}
 
 bool noa::PhysicsSystem::CircleCollide(CircleCollider2D* obj1, CircleCollider2D* obj2)
 {

@@ -34,8 +34,6 @@ void MainMenuDelegateFunc(noa::Scene* scene) {
 		.SetVerticalBoundary(0, mapInfo.GetSize().y)
 		.Apply();
 
-	noa::PhysicsSystem::SetGrid(mapInfo.GetSize().x, mapInfo.GetSize().y);
-
 	box->camera = camera;
 	box->tileCollider2D->SetTileMap(map);
 	box1->camera = camera;
@@ -59,6 +57,14 @@ public:
 	~Engine() {
 
 	}
+
+	void Update() override
+	{
+		noa::renderer->DrawString(std::to_wstring
+		(1.0f / noa::Time::deltaTime),10,10,noa::RED,50);
+		//noa::Debug::Log(std::to_string(1.0f/noa::Time::deltaTime));
+	}
+
 
 };
 

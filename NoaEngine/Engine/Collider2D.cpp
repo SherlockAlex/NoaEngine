@@ -5,11 +5,6 @@
 #include "PhysicsSystem.h"
 #include "Scene.h"
 
-noa::Cell* noa::Grid::GetCell(int x, int y)
-{
-	return &cells[y * width + x];
-}
-
 noa::Collider2D::Collider2D(Actor* actor) :ActorComponent(actor)
 {
 
@@ -41,21 +36,7 @@ void noa::Collider2D::Update()
 	{
 		return;
 	}
-
-	const Vector<float> position = this->GetActor()->transform.position;
-	const int x = static_cast<int>(position.x);
-	const int y = static_cast<int>(position.y);
-
-	const int w = PhysicsSystem::grid.width;
-	const int h = PhysicsSystem::grid.height;
-
-	if (x < 0 || x >= w || y < 0 || y >= h)
-	{
-		return;
-	}
-	PhysicsSystem::grid.GetCell(x, y)->colliders.push_back(this);
-	
-	
+	noa::PhysicsSystem::colliders.push_back(this);
 	
 }
 
