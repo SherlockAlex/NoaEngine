@@ -15,10 +15,10 @@ noa::BoxCollider2D* noa::BoxCollider2D::Create(Actor* actor)
 	return NObject<BoxCollider2D>::Create(actor);
 }
 
-noa::BoxCollider2D& noa::BoxCollider2D::SetScale(float x, float y)
+noa::BoxCollider2D& noa::BoxCollider2D::SetSize(float x, float y)
 {
-	this->scale.x = x;
-	this->scale.y = y;
+	this->size.x = x;
+	this->size.y = y;
 	return *this;
 }
 

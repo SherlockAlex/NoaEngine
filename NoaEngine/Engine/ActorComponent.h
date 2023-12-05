@@ -126,7 +126,7 @@ namespace noa {
 	private:
 		Actor* actor = nullptr;
 		bool active = true;
-
+		bool isRemoved = false;
 	};
 }
 

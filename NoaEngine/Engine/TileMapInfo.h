@@ -52,7 +52,6 @@ namespace noa {
 		TileMapInfo& LoadTileLayer(const std::vector<std::string>& file);
 		TileMapInfo& SetCollisionTileID(const std::vector<int>& collisionTileIDs);
 		TileMapInfo& SetCollisionTileID(const int tileID);
-
 		TileMapInfo* Apply();
 
 		int GetLayerTileID(const int layerIndex, const int x, const int y) const;
@@ -63,7 +62,10 @@ namespace noa {
 		bool IsCollisionTile(const int x, const int y) const;
 		TileSet& GetTileSet();
 
-	public:
+		MapLayer GetLayer(int index);
+		noa::Vector<uint32_t> GetSize();
+
+	private:
 		TileSet tileSet;
 		std::unordered_map<int, bool> collisionTiles;
 		std::vector<MapLayer> layers;

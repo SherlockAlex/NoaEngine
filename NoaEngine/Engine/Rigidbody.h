@@ -112,6 +112,9 @@ namespace noa {
 
 		Vector<bool> constraint = { false,false };
 		Vector<bool> nextConstraint = { false,false };
+
+		bool sleep = false;
+
 	};
 
 }

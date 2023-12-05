@@ -9,6 +9,7 @@
 noa::TileMapRenderer::TileMapRenderer(noa::Actor* actor)
 	:noa::ActorComponent(actor)
 {
+	this->collisions[-1] = true;
 	this->spriteRenderer = noa::SpriteRenderer::Create(actor);
 	this->spriteRenderer->SetLayer(InstanceLayer::MAP_LAYER);
 }

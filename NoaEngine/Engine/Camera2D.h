@@ -35,7 +35,7 @@ namespace noa {
 		
 		Vector<float> worldGrid;
 		Vector<float> offset;
-		Vector<float> anchor;
+		Vector<float> anchor = {0.5f,0.5f};
 		float far = 32.0f;//比例尺，表示32个单位像素表示一个单位的世界坐标
 		
 		Vector<float> horizonalBoundary;

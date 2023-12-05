@@ -55,7 +55,7 @@ void noa::Actor::ComponentAwake()
 {
 	for (auto& component : components)
 	{
-		if (component == nullptr)
+		if (component == nullptr||component->isRemoved)
 		{
 			continue;
 		}
@@ -68,7 +68,7 @@ void noa::Actor::ComponentOnEnable()
 {
 	for (auto& component:components)
 	{
-		if (component == nullptr)
+		if (component == nullptr || component->isRemoved)
 		{
 			continue;
 		}
@@ -81,7 +81,7 @@ void noa::Actor::ComponentStart()
 
 	for (auto& component : components)
 	{
-		if (component == nullptr)
+		if (component == nullptr || component->isRemoved)
 		{
 			continue;
 		}
@@ -94,7 +94,9 @@ void noa::Actor::ComponentUpdate()
 {
 	for (auto& component : components)
 	{
-		if (component == nullptr||!component->GetActive())
+		if (component == nullptr
+			|| component->isRemoved
+			||!component->GetActive())
 		{
 			continue;
 		}
@@ -106,7 +108,9 @@ void noa::Actor::ComponentLateUpdate()
 {
 	for (auto& component : components)
 	{
-		if (component == nullptr || !component->GetActive())
+		if (component == nullptr 
+			|| component->isRemoved
+			|| !component->GetActive())
 		{
 			continue;
 		}
@@ -118,7 +122,9 @@ void noa::Actor::ComponentOnDisable()
 {
 	for (auto& component : components)
 	{
-		if (component == nullptr)
+		if (component == nullptr
+			|| component->isRemoved
+			)
 		{
 			continue;
 		}
@@ -132,7 +138,7 @@ void noa::Actor::ComponentOnDestroy()
 
 	for (auto& component : components)
 	{
-		if (component == nullptr)
+		if (component == nullptr|| component->isRemoved)
 		{
 			continue;
 		}
@@ -158,6 +164,7 @@ void noa::Actor::DestroyComponent()
 		{
 			continue;
 		}
+		component->isRemoved = true;
 		component->OnDestroy();
 		component->Delete(component);
 	}
@@ -190,6 +197,17 @@ void noa::Actor::Destroy()
 	ComponentOnDestroy();
 	OnDestroy();
 	isRemoved = true;
+}
+
+void noa::Actor::Destroy(noa::ActorComponent* component)
+{
+	if (!component)
+	{
+		return;
+	}
+	component->SetActive(false);
+	component->OnDestroy();
+	component->isRemoved = true;
 }
 
 void noa::Actor::SetActive(bool value)

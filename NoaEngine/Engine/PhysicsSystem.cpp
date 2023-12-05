@@ -129,23 +129,24 @@ bool noa::PhysicsSystem::Collide(Collider2D* obj1, Collider2D* obj2)
 void noa::PhysicsSystem::SolveCollision(Collider2D* obj1, Collider2D* obj2)
 {
 
+	Rigidbody* rigid1 = obj1->rigidbody;
+	Rigidbody* rigid2 = obj2->rigidbody;
+
+	const float x1 = rigid1->newPosition.x + obj1->offset.x;
+	const float y1 = rigid1->newPosition.y + obj1->offset.y;
+	const float x2 = rigid2->newPosition.x + obj2->offset.x;
+	const float y2 = rigid2->newPosition.y + obj2->offset.y;
+
 	//修正位置
 	if (obj1->colliderType == ColliderType::CIRCLE_COLLIDER
 		&& obj2->colliderType == ColliderType::CIRCLE_COLLIDER)
 	{
+		//如果两个都是圆形
 		//对当前位置进行修正
 		CircleCollider2D* collider1 = obj1->GetCollider2DAs<CircleCollider2D>();
 		CircleCollider2D* collider2 = obj2->GetCollider2DAs<CircleCollider2D>();
 
-		Rigidbody* rigid1 = obj1->rigidbody;
-		Rigidbody* rigid2 = obj2->rigidbody;
-
 		const float sumRadius = collider1->radius + collider2->radius;
-
-		const float x1 = rigid1->newPosition.x + obj1->offset.x;
-		const float y1 = rigid1->newPosition.y + obj1->offset.y;
-		const float x2 = rigid2->newPosition.x + obj2->offset.x;
-		const float y2 = rigid2->newPosition.y + obj2->offset.y;
 
 		const float deltaX = (x1 - x2);
 		const float deltaY = (y1 - y2);
@@ -191,6 +192,78 @@ void noa::PhysicsSystem::SolveCollision(Collider2D* obj1, Collider2D* obj2)
 			constraintImpulse1, noa::ForceType::IMPULSE_FORCE);
 		rigid2->AddForce(
 			constraintImpulse2, noa::ForceType::IMPULSE_FORCE);
+
+	}
+	else if (obj1->colliderType == ColliderType::BOX_COLLIDER
+		&& obj2->colliderType == ColliderType::BOX_COLLIDER)
+	{
+		//如果两个都是矩形
+		BoxCollider2D* collider1 = obj1->GetCollider2DAs<BoxCollider2D>();
+		BoxCollider2D* collider2 = obj2->GetCollider2DAs<BoxCollider2D>();
+
+		const float w1 = collider1->size.x;
+		const float h1 = collider1->size.y;
+		const float w2 = collider2->size.x;
+		const float h2 = collider2->size.y;
+
+		//计算两个点重合的法相信息
+		const float left1 = x1;
+		const float right1 = x1 + w1;
+		const float top1 = y1;
+		const float bottom1 = y1 + h1;
+
+		const float left2 = x2;
+		const float right2 = x2 + w2;
+		const float top2 = y2;
+		const float bottom2 = y2 + h2;
+
+		const float overlapX =
+			std::min(right1, right2)
+			- std::max(left1, left2);
+
+		const float overlapY =
+			std::min(bottom1, bottom2)
+			- std::max(top1, top2);
+
+
+		const float restitution = 0.5f;
+
+		const noa::Vector<float> relativeVelocity
+			= rigid2->velocity - rigid1->velocity;
+		const float normalVelocity =
+			relativeVelocity.x * overlapX
+			+ relativeVelocity.y * overlapY;
+
+		const noa::Vector<float> fix = 
+		{relativeVelocity.Normalize().x*overlapX
+		,relativeVelocity.Normalize().y* overlapY };
+
+		rigid1->newPosition.x = x1 + 0.5f * fix.x;
+		rigid1->newPosition.y = y1 + 0.5f * fix.y;
+
+		rigid2->newPosition.x = x2 - 0.5f * fix.x;
+		rigid2->newPosition.y = y2 - 0.5f * fix.y;
+
+
+		/*const float impulseMagnitude =
+			-(1 + restitution) * normalVelocity
+			/ (rigid1->invMass + rigid2->invMass);*/
+
+		/*const Vector<float> impules1 = 
+		{ impulseMagnitude * overlapX * 0.5f
+			,impulseMagnitude * overlapY * 0.5f };
+
+		const Vector<float> impules2 =
+		{ -impulseMagnitude * overlapX * 0.5f
+			,-impulseMagnitude * overlapY * 0.5f };*/
+
+		const float beta = 1;
+		const Vector<float> impules1 = fix * beta;
+		const Vector<float> impules2 = fix * beta*-1.0f;
+
+
+		rigid1->AddForce(impules1,noa::ForceType::IMPULSE_FORCE);
+		rigid2->AddForce(impules2,noa::ForceType::IMPULSE_FORCE);
 
 	}
 
@@ -318,34 +391,36 @@ bool noa::PhysicsSystem::BoxCollide(BoxCollider2D* obj1, BoxCollider2D* obj2)
 		return false;
 	}
 
-	const float obj1X = obj1->rigidbody->newPosition.x;
-	const float obj1Y = obj1->rigidbody->newPosition.y;
-	const float obj1Width = obj1->scale.x;
-	const float obj1Height = obj1->scale.y;
+	const float obj1X = obj1->rigidbody->newPosition.x + obj1->offset.x;
+	const float obj1Y = obj1->rigidbody->newPosition.y + obj1->offset.y;
+	const float obj1Width = obj1->size.x;
+	const float obj1Height = obj1->size.y;
 
-	const float obj2X = obj2->rigidbody->newPosition.x;
-	const float obj2Y = obj2->rigidbody->newPosition.y;
-	const float obj2Width = obj2->scale.x;
-	const float obj2Height = obj2->scale.y;
+	const float obj2X = obj2->rigidbody->newPosition.x + obj2->offset.x;
+	const float obj2Y = obj2->rigidbody->newPosition.y + obj2->offset.y;
+	const float obj2Width = obj2->size.x;
+	const float obj2Height = obj2->size.y;
 
-	float obj1Left = obj1X;
-	float obj1Right = obj1X + obj1Width;
-	float obj1Top = obj1Y;
-	float obj1Bottom = obj1Y + obj1Height;
+	const float obj1MinX = obj1X;
+	const float obj1MaxX = obj1X + obj1Width;
+	const float obj1MinY = obj1Y;
+	const float obj1MaxY = obj1Y + obj1Height;
 
-	float obj2Left = obj2X;
-	float obj2Right = obj2X + obj2Width;
-	float obj2Top = obj2Y;
-	float obj2Bottom = obj2Y + obj2Height;
+	const float obj2MinX = obj2X;
+	const float obj2MaxX = obj2X + obj2Width;
+	const float obj2MinY = obj2Y;
+	const float obj2MaxY = obj2Y + obj2Height;
 
-	if (obj1Right < obj2Left 
-		|| obj1Left > obj2Right 
-		|| obj1Top < obj2Bottom 
-		|| obj1Bottom > obj2Top) {
+	if (obj1MaxX<obj2MinX||obj1MinX>obj2MaxX) 
+	{
 		return false;
 	}
-
+	if (obj1MaxY<obj2MinY || obj1MinY>obj2MaxY)
+	{
+		return false;
+	}
 	return true;
+
 }
 
 bool noa::PhysicsSystem::BoxAndCircleCollide(BoxCollider2D* obj1, CircleCollider2D* obj2)
@@ -356,8 +431,8 @@ bool noa::PhysicsSystem::BoxAndCircleCollide(BoxCollider2D* obj1, CircleCollider
 
 	float rectX = obj1->rigidbody->newPosition.x;
 	float rectY = obj1->rigidbody->newPosition.y;
-	float rectWidth = obj1->scale.x;
-	float rectHeight = obj1->scale.y;
+	float rectWidth = obj1->size.x;
+	float rectHeight = obj1->size.y;
 
 	float circleX = obj2->rigidbody->newPosition.x;
 	float circleY = obj2->rigidbody->newPosition.y;

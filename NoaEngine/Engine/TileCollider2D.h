@@ -33,7 +33,7 @@ namespace noa {
 
 		TileCollider2D& SetTileMap(TileMap* tileMap);
 		TileMap* GetTileMap();
-		TileCollider2D& SetScale(float x, float y);
+		TileCollider2D& SetSize(float x, float y);
 		TileCollider2D& SetRigidbody(Rigidbody* rigidbody);
 		TileCollider2D& SetTrigger(bool value);
 		TileCollider2D* Apply();
@@ -43,7 +43,7 @@ namespace noa {
 		bool isHitCollisionTile = false;
 	public:
 
-		Vector<float> scale = { 1,1 };
+		Vector<float> size = { 1,1 };
 		bool isGrounded = false;
 	private:
 

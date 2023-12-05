@@ -48,12 +48,12 @@ namespace noa {
 
 	class NOA_API Sprite final {
 	public:
-		Sprite(const SpriteFile & sprFile, const Vector<int>& scale);
-		Sprite(const Vector<int> & scale);
-		Sprite(const std::string & filename, const Vector<int>& scale);
-		Sprite(const std::string & filename, int scaleX,int scaleY);
+		Sprite(const SpriteFile & sprFile, const Vector<int>& size);
+		Sprite(const Vector<int> & size);
+		Sprite(const std::string & filename, const Vector<int>& size);
+		Sprite(const std::string & filename, int sizeX,int sizeY);
 		Sprite();
-		Sprite(int w, int h,const Vector<int> & scale,const std::vector<uint32_t> & image);
+		Sprite(int w, int h,const Vector<int> & size,const std::vector<uint32_t> & image);
 		~Sprite();
 
 	public:

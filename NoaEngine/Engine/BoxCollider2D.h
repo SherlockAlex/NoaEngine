@@ -14,12 +14,12 @@ namespace noa {
 
 	public:
 		static BoxCollider2D* Create(Actor* actor);
-		BoxCollider2D& SetScale(float x, float y);
+		BoxCollider2D& SetSize(float x, float y);
 		BoxCollider2D& SetRigidbody(Rigidbody* rigidbody);
 		BoxCollider2D& SetTrigger(bool isTrigger);
 		BoxCollider2D* Apply();
 	public:
-		Vector<float> scale = { 1,1 };
+		Vector<float> size = { 1,1 };
 	};
 }
 

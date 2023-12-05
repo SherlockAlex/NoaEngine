@@ -171,6 +171,19 @@ noa::TileSet& noa::TileMapInfo::GetTileSet() {
 	return *&this->tileSet;
 }
 
+noa::MapLayer noa::TileMapInfo::GetLayer(int index) 
+{
+	if (index<0||index>=layers.size()) 
+	{
+		return noa::MapLayer();
+	}
+	return this->layers[index];
+}
+
+noa::Vector<uint32_t> noa::TileMapInfo::GetSize() {
+	return { w,h };
+}
+
 noa::Tile* noa::TileMapInfo::GetTile(const int id)
 {
 	return tileSet.GetTileByID(id);

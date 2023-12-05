@@ -73,9 +73,19 @@ void noa::Rigidbody::InitVelocity(float deltaTime)
 	const float deltaVY =
 		force.y * invMass * deltaTime + impuls.y * invMass;
 
+	/*if (std::abs(velocity.x) < 0.01f
+		&& std::abs(velocity.y) < 0.01f)
+	{
+		velocity.x = 0.0f;
+		velocity.y = 0.0f;
+		sleep = true;
+	}*/
+
 	newVelocity.x = (velocity.x + deltaVX);
 	newVelocity.y = (velocity.y + deltaVY);
 	//计算角动量
+
+	sleep = false;
 
 	force = {};
 	impuls = {};
@@ -83,6 +93,10 @@ void noa::Rigidbody::InitVelocity(float deltaTime)
 	constraint = nextConstraint;
 	nextConstraint.x = false;
 	nextConstraint.y = false;
+
+	//当两者的deltaVX和deltaVY都趋于0的时候，开启sleep
+	//开启sleep后，速度后归0，同时位置不改变
+	
 
 }
 
@@ -111,6 +125,7 @@ void noa::Rigidbody::ApplyVelocity(float deltaTime)
 	}
 
 	this->velocity = this->newVelocity;
+
 }
 
 void noa::Rigidbody::InitPosition(float deltaTime)

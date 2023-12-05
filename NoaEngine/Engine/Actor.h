@@ -46,10 +46,11 @@ namespace noa {
 
 	public:
 		void AddComponent(ActorComponent* component);
-		virtual void Destroy();
+		void Destroy();
+		void Destroy(ActorComponent* component);
 
-		virtual void SetActive(bool value);
-		virtual bool GetActive();
+		void SetActive(bool value);
+		bool GetActive();
 		Scene* GetActiveScene();
 
 		static Actor* HandleActor(NoaObject* object);
@@ -130,7 +131,7 @@ namespace noa {
 		}
 
 		template<class T>
-		NOA_API std::vector<T*> FindActorsWithType() {
+		std::vector<T*> FindActorsWithType() {
 			return SceneManager::FindActorsWithType<T>();
 		}
 

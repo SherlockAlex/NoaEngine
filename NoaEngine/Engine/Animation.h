@@ -4,12 +4,7 @@
 #include <iostream>
 #include <functional>
 #include <vector>
-#include <utility>
-#include <algorithm>
-#include <chrono>
-#include <list>
 #include <unordered_map>
-#include <fstream>
 #include <string>
 
 #include "Sprite.h"

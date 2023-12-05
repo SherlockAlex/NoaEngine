@@ -12,7 +12,7 @@ noa::Cell* noa::Grid::GetCell(int x, int y)
 
 noa::Collider2D::Collider2D(Actor* actor) :ActorComponent(actor)
 {
-	this->colliderType = ColliderType::TILE_COLLIDER;
+
 }
 
 noa::Collider2D::~Collider2D()

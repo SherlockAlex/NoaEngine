@@ -20,26 +20,12 @@
 #define NOAENGINE_ENGINE_H
 
 #include <iostream>
-#include <vector>
-#include <utility>
-#include <algorithm>
 #include <chrono>
-#include <stdio.h>
-#include <list>
 #include <unordered_map>
-#include <fstream>
 #include <string>
-#include <functional>
-#include <queue>
-#include <thread>
 #include <vector>
-#include <queue>
-#include <functional>
-#include <mutex>
-#include <condition_variable>
 
 #include "Application.h"
-
 #include "Screen.h"
 
 #include "Platform.h"
