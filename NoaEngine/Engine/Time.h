@@ -11,6 +11,7 @@ namespace noa {
 		static float timeScale;
 		static float time;
 		static int fps;
+		static float maxFPS;
 	};
 }
 

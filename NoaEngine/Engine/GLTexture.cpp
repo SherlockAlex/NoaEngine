@@ -93,8 +93,8 @@ void noa::GLTexture::UpdateTexture(
 }
 
 void noa::GLTexture::Bind() {
+    glBindVertexArray(VAO);
     glBindTexture(GL_TEXTURE_2D, this->textureID);
-    glBindBuffer(GL_ARRAY_BUFFER,VBO);
 }
 
 void noa::GLTexture::EnableAlpha()

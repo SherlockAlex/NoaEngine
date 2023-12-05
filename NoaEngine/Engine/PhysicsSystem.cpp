@@ -17,11 +17,6 @@ int noa::PhysicsSystem::step = 5;
 void noa::PhysicsSystem::Update(int step)
 {
 
-	if (rigidbodys.empty()) 
-	{
-		return;
-	}
-
 	const float subDeltaTime = Time::deltaTime / static_cast<float>(step);
 #pragma omp parallel for
 	for (int i{step};i--;)
@@ -55,7 +50,8 @@ void noa::PhysicsSystem::FindCollisions()
 
 			if (Collide(collider1, collider2))
 			{
-				const bool isAllTrigger = collider1->isTrigger
+				const bool isAllTrigger = 
+					collider1->isTrigger
 					&& collider2->isTrigger;
 				if (isAllTrigger)
 				{
@@ -124,7 +120,6 @@ bool noa::PhysicsSystem::Collide(Collider2D* obj1, Collider2D* obj2)
 
 void noa::PhysicsSystem::SolveCollision(Collider2D* obj1, Collider2D* obj2)
 {
-
 	//求解碰撞
 
 	Rigidbody* rigid1 = obj1->rigidbody;
@@ -228,9 +223,6 @@ void noa::PhysicsSystem::SolveCollision(Collider2D* obj1, Collider2D* obj2)
 		//判断相对速度方向(刚体1相对于刚体2)
 		const noa::Vector<float> relativeVelocity 
 			= rigid1->velocity - rigid2->velocity;
-
-		
-
 	}
 
 }
@@ -289,43 +281,6 @@ void noa::PhysicsSystem::ApplyPosition(float deltaTime)
 		rigidbody->ApplyPositon(deltaTime);
 	}
 }
-
-//void noa::PhysicsSystem::CheckCellsCollisions(Cell& cell1, Cell& cell2)
-//{
-//	
-//#pragma omp parallel for
-//	for (auto& collider1 : cell1.colliders)
-//	{
-//		for (auto& collider2 : cell2.colliders)
-//		{
-//			if ((&collider1) != (&collider2))
-//			{
-//				if (Collide(collider1, collider2))
-//				{
-//					const bool isAllTrigger = collider1->isTrigger
-//						&& collider2->isTrigger;
-//					if (isAllTrigger)
-//					{
-//						// 如果说两个都是Trigger，那么不进行碰撞处理
-//						continue;
-//					}
-//					
-//					if (!collider1->isTrigger&&!collider2->isTrigger)
-//					{
-//						// 如果说两个都不是isTrigger，那么两个进行一个碰撞处理
-//						SolveCollision(collider1, collider2);
-//					}
-//
-//					//两者其中一个是trigger
-//
-//					collider1->ApplyTriggerEnter(*collider2);
-//					collider2->ApplyTriggerEnter(*collider1);
-//
-//				}
-//			}
-//		}
-//	}
-//}
 
 bool noa::PhysicsSystem::CircleCollide(CircleCollider2D* obj1, CircleCollider2D* obj2)
 {

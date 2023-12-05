@@ -240,7 +240,17 @@ void noa::NoaEngine::EngineThread()
 		renderer->Present(windowID);
 
 		tp1 = tp2;
+		//º∆À„–›√ﬂ ±º‰
 
+		std::chrono::duration<double> targetFrameTime(1.0/noa::Time::maxFPS);
+		std::chrono::duration<double> sleepTime =
+			targetFrameTime 
+			- (std::chrono::system_clock::now() - tp1);
+		if (sleepTime.count()>0) 
+		{
+			const int sleepMilliseconds = static_cast<int>(sleepTime.count()*1000);
+			Sleep(sleepMilliseconds);
+		}
 	}
 }
 

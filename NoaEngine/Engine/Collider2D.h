@@ -15,10 +15,10 @@ namespace noa
 		BOX_COLLIDER
 	};
 
+	// 只要绑定了Collider2D，就必须要绑定一个rigidbody
 	class NOA_API Rigidbody;
 	class NOA_API Collider2D :public ActorComponent
 	{
-	
 	protected:
 		Collider2D(Actor* actor);
 		virtual ~Collider2D() override;

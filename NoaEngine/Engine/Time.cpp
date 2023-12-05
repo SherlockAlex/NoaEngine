@@ -5,3 +5,4 @@ float noa::Time::deltaTime = 0;
 float noa::Time::timeScale = 1;
 float noa::Time::time = 0;
 int noa::Time::fps = 60;
+float noa::Time::maxFPS = 60.0f;

@@ -117,19 +117,6 @@ void noa::Label::Update()
 }
 
 void noa::Label::Render() {
-	//显示文字
-
-	//下面代码只是暂时的，需要优化
-
-	/*renderer->DrawString(
-		textBuffer
-		, static_cast<int>(globalTransform.position.x
-			- anchor.x * transform.size.x)
-		, static_cast<int>(globalTransform.position.y
-			- anchor.y * transform.size.y)
-		, color
-		, size
-	);*/
 
 	renderer->DrawString(
 		textBuffer
