@@ -171,10 +171,10 @@ noa::Camera2D& noa::Camera2D::SetFar(float value)
 	{
 		this->far = 0.01f;
 	}
-
+	invFar = 1.0f / far;
 	worldGrid = {
-		static_cast<float>(Screen::width) / far,
-		static_cast<float>(Screen::height) / far,
+		static_cast<float>(Screen::width)*invFar,
+		static_cast<float>(Screen::height)*invFar,
 	};
 
 	return *this;
@@ -195,8 +195,8 @@ noa::Vector<float> noa::Camera2D::ScreenPointToWorld(double x,double y)
 {
 	//将屏幕坐标转为世界坐标
 	noa::Vector<float> result;
-	result.x = static_cast<float>(x / far + offset.x)-0.5f;
-	result.y = static_cast<float>(y / far + offset.y)-0.5f;
+	result.x = static_cast<float>(x * invFar + offset.x);
+	result.y = static_cast<float>(y * invFar + offset.y);
 	return result;
 
 }

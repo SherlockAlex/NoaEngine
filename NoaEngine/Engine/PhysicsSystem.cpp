@@ -48,7 +48,13 @@ void noa::PhysicsSystem::FindCollisions()
 			Collider2D* collider1 = colliders[i];
 			Collider2D* collider2 = colliders[j];
 
-			if (Collide(collider1, collider2))
+			collider1->UpdateCaculateVertices();
+			collider2->UpdateCaculateVertices();
+
+			float depth = 0.0f;
+			noa::Vector<float> normal = {};
+
+			if (Collide(collider1, collider2,&normal,&depth))
 			{
 				const bool isAllTrigger = 
 					collider1->isTrigger
@@ -62,7 +68,12 @@ void noa::PhysicsSystem::FindCollisions()
 				if (!collider1->isTrigger && !collider2->isTrigger)
 				{
 					// 如果说两个都不是isTrigger，那么两个进行一个碰撞处理
-					SolveCollision(collider1, collider2);
+					SolveCollision(
+						collider1
+						, collider2
+						,normal
+						,depth
+					);
 				}
 
 				//两者其中一个是trigger
@@ -76,7 +87,12 @@ void noa::PhysicsSystem::FindCollisions()
 	}
 }
 
-bool noa::PhysicsSystem::Collide(Collider2D* obj1, Collider2D* obj2)
+bool noa::PhysicsSystem::Collide(
+	Collider2D* obj1
+	, Collider2D* obj2
+	, noa::Vector<float>* normal
+	, float* depth
+)
 {
 
 	//碰撞检测
@@ -87,17 +103,17 @@ bool noa::PhysicsSystem::Collide(Collider2D* obj1, Collider2D* obj2)
 		return CircleCollide(
 			dynamic_cast<CircleCollider2D*>(obj1)
 			, dynamic_cast<CircleCollider2D*>(obj2)
+			,normal
+			,depth
 		);
 	}
-	else if (obj1->colliderType == ColliderType::BOX_COLLIDER
-		&&obj2->colliderType == ColliderType::BOX_COLLIDER) 
+	else if (
+		obj1->colliderType != ColliderType::CIRCLE_COLLIDER
+		&&obj2->colliderType != ColliderType::CIRCLE_COLLIDER)
 	{
-		return BoxCollide(
-			dynamic_cast<BoxCollider2D*>(obj1)
-			, dynamic_cast<BoxCollider2D*>(obj2)
-		);
+		return PolygonsCollide(obj1,obj2,normal,depth);
 	}
-	else if (obj1->colliderType == ColliderType::BOX_COLLIDER 
+	else if (obj1->colliderType == ColliderType::POLYGON_COLLIDER
 		&& obj2->colliderType == ColliderType::CIRCLE_COLLIDER
 		)
 	{
@@ -107,7 +123,7 @@ bool noa::PhysicsSystem::Collide(Collider2D* obj1, Collider2D* obj2)
 		);
 	}
 	else if (obj1->colliderType == ColliderType::CIRCLE_COLLIDER 
-		&& obj2->colliderType == ColliderType::BOX_COLLIDER
+		&& obj2->colliderType == ColliderType::POLYGON_COLLIDER
 		)
 	{
 		return BoxAndCircleCollide(dynamic_cast<BoxCollider2D*>(obj2)
@@ -118,64 +134,54 @@ bool noa::PhysicsSystem::Collide(Collider2D* obj1, Collider2D* obj2)
 	
 }
 
-void noa::PhysicsSystem::SolveCollision(Collider2D* obj1, Collider2D* obj2)
+void noa::PhysicsSystem::SolveCollision(
+	Collider2D* obj1
+	, Collider2D* obj2
+	, noa::Vector<float> normal
+	, float depth
+)
 {
 	//求解碰撞
 
 	Rigidbody* rigid1 = obj1->rigidbody;
 	Rigidbody* rigid2 = obj2->rigidbody;
 
-	const float x1 = rigid1->newPosition.x + obj1->offset.x;
-	const float y1 = rigid1->newPosition.y + obj1->offset.y;
-	const float x2 = rigid2->newPosition.x + obj2->offset.x;
-	const float y2 = rigid2->newPosition.y + obj2->offset.y;
-
 	//修正位置
 	if (obj1->colliderType == ColliderType::CIRCLE_COLLIDER
 		&& obj2->colliderType == ColliderType::CIRCLE_COLLIDER)
 	{
-		//如果两个都是圆形
-		CircleCollider2D* collider1 = obj1->GetCollider2DAs<CircleCollider2D>();
-		CircleCollider2D* collider2 = obj2->GetCollider2DAs<CircleCollider2D>();
-
-		const float sumRadius = collider1->radius + collider2->radius;
-
-		const float deltaX = (x1 - x2);
-		const float deltaY = (y1 - y2);
-
-		const float angle = atan2(deltaY, deltaX);
-
-		const Vector<float> normal = { cosf(angle), sinf(angle) };
-
-		const float distance = std::sqrtf(deltaX * deltaX + deltaY * deltaY);
-
-		const float deltaR = std::abs(distance - sumRadius);
-
-		const float fixX = deltaR * normal.x;
-		const float fixY = deltaR * normal.y;
+		const float fixX = depth * normal.x;
+		const float fixY = depth * normal.y;
 		
 		//计算受力
 
-		const float bounce1 = rigid1->bounce;
-		const float bounce2 = rigid2->bounce;
+		rigid1->newPosition.x += 0.5f * fixX;
+		rigid1->newPosition.y += 0.5f * fixY;
 
-		rigid1->newPosition.x = x1 + 0.5f * fixX;
-		rigid1->newPosition.y = y1 + 0.5f * fixY;
-
-		rigid2->newPosition.x = x2 - 0.5f * fixX;
-		rigid2->newPosition.y = y2 - 0.5f * fixY;
+		rigid2->newPosition.x -= 0.5f * fixX;
+		rigid2->newPosition.y -= 0.5f * fixY;
 		
 		//计算接触力
 
-		const float beta = 150;//太小，扰动越明显，太大或剧烈跳动
+		const float beta = -150;//太小，扰动越明显，太大或剧烈跳动
+
+		/*const float sumInvInvMass = 1.0f / (rigid1->invMass + rigid2->invMass);
+
+		noa::Vector<float> relativeVelocity =
+			rigid2->velocity - rigid1->velocity;
+		const float restitude = 0.8f;
+		const float beta =
+			-(1.0f - restitude)
+			* noa::Vector<float>::Dot(normal, relativeVelocity)
+			* sumInvInvMass;*/
 
 		const Vector<float> constraintImpulse1 = {
-			 beta*fixX
-			,beta*fixY
+			 -beta*fixX
+			,-beta*fixY
 		};
 		const Vector<float> constraintImpulse2 = {
-			-beta * fixX
-			,-beta * fixY
+			beta * fixX
+			,beta * fixY
 		};
 
 		rigid1->AddForce(
@@ -184,45 +190,46 @@ void noa::PhysicsSystem::SolveCollision(Collider2D* obj1, Collider2D* obj2)
 			constraintImpulse2, noa::ForceType::IMPULSE_FORCE);
 
 	}
-	else if (obj1->colliderType == ColliderType::BOX_COLLIDER
-		&& obj2->colliderType == ColliderType::BOX_COLLIDER)
+	else if (obj1->colliderType == ColliderType::POLYGON_COLLIDER
+		&& obj2->colliderType == ColliderType::POLYGON_COLLIDER)
 	{
-		//如果两个都是矩形
-		BoxCollider2D* collider1 = obj1->GetCollider2DAs<BoxCollider2D>();
-		BoxCollider2D* collider2 = obj2->GetCollider2DAs<BoxCollider2D>();
+		const float fixX = depth * normal.x;
+		const float fixY = depth * normal.y;
 
-		const float w1 = collider1->size.x;
-		const float h1 = collider1->size.y;
-		const float w2 = collider2->size.x;
-		const float h2 = collider2->size.y;
+		rigid1->newPosition.x += 0.5f*fixX;
+		rigid1->newPosition.y += 0.5f*fixY;
 
-		//计算两个点重合的法相信息
-		const float left1 = x1;
-		const float right1 = x1 + w1;
-		const float top1 = y1;
-		const float bottom1 = y1 + h1;
+		rigid2->newPosition.x -= 0.5f*fixX;
+		rigid2->newPosition.y -= 0.5f*fixY;
 
-		const float left2 = x2;
-		const float right2 = x2 + w2;
-		const float top2 = y2;
-		const float bottom2 = y2 + h2;
+		//计算接触力
 
-		// 计算碰撞信息
-		const float overlapX = 
-			std::max(
-				0.0f
-				, std::min(right1, right2) 
-				- std::max(left1, left2));
-		const float overlapY = 
-			std::max(
-				0.0f
-				, std::min(bottom1, bottom2) 
-				- std::max(top1, top2));
+		/*const float sumInvInvMass = 1.0f/(rigid1->invMass + rigid2->invMass);
 
-		//计算出了overlap
-		//判断相对速度方向(刚体1相对于刚体2)
-		const noa::Vector<float> relativeVelocity 
-			= rigid1->velocity - rigid2->velocity;
+		noa::Vector<float> relativeVelocity = 
+			rigid2->velocity - rigid1->velocity;
+		const float restitude = 0.8f;
+		const float beta = 
+			-(1.0f-restitude)
+			*noa::Vector<float>::Dot(normal,relativeVelocity)
+			* sumInvInvMass;*/
+
+		const float beta = -150.0f;
+
+		const Vector<float> constraintImpulse1 = {
+			 -beta * fixX
+			,-beta * fixY
+		};
+		const Vector<float> constraintImpulse2 = {
+			beta * fixX
+			,beta * fixY
+		};
+
+		rigid1->AddForce(
+			constraintImpulse1, noa::ForceType::IMPULSE_FORCE);
+		rigid2->AddForce(
+			constraintImpulse2, noa::ForceType::IMPULSE_FORCE);
+
 	}
 
 }
@@ -282,12 +289,19 @@ void noa::PhysicsSystem::ApplyPosition(float deltaTime)
 	}
 }
 
-bool noa::PhysicsSystem::CircleCollide(CircleCollider2D* obj1, CircleCollider2D* obj2)
+bool noa::PhysicsSystem::CircleCollide(
+	CircleCollider2D* obj1
+	, CircleCollider2D* obj2
+	, noa::Vector<float>* normalPtr
+	, float* depthPtr)
 {
-	if (!obj1||!obj2) 
+	if (!obj1 || !obj2)
 	{
 		return false;
 	}
+
+	noa::Vector<float> normal = {};
+	float depth = 0.0f;
 
 	Rigidbody* rigid1 = obj1->rigidbody;
 	Rigidbody* rigid2 = obj2->rigidbody;
@@ -303,82 +317,58 @@ bool noa::PhysicsSystem::CircleCollide(CircleCollider2D* obj1, CircleCollider2D*
 	const float distanceSquared = deltaX * deltaX + deltaY * deltaY;
 	const float radiusSumSquared = deltaR * deltaR;
 
-	return distanceSquared < radiusSumSquared;
-}
-
-bool noa::PhysicsSystem::BoxCollide(BoxCollider2D* obj1, BoxCollider2D* obj2)
-{
-	if (!obj1 || !obj2) {
+	if (distanceSquared >= radiusSumSquared) {
 		return false;
 	}
 
-	const float obj1X = obj1->rigidbody->newPosition.x + obj1->offset.x;
-	const float obj1Y = obj1->rigidbody->newPosition.y + obj1->offset.y;
-	const float obj1Width = obj1->size.x;
-	const float obj1Height = obj1->size.y;
+	const float angle = std::atan2(deltaY,deltaX);
+	normal = { cosf(angle), sinf(angle) };
+	depth = deltaR - std::sqrt(distanceSquared);
 
-	const float obj2X = obj2->rigidbody->newPosition.x + obj2->offset.x;
-	const float obj2Y = obj2->rigidbody->newPosition.y + obj2->offset.y;
-	const float obj2Width = obj2->size.x;
-	const float obj2Height = obj2->size.y;
-
-	const float obj1MinX = obj1X;
-	const float obj1MaxX = obj1X + obj1Width;
-	const float obj1MinY = obj1Y;
-	const float obj1MaxY = obj1Y + obj1Height;
-
-	const float obj2MinX = obj2X;
-	const float obj2MaxX = obj2X + obj2Width;
-	const float obj2MinY = obj2Y;
-	const float obj2MaxY = obj2Y + obj2Height;
-
-	if (obj1MaxX<obj2MinX||obj1MinX>obj2MaxX) 
+	if (normalPtr!=nullptr) 
 	{
-		return false;
+		(*normalPtr) = normal;
 	}
-	if (obj1MaxY<obj2MinY || obj1MinY>obj2MaxY)
+	if (depthPtr!=nullptr)
 	{
-		return false;
+		(*depthPtr) = depth;
 	}
+
 	return true;
-
 }
 
-bool noa::PhysicsSystem::BoxAndCircleCollide(BoxCollider2D* obj1, CircleCollider2D* obj2)
+bool noa::PhysicsSystem::PolygonsCollide(
+	Collider2D* obj1
+	, Collider2D* obj2
+	, noa::Vector<float>* normalPtr
+	, float* depthPtr
+)
 {
 	if (!obj1 || !obj2) {
 		return false;
 	}
 
-	float rectX = obj1->rigidbody->newPosition.x;
-	float rectY = obj1->rigidbody->newPosition.y;
-	float rectWidth = obj1->size.x;
-	float rectHeight = obj1->size.y;
+	std::vector<noa::Vector<float>>& va = obj1->caculateVertices;
+	std::vector<noa::Vector<float>>& vb = obj2->caculateVertices;
 
-	float circleX = obj2->rigidbody->newPosition.x;
-	float circleY = obj2->rigidbody->newPosition.y;
-	float circleRadius = obj2->radius;
+	const bool result = noa::Math::IntersectPolygons(
+		va
+		, vb
+		, normalPtr
+		, depthPtr);
 
-	float rectHalfWidth = rectWidth / 2;
-	float rectHalfHeight = rectHeight / 2;
+	return result;
 
-	float rectCenterX = rectX + rectHalfWidth;
-	float rectCenterY = rectY + rectHalfHeight;
+}
 
-	float deltaX = abs(circleX - rectCenterX);
-	float deltaY = abs(circleY - rectCenterY);
-
-	if (deltaX > (rectHalfWidth + circleRadius)) {
-		return false;
-	}
-	if (deltaY > (rectHalfHeight + circleRadius)) {
+bool noa::PhysicsSystem::BoxAndCircleCollide(
+	BoxCollider2D* obj1
+	, CircleCollider2D* obj2
+)
+{
+	if (!obj1 || !obj2) {
 		return false;
 	}
 
-	if (deltaX <= rectHalfWidth || deltaY <= rectHalfHeight) {
-		return true;
-	}
-
-	float cornerDistanceSquared = powf(deltaX - rectHalfWidth, 2) + powf(deltaY - rectHalfHeight, 2);
-	return cornerDistanceSquared <= (circleRadius * circleRadius);
+	
 }

@@ -12,7 +12,7 @@ namespace noa
 	enum class NOA_API ColliderType {
 		TILE_COLLIDER,
 		CIRCLE_COLLIDER,
-		BOX_COLLIDER
+		POLYGON_COLLIDER
 	};
 
 	// 只要绑定了Collider2D，就必须要绑定一个rigidbody
@@ -24,6 +24,7 @@ namespace noa
 		virtual ~Collider2D() override;
 		void ApplyTriggerEnter(Collider2D& other);
 		virtual void Update() override;
+		virtual void UpdateCaculateVertices();
 		void SetRigidbody(Rigidbody* rigidbody);
 		void SetTrigger(bool value);
 	public:
@@ -39,6 +40,10 @@ namespace noa
 
 		Rigidbody* rigidbody = nullptr;
 		ColliderType colliderType;
+
+		std::vector<noa::Vector<float>> vertices;
+		std::vector<noa::Vector<float>> caculateVertices;
+
 	public:
 		bool isTrigger = false;
 		Vector<float> offset;

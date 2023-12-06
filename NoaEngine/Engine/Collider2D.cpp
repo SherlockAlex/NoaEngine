@@ -40,6 +40,21 @@ void noa::Collider2D::Update()
 	
 }
 
+void noa::Collider2D::UpdateCaculateVertices(){
+	if (rigidbody == nullptr)
+	{
+		return;
+	}
+
+	const size_t count = caculateVertices.size();
+	const noa::Vector<float> position = rigidbody->newPosition + offset;
+	for (size_t i = 0; i < count;i++)
+	{
+		caculateVertices[i] = vertices[i] + position;
+	}
+
+}
+
 void noa::Collider2D::SetRigidbody(Rigidbody* rigidbody)
 {
 	this->rigidbody = rigidbody;

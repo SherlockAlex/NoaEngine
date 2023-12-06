@@ -12,20 +12,20 @@ namespace noa {
 	{
 	public:
 		static void Log(const std::string& msg) {
-			std::cout << "[INFO " << "]:" << msg << std::endl;
+			std::cout << "[INFO " << "]:" << msg << '\n';
 		}
 
 		static void Warring(const std::string & msg) 
 		{
 			const std::string yellowColor = "\033[33m";
 			const std::string resetColor = "\033[0m";
-			std::cout << yellowColor << "[WARNING]: " << msg << resetColor << std::endl;
+			std::cout << yellowColor << "[WARNING]: " << msg << resetColor << '\n';
 		}
 
 		static void Error(const std::string& msg) {
 			const std::string redColor = "\033[31m";
 			const std::string resetColor = "\033[0m";
-			std::cout << redColor << "[ERROR]: " << msg << resetColor << std::endl;
+			std::cout << redColor << "[ERROR]: " << msg << resetColor << '\n';
 		}
 
 	};

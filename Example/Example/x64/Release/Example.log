@@ -1,24 +1,7 @@
-﻿  Animation.cpp
-  Engine.cpp
-  NoaMath.cpp
-  PhysicsSystem.cpp
-  Time.cpp
-  Box.cpp
-  MainMenuUI.cpp
-  main.cpp
-D:\Work\NoaEngine\Example\Example\main.cpp(33,44): warning C4244: “参数”: 从“T”转换到“float”，可能丢失数据
-          with
-          [
-              T=uint32_t
-          ]
-D:\Work\NoaEngine\Example\Example\main.cpp(34,44): warning C4244: “参数”: 从“T”转换到“float”，可能丢失数据
-          with
-          [
-              T=uint32_t
-          ]
+﻿  PhysicsSystem.cpp
   正在生成代码
-  1 of 3645 functions (<0.1%) were compiled, the rest were copied from previous compilation.
+  6 of 3702 functions ( 0.2%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    2 functions had inline decision re-evaluated but remain unchanged
+    6 functions had inline decision re-evaluated but remain unchanged
   已完成代码的生成
   Example.vcxproj -> D:\Work\NoaEngine\x64\Release\Example.exe

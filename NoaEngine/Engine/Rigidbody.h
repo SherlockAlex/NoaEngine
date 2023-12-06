@@ -42,6 +42,7 @@ namespace noa {
 		friend class PhysicsSystem;
 		friend class Collider2D;
 		friend class TileCollider2D;
+		friend class BoxCollider2D;
 	private:
 		Rigidbody(Actor* actor);
 		~Rigidbody();

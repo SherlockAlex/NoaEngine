@@ -37,7 +37,8 @@ namespace noa {
 		Vector<float> offset;
 		Vector<float> anchor = {0.5f,0.5f};
 		float far = 32.0f;//比例尺，表示32个单位像素表示一个单位的世界坐标
-		
+		float invFar = 1.0f / far;
+
 		Vector<float> horizonalBoundary;
 		Vector<float> verticalBoundary;
 		bool boundary = false;

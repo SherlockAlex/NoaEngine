@@ -5,6 +5,7 @@
 #include <string>
 #include <unordered_map>
 #include <map>
+#include <vector>
 
 #include "Core.h"
 
@@ -57,15 +58,14 @@ namespace noa {
 
 		Vector Normalize() const
 		{
+
 			if (this->x==0&&this->y==0)
 			{
 				return Vector(0, 0);
 			}
-			const float invLength =1.0f / sqrtf(this->x * this->x + this->y * this->y);
-			Vector result;
-			result.x = static_cast<T>((float)this->x * invLength);
-			result.y = static_cast<T>((float)this->y * invLength);
-			return result;
+
+			const float angle = std::atan2(this->y, this->x);
+			return {std::cosf(angle),std::sinf(angle)};
 
 		}
 
@@ -168,6 +168,24 @@ namespace noa
 		static const float doublePi;
 
 		static float LinearLerp(float currentValue,float targetValue,float speed);
+
+		static noa::Vector<float> FindArithmeticMean(
+			const std::vector<noa::Vector<float>>& vertices
+		);
+
+		static bool IntersectPolygons(
+			const std::vector<noa::Vector<float>>& verticesA
+			, const std::vector<noa::Vector<float>>& verticesB
+			, noa::Vector<float>* normal
+			, float* depth
+		);
+
+		static void ProjectVertices(
+			const std::vector<noa::Vector<float>>& vertices
+			,noa::Vector<float>& axis
+			,float* min
+			,float* max
+		);
 
 	};
 }

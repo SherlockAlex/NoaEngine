@@ -8,10 +8,10 @@ namespace noa {
 	class NOA_API BoxCollider2D final :public Collider2D {
 	private:
 		ACTOR_COMPONENT(BoxCollider2D)
+		friend class PhysicsSystem;
 	private:
 		BoxCollider2D(Actor* actor);
 		~BoxCollider2D() override;
-
 	public:
 		static BoxCollider2D* Create(Actor* actor);
 		BoxCollider2D& SetSize(float x, float y);
@@ -20,6 +20,7 @@ namespace noa {
 		BoxCollider2D* Apply();
 	public:
 		Vector<float> size = { 1,1 };
+	
 	};
 }
 

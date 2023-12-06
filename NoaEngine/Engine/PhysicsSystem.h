@@ -31,12 +31,32 @@ namespace noa
 		static void Update(int step);
 	private:
 		static void FindCollisions();
-		static bool CircleCollide(CircleCollider2D * obj1,CircleCollider2D * obj2);
-		static bool BoxCollide(BoxCollider2D * obj1,BoxCollider2D * obj2);
+		static bool CircleCollide(
+			CircleCollider2D* obj1
+			, CircleCollider2D* obj2
+			, noa::Vector<float>* normal
+			,float* depth
+		);
+		static bool PolygonsCollide(
+			Collider2D * obj1
+			, Collider2D* obj2
+			, noa::Vector<float>* normal
+			, float* depth
+		);
 		static bool BoxAndCircleCollide(BoxCollider2D* obj1, CircleCollider2D* obj2);
-		static bool Collide(Collider2D* obj1, Collider2D* obj2);
-		static void SolveCollision(Collider2D* obj1, Collider2D* obj2);
-		
+		static bool Collide(
+			Collider2D* obj1
+			, Collider2D* obj2
+			, noa::Vector<float>* normal
+			, float* depth
+		);
+		static void SolveCollision(
+			Collider2D* obj1
+			, Collider2D* obj2
+			,noa::Vector<float> normal
+			,float depth
+		);
+
 		//刚体求解相关
 		static void InitVelocity(float deltaTime);
 		static void ApplyVelocity(float deltaTime);

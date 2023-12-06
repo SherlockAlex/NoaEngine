@@ -38,6 +38,7 @@ void Box::Update()
 
 	if (noa::Input::GetMouseKeyUp(noa::MouseButton::LEFT_BUTTON)) 
 	{
+		this->isHandled = false;
 		box->isHandled = false;
 	}
 

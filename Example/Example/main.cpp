@@ -2,6 +2,8 @@
 #include "MainMenuUI.h"
 #include "Box.h"
 
+
+
 void MainMenuDelegateFunc(noa::Scene* scene) {
 	noa::TileMapInfo mapInfo;
 	mapInfo.LoadTileSet("tileSet.tsd")
@@ -42,6 +44,20 @@ void MainMenuDelegateFunc(noa::Scene* scene) {
 	box2->tileCollider2D->SetTileMap(map);
 }
 
+int i = 0;
+void OnTick(noa::Scene* scene)
+{
+	if (i<100)
+	{
+		Box* box = noa::NObject<Box>::Create(scene);
+		box->transform.position.x = 5 + (rand() % 10)*0.01f;
+		box->transform.position.y = 5 + (rand() % 10) * 0.01f;
+		box->camera = noa::SceneManager::FindActorWithType<noa::Camera2D>();
+		box->tileCollider2D->SetTileMap(noa::SceneManager::FindActorWithType<noa::TileMap>());
+		i++;
+	}
+}
+
 class Engine :public noa::NoaEngine {
 public:
 	Engine() :noa::NoaEngine(
@@ -50,7 +66,8 @@ public:
 	{
 		noa::Scene* menuScene = noa::Scene::Create("MainMenu");
 		menuScene->onLoad += MainMenuDelegateFunc;
-		
+		menuScene->onTick += OnTick;
+
 		noa::SceneManager::LoadScene("MainMenu");
 	}
 

@@ -22,7 +22,7 @@ private:
 		noa::Rigidbody::Create(this)
 		->SetUseGravity(false)
 		.SetBodyType(noa::BodyType::DYNAMIC)
-		.SetBounce(1.0f)
+		.SetBounce(0.4f)
 		.Apply();
 
 	noa::BoxCollider2D* boxCollider2D =
@@ -30,6 +30,13 @@ private:
 		->SetRigidbody(rigid)
 		.SetSize(0.5f, 0.5f)
 		.Apply();
+
+	/*noa::CircleCollider2D* boxCollider2D =
+		noa::CircleCollider2D::Create(this)
+		->SetRigidbody(rigid)
+		.SetRadius(0.25f)
+		.Apply();*/
+
 
 public:
 	noa::Camera2D* camera = nullptr;
