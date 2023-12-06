@@ -58,7 +58,7 @@ void noa::Rigidbody::InitVelocity(float deltaTime)
 		return;
 	}
 
-	Vector<float> gravity = PhysicsSystem::gravity * this->gravityScale;
+	Vector<float> gravity = PhysicsSystem::gravity * this->gravityScale*this->mass;
 	if (tileCollider2D != nullptr && tileCollider2D->isGrounded)
 	{
 		gravity = {};

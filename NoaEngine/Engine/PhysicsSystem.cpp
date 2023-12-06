@@ -12,7 +12,7 @@ std::vector<noa::Collider2D*> noa::PhysicsSystem::colliders;
 
 noa::Vector<float> noa::PhysicsSystem::gravity = { 0,9.82f };
 
-int noa::PhysicsSystem::step = 5;
+int noa::PhysicsSystem::step = 10;
 
 std::unordered_map<noa::ColliderType, std::unordered_map<noa::ColliderType, std::function<bool(
 	noa::Collider2D*
