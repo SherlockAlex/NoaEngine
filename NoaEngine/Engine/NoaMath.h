@@ -155,6 +155,14 @@ namespace noa {
 			return result;
 		}
 
+		static T Distance(const Vector& a,const Vector& b) 
+		{
+			T deltaX = a.x - b.x;
+			T deltaY = a.y - b.y;
+			return static_cast<T>(
+				std::sqrt(deltaX*deltaX+deltaY*deltaY));
+		}
+
 	};
 }
 
@@ -173,6 +181,14 @@ namespace noa
 			const std::vector<noa::Vector<float>>& vertices
 		);
 
+		static bool IntersectCirclePolygon(
+			const noa::Vector<float>& circleCenter
+			,float radius
+			,const std::vector<noa::Vector<float>>& vertices
+			,noa::Vector<float>* normal
+			,float* depth
+		);
+
 		static bool IntersectPolygons(
 			const std::vector<noa::Vector<float>>& verticesA
 			, const std::vector<noa::Vector<float>>& verticesB
@@ -180,11 +196,24 @@ namespace noa
 			, float* depth
 		);
 
+		static void ProjectCircle(
+			const noa::Vector<float>& center
+			,float radius
+			,const noa::Vector<float>& axis
+			,float* min
+			,float* max
+		);
+
 		static void ProjectVertices(
 			const std::vector<noa::Vector<float>>& vertices
 			,noa::Vector<float>& axis
 			,float* min
 			,float* max
+		);
+
+		static int FindClosesPointOnPolygon(
+			const noa::Vector<float>& circleCenter
+			,const std::vector<noa::Vector<float>>& vertices
 		);
 
 	};

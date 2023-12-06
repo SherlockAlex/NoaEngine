@@ -20,9 +20,9 @@ private:
 
 	noa::Rigidbody* rigid =
 		noa::Rigidbody::Create(this)
-		->SetUseGravity(false)
+		->SetUseGravity(true)
 		.SetBodyType(noa::BodyType::DYNAMIC)
-		.SetBounce(0.4f)
+		.SetBounce(0.5f)
 		.Apply();
 
 	noa::BoxCollider2D* boxCollider2D =

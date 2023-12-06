@@ -27,8 +27,9 @@ namespace noa
 		virtual void UpdateCaculateVertices();
 		void SetRigidbody(Rigidbody* rigidbody);
 		void SetTrigger(bool value);
+		
 	public:
-
+		noa::Rigidbody* GetRigidbody();
 		template<class T>
 		T* GetCollider2DAs() {
 			return dynamic_cast<T*>(this);

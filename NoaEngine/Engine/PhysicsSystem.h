@@ -25,15 +25,18 @@ namespace noa
 	class NOA_API CircleCollider2D;
 	class NOA_API BoxCollider2D;
 
+	enum class NOA_API ColliderType; // Ç°ÖÃÉùÃ÷
+
 	class NOA_API PhysicsSystem
 	{
 	public:
+		static void InitPhysicsSystem();
 		static void Update(int step);
 	private:
 		static void FindCollisions();
 		static bool CircleCollide(
-			CircleCollider2D* obj1
-			, CircleCollider2D* obj2
+			Collider2D* obj1
+			, Collider2D* obj2
 			, noa::Vector<float>* normal
 			,float* depth
 		);
@@ -43,7 +46,12 @@ namespace noa
 			, noa::Vector<float>* normal
 			, float* depth
 		);
-		static bool BoxAndCircleCollide(BoxCollider2D* obj1, CircleCollider2D* obj2);
+		static bool PolygonAndCircleCollide(
+			Collider2D* obj1
+			, Collider2D* obj2
+			, noa::Vector<float>* normal
+			, float* depth
+		);
 		static bool Collide(
 			Collider2D* obj1
 			, Collider2D* obj2
@@ -74,8 +82,15 @@ namespace noa
 		static std::vector<Collider2D*> colliders;
 		static std::vector<Rigidbody*> rigidbodys;
 
+		static std::unordered_map<ColliderType, std::unordered_map<noa::ColliderType, std::function<bool(
+			Collider2D*
+			, Collider2D*
+			, Vector<float>*
+			, float*)>>> collideFunc;
+
 		friend class Collider2D;
 		friend class Rigidbody;
+
 
 	};
 

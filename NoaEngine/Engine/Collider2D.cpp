@@ -68,3 +68,7 @@ void noa::Collider2D::SetTrigger(bool value)
 {
 	this->isTrigger = value;
 }
+
+noa::Rigidbody* noa::Collider2D::GetRigidbody() {
+	return rigidbody;
+}

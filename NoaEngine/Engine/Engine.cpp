@@ -132,6 +132,8 @@ int noa::NoaEngine::Run()
 	rendererInstanceLayer.push_back(std::vector<SpriteGPUInstance>());
 	rendererInstanceLayer.push_back(std::vector<SpriteGPUInstance>());
 
+	PhysicsSystem::InitPhysicsSystem();
+
 	Start();
 	ExtensionStart();
 	this->EngineThread();

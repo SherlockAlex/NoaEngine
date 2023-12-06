@@ -14,6 +14,19 @@ noa::Vector<float> noa::PhysicsSystem::gravity = { 0,9.82f };
 
 int noa::PhysicsSystem::step = 5;
 
+std::unordered_map<noa::ColliderType, std::unordered_map<noa::ColliderType, std::function<bool(
+	noa::Collider2D*
+	, noa::Collider2D*
+	, noa::Vector<float>*
+	, float*)>>> noa::PhysicsSystem::collideFunc;
+
+void noa::PhysicsSystem::InitPhysicsSystem() {
+	collideFunc[ColliderType::CIRCLE_COLLIDER][ColliderType::CIRCLE_COLLIDER] = CircleCollide;
+	collideFunc[ColliderType::POLYGON_COLLIDER][ColliderType::CIRCLE_COLLIDER] = PolygonAndCircleCollide;
+	collideFunc[ColliderType::CIRCLE_COLLIDER][ColliderType::POLYGON_COLLIDER] = PolygonAndCircleCollide;
+	collideFunc[ColliderType::POLYGON_COLLIDER][ColliderType::POLYGON_COLLIDER] = PolygonsCollide;
+}
+
 void noa::PhysicsSystem::Update(int step)
 {
 
@@ -96,41 +109,20 @@ bool noa::PhysicsSystem::Collide(
 {
 
 	//碰撞检测
+	//下面代码可以优化，通过
 
-	if (obj1->colliderType == ColliderType::CIRCLE_COLLIDER
-		&&obj2->colliderType == ColliderType::CIRCLE_COLLIDER) 
+	if (collideFunc.count(obj1->colliderType)<=0
+		|| collideFunc[obj1->colliderType].count(obj2->colliderType)<=0)
 	{
-		return CircleCollide(
-			dynamic_cast<CircleCollider2D*>(obj1)
-			, dynamic_cast<CircleCollider2D*>(obj2)
-			,normal
-			,depth
-		);
+		return false;
 	}
-	else if (
-		obj1->colliderType != ColliderType::CIRCLE_COLLIDER
-		&&obj2->colliderType != ColliderType::CIRCLE_COLLIDER)
-	{
-		return PolygonsCollide(obj1,obj2,normal,depth);
-	}
-	else if (obj1->colliderType == ColliderType::POLYGON_COLLIDER
-		&& obj2->colliderType == ColliderType::CIRCLE_COLLIDER
-		)
-	{
-		return BoxAndCircleCollide(
-			dynamic_cast<BoxCollider2D*>(obj1)
-			,dynamic_cast<CircleCollider2D*>(obj2)
-		);
-	}
-	else if (obj1->colliderType == ColliderType::CIRCLE_COLLIDER 
-		&& obj2->colliderType == ColliderType::POLYGON_COLLIDER
-		)
-	{
-		return BoxAndCircleCollide(dynamic_cast<BoxCollider2D*>(obj2)
-			, dynamic_cast<CircleCollider2D*>(obj1)
-		);
-	}
-	return false;
+
+	return collideFunc[obj1->colliderType][obj2->colliderType]
+	(
+		obj1
+		, obj2
+		, normal
+		, depth);
 	
 }
 
@@ -146,91 +138,41 @@ void noa::PhysicsSystem::SolveCollision(
 	Rigidbody* rigid1 = obj1->rigidbody;
 	Rigidbody* rigid2 = obj2->rigidbody;
 
-	//修正位置
-	if (obj1->colliderType == ColliderType::CIRCLE_COLLIDER
-		&& obj2->colliderType == ColliderType::CIRCLE_COLLIDER)
-	{
-		const float fixX = depth * normal.x;
-		const float fixY = depth * normal.y;
-		
-		//计算受力
+	const float fixX = depth * normal.x;
+	const float fixY = depth * normal.y;
 
-		rigid1->newPosition.x += 0.5f * fixX;
-		rigid1->newPosition.y += 0.5f * fixY;
+	rigid1->newPosition.x += 0.5f * fixX;
+	rigid1->newPosition.y += 0.5f * fixY;
 
-		rigid2->newPosition.x -= 0.5f * fixX;
-		rigid2->newPosition.y -= 0.5f * fixY;
-		
-		//计算接触力
+	rigid2->newPosition.x -= 0.5f * fixX;
+	rigid2->newPosition.y -= 0.5f * fixY;
 
-		const float beta = -150;//太小，扰动越明显，太大或剧烈跳动
+	//计算接触力
+	/*const float sumInvInvMass = 1.0f/(rigid1->invMass + rigid2->invMass);
 
-		/*const float sumInvInvMass = 1.0f / (rigid1->invMass + rigid2->invMass);
+	noa::Vector<float> relativeVelocity =
+		rigid2->velocity - rigid1->velocity;
+	const float restitude = 0.8f;
+	const float beta =
+		-(1.0f-restitude)
+		*noa::Vector<float>::Dot(normal,relativeVelocity)
+		* sumInvInvMass;*/
 
-		noa::Vector<float> relativeVelocity =
-			rigid2->velocity - rigid1->velocity;
-		const float restitude = 0.8f;
-		const float beta =
-			-(1.0f - restitude)
-			* noa::Vector<float>::Dot(normal, relativeVelocity)
-			* sumInvInvMass;*/
+	const float beta = -125.0f;
 
-		const Vector<float> constraintImpulse1 = {
-			 -beta*fixX
-			,-beta*fixY
-		};
-		const Vector<float> constraintImpulse2 = {
-			beta * fixX
-			,beta * fixY
-		};
+	const Vector<float> constraintImpulse1 = {
+		 -beta * fixX
+		,-beta * fixY
+	};
+	const Vector<float> constraintImpulse2 = {
+		beta * fixX
+		,beta * fixY
+	};
 
-		rigid1->AddForce(
-			constraintImpulse1, noa::ForceType::IMPULSE_FORCE);
-		rigid2->AddForce(
-			constraintImpulse2, noa::ForceType::IMPULSE_FORCE);
-
-	}
-	else if (obj1->colliderType == ColliderType::POLYGON_COLLIDER
-		&& obj2->colliderType == ColliderType::POLYGON_COLLIDER)
-	{
-		const float fixX = depth * normal.x;
-		const float fixY = depth * normal.y;
-
-		rigid1->newPosition.x += 0.5f*fixX;
-		rigid1->newPosition.y += 0.5f*fixY;
-
-		rigid2->newPosition.x -= 0.5f*fixX;
-		rigid2->newPosition.y -= 0.5f*fixY;
-
-		//计算接触力
-
-		/*const float sumInvInvMass = 1.0f/(rigid1->invMass + rigid2->invMass);
-
-		noa::Vector<float> relativeVelocity = 
-			rigid2->velocity - rigid1->velocity;
-		const float restitude = 0.8f;
-		const float beta = 
-			-(1.0f-restitude)
-			*noa::Vector<float>::Dot(normal,relativeVelocity)
-			* sumInvInvMass;*/
-
-		const float beta = -150.0f;
-
-		const Vector<float> constraintImpulse1 = {
-			 -beta * fixX
-			,-beta * fixY
-		};
-		const Vector<float> constraintImpulse2 = {
-			beta * fixX
-			,beta * fixY
-		};
-
-		rigid1->AddForce(
-			constraintImpulse1, noa::ForceType::IMPULSE_FORCE);
-		rigid2->AddForce(
-			constraintImpulse2, noa::ForceType::IMPULSE_FORCE);
-
-	}
+	rigid1->AddForce(
+		constraintImpulse1, noa::ForceType::IMPULSE_FORCE);
+	rigid2->AddForce(
+		constraintImpulse2, noa::ForceType::IMPULSE_FORCE);
 
 }
 
@@ -290,11 +232,15 @@ void noa::PhysicsSystem::ApplyPosition(float deltaTime)
 }
 
 bool noa::PhysicsSystem::CircleCollide(
-	CircleCollider2D* obj1
-	, CircleCollider2D* obj2
+	Collider2D* collider1
+	, Collider2D* collider2
 	, noa::Vector<float>* normalPtr
 	, float* depthPtr)
 {
+
+	CircleCollider2D* obj1 = dynamic_cast<CircleCollider2D*>(collider1);
+	CircleCollider2D* obj2 = dynamic_cast<CircleCollider2D*>(collider2);
+
 	if (!obj1 || !obj2)
 	{
 		return false;
@@ -361,14 +307,34 @@ bool noa::PhysicsSystem::PolygonsCollide(
 
 }
 
-bool noa::PhysicsSystem::BoxAndCircleCollide(
-	BoxCollider2D* obj1
-	, CircleCollider2D* obj2
+bool noa::PhysicsSystem::PolygonAndCircleCollide(
+	Collider2D* obj1
+	, Collider2D* obj2
+	, noa::Vector<float>* normalPtr
+	, float* depthPtr
 )
 {
-	if (!obj1 || !obj2) {
+	if (!obj1 || !obj2) 
+	{
 		return false;
 	}
 
+	noa::CircleCollider2D* circleCollider
+		= (obj1->colliderType
+			== noa::ColliderType::CIRCLE_COLLIDER)
+		? dynamic_cast<noa::CircleCollider2D*>(obj1) 
+		: dynamic_cast<noa::CircleCollider2D*>(obj2);
 	
+	noa::Collider2D* polygonCollider
+		= (circleCollider == obj1) ? obj2 : obj1;
+
+	const float radius = circleCollider->radius;
+	const noa::Vector<float> circleCenter = 
+		circleCollider->GetRigidbody()->newPosition 
+		+ circleCollider->offset;
+	const std::vector<noa::Vector<float>> vertices
+		= polygonCollider->caculateVertices;
+
+	return noa::Math::IntersectCirclePolygon(circleCenter, radius, vertices, normalPtr, depthPtr);
+
 }
