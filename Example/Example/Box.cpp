@@ -45,7 +45,6 @@ void Box::Update()
 }
 
 void Box::OnMouseStay() {
-	//ץסbox
 	if (noa::Input::GetMouseKeyDownOnce(
 		noa::MouseButton::LEFT_BUTTON)) 
 	{

@@ -48,9 +48,18 @@ void noa::Collider2D::UpdateCaculateVertices(){
 
 	const size_t count = caculateVertices.size();
 	const noa::Vector<float> position = rigidbody->newPosition + offset;
+	
+	Actor* actor = GetActor();
+	const float cos = cosf(actor->transform.eulerAngle);
+	const float sin = sinf(actor->transform.eulerAngle);
+	
 	for (size_t i = 0; i < count;i++)
 	{
-		caculateVertices[i] = vertices[i] + position;
+		
+		noa::Vector<float> result;
+		result.x = cos * vertices[i].x - sin * vertices[i].y;
+		result.y = sin * vertices[i].x + cos * vertices[i].y;
+		caculateVertices[i] = result + position;
 	}
 
 }

@@ -193,6 +193,7 @@
     <ClCompile Include="..\..\NoaEngine\Engine\UIScrollBar.cpp" />
     <ClCompile Include="..\..\NoaEngine\Engine\UISlider.cpp" />
     <ClCompile Include="Box.cpp" />
+    <ClCompile Include="Circle.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainMenuUI.cpp" />
   </ItemGroup>
@@ -269,6 +270,7 @@
     <ClInclude Include="..\..\NoaEngine\Engine\UIScrollBar.h" />
     <ClInclude Include="..\..\NoaEngine\Engine\UISlider.h" />
     <ClInclude Include="Box.h" />
+    <ClInclude Include="Circle.h" />
     <ClInclude Include="MainMenuUI.h" />
     <ClInclude Include="NoaEngine.h" />
   </ItemGroup>

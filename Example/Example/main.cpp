@@ -1,7 +1,7 @@
 #include "NoaEngine.h"
 #include "MainMenuUI.h"
 #include "Box.h"
-
+#include "Circle.h"
 
 
 void MainMenuDelegateFunc(noa::Scene* scene) {
@@ -21,12 +21,6 @@ void MainMenuDelegateFunc(noa::Scene* scene) {
 	Box* box = noa::NObject<Box>::Create(scene);
 	box->transform.position.x = 5;
 	box->transform.position.y = 5;
-	Box* box1 = noa::NObject<Box>::Create(scene);
-	box1->transform.position.x = 4;
-	box1->transform.position.y = 5;
-	Box* box2 = noa::NObject<Box>::Create(scene);
-	box2->transform.position.x = 6;
-	box2->transform.position.y = 5;
 
 	noa::Camera2D* camera = noa::Camera2D::Create(scene)
 		->SetFar(32)
@@ -38,23 +32,34 @@ void MainMenuDelegateFunc(noa::Scene* scene) {
 
 	box->camera = camera;
 	box->tileCollider2D->SetTileMap(map);
-	box1->camera = camera;
-	box1->tileCollider2D->SetTileMap(map);
-	box2->camera = camera;
-	box2->tileCollider2D->SetTileMap(map);
+	
 }
 
-int i = 0;
 void OnTick(noa::Scene* scene)
 {
-	if (i<100)
+	
+
+	if (noa::Input::GetKeyDownOnce(noa::KeyCode::KEY_K))
 	{
+		noa::Vector<double> mousePos = noa::Input::GetMousePosition();
+		noa::Vector<float> worldPos = noa::SceneManager::FindActorWithType<noa::Camera2D>()->ScreenPointToWorld(mousePos.x, mousePos.y);
+		Circle* box = noa::NObject<Circle>::Create(scene);
+		box->transform.position.x = worldPos.x + (rand() % 10)*0.01f;
+		box->transform.position.y = worldPos.y + (rand() % 10) * 0.01f;
+		//box->camera = noa::SceneManager::FindActorWithType<noa::Camera2D>();
+		box->tileCollider2D->SetTileMap(noa::SceneManager::FindActorWithType<noa::TileMap>());
+		
+	}
+
+	if (noa::Input::GetKeyDownOnce(noa::KeyCode::KEY_L))
+	{
+		noa::Vector<double> mousePos = noa::Input::GetMousePosition();
+		noa::Vector<float> worldPos = noa::SceneManager::FindActorWithType<noa::Camera2D>()->ScreenPointToWorld(mousePos.x, mousePos.y);
 		Box* box = noa::NObject<Box>::Create(scene);
-		box->transform.position.x = 5 + (rand() % 10)*0.01f;
-		box->transform.position.y = 5 + (rand() % 10) * 0.01f;
+		box->transform.position.x = worldPos.x + (rand() % 10) * 0.01f;
+		box->transform.position.y = worldPos.y + (rand() % 10) * 0.01f;
 		box->camera = noa::SceneManager::FindActorWithType<noa::Camera2D>();
 		box->tileCollider2D->SetTileMap(noa::SceneManager::FindActorWithType<noa::TileMap>());
-		i++;
 	}
 }
 

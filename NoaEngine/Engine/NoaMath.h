@@ -151,8 +151,12 @@ namespace noa {
 
 		static T Dot(const Vector& a,const Vector& b) 
 		{
-			T result = static_cast<T>(a.x * b.x + a.y * b.y);
-			return result;
+			return static_cast<T>(a.x * b.x + a.y * b.y);
+		}
+
+		static T Cross(const Vector& a,const Vector& b)
+		{
+			return static_cast<T>(a.x*b.y-a.y*b.x);
 		}
 
 		static T Distance(const Vector& a,const Vector& b) 

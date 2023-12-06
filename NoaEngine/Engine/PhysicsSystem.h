@@ -38,10 +38,10 @@ namespace noa
 			Collider2D* obj1
 			, Collider2D* obj2
 			, noa::Vector<float>* normal
-			,float* depth
+			, float* depth
 		);
 		static bool PolygonsCollide(
-			Collider2D * obj1
+			Collider2D* obj1
 			, Collider2D* obj2
 			, noa::Vector<float>* normal
 			, float* depth
@@ -61,8 +61,8 @@ namespace noa
 		static void SolveCollision(
 			Collider2D* obj1
 			, Collider2D* obj2
-			,noa::Vector<float> normal
-			,float depth
+			, noa::Vector<float> normal
+			, float depth
 		);
 
 		//刚体求解相关

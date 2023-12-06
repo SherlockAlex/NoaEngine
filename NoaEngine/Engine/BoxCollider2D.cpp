@@ -24,9 +24,9 @@ noa::BoxCollider2D& noa::BoxCollider2D::SetSize(float x, float y)
 	this->size.y = y;
 
 	vertices[0] = { 0,0 };
-	vertices[1] = { size.x,0 };
-	vertices[2] = { size.x,size.y };
-	vertices[3] = { 0,size.y };
+	vertices[1] = { x,0 };
+	vertices[2] = { x,y };
+	vertices[3] = { 0,y };
 
 	return *this;
 }

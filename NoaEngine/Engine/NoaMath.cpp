@@ -296,8 +296,8 @@ void noa::Math::ProjectCircle(
 ) {
     noa::Vector<float> direction = axis.Normalize();
     noa::Vector<float> directionAndRadius = direction * radius;
-    noa::Vector<float> p1 = center + directionAndRadius;
-    noa::Vector<float> p2 = center - directionAndRadius;
+    noa::Vector<float> p1 = center;
+    noa::Vector<float> p2 = center+directionAndRadius*2.0f;
 
     float min = noa::Vector<float>::Dot(p1, axis);
     float max = noa::Vector<float>::Dot(p2, axis);
