@@ -25,7 +25,8 @@ void MainMenuDelegateFunc(noa::Scene* scene) {
 	noa::Camera2D* camera = noa::Camera2D::Create(scene)
 		->SetFar(32)
 		.SetFollow(box)
-		.SetBoundary(true)
+		.ApplyHorizonalBoundary(true)
+		.ApplyVerticalBoundary(true)
 		.SetHorizonalBoundary(0,mapInfo.GetSize().x)
 		.SetVerticalBoundary(0, mapInfo.GetSize().y)
 		.Apply();

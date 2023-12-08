@@ -74,22 +74,16 @@ void noa::Rigidbody::InitVelocity(float deltaTime)
 	const float deltaVY =
 		force.y * invMass * deltaTime + impuls.y * invMass;
 
-	/*if (std::abs(velocity.x) < 0.01f
-		&& std::abs(velocity.y) < 0.01f)
-	{
-		velocity.x = 0.0f;
-		velocity.y = 0.0f;
-		sleep = true;
-	}*/
-
 	newVelocity.x = (velocity.x + deltaVX);
 	newVelocity.y = (velocity.y + deltaVY);
 	//计算角动量
+	newAngularVelocity = angularVelocity + torque/*还有一个转动惯量要除，但是这里没有计算*/;
 
 	sleep = false;
 
 	force = {};
 	impuls = {};
+	torque = 0.0f;
 
 	constraint = nextConstraint;
 	nextConstraint.x = false;
@@ -126,6 +120,7 @@ void noa::Rigidbody::ApplyVelocity(float deltaTime)
 	}
 
 	this->velocity = this->newVelocity;
+	this->angularVelocity = this->newAngularVelocity;
 
 }
 
@@ -133,12 +128,14 @@ void noa::Rigidbody::InitPosition(float deltaTime)
 {
 	newPosition.x = transform->position.x + velocity.x * deltaTime;
 	newPosition.y = transform->position.y + velocity.y * deltaTime;
+	newAngle = transform->eulerAngle + angularVelocity * deltaTime;
+	
 }
 
 void noa::Rigidbody::ApplyPositon(float deltaTime)
 {
 	transform->position = newPosition;
-	transform->eulerAngle = transform->eulerAngle + angularVelocity * angularVelocityWeight;
+	transform->eulerAngle = newAngle;
 }
 
 noa::Vector<float> noa::Rigidbody::GetSumForce()
@@ -172,6 +169,19 @@ void noa::Rigidbody::AddForce(const Vector<float>& force, ForceType forceType)
 	default:
 		break;
 	}
+
+}
+
+void noa::Rigidbody::AddTorque(float torque) 
+{
+	//给刚体施加角动量
+	if (this->bodyType != BodyType::DYNAMIC)
+	{
+		return;
+	}
+
+	this->torque += torque;
+	//this->angularVelocity = this->angularVelocity + torque/*还要除去转动惯量*/;
 
 }
 

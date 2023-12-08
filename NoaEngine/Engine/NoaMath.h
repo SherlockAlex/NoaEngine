@@ -191,6 +191,7 @@ namespace noa
 			,const std::vector<noa::Vector<float>>& vertices
 			,noa::Vector<float>* normal
 			,float* depth
+			,noa::Vector<float>* polygonCenter
 		);
 
 		static bool IntersectPolygons(
@@ -198,6 +199,8 @@ namespace noa
 			, const std::vector<noa::Vector<float>>& verticesB
 			, noa::Vector<float>* normal
 			, float* depth
+			,noa::Vector<float>* centerA
+			,noa::Vector<float>* centerB
 		);
 
 		static void ProjectCircle(

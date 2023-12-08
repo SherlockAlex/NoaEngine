@@ -37,13 +37,9 @@ void noa::Camera2D::Update() {
 	offset.y = transform.position.y 
 		- anchor.y * worldGrid.y + 0.5f;
 
-	if (!boundary)
-	{
-		return;
-	}
-
 	//设置相机边界
-	if (horizonalBoundary.y-horizonalBoundary.x>=worldGrid.x) 
+	if (ableHorizonalBoundary
+		&&(horizonalBoundary.y - horizonalBoundary.x >= worldGrid.x))
 	{
 		if (offset.x <= horizonalBoundary.x)
 		{
@@ -55,7 +51,8 @@ void noa::Camera2D::Update() {
 		}
 	}
 	
-	if (verticalBoundary.y - verticalBoundary.x >= worldGrid.y) 
+	if (ableVerticalBoundary
+		&&(verticalBoundary.y - verticalBoundary.x >= worldGrid.y))
 	{
 		if (offset.y <= verticalBoundary.x)
 		{
@@ -144,9 +141,15 @@ noa::Camera2D& noa::Camera2D::SetFollow(Actor* follow)
 	return *this;
 }
 
-noa::Camera2D& noa::Camera2D::SetBoundary(bool value)
+noa::Camera2D& noa::Camera2D::ApplyHorizonalBoundary(bool value) 
 {
-	this->boundary = value;
+	this->ableHorizonalBoundary = value;
+	return *this;
+}
+
+noa::Camera2D& noa::Camera2D::ApplyVerticalBoundary(bool value)
+{
+	this->ableVerticalBoundary = value;
 	return *this;
 }
 

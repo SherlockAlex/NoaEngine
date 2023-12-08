@@ -60,15 +60,18 @@ bool noa::Math::IntersectCirclePolygon(
     , const std::vector<noa::Vector<float>>& vertices
     , noa::Vector<float>* normalPtr
     , float* depthPtr
+    , noa::Vector<float>* polygonCenterPtr
 )
 {
-    noa::Vector<float> normal = {};
+    noa::Vector<float> hitPoint;
+    noa::Vector<float> normal;
     float depth = FLT_MAX;
 
-    noa::Vector<float> axis = {};
+    noa::Vector<float> axis;
     float minA, maxA, minB, maxB;
     float axisDepth = 0.0f;
     //分离轴定律检测两个多边形是否重合
+
     for (int i = 0; i < vertices.size(); i++)
     {
         const noa::Vector<float>& va =
@@ -121,7 +124,7 @@ bool noa::Math::IntersectCirclePolygon(
 
     const noa::Vector<float> direction = polygonCenter - circleCenter;
 
-    if (noa::Vector<float>::Dot(direction, normal) >= 0.0f)
+    if (noa::Vector<float>::Dot(direction, normal) <= 0.0f)
     {
         normal.x = -normal.x;
         normal.y = -normal.y;
@@ -136,6 +139,10 @@ bool noa::Math::IntersectCirclePolygon(
     {
         (*normalPtr) = normal;
     }
+    if (polygonCenterPtr !=nullptr)
+    {
+        (*polygonCenterPtr) = polygonCenter;
+    }
 
     return true;
 }
@@ -143,13 +150,18 @@ bool noa::Math::IntersectCirclePolygon(
 bool noa::Math::IntersectPolygons(
     const std::vector<noa::Vector<float>>& verticesA
     , const std::vector<noa::Vector<float>>& verticesB
-    ,noa::Vector<float>* normalPtr
-    ,float* depthPtr
+    , noa::Vector<float>* normalPtr
+    , float* depthPtr
+    , noa::Vector<float>* centerAPtr
+    , noa::Vector<float>* centerBPtr
 )
 {
 
+    noa::Vector<float> hitPoint;
     noa::Vector<float> normal = {};
     float depth = FLT_MAX;
+
+    noa::Vector<float> point = {};
 
     //分离轴定律检测两个多边形是否重合
     for (int i = 0;i<verticesA.size();i++) 
@@ -167,6 +179,7 @@ bool noa::Math::IntersectPolygons(
 
         if (minA>=maxB||minB>=maxA) 
         {
+            //minA or minB对应的点
             return false;
         }
 
@@ -213,7 +226,7 @@ bool noa::Math::IntersectPolygons(
 
     const noa::Vector<float> direction = centerB - centerA;
 
-    if (noa::Vector<float>::Dot(direction,normal)>=0.0f)
+    if (noa::Vector<float>::Dot(direction,normal)<=0.0f)
     {
         normal.x = -normal.x;
         normal.y = -normal.y;
@@ -229,6 +242,15 @@ bool noa::Math::IntersectPolygons(
         (*normalPtr) = normal;
     }
 
+    if (centerAPtr)
+    {
+        (*centerAPtr) = centerA;
+    }
+    if (centerBPtr)
+    {
+        (*centerBPtr) = centerB;
+    }
+
     return true;
 }
 
@@ -236,7 +258,8 @@ void noa::Math::ProjectVertices(
     const std::vector<noa::Vector<float>>& vertices
     , noa::Vector<float>& axis
     , float* minPtr
-    , float* maxPtr) 
+    , float* maxPtr
+) 
 {
     float min = FLT_MAX;
     float max = FLT_MIN;

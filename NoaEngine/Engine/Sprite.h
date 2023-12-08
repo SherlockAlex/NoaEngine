@@ -88,9 +88,6 @@ namespace noa {
 	private:
 		std::vector<uint32_t> image;
 
-		int sw = 2;
-		int sh = 2;
-
 	};
 
 	class NOA_API Texture;

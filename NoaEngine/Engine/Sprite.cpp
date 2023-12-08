@@ -23,8 +23,6 @@ noa::Sprite::Sprite(const SpriteFile& sprFile, const Vector<int>& scale)
 
 	this->isEmpty = this->image.empty();
 
-	this->sw = (w / 2) * 2;
-	this->sh = (h / 2) * 2;
 }
 
 noa::Sprite::Sprite(const Vector<int>& size)
@@ -43,9 +41,6 @@ noa::Sprite::Sprite(const std::string& filename, const Vector<int>& size) {
 	this->size = size;
 	this->isEmpty = this->image.empty();
 
-	this->sw = (w / 2) * 2;
-	this->sh = (h / 2) * 2;
-
 }
 
 noa::Sprite::Sprite(const std::string& filename, int sizeX, int sizeY)
@@ -59,13 +54,9 @@ noa::Sprite::Sprite(const std::string& filename, int sizeX, int sizeY)
 	this->size = { sizeX,sizeY };
 	this->isEmpty = this->image.empty();
 
-	this->sw = (w / 2) * 2;
-	this->sh = (h / 2) * 2;
 }
 
 noa::Sprite::Sprite() {
-	this->sw = (w / 2) * 2;
-	this->sh = (h / 2) * 2;
 	this->isEmpty = this->image.empty();
 }
 
@@ -77,8 +68,6 @@ noa::Sprite::Sprite(int w, int h, const Vector<int>& size, const std::vector<uin
 	this->size = size;
 	this->isEmpty = this->image.empty();
 
-	this->sw = (w / 2) * 2;
-	this->sh = (h / 2) * 2;
 }
 
 noa::Sprite::~Sprite()
@@ -116,9 +105,6 @@ void noa::Sprite::UpdateImage(const SpriteFile& image)
 	this->h = image.height;
 	this->image = image.images;
 	this->isEmpty = this->image.empty();
-
-	this->sw = (w / 2) * 2;
-	this->sh = (h / 2) * 2;
 }
 
 void noa::Sprite::DrawSprite(int posX, int posY, bool isRenderAlpha) const
@@ -322,34 +308,6 @@ uint32_t noa::Sprite::GetColor(const float normalizedX, const float normalizedY)
 
 	const int width = static_cast<int>(w);
 	return image[sy * width + sx];
-
-	/*if (isEmpty)
-	{
-		return ERRORCOLOR;
-	}
-
-	const float x = normalizedX * (w - 1);
-	const float y = normalizedY * (h - 1);
-
-	const int x0 = static_cast<int>(std::floor(x));
-	const int y0 = static_cast<int>(std::floor(y));
-	const int x1 = x0 + 1;
-	const int y1 = y0 + 1;
-
-	const float dx = x - x0;
-	const float dy = y - y0;
-
-	const Uint32 c00 = image[y0 * w + x0];
-	const Uint32 c01 = image[y0 * w + x1];
-	const Uint32 c10 = image[y1 * w + x0];
-	const Uint32 c11 = image[y1 * w + x1];
-
-	const Uint8 r = static_cast<Uint8>((1 - dx) * (1 - dy) * GetRValue(c00) + dx * (1 - dy) * GetRValue(c01) + (1 - dx) * dy * GetRValue(c10) + dx * dy * GetRValue(c11));
-	const Uint8 g = static_cast<Uint8>((1 - dx) * (1 - dy) * GetGValue(c00) + dx * (1 - dy) * GetGValue(c01) + (1 - dx) * dy * GetGValue(c10) + dx * dy * GetGValue(c11));
-	const Uint8 b = static_cast<Uint8>((1 - dx) * (1 - dy) * GetBValue(c00) + dx * (1 - dy) * GetBValue(c01) + (1 - dx) * dy * GetBValue(c10) + dx * dy * GetBValue(c11));
-	const Uint8 a = static_cast<Uint8>((1 - dx) * (1 - dy) * GetAValue(c00) + dx * (1 - dy) * GetAValue(c01) + (1 - dx) * dy * GetAValue(c10) + dx * dy * GetAValue(c11));
-
-	return RGBA(r, g, b, a);*/
 
 }
 

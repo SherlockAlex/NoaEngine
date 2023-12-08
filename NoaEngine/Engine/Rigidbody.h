@@ -66,6 +66,8 @@ namespace noa {
 		Vector<bool> GetConstraint();
 
 		void AddForce(const Vector<float> & force, ForceType forceType);
+		void AddTorque(float torque);//施加角动量
+		
 		void AddAntiGravity();
 
 		Rigidbody& SetMass(float value);
@@ -99,7 +101,9 @@ namespace noa {
 		float mass = 1;
 		float invMass = 1;
 		float newAngularVelocity = 0.0f;
+		float torque = 0.0f;
 
+		float newAngle = 0.0f;
 		Vector<float> newPosition;
 		Vector<float> oldPosition;
 		Vector<float> newVelocity;

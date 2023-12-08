@@ -22,7 +22,8 @@ namespace noa {
 
 		Camera2D& SetSmooth(float value);
 		Camera2D& SetFollow(Actor* actor);
-		Camera2D& SetBoundary(bool value);
+		Camera2D& ApplyHorizonalBoundary(bool value);
+		Camera2D& ApplyVerticalBoundary(bool value);
 		Camera2D& SetHorizonalBoundary(float min,float max);
 		Camera2D& SetVerticalBoundary(float min,float max);
 		Camera2D& SetFar(float value);
@@ -41,7 +42,8 @@ namespace noa {
 
 		Vector<float> horizonalBoundary;
 		Vector<float> verticalBoundary;
-		bool boundary = false;
+		bool ableHorizonalBoundary = false;
+		bool ableVerticalBoundary = false;
 
 		float smooth = 1.0f;
 

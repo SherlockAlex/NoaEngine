@@ -145,38 +145,58 @@ void noa::PhysicsSystem::SolveCollision(
 	const float fixX = std::abs(depth)*normal.x;
 	const float fixY = std::abs(depth)*normal.y;
 
-	rigid1->newPosition.x += 0.5f * fixX;
-	rigid1->newPosition.y += 0.5f * fixY;
+	rigid1->newPosition.x -= 0.5f * fixX;
+	rigid1->newPosition.y -= 0.5f * fixY;
 
-	rigid2->newPosition.x -= 0.5f * fixX;
-	rigid2->newPosition.y -= 0.5f * fixY;
+	rigid2->newPosition.x += 0.5f * fixX;
+	rigid2->newPosition.y += 0.5f * fixY;
 
-	//计算接触力
-	/*const float sumInvInvMass = 1.0f/(rigid1->invMass + rigid2->invMass);
+	const noa::Vector<float> direction = obj2->center - obj1->center;
+	const noa::Vector<float> hitPoint = obj1->center + direction * std::abs(depth);
 
-	noa::Vector<float> relativeVelocity =
-		rigid2->velocity - rigid1->velocity;
-	const float restitude = 0.8f;
-	const float beta =
-		-(1.0f-restitude)
-		*noa::Vector<float>::Dot(normal,relativeVelocity)
-		* sumInvInvMass;*/
+	obj1->center.x -= 0.5f * fixX;
+	obj1->center.y -= 0.5f * fixY;
 
+	obj2->center.x += 0.5f * fixX;
+	obj2->center.y += 0.5f * fixY;
+
+	obj1->point = hitPoint;
+	obj2->point = hitPoint;
+
+	////计算接触力
+	//const float sumInvInvMass = 1.0f/(rigid1->invMass + rigid2->invMass);
+
+	//noa::Vector<float> relativeVelocity =
+	//	rigid2->velocity - rigid1->velocity;
+	//const float restitude = 0.2f;
+	//const float impulseMagnitude =
+	//	-(1.0f-restitude)
+	//	*noa::Vector<float>::Dot(normal,relativeVelocity)
+	//	* sumInvInvMass;
+
+	const float impulseMagnitude = 0.0f;
 	const float beta = 50.0f;
 
 	const Vector<float> constraintImpulse1 = {
-		 beta * fixX
-		,beta * fixY
+		 -impulseMagnitude* normal.x-beta * fixX
+		,-impulseMagnitude* normal.y-beta * fixY
 	};
 	const Vector<float> constraintImpulse2 = {
-		-beta * fixX
-		,-beta * fixY
+		-constraintImpulse1.x
+		,-constraintImpulse1.y
 	};
 
 	rigid1->AddForce(
 		constraintImpulse1, noa::ForceType::IMPULSE_FORCE);
 	rigid2->AddForce(
 		constraintImpulse2, noa::ForceType::IMPULSE_FORCE);
+
+	//计算两者的角动量增量
+	//const noa::Vector<float> r = obj1->point - obj1->center;
+	//const float torque1 = noa::Vector<float>::Cross(r, constraintImpulse1);
+
+	//rigid1->AddTorque(torque1);
+	//rigid2->AddTorque(-torque1);
 
 }
 
@@ -272,7 +292,7 @@ bool noa::PhysicsSystem::CircleCollide(
 	}
 
 	const float angle = std::atan2(deltaY,deltaX);
-	normal = { cosf(angle), sinf(angle) };
+	normal = { -cosf(angle), -sinf(angle) };
 	depth = deltaR - std::sqrt(distanceSquared);
 
 	if (normalPtr!=nullptr) 
@@ -283,6 +303,17 @@ bool noa::PhysicsSystem::CircleCollide(
 	{
 		(*depthPtr) = depth;
 	}
+
+	obj1->normal = normal;
+	obj2->normal = normal*-1.0f;
+
+	obj1->center =
+		obj1->GetRigidbody()->newPosition
+		+ obj1->offset;
+
+	obj2->center =
+		obj2->GetRigidbody()->newPosition
+		+ obj2->offset;
 
 	return true;
 }
@@ -305,7 +336,19 @@ bool noa::PhysicsSystem::PolygonsCollide(
 		va
 		, vb
 		, normalPtr
-		, depthPtr);
+		, depthPtr
+		,&obj1->center
+		,&obj2->center
+	);
+
+	if (normalPtr) 
+	{
+		obj1->normal.x = normalPtr->x;
+		obj1->normal.y = normalPtr->y;
+
+		obj2->normal.x = -normalPtr->x;
+		obj2->normal.y = -normalPtr->y;
+	}
 
 	return result;
 
@@ -352,13 +395,24 @@ bool noa::PhysicsSystem::PolygonAndCircleCollide(
 	const std::vector<noa::Vector<float>> vertices
 		= polygonCollider->caculateVertices;
 
-	const bool result = noa::Math::IntersectCirclePolygon(circleCenter, radius, vertices, normalPtr, depthPtr);
+	noa::Vector<float> polygonCenter;
+	const bool result = noa::Math::IntersectCirclePolygon(circleCenter, radius, vertices, normalPtr, depthPtr,&polygonCenter);
 
 	if (obj1 == polygonCollider&&normalPtr)
 	{
 		normalPtr->x = -normalPtr->x;
 		normalPtr->y = -normalPtr->y;
 	}
+	if (normalPtr) 
+	{
+		obj1->normal.x = normalPtr->x;
+		obj1->normal.y = normalPtr->y;
+		
+		obj2->normal.x = -normalPtr->x;
+		obj2->normal.y = -normalPtr->y;
+	}
+	circleCollider->center = circleCenter;
+	polygonCollider->center = polygonCenter;
 
 	return result;
 

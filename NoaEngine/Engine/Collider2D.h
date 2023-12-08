@@ -48,6 +48,11 @@ namespace noa
 	public:
 		bool isTrigger = false;
 		Vector<float> offset;
+
+		noa::Vector<float> normal = {};	//碰撞法线
+		noa::Vector<float> point = {};	//碰撞点
+		noa::Vector<float> center = {};	//几何体中心
+
 	};
 
 	//typedef NOA_API struct Cell {

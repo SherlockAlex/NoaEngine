@@ -136,7 +136,7 @@ int noa::NoaEngine::Run()
 
 	Start();
 	ExtensionStart();
-	this->EngineThread();
+	EngineThread();
 	Exit();
 
 	SceneManager::DestroySceneManager();
